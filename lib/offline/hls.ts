@@ -189,7 +189,8 @@ export function parseMediaPlaylist(
  */
 export function rewritePlaylistForOffline(
   text: string,
-  baseUrl: string
+  baseUrl: string,
+  gaps: ReadonlySet<string> = new Set()
 ): string {
   const lines = text.split(/\r?\n/);
   let expectSegment = false;
@@ -217,7 +218,11 @@ export function rewritePlaylistForOffline(
           if (line.startsWith("/api/dl?")) return rawLine;
           try {
             const abs = new URL(line, baseUrl).toString();
-            return dlFileUrl(canonicalMediaKey(abs));
+            const rewritten = dlFileUrl(canonicalMediaKey(abs));
+            // Encoder-declared gap: the segment is dead upstream (persistently
+            // empty). Players skip it instead of stalling on a 404.
+            if (gaps.has(rewritten)) return `#EXT-X-GAP\n${rewritten}`;
+            return rewritten;
           } catch {
             return rawLine;
           }

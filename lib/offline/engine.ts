@@ -723,7 +723,21 @@ async function runDownload(
   const storeParts = async (
     list: MediaParts,
     label: string
-  ): Promise<void> => {
+  ): Promise<string[]> => {
+    // Segments dead upstream (persistently empty, or a status failure after
+    // retries) become EXT-X-GAP entries instead of killing the title — a few
+    // dead chunks out of hundreds must not fail an episode. Capped: past the
+    // cap the mirror is declared bad (failover) rather than Swiss cheese.
+    const gaps = new Set<string>();
+    const MAX_GAPS = 8;
+    // Gap a persistently dead piece, or throw when the cap is exhausted.
+    const gapOrThrow = async (dlUrl: string, err: PieceDownloadError): Promise<boolean> => {
+      if (gaps.size >= MAX_GAPS) throw err;
+      gaps.add(dlUrl);
+      doneSeg++;
+      await reportProgress();
+      return true;
+    };
     const jobs: { original: string; dlUrl: string; kind: "seg" | "key"; segNo: number }[] = [];
     if (list.mapUrl) {
       jobs.push({
@@ -804,11 +818,18 @@ async function runDownload(
           } catch {
             /* binary upstream body — status alone */
           }
-          throw fail(`failed (${res.status}${detail}).`);
+          const err = fail(`failed (${res.status}${detail}).`);
+          // Dead chunk (not auth-wide: siblings succeed) → gap it. Keys and
+          // init maps can't gap — those still fail the download.
+          if (job.kind === "seg") {
+            await gapOrThrow(job.dlUrl, err);
+            continue;
+          }
+          throw err;
         }
         // Empty 200s happen (dead file on the CDN, not a flaky network):
-        // re-fetch twice before calling the piece poisoned.
-        let buf = await res.arrayBuffer();
+        // re-fetch twice, then gap the chunk (segments) instead of failing.
+        let buf: ArrayBuffer | null = await res.arrayBuffer();
         for (let retry = 0; retry < 2 && buf.byteLength === 0; retry++) {
           const res2 = await fetchPieceRetry(job.original, signal, 2);
           if (!res2.ok) {
@@ -821,11 +842,25 @@ async function runDownload(
             } catch {
               /* binary upstream body — status alone */
             }
-            throw fail(`failed (${res2.status}${detail}).`);
+            const err = fail(`failed (${res2.status}${detail}).`);
+            if (job.kind === "seg") {
+              await gapOrThrow(job.dlUrl, err);
+              buf = null;
+              break;
+            }
+            throw err;
           }
           buf = await res2.arrayBuffer();
         }
-        if (buf.byteLength === 0) throw fail(`was empty.`);
+        if (buf == null) continue; // gapped above
+        if (buf.byteLength === 0) {
+          const err = fail(`was empty.`);
+          if (job.kind === "seg") {
+            await gapOrThrow(job.dlUrl, err);
+            continue;
+          }
+          throw err;
+        }
         const stored = new Response(buf, {
           headers: {
             "Content-Type":
@@ -857,6 +892,7 @@ async function runDownload(
     await Promise.all(
       Array.from({ length: Math.min(CONCURRENCY, jobs.length) }, () => worker())
     );
+    return [...gaps];
   };
 
   /**
@@ -879,16 +915,18 @@ async function runDownload(
     // 4. Quota: device headroom + the 950MB-style self cap (LRU-evict to fit).
     await enforceQuota(rec, signal);
 
-    await storeParts(m.parts, "Video");
+    const videoGaps = await storeParts(m.parts, "Video");
     throwIfAborted();
-    if (m.audioParts) await storeParts(m.audioParts, "Audio");
+    const audioGaps = m.audioParts ? await storeParts(m.audioParts, "Audio") : [];
     throwIfAborted();
 
     // 6. Store rewritten playlists last — only complete sets ever play.
+    // Dead chunks ride as EXT-X-GAP entries (players skip them) instead of
+    // missing files that would stall playback.
     const videoStoredUrl = dlFileUrl(canonicalMediaKey(m.mediaUrl));
     await cache.put(
       videoStoredUrl,
-      mpegResponse(rewritePlaylistForOffline(m.mediaText, m.mediaUrl))
+      mpegResponse(rewritePlaylistForOffline(m.mediaText, m.mediaUrl, new Set(videoGaps)))
     );
     fileUrls.add(videoStoredUrl);
     let topText: string;
@@ -896,7 +934,7 @@ async function runDownload(
       const audioStoredUrl = dlFileUrl(canonicalMediaKey(m.audioUrl));
       await cache.put(
         audioStoredUrl,
-        mpegResponse(rewritePlaylistForOffline(m.audioText, m.audioUrl))
+        mpegResponse(rewritePlaylistForOffline(m.audioText, m.audioUrl, new Set(audioGaps)))
       );
       fileUrls.add(audioStoredUrl);
       topText = buildOfflineMaster({
@@ -906,7 +944,7 @@ async function runDownload(
         audioPlaylistUrl: audioStoredUrl,
       });
     } else {
-      topText = rewritePlaylistForOffline(m.mediaText, m.mediaUrl);
+      topText = rewritePlaylistForOffline(m.mediaText, m.mediaUrl, new Set(videoGaps));
     }
     const playlistKey = dlPlaylistUrl(rec.key);
     await cache.put(playlistKey, mpegResponse(topText, true));
