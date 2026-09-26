@@ -83,6 +83,18 @@ function abortError(): Error {
   return e;
 }
 
+/**
+ * A segment/key piece that failed persistently (bad status after retries,
+ * empty body, stall). Mirror-level failure: the download may continue on the
+ * next mirror. Anything else (abort, quota, device space) propagates.
+ */
+class PieceDownloadError extends Error {
+  constructor(message: string) {
+    super(message);
+    this.name = "PieceDownloadError";
+  }
+}
+
 /** Per-piece network ceiling: a hung connection must fail, never freeze. */
 const PIECE_TIMEOUT_MS = 30000;
 /** No completed piece for this long with work remaining = stalled. */
@@ -611,55 +623,8 @@ async function runDownload(
       audioEntry,
     };
   };
-  let parsed: MirrorParse | null = null;
-  let mirrorError: unknown = null;
-  for (let mi = 0; mi < mirrorCandidates.length; mi++) {
-    throwIfAborted();
-    try {
-      parsed = await tryMirror(mirrorCandidates[mi]!);
-      mirrorError = null;
-      break;
-    } catch (e) {
-      // Pause/cancel aborts the whole download, never the mirror.
-      if (signal.aborted) throw e;
-      mirrorError = e;
-    }
-  }
-  if (!parsed) {
-    const err =
-      mirrorError instanceof Error
-        ? mirrorError
-        : new Error("Stream lookup failed.");
-    if (mirrorCandidates.length > 1) {
-      throw new Error(`${err.message} (tried ${mirrorCandidates.length} mirrors)`);
-    }
-    throw err;
-  }
-  const {
-    mediaUrl,
-    mediaText,
-    bandwidth,
-    pickedVariant,
-    isMaster,
-    parts,
-    audioParts,
-    audioUrl,
-    audioText,
-    audioEntry,
-  } = parsed;
-
-  rec.durationSec = parts.durationSec;
-  rec.totalSegments =
-    parts.segments.length + (audioParts?.segments.length ?? 0);
-  rec.estimateBytes = estimateBytes(bandwidth, parts.durationSec);
-  // Single-variant playlists hide bandwidth (0): the estimate is a quality
-  // guess and drifts (e.g. vidsrc-sh). Refine it from measured bytes once
-  // enough segments land (see reportProgress); real bandwidth estimates stay.
-  const refineEstimate = bandwidth <= 0;
-  await upsertRecord(rec);
-
-  // 4. Quota: device headroom + the 950MB-style self cap (LRU-evict to fit).
-  await enforceQuota(rec, signal);
+  // Refined per attempt (bandwidth differs per mirror) — see downloadAttempt.
+  let refineEstimate = false;
 
   // 5. Fetch everything into the cache (resume skips what's already there).
   const cache = await caches.open(DL_CACHE);
@@ -759,12 +724,13 @@ async function runDownload(
     list: MediaParts,
     label: string
   ): Promise<void> => {
-    const jobs: { original: string; dlUrl: string; kind: "seg" | "key" }[] = [];
+    const jobs: { original: string; dlUrl: string; kind: "seg" | "key"; segNo: number }[] = [];
     if (list.mapUrl) {
       jobs.push({
         original: list.mapUrl,
         dlUrl: dlFileUrl(canonicalMediaKey(list.mapUrl)),
         kind: "key",
+        segNo: 0,
       });
     }
     for (const k of list.keys) {
@@ -772,13 +738,19 @@ async function runDownload(
         original: k.url,
         dlUrl: dlFileUrl(canonicalMediaKey(k.url)),
         kind: "key",
+        segNo: 0,
       });
     }
+    // Segment numbers assigned at build time (1-based, playlist order) —
+    // workers fetch concurrently, so a runtime counter would mislabel.
+    let segTotalCount = 0;
     for (const s of list.segments) {
+      segTotalCount++;
       jobs.push({
         original: s,
         dlUrl: dlFileUrl(canonicalMediaKey(s)),
         kind: "seg",
+        segNo: segTotalCount,
       });
     }
     let cursor = 0;
@@ -792,8 +764,9 @@ async function runDownload(
         if (!live || live.state === "paused") throw abortError();
         // Stall watchdog: all workers hung with jobs left used to freeze
         // the bar at its last percent forever with no error state.
+        // Mirror-switchable (a hung mirror is a dead mirror) — see attempts.
         if (Date.now() - lastProgressAt > STALL_TIMEOUT_MS) {
-          throw new Error("Stalled — tap to retry");
+          throw new PieceDownloadError("Stalled — tap to retry");
         }
         const i = cursor++;
         if (i >= jobs.length) return;
@@ -808,6 +781,15 @@ async function runDownload(
           }
           continue;
         }
+        // 1-based position among segments only (keys/init are not counted).
+        const segNo = job.segNo;
+        const segTotal = segTotalCount;
+        const fail = (msg: string): PieceDownloadError =>
+          new PieceDownloadError(
+            job.kind === "seg" && segNo > 0
+              ? `${label} segment ${segNo}/${segTotal} ${msg}`
+              : `${label} piece ${msg}`
+          );
         const res = await fetchPieceRetry(job.original, signal, 3);
         if (!res.ok) {
           // Same-origin pieces fail with JSON bodies ("bad signature" = our
@@ -822,10 +804,28 @@ async function runDownload(
           } catch {
             /* binary upstream body — status alone */
           }
-          throw new Error(`${label} piece failed (${res.status}${detail}).`);
+          throw fail(`failed (${res.status}${detail}).`);
         }
-        const buf = await res.arrayBuffer();
-        if (buf.byteLength === 0) throw new Error(`${label} piece was empty.`);
+        // Empty 200s happen (dead file on the CDN, not a flaky network):
+        // re-fetch twice before calling the piece poisoned.
+        let buf = await res.arrayBuffer();
+        for (let retry = 0; retry < 2 && buf.byteLength === 0; retry++) {
+          const res2 = await fetchPieceRetry(job.original, signal, 2);
+          if (!res2.ok) {
+            let detail = "";
+            try {
+              const data = (await res2.json()) as { error?: unknown };
+              if (typeof data?.error === "string" && data.error.length > 0) {
+                detail = `: ${data.error.slice(0, 120)}`;
+              }
+            } catch {
+              /* binary upstream body — status alone */
+            }
+            throw fail(`failed (${res2.status}${detail}).`);
+          }
+          buf = await res2.arrayBuffer();
+        }
+        if (buf.byteLength === 0) throw fail(`was empty.`);
         const stored = new Response(buf, {
           headers: {
             "Content-Type":
@@ -859,73 +859,151 @@ async function runDownload(
     );
   };
 
-  await storeParts(parts, "Video");
-  throwIfAborted();
-  if (audioParts) await storeParts(audioParts, "Audio");
-  throwIfAborted();
+  /**
+   * One full download attempt against a single parsed mirror: estimate →
+   * quota → segments → playlists → subs → done. Throws PieceDownloadError
+   * for persistent piece failures (caller switches mirrors); anything else
+   * (abort, quota, device space) propagates.
+   */
+  const downloadAttempt = async (m: MirrorParse): Promise<void> => {
+    rec.durationSec = m.parts.durationSec;
+    rec.totalSegments =
+      m.parts.segments.length + (m.audioParts?.segments.length ?? 0);
+    rec.estimateBytes = estimateBytes(m.bandwidth, m.parts.durationSec);
+    // Single-variant playlists hide bandwidth (0): the estimate is a quality
+    // guess and drifts (e.g. vidsrc-sh). Refined from measured bytes once
+    // enough segments land (see reportProgress); real estimates stay.
+    refineEstimate = m.bandwidth <= 0;
+    await upsertRecord(rec);
 
-  // 6. Store rewritten playlists last — only complete sets ever play.
-  const videoStoredUrl = dlFileUrl(canonicalMediaKey(mediaUrl));
-  await cache.put(
-    videoStoredUrl,
-    mpegResponse(rewritePlaylistForOffline(mediaText, mediaUrl))
-  );
-  fileUrls.add(videoStoredUrl);
-  let topText: string;
-  if (audioParts && audioUrl && audioText && audioEntry && pickedVariant) {
-    const audioStoredUrl = dlFileUrl(canonicalMediaKey(audioUrl));
+    // 4. Quota: device headroom + the 950MB-style self cap (LRU-evict to fit).
+    await enforceQuota(rec, signal);
+
+    await storeParts(m.parts, "Video");
+    throwIfAborted();
+    if (m.audioParts) await storeParts(m.audioParts, "Audio");
+    throwIfAborted();
+
+    // 6. Store rewritten playlists last — only complete sets ever play.
+    const videoStoredUrl = dlFileUrl(canonicalMediaKey(m.mediaUrl));
     await cache.put(
-      audioStoredUrl,
-      mpegResponse(rewritePlaylistForOffline(audioText, audioUrl))
+      videoStoredUrl,
+      mpegResponse(rewritePlaylistForOffline(m.mediaText, m.mediaUrl))
     );
-    fileUrls.add(audioStoredUrl);
-    topText = buildOfflineMaster({
-      variant: pickedVariant,
-      videoPlaylistUrl: videoStoredUrl,
-      audio: audioEntry,
-      audioPlaylistUrl: audioStoredUrl,
-    });
-  } else {
-    topText = rewritePlaylistForOffline(mediaText, mediaUrl);
-  }
-  const playlistKey = dlPlaylistUrl(rec.key);
-  await cache.put(playlistKey, mpegResponse(topText, true));
-  fileUrls.add(playlistKey);
-  rec.fileUrls = [...fileUrls];
-
-  // 7. Auto-subtitles: same cascade the player uses (VDRK → OpenSubs),
-  // plus spares (best-first, up to 3 total) for offline switching when the
-  // default misaligns. Skipped entirely when subs are off/stream-only.
-  // Overlapped with the segment downloads above: this await only collects an
-  // already-running fetch, so completion never parks at 99% on slow subs.
-  try {
-    const subs = await subsPromise;
-    if (subs.subVtt) {
-      rec.subVtt = subs.subVtt;
-      rec.subLabel = subs.subLabel;
+    fileUrls.add(videoStoredUrl);
+    let topText: string;
+    if (m.audioParts && m.audioUrl && m.audioText && m.audioEntry && m.pickedVariant) {
+      const audioStoredUrl = dlFileUrl(canonicalMediaKey(m.audioUrl));
+      await cache.put(
+        audioStoredUrl,
+        mpegResponse(rewritePlaylistForOffline(m.audioText, m.audioUrl))
+      );
+      fileUrls.add(audioStoredUrl);
+      topText = buildOfflineMaster({
+        variant: m.pickedVariant,
+        videoPlaylistUrl: videoStoredUrl,
+        audio: m.audioEntry,
+        audioPlaylistUrl: audioStoredUrl,
+      });
+    } else {
+      topText = rewritePlaylistForOffline(m.mediaText, m.mediaUrl);
     }
-    if (subs.subAlts.length > 0) rec.subAlts = subs.subAlts;
-  } catch (e) {
-    // User pause/cancel (parent signal) still stops the download; a subs
-    // timeout just completes the video without subtitles.
-    if (signal.aborted) throw e;
-    /* subs are a bonus — never fail the download for them */
-  }
+    const playlistKey = dlPlaylistUrl(rec.key);
+    await cache.put(playlistKey, mpegResponse(topText, true));
+    fileUrls.add(playlistKey);
+    rec.fileUrls = [...fileUrls];
 
-  rec.sizeBytes = measuredBytes;
-  rec.state = "done";
-  rec.error = undefined;
-  rec.downloadedAt = Date.now();
-  rec.lastUsedAt = Date.now();
-  await commitRecord(rec);
-  // Completion is silent at the engine layer by design — broadcast for UI
-  // (toast with View action lives in the app shell, not here).
-  if (typeof window !== "undefined") {
-    window.dispatchEvent(
-      new CustomEvent("tvtime:download-done", {
-        detail: { key: rec.key, title: rec.title },
-      })
-    );
+    // 7. Auto-subtitles: same cascade the player uses (VDRK → OpenSubs),
+    // plus spares (best-first, up to 3 total) for offline switching when the
+    // default misaligns. Skipped entirely when subs are off/stream-only.
+    // Overlapped with the segment downloads above: this await only collects an
+    // already-running fetch, so completion never parks at 99% on slow subs.
+    try {
+      const subs = await subsPromise;
+      if (subs.subVtt) {
+        rec.subVtt = subs.subVtt;
+        rec.subLabel = subs.subLabel;
+      }
+      if (subs.subAlts.length > 0) rec.subAlts = subs.subAlts;
+    } catch (e) {
+      // User pause/cancel (parent signal) still stops the download; a subs
+      // timeout just completes the video without subtitles.
+      if (signal.aborted) throw e;
+      /* subs are a bonus — never fail the download for them */
+    }
+
+    rec.sizeBytes = measuredBytes;
+    rec.state = "done";
+    rec.error = undefined;
+    rec.downloadedAt = Date.now();
+    rec.lastUsedAt = Date.now();
+    await commitRecord(rec);
+    // Completion is silent at the engine layer by design — broadcast for UI
+    // (toast with View action lives in the app shell, not here).
+    if (typeof window !== "undefined") {
+      window.dispatchEvent(
+        new CustomEvent("tvtime:download-done", {
+          detail: { key: rec.key, title: rec.title },
+        })
+      );
+    }
+  };
+
+  // Attempts walk mirrors in order: a persistently poisoned piece (same
+  // segment 403/empty on every retry) discards the attempt's files, resets
+  // counters, and continues on the next mirror. Single-mirror sources
+  // attempt once — behavior identical to before.
+  let attemptError: unknown = null;
+  let downloaded = false;
+  for (let mi = 0; mi < mirrorCandidates.length && !downloaded; mi++) {
+    throwIfAborted();
+    let m: MirrorParse;
+    try {
+      m = await tryMirror(mirrorCandidates[mi]!);
+    } catch (e) {
+      // Pause/cancel aborts the whole download, never the mirror.
+      if (signal.aborted) throw e;
+      attemptError = e;
+      continue;
+    }
+    const attemptBase = new Set(fileUrls);
+    try {
+      await downloadAttempt(m);
+      downloaded = true;
+    } catch (e) {
+      if (signal.aborted) throw e;
+      if (!(e instanceof PieceDownloadError)) throw e;
+      attemptError = e;
+      // Drop this attempt's partial files (owned set only) so the next
+      // mirror starts clean; shared/resume files (in attemptBase) stay.
+      const gone: string[] = [];
+      for (const u of fileUrls) {
+        if (!attemptBase.has(u)) gone.push(u);
+      }
+      await Promise.all(gone.map((u) => cache.delete(u).catch(() => false)));
+      for (const u of gone) fileUrls.delete(u);
+      doneSeg = 0;
+      measuredBytes = 0;
+      lastProgressAt = Date.now();
+      rec.bytesDone = 0;
+      rec.doneSegments = 0;
+      rec.fileUrls = [...fileUrls];
+      await updateProgress(rec.key, {
+        bytesDone: 0,
+        doneSegments: 0,
+        fileUrls: [...fileUrls],
+      });
+    }
+  }
+  if (!downloaded) {
+    const err =
+      attemptError instanceof Error
+        ? attemptError
+        : new Error("Stream lookup failed.");
+    if (mirrorCandidates.length > 1) {
+      throw new Error(`${err.message} (tried ${mirrorCandidates.length} mirrors)`);
+    }
+    throw err;
   }
 }
 
