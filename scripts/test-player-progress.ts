@@ -194,7 +194,8 @@ assert.deepEqual(buildCineSrcServerOptions(["Nebula", "nebula", "sturm"]), [
   { id: "sturm", name: "Odysseus", sub: "sturm" },
 ]);
 // Seed list matches the embed's own rotation order (captured 2026-09-11).
-assert.deepEqual(CINESRC_SEED_SERVERS.slice(0, 4), ["nebula", "lisbon", "surge", "spark"]);
+assert.deepEqual(CINESRC_SEED_SERVERS.slice(0, 4), ["nebula", "lisbon", "wave", "surge"]);
+assert.equal(cineSrcAliasFor("wave", 2), "Hera");
 assert.ok(CINESRC_SEED_SERVERS.includes("sturm"));
 assert.ok(CINESRC_SEED_SERVERS.includes("brisa"));
 assert.equal(DEFAULT_VIX_SETTINGS.cineSrcServer, "auto");

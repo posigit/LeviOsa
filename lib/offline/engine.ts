@@ -35,12 +35,11 @@ import {
 } from "@/lib/offline/store";
 import {
   buildOfflineMaster,
-  canonicalMediaKey,
   classifyPieceStatus,
-  dlFileUrl,
   dlPlaylistUrl,
   estimateBytes,
   gapBudget,
+  indexRetryAction,
   isHardDownloadError,
   isMasterPlaylist,
   minVariantHeight,
@@ -50,8 +49,9 @@ import {
   parseMediaPlaylist,
   pickAudioEntry,
   pickVariant,
-  rewritePlaylistForOffline,
-  segmentLooksValid,
+  rewritePlaylistToIndexUrls,
+  segmentIndexUrl,
+  segmentShouldReject,
   type AudioEntry,
   type ByteRange,
   type MediaParts,
@@ -282,24 +282,6 @@ function sliceToRange(
   return buf;
 }
 
-async function cachedPieceOk(
-  res: Response,
-  job: { kind: "seg" | "key" | "init"; encrypted: boolean }
-): Promise<number> {
-  try {
-    const blob = await res.clone().blob();
-    if (blob.size <= 0) return 0;
-    if (job.kind === "key" && blob.size !== 16) return 0;
-    const prefix = new Uint8Array(await blob.slice(0, 256).arrayBuffer());
-    const kind = job.kind === "init" ? "init" : job.kind === "key" ? "key" : "seg";
-    if (!segmentLooksValid(prefix, kind, job.encrypted)) return 0;
-    if (!job.encrypted && kind === "seg" && prefix[0] === 0x47 && blob.size < 188) return 0;
-    return blob.size;
-  } catch {
-    return 0;
-  }
-}
-
 function backoffMs(attempt: number, retryAfter: number | null): number {
   if (retryAfter != null) return retryAfter;
   return Math.min(RETRY_BASE_MS * 2 ** attempt, 8000) + Math.random() * 400;
@@ -526,6 +508,7 @@ async function startDownloadInner(req: DownloadRequest, key: string): Promise<vo
     retryable: existing?.retryable,
     autoAttempts: existing?.autoAttempts ?? 0,
     interruptedOffline: existing?.interruptedOffline,
+    rendition: sameQuality ? existing?.rendition : undefined,
   };
   // iPhone can't run two titles at once without getting the tab killed.
   if (isIosSafari() && otherSlotTaken(key)) {
@@ -726,12 +709,8 @@ function pumpQueue(): void {
   void continueNextEligible();
 }
 
-function pauseForBackground(): void {
-  for (const [key, controller] of activeControllers) {
-    systemPauseKeys.add(key);
-    pauseIntents.add(key);
-    controller.abort();
-  }
+/** Page is still open (in-app navigation, app switcher). Do not abort. */
+function checkpointOnHide(): void {
   flushManifest();
 }
 
@@ -773,9 +752,9 @@ export function initDownloadAutoRetry(): void {
   };
   window.addEventListener("online", onVisible);
   window.addEventListener("pageshow", onVisible);
-  window.addEventListener("pagehide", pauseForBackground);
+  window.addEventListener("pagehide", checkpointOnHide);
   document.addEventListener("visibilitychange", () => {
-    if (document.hidden) pauseForBackground();
+    if (document.hidden) checkpointOnHide();
     else onVisible();
   });
 }
@@ -1079,7 +1058,7 @@ async function runDownload(
     rec.fileUrls = [...fileUrls];
     await updateProgress(rec.key, {
       bytesDone: rec.bytesDone,
-      doneSegments: doneSeg,
+      doneSegments: rec.doneSegments,
       fileUrls: rec.fileUrls,
       ...(estimatePatch != null ? { estimateBytes: estimatePatch } : {}),
     });
@@ -1088,10 +1067,15 @@ async function runDownload(
   type PieceJob = {
     original: string;
     dlUrl: string;
+    /** Previous URL-keyed copy, copied across once so it is not downloaded again. */
+    legacyUrl: string | null;
     kind: "seg" | "key" | "init";
     segNo: number;
+    /** 0-based position among segments. Stable across signed-URL refreshes. */
+    index: number;
     range: ByteRange | null;
     encrypted: boolean;
+    refreshed: boolean;
   };
 
   const rememberFile = (url: string) => {
@@ -1099,73 +1083,127 @@ async function runDownload(
     touched.add(url);
   };
 
+  const storedSize = async (res: Response): Promise<number> => {
+    const n = Number(res.headers.get("content-length") || 0);
+    if (Number.isFinite(n) && n > 0) return n;
+    try {
+      const blob = await res.clone().blob();
+      if (blob.size > 0) return blob.size;
+    } catch {
+      /* a cache entry with no readable size is still a body we already paid for */
+    }
+    return 1;
+  };
+
   /**
-   * Fetch every init, key, and segment. Dead video segments become gaps
-   * (under the budget). Expired links throw AuthRefresh so the caller can
-   * refetch the playlist without deleting finished pieces. Network stalls
-   * throw PieceDownloadError("network") and keep every byte already stored.
+   * Fetch every init, key, and segment. Pieces are stored by index, so a
+   * refreshed playlist does not miss them. A 403 retries that index only.
+   * Network stalls throw and keep every byte already stored.
    */
   const storeParts = async (
     list: MediaParts,
     label: string,
-    authAsDead: boolean
-  ): Promise<string[]> => {
-    const gaps = new Set<string>();
+    role: "v" | "a",
+    reload: () => Promise<MediaParts | null>
+  ): Promise<number[]> => {
+    const gaps = new Set<number>();
     const budget = gapBudget(list.segments.length);
     const jobs: PieceJob[] = [];
-    const seenMeta = new Set<string>();
+    let metaN = 0;
     for (const map of list.maps) {
-      const dlUrl = offlinePieceUrl(map.url, map.byteRange);
-      if (seenMeta.has(dlUrl)) continue;
-      seenMeta.add(dlUrl);
+      const index = metaN++;
       jobs.push({
         original: map.url,
-        dlUrl,
+        dlUrl: segmentIndexUrl(rec.key, role === "v" ? "vi" : "ai", index),
+        legacyUrl: offlinePieceUrl(map.url, map.byteRange),
         kind: "init",
         segNo: 0,
+        index,
         range: map.byteRange,
         encrypted: false,
+        refreshed: false,
       });
     }
+    metaN = 0;
     for (const k of list.keys) {
       if (k.method === "NONE") continue;
-      const dlUrl = offlinePieceUrl(k.url, null);
-      if (seenMeta.has(dlUrl)) continue;
-      seenMeta.add(dlUrl);
+      const index = metaN++;
       jobs.push({
         original: k.url,
-        dlUrl,
+        dlUrl: segmentIndexUrl(rec.key, role === "v" ? "vk" : "ak", index),
+        legacyUrl: offlinePieceUrl(k.url, null),
         kind: "key",
         segNo: 0,
+        index,
         range: null,
         encrypted: false,
+        refreshed: false,
       });
     }
     let segTotalCount = 0;
     for (const s of list.segments) {
+      const index = segTotalCount;
       segTotalCount++;
       jobs.push({
         original: s.url,
-        dlUrl: offlinePieceUrl(s.url, s.byteRange),
+        dlUrl: segmentIndexUrl(rec.key, role, index),
+        legacyUrl: offlinePieceUrl(s.url, s.byteRange),
         kind: "seg",
         segNo: segTotalCount,
+        index,
         range: s.byteRange,
         encrypted: s.encrypted,
+        refreshed: false,
       });
     }
+    let reloadPromise: Promise<MediaParts | null> | null = null;
+    const reloadOnce = (): Promise<MediaParts | null> => {
+      if (!reloadPromise) {
+        reloadPromise = reload().catch((err: unknown) => {
+          if (signal.aborted) throw err;
+          return null;
+        });
+      }
+      return reloadPromise;
+    };
 
     const pool = new AbortController();
     const stopPool = () => {
       if (!pool.signal.aborted) pool.abort();
     };
-    const gapOrThrow = async (dlUrl: string, err: PieceDownloadError) => {
+    const gapOrThrow = async (index: number, err: PieceDownloadError) => {
       if (gaps.size >= budget) {
         stopPool();
         throw err;
       }
-      gaps.add(dlUrl);
+      gaps.add(index);
       doneSeg++;
       await reportProgress();
+    };
+
+    const fetchJob = async (job: PieceJob): Promise<Response> => {
+      try {
+        return await fetchPieceRetry(job.original, signal, pool.signal, job.range, 5);
+      } catch (err) {
+        if (err instanceof PoolStopped || signal.aborted) throw err;
+        if (!(err instanceof PieceDownloadError) || err.reason !== "auth" || job.kind !== "seg") {
+          throw err;
+        }
+        // One 403 refreshes this index's URL. It does not restart the title.
+        if (indexRetryAction(job.refreshed) === "gap") throw err;
+        const next = await reloadOnce();
+        job.refreshed = true;
+        if (next && next.segments.length === segTotalCount) {
+          const repl = next.segments[job.index];
+          if (repl) {
+            job.original = repl.url;
+            job.range = repl.byteRange;
+            job.encrypted = repl.encrypted;
+            return await fetchPieceRetry(job.original, signal, pool.signal, job.range, 3);
+          }
+        }
+        throw err;
+      }
     };
 
     let cursor = 0;
@@ -1191,38 +1229,42 @@ async function runDownload(
             reason
           );
 
-        const hit = await cache.match(job.dlUrl);
-        if (hit) {
-          const size = await cachedPieceOk(hit, job);
-          if (size > 0) {
-            rememberFile(job.dlUrl);
-            if (job.kind === "seg") {
-              doneSeg++;
-              measuredBytes += size;
-              await reportProgress();
+        let hit = await cache.match(job.dlUrl);
+        if (!hit && job.legacyUrl && job.legacyUrl !== job.dlUrl) {
+          const old = await cache.match(job.legacyUrl);
+          if (old) {
+            const size = await storedSize(old);
+            if (size > 0) {
+              await enqueueCache(() => cache.put(job.dlUrl, old.clone()));
+              hit = await cache.match(job.dlUrl);
             }
-            continue;
           }
-          await enqueueCache(() => cache.delete(job.dlUrl));
+        }
+        if (hit) {
+          // Already paid for. Do not sniff and do not download again.
+          const size = await storedSize(hit);
+          rememberFile(job.dlUrl);
+          if (job.kind === "seg") {
+            doneSeg++;
+            measuredBytes += size;
+            await reportProgress();
+          }
+          continue;
         }
 
         let res: Response;
         try {
-          res = await fetchPieceRetry(job.original, signal, pool.signal, job.range, 5);
+          res = await fetchJob(job);
         } catch (err) {
           if (err instanceof PoolStopped) return;
           if (!(err instanceof PieceDownloadError)) throw err;
-          if (err.reason === "auth" && !(authAsDead && job.kind === "seg")) {
-            stopPool();
-            throw new AuthRefresh();
-          }
           if (err.reason === "network") {
             stopPool();
             throw err;
           }
           const dead = fail(err.message, "dead");
           if (job.kind === "seg") {
-            await gapOrThrow(job.dlUrl, dead);
+            await gapOrThrow(job.index, dead);
             continue;
           }
           stopPool();
@@ -1232,18 +1274,21 @@ async function runDownload(
         let buf = await res.arrayBuffer();
         buf = sliceToRange(buf, res.status, job.range);
         if (buf.byteLength === 0) {
-          // One more try — CDNs sometimes answer 200 with an empty body.
           try {
-            const res2 = await fetchPieceRetry(job.original, signal, pool.signal, job.range, 2);
+            const res2 = await fetchJob(job);
             buf = sliceToRange(await res2.arrayBuffer(), res2.status, job.range);
             res = res2;
           } catch (err) {
             if (err instanceof PoolStopped) return;
-            if (err instanceof PieceDownloadError && err.reason === "auth" && !(authAsDead && job.kind === "seg")) {
-              stopPool();
-              throw new AuthRefresh();
-            }
             if (err instanceof PieceDownloadError && err.reason === "network") {
+              stopPool();
+              throw err;
+            }
+            if (err instanceof PieceDownloadError && job.kind === "seg") {
+              await gapOrThrow(job.index, fail(err.message, "dead"));
+              continue;
+            }
+            if (err instanceof PieceDownloadError) {
               stopPool();
               throw err;
             }
@@ -1251,20 +1296,10 @@ async function runDownload(
           }
         }
         const bytes = new Uint8Array(buf);
-        const valid = segmentLooksValid(
-          bytes.subarray(0, Math.min(bytes.byteLength, 256)),
-          job.kind,
-          job.encrypted
-        );
-        const fullEnough =
-          job.kind !== "key" || bytes.byteLength === 16;
-        if (!valid || !fullEnough || bytes.byteLength === 0) {
-          const dead = fail(
-            bytes.byteLength === 0 ? "was empty." : "was not media.",
-            "dead"
-          );
+        if (segmentShouldReject(bytes.subarray(0, Math.min(bytes.byteLength, 256)), job.kind)) {
+          const dead = fail(bytes.byteLength === 0 ? "was empty." : "was not media.", "dead");
           if (job.kind === "seg") {
-            await gapOrThrow(job.dlUrl, dead);
+            await gapOrThrow(job.index, dead);
             continue;
           }
           stopPool();
@@ -1321,11 +1356,34 @@ async function runDownload(
    * for persistent piece failures (caller switches mirrors); anything else
    * (abort, quota, device space) propagates.
    */
-  const downloadAttempt = async (m: MirrorParse, authAsDead: boolean): Promise<void> => {
+  const reloadMedia = async (url: string): Promise<MediaParts | null> => {
+    try {
+      const res = await fetchPieceRetry(url, signal, null, null, 2);
+      const text = await res.text();
+      const parts = parseMediaPlaylist(text, url);
+      return parts.segments.length ? parts : null;
+    } catch (err) {
+      if (signal.aborted) throw err;
+      return null;
+    }
+  };
+
+  const downloadAttempt = async (m: MirrorParse): Promise<void> => {
+    // Local recount only. Persisted progress never takes the lower number.
     doneSeg = 0;
     measuredBytes = 0;
     touched = new Set();
     lastProgressAt = Date.now();
+    const rendition = `${m.pickedVariant?.height ?? 0}:${m.parts.segments.length}:${m.audioParts?.segments.length ?? 0}`;
+    if (rec.rendition && rec.rendition !== rendition) {
+      await deleteRecordFiles(rec);
+      fileUrls.clear();
+      touched.clear();
+      rec.bytesDone = 0;
+      rec.doneSegments = 0;
+      rec.fileUrls = [];
+    }
+    rec.rendition = rendition;
     rec.durationSec = m.parts.durationSec;
     rec.totalSegments =
       m.parts.segments.length + (m.audioParts?.segments.length ?? 0);
@@ -1339,21 +1397,31 @@ async function runDownload(
     // 4. Quota: device headroom + the 950MB-style self cap (LRU-evict to fit).
     await enforceQuota(rec, signal);
 
-    const videoGaps = await storeParts(m.parts, "Video", authAsDead);
+    const videoGaps = await storeParts(m.parts, "Video", "v", () => reloadMedia(m.mediaUrl));
     throwIfAborted();
-    const audioGaps = m.audioParts
-      ? await storeParts(m.audioParts, "Audio", authAsDead)
-      : [];
+    const audioSource = m.audioUrl;
+    const audioGaps =
+      m.audioParts && audioSource
+        ? await storeParts(m.audioParts, "Audio", "a", () => reloadMedia(audioSource))
+        : [];
     throwIfAborted();
 
     // 6. Store rewritten playlists last — only complete sets ever play.
-    // Dead chunks ride as EXT-X-GAP entries (players skip them) instead of
-    // missing files that would stall playback.
-    const videoStoredUrl = dlFileUrl(canonicalMediaKey(m.mediaUrl));
+    // Segment URLs are index keys, so a later signature refresh still hits.
+    const videoStoredUrl = segmentIndexUrl(rec.key, "vp", 0);
+    const videoPieceUrls = m.parts.segments.map((_, i) => segmentIndexUrl(rec.key, "v", i));
     await enqueueCache(() =>
       cache.put(
         videoStoredUrl,
-        mpegResponse(rewritePlaylistForOffline(m.mediaText, m.mediaUrl, new Set(videoGaps)))
+        mpegResponse(
+          rewritePlaylistToIndexUrls(m.mediaText, videoPieceUrls, {
+            mapUrls: m.parts.maps.map((_, i) => segmentIndexUrl(rec.key, "vi", i)),
+            keyUrls: m.parts.keys
+              .filter((k) => k.method !== "NONE")
+              .map((_, i) => segmentIndexUrl(rec.key, "vk", i)),
+            gapIndexes: new Set(videoGaps),
+          })
+        )
       )
     );
     rememberFile(videoStoredUrl);
@@ -1361,11 +1429,20 @@ async function runDownload(
     const audioUrl = m.audioUrl;
     const audioText = m.audioText;
     if (m.audioParts && audioUrl && audioText && m.audioEntry && m.pickedVariant) {
-      const audioStoredUrl = dlFileUrl(canonicalMediaKey(audioUrl));
+      const audioStoredUrl = segmentIndexUrl(rec.key, "ap", 0);
+      const audioPieceUrls = m.audioParts.segments.map((_, i) => segmentIndexUrl(rec.key, "a", i));
       await enqueueCache(() =>
         cache.put(
           audioStoredUrl,
-          mpegResponse(rewritePlaylistForOffline(audioText, audioUrl, new Set(audioGaps)))
+          mpegResponse(
+            rewritePlaylistToIndexUrls(audioText, audioPieceUrls, {
+              mapUrls: m.audioParts!.maps.map((_, i) => segmentIndexUrl(rec.key, "ai", i)),
+              keyUrls: m.audioParts!.keys
+                .filter((k) => k.method !== "NONE")
+                .map((_, i) => segmentIndexUrl(rec.key, "ak", i)),
+              gapIndexes: new Set(audioGaps),
+            })
+          )
         )
       );
       rememberFile(audioStoredUrl);
@@ -1376,7 +1453,13 @@ async function runDownload(
         audioPlaylistUrl: audioStoredUrl,
       });
     } else {
-      topText = rewritePlaylistForOffline(m.mediaText, m.mediaUrl, new Set(videoGaps));
+      topText = rewritePlaylistToIndexUrls(m.mediaText, videoPieceUrls, {
+        mapUrls: m.parts.maps.map((_, i) => segmentIndexUrl(rec.key, "vi", i)),
+        keyUrls: m.parts.keys
+          .filter((k) => k.method !== "NONE")
+          .map((_, i) => segmentIndexUrl(rec.key, "vk", i)),
+        gapIndexes: new Set(videoGaps),
+      });
     }
     const playlistKey = dlPlaylistUrl(rec.key);
     await enqueueCache(() => cache.put(playlistKey, mpegResponse(topText, true)));
@@ -1408,8 +1491,8 @@ async function runDownload(
       /* subs are a bonus — never fail the download for them */
     }
 
-    rec.sizeBytes = measuredBytes;
-    rec.bytesDone = measuredBytes;
+    rec.sizeBytes = Math.max(rec.bytesDone, measuredBytes);
+    rec.bytesDone = rec.sizeBytes;
     rec.state = "done";
     rec.error = undefined;
     rec.retryable = false;
@@ -1493,7 +1576,7 @@ async function runDownload(
       continue;
     }
     try {
-      await downloadAttempt(m, isRetry);
+      await downloadAttempt(m);
       downloaded = true;
     } catch (e) {
       if (signal.aborted) throw e;

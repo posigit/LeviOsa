@@ -231,6 +231,7 @@ export type CineSrcServerDef = { id: string; name: string; sub?: string };
 export const CINESRC_SERVER_ALIASES = [
   "Zeus",
   "Odysseus",
+  "Hera",
   "Athena",
   "Apollo",
   "Hermes",
@@ -239,7 +240,6 @@ export const CINESRC_SERVER_ALIASES = [
   "Hades",
   "Poseidon",
   "Demeter",
-  "Hera",
   "Hephaestus",
   "Aphrodite",
   "Dionysus",
@@ -253,6 +253,7 @@ export const CINESRC_SERVER_ALIASES = [
 export const CINESRC_SEED_SERVERS = [
   "nebula",
   "lisbon",
+  "wave",
   "surge",
   "spark",
   "storm",
@@ -261,7 +262,6 @@ export const CINESRC_SEED_SERVERS = [
   "blizzard",
   "mist",
   "thunder",
-  "wave",
   "paris",
   "sturm",
   "brisa",

@@ -177,6 +177,37 @@ export function offlinePieceUrl(absoluteUrl: string, range?: ByteRange | null): 
   return dlFileUrl(id);
 }
 
+/**
+ * Cache identity for one piece of one download. The position does not change
+ * when the CDN rotates the signed URL, so a retry never fetches it again.
+ * `role` is `v`/`a` (media), `vi`/`ai` (init), `vk`/`ak` (key), `vp`/`ap` (playlist).
+ */
+export function segmentIndexUrl(downloadKey: string, role: string, index: number): string {
+  return dlFileUrl(`idx:${downloadKey}:${role}:${index}`);
+}
+
+/**
+ * A 403 retries that segment's URL. It does not start the title over.
+ * After one playlist refresh, a repeat 403 is a gap for that index only.
+ */
+export function indexRetryAction(alreadyRefreshed: boolean): "refresh-index" | "gap" {
+  return alreadyRefreshed ? "gap" : "refresh-index";
+}
+
+/**
+ * Refuse only bodies that are useless as media: empty, playlists, HTML, JSON.
+ * Unrecognized bytes are kept — a strict container check deleted real
+ * segments and forced them to be downloaded again.
+ */
+export function segmentShouldReject(
+  bytes: Uint8Array,
+  kind: "seg" | "key" | "init"
+): boolean {
+  if (bytes.byteLength === 0) return true;
+  if (kind === "key") return bytes.byteLength !== 16 || looksLikeText(bytes);
+  return looksLikeText(bytes);
+}
+
 export type PieceFailureReason = "network" | "auth" | "dead" | "quota";
 
 /**
@@ -501,6 +532,73 @@ export function rewritePlaylistForOffline(
         out.push(rawLine);
       }
       pendingRange = null;
+      continue;
+    }
+    out.push(rawLine);
+  }
+  const joined = out.join("\n");
+  return sawGap ? withHlsVersion(joined, 8) : joined;
+}
+
+/**
+ * Same as the offline rewrite, but each piece is replaced by a caller-supplied
+ * stable URL (segment position), not a URL derived from the CDN address.
+ * `gapIndexes` are 0-based segment positions.
+ */
+export function rewritePlaylistToIndexUrls(
+  text: string,
+  segmentUrls: readonly string[],
+  opts: {
+    mapUrls?: readonly string[];
+    keyUrls?: readonly string[];
+    gapIndexes?: ReadonlySet<number>;
+  } = {}
+): string {
+  const mapUrls = opts.mapUrls ?? [];
+  const keyUrls = opts.keyUrls ?? [];
+  const gapIndexes = opts.gapIndexes ?? new Set<number>();
+  let mapN = 0;
+  let keyN = 0;
+  let segN = 0;
+  let sawGap = false;
+  const out: string[] = [];
+  let expectSegment = false;
+  for (const rawLine of text.split(/\r?\n/)) {
+    const line = rawLine.trim();
+    if (line.startsWith("#EXT-X-MAP:") || line.startsWith("#EXT-X-KEY:")) {
+      const isMap = line.startsWith("#EXT-X-MAP:");
+      const replacement = isMap ? mapUrls[mapN++] : keyUrls[keyN++];
+      let rewritten = rawLine.replace(/,?BYTERANGE="[^"]*"/, "");
+      if (replacement) {
+        rewritten = rewritten.replace(/URI="[^"]*"/, `URI="${replacement}"`);
+      }
+      out.push(rewritten);
+      continue;
+    }
+    if (line.startsWith("#EXTINF:")) {
+      expectSegment = true;
+      out.push(rawLine);
+      continue;
+    }
+    if (expectSegment && line.startsWith("#EXT-X-BYTERANGE")) continue;
+    if (expectSegment && line.startsWith("#")) {
+      out.push(rawLine);
+      continue;
+    }
+    if (expectSegment) {
+      expectSegment = false;
+      if (line && !line.startsWith("#")) {
+        const idx = segN;
+        const url = segmentUrls[idx] ?? line;
+        segN++;
+        if (gapIndexes.has(idx)) {
+          sawGap = true;
+          out.push("#EXT-X-GAP");
+        }
+        out.push(url);
+      } else {
+        out.push(rawLine);
+      }
       continue;
     }
     out.push(rawLine);

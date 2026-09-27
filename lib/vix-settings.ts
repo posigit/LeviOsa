@@ -198,6 +198,15 @@ function clampSettings(merged: VixSettings): VixSettings {
         seen.add(seed.toLowerCase());
       }
     }
+    // wave is Hera. Keep that server directly after lisbon (Odysseus),
+    // including lists saved before the move.
+    const waveAt = ids.findIndex((id) => id.toLowerCase() === "wave");
+    const lisbonAt = ids.findIndex((id) => id.toLowerCase() === "lisbon");
+    if (waveAt >= 0 && lisbonAt >= 0 && waveAt !== lisbonAt + 1) {
+      const [wave] = ids.splice(waveAt, 1);
+      const after = ids.findIndex((id) => id.toLowerCase() === "lisbon");
+      if (wave) ids.splice(after + 1, 0, wave);
+    }
     next.cineSrcKnownServers = ids.slice(0, CINESRC_MAX_KNOWN_SERVERS);
   }
   if (

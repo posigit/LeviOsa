@@ -7,13 +7,17 @@ import {
   canonicalMediaKey,
   classifyPieceStatus,
   gapBudget,
+  indexRetryAction,
   isHardDownloadError,
   isTransientFetchError,
   offlinePieceUrl,
   parseMediaPlaylist,
   pieceOutcome,
   rewritePlaylistForOffline,
+  rewritePlaylistToIndexUrls,
+  segmentIndexUrl,
   segmentLooksValid,
+  segmentShouldReject,
 } from "../lib/offline/hls";
 
 const base = "https://cdn.example.com/pl/master.m3u8";
@@ -158,5 +162,27 @@ assert.equal(segmentLooksValid(new Uint8Array(15).fill(7), "key", false), false)
 const cipher = new Uint8Array(32).fill(7);
 assert.equal(segmentLooksValid(cipher, "seg", true), true);
 assert.equal(segmentLooksValid(bytesOf("<html>nope</html>"), "seg", true), false);
+
+const signedA = canonicalMediaKey("https://cdn.example.com/a.ts?sig=111&exp=1");
+const signedB = canonicalMediaKey("https://cdn.example.com/a.ts?sig=222&exp=2");
+assert.notEqual(signedA, signedB);
+assert.equal(segmentIndexUrl("e:1:1:1", "v", 4), segmentIndexUrl("e:1:1:1", "v", 4));
+assert.notEqual(segmentIndexUrl("e:1:1:1", "v", 4), segmentIndexUrl("e:1:1:1", "v", 5));
+assert.equal(indexRetryAction(false), "refresh-index");
+assert.equal(indexRetryAction(true), "gap");
+assert.equal(segmentShouldReject(bytesOf("<html>nope</html>"), "seg"), true);
+assert.equal(segmentShouldReject(bytesOf("#EXTM3U\n"), "seg"), true);
+assert.equal(segmentShouldReject(new Uint8Array([0x01, 0x02, 0x03, 0x04]), "seg"), false);
+assert.equal(segmentShouldReject(new Uint8Array(0), "seg"), true);
+
+const indexed = rewritePlaylistToIndexUrls(text, [
+  "https://app/seg-0",
+  "https://app/seg-1",
+  "https://app/seg-2",
+], { gapIndexes: new Set([0]) });
+assert.ok(indexed.includes("#EXT-X-GAP"));
+assert.ok(indexed.includes("https://app/seg-0"));
+assert.ok(indexed.includes("https://app/seg-1"));
+assert.ok(!indexed.includes("seg.mp4"));
 
 console.log("offline download checks ok");
