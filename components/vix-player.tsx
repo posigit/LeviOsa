@@ -3414,18 +3414,32 @@ export function VixPlayer({
   // Desktop keyboard shortcuts (native + driven embeds via command channels).
   // Custom chrome owns transport — no native <video controls> to
   // double-toggle against. Other embeds keep their own keys when focused.
+  // Fullscreen is the exception: it only needs the shell, so every mode gets
+  // `f`. Passive embeds (Mapple, VidLink, …) have no command channel, so they
+  // get nothing else — swallowing keys we can't act on would break their player.
   useEffect(() => {
     // Inline (not the render const below): deps evaluate before it exists.
     const drivenKeys =
       mode === "iframe" &&
       (activeSource === "cinesrc" || activeSource === "vidfast");
-    if ((mode !== "native" && !drivenKeys) || locked) return;
+    const canFullscreen = mode === "native" || mode === "iframe";
+    const transportKeys = mode === "native" || drivenKeys;
+    if (locked || !canFullscreen) return;
     const onKey = (e: KeyboardEvent) => {
       if (e.ctrlKey || e.metaKey || e.altKey) return;
       if (subMenuOpen || audioMenuOpen || qualityMenuOpen) return;
       const tag = (e.target as HTMLElement | null)?.tagName;
       if (tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT") return;
       const key = e.key.length === 1 ? e.key.toLowerCase() : e.key;
+      if (key === "f") {
+        e.preventDefault();
+        e.stopPropagation();
+        if (document.fullscreenElement) exitFullscreen();
+        else enterFullscreen();
+        bumpChrome();
+        return;
+      }
+      if (!transportKeys) return;
       if (key === " " || key === "k") {
         e.preventDefault();
         e.stopPropagation();
@@ -3446,12 +3460,6 @@ export function VixPlayer({
         e.preventDefault();
         e.stopPropagation();
         cycleScreenFill();
-      } else if (key === "f") {
-        e.preventDefault();
-        e.stopPropagation();
-        if (document.fullscreenElement) exitFullscreen();
-        else enterFullscreen();
-        bumpChrome();
       }
     };
     window.addEventListener("keydown", onKey, true);
@@ -3471,6 +3479,15 @@ export function VixPlayer({
     enterFullscreen,
     exitFullscreen,
   ]);
+
+  // A click inside a cross-origin embed moves focus into that document, where
+  // our window keydown listener never fires — hand focus back whenever our
+  // chrome surfaces so `f` keeps working for passive embeds (Mapple & friends).
+  // Nothing plays through this document, so blurring can't interrupt playback.
+  useEffect(() => {
+    if (mode !== "iframe" || isDrivenEmbed || !chromeVisible) return;
+    iframeRef.current?.blur();
+  }, [mode, isDrivenEmbed, chromeVisible]);
 
   const adjustSubDelay = useCallback((delta: number) => {
     const next = Math.max(
