@@ -1,8 +1,10 @@
 /**
  * Persistent VixSrc native-player settings.
  *
- * Stored in localStorage so audio/subtitle/quality/speed/volume choices
- * survive player remounts (episode-to-episode) and app restarts.
+ * Stored in localStorage so audio, subtitle language, delay, color,
+ * quality, speed, and volume survive player remounts and app restarts.
+ * Subtitle size is saved on this device only, and is not copied to the
+ * account, so a phone and a computer can keep different sizes.
  *
  * Schema is versioned: older builds saved hls.js-internal track switches
  * (e.g. auto-selected Italian subs) as if they were user choices. Bumping the
@@ -60,7 +62,10 @@ export type VixSettings = {
    * injected VDRK/OpenSubtitles cues; stream-embedded CC is unaffected.
    */
   subDelaySeconds: number;
-  /** Cue text size. */
+  /**
+   * Cue text size for this device. Kept in its own localStorage key so it
+   * survives restarts here, and is left out of the account sync.
+   */
   subFontSize: "xs" | "sm" | "md" | "lg";
   /** Cue text color. */
   subColor: "white" | "yellow" | "cyan";
@@ -91,6 +96,43 @@ export type VixSettings = {
 };
 
 export const VIX_SETTINGS_KEY = "vix-settings";
+/** This device's subtitle size. Not part of the account settings blob. */
+const DEVICE_SUB_FONT_KEY = "vix-sub-font-device";
+/** Previous visit-only key. Read once so a size picked there is not lost. */
+const LEGACY_SESSION_SUB_FONT_KEY = "vix-sub-font-session";
+
+function isSubFontSize(value: unknown): value is VixSettings["subFontSize"] {
+  return value === "xs" || value === "sm" || value === "md" || value === "lg";
+}
+
+function readDeviceSubFont(): VixSettings["subFontSize"] | null {
+  if (typeof window === "undefined") return null;
+  try {
+    const raw = window.localStorage.getItem(DEVICE_SUB_FONT_KEY);
+    if (isSubFontSize(raw)) return raw;
+    const legacy = window.sessionStorage.getItem(LEGACY_SESSION_SUB_FONT_KEY);
+    if (!isSubFontSize(legacy)) return null;
+    window.localStorage.setItem(DEVICE_SUB_FONT_KEY, legacy);
+    window.sessionStorage.removeItem(LEGACY_SESSION_SUB_FONT_KEY);
+    return legacy;
+  } catch {
+    return null;
+  }
+}
+
+function writeDeviceSubFont(size: VixSettings["subFontSize"]): void {
+  if (typeof window === "undefined") return;
+  try {
+    window.localStorage.setItem(DEVICE_SUB_FONT_KEY, size);
+  } catch {
+    /* storage unavailable — the open player still holds the size in state */
+  }
+}
+
+/** Account payload never carries this device's subtitle size. */
+function forAccount(settings: VixSettings): VixSettings {
+  return { ...settings, subFontSize: "md", muted: false };
+}
 
 /** v3: drop persisted mute (autoplay/PWA poison). */
 export const VIX_SETTINGS_VERSION = 3;
@@ -136,9 +178,10 @@ export function isBannedSubLang(lang: string | undefined | null): boolean {
   );
 }
 
-/** Always strip mute — it is session-only. */
+/** Mute is not durable. Subtitle size is validated, then kept per device. */
 function clampSettings(merged: VixSettings): VixSettings {
   const next = { ...merged, v: VIX_SETTINGS_VERSION, muted: false };
+  if (!isSubFontSize(next.subFontSize)) next.subFontSize = "md";
   if (isBannedSubLang(next.subs)) next.subs = "en";
   if (isBannedSubLang(next.audio)) next.audio = "en";
   // Per-show speed memory: finite rates in a sane range, capped entries.
@@ -218,14 +261,6 @@ function clampSettings(merged: VixSettings): VixSettings {
     next.subDelaySeconds = Math.max(-10, Math.min(10, next.subDelaySeconds));
   }
   if (
-    next.subFontSize !== "xs" &&
-    next.subFontSize !== "sm" &&
-    next.subFontSize !== "md" &&
-    next.subFontSize !== "lg"
-  ) {
-    next.subFontSize = "md";
-  }
-  if (
     next.subColor !== "white" &&
     next.subColor !== "yellow" &&
     next.subColor !== "cyan"
@@ -289,14 +324,14 @@ function clampSettings(merged: VixSettings): VixSettings {
   return next;
 }
 
-export function loadVixSettings(): VixSettings {
+function loadPersistedVixSettings(): VixSettings {
   const base = { ...DEFAULT_VIX_SETTINGS };
   if (typeof window === "undefined") return base;
   try {
     const raw = window.localStorage.getItem(VIX_SETTINGS_KEY);
     if (!raw) return base;
     const parsed = JSON.parse(raw) as Partial<VixSettings>;
-    // Field-level migrate (not full wipe): clampSettings always strips mute and
+    // Field-level migrate (not full wipe): clampSettings strips mute and
     // rewrites v. Older schemas keep speed/subs/quality/source prefs.
     return clampSettings({ ...base, ...parsed });
   } catch {
@@ -305,14 +340,28 @@ export function loadVixSettings(): VixSettings {
   return base;
 }
 
+export function loadVixSettings(): VixSettings {
+  const persisted = loadPersistedVixSettings();
+  // First visit after this split: keep the size already stored in the blob.
+  const deviceSize = readDeviceSubFont() ?? persisted.subFontSize;
+  if (!readDeviceSubFont()) writeDeviceSubFont(deviceSize);
+  return { ...persisted, subFontSize: deviceSize };
+}
+
 export function saveVixSettings(patch: Partial<VixSettings>) {
   if (typeof window === "undefined") return;
   try {
-    // muted is intentionally ignored — session-only via the <video> element.
+    // Mute is not stored. Subtitle size stays on this device and is not
+    // written into the account blob.
     const safePatch = { ...patch };
     delete safePatch.muted;
-    const next = clampSettings({ ...loadVixSettings(), ...safePatch });
-    window.localStorage.setItem(VIX_SETTINGS_KEY, JSON.stringify(next));
+    if (isSubFontSize(safePatch.subFontSize)) writeDeviceSubFont(safePatch.subFontSize);
+    delete safePatch.subFontSize;
+    const next = clampSettings({ ...loadPersistedVixSettings(), ...safePatch });
+    window.localStorage.setItem(
+      VIX_SETTINGS_KEY,
+      JSON.stringify(forAccount(next))
+    );
     // Let live UI (download buttons, settings sheets) react without reload.
     window.dispatchEvent(new CustomEvent("vix-settings-changed"));
     queueServerSync();
@@ -341,7 +390,7 @@ function queueServerSync() {
         void fetch("/api/settings", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ settings: loadVixSettings() }),
+          body: JSON.stringify({ settings: forAccount(loadPersistedVixSettings()) }),
         }).catch(() => {
           /* offline / 401 — localStorage still holds the value */
         });
@@ -370,13 +419,14 @@ export function hydrateVixSettings(): Promise<void> {
   hydratePromise = fetch("/api/settings")
     .then((res) => (res.ok ? res.json() : null))
     .then((data: { settings?: Partial<VixSettings> } | null) => {
+      // Capture this device's size before the account blob replaces localStorage.
+      const deviceSize = loadVixSettings().subFontSize;
+      writeDeviceSubFont(deviceSize);
       if (!data?.settings) {
-        // Still wipe mute from any pre-hydrate local cache.
         try {
-          const local = loadVixSettings();
           window.localStorage.setItem(
             VIX_SETTINGS_KEY,
-            JSON.stringify(clampSettings(local))
+            JSON.stringify(forAccount(loadPersistedVixSettings()))
           );
         } catch {
           /* ignore */
@@ -386,19 +436,21 @@ export function hydrateVixSettings(): Promise<void> {
       const merged = clampSettings({
         ...DEFAULT_VIX_SETTINGS,
         ...data.settings,
+        subFontSize: deviceSize,
       });
       try {
-        window.localStorage.setItem(VIX_SETTINGS_KEY, JSON.stringify(merged));
+        window.localStorage.setItem(VIX_SETTINGS_KEY, JSON.stringify(forAccount(merged)));
       } catch {
         /* storage unavailable — nothing to do */
       }
     })
     .catch(() => {
-      /* network/auth failure — keep localStorage as-is but strip mute */
+      /* network/auth failure — keep this device's size, strip mute from the blob */
       try {
+        writeDeviceSubFont(loadVixSettings().subFontSize);
         window.localStorage.setItem(
           VIX_SETTINGS_KEY,
-          JSON.stringify(clampSettings(loadVixSettings()))
+          JSON.stringify(forAccount(loadPersistedVixSettings()))
         );
       } catch {
         /* ignore */
