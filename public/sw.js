@@ -7,8 +7,10 @@
  * - Offline: simple fallback page, not a stale watchlist
  *
  * Bump VERSION when changing strategies so activate() purges old caches.
+ * UI changes do NOT need a bump anymore: the /library shell revalidates
+ * itself while online (storeShellDocument + the revalidate-shell message).
  */
-const VERSION = "9";
+const VERSION = "10";
 const SHELL_CACHE = `tvtime-shell-v${VERSION}`;
 const STATIC_CACHE = `tvtime-static-v${VERSION}`;
 const IMAGE_CACHE = `tvtime-images-v${VERSION}`;
@@ -44,7 +46,16 @@ self.addEventListener("install", (event) => {
     caches
       .open(SHELL_CACHE)
       .then((cache) =>
-        Promise.allSettled(PRECACHE_URLS.map((u) => cache.add(u)))
+        Promise.allSettled(
+          PRECACHE_URLS.filter((u) => u !== "/library").map((u) =>
+            cache.add(u)
+          )
+        ).then(async () => {
+          // /library lands WITH the bundle it references: activate() purges
+          // STATIC_CACHE on a VERSION bump, and HTML alone renders a blank
+          // page offline instead of the flat-but-working list it used to.
+          await storeShellDocument(cache, "/library", fetch("/library"));
+        })
       )
       .catch(() => {})
   );
@@ -66,6 +77,35 @@ self.addEventListener("activate", (event) => {
       await self.clients.claim();
     })()
   );
+});
+
+/* ---------- Shell freshness ---------- */
+
+let lastShellRefresh = 0;
+
+/**
+ * The shell only refreshes on a full /library navigation, so an app entered
+ * through any other route never updates it (RSC navigations bypass the worker
+ * entirely — see shouldBypass). The page pings us when it comes to the
+ * foreground while online; we revalidate then — throttled — so the offline
+ * copy tracks the newest build without sw.js ever changing.
+ */
+self.addEventListener("message", (event) => {
+  const data = event.data;
+  if (!data || data.type !== "revalidate-shell") return;
+  const now = Date.now();
+  if (now - lastShellRefresh < 60000) return;
+  lastShellRefresh = now;
+  const work = caches
+    .open(SHELL_CACHE)
+    .then((cache) =>
+      storeShellDocument(
+        cache,
+        "/library",
+        fetch("/library", { cache: "no-store" })
+      )
+    );
+  if (typeof event.waitUntil === "function") event.waitUntil(work);
 });
 
 self.addEventListener("fetch", (event) => {
@@ -188,31 +228,79 @@ async function networkFirstNavigation(request) {
 }
 
 /**
+ * Store an HTML document together with the hashed /_next/static bundle it
+ * references — or not at all. The pair has to land and expire as one unit:
+ * a VERSION bump purges STATIC_CACHE while SHELL_CACHE keeps the document,
+ * and HTML without its scripts renders a blank page offline.
+ *
+ * Takes ownership of `responseLike` (it may be a Promise). Returns true when
+ * the shell cache now holds this document.
+ */
+async function storeShellDocument(cache, key, responseLike) {
+  try {
+    const response = await responseLike;
+    if (!response || !response.ok) return false;
+    const stored = response.clone();
+    const html = await response.text();
+    const assets = [
+      ...new Set(
+        (html.match(/(?:src|href)="\/_next\/static\/[^"]+"/g) || []).map((m) =>
+          m.slice(m.indexOf('="/') + 2, -1)
+        )
+      ),
+    ];
+    if (assets.length) {
+      const staticCache = await caches.open(STATIC_CACHE);
+      const landed = await Promise.allSettled(
+        assets.map(async (asset) => {
+          const res = await fetch(asset);
+          if (!res.ok) throw new Error(`${res.status} ${asset}`);
+          await staticCache.put(asset, res);
+        })
+      );
+      // One missing script is a broken document offline — keep the old pair.
+      if (landed.some((r) => r.status === "rejected")) return false;
+    }
+    await cache.put(key, stored);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+/**
  * The /library shell: 100% local data (IndexedDB + Cache
  * Storage), so stale-while-revalidate is safe — offline cold starts render
- * instantly, online visits refresh the shell in the background.
+ * instantly, online visits refresh the shell (and its bundle) in the
+ * background, so the offline copy tracks the newest build seen while online
+ * instead of the one from whenever sw.js last changed.
  */
-async function staleWhileRevalidateDocument(request) {  const cache = await caches.open(SHELL_CACHE);
+async function staleWhileRevalidateDocument(request) {
+  const cache = await caches.open(SHELL_CACHE);
   const url = new URL(request.url);
-  const cached =
-    (await cache.match(request)) || (await cache.match(url.pathname));
-  const networkPromise = fetch(request)
-    .then(async (response) => {
-      if (response && response.ok) {
-        await cache.put(url.pathname, response.clone());
-      }
-      return response;
-    })
-    .catch(() => cached);
-  return (
-    cached ||
-    networkPromise ||
-    (await cache.match("/offline.html")) ||
-    new Response("Offline", {
-      status: 503,
-      headers: { "Content-Type": "text/plain" },
-    })
-  );
+  const key = url.pathname;
+  const cached = (await cache.match(request)) || (await cache.match(key));
+  if (cached) {
+    void storeShellDocument(cache, key, fetch(request).catch(() => null));
+    return cached;
+  }
+  try {
+    const response = await fetch(request);
+    // Cache after answering — asset caching must never delay first paint.
+    void storeShellDocument(cache, key, response.clone());
+    return response;
+  } catch {
+    // await the whole chain: `cached || promise` short-circuits on the
+    // Promise itself, which made this offline.html fallback dead code and
+    // resolved an empty-cache offline navigation to undefined.
+    return (
+      (await cache.match("/offline.html")) ||
+      new Response("Offline", {
+        status: 503,
+        headers: { "Content-Type": "text/plain" },
+      })
+    );
+  }
 }
 
 /**
@@ -274,9 +362,18 @@ async function staleWhileRevalidateImage(request) {
       }
       return response;
     })
-    .catch(() => cached);
+    .catch(() => null);
 
-  return cached || networkPromise;
+  if (cached) {
+    void networkPromise;
+    return cached;
+  }
+  // Same trap as the document path: `cached || networkPromise` yields the
+  // Promise object (always truthy), so an offline miss resolved to undefined.
+  return (
+    (await networkPromise) ||
+    new Response("", { status: 504, statusText: "Offline" })
+  );
 }
 
 /** Drop oldest entries when over max (FIFO by keys() order) */

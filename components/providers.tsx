@@ -48,8 +48,15 @@ export function Providers({ children }: { children: ReactNode }) {
     let reg: ServiceWorkerRegistration | null = null;
 
     const onVisible = () => {
-      if (document.visibilityState === "visible" && reg) {
-        reg.update().catch(() => {});
+      if (document.visibilityState !== "visible" || !reg) return;
+      reg.update().catch(() => {});
+      // The offline /library shell only refreshes on a full load of that
+      // route; ping the worker so any foreground session keeps it current
+      // with the running build (see the revalidate-shell message in sw.js).
+      if (navigator.onLine) {
+        navigator.serviceWorker.controller?.postMessage({
+          type: "revalidate-shell",
+        });
       }
     };
 
