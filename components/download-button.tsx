@@ -7,6 +7,7 @@ import { useToast } from "@/components/toast";
 import { loadVixSettings } from "@/lib/vix-settings";
 import {
   downloadKey,
+  ensurePersisted,
   formatBytes,
   getManifest,
   getRecordSync,
@@ -15,6 +16,8 @@ import {
 } from "@/lib/downloads";
 import {
   cancelDownload,
+  isDownloadActive,
+  isDownloadQueued,
   pauseDownload,
   resumeDownload,
   startDownload,
@@ -70,6 +73,13 @@ export function useDownloadRecord(key: string | null): DownloadRecord | null {
 
 function stateLabel(rec: DownloadRecord | null): string {
   if (!rec) return "Download for offline";
+  if (
+    (rec.state === "active" || rec.state === "queued") &&
+    !isDownloadActive(rec.key) &&
+    !isDownloadQueued(rec.key)
+  ) {
+    return "Download stopped — tap to retry";
+  }
   switch (rec.state) {
     case "active":
     case "queued":
@@ -140,18 +150,22 @@ export function DownloadButton({
   if (!mode) return null;
 
   const busy = rec?.state === "active" || rec?.state === "queued";
+  const runningHere = !!rec && busy && (isDownloadActive(key) || isDownloadQueued(key));
   const progress =
     rec && rec.totalSegments > 0 ? rec.doneSegments / rec.totalSegments : 0;
 
   const onTap = () => {
+    // persist() only sticks when it starts inside the tap, before any await.
+    void ensurePersisted();
     try {
-      if (!rec || rec.state === "error" || rec.state === "missing") {
-        void startDownload(item).catch((e: unknown) =>
+      if (!rec || rec.state === "error" || rec.state === "missing" || rec.state === "paused") {
+        void (rec ? resumeDownload(item) : startDownload(item)).catch((e: unknown) =>
           toast(e instanceof Error ? e.message : "Download failed", "error")
         );
-      } else if (busy) {
+      } else if (runningHere) {
         void pauseDownload(key);
-      } else if (rec.state === "paused") {
+      } else if (busy) {
+        // Stale active/queued row (tab was killed). Continue, don't pause a corpse.
         void resumeDownload(item).catch((e: unknown) =>
           toast(e instanceof Error ? e.message : "Couldn't resume", "error")
         );
@@ -190,8 +204,10 @@ export function DownloadButton({
         <span className="min-w-0 flex-1 text-left">
           {rec?.state === "done"
             ? "Downloaded"
-            : busy
+            : runningHere
               ? `Downloading… ${Math.round(progress * 100)}%`
+              : busy
+                ? `${Math.round(progress * 100)}% · tap to retry`
               : rec?.state === "paused"
                 ? `Paused · ${Math.round(progress * 100)}%`
                 : rec?.state === "error"

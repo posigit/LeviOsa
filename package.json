@@ -8,6 +8,7 @@
     "start": "next start",
     "lint": "eslint",
     "test:player": "tsx scripts/test-player-progress.ts",
+    "test:offline": "tsx scripts/test-offline-download.ts",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate",
     "db:push": "drizzle-kit push",

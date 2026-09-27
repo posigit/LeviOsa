@@ -17,10 +17,12 @@ import { fetchSegments } from "@/lib/introdb";
 import { loadVixSettings, matchLang } from "@/lib/vix-settings";
 import {
   DL_CACHE,
+  checkpointRecord,
   commitRecord,
   deleteRecordFiles,
   downloadKey,
   ensurePersisted,
+  flushManifest,
   getAllSync,
   getManifest,
   getRecordSync,
@@ -34,19 +36,26 @@ import {
 import {
   buildOfflineMaster,
   canonicalMediaKey,
+  classifyPieceStatus,
   dlFileUrl,
   dlPlaylistUrl,
   estimateBytes,
+  gapBudget,
+  isHardDownloadError,
   isMasterPlaylist,
   minVariantHeight,
+  offlinePieceUrl,
   parseMasterAudio,
   parseMasterVariants,
   parseMediaPlaylist,
   pickAudioEntry,
   pickVariant,
   rewritePlaylistForOffline,
+  segmentLooksValid,
   type AudioEntry,
+  type ByteRange,
   type MediaParts,
+  type PieceFailureReason,
   type VariantInfo,
 } from "@/lib/offline/hls";
 import { formatBytes } from "@/lib/utils";
@@ -73,8 +82,45 @@ const cancelIntents = new Set<string>();
  */
 const startingKeys = new Set<string>();
 
+const iosQueue: DownloadRequest[] = [];
+/** Background lock/tab-hide. Distinct from a manual pause so we auto-continue. */
+const systemPauseKeys = new Set<string>();
+const autoResumeTimers = new Map<string, ReturnType<typeof setTimeout>>();
+/** Synchronous guard so a timer and a visibility event can't both continue one row. */
+const continueLocks = new Set<string>();
+
 export function isDownloadActive(key: string): boolean {
   return activeControllers.has(key);
+}
+
+function requestKey(req: DownloadRequest): string {
+  return downloadKey(
+    req.type === "movie" ? "movie" : "episode",
+    req.tmdbId,
+    req.season,
+    req.episode
+  );
+}
+
+export function isDownloadQueued(key: string): boolean {
+  return iosQueue.some((r) => requestKey(r) === key);
+}
+
+function dequeueIos(key: string): void {
+  const next = iosQueue.filter((r) => requestKey(r) !== key);
+  iosQueue.splice(0, iosQueue.length, ...next);
+}
+
+function otherSlotTaken(key: string): boolean {
+  for (const k of activeControllers.keys()) if (k !== key) return true;
+  for (const k of startingKeys) if (k !== key) return true;
+  return false;
+}
+
+function clearAutoResume(key: string): void {
+  const t = autoResumeTimers.get(key);
+  if (t != null) clearTimeout(t);
+  autoResumeTimers.delete(key);
 }
 
 function abortError(): Error {
@@ -84,14 +130,34 @@ function abortError(): Error {
 }
 
 /**
- * A segment/key piece that failed persistently (bad status after retries,
- * empty body, stall). Mirror-level failure: the download may continue on the
- * next mirror. Anything else (abort, quota, device space) propagates.
+ * A piece failed after the retries that apply to its reason.
+ * `network` keeps every finished segment and is continued automatically.
+ * `auth` means the link expired — refresh the playlist, never punch a gap.
+ * `dead` is a bad segment (gap it, or leave the mirror if the cap is hit).
+ * `quota` is a hard stop.
  */
 class PieceDownloadError extends Error {
-  constructor(message: string) {
+  reason: PieceFailureReason;
+  constructor(message: string, reason: PieceFailureReason) {
     super(message);
     this.name = "PieceDownloadError";
+    this.reason = reason;
+  }
+}
+
+/** Expired playlist/segment URL. The mirror loop refreshes once and retries. */
+class AuthRefresh extends Error {
+  constructor() {
+    super("auth refresh");
+    this.name = "AuthRefresh";
+  }
+}
+
+/** Sibling workers were stopped on purpose. Not a user pause and not a failure. */
+class PoolStopped extends Error {
+  constructor() {
+    super("pool stopped");
+    this.name = "PoolStopped";
   }
 }
 
@@ -99,10 +165,67 @@ class PieceDownloadError extends Error {
 const PIECE_TIMEOUT_MS = 30000;
 /** No completed piece for this long with work remaining = stalled. */
 const STALL_TIMEOUT_MS = 60000;
-/** Upstream rate limits (429s from loupeandlattice-style hosts) back off here. */
-const RETRYABLE_STATUS = (status: number) => status === 429 || status >= 500;
 const RETRY_TRIES = 5;
 const RETRY_BASE_MS = 800;
+const AUTO_ATTEMPT_CAP = 5;
+
+/** WebKit Cache Storage corrupts under parallel puts. One writer at a time. */
+let cacheChain: Promise<void> = Promise.resolve();
+function enqueueCache<T>(fn: () => Promise<T>): Promise<T> {
+  const run = cacheChain.then(fn, fn);
+  cacheChain = run.then(
+    () => {},
+    () => {}
+  );
+  return run;
+}
+
+function isIosSafari(): boolean {
+  if (typeof navigator === "undefined") return false;
+  const ua = navigator.userAgent || "";
+  if (/iP(hone|ad|od)/.test(ua)) return true;
+  // iPadOS reports itself as Macintosh.
+  return navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1;
+}
+
+function pieceConcurrency(): number {
+  return isIosSafari() ? 2 : CONCURRENCY;
+}
+
+/**
+ * AbortSignal.any is missing on iOS 16 and some webviews. Listeners are
+ * removed when the composed operation finishes.
+ */
+function linkSignals(signals: AbortSignal[]): AbortSignal {
+  const anyFn = (AbortSignal as unknown as { any?: (ss: AbortSignal[]) => AbortSignal }).any;
+  if (typeof anyFn === "function") return anyFn(signals);
+  const controller = new AbortController();
+  const onAbort = () => controller.abort();
+  for (const s of signals) {
+    if (s.aborted) controller.abort();
+    else s.addEventListener("abort", onAbort);
+  }
+  return controller.signal;
+}
+
+async function withSignals<T>(
+  signals: AbortSignal[],
+  run: (signal: AbortSignal) => Promise<T>
+): Promise<T> {
+  const anyFn = (AbortSignal as unknown as { any?: (ss: AbortSignal[]) => AbortSignal }).any;
+  if (typeof anyFn === "function") return run(anyFn(signals));
+  const controller = new AbortController();
+  const onAbort = () => controller.abort();
+  for (const s of signals) {
+    if (s.aborted) controller.abort();
+    else s.addEventListener("abort", onAbort);
+  }
+  try {
+    return await run(controller.signal);
+  } finally {
+    for (const s of signals) s.removeEventListener("abort", onAbort);
+  }
+}
 
 /**
  * Parse Retry-After (seconds or HTTP-date) → milliseconds, or null.
@@ -124,65 +247,165 @@ function retryAfterMs(header: string | null): number | null {
   return null;
 }
 
-/**
- * fetchPiece with bounded retries for retryable statuses (429/5xx).
- * Honors Retry-After when served, else exponential backoff + jitter.
- * Returns the LAST response so callers keep their specific error messages;
- * aborts still throw AbortError immediately (pause/cancel path untouched).
- */
-async function fetchPieceRetry(
-  input: string,
-  signal: AbortSignal,
-  tries = RETRY_TRIES
-): Promise<Response> {
-  let last: Response | null = null;
-  for (let attempt = 0; ; attempt++) {
-    if (signal.aborted) throw abortError();
-    const res = await fetchPiece(input, signal);
-    if (res.ok) return res;
-    last = res;
-    if (!RETRYABLE_STATUS(res.status) || attempt + 1 >= tries) break;
-    // Drain only when actually backing off — a terminal 404 must not pay
-    // for a body nobody reads.
-    try {
-      await res.arrayBuffer();
-    } catch {
-      /* body already consumed or errored — nothing to free */
+/** Abort-aware wait. Resolves on timeout, rejects if the user signal aborts. */
+function waitBackoff(ms: number, signal: AbortSignal): Promise<void> {
+  return new Promise<void>((resolve, reject) => {
+    const t = setTimeout(() => {
+      signal.removeEventListener("abort", onAbort);
+      resolve();
+    }, ms);
+    const onAbort = () => {
+      clearTimeout(t);
+      signal.removeEventListener("abort", onAbort);
+      reject(abortError());
+    };
+    if (signal.aborted) {
+      clearTimeout(t);
+      reject(abortError());
+      return;
     }
-    const wait =
-      retryAfterMs(res.headers.get("retry-after")) ??
-      Math.min(RETRY_BASE_MS * 2 ** attempt, 8000) + Math.random() * 400;
-    // Abort-aware backoff: pause/cancel during the wait stops immediately.
-    // Listener is removed on every path (no accumulation across retries).
-    await new Promise<void>((resolve, reject) => {
-      const t = setTimeout(() => {
-        signal.removeEventListener("abort", onAbort);
-        resolve();
-      }, wait);
-      const onAbort = () => {
-        clearTimeout(t);
-        signal.removeEventListener("abort", onAbort);
-        reject(abortError());
-      };
-      signal.addEventListener("abort", onAbort, { once: true });
-    });
+    signal.addEventListener("abort", onAbort, { once: true });
+  });
+}
+
+/** Keep a requested byte range; never persist a 206 as if it were the whole file. */
+function sliceToRange(
+  buf: ArrayBuffer,
+  status: number,
+  range: ByteRange | null
+): ArrayBuffer {
+  if (!range) return buf;
+  if (status === 200 && buf.byteLength >= range.start + range.length) {
+    return buf.slice(range.start, range.start + range.length);
   }
-  return last as Response;
+  if (buf.byteLength > range.length) return buf.slice(0, range.length);
+  return buf;
+}
+
+async function cachedPieceOk(
+  res: Response,
+  job: { kind: "seg" | "key" | "init"; encrypted: boolean }
+): Promise<number> {
+  try {
+    const blob = await res.clone().blob();
+    if (blob.size <= 0) return 0;
+    if (job.kind === "key" && blob.size !== 16) return 0;
+    const prefix = new Uint8Array(await blob.slice(0, 256).arrayBuffer());
+    const kind = job.kind === "init" ? "init" : job.kind === "key" ? "key" : "seg";
+    if (!segmentLooksValid(prefix, kind, job.encrypted)) return 0;
+    if (!job.encrypted && kind === "seg" && prefix[0] === 0x47 && blob.size < 188) return 0;
+    return blob.size;
+  } catch {
+    return 0;
+  }
+}
+
+function backoffMs(attempt: number, retryAfter: number | null): number {
+  if (retryAfter != null) return retryAfter;
+  return Math.min(RETRY_BASE_MS * 2 ** attempt, 8000) + Math.random() * 400;
 }
 
 /**
- * fetch with a timeout that never masquerades as a user pause/cancel:
- * parent-signal aborts rethrow as AbortError (pause path); timeouts throw a
- * plain Error (error state + retry path).
+ * Fetch one piece. Timeouts and connection resets throw PieceDownloadError
+ * (`network`) — they are never a user pause. `pool` abort throws PoolStopped
+ * so a sibling can stop the group without failing the title.
+ * Status 200 is a full body. A requested byte range may be 206 or a 200
+ * that the caller slices. Any other 206 is a partial and must not be stored.
  */
-async function fetchPiece(input: string, signal: AbortSignal): Promise<Response> {
+async function fetchPiece(
+  input: string,
+  userSignal: AbortSignal,
+  poolSignal: AbortSignal | null,
+  range: ByteRange | null
+): Promise<Response> {
   const timeout = AbortSignal.timeout(PIECE_TIMEOUT_MS);
+  const signals = [userSignal, timeout];
+  if (poolSignal) signals.push(poolSignal);
+  const headers: Record<string, string> = {};
+  if (range) {
+    headers.Range = `bytes=${range.start}-${range.start + range.length - 1}`;
+  }
   try {
-    return await fetch(input, { signal: AbortSignal.any([signal, timeout]) });
+    return await withSignals(signals, (signal) =>
+      fetch(input, { signal, headers })
+    );
   } catch (err) {
-    if (signal.aborted) throw abortError();
-    if (err instanceof Error && err.name === "TimeoutError") {
-      throw new Error("A piece stalled — tap to retry");
+    if (userSignal.aborted) throw abortError();
+    if (poolSignal?.aborted) throw new PoolStopped();
+    if (timeout.aborted || (err instanceof Error && err.name === "TimeoutError")) {
+      throw new PieceDownloadError("A piece stalled — tap to retry", "network");
+    }
+    if (
+      err instanceof TypeError ||
+      (err instanceof Error && /failed to fetch|network/i.test(err.message))
+    ) {
+      throw new PieceDownloadError("Connection dropped — tap to retry", "network");
+    }
+    throw err;
+  }
+}
+
+async function readErrorDetail(res: Response): Promise<string> {
+  try {
+    const data = (await res.clone().json()) as { error?: unknown };
+    if (typeof data?.error === "string" && data.error.length > 0) {
+      return data.error.slice(0, 120);
+    }
+  } catch {
+    /* binary body */
+  }
+  return "";
+}
+
+/**
+ * Bounded retries for network failures only (timeout, reset, 429, 5xx).
+ * 401/403 throw immediately so the caller can refresh the playlist.
+ * 404 throws immediately so the caller can gap that one segment.
+ */
+async function fetchPieceRetry(
+  input: string,
+  userSignal: AbortSignal,
+  poolSignal: AbortSignal | null,
+  range: ByteRange | null,
+  tries = RETRY_TRIES
+): Promise<Response> {
+  for (let attempt = 0; ; attempt++) {
+    if (userSignal.aborted) throw abortError();
+    if (poolSignal?.aborted) throw new PoolStopped();
+    let res: Response;
+    try {
+      res = await fetchPiece(input, userSignal, poolSignal, range);
+    } catch (err) {
+      if (userSignal.aborted || err instanceof PoolStopped) throw err;
+      if (
+        err instanceof PieceDownloadError &&
+        err.reason === "network" &&
+        attempt + 1 < tries
+      ) {
+        await waitBackoff(backoffMs(attempt, null), userSignal);
+        continue;
+      }
+      throw err;
+    }
+    const rangedOk = range != null && (res.status === 200 || res.status === 206);
+    if ((range == null && res.status === 200) || rangedOk) return res;
+    const detail = await readErrorDetail(res);
+    try {
+      await res.arrayBuffer();
+    } catch {
+      /* already drained or empty */
+    }
+    const reason = classifyPieceStatus(res.status, detail);
+    const err = new PieceDownloadError(
+      detail ? `failed (${res.status}: ${detail})` : `failed (${res.status}).`,
+      reason
+    );
+    if (reason === "network" && attempt + 1 < tries) {
+      await waitBackoff(
+        backoffMs(attempt, retryAfterMs(res.headers.get("retry-after"))),
+        userSignal
+      );
+      continue;
     }
     throw err;
   }
@@ -234,6 +457,7 @@ export async function startDownload(req: DownloadRequest): Promise<void> {
     return await startDownloadInner(req, key);
   } finally {
     startingKeys.delete(key);
+    pumpQueue();
   }
 }
 
@@ -299,7 +523,17 @@ async function startDownloadInner(req: DownloadRequest, key: string): Promise<vo
     segments: existing?.segments ?? null,
     downloadedAt: 0,
     lastUsedAt: now,
+    retryable: existing?.retryable,
+    autoAttempts: existing?.autoAttempts ?? 0,
+    interruptedOffline: existing?.interruptedOffline,
   };
+  // iPhone can't run two titles at once without getting the tab killed.
+  if (isIosSafari() && otherSlotTaken(key)) {
+    if (!iosQueue.some((r) => requestKey(r) === key)) iosQueue.push(req);
+    rec.state = "queued";
+    await upsertRecord(rec);
+    return;
+  }
   await upsertRecord(rec);
 
   const controller = new AbortController();
@@ -317,6 +551,9 @@ async function startDownloadInner(req: DownloadRequest, key: string): Promise<vo
     if (cancelIntents.has(key)) {
       cancelIntents.delete(key);
       pauseIntents.delete(key);
+      systemPauseKeys.delete(key);
+      clearAutoResume(key);
+      dequeueIos(key);
       await deleteRecordFiles(rec);
       await removeRecord(key);
       return;
@@ -324,24 +561,34 @@ async function startDownloadInner(req: DownloadRequest, key: string): Promise<vo
     const live = getRecordSync(key) ?? (await getManifest())[key];
     // Deleted or finished elsewhere — never resurrect or clobber.
     if (!live || live.state === "done") return;
-    if (live.state === "paused" || (ownedHere && cancelled && pauseIntents.has(key))) {
+    const system = systemPauseKeys.has(key);
+    systemPauseKeys.delete(key);
+    if (live.state === "paused" || system || (ownedHere && cancelled && pauseIntents.has(key))) {
       pauseIntents.delete(key);
-      await commitRecord({ ...rec, state: "paused", error: undefined });
+      await commitRecord({
+        ...rec,
+        state: "paused",
+        error: undefined,
+        // Manual pause stays put. Lock-screen / tab-hide continues on return.
+        retryable: system ? true : false,
+      });
       return;
     }
     // Another live loop owns this key now — hands off, don't clobber it.
     if (!ownedHere) return;
-    // Offline interruption (not a real failure): flag for online auto-retry
-    // instead of stranding in error. navigator.onLine is advisory — the flag
-    // only gates a resume attempt, which re-verifies everything anyway.
     const offline =
       typeof navigator !== "undefined" && navigator.onLine === false;
+    const message = err instanceof Error ? err.message : "Download failed";
+    const quota = err instanceof PieceDownloadError && err.reason === "quota";
+    const hard = quota || isHardDownloadError(message);
     await commitRecord({
       ...rec,
       state: "error",
-      error: err instanceof Error ? err.message : "Download failed",
+      error: message,
+      retryable: !hard,
       interruptedOffline: offline || undefined,
     });
+    if (!hard) scheduleAutoResume(req);
   } finally {
     if (activeControllers.get(key) === controller) activeControllers.delete(key);
   }
@@ -353,6 +600,9 @@ async function startDownloadInner(req: DownloadRequest, key: string): Promise<vo
  * can't strand in "active" (second tab, HMR module reset, lost map entry).
  */
 export async function pauseDownload(key: string): Promise<void> {
+  clearAutoResume(key);
+  systemPauseKeys.delete(key);
+  dequeueIos(key);
   pauseIntents.add(key);
   const controller = activeControllers.get(key);
   if (controller) {
@@ -362,65 +612,178 @@ export async function pauseDownload(key: string): Promise<void> {
   pauseIntents.delete(key);
   const rec = getRecordSync(key) ?? (await getManifest())[key];
   if (rec && (rec.state === "active" || rec.state === "queued")) {
-    await commitRecord({ ...rec, state: "paused", error: undefined });
+    await commitRecord({ ...rec, state: "paused", error: undefined, retryable: false });
   }
 }
 
 export async function resumeDownload(req: DownloadRequest): Promise<void> {
-  const key = downloadKey(
-    req.type === "movie" ? "movie" : "episode",
-    req.tmdbId,
-    req.season,
-    req.episode
-  );
-  // Consume any stale pause intent so the fresh loop can't trip on it.
+  const key = requestKey(req);
+  // Manual retry: a fresh budget, and it must not sit behind the auto timer.
+  clearAutoResume(key);
   pauseIntents.delete(key);
-  const rec = getRecordSync(key);
+  systemPauseKeys.delete(key);
+  dequeueIos(key);
+  const rec = getRecordSync(key) ?? (await getManifest())[key];
   if (rec && rec.state !== "done") {
-    await upsertRecord({ ...rec, state: "queued", error: undefined });
+    await upsertRecord({
+      ...rec,
+      state: "queued",
+      error: undefined,
+      retryable: false,
+      autoAttempts: 0,
+    });
   }
   return startDownload(req);
 }
 
+function reqFromRecord(rec: DownloadRecord): DownloadRequest {
+  return {
+    type: rec.type === "movie" ? "movie" : "tv",
+    tmdbId: rec.tmdbId,
+    season: rec.season,
+    episode: rec.episode,
+    title: rec.title,
+    subtitle: rec.subtitle,
+  };
+}
+
+function eligibleToContinue(rec: DownloadRecord): boolean {
+  if (rec.state === "done" || rec.state === "missing") return false;
+  if (rec.state === "active" || rec.state === "queued") return true;
+  return (rec.state === "paused" || rec.state === "error") && !!rec.retryable;
+}
+
+/** Continue one interrupted row. Does not reset the automatic-attempt budget. */
+async function continueAutomatic(rec: DownloadRecord): Promise<void> {
+  if (typeof navigator !== "undefined" && navigator.onLine === false) return;
+  if (typeof document !== "undefined" && document.hidden) return;
+  if (continueLocks.has(rec.key) || activeControllers.has(rec.key) || startingKeys.has(rec.key)) {
+    return;
+  }
+  if (isDownloadQueued(rec.key)) return;
+  if (!eligibleToContinue(rec)) return;
+  if (rec.state === "error" && (rec.autoAttempts ?? 0) >= AUTO_ATTEMPT_CAP) return;
+  continueLocks.add(rec.key);
+  try {
+    const nextAttempts =
+      rec.state === "error" ? (rec.autoAttempts ?? 0) + 1 : (rec.autoAttempts ?? 0);
+    await upsertRecord({
+      ...rec,
+      state: "queued",
+      error: undefined,
+      retryable: true,
+      autoAttempts: nextAttempts,
+    });
+    await startDownload(reqFromRecord(rec));
+  } finally {
+    continueLocks.delete(rec.key);
+  }
+}
+
+async function continueNextEligible(): Promise<void> {
+  if (typeof document !== "undefined" && document.hidden) return;
+  if (typeof navigator !== "undefined" && navigator.onLine === false) return;
+  if (activeControllers.size > 0 || startingKeys.size > 0) return;
+  const all = Object.values(await getManifest());
+  for (const rec of all) {
+    if (autoResumeTimers.has(rec.key) || isDownloadQueued(rec.key)) continue;
+    if (!eligibleToContinue(rec)) continue;
+    if (rec.state === "error" && (rec.autoAttempts ?? 0) >= AUTO_ATTEMPT_CAP) continue;
+    try {
+      await continueAutomatic(rec);
+    } catch {
+      /* the row is already marked; the next visible/online pass retries */
+    }
+    return;
+  }
+}
+
+function scheduleAutoResume(req: DownloadRequest): void {
+  const key = requestKey(req);
+  if (autoResumeTimers.has(key)) return;
+  const attempts = getRecordSync(key)?.autoAttempts ?? 0;
+  if (attempts >= AUTO_ATTEMPT_CAP) return;
+  const delay = Math.min(4000 * 2 ** attempts, 30_000);
+  const timer = setTimeout(() => {
+    autoResumeTimers.delete(key);
+    const rec = getRecordSync(key);
+    if (!rec || rec.state === "done") return;
+    void continueAutomatic(rec);
+  }, delay);
+  autoResumeTimers.set(key, timer);
+}
+
+function pumpQueue(): void {
+  if (typeof document !== "undefined" && document.hidden) return;
+  if (activeControllers.size > 0 || startingKeys.size > 0) return;
+  if (isIosSafari() && iosQueue.length > 0) {
+    const next = iosQueue.shift();
+    if (next) {
+      void startDownload(next);
+      return;
+    }
+  }
+  void continueNextEligible();
+}
+
+function pauseForBackground(): void {
+  for (const [key, controller] of activeControllers) {
+    systemPauseKeys.add(key);
+    pauseIntents.add(key);
+    controller.abort();
+  }
+  flushManifest();
+}
+
 let autoRetryInit = false;
+let kickLock = false;
 
 /**
- * Resume offline-interrupted downloads when connectivity returns. Only rows
- * flagged interruptedOffline (failed while navigator.onLine === false) are
- * retried — genuine errors still need a manual tap. Idempotent.
+ * Continue downloads that were interrupted (stall, expired link, lock screen,
+ * killed tab). A manual pause is not resumed. Idempotent.
  */
 export function initDownloadAutoRetry(): void {
   if (autoRetryInit || typeof window === "undefined") return;
   autoRetryInit = true;
-  const retry = () => {
+  const onVisible = () => {
+    if (document.hidden || kickLock) return;
+    if (typeof navigator !== "undefined" && navigator.onLine === false) return;
+    kickLock = true;
     void (async () => {
-      if (typeof navigator !== "undefined" && navigator.onLine === false) return;
-      const all = getAllSync();
-      for (const rec of all) {
-        if (rec.state !== "error" || !rec.interruptedOffline) continue;
-        if (activeControllers.has(rec.key) || startingKeys.has(rec.key)) continue;
-        try {
-          await resumeDownload({
-            type: rec.type === "movie" ? "movie" : "tv",
-            tmdbId: rec.tmdbId,
-            season: rec.season,
-            episode: rec.episode,
-            title: rec.title,
-            subtitle: rec.subtitle,
-          });
-        } catch {
-          /* next reconnect retries again */
+      try {
+        if (
+          isIosSafari() &&
+          iosQueue.length > 0 &&
+          activeControllers.size === 0 &&
+          startingKeys.size === 0
+        ) {
+          const next = iosQueue.shift();
+          if (next) {
+            await startDownload(next);
+            return;
+          }
         }
+        await continueNextEligible();
+      } catch {
+        /* next pass */
+      } finally {
+        kickLock = false;
       }
     })();
   };
-  window.addEventListener("online", retry);
+  window.addEventListener("online", onVisible);
+  window.addEventListener("pageshow", onVisible);
+  window.addEventListener("pagehide", pauseForBackground);
   document.addEventListener("visibilitychange", () => {
-    if (!document.hidden) retry();
+    if (document.hidden) pauseForBackground();
+    else onVisible();
   });
 }
 
 export function cancelDownload(key: string) {
+  clearAutoResume(key);
+  dequeueIos(key);
+  systemPauseKeys.delete(key);
   if (!activeControllers.has(key)) {
     // Not running — just drop the row + files.
     void (async () => {
@@ -436,6 +799,9 @@ export function cancelDownload(key: string) {
 }
 
 export async function deleteDownload(key: string): Promise<void> {
+  clearAutoResume(key);
+  dequeueIos(key);
+  systemPauseKeys.delete(key);
   cancelIntents.delete(key);
   pauseIntents.delete(key);
   activeControllers.get(key)?.abort();
@@ -524,7 +890,7 @@ async function runDownload(
       candidate,
       window.location.origin
     ).toString();
-    const masterRes = await fetchPieceRetry(playlistBase, signal);
+    const masterRes = await fetchPieceRetry(playlistBase, signal, null, null);
     if (!masterRes.ok) throw new Error(`Stream lookup failed (${masterRes.status})`);
     const masterText = await masterRes.text();
     throwIfAborted();
@@ -547,7 +913,7 @@ async function runDownload(
             : `Not available in ${rec.quality}p (lowest is ${lowest}p) — switch quality in Download settings and retry.`
         );
       }
-      const vRes = await fetchPieceRetry(pickedVariant.url, signal);
+      const vRes = await fetchPieceRetry(pickedVariant.url, signal, null, null);
       if (!vRes.ok) throw new Error(`Quality fetch failed (${vRes.status})`);
       mediaText = await vRes.text();
       mediaUrl = pickedVariant.url;
@@ -580,7 +946,7 @@ async function runDownload(
         matchLang
       );
       if (audioEntry) {
-        const aRes = await fetchPieceRetry(audioEntry.url, signal);
+        const aRes = await fetchPieceRetry(audioEntry.url, signal, null, null);
         if (!aRes.ok) throw new Error(`Audio track fetch failed (${aRes.status})`);
         let aText = await aRes.text();
         audioUrl = audioEntry.url;
@@ -590,7 +956,7 @@ async function runDownload(
             throw new Error("No audio track found for this title.");
           }
           const aPicked = aVars[0]!;
-          const avRes = await fetchPieceRetry(aPicked.url, signal);
+          const avRes = await fetchPieceRetry(aPicked.url, signal, null, null);
           if (!avRes.ok) throw new Error(`Audio track fetch failed (${avRes.status})`);
           aText = await avRes.text();
           audioUrl = aPicked.url;
@@ -631,10 +997,13 @@ async function runDownload(
   // Seeded from the record: same-quality resumes keep owned files so nothing
   // verified earlier is ever orphaned.
   const fileUrls = new Set<string>(rec.fileUrls);
+  /** Files this attempt referenced (cache hit or newly stored), plus playlists. */
+  let touched = new Set<string>();
+  const seedFiles = new Set<string>(rec.fileUrls);
   // Subtitles overlap the segment downloads (same 30s total budget as a
   // sequential fetch, but off the critical path): a hung subs fetch resolves
   // to null instead of parking a finished video at 99%.
-  const subsSignal = AbortSignal.any([signal, AbortSignal.timeout(30000)]);
+  const subsSignal = linkSignals([signal, AbortSignal.timeout(30000)]);
   const subsPromise = (async () => {
     const sub = await fetchDownloadSubs(req, resolved.imdbId, subsSignal);
     let alts: { vtt: string; label: string }[] = [];
@@ -663,11 +1032,6 @@ async function runDownload(
   void subsPromise.catch(() => {});
   let doneSeg = 0;
   let measuredBytes = 0;
-
-  const readSize = (r: Response | undefined): number => {
-    const n = Number(r?.headers.get("Content-Length") ?? 0);
-    return Number.isFinite(n) && n > 0 ? n : 0;
-  };
 
   const mpegResponse = (text: string, noStore = false) =>
     new Response(text, {
@@ -716,150 +1080,195 @@ async function runDownload(
     await updateProgress(rec.key, {
       bytesDone: rec.bytesDone,
       doneSegments: doneSeg,
+      fileUrls: rec.fileUrls,
       ...(estimatePatch != null ? { estimateBytes: estimatePatch } : {}),
     });
   };
 
+  type PieceJob = {
+    original: string;
+    dlUrl: string;
+    kind: "seg" | "key" | "init";
+    segNo: number;
+    range: ByteRange | null;
+    encrypted: boolean;
+  };
+
+  const rememberFile = (url: string) => {
+    fileUrls.add(url);
+    touched.add(url);
+  };
+
+  /**
+   * Fetch every init, key, and segment. Dead video segments become gaps
+   * (under the budget). Expired links throw AuthRefresh so the caller can
+   * refetch the playlist without deleting finished pieces. Network stalls
+   * throw PieceDownloadError("network") and keep every byte already stored.
+   */
   const storeParts = async (
     list: MediaParts,
-    label: string
+    label: string,
+    authAsDead: boolean
   ): Promise<string[]> => {
-    // Segments dead upstream (persistently empty, or a status failure after
-    // retries) become EXT-X-GAP entries instead of killing the title — a few
-    // dead chunks out of hundreds must not fail an episode. Capped: past the
-    // cap the mirror is declared bad (failover) rather than Swiss cheese.
     const gaps = new Set<string>();
-    const MAX_GAPS = 8;
-    // Gap a persistently dead piece, or throw when the cap is exhausted.
-    const gapOrThrow = async (dlUrl: string, err: PieceDownloadError): Promise<boolean> => {
-      if (gaps.size >= MAX_GAPS) throw err;
-      gaps.add(dlUrl);
-      doneSeg++;
-      await reportProgress();
-      return true;
-    };
-    const jobs: { original: string; dlUrl: string; kind: "seg" | "key"; segNo: number }[] = [];
-    if (list.mapUrl) {
+    const budget = gapBudget(list.segments.length);
+    const jobs: PieceJob[] = [];
+    const seenMeta = new Set<string>();
+    for (const map of list.maps) {
+      const dlUrl = offlinePieceUrl(map.url, map.byteRange);
+      if (seenMeta.has(dlUrl)) continue;
+      seenMeta.add(dlUrl);
       jobs.push({
-        original: list.mapUrl,
-        dlUrl: dlFileUrl(canonicalMediaKey(list.mapUrl)),
-        kind: "key",
+        original: map.url,
+        dlUrl,
+        kind: "init",
         segNo: 0,
+        range: map.byteRange,
+        encrypted: false,
       });
     }
     for (const k of list.keys) {
+      if (k.method === "NONE") continue;
+      const dlUrl = offlinePieceUrl(k.url, null);
+      if (seenMeta.has(dlUrl)) continue;
+      seenMeta.add(dlUrl);
       jobs.push({
         original: k.url,
-        dlUrl: dlFileUrl(canonicalMediaKey(k.url)),
+        dlUrl,
         kind: "key",
         segNo: 0,
+        range: null,
+        encrypted: false,
       });
     }
-    // Segment numbers assigned at build time (1-based, playlist order) —
-    // workers fetch concurrently, so a runtime counter would mislabel.
     let segTotalCount = 0;
     for (const s of list.segments) {
       segTotalCount++;
       jobs.push({
-        original: s,
-        dlUrl: dlFileUrl(canonicalMediaKey(s)),
+        original: s.url,
+        dlUrl: offlinePieceUrl(s.url, s.byteRange),
         kind: "seg",
         segNo: segTotalCount,
+        range: s.byteRange,
+        encrypted: s.encrypted,
       });
     }
+
+    const pool = new AbortController();
+    const stopPool = () => {
+      if (!pool.signal.aborted) pool.abort();
+    };
+    const gapOrThrow = async (dlUrl: string, err: PieceDownloadError) => {
+      if (gaps.size >= budget) {
+        stopPool();
+        throw err;
+      }
+      gaps.add(dlUrl);
+      doneSeg++;
+      await reportProgress();
+    };
+
     let cursor = 0;
     const worker = async () => {
       for (;;) {
         throwIfAborted();
-        // Durable reconcile: pause/delete from another tab (or a lost
-        // controller map) must stop this loop even though no local signal
-        // fired. Cheap sync mirror read per iteration.
+        if (pool.signal.aborted) return;
         const live = getRecordSync(rec.key);
         if (!live || live.state === "paused") throw abortError();
-        // Stall watchdog: all workers hung with jobs left used to freeze
-        // the bar at its last percent forever with no error state.
-        // Mirror-switchable (a hung mirror is a dead mirror) — see attempts.
         if (Date.now() - lastProgressAt > STALL_TIMEOUT_MS) {
-          throw new PieceDownloadError("Stalled — tap to retry");
+          stopPool();
+          throw new PieceDownloadError("Stalled — tap to retry", "network");
         }
         const i = cursor++;
         if (i >= jobs.length) return;
         const job = jobs[i]!;
-        const hit = await cache.match(job.dlUrl);
-        if (hit) {
-          fileUrls.add(job.dlUrl);
-          if (job.kind === "seg") {
-            doneSeg++;
-            measuredBytes += readSize(hit);
-            await reportProgress();
-          }
-          continue;
-        }
-        // 1-based position among segments only (keys/init are not counted).
         const segNo = job.segNo;
-        const segTotal = segTotalCount;
-        const fail = (msg: string): PieceDownloadError =>
+        const fail = (msg: string, reason: PieceFailureReason) =>
           new PieceDownloadError(
             job.kind === "seg" && segNo > 0
-              ? `${label} segment ${segNo}/${segTotal} ${msg}`
-              : `${label} piece ${msg}`
+              ? `${label} segment ${segNo}/${segTotalCount} ${msg}`
+              : `${label} ${job.kind} ${msg}`,
+            reason
           );
-        const res = await fetchPieceRetry(job.original, signal, 3);
-        if (!res.ok) {
-          // Same-origin pieces fail with JSON bodies ("bad signature" = our
-          // layer, "upstream N" = theirs) — surface it so a 403 is instantly
-          // attributable instead of a bare status. Body is single-read.
-          let detail = "";
-          try {
-            const data = (await res.json()) as { error?: unknown };
-            if (typeof data?.error === "string" && data.error.length > 0) {
-              detail = `: ${data.error.slice(0, 120)}`;
+
+        const hit = await cache.match(job.dlUrl);
+        if (hit) {
+          const size = await cachedPieceOk(hit, job);
+          if (size > 0) {
+            rememberFile(job.dlUrl);
+            if (job.kind === "seg") {
+              doneSeg++;
+              measuredBytes += size;
+              await reportProgress();
             }
-          } catch {
-            /* binary upstream body — status alone */
-          }
-          const err = fail(`failed (${res.status}${detail}).`);
-          // Dead chunk (not auth-wide: siblings succeed) → gap it. Keys and
-          // init maps can't gap — those still fail the download.
-          if (job.kind === "seg") {
-            await gapOrThrow(job.dlUrl, err);
             continue;
           }
-          throw err;
+          await enqueueCache(() => cache.delete(job.dlUrl));
         }
-        // Empty 200s happen (dead file on the CDN, not a flaky network):
-        // re-fetch twice, then gap the chunk (segments) instead of failing.
-        let buf: ArrayBuffer | null = await res.arrayBuffer();
-        for (let retry = 0; retry < 2 && buf.byteLength === 0; retry++) {
-          const res2 = await fetchPieceRetry(job.original, signal, 2);
-          if (!res2.ok) {
-            let detail = "";
-            try {
-              const data = (await res2.json()) as { error?: unknown };
-              if (typeof data?.error === "string" && data.error.length > 0) {
-                detail = `: ${data.error.slice(0, 120)}`;
-              }
-            } catch {
-              /* binary upstream body — status alone */
-            }
-            const err = fail(`failed (${res2.status}${detail}).`);
-            if (job.kind === "seg") {
-              await gapOrThrow(job.dlUrl, err);
-              buf = null;
-              break;
-            }
+
+        let res: Response;
+        try {
+          res = await fetchPieceRetry(job.original, signal, pool.signal, job.range, 5);
+        } catch (err) {
+          if (err instanceof PoolStopped) return;
+          if (!(err instanceof PieceDownloadError)) throw err;
+          if (err.reason === "auth" && !(authAsDead && job.kind === "seg")) {
+            stopPool();
+            throw new AuthRefresh();
+          }
+          if (err.reason === "network") {
+            stopPool();
             throw err;
           }
-          buf = await res2.arrayBuffer();
-        }
-        if (buf == null) continue; // gapped above
-        if (buf.byteLength === 0) {
-          const err = fail(`was empty.`);
+          const dead = fail(err.message, "dead");
           if (job.kind === "seg") {
-            await gapOrThrow(job.dlUrl, err);
+            await gapOrThrow(job.dlUrl, dead);
             continue;
           }
-          throw err;
+          stopPool();
+          throw dead;
+        }
+
+        let buf = await res.arrayBuffer();
+        buf = sliceToRange(buf, res.status, job.range);
+        if (buf.byteLength === 0) {
+          // One more try — CDNs sometimes answer 200 with an empty body.
+          try {
+            const res2 = await fetchPieceRetry(job.original, signal, pool.signal, job.range, 2);
+            buf = sliceToRange(await res2.arrayBuffer(), res2.status, job.range);
+            res = res2;
+          } catch (err) {
+            if (err instanceof PoolStopped) return;
+            if (err instanceof PieceDownloadError && err.reason === "auth" && !(authAsDead && job.kind === "seg")) {
+              stopPool();
+              throw new AuthRefresh();
+            }
+            if (err instanceof PieceDownloadError && err.reason === "network") {
+              stopPool();
+              throw err;
+            }
+            buf = new ArrayBuffer(0);
+          }
+        }
+        const bytes = new Uint8Array(buf);
+        const valid = segmentLooksValid(
+          bytes.subarray(0, Math.min(bytes.byteLength, 256)),
+          job.kind,
+          job.encrypted
+        );
+        const fullEnough =
+          job.kind !== "key" || bytes.byteLength === 16;
+        if (!valid || !fullEnough || bytes.byteLength === 0) {
+          const dead = fail(
+            bytes.byteLength === 0 ? "was empty." : "was not media.",
+            "dead"
+          );
+          if (job.kind === "seg") {
+            await gapOrThrow(job.dlUrl, dead);
+            continue;
+          }
+          stopPool();
+          throw dead;
         }
         const stored = new Response(buf, {
           headers: {
@@ -870,28 +1279,39 @@ async function runDownload(
           },
         });
         try {
-          await cache.put(job.dlUrl, stored);
+          await enqueueCache(() => cache.put(job.dlUrl, stored));
         } catch (e) {
           if (
             e instanceof DOMException &&
             (e.name === "QuotaExceededError" || e.code === 22)
           ) {
-            throw new Error("Out of device space — free storage and retry.");
+            stopPool();
+            throw new PieceDownloadError(
+              "Out of device space — free storage and retry.",
+              "quota"
+            );
           }
           throw e;
         }
-        fileUrls.add(job.dlUrl);
+        rememberFile(job.dlUrl);
         if (job.kind === "seg") {
           doneSeg++;
           measuredBytes += buf.byteLength;
           await reportProgress();
+          await checkpointRecord();
         }
         throwIfAborted();
       }
     };
-    await Promise.all(
-      Array.from({ length: Math.min(CONCURRENCY, jobs.length) }, () => worker())
-    );
+
+    try {
+      await Promise.all(
+        Array.from({ length: Math.min(pieceConcurrency(), jobs.length) }, () => worker())
+      );
+    } catch (err) {
+      stopPool();
+      throw err;
+    }
     return [...gaps];
   };
 
@@ -901,7 +1321,11 @@ async function runDownload(
    * for persistent piece failures (caller switches mirrors); anything else
    * (abort, quota, device space) propagates.
    */
-  const downloadAttempt = async (m: MirrorParse): Promise<void> => {
+  const downloadAttempt = async (m: MirrorParse, authAsDead: boolean): Promise<void> => {
+    doneSeg = 0;
+    measuredBytes = 0;
+    touched = new Set();
+    lastProgressAt = Date.now();
     rec.durationSec = m.parts.durationSec;
     rec.totalSegments =
       m.parts.segments.length + (m.audioParts?.segments.length ?? 0);
@@ -915,28 +1339,36 @@ async function runDownload(
     // 4. Quota: device headroom + the 950MB-style self cap (LRU-evict to fit).
     await enforceQuota(rec, signal);
 
-    const videoGaps = await storeParts(m.parts, "Video");
+    const videoGaps = await storeParts(m.parts, "Video", authAsDead);
     throwIfAborted();
-    const audioGaps = m.audioParts ? await storeParts(m.audioParts, "Audio") : [];
+    const audioGaps = m.audioParts
+      ? await storeParts(m.audioParts, "Audio", authAsDead)
+      : [];
     throwIfAborted();
 
     // 6. Store rewritten playlists last — only complete sets ever play.
     // Dead chunks ride as EXT-X-GAP entries (players skip them) instead of
     // missing files that would stall playback.
     const videoStoredUrl = dlFileUrl(canonicalMediaKey(m.mediaUrl));
-    await cache.put(
-      videoStoredUrl,
-      mpegResponse(rewritePlaylistForOffline(m.mediaText, m.mediaUrl, new Set(videoGaps)))
+    await enqueueCache(() =>
+      cache.put(
+        videoStoredUrl,
+        mpegResponse(rewritePlaylistForOffline(m.mediaText, m.mediaUrl, new Set(videoGaps)))
+      )
     );
-    fileUrls.add(videoStoredUrl);
+    rememberFile(videoStoredUrl);
     let topText: string;
-    if (m.audioParts && m.audioUrl && m.audioText && m.audioEntry && m.pickedVariant) {
-      const audioStoredUrl = dlFileUrl(canonicalMediaKey(m.audioUrl));
-      await cache.put(
-        audioStoredUrl,
-        mpegResponse(rewritePlaylistForOffline(m.audioText, m.audioUrl, new Set(audioGaps)))
+    const audioUrl = m.audioUrl;
+    const audioText = m.audioText;
+    if (m.audioParts && audioUrl && audioText && m.audioEntry && m.pickedVariant) {
+      const audioStoredUrl = dlFileUrl(canonicalMediaKey(audioUrl));
+      await enqueueCache(() =>
+        cache.put(
+          audioStoredUrl,
+          mpegResponse(rewritePlaylistForOffline(audioText, audioUrl, new Set(audioGaps)))
+        )
       );
-      fileUrls.add(audioStoredUrl);
+      rememberFile(audioStoredUrl);
       topText = buildOfflineMaster({
         variant: m.pickedVariant,
         videoPlaylistUrl: videoStoredUrl,
@@ -947,8 +1379,14 @@ async function runDownload(
       topText = rewritePlaylistForOffline(m.mediaText, m.mediaUrl, new Set(videoGaps));
     }
     const playlistKey = dlPlaylistUrl(rec.key);
-    await cache.put(playlistKey, mpegResponse(topText, true));
-    fileUrls.add(playlistKey);
+    await enqueueCache(() => cache.put(playlistKey, mpegResponse(topText, true)));
+    rememberFile(playlistKey);
+    // Drop pieces from an abandoned mirror now that this one is complete.
+    for (const u of [...fileUrls]) {
+      if (touched.has(u)) continue;
+      await enqueueCache(() => cache.delete(u).catch(() => false));
+      fileUrls.delete(u);
+    }
     rec.fileUrls = [...fileUrls];
 
     // 7. Auto-subtitles: same cascade the player uses (VDRK → OpenSubs),
@@ -971,8 +1409,10 @@ async function runDownload(
     }
 
     rec.sizeBytes = measuredBytes;
+    rec.bytesDone = measuredBytes;
     rec.state = "done";
     rec.error = undefined;
+    rec.retryable = false;
     rec.downloadedAt = Date.now();
     rec.lastUsedAt = Date.now();
     await commitRecord(rec);
@@ -987,58 +1427,109 @@ async function runDownload(
     }
   };
 
-  // Attempts walk mirrors in order: a persistently poisoned piece (same
-  // segment 403/empty on every retry) discards the attempt's files, resets
-  // counters, and continues on the next mirror. Single-mirror sources
-  // attempt once — behavior identical to before.
+  // Walk mirrors. A network stall keeps every finished segment and stops
+  // (the caller continues later). An expired link refreshes this mirror once.
+  // A dead mirror is remembered; its bytes stay until another mirror finishes
+  // or, if every mirror fails, until we keep only the best partial plus the
+  // files this run started with.
+  const failedTouches: { files: string[]; segs: number }[] = [];
   let attemptError: unknown = null;
   let downloaded = false;
+  let retrySame = false;
+
+  const refreshCandidate = async (index: number) => {
+    try {
+      const again = await resolveStreamPlaylist({
+        source,
+        type: req.type,
+        tmdbId: req.tmdbId,
+        season: req.season,
+        episode: req.episode,
+        signal,
+      });
+      if (!again.playlistUrl) return;
+      // Refresh only this slot. Replacing the whole list mid-loop skips mirrors.
+      mirrorCandidates[index] = again.playlistUrl;
+    } catch (e) {
+      if (signal.aborted) throw e;
+    }
+  };
+
+  const keepGoing = (e: unknown): boolean => {
+    if (e instanceof AuthRefresh) return true;
+    if (e instanceof PieceDownloadError) {
+      return e.reason === "dead" || e.reason === "auth";
+    }
+    const msg = e instanceof Error ? e.message : "";
+    if (/not available in|no playable quality|no video segments|no audio track/i.test(msg)) {
+      return true;
+    }
+    return !isHardDownloadError(msg);
+  };
+
   for (let mi = 0; mi < mirrorCandidates.length && !downloaded; mi++) {
     throwIfAborted();
+    const isRetry = retrySame;
+    retrySame = false;
     let m: MirrorParse;
     try {
       m = await tryMirror(mirrorCandidates[mi]!);
     } catch (e) {
-      // Pause/cancel aborts the whole download, never the mirror.
       if (signal.aborted) throw e;
+      if (e instanceof PieceDownloadError && (e.reason === "network" || e.reason === "quota")) {
+        throw e;
+      }
+      const auth =
+        e instanceof AuthRefresh ||
+        (e instanceof PieceDownloadError && e.reason === "auth");
+      if (auth && !isRetry) {
+        retrySame = true;
+        await refreshCandidate(mi);
+        mi--;
+        continue;
+      }
+      if (!keepGoing(e)) throw e;
       attemptError = e;
       continue;
     }
-    const attemptBase = new Set(fileUrls);
     try {
-      await downloadAttempt(m);
+      await downloadAttempt(m, isRetry);
       downloaded = true;
     } catch (e) {
       if (signal.aborted) throw e;
-      if (!(e instanceof PieceDownloadError)) throw e;
-      attemptError = e;
-      // Drop this attempt's partial files (owned set only) so the next
-      // mirror starts clean; shared/resume files (in attemptBase) stay.
-      const gone: string[] = [];
-      for (const u of fileUrls) {
-        if (!attemptBase.has(u)) gone.push(u);
+      if (e instanceof PieceDownloadError && (e.reason === "network" || e.reason === "quota")) {
+        throw e;
       }
-      await Promise.all(gone.map((u) => cache.delete(u).catch(() => false)));
-      for (const u of gone) fileUrls.delete(u);
-      doneSeg = 0;
-      measuredBytes = 0;
-      lastProgressAt = Date.now();
-      rec.bytesDone = 0;
-      rec.doneSegments = 0;
-      rec.fileUrls = [...fileUrls];
-      await updateProgress(rec.key, {
-        bytesDone: 0,
-        doneSegments: 0,
-        fileUrls: [...fileUrls],
-      });
+      if (e instanceof AuthRefresh && !isRetry) {
+        retrySame = true;
+        await refreshCandidate(mi);
+        mi--;
+        continue;
+      }
+      if (!keepGoing(e)) throw e;
+      failedTouches.push({ files: [...touched], segs: doneSeg });
+      attemptError = e;
     }
   }
   if (!downloaded) {
+    let best: { files: string[]; segs: number } | null = null;
+    for (const t of failedTouches) {
+      if (!best || t.segs > best.segs) best = t;
+    }
+    const keep = new Set<string>([...seedFiles, ...(best?.files ?? [])]);
+    for (const u of [...fileUrls]) {
+      if (keep.has(u)) continue;
+      await enqueueCache(() => cache.delete(u).catch(() => false));
+      fileUrls.delete(u);
+    }
+    rec.fileUrls = [...fileUrls];
+    if (best && best.segs > rec.doneSegments) rec.doneSegments = best.segs;
+    await checkpointRecord();
     const err =
       attemptError instanceof Error
         ? attemptError
         : new Error("Stream lookup failed.");
-    if (mirrorCandidates.length > 1) {
+    if (mirrorCandidates.length > 1 && !(err instanceof PieceDownloadError)) {
       throw new Error(`${err.message} (tried ${mirrorCandidates.length} mirrors)`);
     }
     throw err;

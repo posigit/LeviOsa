@@ -58,9 +58,16 @@ export type DownloadRecord = {
   lastUsedAt: number;
   /**
    * True when the last failure happened while the browser was offline.
-   * Cleared on the next manual start; drives online auto-retry only.
+   * Cleared on the next manual start.
    */
   interruptedOffline?: boolean;
+  /**
+   * The run can continue without a tap (stall, background, expired link).
+   * Cleared on a manual pause and on a hard error (quota, encryption, quality).
+   */
+  retryable?: boolean;
+  /** Automatic continuations since the last manual start. Stops at 5. */
+  autoAttempts?: number;
 };
 
 export function downloadKey(
@@ -116,7 +123,7 @@ function scheduleSave() {
   }, 400);
 }
 
-/** Immediate manifest write (crash/shutdown paths). */
+/** Immediate manifest write (crash/shutdown paths). Fire-and-forget. */
 export function flushManifest(): void {
   if (typeof window === "undefined") return;
   if (saveTimer) {
@@ -124,6 +131,25 @@ export function flushManifest(): void {
     saveTimer = null;
   }
   if (cache) set(MANIFEST_IDB_KEY, cache).catch(() => {});
+}
+
+/**
+ * Awaitable manifest write. Called after each newly stored segment so an
+ * iOS jetsam (which often skips pagehide) still leaves a resume point.
+ */
+export async function checkpointRecord(): Promise<void> {
+  if (typeof window === "undefined") return;
+  hookPersistence();
+  if (saveTimer) {
+    clearTimeout(saveTimer);
+    saveTimer = null;
+  }
+  if (!cache) return;
+  try {
+    await set(MANIFEST_IDB_KEY, cache);
+  } catch {
+    /* best-effort — the debounced save and pagehide flush still run */
+  }
 }
 
 let persistHooked = false;

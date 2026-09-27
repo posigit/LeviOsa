@@ -10,6 +10,8 @@ import {
 } from "@/lib/downloads";
 import {
   deleteDownload,
+  isDownloadActive,
+  isDownloadQueued,
   pauseDownload,
   resumeDownload,
 } from "@/lib/downloader";
@@ -82,6 +84,8 @@ export function DownloadRow({
   const { toast } = useToast();
   const online = useOnline();
   const busy = r.state === "active" || r.state === "queued";
+  const runningHere = busy && (isDownloadActive(r.key) || isDownloadQueued(r.key));
+  const stale = busy && !runningHere;
   const progress = r.totalSegments > 0 ? r.doneSegments / r.totalSegments : 0;
 
   const tryResume = () => {
@@ -120,8 +124,10 @@ export function DownloadRow({
         <p className="mt-1 text-[11px] font-semibold tabular-nums text-foreground/40">
           {r.state === "done" && r.sizeBytes > 0
             ? `${formatBytes(r.sizeBytes)} · ${qualityLabel(r)}`
-            : busy
+            : runningHere
               ? `${Math.round(progress * 100)}%${r.estimateBytes > 0 ? ` · ~${formatBytes(r.estimateBytes)}` : ""}`
+              : stale
+                ? `${Math.round(progress * 100)}% · tap to retry`
               : r.state === "paused"
                 ? `Paused · ${Math.round(progress * 100)}%`
                 : r.state === "error"
@@ -130,7 +136,7 @@ export function DownloadRow({
                     ? "Removed — download again"
                     : "Waiting…"}
         </p>
-        {busy && (
+        {runningHere && (
           <div className="mt-1.5 h-1 overflow-hidden rounded-full bg-secondary">
             <div
               className="h-full rounded-full bg-primary transition-all"
@@ -152,7 +158,8 @@ export function DownloadRow({
         )}
         {(r.state === "paused" ||
           r.state === "error" ||
-          r.state === "missing") && (
+          r.state === "missing" ||
+          stale) && (
           <button
             type="button"
             onClick={tryResume}
@@ -167,7 +174,7 @@ export function DownloadRow({
             )}
           </button>
         )}
-        {busy && (
+        {runningHere && (
           <button
             type="button"
             onClick={() => void pauseDownload(r.key)}

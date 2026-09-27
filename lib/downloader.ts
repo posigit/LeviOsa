@@ -9,6 +9,7 @@ export {
   cancelDownload,
   deleteDownload,
   isDownloadActive,
+  isDownloadQueued,
   pauseDownload,
   resumeDownload,
   startDownload,
