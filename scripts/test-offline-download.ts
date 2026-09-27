@@ -24,7 +24,11 @@ import {
   orderLibraryGroups,
   showNameOf,
 } from "../lib/offline/library";
-import type { DownloadRecord } from "../lib/offline/store";
+import {
+  mergeOfflinePosition,
+  serverPositionKey,
+  type DownloadRecord,
+} from "../lib/offline/store";
 
 const base = "https://cdn.example.com/pl/master.m3u8";
 
@@ -296,5 +300,75 @@ assert.equal(nextDownloadedEpisode(mixed, movie), null);
 // Beta's only later episode failed, and Alpha's S2E1 is a different show —
 // nothing playable comes after Beta S1E1, so no advance.
 assert.equal(nextDownloadedEpisode(mixed, betaE1), null);
+
+/* Server → offline resume merge: the higher of the two wins, a finished
+ * server row clears the local one, and a fresh 0-5s start never wipes. */
+function expectMerged(
+  actual: ReturnType<typeof mergeOfflinePosition>,
+  pos: number | null,
+  dur = 0
+): void {
+  if (pos === null) {
+    assert.equal(actual, null);
+    return;
+  }
+  assert.ok(actual, `expected a merged position, got ${actual}`);
+  assert.equal(actual.pos, pos);
+  assert.equal(actual.dur, dur);
+}
+const localAt = (pos: number, dur: number) => ({ pos, dur, at: 1 });
+
+// No local: server progress seeds the mirror when it is worth resuming.
+expectMerged(mergeOfflinePosition(null, 600, 4000), 600, 4000);
+// Nothing to resume yet (0-5s) or already finished — nothing is stored.
+expectMerged(mergeOfflinePosition(null, 3, 4000), null);
+expectMerged(mergeOfflinePosition(null, 3900, 4000), null);
+// Absurd rows (NaN / unknown duration) never seed.
+expectMerged(mergeOfflinePosition(null, Number.NaN, 4000), null);
+// The gap this sync closes: streamed online ahead of the offline bookmark.
+expectMerged(mergeOfflinePosition(localAt(300, 4000), 900, 4000), 900, 4000);
+// Offline progress ahead of the server keeps the local stop point.
+expectMerged(mergeOfflinePosition(localAt(900, 4000), 300, 4000), 900, 4000);
+// Server watched to the end (>= 92%) clears the stale Resume line.
+expectMerged(mergeOfflinePosition(localAt(900, 4000), 3900, 4000), null);
+// A fresh online start must never wipe local progress.
+expectMerged(mergeOfflinePosition(localAt(900, 4000), 3, 4000), 900, 4000);
+// A server row with no duration only compares positions.
+expectMerged(mergeOfflinePosition(localAt(900, 4000), 0, 0), 900, 4000);
+// Merged below the resume threshold is dropped, not stored.
+expectMerged(mergeOfflinePosition(localAt(2, 4000), 3, 4000), null);
+
+// Server rows land on the download's own key.
+assert.equal(
+  serverPositionKey({
+    mediaType: "tv",
+    tmdbId: 10,
+    seasonNumber: 1,
+    episodeNumber: 2,
+    positionSeconds: 0,
+    durationSeconds: 0,
+  }),
+  "e:10:1:2"
+);
+assert.equal(
+  serverPositionKey({
+    mediaType: "movie",
+    tmdbId: 10,
+    seasonNumber: 0,
+    episodeNumber: 0,
+    positionSeconds: 0,
+    durationSeconds: 0,
+  }),
+  "m:10"
+);
+assert.equal(
+  serverPositionKey({
+    mediaType: "tv",
+    tmdbId: 10,
+    positionSeconds: 0,
+    durationSeconds: 0,
+  }),
+  "e:10:0:0"
+);
 
 console.log("offline download checks ok");

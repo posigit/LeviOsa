@@ -5,6 +5,8 @@
  */
 import { get, set } from "idb-keyval";
 import { dlPlaylistUrl } from "@/lib/offline/hls";
+import { RESUME_END_RATIO } from "@/lib/player-constants";
+import { isResumablePosition } from "@/lib/player-progress";
 
 export const DL_CACHE = "tvtime-downloads";
 const MANIFEST_IDB_KEY = "tvtime-download-manifest-v1";
@@ -406,6 +408,105 @@ export function clearOfflinePosition(key: string): void {
     }
   } catch {
     /* ignore */
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Server → offline resume sync (streamed progress becomes a Resume line) */
+/* ------------------------------------------------------------------ */
+
+export type ServerPositionRow = {
+  mediaType: string;
+  tmdbId: number;
+  seasonNumber?: number;
+  episodeNumber?: number;
+  positionSeconds: number;
+  durationSeconds: number;
+  updatedAt?: string;
+};
+
+/** Same identity as downloadKey(), so a server row lands on its row's key. */
+export function serverPositionKey(row: ServerPositionRow): string {
+  const isMovie = row.mediaType === "movie";
+  return downloadKey(
+    isMovie ? "movie" : "episode",
+    row.tmdbId,
+    isMovie ? undefined : row.seasonNumber ?? 0,
+    isMovie ? undefined : row.episodeNumber ?? 0
+  );
+}
+
+/**
+ * Merge a server bookmark into the local offline one. The offline mirror only
+ * ever hears from offline playback, so the higher of the two is the truth:
+ *   - server finished (>= 92%) → null: online playback ran to the end, so the
+ *     stale local Resume line is dropped (mirrors the online 92% clear).
+ *   - no local → the server value, when it is worth resuming.
+ *   - both → max, re-gated by the resume rules (a fresh 0-5s server start
+ *     never wipes local progress, and non-resumable results never store).
+ */
+export function mergeOfflinePosition(
+  local: OfflinePosition | null,
+  serverPos: number,
+  serverDur: number
+): OfflinePosition | null {
+  const sPos = Number.isFinite(serverPos) ? Math.max(0, serverPos) : 0;
+  const sDur = Number.isFinite(serverDur) ? Math.max(0, serverDur) : 0;
+  if (sDur > 0 && sPos >= sDur * RESUME_END_RATIO) return null;
+  if (!local) {
+    return isResumablePosition(sPos, sDur) ? { pos: sPos, dur: sDur, at: Date.now() } : null;
+  }
+  const pos = Math.max(local.pos, sPos);
+  const dur = Math.max(local.dur, sDur);
+  if (!isResumablePosition(pos, dur)) return null;
+  return { pos, dur, at: Math.max(local.at, Date.now()) };
+}
+
+/** One bulk read per view — a repeat within this window is a no-op. */
+const POS_SYNC_TTL_MS = 60_000;
+let lastPosSyncAt = 0;
+
+/**
+ * Pull every server bookmark and fold it into the local mirror for the given
+ * finished downloads, so /library shows "Resume" for progress made while
+ * streaming online. Best effort: offline, signed out, or unreachable all
+ * leave the local mirror untouched. Writes emit tvtime:offline-position, so
+ * mounted rows update without a remount.
+ */
+export async function syncOfflinePositions(records: DownloadRecord[]): Promise<void> {
+  if (typeof window === "undefined" || !navigator.onLine) return;
+  const done = records.filter((r) => r.state === "done");
+  if (done.length === 0) return;
+  const now = Date.now();
+  if (now - lastPosSyncAt < POS_SYNC_TTL_MS) return;
+  lastPosSyncAt = now;
+
+  let items: ServerPositionRow[] = [];
+  try {
+    const res = await fetch("/api/playback?all=1", { headers: { accept: "application/json" } });
+    if (!res.ok) return;
+    const data = (await res.json()) as { items?: unknown };
+    if (Array.isArray(data?.items)) items = data.items as ServerPositionRow[];
+  } catch {
+    return;
+  }
+
+  const byKey = new Map<string, ServerPositionRow>();
+  for (const row of items) {
+    if (row && Number.isFinite(row.tmdbId)) byKey.set(serverPositionKey(row), row);
+  }
+
+  for (const record of done) {
+    const row = byKey.get(record.key);
+    if (!row) continue;
+    const local = readOfflinePosition(record.key);
+    const merged = mergeOfflinePosition(local, row.positionSeconds, row.durationSeconds);
+    if (merged === null) {
+      if (local) clearOfflinePosition(record.key);
+      continue;
+    }
+    if (local && local.pos === merged.pos && local.dur === merged.dur) continue;
+    writeOfflinePosition(record.key, merged.pos, merged.dur);
   }
 }
 

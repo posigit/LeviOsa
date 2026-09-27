@@ -18,6 +18,7 @@ import {
 } from "@/lib/downloader";
 import { formatPlayerClock, isResumablePosition } from "@/lib/player-progress";
 import { orderLibraryGroups } from "@/lib/offline/library";
+import { syncOfflinePositions } from "@/lib/offline/store";
 
 export function requestOfflinePlay(key: string) {
   window.dispatchEvent(
@@ -262,6 +263,18 @@ export function DownloadLibraryList({
   records: DownloadRecord[];
   onPlay: (record: DownloadRecord) => void;
 }) {
+  /**
+   * Fold server bookmarks into the offline mirror so a download shows
+   * "Resume" for progress made while streaming online. The store throttles
+   * itself and every write broadcasts, so rows here update live.
+   */
+  useEffect(() => {
+    void syncOfflinePositions(records);
+    const on = () => void syncOfflinePositions(records);
+    window.addEventListener("online", on);
+    return () => window.removeEventListener("online", on);
+  }, [records]);
+
   return (
     <>
       {orderLibraryGroups(records).map((group) => (

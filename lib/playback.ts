@@ -117,6 +117,48 @@ export async function getPlaybackPosition(
   return summary(row.positionSeconds, row.durationSeconds, row.updatedAt);
 }
 
+export type PlaybackPositionRow = {
+  mediaType: "movie" | "tv";
+  tmdbId: number;
+  seasonNumber: number;
+  episodeNumber: number;
+  positionSeconds: number;
+  durationSeconds: number;
+  updatedAt: string;
+};
+
+/**
+ * Every bookmark a user has, for GET /api/playback?all=1. Unlike
+ * getPlaybackPosition this keeps finished rows (>= 92%) too: the offline
+ * library merge needs them to clear a stale local Resume line.
+ */
+export async function getAllPlaybackPositions(
+  userId: string
+): Promise<PlaybackPositionRow[]> {
+  const rows = await db
+    .select({
+      mediaType: playbackPositions.mediaType,
+      tmdbId: playbackPositions.tmdbId,
+      seasonNumber: playbackPositions.seasonNumber,
+      episodeNumber: playbackPositions.episodeNumber,
+      positionSeconds: playbackPositions.positionSeconds,
+      durationSeconds: playbackPositions.durationSeconds,
+      updatedAt: playbackPositions.updatedAt,
+    })
+    .from(playbackPositions)
+    .where(eq(playbackPositions.userId, userId));
+
+  return rows.map((r) => ({
+    mediaType: r.mediaType === "movie" ? "movie" : "tv",
+    tmdbId: r.tmdbId,
+    seasonNumber: r.seasonNumber ?? 0,
+    episodeNumber: r.episodeNumber ?? 0,
+    positionSeconds: Math.max(0, Number(r.positionSeconds) || 0),
+    durationSeconds: Math.max(0, Number(r.durationSeconds) || 0),
+    updatedAt: (r.updatedAt ?? new Date(0)).toISOString(),
+  }));
+}
+
 export async function getShowPlaybackPositions(
   userId: string,
   showTmdbId: number,

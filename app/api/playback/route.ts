@@ -1,5 +1,6 @@
 import { auth } from "@/lib/auth";
 import { db, withDbRetry } from "@/lib/db";
+import { getAllPlaybackPositions } from "@/lib/playback";
 import { playbackPositions } from "@/lib/schema";
 import { eq, and, sql } from "drizzle-orm";
 import { NextRequest, NextResponse } from "next/server";
@@ -7,6 +8,7 @@ import { NextRequest, NextResponse } from "next/server";
 /**
  * Resume-playback positions.
  *   GET    /api/playback?type=movie|tv&id=<tmdbId>[&season=N&episode=N]
+ *   GET    /api/playback?all=1  → { items: [...] } every bookmark for the user
  *   POST   ?type=...&id=... with { positionSeconds, durationSeconds }
  *   DELETE /api/playback?type=...&id=...
  * Movies use season/episode = 0 (defaults).
@@ -53,6 +55,10 @@ export async function GET(req: NextRequest) {
   const session = await auth();
   if (!session?.user?.id) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+  if (req.nextUrl.searchParams.get("all") === "1") {
+    const items = await getAllPlaybackPositions(session.user.id);
+    return NextResponse.json({ items });
   }
   const p = parseMediaParams(req.nextUrl.searchParams);
   if (!p) return NextResponse.json({ error: "Invalid params" }, { status: 400 });
