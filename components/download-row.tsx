@@ -1,11 +1,12 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState, useSyncExternalStore } from "react";
 import { useRouter } from "next/navigation";
 import { Check, Download, Pause, Play, Trash2 } from "lucide-react";
 import { useToast } from "@/components/toast";
 import {
   formatBytes,
+  readOfflinePosition,
   type DownloadRecord,
 } from "@/lib/downloads";
 import {
@@ -15,6 +16,8 @@ import {
   pauseDownload,
   resumeDownload,
 } from "@/lib/downloader";
+import { formatPlayerClock, isResumablePosition } from "@/lib/player-progress";
+import { orderLibraryGroups } from "@/lib/offline/library";
 
 export function requestOfflinePlay(key: string) {
   window.dispatchEvent(
@@ -74,6 +77,19 @@ function qualityLabel(r: DownloadRecord): string {
  * Download settings sheet and the /library page. Resume/retry
  * refuse while offline (fetching is impossible); play/delete stay live.
  */
+/**
+ * Local stop position of a finished download, or null when there is nothing
+ * worth offering ("Resume 12:34"). Reads the localStorage mirror — the
+ * library is fully offline, so the server bookmark is never consulted.
+ */
+function resumeAtSnapshot(state: string, key: string): number | null {
+  if (state !== "done") return null;
+  const stored = readOfflinePosition(key);
+  return stored && isResumablePosition(stored.pos, stored.dur)
+    ? stored.pos
+    : null;
+}
+
 export function DownloadRow({
   record: r,
   onPlay,
@@ -87,6 +103,27 @@ export function DownloadRow({
   const runningHere = busy && (isDownloadActive(r.key) || isDownloadQueued(r.key));
   const stale = busy && !runningHere;
   const progress = r.totalSegments > 0 ? r.doneSegments / r.totalSegments : 0;
+
+  /**
+   * "Resume 12:34" is live, not one-shot: playback rewrites the mirror while
+   * this row is already mounted, and finishing an episode clears it. A memo
+   * keyed on [key, state] would keep serving the value from mount time.
+   */
+  const subscribe = useCallback(
+    (onChange: () => void) => {
+      const onPosition = (e: Event) => {
+        if ((e as CustomEvent<{ key?: string }>).detail?.key === r.key) onChange();
+      };
+      window.addEventListener("tvtime:offline-position", onPosition);
+      return () => window.removeEventListener("tvtime:offline-position", onPosition);
+    },
+    [r.key]
+  );
+  const resumeAt = useSyncExternalStore(
+    subscribe,
+    () => resumeAtSnapshot(r.state, r.key),
+    () => null
+  );
 
   const tryResume = () => {
     if (!online) {
@@ -136,6 +173,11 @@ export function DownloadRow({
                     ? "Removed — download again"
                     : "Waiting…"}
         </p>
+        {resumeAt != null && (
+          <p className="mt-0.5 text-[11px] font-semibold tabular-nums text-primary">
+            Resume {formatPlayerClock(resumeAt)}
+          </p>
+        )}
         {runningHere && (
           <div className="mt-1.5 h-1 overflow-hidden rounded-full bg-secondary">
             <div
@@ -205,5 +247,42 @@ export function DownloadRow({
         )}
       </div>
     </div>
+  );
+}
+
+/**
+ * Grouped download list shared by /library and the download settings sheet —
+ * one ordering helper, so both show the same show → season → episode order.
+ * Rows stay the plain DownloadRow (title, subtitle, play, delete).
+ */
+export function DownloadLibraryList({
+  records,
+  onPlay,
+}: {
+  records: DownloadRecord[];
+  onPlay: (record: DownloadRecord) => void;
+}) {
+  return (
+    <>
+      {orderLibraryGroups(records).map((group) => (
+        <div key={group.id} className="space-y-2">
+          {group.header && (
+            <p className="pt-1 text-[11px] font-black uppercase tracking-[0.14em] text-foreground/45">
+              {group.header}
+            </p>
+          )}
+          {group.rows.map(({ record, seasonLabel }) => (
+            <div key={record.key} className="space-y-1.5">
+              {seasonLabel && (
+                <p className="text-[10px] font-bold uppercase tracking-[0.14em] text-foreground/35">
+                  {seasonLabel}
+                </p>
+              )}
+              <DownloadRow record={record} onPlay={() => onPlay(record)} />
+            </div>
+          ))}
+        </div>
+      ))}
+    </>
   );
 }

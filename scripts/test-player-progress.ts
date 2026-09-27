@@ -272,24 +272,18 @@ assert.equal(
 assert.ok(canonicalMediaKey("https://cdn.example.com/s/1.ts").startsWith("media:"));
 assert.deepEqual(VOLATILE_PARAMS, ["token", "expires", "asn"]);
 
-// offline.html parity: the standalone launcher hardcodes the store contract
-// (it can't import TS). If these drift, cold-start offline breaks silently.
+// offline.html routes to Library (which owns downloads playback — the same
+// player runs online and offline). If the link goes away, cold-start offline
+// is a dead end with no way back to the bytes on the device.
 {
   const html = fs.readFileSync(
     path.join(__dirname, "..", "public", "offline.html"),
     "utf8"
   );
-  for (const needle of [
-    "keyval-store",
-    '"keyval"',
-    "tvtime-download-manifest-v1",
-    "tvtime-downloads",
-    "tvtime-offline-positions",
-    "/api/dl?playlist=",
-    "/vendor/hls.min.js",
-  ]) {
-    assert.ok(html.includes(needle), `offline.html missing ${needle}`);
-  }
+  assert.ok(
+    html.includes('href="/library"'),
+    "offline.html must link to /library"
+  );
 }
 
 console.log("player-progress: all assertions passed");

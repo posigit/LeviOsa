@@ -1,15 +1,21 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { VixPlayer } from "@/components/vix-player";
+import { UpNextCard } from "@/components/up-next-card";
 import {
   dlPlaylistUrl,
+  getAllSync,
   getManifest,
+  getRecordSync,
   readOfflinePosition,
   touchRecord,
   verifyRecordFiles,
+  type DownloadRecord,
 } from "@/lib/downloads";
 import { isResumablePosition } from "@/lib/player-progress";
+import { nextDownloadedEpisode, showNameOf } from "@/lib/offline/library";
+import { loadVixSettings } from "@/lib/vix-settings";
 import type { IntroDbSegments } from "@/lib/introdb";
 import { useToast } from "@/components/toast";
 
@@ -18,6 +24,10 @@ import { useToast } from "@/components/toast";
  * can request offline play via `requestOfflinePlay(recordKey)`; the host
  * mounts a VixPlayer wired straight at the cached playlist + stored subs,
  * skipping stream resolution entirely.
+ *
+ * The mount happens inside the tap's own task (record read from the warm
+ * manifest cache) so autoplay keeps the user gesture; the byte check runs
+ * BESIDE the open and closes it if the OS evicted the file.
  */
 export function OfflinePlayerHost() {
   const { toast } = useToast();
@@ -39,33 +49,34 @@ export function OfflinePlayerHost() {
     season?: number;
     episode?: number;
   } | null>(null);
+  /** Next downloaded episode offered at the end of an episode (TV only). */
+  const [upNext, setUpNext] = useState<DownloadRecord | null>(null);
+  /** 10 → 1 auto-advance countdown; 0 = autoplay off (tap-to-play card). */
+  const [upNextCount, setUpNextCount] = useState(0);
+  /** Bumped on every open/close — an in-flight verify can't close a newer player. */
+  const openIdRef = useRef(0);
 
-  useEffect(() => {
-    const onPlay = (e: Event) => {
-      const key = (e as CustomEvent<{ key: string }>).detail?.key;
-      if (!key) return;
-      // /api/dl is served ONLY by the service worker (no app route exists).
-      // Without a controlling SW the player would spin on 404s — say so.
-      if (!("serviceWorker" in navigator) || !navigator.serviceWorker.controller) {
-        toast("Offline player isn't ready — reload once online, then retry", "error");
-        return;
-      }
-      void (async () => {
-        const rec = (await getManifest())[key];
-        if (!rec) {
-          toast("Download not found", "error");
-          return;
-        }
+  const close = useCallback(() => {
+    openIdRef.current += 1;
+    setReq(null);
+    setMeta(null);
+    setSub(null);
+    setResumeAt(null);
+    setStoredSegments(null);
+    setStoredAlts(null);
+    setUpNext(null);
+    setUpNextCount(0);
+  }, []);
+
+  const open = useCallback(
+    (key: string) => {
+      const mount = (rec: DownloadRecord) => {
         if (rec.state !== "done") {
           toast("That download isn't finished yet", "error");
           return;
         }
-        const ok = await verifyRecordFiles(key);
-        if (!ok) {
-          toast("Files were cleared — download it again", "error");
-          return;
-        }
-        await touchRecord(key);
+        const openId = ++openIdRef.current;
+        void touchRecord(key);
         setSub(
           rec.subVtt ? { vtt: rec.subVtt, label: rec.subLabel ?? "Subtitles" } : null
         );
@@ -85,21 +96,84 @@ export function OfflinePlayerHost() {
           season: rec.season,
           episode: rec.episode,
         });
+        setUpNext(null);
+        setUpNextCount(0);
+        // Mount first — every await in front of this one spends the tap's
+        // user gesture, which autoplay needs to start without a second tap.
         setReq({ key, nonce: Date.now() });
+        void verifyRecordFiles(key).then((ok) => {
+          if (ok || openIdRef.current !== openId) return;
+          close();
+          toast("Files were cleared — download it again", "error");
+        });
+      };
+      // Warm manifest cache → mount inside this task (no await at all).
+      const cached = getRecordSync(key);
+      if (cached) {
+        mount(cached);
+        return;
+      }
+      void (async () => {
+        const rec = (await getManifest())[key];
+        if (!rec) {
+          toast("Download not found", "error");
+          return;
+        }
+        mount(rec);
       })();
+    },
+    [close, toast]
+  );
+
+  useEffect(() => {
+    // Warm the manifest cache so the first Play tap takes the sync path.
+    void getManifest();
+    const onPlay = (e: Event) => {
+      const key = (e as CustomEvent<{ key: string }>).detail?.key;
+      if (!key) return;
+      // /api/dl is served ONLY by the service worker (no app route exists).
+      // Without a controlling SW the player would spin on 404s — say so.
+      if (!("serviceWorker" in navigator) || !navigator.serviceWorker.controller) {
+        toast("Offline player isn't ready — reload once online, then retry", "error");
+        return;
+      }
+      open(key);
     };
     window.addEventListener("tvtime:play-offline", onPlay);
     return () => window.removeEventListener("tvtime:play-offline", onPlay);
-  }, [toast]);
+  }, [open, toast]);
 
-  const close = useCallback(() => {
-    setReq(null);
-    setMeta(null);
-    setSub(null);
-    setResumeAt(null);
-    setStoredSegments(null);
-    setStoredAlts(null);
-  }, []);
+  /** Near-end: queue the next downloaded episode of this show (movies: none). */
+  const handleNearEnd = useCallback(() => {
+    const key = req?.key;
+    if (!key) return;
+    const current = getAllSync().find((r) => r.key === key);
+    if (!current) return;
+    const next = nextDownloadedEpisode(getAllSync(), current);
+    // No later finished download: stay on the current ending, no card.
+    if (!next) return;
+    setUpNext(next);
+    setUpNextCount(loadVixSettings().autoplayNext ? 10 : 0);
+  }, [req]);
+
+  const playUpNext = useCallback(() => {
+    if (!upNext) return;
+    open(upNext.key);
+  }, [upNext, open]);
+
+  // Count the card down; at 0 swap onto the next download. autoplayNext off
+  // seeds 0, so the card sits there tap-to-play instead of advancing.
+  useEffect(() => {
+    if (!upNext || !req || upNextCount <= 0) return;
+    const t = window.setTimeout(() => {
+      if (upNextCount <= 1) {
+        playUpNext();
+      } else {
+        setUpNextCount(upNextCount - 1);
+      }
+    }, 1000);
+    return () => window.clearTimeout(t);
+  }, [upNext, req, upNextCount, playUpNext]);
 
   if (!req || !meta) return null;
 
@@ -119,7 +193,26 @@ export function OfflinePlayerHost() {
       initialSubVtt={sub}
       initialSubAlts={storedAlts}
       initialSegments={storedSegments}
-      onEvent={() => {}}
+      onNearEnd={handleNearEnd}
+      overlaySlot={
+        upNext ? (
+          <UpNextCard
+            episode={{
+              title: upNext.subtitle || undefined,
+              seasonNumber: upNext.season ?? 1,
+              episodeNumber: upNext.episode ?? 1,
+            }}
+            currentSeason={meta.season}
+            countdown={upNextCount}
+            onPlay={playUpNext}
+            onCancel={() => {
+              setUpNext(null);
+              setUpNextCount(0);
+            }}
+            showTitle={showNameOf(upNext.title)}
+          />
+        ) : null
+      }
       onClose={close}
     />
   );

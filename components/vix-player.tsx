@@ -621,7 +621,9 @@ export function VixPlayer({
     setServerMenuOpen(false);
     setMoreMenuOpen(false);
     segmentsKeyRef.current = null;
-    setSegments(EMPTY_SEGMENTS);
+    // Stored segments come back with the reset — the download captured them
+    // offline, and wiping them here would cost skip intro / the outro marker.
+    setSegments(initialSegments ?? EMPTY_SEGMENTS);
     setStreamError(null);
     setBuffering(false);
     // Stale rendition belongs to the old episode (pill shows Auto · 720p).
@@ -643,7 +645,7 @@ export function VixPlayer({
       clearTimeout(tapCueTimerRef.current);
       tapCueTimerRef.current = null;
     }
-  }, [src]);
+  }, [src, initialSegments]);
 
   // Single mount lifecycle: lock handoff across episode-advance remounts +
   // full teardown on real unmount (timers, audio graph, cast poll). The lock
@@ -1062,6 +1064,17 @@ export function VixPlayer({
   useEffect(() => {
     const params = playbackParams();
     if (!params) return;
+    // Offline download: never gate on the server. The local stop position is
+    // the resume point (mirrored below on save) and the outbox still queues
+    // server writes for reconnect — but a GET here would pause the first
+    // frame for up to 8s (offline included) and could pop Resume over Play.
+    if (offlineOverride) {
+      resumeLookupDoneRef.current = params;
+      holdForResumeRef.current = false;
+      saveEnabledRef.current = true;
+      resumePosRef.current = 0;
+      return;
+    }
     if (mode === "iframe") {
       // No cross-origin seek API for the embed — resume via its startAt
       // param instead. Always re-read the server bookmark so a dismissed
@@ -1201,6 +1214,7 @@ export function VixPlayer({
   }, [
     clearPosition,
     mode,
+    offlineOverride,
     playbackParams,
   ]);
 
@@ -1294,19 +1308,27 @@ export function VixPlayer({
   }, [mode]);
 
   // Offline auto-resume: jump straight to the locally stored stop position
-  // (no prompt — explicit user choice for downloads). seekAndArmSaves holds
-  // the video paused and enables saves only once the seek lands. Deferred to
-  // a microtask like the prompt-based resume below (not sync setState).
+  // (no prompt — explicit user choice for downloads). The target is armed
+  // SYNCHRONOUSLY, in an effect that runs before attachNativePlayback, so
+  // hls.js opens with startPosition instead of starting at 0 and seeking
+  // after attach (that late seek hid the controls behind the spinner).
+  // No hold and no resumeSeeking: Play stays mounted and tappable throughout.
   useEffect(() => {
     if (!offlineOverride || offlineResumeDoneRef.current) return;
-    if (mode !== "native" || initialPosition == null) return;
-    if (!Number.isFinite(initialPosition) || initialPosition <= RESUME_MIN_SECONDS) return;
     offlineResumeDoneRef.current = true;
-    const position = initialPosition;
-    queueMicrotask(() => {
-      void seekAndArmSaves(position);
-    });
-  }, [offlineOverride, mode, initialPosition, seekAndArmSaves]);
+    // Play once at first readiness even when there is NO bookmark: autoPlay
+    // is the primary path, this is the retry if the autoplay policy rejects
+    // it (markReady only fires it while the element is still paused).
+    holdForResumeRef.current = false;
+    saveEnabledRef.current = true;
+    advanceNeedsPlayRef.current = true;
+    // Nothing resumable — open at 0 with no pending seek.
+    if (initialPosition == null) return;
+    if (!Number.isFinite(initialPosition) || initialPosition <= RESUME_MIN_SECONDS) return;
+    pendingSeekPosRef.current = initialPosition;
+    lastSavedPosRef.current = initialPosition;
+    lastSavedAtRef.current = Date.now();
+  }, [offlineOverride, initialPosition]);
 
   // ---------- source switching ----------
   // Picker order: cinesrc, vidfast, mapple, vidlink, vidnest, 2embed,
@@ -1450,8 +1472,8 @@ export function VixPlayer({
     // sees the key and returns — no segments ever load.
     if (segmentsKeyRef.current === key) return;
     // Stored segments (captured with the download) win over the network —
-    // this is what makes skip/outro work fully offline. Key-marked done so
-    // the fetch below never re-runs for them.
+    // this is what makes skip/outro work fully offline. The [src] reset seeds
+    // them into state; key-marked done so the fetch below never re-runs.
     if (initialSegments) {
       segmentsKeyRef.current = key;
       return;
@@ -1916,15 +1938,16 @@ export function VixPlayer({
     };
 
     const markReady = () => {
-      if (video.readyState >= 2) setMediaReady(true);
-      // Advance autoplay: the new stream is attached — play unless the resume
-      // hold owns the element (mid-episode bookmark prompt keeps priority and
-      // pauses us back via the hold listener).
-      if (advanceNeedsPlayRef.current) {
-        advanceNeedsPlayRef.current = false;
-        if (!holdForResumeRef.current && video.paused) {
-          void video.play().catch(() => {});
-        }
+      const ready = video.readyState >= 2;
+      if (ready) setMediaReady(true);
+      // Advance autoplay / offline open: play once the stream can actually
+      // play. This setup call runs before hls.js has any data — playing there
+      // can reject and would burn the one-shot flag with Play left visible.
+      // A live resume hold keeps priority (it pauses us back anyway).
+      if (!ready || !advanceNeedsPlayRef.current) return;
+      advanceNeedsPlayRef.current = false;
+      if (!holdForResumeRef.current && video.paused) {
+        void video.play().catch(() => {});
       }
     };
 
@@ -3973,12 +3996,21 @@ export function VixPlayer({
         <div className="pointer-events-none absolute inset-0 z-[5] flex items-center justify-center text-white/70">
           <div className="flex items-center gap-2 rounded-full bg-black/60 px-4 py-2 text-xs font-semibold backdrop-blur">
             <LoaderCircle className="h-4 w-4 animate-spin" />
-            Loading {sourceLabel(activeSource)}…
+            {offlineOverride
+              ? "Starting…"
+              : `Loading ${sourceLabel(activeSource)}…`}
           </div>
         </div>
       )}
 
-      {mode === "native" && buffering && mediaReady && !showResume && (
+      {/* Rebuffer spinner only once playback has started — centered above the
+          picture, never over the Play control (it sits at z-30 vs the
+          transport's z-20, so a spinner while paused would swallow the tap). */}
+      {mode === "native" &&
+        buffering &&
+        mediaReady &&
+        !showResume &&
+        !transport.paused && (
         <div className="pointer-events-none absolute inset-0 z-30 flex items-center justify-center">
           <span className="flex h-11 w-11 items-center justify-center rounded-full bg-black/60 backdrop-blur">
             <LoaderCircle className="h-5 w-5 animate-spin text-white/85" />

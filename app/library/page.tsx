@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { ArrowLeft, Download } from "lucide-react";
 import {
-  DownloadRow,
+  DownloadLibraryList,
   requestOfflinePlay,
 } from "@/components/download-row";
 import {
@@ -78,16 +78,13 @@ export default function LibraryPage() {
             </p>
           </div>
         ) : (
-          items.map((r) => (
-            <DownloadRow
-              key={r.key}
-              record={r}
-              onPlay={() => {
-                void touchRecord(r.key);
-                requestOfflinePlay(r.key);
-              }}
-            />
-          ))
+          <DownloadLibraryList
+            records={items}
+            onPlay={(r) => {
+              void touchRecord(r.key);
+              requestOfflinePlay(r.key);
+            }}
+          />
         )}
       </div>
     </div>

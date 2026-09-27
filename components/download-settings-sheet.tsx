@@ -5,7 +5,7 @@ import { createPortal } from "react-dom";
 import { Download, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useToast } from "@/components/toast";
-import { DownloadRow } from "@/components/download-row";
+import { DownloadLibraryList } from "@/components/download-row";
 import {
   DEFAULT_VIX_SETTINGS,
   loadVixSettings,
@@ -146,7 +146,7 @@ export function DownloadSettingsSheet({
     setMode(next);
     saveVixSettings({ downloadMode: next });
     if (next) void ensurePersisted();
-    toast(next ? "Download mode on â€” look for â†“" : "Download mode off");
+    toast(next ? "Download mode on — look for ↓" : "Download mode off");
   };
 
   const pickQuality = (q: Quality) => {
@@ -327,7 +327,7 @@ export function DownloadSettingsSheet({
               type="button"
               onClick={() => {
                 onClose();
-                toast("Turn on download mode, then tap â†“ on anything");
+                toast("Turn on download mode, then tap download on anything");
               }}
               className="w-full cursor-pointer rounded-2xl bg-secondary px-4 py-6 text-center ring-1 ring-border transition active:scale-[0.99]"
             >
@@ -338,17 +338,14 @@ export function DownloadSettingsSheet({
             </button>
           ) : (
             <div className="space-y-2 pb-4">
-              {items.map((r) => (
-                <DownloadRow
-                  key={r.key}
-                  record={r}
-                  onPlay={() => {
-                    onClose();
-                    void touchRecord(r.key);
-                    requestOfflinePlay(r.key);
-                  }}
-                />
-              ))}
+              <DownloadLibraryList
+                records={items}
+                onPlay={(r) => {
+                  onClose();
+                  void touchRecord(r.key);
+                  requestOfflinePlay(r.key);
+                }}
+              />
             </div>
           )}
         </div>

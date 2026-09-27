@@ -19,6 +19,12 @@ import {
   segmentLooksValid,
   segmentShouldReject,
 } from "../lib/offline/hls";
+import {
+  nextDownloadedEpisode,
+  orderLibraryGroups,
+  showNameOf,
+} from "../lib/offline/library";
+import type { DownloadRecord } from "../lib/offline/store";
 
 const base = "https://cdn.example.com/pl/master.m3u8";
 
@@ -184,5 +190,111 @@ assert.ok(indexed.includes("#EXT-X-GAP"));
 assert.ok(indexed.includes("https://app/seg-0"));
 assert.ok(indexed.includes("https://app/seg-1"));
 assert.ok(!indexed.includes("seg.mp4"));
+
+/* ------------------------------------------------------------------ */
+/* Library order: shows grouped + season/episode sorted, movies split  */
+/* out, in-progress rows kept in their slot. Shared by /library and    */
+/* the download sheet (lib/offline/library.ts).                        */
+/* ------------------------------------------------------------------ */
+
+let fixtureSeq = 100;
+function fixture(over: Partial<DownloadRecord> = {}): DownloadRecord {
+  fixtureSeq += 1;
+  const type = over.type ?? "episode";
+  const tmdbId = over.tmdbId ?? 1;
+  const season = over.season ?? 1;
+  const episode = over.episode ?? 1;
+  return {
+    key:
+      over.key ??
+      (type === "movie" ? `m:${tmdbId}` : `e:${tmdbId}:${season}:${episode}`),
+    type,
+    tmdbId,
+    ...(type === "episode" ? { season, episode } : {}),
+    title: "Show — S1E1",
+    quality: 720,
+    usedSource: "vix",
+    durationSec: 1400,
+    estimateBytes: 1000,
+    sizeBytes: 1000,
+    bytesDone: 1000,
+    totalSegments: 10,
+    doneSegments: 10,
+    fileUrls: [],
+    state: "done",
+    subVtt: null,
+    subLabel: null,
+    subAlts: [],
+    segments: null,
+    downloadedAt: fixtureSeq,
+    lastUsedAt: fixtureSeq,
+    ...over,
+  };
+}
+
+const alphaE1 = fixture({ tmdbId: 10, title: "Alpha — S1E1", season: 1, episode: 1, downloadedAt: 10 });
+// Paused mid-download: it must keep its slot between E1 and E3, not sort away.
+const alphaE2Paused = fixture({ tmdbId: 10, title: "Alpha — S1E2", season: 1, episode: 2, state: "paused", downloadedAt: 11 });
+const alphaE3 = fixture({ tmdbId: 10, title: "Alpha — S1E3", season: 1, episode: 3, downloadedAt: 12 });
+// Saved AFTER S1E8 — download order must not decide episode order.
+const alphaE8 = fixture({ tmdbId: 10, title: "Alpha — S1E8", season: 1, episode: 8, downloadedAt: 13 });
+const alphaS2E1 = fixture({ tmdbId: 10, title: "Alpha — S2E1", season: 2, episode: 1, downloadedAt: 14 });
+const betaE1 = fixture({ tmdbId: 20, title: "Beta — S1E1", season: 1, episode: 1, downloadedAt: 20 });
+const betaE2Error = fixture({ tmdbId: 20, title: "Beta — S1E2", season: 1, episode: 2, state: "error", error: "Failed", downloadedAt: 21 });
+const movie = fixture({ type: "movie", tmdbId: 30, title: "Gamma (2020)", downloadedAt: 30 });
+
+// Deliberately download-ordered (newest first) and mixed across titles.
+const mixed = [movie, betaE2Error, alphaS2E1, alphaE3, betaE1, alphaE8, alphaE2Paused, alphaE1];
+const mixedBefore = mixed.map((r) => r.key);
+
+const groups = orderLibraryGroups(mixed);
+// Movies are their own group; shows order by their newest download.
+assert.deepEqual(
+  groups.map((g) => g.id),
+  ["m:30", "show:20", "show:10"]
+);
+// A movie row carries no section header (the row already shows the title).
+assert.equal(groups[0]!.header, null);
+assert.equal(groups[0]!.rows.length, 1);
+assert.equal(groups[1]!.header, "Beta");
+assert.equal(groups[2]!.header, "Alpha");
+
+// Season then episode, season wrap included: S1E8 before S2E1.
+assert.deepEqual(
+  groups[2]!.rows.map((r) => r.record.key),
+  ["e:10:1:1", "e:10:1:2", "e:10:1:3", "e:10:1:8", "e:10:2:1"]
+);
+// The paused row stays in episode order — the gap is visible.
+assert.equal(groups[2]!.rows[1]!.record.state, "paused");
+assert.equal(groups[1]!.rows[1]!.record.state, "error");
+// "Season N" only when the show spans more than one season.
+assert.deepEqual(
+  groups[2]!.rows.map((r) => r.seasonLabel),
+  ["Season 1", null, null, null, "Season 2"]
+);
+assert.deepEqual(
+  groups[1]!.rows.map((r) => r.seasonLabel),
+  [null, null]
+);
+// Pure: the caller's array keeps its own order.
+assert.deepEqual(mixed.map((r) => r.key), mixedBefore);
+
+// Show name is the title before " — ".
+assert.equal(showNameOf("Alpha — S1E8"), "Alpha");
+assert.equal(showNameOf("Gamma (2020)"), "Gamma (2020)");
+
+// Next downloaded episode: same show, later in season/episode order, done only.
+assert.equal(nextDownloadedEpisode(mixed, alphaE8)?.key, "e:10:2:1");
+assert.equal(nextDownloadedEpisode(mixed, alphaE3)?.key, "e:10:1:8");
+// Paused E2 is not playable — skip to the next finished episode.
+assert.equal(nextDownloadedEpisode(mixed, alphaE1)?.key, "e:10:1:3");
+// Nothing later finished → stay on the current ending, no card.
+assert.equal(nextDownloadedEpisode(mixed, alphaS2E1), null);
+assert.equal(nextDownloadedEpisode([alphaE1, alphaE3], alphaE8), null);
+// Movies never advance.
+assert.equal(nextDownloadedEpisode(mixed, movie), null);
+// Beta's only later episode failed, and Alpha's S2E1 is a different show —
+// nothing playable comes after Beta S1E1, so no advance.
+assert.equal(nextDownloadedEpisode(mixed, betaE1), null);
 
 console.log("offline download checks ok");

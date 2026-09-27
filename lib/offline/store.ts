@@ -359,10 +359,21 @@ function readPosMap(): Record<string, OfflinePosition> {
   }
 }
 
-/** Persist an offline stop position (throttle callers to ~2s). */
+/** Broadcast a position change so mounted rows re-read without a remount. */
+function emitOfflinePosition(key: string): void {
+  window.dispatchEvent(
+    new CustomEvent("tvtime:offline-position", { detail: { key } })
+  );
+}
+
+/**
+ * Persist an offline stop position (throttle callers to ~2s).
+ * `pos <= 0` is never stored — readOfflinePosition treats it as absent, so a
+ * warmup 0 would only clobber the map (the caller already drops that noise).
+ */
 export function writeOfflinePosition(key: string, pos: number, dur: number): void {
   if (typeof window === "undefined") return;
-  if (!key || !Number.isFinite(pos) || pos < 0) return;
+  if (!key || !Number.isFinite(pos) || pos <= 0) return;
   try {
     const map = readPosMap();
     map[key] = {
@@ -371,6 +382,7 @@ export function writeOfflinePosition(key: string, pos: number, dur: number): voi
       at: Date.now(),
     };
     window.localStorage.setItem(OFFLINE_POS_LS_KEY, JSON.stringify(map));
+    emitOfflinePosition(key);
   } catch {
     /* storage unavailable — resume just won't stick */
   }
@@ -390,6 +402,7 @@ export function clearOfflinePosition(key: string): void {
     if (map[key]) {
       delete map[key];
       window.localStorage.setItem(OFFLINE_POS_LS_KEY, JSON.stringify(map));
+      emitOfflinePosition(key);
     }
   } catch {
     /* ignore */
