@@ -36,6 +36,7 @@ import type {
 import type { ReviewsPayload } from "@/lib/reviews";
 import type { PlaybackSummary } from "@/lib/playback";
 import { formatPlaybackTime } from "@/lib/playback-format";
+import { postJsonOffline, queuedOffline } from "@/lib/offline/send";
 import {
   BookmarkCheck,
   Check,
@@ -345,15 +346,13 @@ export function ShowDetailClient({
       episodeNumber: number;
       watched: boolean;
     }[]
-  ) => {
-    const res = await fetch("/api/watch", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(
-        items.length === 1 ? items[0] : { episodes: items }
-      ),
-    });
+  ): Promise<boolean> => {
+    const res = await postJsonOffline(
+      "/api/watch",
+      items.length === 1 ? items[0] : { episodes: items }
+    );
     if (!res.ok) throw new Error("watch request failed");
+    return queuedOffline(res);
   };
 
   /** Fire confetti only when this update truly finishes the series (fully aired + all watched). */
@@ -389,7 +388,7 @@ export function ShowDetailClient({
     }
 
     try {
-      await postWatch(
+      const offline = await postWatch(
         items.map((i) => ({
           showTmdbId: show.tmdbId,
           seasonNumber: i.seasonNumber,
@@ -397,20 +396,21 @@ export function ShowDetailClient({
           watched: i.watched,
         }))
       );
+      const suffix = offline ? " — saved offline" : "";
 
       const marking = items.filter((i) => i.watched);
       const unmarking = items.filter((i) => !i.watched);
       if (marking.length === 1 && unmarking.length === 0) {
         toast(
-          `Watched ${formatEpisodeLabel(marking[0].seasonNumber, marking[0].episodeNumber)}`
+          `Watched ${formatEpisodeLabel(marking[0].seasonNumber, marking[0].episodeNumber)}${suffix}`
         );
       } else if (marking.length > 1 && unmarking.length === 0) {
-        toast(`Marked ${marking.length} episodes watched`);
+        toast(`Marked ${marking.length} episodes watched${suffix}`);
       } else if (unmarking.length > 0 && marking.length === 0) {
         toast(
-          unmarking.length === 1
+          (unmarking.length === 1
             ? "Unmarked episode"
-            : `Unmarked ${unmarking.length} episodes`
+            : `Unmarked ${unmarking.length} episodes`) + suffix
         );
       }
     } catch {
@@ -888,11 +888,12 @@ export function ShowDetailClient({
 
           <h1 className="mt-3 flex justify-center px-4">
             {logoSrc ? (
-              <Image
-                src={logoSrc}
-                alt={show.title}
-                width={512}
-                height={288}
+                  <Image
+                    src={logoSrc}
+                    alt={show.title}
+                    draggable={false}
+                    width={512}
+                    height={288}
                 sizes="(max-width: 480px) 88vw, 460px"
                 className="h-16 w-auto max-w-full object-contain drop-shadow-[0_6px_22px_rgba(0,0,0,0.95)] sm:h-20"
               />
@@ -1378,6 +1379,7 @@ export function ShowDetailClient({
                   <Image
                     src={src}
                     alt=""
+                    draggable={false}
                     width={hero ? 240 : 180}
                     height={hero ? 240 : 180}
                     sizes={hero ? "(min-width: 640px) 240px" : "(min-width: 640px) 180px"}

@@ -5,6 +5,7 @@ import { useState } from "react";
 import { cn } from "@/lib/utils";
 import { Check } from "lucide-react";
 import { formatEpisodeLabel, useToast } from "@/components/toast";
+import { postJsonOffline, queuedOffline } from "@/lib/offline/send";
 
 /** White filled circle check button (snapshot 1/2 style) — optimistic */
 export function MarkWatchedButton({
@@ -43,19 +44,18 @@ export function MarkWatchedButton({
     }
 
     try {
-      const res = await fetch("/api/watch", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          showTmdbId,
-          seasonNumber,
-          episodeNumber,
-          watched: true,
-        }),
+      const res = await postJsonOffline("/api/watch", {
+        showTmdbId,
+        seasonNumber,
+        episodeNumber,
+        watched: true,
       });
       if (!res.ok) throw new Error("watch failed");
 
-      toast(`Watched ${formatEpisodeLabel(seasonNumber, episodeNumber)}`);
+      const label = formatEpisodeLabel(seasonNumber, episodeNumber);
+      toast(
+        queuedOffline(res) ? `Watched ${label} — saved offline` : `Watched ${label}`
+      );
       // Soft refresh — UI already updated; keep list in sync with server
       router.refresh();
     } catch {

@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { Check, Plus } from "lucide-react";
 import { useToast } from "@/components/toast";
+import { postJsonOffline, queuedOffline } from "@/lib/offline/send";
 
 export type MovieStatus = "want_to_watch" | "watched" | null;
 
@@ -47,15 +48,17 @@ export function MovieWatchButton({
     }
     startTransition(async () => {
       try {
-        const res = await fetch("/api/movie-watch", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ tmdbId, status: next }),
+        const res = await postJsonOffline("/api/movie-watch", {
+          tmdbId,
+          status: next,
         });
         const data = await res.json().catch(() => ({}));
         if (!res.ok) throw new Error("save failed");
+        if (queuedOffline(res)) {
+          toast("Saved offline — will sync", "info");
+        }
         // Re-adding a watched title queues a rewatch (stays watched underneath).
-        if (data?.queuedRewatch) {
+        else if (data?.queuedRewatch) {
           setStatus("watched");
           toast("Queued for rewatch — in Watch Next");
         } else if (next === "watched") toast("Marked watched");

@@ -10,6 +10,7 @@ import { VixPlayer } from "@/components/vix-player";
 import type { ContinueWatchingItem } from "@/lib/playback";
 import { formatEpisodeCode, formatPlaybackTime } from "@/lib/playback-format";
 import { useToast } from "@/components/toast";
+import { postJsonOffline, queuedOffline } from "@/lib/offline/send";
 
 function ResumeCard({ item }: { item: ContinueWatchingItem }) {
   const [open, setOpen] = useState(false);
@@ -48,26 +49,22 @@ function ResumeCard({ item }: { item: ContinueWatchingItem }) {
           try {
             const response =
               item.mediaType === "movie"
-                ? await fetch("/api/movie-watch", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({
-                      tmdbId: item.tmdbId,
-                      status: "watched",
-                    }),
+                ? await postJsonOffline("/api/movie-watch", {
+                    tmdbId: item.tmdbId,
+                    status: "watched",
                   })
-                : await fetch("/api/watch", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({
-                      showTmdbId: item.tmdbId,
-                      seasonNumber: item.seasonNumber,
-                      episodeNumber: item.episodeNumber,
-                      watched: true,
-                    }),
+                : await postJsonOffline("/api/watch", {
+                    showTmdbId: item.tmdbId,
+                    seasonNumber: item.seasonNumber,
+                    episodeNumber: item.episodeNumber,
+                    watched: true,
                   });
             if (!response.ok) throw new Error("completion failed");
-            toast("Saved as watched");
+            toast(
+              queuedOffline(response)
+                ? "Saved offline — will sync"
+                : "Saved as watched"
+            );
           } catch {
             setCompleted(false);
             toast("Couldn’t save watched status", "error");

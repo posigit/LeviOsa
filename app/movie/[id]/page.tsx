@@ -41,7 +41,6 @@ import { MovieWatchButton } from "@/components/movie-watch-button";
 import { FavoriteButton } from "@/components/favorite-button";
 import { AddToListButton } from "@/components/add-to-list-button";
 import { MovieRewatchButton } from "@/components/movie-rewatch-button";
-import { MovieDiaryLine } from "@/components/movie-diary-line";
 // import { ReactionPicker } from "@/components/reaction-picker"; // hidden for now
 import { MovieRating } from "@/components/star-rating";
 import { DiscoverRail } from "@/components/discover-rail";
@@ -193,10 +192,13 @@ export default async function MovieDetailPage({
           and(eq(movieReactions.userId, userId), eq(movieReactions.tmdbId, tmdbId))
         ),
     ]);
+  /**
+   * `watchHistory` gets a row on the first mark-watched *and* on every
+   * rewatch, so the row count is the total times watched. Anything that adds
+   * one to it double-counts — the pill, the rewatch chip and the hero bar all
+   * read this number.
+   */
   const movieRewatchCount = movieHistoryRows.length;
-  const diaryDates = movieHistoryRows
-    .map((r) => r.watchedAt)
-    .filter((d): d is Date => d instanceof Date && !Number.isNaN(d.getTime()));
   const userMovieRow = (userMovie ?? null) as
     | (NonNullable<typeof userMovie> & { rewatchQueued?: boolean | null })
     | null;
@@ -457,6 +459,7 @@ export default async function MovieDetailPage({
               <Image
                 src={logoSrc}
                 alt={movie.title}
+                draggable={false}
                 width={512}
                 height={288}
                 sizes="(max-width: 480px) 88vw, 460px"
@@ -515,7 +518,7 @@ export default async function MovieDetailPage({
                     ? timeLeftText
                       ? `${timeLeftText} left`
                       : `${positionPct.toFixed(0)}%`
-                    : `${movieRewatchCount + 1}x`}
+                    : `${Math.max(movieRewatchCount, isWatched ? 1 : 0)}x`}
                 </span>
               </div>
               <div className="mt-2 h-1.5 w-full overflow-hidden rounded-full bg-white/25">
@@ -570,10 +573,6 @@ export default async function MovieDetailPage({
             item={{ type: "movie", tmdbId, title: movie.title }}
           />
         </div>
-
-        {isWatched && diaryDates.length > 0 && (
-          <MovieDiaryLine dates={diaryDates} />
-        )}
 
         {/* Reactions hidden for now — emoji row felt noisy next to scores.
         <div className="mt-3">
@@ -927,6 +926,7 @@ export default async function MovieDetailPage({
                     <Image
                       src={src}
                       alt=""
+                      draggable={false}
                       width={hero ? 240 : 180}
                       height={hero ? 240 : 180}
                       sizes={

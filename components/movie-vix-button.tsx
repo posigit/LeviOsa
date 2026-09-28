@@ -8,6 +8,7 @@ import { vixMovieUrl } from "@/lib/vixsrc";
 import { useToast } from "@/components/toast";
 import type { PlaybackSummary } from "@/lib/playback";
 import { formatPlaybackTime } from "@/lib/playback-format";
+import { postJsonOffline, queuedOffline } from "@/lib/offline/send";
 import { cn } from "@/lib/utils";
 
 /**
@@ -67,25 +68,22 @@ export function MovieVixButton({
     if (completionRef.current) return;
     completionRef.current = true;
     try {
-      if (isWatched) {
-        // Finishing an already-watched title = a rewatch. Stamp history and
-        // clear the queue flag so Watch Next drops it.
-        const res = await fetch("/api/movie-rewatch", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ tmdbId, mode: "log" }),
-        });
-        if (!res.ok) throw new Error("save failed");
+      // Finishing an already-watched title = a rewatch. Stamp history and
+      // clear the queue flag so Watch Next drops it.
+      const res = isWatched
+        ? await postJsonOffline("/api/movie-rewatch", { tmdbId, mode: "log" })
+        : await postJsonOffline("/api/movie-watch", {
+            tmdbId,
+            status: "watched",
+          });
+      if (!res.ok) throw new Error("save failed");
+      if (queuedOffline(res)) {
+        toast("Watched — saved offline", "info");
+      } else if (isWatched) {
         toast(
           isRewatchQueued ? "Rewatch logged — nice one!" : "Rewatch logged!"
         );
       } else {
-        const res = await fetch("/api/movie-watch", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ tmdbId, status: "watched" }),
-        });
-        if (!res.ok) throw new Error("save failed");
         toast("Watched — nice one!");
       }
       router.refresh();

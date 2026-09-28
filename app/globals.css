@@ -421,3 +421,15 @@ html[data-theme="light"] .top-ten-rank-gold {
     drop-shadow(0 -1px 0 #fff)
     drop-shadow(0 10px 14px rgba(0, 0, 0, 0.6));
 }
+
+/* ---------------------------------------------------------------------------
+ * Detail art is decorative. Without this, a press-and-drag (desktop) or
+ * long-press (iOS Safari) lifts any <img> into a native drag ghost and drops
+ * it as a link. The attribute on the sticker rails covers Firefox, which
+ * ignores -webkit-user-drag.
+ * ------------------------------------------------------------------------- */
+img {
+  -webkit-user-drag: none;
+  -webkit-touch-callout: none;
+  user-select: none;
+}

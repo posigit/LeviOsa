@@ -519,6 +519,12 @@ export type OutboxEntry = {
   params: string;
   method: string;
   body?: string;
+  /**
+   * Absolute path to replay. Present on everything written by this build;
+   * older persisted entries only have `params` and are rebuilt as
+   * `/api/playback?${params}` below.
+   */
+  url?: string;
   at: number;
   attempts: number;
 };
@@ -550,6 +556,9 @@ async function saveOutbox(list: OutboxEntry[]): Promise<void> {
  * Pure coalesce: same params+method replaces (positions), a DELETE absorbs
  * pending POSTs for the same key (finished beats everything before it).
  * Exported for unit tests.
+ *
+ * Callers that need every entry kept (one `/api/watch` POST per episode all
+ * share a URL) must fold the discriminator into `params`.
  */
 export function coalesceOutbox(
   list: OutboxEntry[],
@@ -594,7 +603,7 @@ export async function drainPlaybackOutbox(): Promise<void> {
     if (list.length === 0) return;
     for (const entry of list) {
       try {
-        const res = await fetch(`/api/playback?${entry.params}`, {
+        const res = await fetch(entry.url ?? `/api/playback?${entry.params}`, {
           method: entry.method,
           headers: { "Content-Type": "application/json" },
           body: entry.body,
