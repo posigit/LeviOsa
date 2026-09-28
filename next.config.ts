@@ -20,6 +20,13 @@ const nextConfig: NextConfig = {
         hostname: "i.ytimg.com",
         pathname: "/vi/**",
       },
+      // Sticker rail (Fanart character art / clearart) — served through the
+      // optimizer so transparent PNGs ship as ~8KB AVIF instead of ~300KB each.
+      {
+        protocol: "https",
+        hostname: "assets.fanart.tv",
+        pathname: "/fanart/**",
+      },
     ],
     // Smaller bytes on poster-heavy grids (AVIF first, WebP fallback).
     formats: ["image/avif", "image/webp"],

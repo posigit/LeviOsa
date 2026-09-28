@@ -193,6 +193,40 @@ export function movieDirectors(crew: TmdbCrewMember[] | null | undefined): strin
   return names;
 }
 
+export type TmdbCastMember = {
+  id: number;
+  name: string;
+  character?: string;
+  order?: number;
+  profile_path?: string | null;
+};
+
+/** Show cast, ordered like TMDB already sorts it (billed order). */
+export async function getTvCredits(tmdbId: number) {
+  const data = await tmdbFetch<{
+    cast: TmdbCastMember[];
+    crew: TmdbCrewMember[];
+  }>(`/tv/${tmdbId}/credits`, {}, { revalidate: 86400 });
+  return {
+    cast: data.cast ?? [],
+    crew: data.crew ?? [],
+  };
+}
+
+/** Creator names from TMDB TV credits crew. */
+export function tvCreators(crew: TmdbCrewMember[] | null | undefined): string[] {
+  if (!crew?.length) return [];
+  const names: string[] = [];
+  const seen = new Set<string>();
+  for (const c of crew) {
+    if (c.job !== "Creator" || !c.name) continue;
+    if (seen.has(c.name)) continue;
+    seen.add(c.name);
+    names.push(c.name);
+  }
+  return names;
+}
+
 export async function getTvExternalIds(tmdbId: number) {
   return tmdbFetch<{ imdb_id?: string | null }>(`/tv/${tmdbId}/external_ids`);
 }

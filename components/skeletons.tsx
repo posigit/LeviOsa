@@ -275,25 +275,41 @@ export function ShowDetailSkeleton() {
       role="status"
       aria-label="Loading show"
     >
-      <DetailHeroSkeleton />
+      {/* Full-bleed poster hero — matches the loaded page's 72dvh frame. */}
+      <div className="relative h-[72dvh] max-h-[720px] min-h-[460px] overflow-hidden bg-card">
+        <div className="absolute inset-0 animate-pulse bg-secondary" />
+        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/45 to-transparent" />
+        <div className="absolute left-4 top-safe-float h-10 w-10 rounded-full bg-background/50" />
+        <div className="absolute right-4 top-safe-float h-10 w-10 rounded-full bg-background/50" />
 
-      <div className="px-4 pt-4">
-        {/* About / Episodes tabs */}
-        <div className="mb-4 flex gap-6 border-b border-border pb-3">
-          <Skeleton className="h-4 w-16 opacity-50" />
-          <div className="relative">
-            <Skeleton className="h-4 w-20" />
-            <span className="absolute -bottom-3 left-0 right-0 h-0.5 bg-foreground/40" />
+        <div className="absolute inset-x-0 bottom-0 space-y-3 px-5 pb-6">
+          <div className="flex justify-center">
+            <Skeleton className="h-6 w-24 rounded-full bg-foreground/15" />
+          </div>
+          <Skeleton className="mx-auto h-9 w-56 max-w-[80%] bg-foreground/15" />
+          <Skeleton className="mx-auto block h-4 w-48 bg-foreground/10" />
+          <div className="space-y-2 pt-4">
+            <div className="flex justify-between">
+              <Skeleton className="h-4 w-16 bg-foreground/10" />
+              <Skeleton className="h-4 w-14 bg-foreground/10" />
+            </div>
+            <Skeleton className="h-1.5 w-full rounded-full bg-foreground/10" />
           </div>
         </div>
+      </div>
 
-        {/* Next episode card */}
-        <Skeleton className="mb-4 h-24 w-full rounded-xl" />
+      {/* CTA pill + favorite */}
+      <div className="flex items-center gap-3 px-4 pt-4">
+        <Skeleton className="h-12 flex-1 rounded-full bg-foreground/10" />
+        <Skeleton className="h-12 w-12 rounded-full bg-foreground/10" />
+      </div>
 
-        {/* Season accordion rows */}
+      <div className="px-4 pt-7">
+        <Skeleton className="mb-4 h-6 w-28 bg-foreground/15" />
+        <Skeleton className="mb-5 h-28 w-full rounded-2xl bg-foreground/10" />
         <div className="space-y-2">
           {Array.from({ length: 4 }, (_, i) => (
-            <Skeleton key={i} className="h-14 w-full rounded-xl" />
+            <Skeleton key={i} className="h-24 w-full rounded-2xl bg-foreground/10" />
           ))}
         </div>
       </div>

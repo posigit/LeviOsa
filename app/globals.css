@@ -390,3 +390,34 @@ html[data-theme="light"] .top-ten-rank-gold {
     transform: translateY(0) scale(1);
   }
 }
+
+/* ---------------------------------------------------------------------------
+ * Liquid-glass control - pill/circle chrome on detail heroes.
+ * Deliberately sets NO background: pair it with a Tailwind bg-white/* utility
+ * so layered hover: variants can still win. Unlayered so its border and inset
+ * highlight always beat preflight. See .glass-panel above for the card
+ * variant, which does carry its own theme-tinted background.
+ * ------------------------------------------------------------------------- */
+.glass-control {
+  -webkit-backdrop-filter: blur(18px) saturate(1.4);
+  backdrop-filter: blur(18px) saturate(1.4);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow:
+    0 10px 30px rgba(0, 0, 0, 0.45),
+    inset 0 1px 0 rgba(255, 255, 255, 0.28);
+}
+
+/* ---------------------------------------------------------------------------
+ * Sticker die-cut - outlines a transparent PNG with a white keyline by
+ * chaining one-sided drop-shadows, then adds a cast shadow beneath. Each
+ * shadow applies to the previous result, so four 1px passes read as a ~2px
+ * sticker border without touching the source artwork.
+ * ------------------------------------------------------------------------- */
+.sticker-art {
+  filter:
+    drop-shadow(1px 0 0 #fff)
+    drop-shadow(-1px 0 0 #fff)
+    drop-shadow(0 1px 0 #fff)
+    drop-shadow(0 -1px 0 #fff)
+    drop-shadow(0 10px 14px rgba(0, 0, 0, 0.6));
+}
