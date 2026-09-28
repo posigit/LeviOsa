@@ -11,7 +11,6 @@ import {
   type TmdbPersonMovieCredit,
 } from "@/lib/tmdb";
 import { MovieWatchButton } from "@/components/movie-watch-button";
-import { StickyChrome } from "@/components/sticky-chrome";
 
 function score(v?: number) {
   if (v == null || v <= 0) return "–";
@@ -117,82 +116,117 @@ export default async function PersonPage({
   ).slice(0, 12);
   const knownFor = acting.slice(0, 6);
 
-  const photo = posterUrl(details.profile_path, "w500");
+  const photo = posterUrl(details.profile_path, "original");
   const birthYear = details.birthday?.slice(0, 4);
+  const knownForTitles = knownFor
+    .map((c) => c.title ?? c.name)
+    .filter(Boolean);
+
+  /** Hero meta line: born, birthplace, then the credit counts. */
+  const facts = [
+    birthYear ? `Born ${birthYear}` : null,
+    details.place_of_birth || null,
+    `${acting.length} film${acting.length === 1 ? "" : "s"}`,
+    directing.length > 0 ? `${directing.length} directed` : null,
+  ].filter(Boolean) as string[];
 
   return (
     <div className="min-h-dvh bg-black pb-nav-page">
-      <StickyChrome contentClassName="px-4 pt-2 pb-2">
-        <div className="flex items-center gap-3">
+      {/* ---------- Floating controls: stick over the scroll, like the app ---------- */}
+      <div className="pointer-events-none fixed inset-x-0 top-0 z-40 px-4 top-safe-float">
+        <div className="flex items-center justify-between">
           <Link
             href="/movies"
             aria-label="Back to movies"
-            className="flex h-9 w-9 items-center justify-center rounded-full bg-white/10 text-white"
+            className="glass-control pointer-events-auto grid h-10 w-10 place-items-center rounded-full bg-white/10 text-white transition hover:bg-white/25 active:scale-95"
           >
             <ChevronLeft className="h-5 w-5" />
           </Link>
-          <div className="min-w-0">
-            <p className="text-[10px] font-black uppercase tracking-[0.2em] text-primary">
-              {details.known_for_department ?? "Filmography"}
-            </p>
-            <h1 className="truncate text-lg font-black text-white">
-              {details.name}
-            </h1>
-          </div>
-        </div>
-      </StickyChrome>
-
-      {/* Hero: photo + facts */}
-      <div className="flex gap-4 px-4 pt-4">
-        <div className="relative h-44 w-32 flex-shrink-0 overflow-hidden rounded-2xl bg-secondary ring-1 ring-white/15">
-          {photo ? (
-            <Image
-              src={photo}
-              alt={details.name}
-              fill
-              sizes="128px"
-              className="object-cover"
-              unoptimized
-              priority
-            />
-          ) : (
-            <div className="flex h-full w-full items-center justify-center text-3xl font-black text-white/30">
-              {details.name.charAt(0)}
-            </div>
-          )}
-        </div>
-        <div className="min-w-0 flex-1 pt-1">
-          {details.known_for_department ? (
-            <p className="text-xs font-bold uppercase tracking-wider text-white/40">
-              {details.known_for_department}
-            </p>
-          ) : null}
-          {birthYear ? (
-            <p className="mt-1 text-sm font-semibold text-white/70">
-              Born {birthYear}
-              {details.place_of_birth ? ` · ${details.place_of_birth}` : ""}
-            </p>
-          ) : details.place_of_birth ? (
-            <p className="mt-1 text-sm font-semibold text-white/70">
-              {details.place_of_birth}
-            </p>
-          ) : null}
-          <p className="mt-1 text-sm font-semibold text-white/70">
-            {acting.length} film{acting.length === 1 ? "" : "s"}
-            {directing.length > 0 ? ` · ${directing.length} directed` : ""}
-          </p>
-          {knownFor.length > 0 ? (
-            <p className="mt-2 line-clamp-2 text-xs leading-relaxed text-white/50">
-              Known for {knownFor.map((c) => c.title ?? c.name).join(", ")}
-            </p>
-          ) : null}
         </div>
       </div>
 
-      {/* Bio */}
+      {/* ---------- Full-bleed photo hero ---------- */}
+      <div className="relative isolate h-[72dvh] max-h-[720px] min-h-[460px] overflow-hidden">
+        {photo ? (
+          <Image
+            src={photo}
+            alt={details.name}
+            fill
+            sizes="100vw"
+            className="object-cover object-top"
+            priority
+          />
+        ) : (
+          <div
+            aria-hidden
+            className="absolute inset-0 flex items-center justify-center bg-gradient-to-b from-secondary to-black"
+          >
+            <span className="text-[26vw] font-black leading-none text-white/10">
+              {details.name.charAt(0)}
+            </span>
+          </div>
+        )}
+
+        {/* Theme seam: keeps the bottom edge of the hero on true black. */}
+        <div
+          aria-hidden
+          className="absolute inset-0"
+          style={{
+            background:
+              "radial-gradient(120% 60% at 50% 100%, rgb(var(--theme) / 0.32), transparent 70%)",
+          }}
+        />
+
+        <div
+          aria-hidden
+          className="absolute inset-x-0 top-0 h-36 bg-gradient-to-b from-black/75 via-black/35 to-transparent"
+        />
+        <div
+          aria-hidden
+          className="absolute inset-x-0 bottom-0 h-[58%]"
+          style={{
+            background:
+              "linear-gradient(to top, #000 14%, rgb(0 0 0 / 0.82) 34%, rgb(0 0 0 / 0.45) 62%, transparent)",
+          }}
+        />
+
+        {/* Hero footer: department -> name -> facts -> known for */}
+        <div className="absolute inset-x-0 bottom-0 px-5 pb-6 text-center">
+          <span className="glass-control inline-flex rounded-full bg-white/10 px-3 py-1 text-xs font-semibold text-white/90">
+            {details.known_for_department ?? "Filmography"}
+          </span>
+
+          <h1 className="mt-3 px-4 text-4xl font-black tracking-tight text-white drop-shadow-[0_4px_18px_rgba(0,0,0,0.9)]">
+            {details.name}
+          </h1>
+
+          {facts.length > 0 && (
+            <p className="mt-3 flex flex-wrap items-center justify-center gap-x-2 text-[15px] text-white/75">
+              {facts.map((item, i) => (
+                <span key={item} className="inline-flex items-center gap-2">
+                  {i > 0 && (
+                    <span aria-hidden className="text-white/35">
+                      {"\u00b7"}
+                    </span>
+                  )}
+                  {item}
+                </span>
+              ))}
+            </p>
+          )}
+
+          {knownForTitles.length > 0 && (
+            <p className="mx-auto mt-3 max-w-md text-[13px] leading-snug text-white/55">
+              Known for {knownForTitles.join(", ")}
+            </p>
+          )}
+        </div>
+      </div>
+
+      {/* ---------- Biography ---------- */}
       {details.biography ? (
-        <section className="mt-5 px-4">
-          <h2 className="mb-2 text-lg font-extrabold tracking-tight text-white">
+        <section className="px-4 pt-7">
+          <h2 className="mb-2 text-[22px] font-extrabold tracking-tight text-white">
             Biography
           </h2>
           <p className="line-clamp-6 text-sm leading-relaxed text-white/75">
@@ -201,10 +235,29 @@ export default async function PersonPage({
         </section>
       ) : null}
 
-      {/* Directing first when they're a director */}
+      {/* ---------- Known for ---------- */}
+      {knownFor.length > 0 && (
+        <section className="px-4 pt-7">
+          <h2 className="mb-3 text-[22px] font-extrabold tracking-tight text-white">
+            Known for
+          </h2>
+          <div className="grid grid-cols-3 gap-x-2 gap-y-4">
+            {knownFor.map((c) => (
+              <CreditCard
+                key={`known-${c.id}-${c.character ?? ""}`}
+                credit={c}
+                role={c.character}
+                status={library.movieStatusById.get(c.id) || null}
+              />
+            ))}
+          </div>
+        </section>
+      )}
+
+      {/* ---------- Directed ---------- */}
       {directing.length > 0 && (
-        <section className="mt-6 px-4">
-          <h2 className="mb-2.5 text-lg font-extrabold tracking-tight text-white">
+        <section className="px-4 pt-7">
+          <h2 className="mb-3 text-[22px] font-extrabold tracking-tight text-white">
             Directed
           </h2>
           <div className="grid grid-cols-3 gap-x-2 gap-y-4">
@@ -219,8 +272,9 @@ export default async function PersonPage({
         </section>
       )}
 
-      <section className="mt-6 px-4 pb-4">
-        <h2 className="mb-2.5 text-lg font-extrabold tracking-tight text-white">
+      {/* ---------- Filmography ---------- */}
+      <section className="px-4 pt-7 pb-4">
+        <h2 className="mb-3 text-[22px] font-extrabold tracking-tight text-white">
           {directing.length > 0 ? "Acting" : "Filmography"}
         </h2>
         {acting.length === 0 ? (

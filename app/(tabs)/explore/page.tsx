@@ -11,6 +11,7 @@ import { StickyChrome } from "@/components/sticky-chrome";
 import { ExplorePills } from "@/components/explore-pills";
 import { ShowFollowButton } from "@/components/show-follow-button";
 import { DiscoverRail } from "@/components/discover-rail";
+import { FeedHero } from "@/components/feed-hero";
 import { DiscoverGenreBrowser } from "@/components/discover-genre-browser";
 import { DailyPickCard } from "@/components/daily-pick";
 import { TopTenRail } from "@/components/top-ten";
@@ -78,21 +79,19 @@ async function FeedBody({ userId }: { userId: string }) {
   const { digest, library, continueWatching, tonight, topShows, topMovies } =
     data;
   const pick = digest.dailyPick;
+  const forYou = digest.forYou;
+
+  /** The hero carries the head of the personal stack; the rail keeps the tail. */
+  const heroItems = (forYou.length >= 3 ? forYou : topShows).slice(0, 6);
+  const heroKicker = forYou.length >= 3 ? "For you" : "Trending now";
+  const forYouTail = forYou.slice(6);
 
   return (
     <>
-      <TonightStrip items={tonight} />
-      <ContinueWatchingRail items={continueWatching} />
+      <FeedHero items={heroItems} kicker={heroKicker} />
 
-      <TopTenRail
-        label="Top 10 Series"
-        kicker="Hottest this week"
-        href="/explore/top-10/shows"
-        items={topShows}
-        ownedIds={library.followedShowIds}
-        priority
-        featured
-      />
+      <ContinueWatchingRail items={continueWatching} />
+      <TonightStrip items={tonight} />
 
       {pick && (
         <DailyPickCard
@@ -110,10 +109,10 @@ async function FeedBody({ userId }: { userId: string }) {
         />
       )}
 
-      {digest.forYou.length > 0 && (
+      {forYouTail.length > 3 && (
         <DiscoverRail
-          label="For you"
-          items={digest.forYou}
+          label="More for you"
+          items={forYouTail}
           followedShowIds={library.followedShowIds}
           movieStatusById={library.movieStatusById}
         />
@@ -130,6 +129,16 @@ async function FeedBody({ userId }: { userId: string }) {
       ))}
 
       <TopTenRail
+        label="Top 10 Series"
+        kicker="Hottest this week"
+        href="/explore/top-10/shows"
+        items={topShows}
+        ownedIds={library.followedShowIds}
+        priority
+        featured
+      />
+
+      <TopTenRail
         label="Top 10 Movies"
         href="/explore/top-10/movies"
         items={topMovies}
@@ -144,18 +153,28 @@ async function DiscoverBody({ userId }: { userId: string }) {
   const { library } = data;
   const movieStatusRecord = Object.fromEntries(library.movieStatusById);
 
+  /** Trending series and films share the featured stage. */
+  const heroItems = [
+    ...data.hotMovies.slice(0, 3),
+    ...data.popularTv.slice(0, 3),
+  ].slice(0, 6);
+
   return (
     <>
-      <p className="mb-4 text-center text-xs text-muted-foreground">
-        Find something new — not already in your library
+      <FeedHero items={heroItems} kicker="Trending now" />
+
+      <p className="mb-5 text-center text-xs text-muted-foreground">
+        Find something new - not already in your library
       </p>
 
-      <DiscoverRail
-        label="Hidden gems"
-        items={data.hiddenGems}
-        followedShowIds={library.followedShowIds}
-        movieStatusById={library.movieStatusById}
+      {/* Browse first: this tab is for searching the whole catalog. */}
+      <DiscoverGenreBrowser
+        genres={data.genreChips}
+        followedShowIds={[...library.followedShowIds]}
+        movieStatusById={movieStatusRecord}
       />
+
+      {/* What is hot right now */}
       <DiscoverRail
         label="Hot movies this week"
         items={data.hotMovies}
@@ -169,18 +188,27 @@ async function DiscoverBody({ userId }: { userId: string }) {
         movieStatusById={library.movieStatusById}
       />
       <DiscoverRail
+        label="Hidden gems"
+        items={data.hiddenGems}
+        followedShowIds={library.followedShowIds}
+        movieStatusById={library.movieStatusById}
+      />
+
+      {/* Theatrical window */}
+      <DiscoverRail
+        label="In theaters now"
+        items={data.nowPlaying}
+        followedShowIds={library.followedShowIds}
+        movieStatusById={library.movieStatusById}
+      />
+      <DiscoverRail
         label="Coming to theaters"
         items={data.upcoming}
         followedShowIds={library.followedShowIds}
         movieStatusById={library.movieStatusById}
       />
 
-      <DiscoverGenreBrowser
-        genres={data.genreChips}
-        followedShowIds={[...library.followedShowIds]}
-        movieStatusById={movieStatusRecord}
-      />
-
+      {/* Broadcast schedule */}
       {data.airingToday.length > 0 && (
         <GridSection label="Airing Today">
           {data.airingToday.map((show) => (
@@ -200,13 +228,6 @@ async function DiscoverBody({ userId }: { userId: string }) {
           ))}
         </GridSection>
       )}
-
-      <DiscoverRail
-        label="In theaters now"
-        items={data.nowPlaying}
-        followedShowIds={library.followedShowIds}
-        movieStatusById={library.movieStatusById}
-      />
 
       {data.onTheAir.length > 0 && (
         <GridSection label="On The Air">
