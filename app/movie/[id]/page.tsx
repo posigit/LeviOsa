@@ -22,6 +22,7 @@ import { getCommunityReviews } from "@/lib/reviews";
 import { ensureMovie } from "@/lib/ensure";
 import { getMovieTheme } from "@/lib/movie-theme";
 import { filterNewMedia } from "@/lib/recommend";
+import { getMovieStickers } from "@/lib/fanart";
 import { notFound } from "next/navigation";
 import type { CSSProperties } from "react";
 import Link from "next/link";
@@ -215,6 +216,7 @@ export default async function MovieDetailPage({
     images,
     releaseDates,
     theme,
+    stickers,
   ] = await Promise.all([
     getMovieSimilar(tmdbId).catch(() => []),
     getMovieRecommendations(tmdbId).catch(() => []),
@@ -249,6 +251,7 @@ export default async function MovieDetailPage({
     getMovieImages(tmdbId).catch(() => ({ logos: [] })),
     getMovieReleaseDates(tmdbId).catch(() => []),
     getMovieTheme(movie.posterPath, movie.backdropPath),
+    getMovieStickers(tmdbId).catch(() => [] as string[]),
   ]);
 
   const moreLikeThis = filterNewMedia(similarRaw, ownedIds, 12);
@@ -901,11 +904,51 @@ export default async function MovieDetailPage({
           </section>
         )}
 
+        {/* ---------- Stickers ---------- */}
+        {stickers.length > 0 && (
+          <section className="mt-7">
+            <div className="mb-1 flex items-center gap-1">
+              <h2 className="text-[22px] font-extrabold tracking-tight text-white">
+                Stickers
+              </h2>
+              <ChevronRight className="h-5 w-5 text-white/35" />
+            </div>
+            <div className="flex items-end gap-3 overflow-x-auto pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+              {stickers.map((src, i) => {
+                const hero = i === stickers.length - 1 && stickers.length > 3;
+                return (
+                  <div
+                    key={src}
+                    className="sticker-art shrink-0"
+                    style={{
+                      transform: `rotate(${i % 3 === 0 ? -3 : i % 3 === 1 ? 2 : -1}deg)`,
+                    }}
+                  >
+                    <Image
+                      src={src}
+                      alt=""
+                      width={hero ? 240 : 180}
+                      height={hero ? 240 : 180}
+                      sizes={
+                        hero
+                          ? "(min-width: 640px) 240px"
+                          : "(min-width: 640px) 180px"
+                      }
+                      className={`w-auto object-contain ${hero ? "h-[180px]" : "h-[135px]"}`}
+                      unoptimized
+                    />
+                  </div>
+                );
+              })}
+            </div>
+          </section>
+        )}
+
         <div className="mt-5">
           <WatchProviders providers={providers} />
         </div>
 
-        <CommunityReviews payload={reviews} mediaTitle={movie.title} />
+        <CommunityReviews payload={reviews} />
 
         <div className="mt-6">
           <DiscoverRail label="You Might Also Like" items={moreLikeThis} />

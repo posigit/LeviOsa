@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import type {
   CommunityReview,
   ReviewSentiment,
@@ -8,16 +8,12 @@ import type {
   ReviewsPayload,
 } from "@/lib/reviews";
 import { cn } from "@/lib/utils";
+import { FreshIcon, RottenIcon } from "@/components/rt-icons";
 import {
-  FreshIcon,
-  RottenIcon,
-  PopcornIcon,
-} from "@/components/rt-icons";
-import {
-  ChevronRight,
+  ChevronDown,
+  ChevronUp,
   ExternalLink,
   MessageSquare,
-  X,
   Star,
   ThumbsUp,
   MessagesSquare,
@@ -262,53 +258,39 @@ function ReviewRow({ review }: { review: CommunityReview }) {
   );
 }
 
-/* ── Score chip ────────────────────────────────────────────────── */
-
-function ScoreChip({
-  icon,
-  value,
-  label,
-  size = "md",
-}: {
-  icon: React.ReactNode;
-  value: string;
-  label: string;
-  size?: "sm" | "md";
-}) {
-  return (
-    <div className="flex items-center gap-1.5">
-      {icon}
-      <span
-        className={cn(
-          "font-black leading-none text-white",
-          size === "sm" ? "text-sm" : "text-base"
-        )}
-      >
-        {value}
-      </span>
-      <span className="text-[9px] font-bold uppercase tracking-wide text-white/35">
-        {label}
-      </span>
-    </div>
-  );
-}
-
 /* ── Main export ───────────────────────────────────────────────── */
 
-const PREVIEW_COUNT = 3;
+/**
+ * One section, one control. Scores live in `ScoreStrip` above, so this only
+ * carries the text reviews: an inline filter row, the consensus card, a short
+ * preview, and a single expand/collapse button — the old "See all N" in the
+ * header and "Show all N reviews" in the footer did the same job twice, and
+ * the modal they opened hid the filters people were looking for.
+ */
+const PREVIEW_COUNT = 4;
 
 export function CommunityReviews({
   payload,
-  mediaTitle,
 }: {
   payload: ReviewsPayload;
-  mediaTitle?: string;
 }) {
-  const { rtScore, rtAudienceScore, rtState, counts } = payload;
-  const [sheetOpen, setSheetOpen] = useState(false);
   const [filter, setFilter] = useState<Filter>("all");
+  const [expanded, setExpanded] = useState(false);
 
   const reviews = useMemo(() => dedupe(payload.reviews), [payload.reviews]);
+
+  const tallies = useMemo(() => {
+    const t = { all: 0, fresh: 0, rotten: 0, rt: 0, tmdb: 0, reddit: 0 };
+    for (const r of reviews) {
+      t.all += 1;
+      if (r.source === "rt") t.rt += 1;
+      else if (r.source === "tmdb") t.tmdb += 1;
+      else if (r.source === "reddit") t.reddit += 1;
+      if (r.sentiment === "fresh") t.fresh += 1;
+      else if (r.sentiment === "rotten") t.rotten += 1;
+    }
+    return t;
+  }, [reviews]);
 
   const realReddit = useMemo(
     () =>
@@ -326,248 +308,137 @@ export function CommunityReviews({
     return reviews.filter((r) => r.source === filter);
   }, [reviews, filter]);
 
-  const preview = reviews.slice(0, PREVIEW_COUNT);
-  const consensus = preview.filter((r) => r.featured);
-  const previewRows = preview.filter((r) => !r.featured);
-  const hasAnyScore = rtScore != null || rtAudienceScore != null;
-  const hasContent = hasAnyScore || reviews.length > 0;
+  const consensus = visible.filter((r) => r.featured);
+  const rows = visible.filter((r) => !r.featured);
+  const shownRows = expanded ? rows : rows.slice(0, PREVIEW_COUNT);
+  const expandable = rows.length > PREVIEW_COUNT;
 
-  useEffect(() => {
-    if (!sheetOpen) return;
-    const prev = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-    return () => {
-      document.body.style.overflow = prev;
-    };
-  }, [sheetOpen]);
-
-  useEffect(() => {
-    if (!sheetOpen) return;
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setSheetOpen(false);
-    };
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, [sheetOpen]);
-
-  if (!hasContent) return null;
-
-  const rtFresh =
-    rtScore != null ? rtScore >= 60 : rtState?.includes("fresh") ?? null;
+  if (reviews.length === 0) return null;
 
   const tabs = (
     [
-      { id: "all" as const, label: "All", n: reviews.length },
-      { id: "fresh" as const, label: "Fresh", n: counts.fresh },
-      { id: "rotten" as const, label: "Rotten", n: counts.rotten },
-      { id: "rt" as const, label: "RT", n: counts.rt },
-      { id: "tmdb" as const, label: "Fans", n: counts.tmdb },
-      {
-        id: "reddit" as const,
-        label: "Reddit",
-        n: Math.max(counts.reddit, realReddit.length),
-      },
-    ] satisfies { id: Filter; label: string; n?: number }[]
-  ).filter((t) => t.id === "all" || (t.n != null && t.n > 0));
+      { id: "all" as const, label: "All", n: tallies.all },
+      { id: "fresh" as const, label: "Fresh", n: tallies.fresh },
+      { id: "rotten" as const, label: "Rotten", n: tallies.rotten },
+      { id: "rt" as const, label: "RT", n: tallies.rt },
+      { id: "tmdb" as const, label: "Fans", n: tallies.tmdb },
+      { id: "reddit" as const, label: "Reddit", n: realReddit.length },
+    ] satisfies { id: Filter; label: string; n: number }[]
+  ).filter((t) => t.id === "all" || t.n > 0);
 
   const subline = [
-    counts.rt > 0 ? `${counts.rt} critic${counts.rt === 1 ? "" : "s"}` : null,
-    counts.tmdb > 0 ? `${counts.tmdb} fan` : null,
+    `${tallies.all} review${tallies.all === 1 ? "" : "s"}`,
+    tallies.rt > 0 ? `${tallies.rt} critic${tallies.rt === 1 ? "" : "s"}` : null,
+    tallies.tmdb > 0 ? `${tallies.tmdb} fan${tallies.tmdb === 1 ? "" : "s"}` : null,
     realReddit.length > 0 ? `${realReddit.length} Reddit` : null,
   ]
     .filter(Boolean)
     .join(" · ");
 
+  const pick = (id: Filter) => {
+    setFilter(id);
+    setExpanded(false);
+  };
+
+  const scored = tallies.fresh + tallies.rotten;
+
   return (
-    <>
-      <section className="mt-7">
-        <div className="mb-2.5 flex items-baseline justify-between gap-3">
-          <div className="min-w-0">
-            <h2 className="text-[22px] font-extrabold tracking-tight text-white">
-              Reviews
-            </h2>
-            {subline && (
-              <p className="mt-0.5 truncate text-xs text-muted-foreground">
-                {subline}
-              </p>
-            )}
+    <section className="mt-7">
+      <div className="mb-3">
+        <h2 className="text-[22px] font-extrabold tracking-tight text-white">
+          Reviews
+        </h2>
+        <p className="mt-0.5 truncate text-xs text-muted-foreground">
+          {subline}
+        </p>
+      </div>
+
+      {/* Split of verdicts — distribution, not the percentages ScoreStrip shows. */}
+      {scored > 0 && (
+        <div className="mb-3">
+          <div className="flex h-1.5 w-full overflow-hidden rounded-full bg-white/10">
+            <div
+              className="bg-[#6ac04a] transition-[width] duration-500"
+              style={{ width: `${(tallies.fresh / scored) * 100}%` }}
+            />
+            <div className="flex-1 bg-[#fa320a]" />
           </div>
-          {reviews.length > 0 && (
-            <button
-              type="button"
-              onClick={() => setSheetOpen(true)}
-              className="inline-flex shrink-0 items-center gap-0.5 text-xs font-bold text-primary"
-            >
-              See all {reviews.length}
-              <ChevronRight className="h-3.5 w-3.5" />
-            </button>
-          )}
+          <p className="mt-1.5 text-[11px] text-white/40">
+            {tallies.fresh} fresh · {tallies.rotten} rotten
+          </p>
         </div>
+      )}
 
-        {hasAnyScore && (
-          <div className="glass-panel mb-3 flex flex-wrap items-center gap-x-5 gap-y-2 rounded-3xl px-4 py-3">
-            {rtScore != null && (
-              <ScoreChip
-                icon={
-                  rtFresh ? (
-                    <FreshIcon className="h-6 w-6" />
-                  ) : (
-                    <RottenIcon className="h-6 w-6" />
-                  )
-                }
-                value={`${rtScore}%`}
-                label="Tomatometer"
-              />
-            )}
-            {rtAudienceScore != null && (
-              <ScoreChip
-                icon={<PopcornIcon className="h-6 w-6" />}
-                value={`${rtAudienceScore}%`}
-                label="Audience"
-              />
-            )}
-          </div>
-        )}
+      {tabs.length > 1 && (
+        <div className="-mx-4 mb-3 flex gap-1.5 overflow-x-auto px-4 pb-0.5 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+          {tabs.map((tab) => {
+            const active = filter === tab.id;
+            return (
+              <button
+                key={tab.id}
+                type="button"
+                onClick={() => pick(tab.id)}
+                className={cn(
+                  "shrink-0 rounded-full px-3 py-1.5 text-xs font-bold transition-colors",
+                  active
+                    ? tab.id === "rotten"
+                      ? "bg-[#6ac04a] text-black"
+                      : tab.id === "reddit"
+                        ? "bg-[#ff4500] text-white"
+                        : tab.id === "fresh" || tab.id === "rt"
+                          ? "bg-[#fa320a] text-white"
+                          : "bg-primary text-black"
+                    : "bg-white/[0.05] text-white/55 hover:text-white"
+                )}
+              >
+                {tab.id === "fresh" && (
+                  <FreshIcon className="mr-1 inline h-3.5 w-3.5 align-[-2px]" />
+                )}
+                {tab.id === "rotten" && (
+                  <RottenIcon className="mr-1 inline h-3.5 w-3.5 align-[-2px]" />
+                )}
+                {tab.label}
+                <span className="ml-1 tabular-nums opacity-75">{tab.n}</span>
+              </button>
+            );
+          })}
+        </div>
+      )}
 
-        {reviews.length === 0 ? (
-          <div className="glass-panel rounded-3xl px-4 py-6 text-center">
-            <MessageSquare className="mx-auto h-5 w-5 text-white/25" />
-            <p className="mt-2 text-sm text-muted-foreground">
-              No reviews pulled in yet.
-            </p>
-          </div>
-        ) : (
-          <div className="glass-panel overflow-hidden rounded-3xl divide-y divide-white/[0.05]">
+      {visible.length === 0 ? (
+        <div className="glass-panel rounded-3xl px-4 py-6 text-center">
+          <MessageSquare className="mx-auto h-5 w-5 text-white/25" />
+          <p className="mt-2 text-sm text-muted-foreground">
+            Nothing in this filter yet.
+          </p>
+        </div>
+      ) : (
+        <>
+          <div className="glass-panel divide-y divide-white/[0.05] overflow-hidden rounded-3xl">
             {consensus.map((r) => (
               <ConsensusCard key={reviewKey(r)} review={r} />
             ))}
-            {previewRows.map((r) => (
+            {shownRows.map((r) => (
               <ReviewRow key={reviewKey(r)} review={r} />
             ))}
           </div>
-        )}
 
-        {reviews.length > preview.length && (
-          <button
-            type="button"
-            onClick={() => setSheetOpen(true)}
-            className="mt-3 flex w-full items-center justify-center gap-1 rounded-full py-3 text-sm font-bold text-white/70 ring-1 ring-white/12 transition hover:text-white hover:ring-white/25 active:scale-[0.99]"
-          >
-            Show all {reviews.length} reviews
-            <ChevronRight className="h-4 w-4" />
-          </button>
-        )}
-      </section>
-
-      {/* ── Sheet ── */}
-      {sheetOpen && (
-        <div className="fixed inset-0 z-[80] flex flex-col">
-          <button
-            type="button"
-            aria-label="Close reviews"
-            className="absolute inset-0 bg-black/75 backdrop-blur-[3px]"
-            onClick={() => setSheetOpen(false)}
-          />
-
-          <div
-            role="dialog"
-            aria-modal="true"
-            aria-label="Reviews"
-            className={cn(
-              "relative mt-auto flex max-h-[93dvh] w-full flex-col",
-              "rounded-t-[1.35rem] bg-[#0a0a0c]",
-              "shadow-[0_-20px_60px_rgba(0,0,0,0.65)]",
-              "ring-1 ring-white/[0.08]",
-              "animate-in slide-in-from-bottom duration-300"
-            )}
-          >
-            <div className="flex justify-center pt-2.5 pb-1">
-              <div className="h-1 w-10 rounded-full bg-white/15" />
-            </div>
-
-            <div className="shrink-0 border-b border-white/[0.06] px-4 pb-3 pt-1">
-              <div className="flex items-start justify-between gap-3">
-                <div className="min-w-0">
-                  <h2 className="text-xl font-black tracking-tight text-white">
-                    Reviews
-                  </h2>
-                  {mediaTitle && (
-                    <p className="truncate text-xs text-muted-foreground">
-                      {mediaTitle}
-                    </p>
-                  )}
-                </div>
-                <button
-                  type="button"
-                  onClick={() => setSheetOpen(false)}
-                  className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white/[0.06] text-white/70 transition hover:bg-white/10 hover:text-white"
-                  aria-label="Close"
-                >
-                  <X className="h-4 w-4" />
-                </button>
-              </div>
-
-              <div className="mt-3 flex gap-1.5 overflow-x-auto pb-0.5 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-                {tabs.map((tab) => {
-                  const active = filter === tab.id;
-                  return (
-                    <button
-                      key={tab.id}
-                      type="button"
-                      onClick={() => setFilter(tab.id)}
-                      className={cn(
-                        "shrink-0 rounded-full px-3 py-1.5 text-xs font-bold transition-colors",
-                        active
-                          ? tab.id === "rotten"
-                            ? "bg-[#6ac04a] text-black"
-                            : tab.id === "reddit"
-                              ? "bg-[#ff4500] text-white"
-                              : tab.id === "fresh" || tab.id === "rt"
-                                ? "bg-[#fa320a] text-white"
-                                : "bg-primary text-black"
-                          : "bg-white/[0.05] text-white/55 hover:text-white"
-                      )}
-                    >
-                      {tab.id === "fresh" && (
-                        <FreshIcon className="mr-1 inline h-3.5 w-3.5 align-[-2px]" />
-                      )}
-                      {tab.id === "rotten" && (
-                        <RottenIcon className="mr-1 inline h-3.5 w-3.5 align-[-2px]" />
-                      )}
-                      {tab.label}
-                      {tab.n != null && (
-                        <span className="ml-1 tabular-nums opacity-75">
-                          {tab.n}
-                        </span>
-                      )}
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
-
-            <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain pb-safe-page">
-              {visible.length === 0 ? (
-                <div className="px-6 py-16 text-center">
-                  <p className="text-sm text-muted-foreground">
-                    Nothing in this filter yet.
-                  </p>
-                </div>
+          {expandable && (
+            <button
+              type="button"
+              onClick={() => setExpanded((v) => !v)}
+              className="mt-3 flex w-full items-center justify-center gap-1 rounded-full py-3 text-sm font-bold text-white/70 ring-1 ring-white/12 transition hover:text-white hover:ring-white/25 active:scale-[0.99]"
+            >
+              {expanded ? "Show less" : `Show all ${visible.length} reviews`}
+              {expanded ? (
+                <ChevronUp className="h-4 w-4" />
               ) : (
-                <div className="divide-y divide-white/[0.05]">
-                  {visible.map((r) =>
-                    r.featured ? (
-                      <ConsensusCard key={reviewKey(r)} review={r} />
-                    ) : (
-                      <ReviewRow key={reviewKey(r)} review={r} />
-                    )
-                  )}
-                </div>
+                <ChevronDown className="h-4 w-4" />
               )}
-            </div>
-          </div>
-        </div>
+            </button>
+          )}
+        </>
       )}
-    </>
+    </section>
   );
 }

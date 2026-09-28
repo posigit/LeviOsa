@@ -1,14 +1,14 @@
 /**
- * Fanart.tv artwork for show detail.
+ * Fanart.tv artwork for show and movie detail.
  *
- * Two things only:
- *  - `getShowLogoArt`   → transparent wordmark (clearlogo → hdtvlogo) for the hero
- *  - `getShowStickers`  → transparent character cut-outs for the Stickers section
- *  - `getShowClearart`  → ensemble word-art used as that section's hero piece
+ * Shows — `getShowLogoArt` / `getShowStickers` / `getShowClearart`
+ * Movies — `getMovieStickers` / `getMovieLogoArt`
  *
- * NOTE: the `tvdbId` argument is a **TheTVDB** id, not a TMDB id. Fanart answers
+ * NOTE: the show helpers take a **TheTVDB** id, not a TMDB id. Fanart answers
  * `200 {}` for an id it doesn't know, which looks like "no artwork" and gets
  * cached for a day — resolve it with `getTvExternalIds(tmdbId).tvdb_id` first.
+ * The movie helpers take the **TMDB** id, which is what `/v3/movies/{id}`
+ * expects, so they need no lookup.
  *
  * Everything else (posters, backdrops) stays on TMDB so `posterPath`/`backdropPath`
  * keep feeding the grid, list rows and `lib/movie-theme.ts` untouched.
@@ -36,6 +36,9 @@ type FanartTvArt = {
   clearart?: FanartImage[];
   hdclearart?: FanartImage[];
   characterart?: FanartImage[];
+  hdmovieclearart?: FanartImage[];
+  hdmovielogo?: FanartImage[];
+  movieart?: FanartImage[];
 };
 
 function getApiKey(): string | null {
@@ -43,12 +46,12 @@ function getApiKey(): string | null {
   return key ? key : null;
 }
 
-async function fanartFetch(tvdbId: number): Promise<FanartTvArt> {
+async function fanartFetch(kind: "tv" | "movies", id: number): Promise<FanartTvArt> {
   const key = getApiKey();
-  if (!key || !Number.isFinite(tvdbId) || tvdbId <= 0) return {};
+  if (!key || !Number.isFinite(id) || id <= 0) return {};
 
   try {
-    const url = new URL(`${FANART_BASE_URL}/tv/${tvdbId}`);
+    const url = new URL(`${FANART_BASE_URL}/${kind}/${id}`);
     url.searchParams.set("api_key", key);
     const res = await fetch(url.toString(), {
       next: { revalidate: 86_400 },
@@ -84,7 +87,7 @@ function pickBest(
  * `drop-shadow` reads as a cut-out instead of a rectangle.
  */
 export async function getShowLogoArt(tvdbId: number): Promise<string | null> {
-  const art = await fanartFetch(tvdbId);
+  const art = await fanartFetch("tv", tvdbId);
   return (
     pickBest(art.clearlogo, ["en", ""]) ?? pickBest(art.hdtvlogo, ["en", ""])
   );
@@ -96,7 +99,7 @@ export async function getShowLogoArt(tvdbId: number): Promise<string | null> {
  * `clearart` are ensemble word-art used when a show has no character art.
  */
 export async function getShowStickers(tvdbId: number): Promise<string[]> {
-  const art = await fanartFetch(tvdbId);
+  const art = await fanartFetch("tv", tvdbId);
   const ranked = (list: FanartImage[] | undefined) =>
     (list ?? [])
       .filter((i) => i?.url)
@@ -129,8 +132,46 @@ export async function getShowStickers(tvdbId: number): Promise<string[]> {
  * already in the sticker list.
  */
 export async function getShowClearart(tvdbId: number): Promise<string | null> {
-  const art = await fanartFetch(tvdbId);
+  const art = await fanartFetch("tv", tvdbId);
   return (
     pickBest(art.hdclearart, ["en", ""]) ?? pickBest(art.clearart, ["en", ""])
+  );
+}
+
+/* ── Movies ────────────────────────────────────────────────────── */
+
+/**
+ * Transparent character/title cut-outs for a movie's Stickers section.
+ *
+ * Unlike `/v3/tv/{id}`, Fanart's `/v3/movies/{id}` takes the **TMDB** id, so no
+ * external-id lookup is needed. `hdmovieclearart` is the character-art plate;
+ * `movieart` is the rarer legacy key and is appended so nothing is dropped.
+ */
+export async function getMovieStickers(tmdbId: number): Promise<string[]> {
+  const art = await fanartFetch("movies", tmdbId);
+  const ranked = (list: FanartImage[] | undefined) =>
+    (list ?? [])
+      .filter((i) => i?.url)
+      .sort((a, b) => Number(b.likes ?? 0) - Number(a.likes ?? 0));
+
+  const out: string[] = [];
+  const seen = new Set<string>();
+  for (const img of [
+    ...ranked(art.hdmovieclearart),
+    ...ranked(art.movieart),
+  ]) {
+    if (seen.has(img.url)) continue;
+    seen.add(img.url);
+    out.push(img.url);
+    if (out.length >= 12) break;
+  }
+  return out;
+}
+
+/** Original-font movie wordmark with a real alpha channel. */
+export async function getMovieLogoArt(tmdbId: number): Promise<string | null> {
+  const art = await fanartFetch("movies", tmdbId);
+  return (
+    pickBest(art.hdmovielogo, ["en", ""]) ?? pickBest(art.hdmovielogo, ["", "en"])
   );
 }

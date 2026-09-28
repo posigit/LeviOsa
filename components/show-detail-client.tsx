@@ -279,42 +279,20 @@ export function ShowDetailClient({
   );
   const totalCount = episodes.length;
 
-  /** Runtime estimate for an episode that has no stored duration. */
-  const DEFAULT_EPISODE_SECONDS = 42 * 60;
-
-  const episodeSeconds = (ep: DetailEpisode) => {
-    const pb = playbackFor(ep);
-    if (pb && pb.durationSeconds > 0) return pb.durationSeconds;
-    return ep.runtime && ep.runtime > 0
-      ? ep.runtime * 60
-      : DEFAULT_EPISODE_SECONDS;
-  };
-
   /**
-   * Hero bar reads in time, not episode counts ("1h 12m left"). Hidden until
-   * the series has actually been started — a fresh show shows no bar, a
-   * finished one reads "Watched / all episodes" at 100%.
+   * Hero bar reads as an episode count — "20 of 26" — because a series is
+   * consumed episode by episode. Hidden until it has actually been started:
+   * a fresh show shows no bar, a finished one reads "26 of 26" at 100%.
    */
-  const { progressStarted, remainingSeconds, progressPct } = useMemo(() => {
-    let remaining = 0;
-    let total = 0;
-    let touched = watchedCount > 0;
-    for (const ep of episodes) {
-      const pb = playbackFor(ep);
-      if (pb) touched = true;
-      const full = episodeSeconds(ep);
-      total += full;
-      if (isWatched(ep)) continue;
-      remaining +=
-        pb && pb.timeLeftSeconds != null && pb.timeLeftSeconds > 0
-          ? pb.timeLeftSeconds
-          : full;
-    }
+  const { progressStarted, progressPct } = useMemo(() => {
+    const touched =
+      watchedCount > 0 || episodes.some((ep) => playbackFor(ep) != null);
     return {
-      progressStarted: touched && total > 0,
-      remainingSeconds: remaining,
+      progressStarted: touched && totalCount > 0,
       progressPct:
-        total > 0 ? Math.min(100, ((total - remaining) / total) * 100) : 0,
+        totalCount > 0
+          ? Math.min(100, (watchedCount / totalCount) * 100)
+          : 0,
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [episodes, watchedMap, playbackPositions]);
@@ -969,13 +947,9 @@ export function ShowDetailClient({
           {progressStarted && (
             <div className="mt-5">
               <div className="flex items-baseline justify-between text-sm">
-                <span className="text-white/85">
-                  {remainingSeconds > 0 ? "Remaining" : "Watched"}
-                </span>
+                <span className="text-white/85">Watched</span>
                 <span className="font-semibold text-white">
-                  {remainingSeconds > 0
-                    ? `${formatPlaybackTime(remainingSeconds)} left`
-                    : `${watchedCount} of ${totalCount}`}
+                  {watchedCount} of {totalCount}
                 </span>
               </div>
               <div className="mt-2 h-1.5 w-full overflow-hidden rounded-full bg-white/25">
@@ -1648,7 +1622,7 @@ export function ShowDetailClient({
 
         <WhereToWatch watch={watch} providers={providers} />
 
-        {reviews && <CommunityReviews payload={reviews} mediaTitle={show.title} />}
+        {reviews && <CommunityReviews payload={reviews} />}
 
         <div className="mt-7">
           <DiscoverRail label="You Might Also Like" items={moreLikeThis} />
