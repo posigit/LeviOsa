@@ -14,9 +14,11 @@ export type MovieStatus = "want_to_watch" | "watched" | null;
  *
  * Semantics (fixed): "Want to Watch" adds to the watchlist
  * (status = want_to_watch) — it never marks a movie watched.
- * Small surfaces (overlay/compact) are add-to-watchlist only and turn into a
- * static check once the movie is in the library; the full watch/unwatch and
- * remove controls live on the movie detail page (variant="full").
+ * There is intentionally no poster-corner control: opening the title and
+ * adding it from there is the only path, so rails and grids stay clean.
+ * Small `compact` rows (search results) still get an add affordance; the full
+ * watch/unwatch and remove controls live on the movie detail page
+ * (variant="full").
  */
 export function MovieWatchButton({
   tmdbId,
@@ -25,7 +27,7 @@ export function MovieWatchButton({
 }: {
   tmdbId: number;
   initialStatus: string | null;
-  variant?: "overlay" | "compact" | "full";
+  variant?: "compact" | "full";
 }) {
   const router = useRouter();
   const { toast } = useToast();
@@ -72,31 +74,6 @@ export function MovieWatchButton({
       }
     });
   };
-
-  // ----- overlay: round + / ✓ on poster corners (explore grids) -----
-  if (variant === "overlay") {
-    if (status) {
-      return (
-        <span className="flex h-7 w-7 items-center justify-center rounded-full bg-primary text-black shadow">
-          <Check className="h-4 w-4" strokeWidth={3} />
-        </span>
-      );
-    }
-    return (
-      <button
-        onClick={(e) => {
-          e.preventDefault();
-          e.stopPropagation();
-          update("want_to_watch");
-        }}
-        disabled={pending}
-        aria-label="Add to watchlist"
-        className="flex h-7 w-7 items-center justify-center rounded-full bg-black/60 text-white shadow backdrop-blur-sm transition-colors hover:bg-black/80"
-      >
-        <Plus className="h-4 w-4" strokeWidth={3} />
-      </button>
-    );
-  }
 
   // ----- compact: small round + / ✓ in search result rows -----
   if (variant === "compact") {

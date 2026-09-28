@@ -7,9 +7,10 @@ import { Check, Plus } from "lucide-react";
 import { useToast } from "@/components/toast";
 
 /**
- * Show follow button. Small surfaces (overlay/compact) follow-only and turn
- * into a static check once followed — unfollowing deletes watched history,
- * so that stays on the show detail page menu.
+ * Show follow button. Small `compact` rows (search results) follow-only and
+ * turn into a static check once followed — unfollowing deletes watched
+ * history, so that stays on the show detail page menu. Poster corners carry
+ * no control at all: tap the poster to open the show and add it there.
  */
 export function ShowFollowButton({
   tmdbId,
@@ -18,7 +19,7 @@ export function ShowFollowButton({
 }: {
   tmdbId: number;
   initialFollowing: boolean;
-  variant?: "overlay" | "compact" | "full";
+  variant?: "compact" | "full";
 }) {
   const router = useRouter();
   const { toast } = useToast();
@@ -26,8 +27,8 @@ export function ShowFollowButton({
   const [pending, startTransition] = useTransition();
 
   const toggle = () => {
-    // Overlay/compact: only add (unfollow is on detail page)
-    if ((variant === "overlay" || variant === "compact") && following) {
+    // Compact: only add (unfollow is on detail page)
+    if (variant === "compact" && following) {
       return;
     }
 
@@ -55,32 +56,6 @@ export function ShowFollowButton({
       }
     });
   };
-
-  // ----- overlay: round + / ✓ on poster corners (explore grids) -----
-  if (variant === "overlay") {
-    if (following) {
-      return (
-        <span className="flex h-7 w-7 items-center justify-center rounded-full bg-primary text-black shadow">
-          <Check className="h-4 w-4" strokeWidth={3} />
-        </span>
-      );
-    }
-    return (
-      <button
-        type="button"
-        onClick={(e) => {
-          e.preventDefault();
-          e.stopPropagation();
-          toggle();
-        }}
-        disabled={pending}
-        aria-label="Add to watchlist"
-        className="flex h-7 w-7 items-center justify-center rounded-full bg-black/60 text-white shadow backdrop-blur-sm transition-colors hover:bg-black/80 disabled:opacity-50"
-      >
-        <Plus className="h-4 w-4" strokeWidth={3} />
-      </button>
-    );
-  }
 
   // ----- compact: small round + / ✓ in search result rows -----
   if (variant === "compact") {

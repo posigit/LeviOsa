@@ -793,6 +793,46 @@ export async function getPersonMovieCredits(personId: number): Promise<{
   return { cast: data.cast ?? [], crew: data.crew ?? [] };
 }
 
+/**
+ * Acting + crew work across movies *and* series. Unlike `movie_credits` this
+ * carries `media_type` and `first_air_date`, which is what the person page
+ * needs to split the filmography and to compute the seen ratio.
+ */
+export type TmdbCombinedCredit = {
+  credit_id?: string;
+  id: number;
+  media_type?: "movie" | "tv" | string;
+  /** Movie field */
+  title?: string;
+  /** TV field */
+  name?: string;
+  character?: string;
+  job?: string;
+  department?: string;
+  poster_path?: string | null;
+  backdrop_path?: string | null;
+  vote_average?: number;
+  vote_count?: number;
+  popularity?: number;
+  /** Movie field */
+  release_date?: string;
+  /** TV field */
+  first_air_date?: string;
+  episode_count?: number;
+  order?: number;
+};
+
+export async function getPersonCombinedCredits(personId: number): Promise<{
+  cast: TmdbCombinedCredit[];
+  crew: TmdbCombinedCredit[];
+}> {
+  const data = await tmdbFetch<{
+    cast?: TmdbCombinedCredit[];
+    crew?: TmdbCombinedCredit[];
+  }>(`/person/${personId}/combined_credits`, {}, { revalidate: 86400 });
+  return { cast: data.cast ?? [], crew: data.crew ?? [] };
+}
+
 export type WatchProvider = {
   provider_id: number;
   provider_name: string;

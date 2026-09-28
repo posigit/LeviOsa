@@ -1538,9 +1538,63 @@ export function ShowDetailClient({
           </section>
         )}
 
+        <div className="mt-7">
+          <DiscoverRail label="You Might Also Like" items={moreLikeThis} />
+          <DiscoverRail label="Recommended for you" items={recommended} />
+        </div>
+
+        {cast.length > 0 && (
+          <section className="mt-7">
+            <h2 className="mb-2.5 text-[22px] font-extrabold tracking-tight text-white">
+              Cast
+            </h2>
+            <div className="-mx-4 flex gap-3 overflow-x-auto px-4 pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+              {cast.map((person) => {
+                const photo = posterUrl(person.profilePath, "w185");
+                return (
+                  <Link
+                    key={person.id}
+                    href={`/person/${person.id}`}
+                    className="w-28 shrink-0"
+                  >
+                    <div className="relative aspect-square overflow-hidden rounded-full bg-secondary ring-1 ring-white/10">
+                      {photo ? (
+                        <Image
+                          src={photo}
+                          alt={person.name}
+                          fill
+                          sizes="112px"
+                          className="object-cover"
+                          unoptimized
+                        />
+                      ) : (
+                        <div className="flex h-full w-full items-center justify-center text-xl font-black text-white/30">
+                          {person.name.charAt(0)}
+                        </div>
+                      )}
+                    </div>
+                    <p className="mt-1.5 truncate text-center text-xs font-semibold leading-tight text-white/90">
+                      {person.name}
+                    </p>
+                    {person.character && (
+                      <p className="truncate text-center text-[11px] leading-tight text-white/40">
+                        {person.character}
+                      </p>
+                    )}
+                  </Link>
+                );
+              })}
+            </div>
+          </section>
+        )}
+
+        <WhereToWatch watch={watch} providers={providers} />
+
+        {reviews && <CommunityReviews payload={reviews} />}
+
         <section className="mt-7">
           <h2 className="mb-2.5 text-[22px] font-extrabold tracking-tight text-white">
-            Details
+            Information
           </h2>
           <div className="glass-panel rounded-3xl px-4 py-1.5">
             {show.genres.length > 0 && (
@@ -1575,59 +1629,6 @@ export function ShowDetailClient({
           </div>
         </section>
 
-        {cast.length > 0 && (
-          <section className="mt-7">
-            <h2 className="mb-2.5 text-[22px] font-extrabold tracking-tight text-white">
-              Cast
-            </h2>
-            <div className="-mx-4 flex gap-3 overflow-x-auto px-4 pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-              {cast.map((person) => {
-                const photo = posterUrl(person.profilePath, "w185");
-                return (
-                  <Link
-                    key={person.id}
-                    href={`/person/${person.id}`}
-                    className="w-28 shrink-0"
-                  >
-                    <div className="relative h-36 overflow-hidden rounded-2xl bg-secondary ring-1 ring-white/10">
-                      {photo ? (
-                        <Image
-                          src={photo}
-                          alt={person.name}
-                          fill
-                          sizes="112px"
-                          className="object-cover"
-                          unoptimized
-                        />
-                      ) : (
-                        <div className="flex h-full w-full items-center justify-center text-xl font-black text-white/30">
-                          {person.name.charAt(0)}
-                        </div>
-                      )}
-                    </div>
-                    <p className="mt-1.5 truncate text-xs font-semibold leading-tight text-white/90">
-                      {person.name}
-                    </p>
-                    {person.character && (
-                      <p className="truncate text-[11px] leading-tight text-white/40">
-                        {person.character}
-                      </p>
-                    )}
-                  </Link>
-                );
-              })}
-            </div>
-          </section>
-        )}
-
-        <WhereToWatch watch={watch} providers={providers} />
-
-        {reviews && <CommunityReviews payload={reviews} />}
-
-        <div className="mt-7">
-          <DiscoverRail label="You Might Also Like" items={moreLikeThis} />
-          <DiscoverRail label="Recommended for you" items={recommended} />
-        </div>
       </section>
 
       {/* ---------- Rewatch dialog ---------- */}

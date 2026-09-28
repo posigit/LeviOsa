@@ -94,12 +94,10 @@ function GridCard({
 function PodiumCard({
   item,
   rank,
-  status,
   large,
 }: {
   item: TmdbMovieCard;
   rank: number;
-  status: string | null;
   large?: boolean;
 }) {
   const bg =
@@ -142,18 +140,11 @@ function PodiumCard({
         <p className={cn("truncate font-black text-white drop-shadow", large ? "text-lg" : "text-[13px]")}>
           {item.title}
         </p>
-        <div className="mt-0.5 flex items-center justify-between gap-2">
-          <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-white/70">
-            <Star className="h-3 w-3 fill-primary text-primary" />
-            {item.vote_average ? item.vote_average.toFixed(1) : "–"}
-            {votes ? <span className="text-white/45">· {votes} votes</span> : null}
-          </span>
-          <MovieWatchButton
-            tmdbId={item.id}
-            initialStatus={status}
-            variant="overlay"
-          />
-        </div>
+        <p className="mt-0.5 inline-flex items-center gap-1 text-[11px] font-semibold text-white/70">
+          <Star className="h-3 w-3 fill-primary text-primary" />
+          {item.vote_average ? item.vote_average.toFixed(1) : "–"}
+          {votes ? <span className="text-white/45">· {votes} votes</span> : null}
+        </p>
       </div>
     </Link>
   );
@@ -226,12 +217,12 @@ export function RankedGrid({
     <div>
       {/* Podium — the answer to "what's the best?" */}
       {first && (
-        <PodiumCard item={first} rank={1} status={statusOf(first.id)} large />
+        <PodiumCard item={first} rank={1} large />
       )}
       {second && (
         <div className="mt-2 grid grid-cols-2 gap-2">
-          <PodiumCard item={second} rank={2} status={statusOf(second.id)} />
-          {third && <PodiumCard item={third} rank={3} status={statusOf(third.id)} />}
+          <PodiumCard item={second} rank={2} />
+          {third && <PodiumCard item={third} rank={3} />}
         </div>
       )}
 

@@ -18,7 +18,6 @@ import {
 } from "@/lib/movie-watchlist";
 import { getUnseenGreatMoviesPool } from "@/lib/surprise-movies";
 import { WatchLaterTools } from "@/components/watch-later-tools";
-import { MovieWatchButton } from "@/components/movie-watch-button";
 import {
   LEGACY_LAYOUT_COOKIE,
   layoutCookieName,
@@ -349,10 +348,7 @@ function DiscoverUpcomingGrid({
               </div>
             )}
           </Link>
-          {/* Sibling of the Link (never nested): tap + never navigates. */}
-          <div className="absolute right-1.5 top-1.5 z-10">
-            <MovieWatchButton tmdbId={movie.tmdbId} initialStatus={null} variant="overlay" />
-          </div>
+          {/* Sibling of the Link (never nested): tap the poster to open it. */}
           {movie.releaseDate && (
             <p className="px-1.5 py-1.5 text-center text-[10px] font-bold uppercase tracking-wide text-primary">
               {formatReleaseDate(movie.releaseDate)}

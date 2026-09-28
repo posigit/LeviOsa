@@ -579,3 +579,49 @@ export async function getLibraryState(userId: string) {
     ownedMovieIds: new Set(followedMovies.map((m) => m.tmdbId)),
   };
 }
+
+/**
+ * Titles the user has completely watched — powers the "N / M Seen" card on a
+ * person's page. No extra API round-trip: it's one grouped read of
+ * `watchedEpisodes` (joined against `shows` for the episode total) plus the
+ * usual `userMovies` read, both of which this module already queries.
+ *
+ * A show only counts once every episode TMDB reports has been logged; a movie
+ * counts once its status is `watched`.
+ */
+export async function getPersonSeenIds(userId: string) {
+  const [showRows, movieRows] = await Promise.all([
+    withDbRetry(() =>
+      db
+        .select({
+          showTmdbId: watchedEpisodes.showTmdbId,
+          watched: sql<number>`count(*)::int`,
+          total: shows.numberOfEpisodes,
+        })
+        .from(watchedEpisodes)
+        .innerJoin(shows, eq(shows.tmdbId, watchedEpisodes.showTmdbId))
+        .where(eq(watchedEpisodes.userId, userId))
+        .groupBy(watchedEpisodes.showTmdbId, shows.numberOfEpisodes)
+    ),
+    withDbRetry(() =>
+      db
+        .select({ tmdbId: userMovies.tmdbId })
+        .from(userMovies)
+        .where(
+          and(eq(userMovies.userId, userId), eq(userMovies.status, "watched"))
+        )
+    ),
+  ]);
+
+  const watchedShowIds = new Set<number>();
+  for (const row of showRows) {
+    if (row.total != null && row.total > 0 && row.watched >= row.total) {
+      watchedShowIds.add(row.showTmdbId);
+    }
+  }
+
+  return {
+    watchedShowIds,
+    watchedMovieIds: new Set(movieRows.map((r) => r.tmdbId)),
+  };
+}

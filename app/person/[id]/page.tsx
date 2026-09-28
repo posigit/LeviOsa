@@ -1,94 +1,102 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
-import { ChevronLeft, Star } from "lucide-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import { requireAuth } from "@/lib/auth";
-import { getLibraryState } from "@/lib/explore-digest";
+import { getPersonSeenIds } from "@/lib/explore-digest";
 import {
   getPersonDetails,
-  getPersonMovieCredits,
+  getPersonCombinedCredits,
   posterUrl,
-  type TmdbPersonMovieCredit,
+  type TmdbCombinedCredit,
 } from "@/lib/tmdb";
-import { MovieWatchButton } from "@/components/movie-watch-button";
+import { PersonBiography } from "@/components/person-bio";
+import {
+  CreditRail,
+  CreditRow,
+  SeenStatCard,
+  type PersonCredit,
+} from "@/components/person-credits";
 
-function score(v?: number) {
-  if (v == null || v <= 0) return "–";
-  return v.toFixed(1);
+const PREVIEW = 6;
+
+function isTv(c: TmdbCombinedCredit) {
+  return c.media_type === "tv";
+}
+
+function creditDate(c: TmdbCombinedCredit): string | null {
+  return (isTv(c) ? c.first_air_date : c.release_date) || null;
+}
+
+function creditKey(c: TmdbCombinedCredit) {
+  return `${isTv(c) ? "tv" : "movie"}-${c.id}`;
 }
 
 /** Best-first ranking: meaningful vote volume first (50+), then score,
  * then vote count, then popularity. Single-vote 10.0 shorts sink instead
  * of floating above real films. Nothing hidden — just ordered honestly. */
-function rankCredits(list: TmdbPersonMovieCredit[]): TmdbPersonMovieCredit[] {
-  return [...list]
-    .filter((c) => c.title || c.name)
-    .sort((a, b) => {
-      const aw = (a.vote_count ?? 0) >= 50 ? 0 : 1;
-      const bw = (b.vote_count ?? 0) >= 50 ? 0 : 1;
-      if (aw !== bw) return aw - bw;
-      const sa = a.vote_average ?? 0;
-      const sb = b.vote_average ?? 0;
-      if (sb !== sa) return sb - sa;
-      const ca = a.vote_count ?? 0;
-      const cb = b.vote_count ?? 0;
-      if (cb !== ca) return cb - ca;
-      return (b.popularity ?? 0) - (a.popularity ?? 0);
-    });
+function rankCredits(list: TmdbCombinedCredit[]): TmdbCombinedCredit[] {
+  return [...list].sort((a, b) => {
+    const aw = (a.vote_count ?? 0) >= 50 ? 0 : 1;
+    const bw = (b.vote_count ?? 0) >= 50 ? 0 : 1;
+    if (aw !== bw) return aw - bw;
+    const sa = a.vote_average ?? 0;
+    const sb = b.vote_average ?? 0;
+    if (sb !== sa) return sb - sa;
+    const ca = a.vote_count ?? 0;
+    const cb = b.vote_count ?? 0;
+    if (cb !== ca) return cb - ca;
+    return (b.popularity ?? 0) - (a.popularity ?? 0);
+  });
 }
 
-function CreditCard({
-  credit,
-  role,
-  status,
+function toCredit(c: TmdbCombinedCredit): PersonCredit {
+  const tv = isTv(c);
+  const date = creditDate(c);
+  return {
+    href: tv ? `/show/${c.id}` : `/movie/${c.id}`,
+    poster: posterUrl(c.poster_path, "w342"),
+    title: tv ? (c.name ?? "") : (c.title ?? ""),
+    character: c.character?.trim() || c.job || null,
+    year: date ? date.slice(0, 4) : null,
+    episodeCount: tv ? (c.episode_count ?? null) : null,
+  };
+}
+
+/** Filmography heading with a trailing "Show All" link. */
+function SectionHeader({
+  title,
+  href,
+  count,
 }: {
-  credit: TmdbPersonMovieCredit;
-  role?: string;
-  status: string | null;
+  title: string;
+  href?: string;
+  count?: number;
 }) {
-  const poster = posterUrl(credit.poster_path, "w342");
-  const year = credit.release_date?.slice(0, 4);
+  if (!href) {
+    return (
+      <h2 className="mb-3 text-[22px] font-extrabold tracking-tight text-white">
+        {title}
+      </h2>
+    );
+  }
   return (
-    <div className="min-w-0">
+    <div className="mb-3 flex items-end justify-between gap-3">
+      <h2 className="text-[22px] font-extrabold tracking-tight text-white">
+        {title}
+        {typeof count === "number" ? (
+          <span className="ml-2 text-base font-semibold text-white/40">
+            {count}
+          </span>
+        ) : null}
+      </h2>
       <Link
-        href={`/movie/${credit.id}`}
-        className="relative block aspect-[2/3] overflow-hidden rounded-md bg-card ring-1 ring-white/10"
+        href={href}
+        className="flex shrink-0 items-center gap-1 text-sm font-bold text-primary active:scale-95"
       >
-        {poster ? (
-          <Image
-            src={poster}
-            alt={credit.title ?? credit.name ?? "Film"}
-            fill
-            sizes="(max-width: 480px) 33vw, 200px"
-            className="object-cover"
-            unoptimized
-          />
-        ) : (
-          <div className="flex h-full w-full items-center justify-center p-2 text-center text-xs font-bold text-white/50">
-            {credit.title ?? credit.name}
-          </div>
-        )}
+        Show All
+        <ChevronRight className="h-4 w-4" />
       </Link>
-      <Link href={`/movie/${credit.id}`} className="mt-1 block min-w-0">
-        <p className="truncate text-xs font-bold text-white">
-          {credit.title ?? credit.name}
-        </p>
-      </Link>
-      <div className="mt-0.5 flex items-center justify-between gap-1">
-        <span className="inline-flex min-w-0 items-center gap-0.5 text-[11px] font-semibold text-white/60">
-          <Star className="h-3 w-3 shrink-0 fill-primary text-primary" />
-          {score(credit.vote_average)}
-          {year ? <span className="ml-1 truncate text-white/40">{year}</span> : null}
-        </span>
-        <MovieWatchButton
-          tmdbId={credit.id}
-          initialStatus={status}
-          variant="compact"
-        />
-      </div>
-      {role ? (
-        <p className="mt-0.5 truncate text-[11px] text-white/40">{role}</p>
-      ) : null}
     </div>
   );
 }
@@ -103,35 +111,76 @@ export default async function PersonPage({
   if (!Number.isFinite(personId)) notFound();
 
   const userId = await requireAuth();
-  const [details, credits, library] = await Promise.all([
+  const [details, credits, seenIds] = await Promise.all([
     getPersonDetails(personId).catch(() => null),
-    getPersonMovieCredits(personId).catch(() => ({ cast: [], crew: [] })),
-    getLibraryState(userId),
+    getPersonCombinedCredits(personId).catch(() => ({ cast: [], crew: [] })),
+    getPersonSeenIds(userId),
   ]);
   if (!details) notFound();
 
-  const acting = rankCredits(credits.cast).slice(0, 30);
+  const { cast, crew } = credits;
+
+  /** Acting credits, split by medium. */
+  const actingMovies = rankCredits(cast.filter((c) => !isTv(c)));
+  const actingShows = rankCredits(cast.filter(isTv));
+
+  /** Director credits, whichever medium they land in. */
   const directing = rankCredits(
-    credits.crew.filter((c) => c.job === "Director" || c.department === "Directing")
-  ).slice(0, 12);
-  const knownFor = acting.slice(0, 6);
+    crew.filter((c) => c.job === "Director" || c.department === "Directing")
+  );
+  const directedMovies = directing.filter((c) => !isTv(c));
+  const directedShows = directing.filter(isTv);
+
+  /** Every distinct title this person is attached to — the "Seen" denominator. */
+  const allTitles = new Map<string, TmdbCombinedCredit>();
+  for (const c of [...cast, ...crew]) allTitles.set(creditKey(c), c);
+  const totalCredits = allTitles.size;
+  const seenCount = [...allTitles.values()].filter((c) =>
+    isTv(c)
+      ? seenIds.watchedShowIds.has(c.id)
+      : seenIds.watchedMovieIds.has(c.id)
+  ).length;
+
+  const knownFor = rankCredits(cast).slice(0, 8);
+
+  /** Not-yet-released work, soonest first. */
+  const today = new Date().toISOString().slice(0, 10);
+  const upcomingMap = new Map<string, TmdbCombinedCredit>();
+  for (const c of [...cast, ...crew]) {
+    const d = creditDate(c);
+    if (d && d > today) upcomingMap.set(creditKey(c), c);
+  }
+  const comingSoon = [...upcomingMap.values()]
+    .sort((a, b) => (creditDate(a) ?? "").localeCompare(creditDate(b) ?? ""))
+    .slice(0, 8)
+    .map(toCredit);
+
+  const knownForCredits = knownFor.map(toCredit);
+  const moviePreview = actingMovies.slice(0, PREVIEW).map(toCredit);
+  const showPreview = actingShows.slice(0, PREVIEW).map(toCredit);
+  const directedPreview = directedMovies
+    .slice(0, PREVIEW)
+    .map(toCredit)
+    .concat(directedShows.slice(0, PREVIEW).map(toCredit));
 
   const photo = posterUrl(details.profile_path, "original");
-  const birthYear = details.birthday?.slice(0, 4);
-  const knownForTitles = knownFor
-    .map((c) => c.title ?? c.name)
-    .filter(Boolean);
 
-  /** Hero meta line: born, birthplace, then the credit counts. */
+  /** Hero meta line: department, then the medium split — matches the app's
+   *  "Acting · 30 shows · 117 movies" convention. */
   const facts = [
-    birthYear ? `Born ${birthYear}` : null,
-    details.place_of_birth || null,
-    `${acting.length} film${acting.length === 1 ? "" : "s"}`,
-    directing.length > 0 ? `${directing.length} directed` : null,
-  ].filter(Boolean) as string[];
+    details.known_for_department ?? "Filmography",
+    `${actingShows.length + directedShows.length} show${
+      actingShows.length + directedShows.length === 1 ? "" : "s"
+    }`,
+    `${actingMovies.length + directedMovies.length} movie${
+      actingMovies.length + directedMovies.length === 1 ? "" : "s"
+    }`,
+  ];
+
+  const creditsHref = `/person/${personId}/credits`;
 
   return (
-    <div className="min-h-dvh bg-black pb-nav-page">
+    <div className="min-h-dvh bg-black pb-safe-page">
       {/* ---------- Floating controls: stick over the scroll, like the app ---------- */}
       <div className="pointer-events-none fixed inset-x-0 top-0 z-40 px-4 top-safe-float">
         <div className="flex items-center justify-between">
@@ -190,110 +239,126 @@ export default async function PersonPage({
           }}
         />
 
-        {/* Hero footer: department -> name -> facts -> known for */}
+        {/* Hero footer: department -> name -> counts */}
         <div className="absolute inset-x-0 bottom-0 px-5 pb-6 text-center">
-          <span className="glass-control inline-flex rounded-full bg-white/10 px-3 py-1 text-xs font-semibold text-white/90">
-            {details.known_for_department ?? "Filmography"}
-          </span>
-
-          <h1 className="mt-3 px-4 text-4xl font-black tracking-tight text-white drop-shadow-[0_4px_18px_rgba(0,0,0,0.9)]">
+          <h1 className="text-4xl font-black tracking-tight text-white drop-shadow-[0_4px_18px_rgba(0,0,0,0.9)]">
             {details.name}
           </h1>
 
-          {facts.length > 0 && (
-            <p className="mt-3 flex flex-wrap items-center justify-center gap-x-2 text-[15px] text-white/75">
-              {facts.map((item, i) => (
-                <span key={item} className="inline-flex items-center gap-2">
-                  {i > 0 && (
-                    <span aria-hidden className="text-white/35">
-                      {"\u00b7"}
-                    </span>
-                  )}
-                  {item}
-                </span>
-              ))}
-            </p>
-          )}
-
-          {knownForTitles.length > 0 && (
-            <p className="mx-auto mt-3 max-w-md text-[13px] leading-snug text-white/55">
-              Known for {knownForTitles.join(", ")}
-            </p>
-          )}
+          <p className="mt-3 flex flex-wrap items-center justify-center gap-x-2 text-[15px] text-white/75">
+            {facts.map((item, i) => (
+              <span key={item} className="inline-flex items-center gap-2">
+                {i > 0 && (
+                  <span aria-hidden className="text-white/35">
+                    {"\u00b7"}
+                  </span>
+                )}
+                {item}
+              </span>
+            ))}
+          </p>
         </div>
       </div>
 
+      {/* ---------- Seen ---------- */}
+      <SeenStatCard seen={seenCount} total={totalCredits} />
+
       {/* ---------- Biography ---------- */}
       {details.biography ? (
-        <section className="px-4 pt-7">
-          <h2 className="mb-2 text-[22px] font-extrabold tracking-tight text-white">
-            Biography
-          </h2>
-          <p className="line-clamp-6 text-sm leading-relaxed text-white/75">
-            {details.biography}
-          </p>
-        </section>
+        <PersonBiography text={details.biography} />
       ) : null}
 
-      {/* ---------- Known for ---------- */}
-      {knownFor.length > 0 && (
+      {/* ---------- Coming soon ---------- */}
+      {comingSoon.length > 0 && (
         <section className="px-4 pt-7">
-          <h2 className="mb-3 text-[22px] font-extrabold tracking-tight text-white">
-            Known for
+          <h2 className="mb-2 text-[22px] font-extrabold tracking-tight text-white">
+            Coming Soon
           </h2>
-          <div className="grid grid-cols-3 gap-x-2 gap-y-4">
-            {knownFor.map((c) => (
-              <CreditCard
-                key={`known-${c.id}-${c.character ?? ""}`}
-                credit={c}
-                role={c.character}
-                status={library.movieStatusById.get(c.id) || null}
-              />
+          <div className="divide-y divide-white/[0.06]">
+            {comingSoon.map((c) => (
+              <CreditRow key={c.href + c.title} credit={c} />
             ))}
           </div>
+        </section>
+      )}
+
+      {/* ---------- Known for ---------- */}
+      {knownForCredits.length > 0 && (
+        <section className="pt-7">
+          <div className="px-4">
+            <h2 className="mb-3 text-[22px] font-extrabold tracking-tight text-white">
+              Known For
+            </h2>
+          </div>
+          <CreditRail items={knownForCredits} />
         </section>
       )}
 
       {/* ---------- Directed ---------- */}
-      {directing.length > 0 && (
-        <section className="px-4 pt-7">
-          <h2 className="mb-3 text-[22px] font-extrabold tracking-tight text-white">
-            Directed
-          </h2>
-          <div className="grid grid-cols-3 gap-x-2 gap-y-4">
-            {directing.map((c) => (
-              <CreditCard
-                key={`dir-${c.id}`}
-                credit={c}
-                status={library.movieStatusById.get(c.id) || null}
-              />
-            ))}
+      {directedPreview.length > 0 && (
+        <section className="pt-7">
+          <div className="px-4">
+            <h2 className="mb-3 text-[22px] font-extrabold tracking-tight text-white">
+              Directed
+            </h2>
           </div>
+          <CreditRail items={directedPreview} />
         </section>
       )}
 
-      {/* ---------- Filmography ---------- */}
-      <section className="px-4 pt-7 pb-4">
-        <h2 className="mb-3 text-[22px] font-extrabold tracking-tight text-white">
-          {directing.length > 0 ? "Acting" : "Filmography"}
-        </h2>
-        {acting.length === 0 ? (
-          <p className="py-8 text-center text-sm text-muted-foreground">
-            No film credits found.
+      {/* ---------- Filmography, split by medium ---------- */}
+      <section className="px-4 pt-7">
+        <SectionHeader
+          title="Movies"
+          href={moviePreview.length > 0 ? creditsHref : undefined}
+          count={actingMovies.length + directedMovies.length}
+        />
+        {moviePreview.length === 0 ? (
+          <p className="py-6 text-center text-sm text-muted-foreground">
+            No movie credits found.
           </p>
         ) : (
-          <div className="grid grid-cols-3 gap-x-2 gap-y-4">
-            {acting.map((c) => (
-              <CreditCard
-                key={`cast-${c.id}-${c.character ?? ""}`}
-                credit={c}
-                role={c.character}
-                status={library.movieStatusById.get(c.id) || null}
-              />
+          <div className="divide-y divide-white/[0.06]">
+            {moviePreview.map((c) => (
+              <CreditRow key={c.href + c.title} credit={c} />
             ))}
           </div>
         )}
       </section>
+
+      <section className="px-4 pt-7">
+        <SectionHeader
+          title="Shows"
+          href={showPreview.length > 0 ? creditsHref : undefined}
+          count={actingShows.length + directedShows.length}
+        />
+        {showPreview.length === 0 ? (
+          <p className="py-6 text-center text-sm text-muted-foreground">
+            No series credits found.
+          </p>
+        ) : (
+          <div className="divide-y divide-white/[0.06]">
+            {showPreview.map((c) => (
+              <CreditRow key={c.href + c.title} credit={c} />
+            ))}
+          </div>
+        )}
+      </section>
+
+      {/* ---------- Footer link to the complete filmography ---------- */}
+      {(actingMovies.length + actingShows.length) > PREVIEW * 2 ? (
+        <div className="px-4 pt-7">
+          <Link
+            href={creditsHref}
+            className="flex w-full items-center justify-center gap-1 rounded-full bg-card px-4 py-3 text-sm font-bold text-primary ring-1 ring-white/10 active:scale-[0.98]"
+          >
+            Show All Credits
+            <ChevronRight className="h-4 w-4" />
+          </Link>
+        </div>
+      ) : null}
+
+      <div className="h-8" />
     </div>
   );
 }

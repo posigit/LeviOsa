@@ -8,15 +8,7 @@ import type { TmdbMediaCard } from "@/lib/tmdb";
 import type { GenreChipMeta } from "@/lib/explore-types";
 import { cn } from "@/lib/utils";
 
-export function DiscoverGenreBrowser({
-  genres,
-  followedShowIds,
-  movieStatusById,
-}: {
-  genres: GenreChipMeta[];
-  followedShowIds: number[];
-  movieStatusById: Record<number, string | null | undefined>;
-}) {
+export function DiscoverGenreBrowser({ genres }: { genres: GenreChipMeta[] }) {
   const defaultKey = genres[0]?.key ?? "";
   const [active, setActive] = useState(defaultKey);
   const [itemsByKey, setItemsByKey] = useState<Record<string, TmdbMediaCard[]>>(
@@ -26,15 +18,6 @@ export function DiscoverGenreBrowser({
   const selected = useMemo(
     () => genres.find((g) => g.key === active) ?? genres[0],
     [genres, active]
-  );
-
-  const showSet = useMemo(() => new Set(followedShowIds), [followedShowIds]);
-  const movieMap = useMemo(
-    () =>
-      new Map(
-        Object.entries(movieStatusById).map(([k, v]) => [Number(k), v])
-      ),
-    [movieStatusById]
   );
 
   const selectedKey = selected?.key ?? "";
@@ -105,14 +88,13 @@ export function DiscoverGenreBrowser({
             <PosterRailSkeleton count={5} />
           ) : items.length > 0 ? (
             <DiscoverRail
+              heading="pill"
               label={
                 selected.kind === "tv"
                   ? `${selected.label.replace(/^TV · /, "")} shows`
                   : `${selected.label.replace(/^Film · /, "")} movies`
               }
               items={items}
-              followedShowIds={showSet}
-              movieStatusById={movieMap}
             />
           ) : (
             <p className="text-sm text-muted-foreground">

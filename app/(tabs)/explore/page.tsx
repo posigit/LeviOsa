@@ -9,7 +9,6 @@ import { loadExploreDiscover, loadExploreFeed } from "@/lib/explore-data";
 import { SearchBar } from "@/components/search-bar";
 import { StickyChrome } from "@/components/sticky-chrome";
 import { ExplorePills } from "@/components/explore-pills";
-import { ShowFollowButton } from "@/components/show-follow-button";
 import { DiscoverRail } from "@/components/discover-rail";
 import { FeedHero } from "@/components/feed-hero";
 import { DiscoverGenreBrowser } from "@/components/discover-genre-browser";
@@ -22,16 +21,15 @@ import { posterUrl } from "@/lib/tmdb";
 import Link from "next/link";
 import Image from "next/image";
 
+/** Poster tile — deliberately control-free: the whole tile is the link. */
 function PosterTile({
   title,
   posterPath,
   href,
-  action,
 }: {
   title: string;
   posterPath?: string | null;
   href: string;
-  action: React.ReactNode;
 }) {
   return (
     <div className="relative overflow-hidden rounded-lg bg-card">
@@ -52,7 +50,6 @@ function PosterTile({
           )}
         </div>
       </Link>
-      <div className="absolute right-1.5 top-1.5">{action}</div>
     </div>
   );
 }
@@ -111,20 +108,18 @@ async function FeedBody({ userId }: { userId: string }) {
 
       {forYouTail.length > 3 && (
         <DiscoverRail
+          heading="pill"
           label="More for you"
           items={forYouTail}
-          followedShowIds={library.followedShowIds}
-          movieStatusById={library.movieStatusById}
         />
       )}
 
       {digest.because.slice(0, 2).map((rail) => (
         <DiscoverRail
+          heading="pill"
           key={rail.seedTitle}
           label={`Because you watched ${rail.seedTitle}`}
           items={rail.items}
-          followedShowIds={library.followedShowIds}
-          movieStatusById={library.movieStatusById}
         />
       ))}
 
@@ -150,8 +145,6 @@ async function FeedBody({ userId }: { userId: string }) {
 
 async function DiscoverBody({ userId }: { userId: string }) {
   const data = await loadExploreDiscover(userId);
-  const { library } = data;
-  const movieStatusRecord = Object.fromEntries(library.movieStatusById);
 
   /** Trending series and films share the featured stage. */
   const heroItems = [
@@ -170,42 +163,35 @@ async function DiscoverBody({ userId }: { userId: string }) {
       {/* Browse first: this tab is for searching the whole catalog. */}
       <DiscoverGenreBrowser
         genres={data.genreChips}
-        followedShowIds={[...library.followedShowIds]}
-        movieStatusById={movieStatusRecord}
       />
 
       {/* What is hot right now */}
       <DiscoverRail
+        heading="pill"
         label="Hot movies this week"
         items={data.hotMovies}
-        followedShowIds={library.followedShowIds}
-        movieStatusById={library.movieStatusById}
       />
       <DiscoverRail
+        heading="pill"
         label="Popular series"
         items={data.popularTv}
-        followedShowIds={library.followedShowIds}
-        movieStatusById={library.movieStatusById}
       />
       <DiscoverRail
+        heading="pill"
         label="Hidden gems"
         items={data.hiddenGems}
-        followedShowIds={library.followedShowIds}
-        movieStatusById={library.movieStatusById}
       />
 
       {/* Theatrical window */}
       <DiscoverRail
+        heading="pill"
         label="In theaters now"
         items={data.nowPlaying}
-        followedShowIds={library.followedShowIds}
-        movieStatusById={library.movieStatusById}
       />
       <DiscoverRail
+        heading="pill"
         label="Coming to theaters"
         items={data.upcoming}
-        followedShowIds={library.followedShowIds}
-        movieStatusById={library.movieStatusById}
       />
 
       {/* Broadcast schedule */}
@@ -217,13 +203,6 @@ async function DiscoverBody({ userId }: { userId: string }) {
               title={show.title}
               posterPath={show.poster_path}
               href={`/show/${show.id}`}
-              action={
-                <ShowFollowButton
-                  tmdbId={show.id}
-                  initialFollowing={false}
-                  variant="overlay"
-                />
-              }
             />
           ))}
         </GridSection>
@@ -237,23 +216,15 @@ async function DiscoverBody({ userId }: { userId: string }) {
               title={show.title}
               posterPath={show.poster_path}
               href={`/show/${show.id}`}
-              action={
-                <ShowFollowButton
-                  tmdbId={show.id}
-                  initialFollowing={false}
-                  variant="overlay"
-                />
-              }
             />
           ))}
         </GridSection>
       )}
 
       <DiscoverRail
+        heading="pill"
         label="Critically loved films"
         items={data.topMovies}
-        followedShowIds={library.followedShowIds}
-        movieStatusById={library.movieStatusById}
       />
     </>
   );

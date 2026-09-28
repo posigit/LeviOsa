@@ -1,7 +1,7 @@
 import { PosterGridSkeleton, Skeleton } from "@/components/skeletons";
 import { StickyChrome } from "@/components/sticky-chrome";
 
-export default function ProfileListLoading() {
+export default function CustomListLoading() {
   return (
     <div
       className="min-h-dvh bg-black pb-nav-page"
@@ -11,7 +11,7 @@ export default function ProfileListLoading() {
       <StickyChrome contentClassName="px-4 pt-3 pb-2">
         <div className="flex items-center gap-3">
           <Skeleton className="h-9 w-9 rounded-full" />
-          <Skeleton className="h-6 w-32" />
+          <Skeleton className="h-6 w-40" />
         </div>
       </StickyChrome>
       <div className="px-4 pt-4">
