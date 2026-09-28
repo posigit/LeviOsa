@@ -11,6 +11,7 @@ import {
 import { filterNewMedia } from "@/lib/recommend";
 import {
   getTvCredits,
+  getTvExternalIds,
   getTvImages,
   getTvRecommendations,
   getTvSimilar,
@@ -59,8 +60,15 @@ export default async function ShowDetailPage({
   const show = await ensureShow(tmdbId);
   if (!show) notFound();
 
-  const [userShow, allEpisodes, watched, rewatches, ownedShows, playbackPositions] =
-    await Promise.all([
+  const [
+    userShow,
+    allEpisodes,
+    watched,
+    rewatches,
+    ownedShows,
+    playbackPositions,
+    externalIds,
+  ] = await Promise.all([
       withDbRetry(() =>
         db.query.userShows.findFirst({
           where: and(eq(userShows.userId, userId), eq(userShows.tmdbId, tmdbId)),
@@ -97,9 +105,14 @@ export default async function ShowDetailPage({
         .from(userShows)
         .where(eq(userShows.userId, userId)),
       getShowPlaybackPositions(userId, tmdbId, (show.episodeRuntime ?? 0) * 60),
+      // Fanart keys off TheTVDB, so resolve that mapping alongside the rest.
+      getTvExternalIds(tmdbId).catch(() => null),
     ]);
 
   const ownedIds = new Set(ownedShows.map((s) => s.tmdbId));
+
+  /** TheTVDB id for Fanart; 0 → the Fanart helpers short-circuit to "no art". */
+  const tvdbId = externalIds?.tvdb_id ?? 0;
 
   const [
     similarRaw,
@@ -150,11 +163,12 @@ export default async function ShowDetailPage({
     getTvImages(tmdbId).catch(() => ({ logos: [] })),
     getTvCredits(tmdbId).catch(() => ({ cast: [], crew: [] })),
     // Fanart transparent wordmark wins over TMDB; TMDB stays the fallback.
-    getShowLogoArt(tmdbId).catch(() => null),
+    // Fanart indexes by TheTVDB id — a TMDB id silently answers `200 {}`.
+    getShowLogoArt(tvdbId).catch(() => null),
     // Movie of the Night deep links; null → page uses the TMDB providers card.
     getShowWatchOptions(tmdbId).catch(() => null),
-    getShowStickers(tmdbId).catch(() => []),
-    getShowClearart(tmdbId).catch(() => null),
+    getShowStickers(tvdbId).catch(() => []),
+    getShowClearart(tvdbId).catch(() => null),
   ]);
 
   // Original-font title treatment (Fanart, then TMDB logo artwork).

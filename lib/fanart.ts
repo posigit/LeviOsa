@@ -6,6 +6,10 @@
  *  - `getShowStickers`  → transparent character cut-outs for the Stickers section
  *  - `getShowClearart`  → ensemble word-art used as that section's hero piece
  *
+ * NOTE: the `tvdbId` argument is a **TheTVDB** id, not a TMDB id. Fanart answers
+ * `200 {}` for an id it doesn't know, which looks like "no artwork" and gets
+ * cached for a day — resolve it with `getTvExternalIds(tmdbId).tvdb_id` first.
+ *
  * Everything else (posters, backdrops) stays on TMDB so `posterPath`/`backdropPath`
  * keep feeding the grid, list rows and `lib/movie-theme.ts` untouched.
  *
@@ -39,12 +43,12 @@ function getApiKey(): string | null {
   return key ? key : null;
 }
 
-async function fanartFetch(tmdbId: number): Promise<FanartTvArt> {
+async function fanartFetch(tvdbId: number): Promise<FanartTvArt> {
   const key = getApiKey();
-  if (!key) return {};
+  if (!key || !Number.isFinite(tvdbId) || tvdbId <= 0) return {};
 
   try {
-    const url = new URL(`${FANART_BASE_URL}/tv/${tmdbId}`);
+    const url = new URL(`${FANART_BASE_URL}/tv/${tvdbId}`);
     url.searchParams.set("api_key", key);
     const res = await fetch(url.toString(), {
       next: { revalidate: 86_400 },
@@ -79,8 +83,8 @@ function pickBest(
  * Original-font title treatment with a real alpha channel, so the hero's
  * `drop-shadow` reads as a cut-out instead of a rectangle.
  */
-export async function getShowLogoArt(tmdbId: number): Promise<string | null> {
-  const art = await fanartFetch(tmdbId);
+export async function getShowLogoArt(tvdbId: number): Promise<string | null> {
+  const art = await fanartFetch(tvdbId);
   return (
     pickBest(art.clearlogo, ["en", ""]) ?? pickBest(art.hdtvlogo, ["en", ""])
   );
@@ -91,8 +95,8 @@ export async function getShowLogoArt(tmdbId: number): Promise<string | null> {
  * `characterart` is one figure per image (sticker-shaped); `hdclearart` /
  * `clearart` are ensemble word-art used when a show has no character art.
  */
-export async function getShowStickers(tmdbId: number): Promise<string[]> {
-  const art = await fanartFetch(tmdbId);
+export async function getShowStickers(tvdbId: number): Promise<string[]> {
+  const art = await fanartFetch(tvdbId);
   const ranked = (list: FanartImage[] | undefined) =>
     (list ?? [])
       .filter((i) => i?.url)
@@ -124,8 +128,8 @@ export async function getShowStickers(tmdbId: number): Promise<string[]> {
  * Ensemble character word-art used as the section's hero piece when it isn't
  * already in the sticker list.
  */
-export async function getShowClearart(tmdbId: number): Promise<string | null> {
-  const art = await fanartFetch(tmdbId);
+export async function getShowClearart(tvdbId: number): Promise<string | null> {
+  const art = await fanartFetch(tvdbId);
   return (
     pickBest(art.hdclearart, ["en", ""]) ?? pickBest(art.clearart, ["en", ""])
   );

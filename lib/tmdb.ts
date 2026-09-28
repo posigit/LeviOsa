@@ -227,8 +227,17 @@ export function tvCreators(crew: TmdbCrewMember[] | null | undefined): string[] 
   return names;
 }
 
-export async function getTvExternalIds(tmdbId: number) {
-  return tmdbFetch<{ imdb_id?: string | null }>(`/tv/${tmdbId}/external_ids`);
+/**
+ * `tvdb_id` is what Fanart's `/v3/tv/{id}` endpoint actually wants — feeding it
+ * a TMDB id answers `200 {}` (no error, no artwork), which then gets cached for
+ * a day. Returns `null` for shows with no TVDB mapping, so callers skip Fanart.
+ */
+export async function getTvExternalIds(
+  tmdbId: number
+): Promise<{ imdb_id?: string | null; tvdb_id?: number | null }> {
+  return tmdbFetch<{ imdb_id?: string | null; tvdb_id?: number | null }>(
+    `/tv/${tmdbId}/external_ids`
+  );
 }
 
 export async function getMovieExternalIds(tmdbId: number) {
