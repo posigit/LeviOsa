@@ -17,6 +17,7 @@ import { fetchSegments } from "@/lib/introdb";
 import { loadVixSettings, matchLang } from "@/lib/vix-settings";
 import {
   DL_CACHE,
+  cachePosterThumb,
   checkpointRecord,
   commitRecord,
   deleteRecordFiles,
@@ -67,6 +68,8 @@ export type DownloadRequest = {
   episode?: number;
   title: string;
   subtitle?: string;
+  /** TMDB poster path — lets the Library show a thumbnail while offline. */
+  poster?: string | null;
 };
 
 const CONCURRENCY = 4;
@@ -472,6 +475,7 @@ async function startDownloadInner(req: DownloadRequest, key: string): Promise<vo
     episode: req.episode,
     title: req.title,
     subtitle: req.subtitle,
+    posterPath: req.poster ?? existing?.posterPath ?? null,
     quality: settings.downloadQuality,
     usedSource: existing?.usedSource ?? "",
     durationSec: existing?.durationSec ?? 0,
@@ -510,6 +514,15 @@ async function startDownloadInner(req: DownloadRequest, key: string): Promise<vo
     interruptedOffline: existing?.interruptedOffline,
     rendition: sameQuality ? existing?.rendition : undefined,
   };
+  // Player downloads carry no poster, and rows from before thumbnails
+  // existed have none either. Resolve it here — we are provably online —
+  // then cachePosterThumb (below) stores the tiny image offline.
+  if (!rec.posterPath) {
+    rec.posterPath = await lookupPosterPath(
+      req.type === "movie" ? "movie" : "tv",
+      req.tmdbId
+    );
+  }
   // iPhone can't run two titles at once without getting the tab killed.
   if (isIosSafari() && otherSlotTaken(key)) {
     if (!iosQueue.some((r) => requestKey(r) === key)) iosQueue.push(req);
@@ -518,6 +531,9 @@ async function startDownloadInner(req: DownloadRequest, key: string): Promise<vo
     return;
   }
   await upsertRecord(rec);
+  // Kick the thumbnail fetch immediately — we are online right now and the
+  // Library must open with posters even after the connection is gone.
+  void cachePosterThumb(rec.posterPath);
 
   const controller = new AbortController();
   activeControllers.set(key, controller);
@@ -619,6 +635,23 @@ export async function resumeDownload(req: DownloadRequest): Promise<void> {
   return startDownload(req);
 }
 
+/** Poster path from our own API — never a browser-side TMDB key. */
+async function lookupPosterPath(
+  type: "movie" | "tv",
+  tmdbId: number
+): Promise<string | null> {
+  try {
+    const res = await fetch(`/api/meta/poster?type=${type}&id=${tmdbId}`, {
+      cache: "no-store",
+    });
+    if (!res.ok) return null;
+    const data = (await res.json()) as { posterPath?: string | null };
+    return data.posterPath ?? null;
+  } catch {
+    return null;
+  }
+}
+
 function reqFromRecord(rec: DownloadRecord): DownloadRequest {
   return {
     type: rec.type === "movie" ? "movie" : "tv",
@@ -627,6 +660,7 @@ function reqFromRecord(rec: DownloadRecord): DownloadRequest {
     episode: rec.episode,
     title: rec.title,
     subtitle: rec.subtitle,
+    poster: rec.posterPath,
   };
 }
 

@@ -565,14 +565,18 @@ export function PersonCreditsSkeleton() {
       role="status"
       aria-label="Loading filmography"
     >
-      <StickyChrome contentClassName="pt-2">
-        <div className="flex items-center justify-between">
+      <StickyChrome contentClassName="px-4 pt-3 pb-2">
+        <div className="flex items-center gap-3">
           <Skeleton className="h-9 w-9 rounded-full" />
-          <Skeleton className="h-6 w-40" />
-          <div className="flex gap-2">
-            <Skeleton className="h-9 w-9 rounded-full" />
-            <Skeleton className="h-9 w-9 rounded-full" />
+          <div className="min-w-0 flex-1 space-y-1.5">
+            <Skeleton className="h-5 w-40" />
+            <Skeleton className="h-3 w-16" />
           </div>
+        </div>
+        <div className="mt-3 flex gap-1 rounded-full bg-white/[0.06] p-1 ring-1 ring-white/10">
+          {Array.from({ length: 3 }, (_, i) => (
+            <Skeleton key={i} className="h-8 flex-1 rounded-full" />
+          ))}
         </div>
       </StickyChrome>
 

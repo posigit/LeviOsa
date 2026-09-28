@@ -9,8 +9,10 @@
  * Bump VERSION when changing strategies so activate() purges old caches.
  * UI changes do NOT need a bump anymore: the /library shell revalidates
  * itself while online (storeShellDocument + the revalidate-shell message).
+ * offline.html is the exception — it is precached cache-first, so bump it
+ * whenever that page changes or installs keep serving the old markup.
  */
-const VERSION = "10";
+const VERSION = "11";
 const SHELL_CACHE = `tvtime-shell-v${VERSION}`;
 const STATIC_CACHE = `tvtime-static-v${VERSION}`;
 const IMAGE_CACHE = `tvtime-images-v${VERSION}`;
@@ -350,6 +352,13 @@ async function cacheFirst(request, cacheName) {  const cache = await caches.open
 }
 
 async function staleWhileRevalidateImage(request) {
+  // Posters saved next to a download live in DOWNLOAD_CACHE (unversioned).
+  // Serve them cache-first: they must outlive VERSION bumps, which purge
+  // IMAGE_CACHE, or the Library opens with empty tiles after an update.
+  const downloads = await caches.open(DOWNLOAD_CACHE);
+  const kept = await downloads.match(request);
+  if (kept) return kept;
+
   const cache = await caches.open(IMAGE_CACHE);
   const cached = await cache.match(request);
 

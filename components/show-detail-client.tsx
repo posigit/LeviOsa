@@ -1327,6 +1327,7 @@ export function ShowDetailClient({
                               episode: ep.episodeNumber,
                               title: `${show.title} — S${ep.seasonNumber}E${ep.episodeNumber}`,
                               subtitle: ep.title,
+                              poster: show.posterPath,
                             }}
                           />
 

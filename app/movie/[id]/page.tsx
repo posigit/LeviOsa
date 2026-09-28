@@ -566,7 +566,7 @@ export default async function MovieDetailPage({
           <DownloadButton
             variant="icon"
             className="h-11 w-11"
-            item={{ type: "movie", tmdbId, title: movie.title }}
+            item={{ type: "movie", tmdbId, title: movie.title, poster: movie.posterPath }}
           />
         </div>
 

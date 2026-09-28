@@ -11,6 +11,40 @@ import { isResumablePosition } from "@/lib/player-progress";
 export const DL_CACHE = "tvtime-downloads";
 const MANIFEST_IDB_KEY = "tvtime-download-manifest-v1";
 
+/**
+ * Library thumbnail size. w154 (154×231) is the smallest cut that still
+ * holds up on a phone-sized poster tile — a few kilobytes per title.
+ */
+export const POSTER_SIZE = "w154";
+
+export function posterThumbUrl(path: string | null | undefined): string | null {
+  if (!path) return null;
+  return `https://image.tmdb.org/t/p/${POSTER_SIZE}${path}`;
+}
+
+/**
+ * Cache the tiny poster next to the download's bytes — in DL_CACHE, which
+ * VERSION bumps never purge, so Library thumbnails survive a service-worker
+ * update. Fetched no-cors (TMDB images are loaded as plain <img> elsewhere),
+ * so the response is opaque; still perfectly storable and displayable.
+ */
+export async function cachePosterThumb(
+  path: string | null | undefined
+): Promise<boolean> {
+  const url = posterThumbUrl(path);
+  if (!url || typeof caches === "undefined") return false;
+  try {
+    const cache = await caches.open(DL_CACHE);
+    if (await cache.match(url)) return true;
+    const res = await fetch(url, { mode: "no-cors", credentials: "omit" });
+    await cache.put(url, res);
+    return true;
+  } catch {
+    // Offline or blocked — the row falls back to its placeholder.
+    return false;
+  }
+}
+
 export type DownloadItemType = "movie" | "episode";
 export type DownloadState =
   | "queued"
@@ -28,6 +62,8 @@ export type DownloadRecord = {
   episode?: number;
   title: string;
   subtitle?: string;
+  /** TMDB poster path — drives the Library thumbnail (see posterThumbUrl). */
+  posterPath?: string | null;
   quality: 480 | 720 | 1080 | "best";
   usedSource: string;
   durationSec: number;
@@ -294,6 +330,10 @@ export async function deleteRecordFiles(rec: DownloadRecord): Promise<void> {
   try {
     const c = await caches.open(DL_CACHE);
     await Promise.all(rec.fileUrls.map((u) => c.delete(u).catch(() => false)));
+    // Poster thumb is not in fileUrls (it isn't media) — drop it explicitly
+    // so deleting the last download doesn't leak a few kilobytes forever.
+    const poster = posterThumbUrl(rec.posterPath);
+    if (poster) await c.delete(poster).catch(() => false);
   } catch {
     /* cache unavailable — nothing to do */
   }

@@ -135,11 +135,12 @@ export default async function PersonPage({
   const allTitles = new Map<string, TmdbCombinedCredit>();
   for (const c of [...cast, ...crew]) allTitles.set(creditKey(c), c);
   const totalCredits = allTitles.size;
-  const seenCount = [...allTitles.values()].filter((c) =>
+  const seenTitles = [...allTitles.values()].filter((c) =>
     isTv(c)
       ? seenIds.watchedShowIds.has(c.id)
       : seenIds.watchedMovieIds.has(c.id)
-  ).length;
+  );
+  const seenCount = seenTitles.length;
 
   const knownFor = rankCredits(cast).slice(0, 8);
 
@@ -156,6 +157,8 @@ export default async function PersonPage({
     .map(toCredit);
 
   const knownForCredits = knownFor.map(toCredit);
+  /** The numerator of the Seen stat — titles already in this profile's library. */
+  const inLibraryCredits = rankCredits(seenTitles).map(toCredit);
   const moviePreview = actingMovies.slice(0, PREVIEW).map(toCredit);
   const showPreview = actingShows.slice(0, PREVIEW).map(toCredit);
   const directedPreview = directedMovies
@@ -263,6 +266,20 @@ export default async function PersonPage({
       {/* ---------- Seen ---------- */}
       <SeenStatCard seen={seenCount} total={totalCredits} />
 
+      {/* ---------- In library: the titles counted above ---------- */}
+      {inLibraryCredits.length > 0 && (
+        <section className="pt-7">
+          <div className="px-4">
+            <SectionHeader
+              title="In Library"
+              href={`${creditsHref}?kind=in`}
+              count={inLibraryCredits.length}
+            />
+          </div>
+          <CreditRail items={inLibraryCredits} />
+        </section>
+      )}
+
       {/* ---------- Biography ---------- */}
       {details.biography ? (
         <PersonBiography text={details.biography} />
@@ -310,7 +327,7 @@ export default async function PersonPage({
       <section className="px-4 pt-7">
         <SectionHeader
           title="Movies"
-          href={moviePreview.length > 0 ? creditsHref : undefined}
+          href={moviePreview.length > 0 ? `${creditsHref}?kind=movies` : undefined}
           count={actingMovies.length + directedMovies.length}
         />
         {moviePreview.length === 0 ? (
@@ -329,7 +346,7 @@ export default async function PersonPage({
       <section className="px-4 pt-7">
         <SectionHeader
           title="Shows"
-          href={showPreview.length > 0 ? creditsHref : undefined}
+          href={showPreview.length > 0 ? `${creditsHref}?kind=shows` : undefined}
           count={actingShows.length + directedShows.length}
         />
         {showPreview.length === 0 ? (

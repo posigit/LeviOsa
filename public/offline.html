@@ -12,55 +12,185 @@
     <style>
       * {
         box-sizing: border-box;
+        -webkit-tap-highlight-color: transparent;
+      }
+      html,
+      body {
+        height: 100%;
       }
       body {
         margin: 0;
         min-height: 100dvh;
         background: #000;
         color: #fff;
-        font-family: system-ui, -apple-system, Segoe UI, sans-serif;
+        font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+        -webkit-font-smoothing: antialiased;
+        text-rendering: optimizeLegibility;
         display: flex;
         align-items: center;
         justify-content: center;
-        padding: 2rem 1.25rem calc(2rem + env(safe-area-inset-bottom, 0px));
-        padding-top: env(safe-area-inset-top, 0px);
-        -webkit-font-smoothing: antialiased;
+        padding: calc(2rem + env(safe-area-inset-top, 0px)) 1.25rem
+          calc(2rem + env(safe-area-inset-bottom, 0px));
+        position: relative;
+        overflow: hidden;
       }
-      .wrap {
-        width: 100%;
+
+      /* Ambient depth — a soft gold bloom behind the card. */
+      .glow {
+        position: fixed;
+        border-radius: 999px;
+        filter: blur(90px);
+        pointer-events: none;
+        z-index: 0;
+      }
+      .glow-a {
+        top: -14vh;
+        left: 50%;
+        width: 78vw;
+        max-width: 30rem;
+        height: 44vh;
+        transform: translateX(-50%);
+        background: radial-gradient(
+          closest-side,
+          rgba(245, 197, 24, 0.3),
+          rgba(245, 197, 24, 0)
+        );
+      }
+      .glow-b {
+        bottom: -18vh;
+        right: -12vw;
+        width: 60vw;
         max-width: 22rem;
+        height: 42vh;
+        background: radial-gradient(
+          closest-side,
+          rgba(255, 255, 255, 0.11),
+          rgba(255, 255, 255, 0)
+        );
+      }
+
+      .wrap {
+        position: relative;
+        z-index: 1;
+        width: 100%;
+        max-width: 23rem;
         text-align: center;
       }
+
       .icon {
-        width: 4rem;
-        height: 4rem;
-        margin: 0 auto 1.25rem;
+        width: 5rem;
+        height: 5rem;
+        margin: 0 auto 1.5rem;
+        border-radius: 1.6rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(
+          160deg,
+          rgba(255, 255, 255, 0.12),
+          rgba(255, 255, 255, 0.04)
+        );
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        box-shadow:
+          0 18px 48px rgba(0, 0, 0, 0.6),
+          inset 0 1px 0 rgba(255, 255, 255, 0.22);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+      }
+      .icon svg {
+        width: 2rem;
+        height: 2rem;
+        stroke: #f5c518;
+      }
+
+      h1 {
+        font-size: 2.05rem;
+        font-weight: 800;
+        letter-spacing: -0.035em;
+        line-height: 1.05;
+        margin: 0;
+      }
+      .sub {
+        margin: 0.75rem auto 0;
+        max-width: 18rem;
+        font-size: 0.95rem;
+        line-height: 1.5;
+        color: rgba(255, 255, 255, 0.52);
+      }
+
+      .chip {
+        display: none;
+        align-items: center;
+        gap: 0.45rem;
+        width: fit-content;
+        margin: 1.4rem auto 0;
+        padding: 0.5rem 0.9rem;
+        border-radius: 999px;
+        background: rgba(245, 197, 24, 0.12);
+        border: 1px solid rgba(245, 197, 24, 0.34);
+        color: #f5c518;
+        font-size: 0.72rem;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        font-variant-numeric: tabular-nums;
+      }
+      .chip.show {
+        display: inline-flex;
+      }
+      .chip .dot {
+        width: 0.4rem;
+        height: 0.4rem;
+        border-radius: 999px;
+        background: #f5c518;
+        box-shadow: 0 0 10px rgba(245, 197, 24, 0.9);
+      }
+
+      .panel {
+        margin-top: 1.5rem;
+        padding: 0.4rem 0.5rem;
+        border-radius: 1.35rem;
+        background: rgba(255, 255, 255, 0.055);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(18px);
+        -webkit-backdrop-filter: blur(18px);
+        text-align: left;
+      }
+      .row {
+        display: flex;
+        align-items: center;
+        gap: 0.7rem;
+        padding: 0.72rem 0.75rem;
+        font-size: 0.86rem;
+        font-weight: 600;
+        color: rgba(255, 255, 255, 0.78);
+      }
+      .row + .row {
+        border-top: 1px solid rgba(255, 255, 255, 0.07);
+      }
+      .tick {
+        flex: none;
+        width: 1.35rem;
+        height: 1.35rem;
         border-radius: 999px;
         display: flex;
         align-items: center;
         justify-content: center;
-        background: rgba(255, 255, 255, 0.07);
-        border: 1px solid rgba(255, 255, 255, 0.12);
-        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
-        backdrop-filter: blur(16px);
-        -webkit-backdrop-filter: blur(16px);
+        background: rgba(245, 197, 24, 0.16);
+        border: 1px solid rgba(245, 197, 24, 0.35);
       }
-      .icon svg {
-        width: 1.6rem;
-        height: 1.6rem;
-        stroke: rgba(255, 255, 255, 0.75);
+      .tick svg {
+        width: 0.72rem;
+        height: 0.72rem;
+        stroke: #f5c518;
+        stroke-width: 3.2;
       }
-      h1 {
-        font-size: 1.7rem;
-        font-weight: 800;
-        letter-spacing: -0.02em;
-        margin: 0;
-      }
+
       .actions {
         display: flex;
         gap: 0.6rem;
         justify-content: center;
-        margin-top: 1.75rem;
+        margin-top: 1.6rem;
       }
       .btn {
         appearance: none;
@@ -68,38 +198,88 @@
         cursor: pointer;
         border-radius: 999px;
         font-weight: 800;
-        font-size: 0.82rem;
-        letter-spacing: 0.05em;
-        text-transform: uppercase;
-        padding: 1rem 1.6rem;
+        font-size: 0.92rem;
+        letter-spacing: -0.01em;
+        padding: 0.95rem 1.5rem;
         text-decoration: none;
         display: inline-flex;
         align-items: center;
         justify-content: center;
+        transition: transform 0.12s ease, opacity 0.12s ease;
       }
       .primary {
         background: #f5c518;
         color: #000;
-      }
-      .primary:active {
-        transform: scale(0.97);
+        box-shadow: 0 14px 34px rgba(245, 197, 24, 0.24);
       }
       .ghost {
-        background: rgba(255, 255, 255, 0.1);
+        background: rgba(255, 255, 255, 0.09);
         color: #fff;
-        border: 1px solid rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.1);
         backdrop-filter: blur(16px);
         -webkit-backdrop-filter: blur(16px);
       }
-      .ghost:active {
+      .btn:active {
         transform: scale(0.97);
+      }
+
+      .status {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        margin-top: 1.6rem;
+        font-size: 0.78rem;
+        font-weight: 600;
+        color: rgba(255, 255, 255, 0.34);
+      }
+      .pulse {
+        width: 0.45rem;
+        height: 0.45rem;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.45);
+        animation: beat 1.6s ease-in-out infinite;
+      }
+      .status.back .pulse {
+        background: #30d158;
+        animation: none;
+        box-shadow: 0 0 10px rgba(48, 209, 88, 0.9);
+      }
+      .status.back {
+        color: rgba(48, 209, 88, 0.9);
+      }
+      @keyframes beat {
+        0%,
+        100% {
+          opacity: 0.35;
+          transform: scale(0.85);
+        }
+        50% {
+          opacity: 1;
+          transform: scale(1.15);
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .pulse {
+          animation: none;
+        }
       }
     </style>
   </head>
   <body>
-    <div class="wrap">
+    <div class="glow glow-a" aria-hidden="true"></div>
+    <div class="glow glow-b" aria-hidden="true"></div>
+
+    <main class="wrap">
       <div class="icon" aria-hidden="true">
-        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
           <line x1="2" y1="2" x2="22" y2="22" />
           <path d="M8.5 16.5a5 5 0 0 1 7 0" />
           <path d="M5 12.9a10 10 0 0 1 3.9-2.3" />
@@ -109,20 +289,160 @@
           <line x1="12" y1="20" x2="12.01" y2="20" />
         </svg>
       </div>
+
       <h1>You&rsquo;re offline</h1>
+      <p class="sub">
+        This page needs a connection. Your saved downloads don&rsquo;t — they
+        play straight from this device.
+      </p>
+
+      <span class="chip" id="chip">
+        <span class="dot" aria-hidden="true"></span>
+        <span id="chipText"></span>
+      </span>
+
+      <div class="panel" aria-label="Still available offline">
+        <div class="row">
+          <span class="tick" aria-hidden="true">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <polyline points="20 6 9 17 4 12" />
+            </svg>
+          </span>
+          Saved movies &amp; episodes
+        </div>
+        <div class="row">
+          <span class="tick" aria-hidden="true">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <polyline points="20 6 9 17 4 12" />
+            </svg>
+          </span>
+          Resume where you left off
+        </div>
+        <div class="row">
+          <span class="tick" aria-hidden="true">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <polyline points="20 6 9 17 4 12" />
+            </svg>
+          </span>
+          Subtitles, intro &amp; recap skips
+        </div>
+      </div>
+
       <div class="actions">
         <a class="btn primary" href="/library">Open library</a>
         <button class="btn ghost" type="button" onclick="location.reload()">
           Try again
         </button>
       </div>
-    </div>
+
+      <p class="status" id="status">
+        <span class="pulse" aria-hidden="true"></span>
+        <span id="statusText">Reconnecting automatically…</span>
+      </p>
+    </main>
+
     <script>
       "use strict";
-      /* Minimal fallback: Library owns downloads playback, this page
-         only routes there or retries. Auto-retry when back online. */
+      /* Offline launcher: routes to Library (the precached shell) or retries.
+         Reads the raw download manifest straight out of IndexedDB so the
+         chip reflects what is actually on the device — same DB + key the
+         app store writes (idb-keyval "keyval-store"/"keyval",
+         "tvtime-download-manifest-v1"). Any failure just hides the chip. */
+
+      function formatBytes(n) {
+        if (!n || n <= 0) return "0 B";
+        var units = ["B", "KB", "MB", "GB", "TB"];
+        var i = Math.min(units.length - 1, Math.floor(Math.log(n) / Math.log(1024)));
+        var v = n / Math.pow(1024, i);
+        return (i === 0 ? v : v.toFixed(v >= 10 ? 0 : 1)) + " " + units[i];
+      }
+
+      function readManifest() {
+        return new Promise(function (resolve) {
+          try {
+            var open = indexedDB.open("keyval-store");
+            open.onerror = function () {
+              resolve(null);
+            };
+            open.onsuccess = function () {
+              var db = open.result;
+              try {
+                var tx = db.transaction("keyval", "readonly");
+                var get = tx.objectStore("keyval").get("tvtime-download-manifest-v1");
+                get.onsuccess = function () {
+                  resolve(get.result || {});
+                  db.close();
+                };
+                get.onerror = function () {
+                  resolve(null);
+                  db.close();
+                };
+              } catch (e) {
+                db.close();
+                resolve(null);
+              }
+            };
+          } catch (e) {
+            resolve(null);
+          }
+        });
+      }
+
+      readManifest().then(function (manifest) {
+        if (!manifest || typeof manifest !== "object") return;
+        var records = [];
+        for (var k in manifest) {
+          if (Object.prototype.hasOwnProperty.call(manifest, k)) records.push(manifest[k]);
+        }
+        var done = records.filter(function (r) {
+          return r && r.state === "done";
+        });
+        if (done.length === 0) return;
+        var bytes = done.reduce(function (sum, r) {
+          return sum + (r.sizeBytes || 0);
+        }, 0);
+        var text =
+          done.length +
+          " title" +
+          (done.length === 1 ? "" : "s") +
+          " ready" +
+          (bytes > 0 ? " · " + formatBytes(bytes) : "");
+        document.getElementById("chipText").textContent = text;
+        document.getElementById("chip").classList.add("show");
+      });
+
+      var reloading = false;
       window.addEventListener("online", function () {
-        location.reload();
+        if (reloading) return;
+        reloading = true;
+        var status = document.getElementById("status");
+        status.classList.add("back");
+        document.getElementById("statusText").textContent =
+          "Back online — reloading…";
+        setTimeout(function () {
+          location.reload();
+        }, 600);
+      });
+      window.addEventListener("offline", function () {
+        var status = document.getElementById("status");
+        status.classList.remove("back");
+        document.getElementById("statusText").textContent =
+          "Reconnecting automatically…";
       });
     </script>
   </body>

@@ -91,6 +91,30 @@ function resumeAtSnapshot(state: string, key: string): number | null {
     : null;
 }
 
+/**
+ * Live resume position for one download. Not a memo on [key, state]:
+ * playback rewrites the mirror while the row is mounted and finishing an
+ * episode clears it, so the subscription stays open for the whole life of
+ * the component. Shared by DownloadRow and the library poster cards.
+ */
+export function useResumeAt(state: string, key: string): number | null {
+  const subscribe = useCallback(
+    (onChange: () => void) => {
+      const onPosition = (e: Event) => {
+        if ((e as CustomEvent<{ key?: string }>).detail?.key === key) onChange();
+      };
+      window.addEventListener("tvtime:offline-position", onPosition);
+      return () => window.removeEventListener("tvtime:offline-position", onPosition);
+    },
+    [key]
+  );
+  return useSyncExternalStore(
+    subscribe,
+    () => resumeAtSnapshot(state, key),
+    () => null
+  );
+}
+
 export function DownloadRow({
   record: r,
   onPlay,
@@ -105,26 +129,7 @@ export function DownloadRow({
   const stale = busy && !runningHere;
   const progress = r.totalSegments > 0 ? r.doneSegments / r.totalSegments : 0;
 
-  /**
-   * "Resume 12:34" is live, not one-shot: playback rewrites the mirror while
-   * this row is already mounted, and finishing an episode clears it. A memo
-   * keyed on [key, state] would keep serving the value from mount time.
-   */
-  const subscribe = useCallback(
-    (onChange: () => void) => {
-      const onPosition = (e: Event) => {
-        if ((e as CustomEvent<{ key?: string }>).detail?.key === r.key) onChange();
-      };
-      window.addEventListener("tvtime:offline-position", onPosition);
-      return () => window.removeEventListener("tvtime:offline-position", onPosition);
-    },
-    [r.key]
-  );
-  const resumeAt = useSyncExternalStore(
-    subscribe,
-    () => resumeAtSnapshot(r.state, r.key),
-    () => null
-  );
+  const resumeAt = useResumeAt(r.state, r.key);
 
   const tryResume = () => {
     if (!online) {
