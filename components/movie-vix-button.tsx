@@ -38,8 +38,12 @@ export function MovieVixButton({
   const { toast } = useToast();
 
   if (!open) {
-    const resume = playback ? formatPlaybackTime(playback.timeLeftSeconds) : null;
-    const label = resume ? "Resume" : isWatched ? "Rewatch" : "Watch";
+    const timeLeft = playback ? formatPlaybackTime(playback.timeLeftSeconds) : null;
+    const label = timeLeft
+      ? `Resume · ${timeLeft} left`
+      : isWatched
+        ? "Rewatch"
+        : "Watch";
     return (
       <button
         type="button"

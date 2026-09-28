@@ -895,7 +895,13 @@ export function ShowDetailClient({
         />
 
         {/* Hero footer: status → title → meta → progress */}
-        <div className="absolute inset-x-0 bottom-0 px-5 pb-6 text-center">
+        {/* Bottom padding only matches the bar's footprint when the bar is
+            there — a fresh series shouldn't carry an empty gap. */}
+        <div
+          className={`absolute inset-x-0 bottom-0 px-5 text-center ${
+            progressStarted ? "pb-6" : "pb-2"
+          }`}
+        >
           {show.status && (
             <span className="glass-control inline-flex rounded-full bg-white/10 px-3 py-1 text-xs font-semibold text-white/90">
               {show.status}

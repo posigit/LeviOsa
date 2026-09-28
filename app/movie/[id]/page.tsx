@@ -346,14 +346,17 @@ export default async function MovieDetailPage({
         : null;
 
   /**
-   * Hero bar reads in time, not percent: "1h 12m left". Hidden until the movie
-   * has actually been started; a finished title reads "Watched / 1x" at 100%.
+   * Hero bar tracks where you actually are: "Resume / 1h 40m left" with the
+   * fill at the current position while a bookmark exists, "Watched / 1x"
+   * (full) once it's finished. Hidden until the movie has been started.
    */
-  const resumePct = isWatched
-    ? 100
-    : Math.max(0, Math.min(100, playback?.progressPercent ?? 0));
-  const progressStarted = isWatched || resumePct > 0;
   const timeLeftText = formatPlaybackTime(playback?.timeLeftSeconds ?? null);
+  const inProgress = playback != null;
+  const positionPct = Math.max(
+    0,
+    Math.min(100, playback?.progressPercent ?? 0)
+  );
+  const progressStarted = inProgress || isWatched;
 
   return (
     <div
@@ -432,8 +435,14 @@ export default async function MovieDetailPage({
           }}
         />
 
-        {/* Hero footer: certificate -> title -> tagline -> meta -> rating */}
-        <div className="absolute inset-x-0 bottom-0 px-5 pb-6 text-center">
+        {/* Hero footer: certificate -> title -> tagline -> meta -> rating.
+            Bottom padding only matches the bar's footprint when the bar is
+            there — an unstarted movie shouldn't carry an empty gap. */}
+        <div
+          className={`absolute inset-x-0 bottom-0 px-5 text-center ${
+            progressStarted ? "pb-6" : "pb-2"
+          }`}
+        >
           {(certification || releaseYear) && (
             <span className="glass-control inline-flex rounded-full bg-white/10 px-3 py-1 text-xs font-semibold text-white/90">
               {certification ? certification.code : releaseYear}
@@ -496,20 +505,20 @@ export default async function MovieDetailPage({
             <div className="mt-5">
               <div className="flex items-baseline justify-between text-sm">
                 <span className="text-white/85">
-                  {isWatched ? "Watched" : "Remaining"}
+                  {inProgress ? "Resume" : "Watched"}
                 </span>
                 <span className="font-semibold text-white">
-                  {isWatched
-                    ? `${movieRewatchCount + 1}x`
-                    : timeLeftText
+                  {inProgress
+                    ? timeLeftText
                       ? `${timeLeftText} left`
-                      : `${resumePct}%`}
+                      : `${positionPct.toFixed(0)}%`
+                    : `${movieRewatchCount + 1}x`}
                 </span>
               </div>
               <div className="mt-2 h-1.5 w-full overflow-hidden rounded-full bg-white/25">
                 <div
                   className="h-full rounded-full bg-white transition-[width] duration-500"
-                  style={{ width: `${resumePct}%` }}
+                  style={{ width: `${inProgress ? positionPct : 100}%` }}
                 />
               </div>
             </div>
