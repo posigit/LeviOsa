@@ -175,6 +175,8 @@ export function ShowDetailClient({
   );
   const [markPreviousTarget, setMarkPreviousTarget] =
     useState<DetailEpisode | null>(null);
+  /** Confirm sheet for the whole-series check beside "Episodes". */
+  const [confirmAllWatched, setConfirmAllWatched] = useState(false);
   const [pending, setPending] = useState(false);
   /** Episode currently open in the VixSrc player overlay. */
   const [playerEp, setPlayerEp] = useState<DetailEpisode | null>(null);
@@ -276,9 +278,46 @@ export function ShowDetailClient({
     [episodes, watchedMap]
   );
   const totalCount = episodes.length;
-  const progressPct = totalCount
-    ? Math.min(100, (watchedCount / totalCount) * 100)
-    : 0;
+
+  /** Runtime estimate for an episode that has no stored duration. */
+  const DEFAULT_EPISODE_SECONDS = 42 * 60;
+
+  const episodeSeconds = (ep: DetailEpisode) => {
+    const pb = playbackFor(ep);
+    if (pb && pb.durationSeconds > 0) return pb.durationSeconds;
+    return ep.runtime && ep.runtime > 0
+      ? ep.runtime * 60
+      : DEFAULT_EPISODE_SECONDS;
+  };
+
+  /**
+   * Hero bar reads in time, not episode counts ("1h 12m left"). Hidden until
+   * the series has actually been started — a fresh show shows no bar, a
+   * finished one reads "Watched / all episodes" at 100%.
+   */
+  const { progressStarted, remainingSeconds, progressPct } = useMemo(() => {
+    let remaining = 0;
+    let total = 0;
+    let touched = watchedCount > 0;
+    for (const ep of episodes) {
+      const pb = playbackFor(ep);
+      if (pb) touched = true;
+      const full = episodeSeconds(ep);
+      total += full;
+      if (isWatched(ep)) continue;
+      remaining +=
+        pb && pb.timeLeftSeconds != null && pb.timeLeftSeconds > 0
+          ? pb.timeLeftSeconds
+          : full;
+    }
+    return {
+      progressStarted: touched && total > 0,
+      remainingSeconds: remaining,
+      progressPct:
+        total > 0 ? Math.min(100, ((total - remaining) / total) * 100) : 0,
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [episodes, watchedMap, playbackPositions]);
 
   /**
    * Primary CTA. The player marks an episode seen on `ended`, so the hero's
@@ -296,6 +335,28 @@ export function ShowDetailClient({
   const nextKey = nextEpisode
     ? watchKey(nextEpisode.seasonNumber, nextEpisode.episodeNumber)
     : null;
+
+  /** Started-but-unfinished next episode — the pill says "Resume S1, E2". */
+  const nextEpisodeStarted = nextEpisode
+    ? playbackFor(nextEpisode) != null
+    : false;
+
+  const nextCtaLabel = nextEpisode
+    ? `${nextEpisodeStarted ? "Resume" : "Watch"} ${episodeCode(nextEpisode)}`
+    : null;
+
+  /** The series' first aired episode — its banner reads "Pilot", not "Up next". */
+  const isPilotNext = useMemo(() => {
+    if (!nextEpisode) return false;
+    const first = [...episodes]
+      .sort(compareEp)
+      .find((ep) => isEpisodeAired(ep.airDate));
+    return (
+      first != null &&
+      first.seasonNumber === nextEpisode.seasonNumber &&
+      first.episodeNumber === nextEpisode.episodeNumber
+    );
+  }, [episodes, nextEpisode]);
 
   // ---------- actions ----------
 
@@ -453,7 +514,7 @@ export function ShowDetailClient({
     if (items.length > 0) void applyWatched(items);
   };
 
-  const handleAllEpisodesToggle = () => {
+  const runAllEpisodesToggle = () => {
     if (allWatched) {
       void applyWatched(
         episodes.map((ep) => ({
@@ -474,6 +535,9 @@ export function ShowDetailClient({
       );
     }
   };
+
+  /** Whole-series marks are one tap away but never one accident away. */
+  const handleAllEpisodesToggle = () => setConfirmAllWatched(true);
 
   const openPlayer = (ep: DetailEpisode) => {
     if (!isEpisodeAired(ep.airDate)) return;
@@ -896,12 +960,16 @@ export function ShowDetailClient({
             </div>
           )}
 
-          {totalCount > 0 && (
+          {progressStarted && (
             <div className="mt-5">
               <div className="flex items-baseline justify-between text-sm">
-                <span className="text-white/85">Watched</span>
+                <span className="text-white/85">
+                  {remainingSeconds > 0 ? "Remaining" : "Watched"}
+                </span>
                 <span className="font-semibold text-white">
-                  {watchedCount} of {totalCount}
+                  {remainingSeconds > 0
+                    ? `${formatPlaybackTime(remainingSeconds)} left`
+                    : `${watchedCount} of ${totalCount}`}
                 </span>
               </div>
               <div className="mt-2 h-1.5 w-full overflow-hidden rounded-full bg-white/25">
@@ -924,7 +992,7 @@ export function ShowDetailClient({
             className="glass-control flex h-12 flex-1 items-center justify-center gap-2 rounded-full bg-white/10 px-4 text-[15px] font-bold text-white transition hover:bg-white/[0.18] active:scale-[0.98]"
           >
             <Play className="h-4 w-4 shrink-0 fill-white" />
-            <span className="truncate">Watch {episodeCode(nextEpisode)}</span>
+            <span className="truncate">{nextCtaLabel}</span>
           </button>
         ) : nextUnaired ? (
           <div
@@ -978,7 +1046,9 @@ export function ShowDetailClient({
           </h2>
           <button
             onClick={handleAllEpisodesToggle}
-            aria-label="Mark all episodes watched"
+            aria-label={
+              allWatched ? "Clear all watched marks" : "Mark all episodes watched"
+            }
             className={cn(
               "flex h-9 w-9 items-center justify-center rounded-full border-2 transition-colors",
               allWatched
@@ -1026,7 +1096,7 @@ export function ShowDetailClient({
             <div className="relative flex w-full items-end justify-between gap-3 p-3">
               <div className="min-w-0 flex-1 text-left">
                 <p className="text-xs font-bold uppercase tracking-wider text-primary">
-                  Up next
+                  {isPilotNext ? "Pilot" : "Up next"}
                 </p>
                 <p className="text-sm font-bold text-white">
                   {episodeCode(nextEpisode)}
@@ -1622,6 +1692,39 @@ export function ShowDetailClient({
                 className="flex-1 rounded-full bg-success py-3 text-sm font-bold text-white"
               >
                 Rewatch
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ---------- Mark-all confirm ---------- */}
+      {confirmAllWatched && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4">
+          <div className="w-full max-w-sm rounded-3xl bg-card p-6">
+            <p className="mb-2 text-lg font-bold text-white">
+              {allWatched ? "Clear watched marks?" : `Mark ${show.title} as watched?`}
+            </p>
+            <p className="mb-6 text-sm text-muted-foreground">
+              {allWatched
+                ? "Every episode loses its watched mark. Your ratings and watch history stay."
+                : `Every aired episode of ${show.title} gets a watched mark and its resume point clears. Ratings and watch history stay.`}
+            </p>
+            <div className="flex gap-3">
+              <button
+                onClick={() => setConfirmAllWatched(false)}
+                className="flex-1 rounded-full border border-white/20 py-3 text-sm font-medium text-white"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={() => {
+                  setConfirmAllWatched(false);
+                  runAllEpisodesToggle();
+                }}
+                className="flex-1 rounded-full bg-primary py-3 text-sm font-bold text-black"
+              >
+                {allWatched ? "Clear marks" : "Mark watched"}
               </button>
             </div>
           </div>

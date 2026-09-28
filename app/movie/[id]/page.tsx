@@ -50,6 +50,7 @@ import { ScoreStrip } from "@/components/score-strip";
 import { MovieVixButton } from "@/components/movie-vix-button";
 import { DownloadButton } from "@/components/download-button";
 import { getPlaybackPosition } from "@/lib/playback";
+import { formatPlaybackTime } from "@/lib/playback-format";
 
 function formatRuntime(minutes: number) {
   const h = Math.floor(minutes / 60);
@@ -306,7 +307,11 @@ export default async function MovieDetailPage({
 
   const releaseLabel = formatReleaseDate(movie.releaseDate);
   const runtimeLabel = movie.runtime ? formatRuntime(movie.runtime) : null;
-  const metaLine = [releaseLabel, runtimeLabel].filter(Boolean).join("  ·  ");
+  /** Hero meta line: genres first, then the runtime (wraps like the show page). */
+  const heroMeta = [
+    ...genres.slice(0, 3),
+    ...(runtimeLabel ? [runtimeLabel] : []),
+  ];
   const releaseYear =
     movie.releaseDate && movie.releaseDate.length >= 4
       ? movie.releaseDate.slice(0, 4)
@@ -314,12 +319,13 @@ export default async function MovieDetailPage({
   const yearNum =
     releaseYear && /^\d{4}$/.test(releaseYear) ? releaseYear : null;
 
-  const posterSrc = posterUrl(movie.posterPath, "w342");
-  const backdropSrc = backdropUrl(movie.backdropPath, "w780");
-  // Small file, stretched + blurred — tints the whole page like the reference.
-  const ambientSrc =
-    backdropUrl(movie.backdropPath, "w300") ??
-    posterUrl(movie.posterPath, "w185");
+  /** Full-bleed key art: the poster crops best in a portrait frame; the
+      backdrop (or nothing) is the fallback. */
+  const heroSrc = movie.posterPath
+    ? posterUrl(movie.posterPath, "original")
+    : movie.backdropPath
+      ? backdropUrl(movie.backdropPath, "original")
+      : null;
 
   // Title-meta rating: Tomatometer first, TMDB star only when no RT score.
   const heroRt =
@@ -331,256 +337,206 @@ export default async function MovieDetailPage({
 
   const isWatched = userMovie?.status === "watched";
 
+  /** Hero score: Tomatometer wins, the TMDB star only when there is no RT score. */
+  const ratingText =
+    heroRt != null
+      ? `${heroRt}%`
+      : movie.voteAverage
+        ? `${movie.voteAverage.toFixed(1)}/10`
+        : null;
+
+  /**
+   * Hero bar reads in time, not percent: "1h 12m left". Hidden until the movie
+   * has actually been started; a finished title reads "Watched / 1x" at 100%.
+   */
+  const resumePct = isWatched
+    ? 100
+    : Math.max(0, Math.min(100, playback?.progressPercent ?? 0));
+  const progressStarted = isWatched || resumePct > 0;
+  const timeLeftText = formatPlaybackTime(playback?.timeLeftSeconds ?? null);
+
   return (
     <div
-      className="min-h-dvh bg-[#0b0b0e] pb-safe-page"
+      className="min-h-dvh bg-black pb-safe-page"
       style={
         {
           "--theme": theme.v,
           "--theme-deep": theme.deep,
-          backgroundColor: "rgb(var(--theme-deep) / 0.45)",
-          backgroundImage:
-            "radial-gradient(110% 34rem at 50% -8rem, rgb(var(--theme) / 0.42), transparent 70%), radial-gradient(100% 36rem at 50% 108%, rgb(var(--theme) / 0.24), transparent 70%), linear-gradient(to bottom, rgb(var(--theme-deep) / 0.7), rgb(var(--theme-deep) / 0.45) 34rem, rgb(var(--theme-deep) / 0.38) 62rem, rgb(var(--theme-deep) / 0.35))",
         } as CSSProperties
       }
     >
-      {/* ---------- Full-page photographic wash (fixed) ----------
-          The poster's own color lives behind the ENTIRE page — hero, body,
-          footer — so the house gains the movie's shade, not just the hero.
-          Cheap w300 file, painted once; scrims + deep wash keep text safe. */}
-      {ambientSrc ? (
-        <div aria-hidden className="pointer-events-none fixed inset-0 transform-gpu">
+      {/* ---------- Floating controls: stick over the scroll, like the app ---------- */}
+      <div className="pointer-events-none fixed inset-x-0 top-0 z-40 px-4 top-safe-float">
+        <div className="pointer-events-auto flex items-center justify-between">
+          <Link
+            href="/movies"
+            aria-label="Back to movies"
+            className="glass-control grid h-10 w-10 place-items-center rounded-full bg-white/10 text-white transition hover:bg-white/25 active:scale-95"
+          >
+            <ChevronLeft className="h-5 w-5" />
+          </Link>
+          <AddToListButton
+            mediaType="movie"
+            tmdbId={tmdbId}
+            title={movie.title}
+            posterPath={movie.posterPath}
+          />
+        </div>
+      </div>
+
+      {/* ---------- Full-bleed hero ---------- */}
+      <div className="relative isolate h-[72dvh] max-h-[720px] min-h-[460px] overflow-hidden">
+        {heroSrc ? (
           <Image
-            src={ambientSrc}
-            alt=""
+            src={heroSrc}
+            alt={`${movie.title} key art`}
             fill
             sizes="100vw"
-            className="object-cover opacity-40 blur-2xl"
-            unoptimized
+            className="object-cover object-top"
+            priority
           />
+        ) : (
           <div
+            aria-hidden
             className="absolute inset-0"
             style={{
               background:
-                "linear-gradient(to bottom, rgb(var(--theme-deep) / 0.55), transparent 38%, transparent 60%, rgb(var(--theme-deep) / 0.6)), linear-gradient(to bottom, rgb(var(--theme-deep) / 0.3), transparent 38%, transparent 62%, rgb(var(--theme-deep) / 0.42))",
+                "linear-gradient(to bottom, rgb(var(--theme) / 0.55), #000)",
             }}
           />
-        </div>
-      ) : null}
+        )}
 
-      {/* ---------- Adaptive hero (reference style) ----------
-          Sharp backdrop capped at ~50% viewport; poster + original-font logo
-          overlap its fading bottom edge. Blurred ambience tints the page. */}
-      <div className="relative overflow-hidden">
-        {/* Backdrop band — sharp, ~32% of the viewport (tightened from 48dvh
-            so the poster sits much closer to the top — matches the
-            scrolled “better” reference where gap was ~150px not ~300px). */}
+        {/* Theme seam: tints the art and sits UNDER both scrims so the page
+            edge below the hero crushes to true black instead of leaving a
+            theme-coloured band across the CTA row. */}
         <div
-          className="relative h-[32dvh] max-h-[320px] min-h-[220px] overflow-hidden"
+          aria-hidden
+          className="absolute inset-0"
           style={{
-            maskImage: "linear-gradient(to bottom, black 55%, transparent 98%)",
-            WebkitMaskImage:
-              "linear-gradient(to bottom, black 55%, transparent 98%)",
+            background:
+              "radial-gradient(120% 60% at 50% 100%, rgb(var(--theme) / 0.32), transparent 70%)",
           }}
-        >
-          {backdropSrc ? (
-            <Image
-              src={backdropSrc}
-              alt=""
-              aria-hidden
-              fill
-              sizes="100vw"
-              className="object-cover"
-              unoptimized
-              priority
-            />
-          ) : (
-            <div
-              aria-hidden
-              className="h-full w-full"
-              style={{
-                background:
-                  "linear-gradient(to bottom, rgb(var(--theme) / 0.55), rgb(var(--theme-deep) / 0.8))",
-              }}
-            />
+        />
+
+        {/* Legibility scrims: controls readable up top, title readable below. */}
+        <div
+          aria-hidden
+          className="absolute inset-x-0 top-0 h-36 bg-gradient-to-b from-black/75 via-black/35 to-transparent"
+        />
+        <div
+          aria-hidden
+          className="absolute inset-x-0 bottom-0 h-[58%]"
+          style={{
+            background:
+              "linear-gradient(to top, #000 14%, rgb(0 0 0 / 0.82) 34%, rgb(0 0 0 / 0.45) 62%, transparent)",
+          }}
+        />
+
+        {/* Hero footer: certificate -> title -> tagline -> meta -> rating */}
+        <div className="absolute inset-x-0 bottom-0 px-5 pb-6 text-center">
+          {(certification || releaseYear) && (
+            <span className="glass-control inline-flex rounded-full bg-white/10 px-3 py-1 text-xs font-semibold text-white/90">
+              {certification ? certification.code : releaseYear}
+            </span>
           )}
-          {/* legibility scrims + theme seam glow */}
-          <div
-            aria-hidden
-            className="absolute inset-x-0 top-0 h-24"
-            style={{
-              backgroundImage:
-                "linear-gradient(to bottom, rgb(var(--theme-deep) / 0.7), transparent)",
-            }}
-          />
-          <div
-            aria-hidden
-            className="absolute inset-x-0 bottom-0 h-[65%]"
-            style={{
-              background:
-                "radial-gradient(90% 100% at 50% 100%, rgb(var(--theme) / 0.4), transparent 70%), linear-gradient(to top, rgb(var(--theme-deep) / 0.85) 22%, rgb(var(--theme-deep) / 0.45) 52%, transparent)",
-            }}
-          />
 
-          {/* Top controls over the art */}
-          <div className="absolute inset-x-0 top-0 flex items-center justify-between px-4 pt-[calc(0.75rem+env(safe-area-inset-top,0px))]">
-            <Link
-              href="/movies"
-              aria-label="Back to movies"
-              className="flex h-10 w-10 items-center justify-center rounded-full bg-white/[0.12] text-white ring-1 ring-white/30 shadow-[0_8px_24px_rgba(0,0,0,0.45),inset_0_1px_0_rgba(255,255,255,0.25)] backdrop-blur-xl transition hover:bg-white/25 active:scale-95"
-            >
-              <ChevronLeft className="h-5 w-5" />
-            </Link>
-            {isWatched ? (
-              <div className="flex items-center gap-2">
-                <AddToListButton
-                  mediaType="movie"
-                  tmdbId={tmdbId}
-                  title={movie.title}
-                  posterPath={movie.posterPath}
-                />
-                <FavoriteButton
-                  mediaType="movie"
-                  tmdbId={tmdbId}
-                  initialFavorite={userMovie?.favorite ?? false}
-                />
-              </div>
-            ) : (
-              <div className="flex items-center gap-2">
-                <AddToListButton
-                  mediaType="movie"
-                  tmdbId={tmdbId}
-                  title={movie.title}
-                  posterPath={movie.posterPath}
-                />
-                <span className="h-10 w-10" aria-hidden />
-              </div>
-            )}
-          </div>
-        </div>
-
-        <div className="relative px-4 pb-5">
-          {/* Poster card overlapping the backdrop fade (~50% width) — overlap
-              tuned to -mt-24 so shorter hero (≈272px) leaves ≈176px gap vs
-              old ~300px; closely matches scrolled reference ~150px. */}
-          <div className="mx-auto -mt-24 w-[50%] max-w-[220px]">
-            <div className="relative aspect-[2/3] overflow-hidden rounded-[1.75rem] shadow-[0_24px_80px_-16px_rgb(var(--theme)/0.6),0_10px_30px_rgba(0,0,0,0.6)] ring-1 ring-white/25">
-              {posterSrc ? (
-                <Image
-                  src={posterSrc}
-                  alt={`${movie.title} poster`}
-                  fill
-                  sizes="(max-width: 480px) 50vw, 220px"
-                  className="object-cover"
-                  unoptimized
-                  priority
-                />
-              ) : (
-                <div className="flex h-full w-full items-center justify-center bg-card p-4 text-center text-sm font-bold text-white/50">
-                  {movie.title}
-                </div>
-              )}
-              <div
-                className="pointer-events-none absolute inset-0"
-                style={{
-                  backgroundImage:
-                    "linear-gradient(to top, rgb(var(--theme-deep) / 0.45), transparent 45%, rgba(255, 255, 255, 0.1))",
-                }}
-              />
-            </div>
-          </div>
-
-          {/* Title — original-font logo artwork when available */}
-          <h1 className="mt-4 flex justify-center px-6 text-center">
+          <h1 className="mt-3 flex justify-center px-4">
             {logoSrc ? (
               <Image
                 src={logoSrc}
                 alt={movie.title}
                 width={512}
                 height={288}
-                sizes="(max-width: 480px) 80vw, 400px"
-                className="h-20 w-auto max-w-[85%] object-contain drop-shadow-[0_6px_20px_rgba(0,0,0,0.9)]"
+                sizes="(max-width: 480px) 88vw, 460px"
+                className="h-16 w-auto max-w-full object-contain drop-shadow-[0_6px_22px_rgba(0,0,0,0.95)] sm:h-20"
                 unoptimized
               />
             ) : (
-              <span className="text-3xl font-black tracking-tight text-white drop-shadow">
+              <span className="text-4xl font-black tracking-tight text-white drop-shadow-[0_4px_18px_rgba(0,0,0,0.9)]">
                 {movie.title}
               </span>
             )}
           </h1>
 
           {tagline ? (
-            <p className="mx-auto mt-2 max-w-sm text-center text-sm italic leading-snug text-white/55">
+            <p className="mx-auto mt-1.5 max-w-md text-[13px] italic leading-snug text-white/55">
               {tagline}
             </p>
           ) : null}
 
-          {/* Meta: date · runtime · cert · vote */}
-          <div className="mt-3 flex flex-wrap items-center justify-center gap-x-2 gap-y-1.5 text-center">
-            {metaLine && yearNum && releaseLabel?.includes(yearNum) ? (
-              <span className="text-sm text-white/60">
-                {releaseLabel!.split(yearNum)[0]}
-                <Link
-                  href={`/movie/year/${yearNum}`}
-                  className="font-bold text-white/85 underline-offset-2 hover:text-white hover:underline"
-                >
-                  {yearNum}
-                </Link>
-                {releaseLabel!.split(yearNum)[1]}
-                {runtimeLabel ? `  ·  ${runtimeLabel}` : ""}
-              </span>
-            ) : metaLine ? (
-              <span className="text-sm text-white/60">{metaLine}</span>
-            ) : null}
-            {certification ? (
-              <span
-                title={`Rated ${certification.code} (${certification.country})`}
-                className="rounded-md bg-white/[0.12] px-2 py-0.5 text-xs font-black tracking-wide text-white ring-1 ring-white/30 backdrop-blur-xl"
-              >
-                {certification.code}
-              </span>
-            ) : null}
-            {heroRt != null ? (
-              <span className="inline-flex items-center gap-1 text-sm font-bold text-white/85">
-                <span className="text-xl leading-none" title="Rotten Tomatoes">
-                  🍅
-                </span>
-                {heroRt}%
-              </span>
-            ) : movie.voteAverage ? (
-              <span className="inline-flex items-center gap-1 text-sm font-bold text-white/80">
-                <Star className="h-3.5 w-3.5 fill-primary text-primary" />
-                {movie.voteAverage.toFixed(1)}
-              </span>
-            ) : null}
-          </div>
-
-          {/* Genres */}
-          {genres.length > 0 && (
-            <div className="mt-3 flex flex-wrap justify-center gap-1.5">
-              {genres.map((g) => (
-                <span
-                  key={g}
-                  className="rounded-full bg-[rgb(var(--theme)/0.18)] px-3 py-1 text-[11px] font-semibold text-white/80 shadow-[0_0_18px_rgb(var(--theme)/0.25)] ring-1 ring-white/20 backdrop-blur-xl"
-                >
-                  {g}
+          {heroMeta.length > 0 && (
+            <p className="mt-3 flex flex-wrap items-center justify-center gap-x-2 text-[15px] text-white/75">
+              {heroMeta.map((item, i) => (
+                <span key={item} className="inline-flex items-center gap-2">
+                  {i > 0 && (
+                    <span aria-hidden className="text-white/35">
+                      {"\u00b7"}
+                    </span>
+                  )}
+                  {item}
                 </span>
               ))}
+            </p>
+          )}
+
+          {ratingText && (
+            <div className="mt-2.5 flex items-center justify-center gap-1.5">
+              {heroRt != null ? (
+                <span className="text-lg leading-none" title="Rotten Tomatoes">
+                  🍅
+                </span>
+              ) : (
+                <Star className="h-4 w-4 fill-primary text-primary" />
+              )}
+              <span className="text-sm font-bold text-white/85">{ratingText}</span>
+            </div>
+          )}
+
+          {progressStarted && (
+            <div className="mt-5">
+              <div className="flex items-baseline justify-between text-sm">
+                <span className="text-white/85">
+                  {isWatched ? "Watched" : "Remaining"}
+                </span>
+                <span className="font-semibold text-white">
+                  {isWatched
+                    ? `${movieRewatchCount + 1}x`
+                    : timeLeftText
+                      ? `${timeLeftText} left`
+                      : `${resumePct}%`}
+                </span>
+              </div>
+              <div className="mt-2 h-1.5 w-full overflow-hidden rounded-full bg-white/25">
+                <div
+                  className="h-full rounded-full bg-white transition-[width] duration-500"
+                  style={{ width: `${resumePct}%` }}
+                />
+              </div>
             </div>
           )}
         </div>
       </div>
 
-      {/* ---------- Body ---------- */}
-      <div className="relative px-4 pt-4">
+      {/* ---------- Primary CTA: liquid-glass pill + favorite ---------- */}
+      <div className="flex items-center gap-3 px-4 pt-4">
         <MovieVixButton
           tmdbId={tmdbId}
           title={movie.title}
           isWatched={isWatched}
           isRewatchQueued={isRewatchQueued}
           playback={playback}
+          className="h-12 flex-1 rounded-full px-4"
         />
+        <FavoriteButton
+          mediaType="movie"
+          tmdbId={tmdbId}
+          initialFavorite={userMovie?.favorite ?? false}
+          className="h-12 w-12"
+        />
+      </div>
 
+      {/* ---------- Body ---------- */}
+      <div className="relative px-4 pt-3">
         <div className="mt-3 flex items-center gap-3">
           <div className="flex-1">
             <MovieWatchButton
@@ -639,7 +595,7 @@ export default async function MovieDetailPage({
 
         {movie.overview && (
           <section className="mt-5">
-            <h2 className="mb-2 text-lg font-extrabold tracking-tight text-white">
+            <h2 className="mb-2 text-[22px] font-extrabold tracking-tight text-white">
               Storyline
             </h2>
             <p className="text-sm leading-relaxed text-white/85">
@@ -652,7 +608,7 @@ export default async function MovieDetailPage({
         {trailerPoster && (
           <section className="mt-6">
             <div className="mb-2.5 flex items-baseline justify-between">
-              <h2 className="text-lg font-extrabold tracking-tight text-white">
+              <h2 className="text-[22px] font-extrabold tracking-tight text-white">
                 Trailers
               </h2>
               {videos.length > 1 && (
@@ -734,7 +690,7 @@ export default async function MovieDetailPage({
 
         {/* ---------- Facts: budget, revenue, parental guide, studios ---------- */}
         <section className="mt-6">
-          <h2 className="mb-2.5 text-lg font-extrabold tracking-tight text-white">
+          <h2 className="mb-2.5 text-[22px] font-extrabold tracking-tight text-white">
             Details
           </h2>
           <div className="glass-panel rounded-3xl px-4 py-1.5">
@@ -759,6 +715,23 @@ export default async function MovieDetailPage({
                       )}
                     </span>
                   ))}
+                </span>
+              </div>
+            )}
+            {releaseLabel && (
+              <div className="flex justify-between gap-3 border-b border-white/[0.06] py-2.5 text-sm last:border-0">
+                <span className="shrink-0 text-white/45">Released</span>
+                <span className="text-right font-medium text-white">
+                  {yearNum ? (
+                    <Link
+                      href={`/movie/year/${yearNum}`}
+                      className="underline-offset-2 hover:underline"
+                    >
+                      {releaseLabel}
+                    </Link>
+                  ) : (
+                    releaseLabel
+                  )}
                 </span>
               </div>
             )}
@@ -876,7 +849,7 @@ export default async function MovieDetailPage({
         {/* Top-billed cast */}
         {cast.length > 0 && (
           <section className="mt-6">
-            <h2 className="mb-2.5 text-lg font-extrabold tracking-tight text-white">
+            <h2 className="mb-2.5 text-[22px] font-extrabold tracking-tight text-white">
               Cast
             </h2>
             <div className="-mx-4 flex gap-3 overflow-x-auto px-4 pb-1 scrollbar-none">
