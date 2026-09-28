@@ -459,7 +459,6 @@ export default async function MovieDetailPage({
               <Image
                 src={logoSrc}
                 alt={movie.title}
-                draggable={false}
                 width={512}
                 height={288}
                 sizes="(max-width: 480px) 88vw, 460px"
@@ -926,7 +925,6 @@ export default async function MovieDetailPage({
                     <Image
                       src={src}
                       alt=""
-                      draggable={false}
                       width={hero ? 240 : 180}
                       height={hero ? 240 : 180}
                       sizes={
