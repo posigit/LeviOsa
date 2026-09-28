@@ -14,6 +14,7 @@ import {
   getMovieSimilar,
   getMovieVideos,
   getWatchProviders,
+  languageName,
   pickCertification,
   pickMovieLogo,
   pickTrailerKey,
@@ -47,6 +48,7 @@ import { DiscoverRail } from "@/components/discover-rail";
 import { WatchProviders } from "@/components/watch-providers";
 import { CommunityReviews } from "@/components/community-reviews";
 import { ScoreStrip } from "@/components/score-strip";
+import { InfoList, type InfoListItem } from "@/components/info-list";
 import { MovieVixButton } from "@/components/movie-vix-button";
 import { DownloadButton } from "@/components/download-button";
 import { getPlaybackPosition } from "@/lib/playback";
@@ -109,18 +111,6 @@ function formatMoneyFull(n: number): string {
     currency: "USD",
     maximumFractionDigits: 0,
   }).format(n);
-}
-
-function languageName(code: string | null | undefined): string | null {
-  if (!code) return null;
-  try {
-    return (
-      new Intl.DisplayNames(["en"], { type: "language" }).of(code) ??
-      code.toUpperCase()
-    );
-  } catch {
-    return code.toUpperCase();
-  }
 }
 
 export default async function MovieDetailPage({
@@ -285,6 +275,13 @@ export default async function MovieDetailPage({
     >(movie.tmdbData, "production_companies") ??
     [];
   const status = movie.status ?? details?.status ?? null;
+  const productionCountries =
+    details?.production_countries ??
+    tmdbField<{ iso_3166_1: string; name: string }[]>(
+      movie.tmdbData,
+      "production_countries"
+    ) ??
+    [];
   const language =
     languageName(details?.original_language) ??
     languageName(tmdbField<string>(movie.tmdbData, "original_language"));
@@ -698,118 +695,10 @@ export default async function MovieDetailPage({
           </section>
         )}
 
-        {/* Top-billed cast */}
-        {cast.length > 0 && (
-          <section className="mt-6">
-            <h2 className="mb-2.5 text-[22px] font-extrabold tracking-tight text-white">
-              Cast
-            </h2>
-            <div className="-mx-4 flex gap-3 overflow-x-auto px-4 pb-1 scrollbar-none">
-              {cast.map((person) => {
-                const photo = posterUrl(person.profile_path, "w185");
-                return (
-                  <Link
-                    key={person.id}
-                    href={`/person/${person.id}`}
-                    className="w-28 flex-shrink-0"
-                  >
-                    <div className="relative aspect-square overflow-hidden rounded-full bg-secondary ring-1 ring-white/10">
-                      {photo ? (
-                        <Image
-                          src={photo}
-                          alt={person.name}
-                          fill
-                          sizes="112px"
-                          className="object-cover"
-                          unoptimized
-                        />
-                      ) : (
-                        <div className="flex h-full w-full items-center justify-center text-xl font-black text-white/30">
-                          {person.name.charAt(0)}
-                        </div>
-                      )}
-                    </div>
-                    <p className="mt-1.5 truncate text-center text-xs font-semibold leading-tight text-white/90">
-                      {person.name}
-                    </p>
-                    {person.character && (
-                      <p className="truncate text-center text-[11px] leading-tight text-white/40">
-                        {person.character}
-                      </p>
-                    )}
-                  </Link>
-                );
-              })}
-            </div>
-          </section>
-        )}
-
-        {/* ---------- Stickers ---------- */}
-        {stickers.length > 0 && (
-          <section className="mt-7">
-            <div className="mb-1 flex items-center gap-1">
-              <h2 className="text-[22px] font-extrabold tracking-tight text-white">
-                Stickers
-              </h2>
-              <ChevronRight className="h-5 w-5 text-white/35" />
-            </div>
-            <div className="flex items-end gap-3 overflow-x-auto pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-              {stickers.map((src, i) => {
-                const hero = i === stickers.length - 1 && stickers.length > 3;
-                return (
-                  <div
-                    key={src}
-                    className="sticker-art shrink-0"
-                    style={{
-                      transform: `rotate(${i % 3 === 0 ? -3 : i % 3 === 1 ? 2 : -1}deg)`,
-                    }}
-                  >
-                    <Image
-                      src={src}
-                      alt=""
-                      width={hero ? 240 : 180}
-                      height={hero ? 240 : 180}
-                      sizes={
-                        hero
-                          ? "(min-width: 640px) 240px"
-                          : "(min-width: 640px) 180px"
-                      }
-                      className={`w-auto object-contain ${hero ? "h-[180px]" : "h-[135px]"}`}
-                      unoptimized
-                    />
-                  </div>
-                );
-              })}
-            </div>
-          </section>
-        )}
-
-        <div className="mt-5">
-          <WatchProviders providers={providers} />
-        </div>
-
-        <CommunityReviews payload={reviews} />
-
-        <div className="mt-6">
-          <DiscoverRail label="You Might Also Like" items={moreLikeThis} />
-          <DiscoverRail label="Recommended for you" items={recommended} />
-        </div>
-
-        {trailerKey && (
-          <a
-            href={`https://www.youtube.com/watch?v=${trailerKey}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mt-2 flex items-center justify-center gap-1 text-xs font-semibold text-white/35 transition hover:text-white/70"
-          >
-            More trailers on YouTube
-            <ChevronRight className="h-3.5 w-3.5" />
-          </a>
-        )}
-        {/* ---------- Facts: budget, revenue, parental guide, studios ---------- */}
+        {/* ---------- Details: budget, revenue, parental guide, studios ---------- */}
         <section className="mt-6">
           <h2 className="mb-2.5 text-[22px] font-extrabold tracking-tight text-white">
-            Information
+            Details
           </h2>
           <div className="glass-panel rounded-3xl px-4 py-1.5">
             {directorsWithIds.length > 0 && (
@@ -963,6 +852,150 @@ export default async function MovieDetailPage({
             )}
           </div>
         </section>
+
+        {/* Top-billed cast */}
+        {cast.length > 0 && (
+          <section className="mt-6">
+            <h2 className="mb-2.5 text-[22px] font-extrabold tracking-tight text-white">
+              Cast
+            </h2>
+            <div className="-mx-4 flex gap-3 overflow-x-auto px-4 pb-1 scrollbar-none">
+              {cast.map((person) => {
+                const photo = posterUrl(person.profile_path, "w185");
+                return (
+                  <Link
+                    key={person.id}
+                    href={`/person/${person.id}`}
+                    className="w-28 flex-shrink-0"
+                  >
+                    <div className="relative aspect-square overflow-hidden rounded-full bg-secondary ring-1 ring-white/10">
+                      {photo ? (
+                        <Image
+                          src={photo}
+                          alt={person.name}
+                          fill
+                          sizes="112px"
+                          className="object-cover"
+                          unoptimized
+                        />
+                      ) : (
+                        <div className="flex h-full w-full items-center justify-center text-xl font-black text-white/30">
+                          {person.name.charAt(0)}
+                        </div>
+                      )}
+                    </div>
+                    <p className="mt-1.5 truncate text-center text-xs font-semibold leading-tight text-white/90">
+                      {person.name}
+                    </p>
+                    {person.character && (
+                      <p className="truncate text-center text-[11px] leading-tight text-white/40">
+                        {person.character}
+                      </p>
+                    )}
+                  </Link>
+                );
+              })}
+            </div>
+          </section>
+        )}
+
+        {/* ---------- Stickers ---------- */}
+        {stickers.length > 0 && (
+          <section className="mt-7">
+            <div className="mb-1 flex items-center gap-1">
+              <h2 className="text-[22px] font-extrabold tracking-tight text-white">
+                Stickers
+              </h2>
+              <ChevronRight className="h-5 w-5 text-white/35" />
+            </div>
+            <div className="flex items-end gap-3 overflow-x-auto pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+              {stickers.map((src, i) => {
+                const hero = i === stickers.length - 1 && stickers.length > 3;
+                return (
+                  <div
+                    key={src}
+                    className="sticker-art shrink-0"
+                    style={{
+                      transform: `rotate(${i % 3 === 0 ? -3 : i % 3 === 1 ? 2 : -1}deg)`,
+                    }}
+                  >
+                    <Image
+                      src={src}
+                      alt=""
+                      width={hero ? 240 : 180}
+                      height={hero ? 240 : 180}
+                      sizes={
+                        hero
+                          ? "(min-width: 640px) 240px"
+                          : "(min-width: 640px) 180px"
+                      }
+                      className={`w-auto object-contain ${hero ? "h-[180px]" : "h-[135px]"}`}
+                      unoptimized
+                    />
+                  </div>
+                );
+              })}
+            </div>
+          </section>
+        )}
+
+        <div className="mt-5">
+          <WatchProviders providers={providers} />
+        </div>
+
+        <CommunityReviews payload={reviews} />
+
+        <div className="mt-6">
+          <DiscoverRail label="You Might Also Like" items={moreLikeThis} />
+          <DiscoverRail label="Recommended for you" items={recommended} />
+        </div>
+
+        {trailerKey && (
+          <a
+            href={`https://www.youtube.com/watch?v=${trailerKey}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-2 flex items-center justify-center gap-1 text-xs font-semibold text-white/35 transition hover:text-white/70"
+          >
+            More trailers on YouTube
+            <ChevronRight className="h-3.5 w-3.5" />
+          </a>
+        )}
+        {/* ---------- Information: Apple-style fact sheet, always last ---------- */}
+        <InfoList
+          className="mt-7"
+          items={
+            [
+              { label: "Title", value: movie.title },
+              releaseLabel && { label: "Released", value: releaseLabel },
+              {
+                label: "Rated",
+                value: certification
+                  ? certification.code
+                  : isAdult
+                    ? "Adult · 18+"
+                    : "Not rated",
+              },
+              productionCountries.length > 0 && {
+                label: "Region of Origin",
+                value: productionCountries
+                  .slice(0, 2)
+                  .map((c) => c.name)
+                  .join(", "),
+              },
+              language && { label: "Original Audio", value: language },
+              runtimeLabel && { label: "Runtime", value: runtimeLabel },
+              status && { label: "Status", value: status },
+              studios.length > 0 && {
+                label: studios.length > 1 ? "Studios" : "Studio",
+                value: studios
+                  .slice(0, 2)
+                  .map((s) => s.name)
+                  .join(", "),
+              },
+            ].filter(Boolean) as InfoListItem[]
+          }
+        />
 
       </div>
     </div>

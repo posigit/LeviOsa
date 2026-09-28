@@ -10,6 +10,7 @@ import {
 } from "@/components/show-detail-client";
 import { filterNewMedia } from "@/lib/recommend";
 import {
+  getTvContentRatings,
   getTvCredits,
   getTvExternalIds,
   getTvImages,
@@ -17,9 +18,11 @@ import {
   getTvSimilar,
   getTvVideos,
   getWatchProviders,
+  languageName,
   logoUrl,
   pickMovieLogo,
   pickTrailerKey,
+  pickTvRating,
 } from "@/lib/tmdb";
 import { genresFromTmdbData } from "@/lib/profile-insights";
 import {
@@ -44,6 +47,13 @@ function creatorsFromTmdbData(tmdbData: unknown): string[] {
     if (n && !names.includes(n)) names.push(n);
   }
   return names;
+}
+
+/** One field off the cached TMDB payload (older rows store a subset). */
+function tmdbField<T>(tmdbData: unknown, key: string): T | null {
+  if (!tmdbData || typeof tmdbData !== "object") return null;
+  const value = (tmdbData as Record<string, unknown>)[key];
+  return (value ?? null) as T | null;
 }
 
 export default async function ShowDetailPage({
@@ -127,6 +137,7 @@ export default async function ShowDetailPage({
     watch,
     stickers,
     clearartSrc,
+    contentRatings,
   ] = await Promise.all([
     getTvSimilar(tmdbId).catch(() => []),
     getTvRecommendations(tmdbId).catch(() => []),
@@ -169,6 +180,8 @@ export default async function ShowDetailPage({
     getShowWatchOptions(tmdbId).catch(() => null),
     getShowStickers(tvdbId).catch(() => []),
     getShowClearart(tvdbId).catch(() => null),
+    // Region rating (US → "TV-MA") for the Information fact sheet.
+    getTvContentRatings(tmdbId).catch(() => []),
   ]);
 
   // Original-font title treatment (Fanart, then TMDB logo artwork).
@@ -230,6 +243,25 @@ export default async function ShowDetailPage({
       profilePath: c.profile_path ?? null,
     }));
 
+  /** Fact sheet at the foot of the page (Information section). */
+  const region = (process.env.WATCH_REGION || "NG").toUpperCase();
+  const productionCountries = tmdbField<{ name: string }[]>(
+    show.tmdbData,
+    "production_countries"
+  );
+  const rated = pickTvRating(contentRatings, region);
+  const regionOfOrigin =
+    productionCountries && productionCountries.length > 0
+      ? productionCountries
+          .slice(0, 2)
+          .map((c) => c.name)
+          .join(", ")
+      : null;
+  const originalAudio = languageName(
+    tmdbField<string>(show.tmdbData, "original_language")
+  );
+  const showType = tmdbField<string>(show.tmdbData, "type");
+
   return (
     <ShowDetailClient
       show={{
@@ -247,6 +279,10 @@ export default async function ShowDetailPage({
         rtScore: show.rtScore ?? null,
         firstAirDate: show.firstAirDate,
         genres: genresFromTmdbData(show.tmdbData),
+        rated,
+        regionOfOrigin,
+        originalAudio,
+        showType,
       }}
       creators={creatorsFromTmdbData(show.tmdbData)}
       cast={cast}

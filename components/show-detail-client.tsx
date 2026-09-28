@@ -16,6 +16,7 @@ import { EpisodeRating, StarRatingDisplay } from "@/components/star-rating";
 import { DiscoverRail } from "@/components/discover-rail";
 import { WhereToWatch } from "@/components/where-to-watch";
 import { CommunityReviews } from "@/components/community-reviews";
+import { InfoList, type InfoListItem } from "@/components/info-list";
 import { ScoreStrip } from "@/components/score-strip";
 import { DownloadButton } from "@/components/download-button";
 import { VixPlayer } from "@/components/vix-player";
@@ -81,6 +82,10 @@ export type DetailShow = {
   rtScore: number | null;
   firstAirDate: string | null;
   genres: string[];
+  rated: string | null;
+  regionOfOrigin: string | null;
+  originalAudio: string | null;
+  showType: string | null;
 };
 
 function watchKey(seasonNumber: number, episodeNumber: number) {
@@ -1538,6 +1543,43 @@ export function ShowDetailClient({
           </section>
         )}
 
+        <section className="mt-7">
+          <h2 className="mb-2.5 text-[22px] font-extrabold tracking-tight text-white">
+            Details
+          </h2>
+          <div className="glass-panel rounded-3xl px-4 py-1.5">
+            {show.genres.length > 0 && (
+              <InfoRow label="Genres" value={show.genres.join(" · ")} />
+            )}
+            {show.firstAirDate && (
+              <InfoRow label="First aired" value={formatDate(show.firstAirDate)} />
+            )}
+            {show.status && <InfoRow label="Status" value={show.status} />}
+            {show.networks && show.networks.length > 0 && (
+              <InfoRow label="Network" value={show.networks.join(", ")} />
+            )}
+            {creators.length > 0 && (
+              <InfoRow label="Created by" value={creators.join(", ")} />
+            )}
+            {show.numberOfSeasons != null && (
+              <InfoRow
+                label="Seasons"
+                value={[
+                  `${show.numberOfSeasons} season${show.numberOfSeasons === 1 ? "" : "s"}`,
+                  show.numberOfEpisodes != null
+                    ? `${show.numberOfEpisodes} episodes`
+                    : null,
+                ]
+                  .filter(Boolean)
+                  .join(" · ")}
+              />
+            )}
+            {show.episodeRuntime != null && (
+              <InfoRow label="Runtime" value={`${show.episodeRuntime} min / episode`} />
+            )}
+          </div>
+        </section>
+
         <div className="mt-7">
           <DiscoverRail label="You Might Also Like" items={moreLikeThis} />
           <DiscoverRail label="Recommended for you" items={recommended} />
@@ -1592,42 +1634,36 @@ export function ShowDetailClient({
 
         {reviews && <CommunityReviews payload={reviews} />}
 
-        <section className="mt-7">
-          <h2 className="mb-2.5 text-[22px] font-extrabold tracking-tight text-white">
-            Information
-          </h2>
-          <div className="glass-panel rounded-3xl px-4 py-1.5">
-            {show.genres.length > 0 && (
-              <InfoRow label="Genres" value={show.genres.join(" · ")} />
-            )}
-            {show.firstAirDate && (
-              <InfoRow label="First aired" value={formatDate(show.firstAirDate)} />
-            )}
-            {show.status && <InfoRow label="Status" value={show.status} />}
-            {show.networks && show.networks.length > 0 && (
-              <InfoRow label="Network" value={show.networks.join(", ")} />
-            )}
-            {creators.length > 0 && (
-              <InfoRow label="Created by" value={creators.join(", ")} />
-            )}
-            {show.numberOfSeasons != null && (
-              <InfoRow
-                label="Seasons"
-                value={[
-                  `${show.numberOfSeasons} season${show.numberOfSeasons === 1 ? "" : "s"}`,
-                  show.numberOfEpisodes != null
-                    ? `${show.numberOfEpisodes} episodes`
-                    : null,
-                ]
-                  .filter(Boolean)
-                  .join(" · ")}
-              />
-            )}
-            {show.episodeRuntime != null && (
-              <InfoRow label="Runtime" value={`${show.episodeRuntime} min / episode`} />
-            )}
-          </div>
-        </section>
+        <InfoList
+          items={
+            [
+              { label: "Title", value: show.title },
+              show.firstAirDate && {
+                label: "Released",
+                value: show.firstAirDate.slice(0, 4),
+              },
+              { label: "Rated", value: show.rated ?? "Not rated" },
+              show.regionOfOrigin && {
+                label: "Region of Origin",
+                value: show.regionOfOrigin,
+              },
+              show.originalAudio && {
+                label: "Original Audio",
+                value: show.originalAudio,
+              },
+              show.showType && { label: "Show Type", value: show.showType },
+              show.episodeRuntime != null && {
+                label: "Runtime",
+                value: `${show.episodeRuntime} min`,
+              },
+              show.networks &&
+                show.networks.length > 0 && {
+                  label: "Network",
+                  value: show.networks.join(", "),
+                },
+            ].filter(Boolean) as InfoListItem[]
+          }
+        />
 
       </section>
 

@@ -101,7 +101,36 @@ export async function getTvDetails(tmdbId: number) {
     number_of_episodes?: number;
     episode_run_time?: number[];
     vote_average?: number;
+    original_language?: string;
+    origin_country?: string[];
+    production_countries?: TmdbCountry[];
+    type?: string;
+    tagline?: string;
   }>(`/tv/${tmdbId}`);
+}
+
+/** /tv/{id}/content_ratings — one rating per region, e.g. US → "TV-MA". */
+export async function getTvContentRatings(tmdbId: number) {
+  const data = await tmdbFetch<{
+    results?: Array<{ iso_3166_1?: string; rating?: string }>;
+  }>(`/tv/${tmdbId}/content_ratings`, {}, { revalidate: 86400 });
+  return data.results ?? [];
+}
+
+export function pickTvRating(
+  ratings: Array<{ iso_3166_1?: string; rating?: string }> | null | undefined,
+  region?: string
+): string | null {
+  if (!ratings?.length) return null;
+  const wanted = [region?.toUpperCase(), "US"].filter(Boolean) as string[];
+  const byIso = new Map(
+    ratings.filter((r) => r.iso_3166_1).map((r) => [r.iso_3166_1!, r])
+  );
+  for (const iso of [...wanted, ...ratings.map((r) => r.iso_3166_1 ?? "")]) {
+    const hit = iso ? byIso.get(iso) : undefined;
+    if (hit?.rating?.trim()) return hit.rating.trim();
+  }
+  return null;
 }
 
 export async function getTvSeason(tmdbId: number, seasonNumber: number) {
@@ -131,6 +160,11 @@ export type TmdbCompany = {
   origin_country?: string;
 };
 
+export type TmdbCountry = {
+  iso_3166_1: string;
+  name: string;
+};
+
 export type MovieDetails = {
   id: number;
   title: string;
@@ -150,6 +184,7 @@ export type MovieDetails = {
   adult?: boolean;
   genres?: TmdbGenre[];
   production_companies?: TmdbCompany[];
+  production_countries?: TmdbCountry[];
 };
 
 export async function getMovieDetails(
@@ -1010,6 +1045,19 @@ export function pickCertification(
     return { code: rated[0].certification!.trim(), country: entry.iso_3166_1 };
   }
   return null;
+}
+
+/** ISO-639-1 → English language name ("en" → "English"). */
+export function languageName(code: string | null | undefined): string | null {
+  if (!code) return null;
+  try {
+    return (
+      new Intl.DisplayNames(["en"], { type: "language" }).of(code) ??
+      code.toUpperCase()
+    );
+  } catch {
+    return code.toUpperCase();
+  }
 }
 
 export function providerLogoUrl(path: string | null | undefined) {
