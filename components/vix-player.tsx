@@ -28,6 +28,8 @@ import {
   withCineSrcQuality,
   withCineSrcServer,
 } from "@/lib/embed-sources";
+import { EmbedHint } from "@/components/embed-hint";
+import { PlayerErrorOverlay } from "@/components/player-error-overlay";
 import { ResumeOverlay } from "@/components/resume-overlay";
 import { DownloadButton } from "@/components/download-button";
 import {
@@ -83,44 +85,22 @@ import type {
   QualityLevelInfo,
   StreamSource,
 } from "@/lib/player-native-types";
+import { destroyAudioGraph } from "@/lib/player-audio-graph";
+import { streamErrorCopy, type StreamErrorInfo } from "@/lib/player-error-copy";
+import {
+  ALL_SOURCES,
+  disabledSourcesFor,
+  nextPlayableSource,
+} from "@/lib/player-source-picker";
+import {
+  beginLockMount,
+  endLockMount,
+  readSessionLocked,
+  writeSessionLocked,
+} from "@/lib/player-session-lock";
 
 // Log a rejected iframe origin once per page load (not per message — spam).
 let loggedRejectedOrigin = false;
-
-/**
- * Lock survives episode auto-advance within a session. Advancing remounts the
- * player (key change) which would otherwise drop a pocket-lock mid-binge.
- *
- * Mount-counted handoff (no context, no extra renders): each mount cancels a
- * pending clear scheduled by the previous unmount, so an advance-remount
- * keeps the lock while a real unmount (navigate away / close) releases it on
- * the next macrotask. A fresh page load starts unlocked.
- */
-let sessionLocked = false;
-let lockMounts = 0;
-let pendingLockClear: ReturnType<typeof setTimeout> | null = null;
-
-/** Permanent teardown for a WebAudio graph slot (unmount only). */
-function destroyAudioGraph(
-  slot: React.MutableRefObject<{
-    ctx: AudioContext;
-    gain: GainNode;
-  } | null>
-): void {
-  const g = slot.current;
-  slot.current = null;
-  if (!g) return;
-  try {
-    g.gain.disconnect();
-  } catch {
-    /* already torn down */
-  }
-  try {
-    void g.ctx.close().catch(() => {});
-  } catch {
-    /* already closed */
-  }
-}
 
 /**
  * Full-screen VixSrc player overlay.
@@ -135,20 +115,6 @@ function destroyAudioGraph(
  * Events (both paths): play / pause / seeked / ended / timeupdate.
  */
 
-/** One-time 4s hint shown when playing inside an embed (iframe controls only). */
-function EmbedHint() {
-  const [visible, setVisible] = useState(true);
-  useEffect(() => {
-    const t = setTimeout(() => setVisible(false), 4000);
-    return () => clearTimeout(t);
-  }, []);
-  if (!visible) return null;
-  return (
-    <p className="pointer-events-none absolute bottom-4 left-1/2 z-20 -translate-x-1/2 rounded-full bg-black/70 px-3 py-1.5 text-[10px] font-semibold text-white/70 backdrop-blur">
-      Embed controls only — switch source for CC / speed / audio
-    </p>
-  );
-}
 /** Position payload attached to player events (seeked / ended / near-end). */
 type PlayerEventPos = { t?: number; duration?: number };
 
@@ -294,12 +260,7 @@ export function VixPlayer({
   const hasResolvedRef = useRef(false);
   // Structured resolve failure (code/detail) for the error card. Cleared on
   // every fresh attempt (mount, source switch, retry).
-  const [streamError, setStreamError] = useState<{
-    code?: string;
-    detail?: string;
-    message?: string;
-    resolverConfigured?: boolean;
-  } | null>(null);
+  const [streamError, setStreamError] = useState<StreamErrorInfo>(null);
   /** Bumped by the error-card Retry button to re-run resolution. */
   const [retryNonce, setRetryNonce] = useState(0);
   /** Rebuffer spinner (native waiting/stalled/seek stalls after load). */
@@ -311,10 +272,10 @@ export function VixPlayer({
   // win over a stale show-page bookmark. Lookup always re-reads /api/playback.
   const [resumePosition, setResumePosition] = useState<number | null>(null);
   const [resumeKey, setResumeKey] = useState<string | null>(null);
-  const [locked, setLocked] = useState(sessionLocked);
+  const [locked, setLocked] = useState(readSessionLocked);
   /** Persist lock across episode-advance remounts (same session only). */
   const setLockedPersisted = useCallback((next: boolean) => {
-    sessionLocked = next;
+    writeSessionLocked(next);
     setLocked(next);
   }, []);
   /** Custom chrome only — native <video controls> are off (dual-layer fix). */
@@ -668,11 +629,7 @@ export function VixPlayer({
   // clear is deferred one macrotask so a synchronous advance-remount can
   // cancel it; a genuine unmount (navigate away) lets it fire.
   useEffect(() => {
-    lockMounts += 1;
-    if (pendingLockClear) {
-      clearTimeout(pendingLockClear);
-      pendingLockClear = null;
-    }
+    beginLockMount();
     return () => {
       if (chromeHideTimerRef.current) {
         clearTimeout(chromeHideTimerRef.current);
@@ -704,14 +661,7 @@ export function VixPlayer({
       }
       castRemoteRef.current = null;
       destroyAudioGraph(audioGraphRef);
-      lockMounts = Math.max(0, lockMounts - 1);
-      if (lockMounts === 0) {
-        if (pendingLockClear) clearTimeout(pendingLockClear);
-        pendingLockClear = setTimeout(() => {
-          sessionLocked = false;
-          pendingLockClear = null;
-        }, 0);
-      }
+      endLockMount();
     };
   }, []);
 
@@ -1373,31 +1323,7 @@ export function VixPlayer({
   }, [offlineOverride, initialPosition]);
 
   // ---------- source switching ----------
-  // Picker order: cinesrc, vidfast, mapple, vidlink, vidnest, 2embed,
-  // vidapi, then vix. Goated is parked (backend DNS dead 2026-09-23) —
-  // swap GOATED_RESOLVER in lib/goated.ts to resurrect.
-  const ALL_SOURCES: StreamSource[] = [
-    ...EMBED_SOURCES.map((s) => s.key as StreamSource),
-    "vix",
-    "goated",
-  ];
-  const disabledSources: StreamSource[] = [
-    "goated",
-    ...(type === "tv"
-      ? EMBED_SOURCES.filter((s) => !s.tvUrl(0, 1, 1)).map(
-          (s) => s.key as StreamSource
-        )
-      : []),
-  ];
-  const nextPlayableSource = (current: StreamSource): StreamSource => {
-    const blocked = new Set(disabledSources);
-    const start = ALL_SOURCES.indexOf(current);
-    for (let i = 1; i <= ALL_SOURCES.length; i++) {
-      const next = ALL_SOURCES[(start + i) % ALL_SOURCES.length];
-      if (next && !blocked.has(next)) return next;
-    }
-    return current;
-  };
+  const disabledSources = disabledSourcesFor(type);
   const switchSource = useCallback((next: StreamSource) => {
     if (next === activeSource) return;
     // Offline there is no source to switch to: resolution can only fail,
@@ -3627,21 +3553,8 @@ export function VixPlayer({
 
   const isLoading = mode === "loading" || (mode === "native" && !mediaReady);
   const hasError = mode === "error";
-  // Friendly error title from the structured resolve failure (codes beat
-  // guessing). Offline keeps its download-specific copy.
-  const streamErrorText = `${streamError?.code ?? ""} ${streamError?.message ?? ""}`;
-  const streamErrorTitle = offlineOverride
-    ? "Couldn't play this download"
-    : streamError?.resolverConfigured === false
-      ? "Streaming server not set up"
-      : /403|forbidden|blocked/i.test(streamErrorText)
-        ? "Source blocked on this network"
-        : /timeout|timed out|504|522|524/i.test(streamErrorText)
-          ? "Source timed out"
-          : "Player unavailable here";
-  const streamErrorDetail = offlineOverride
-    ? "The saved file may be incomplete — try downloading it again."
-    : streamError?.detail || streamError?.message || "Try switching to another source.";
+  const { title: streamErrorTitle, detail: streamErrorDetail } =
+    streamErrorCopy(offlineOverride, streamError);
   const canRetry = streamable || offlineOverride;
   const playbackKey = playbackParams();
   const showResume =
@@ -4122,49 +4035,24 @@ export function VixPlayer({
       )}
 
       {hasError && (
-        <div className="absolute inset-0 z-[6] flex items-center justify-center bg-black/85 p-6 text-center">
-          <div>
-            <p className="font-bold text-white">{streamErrorTitle}</p>
-            <p className="mx-auto mt-1 max-w-xs text-sm text-white/55">
-              {streamErrorDetail}
-            </p>
-            <div className="mt-4 flex items-center justify-center gap-2">
-              {canRetry && (
-                <button
-                  type="button"
-                  onClick={retryStream}
-                  className="inline-flex items-center rounded-full bg-white/10 px-4 py-2 text-sm font-bold text-white ring-1 ring-white/20 transition hover:bg-white/20"
-                >
-                  Retry
-                </button>
-              )}
-              {!canRetry && (
-                <button
-                  type="button"
-                  onClick={() => {
-                    void flushPosition().then(() => {
-                      onClose();
-                    });
-                  }}
-                  className="inline-flex items-center rounded-full bg-white/10 px-4 py-2 text-sm font-bold text-white ring-1 ring-white/20 transition hover:bg-white/20"
-                >
-                  Close
-                </button>
-              )}
-              {streamable && !offlineOverride && (
-                <button
-                  type="button"
-                  onClick={() => {
-                    switchSource(nextPlayableSource(activeSource));
-                  }}
-                  className="inline-flex items-center rounded-full bg-primary px-4 py-2 text-sm font-bold text-black"
-                >
-                  Try {sourceLabel(nextPlayableSource(activeSource))}
-                </button>
-              )}
-            </div>
-          </div>
-        </div>
+        <PlayerErrorOverlay
+          title={streamErrorTitle}
+          detail={streamErrorDetail}
+          canRetry={canRetry}
+          showTryNext={streamable && !offlineOverride}
+          tryNextLabel={sourceLabel(
+            nextPlayableSource(activeSource, disabledSources)
+          )}
+          onRetry={retryStream}
+          onClose={() => {
+            void flushPosition().then(() => {
+              onClose();
+            });
+          }}
+          onTryNext={() => {
+            switchSource(nextPlayableSource(activeSource, disabledSources));
+          }}
+        />
       )}
     </div>
   );
