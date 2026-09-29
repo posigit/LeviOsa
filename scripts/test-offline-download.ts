@@ -4,6 +4,7 @@
  */
 import assert from "node:assert/strict";
 import {
+  buildOfflineMaster,
   canonicalMediaKey,
   classifyPieceStatus,
   gapBudget,
@@ -280,6 +281,33 @@ assert.ok(dropped.includes("v.m3u8"));
 
 // A media playlist (no STREAM-INF) with nothing to attach passes through.
 assert.equal(withOfflineSubtitles(live, null), live);
+
+// Round-2 #14: muxed-audio top level — the engine wraps the stored variant
+// in a synthetic master so the captured rendition isn't a dead line that
+// no playlist ever references.
+const wrapped = withOfflineSubtitles(
+  buildOfflineMaster({
+    variant: {
+      bandwidth: 4_000_000,
+      height: 720,
+      width: 1280,
+      codecs: "avc1.64001f,mp4a.40.2",
+      audioGroup: null,
+      subGroup: "subs",
+      url: "https://cdn.example.com/v/720.m3u8",
+    },
+    videoPlaylistUrl: "https://app/idx:e:10:1:2:vp:0",
+    audio: null,
+    audioPlaylistUrl: null,
+  }),
+  { name: "English", language: "en", uri: "https://app/idx:e:10:1:2:sp:0" }
+);
+assert.equal((wrapped.match(/#EXT-X-STREAM-INF/g) ?? []).length, 1);
+assert.ok(wrapped.includes("https://app/idx:e:10:1:2:vp:0"));
+assert.ok(wrapped.includes('SUBTITLES="offline-subs"'));
+assert.equal((wrapped.match(/TYPE=SUBTITLES/g) ?? []).length, 1);
+assert.ok(!wrapped.includes("TYPE=AUDIO"));
+assert.ok(wrapped.indexOf("TYPE=SUBTITLES") < wrapped.indexOf("#EXT-X-STREAM-INF"));
 
 /* ------------------------------------------------------------------ */
 /* SRT-style comma timestamps: Number("01,500") is NaN, which silently  */

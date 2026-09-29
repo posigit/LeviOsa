@@ -881,6 +881,44 @@ export function attachNativePlayback(args: AttachNativePlaybackArgs): () => void
           notifySeekSettled(pos, near);
         }, 15_000);
       }
+
+      // Native HLS has no hls.js error pipeline: a hole in an offline
+      // playlist or a decode failure otherwise loops on "Starting…" with no
+      // way out. Hop past the bad fragment (same 15s trick as the hls.js
+      // offline recovery) a couple of times, then hand control back so the
+      // user is never stuck on a frozen player.
+      let nativeErrors = 0;
+      const onNativeError = () => {
+        const err = video.error;
+        if (!err || err.code === MediaError.MEDIA_ERR_ABORTED) return;
+        const pos = Number.isFinite(video.currentTime) ? video.currentTime : 0;
+        const recoverable =
+          err.code === MediaError.MEDIA_ERR_NETWORK ||
+          err.code === MediaError.MEDIA_ERR_DECODE;
+        if (recoverable && pos > 0 && nativeErrors < MAX_FATAL_ERRORS - 1) {
+          const dur = Number.isFinite(video.duration)
+            ? video.duration
+            : pos + OFFLINE_HOP_SECONDS;
+          const hop = Math.min(pos + OFFLINE_HOP_SECONDS, Math.max(0, dur - 1));
+          if (hop > pos) {
+            nativeErrors += 1;
+            const wasPlaying = !video.paused && !video.ended;
+            // Track settings live on the element — re-apply after the reload.
+            video.addEventListener("loadedmetadata", applyNative, { once: true });
+            video.src = `${playlistUrl}#t=${hop.toFixed(3)}`;
+            if (wasPlaying) {
+              window.setTimeout(() => {
+                if (video.paused && !video.ended) void video.play().catch(() => {});
+              }, 300);
+            }
+            return;
+          }
+        }
+        if (pos > 0) savePosition(pos, video.duration, true);
+        setStreamFailed(true);
+      };
+      video.addEventListener("error", onNativeError);
+      cleanup.push(() => video.removeEventListener("error", onNativeError));
     } else {
       setStreamFailed(true);
     }

@@ -6,15 +6,21 @@ was never persisted, so this file is the canonical list of **deferred findings**
 
 ## Round-2 status (this session)
 
-**Fixed now (8):** #1 quota pre-check, #2 quota own-bytes exclusion, #3 rendition-wipe
+**Fixed pass 1 (8):** #1 quota pre-check, #2 quota own-bytes exclusion, #3 rendition-wipe
 persist-before-delete, #4 outbox serialized read-modify-write, #6 offline mirror follows
 clear rules (ended/92%/cleared), #9 non-OK POSTs parked instead of dropped, #10 outbox
 attempts no longer burned by 5xx/network, #20 SW suffix-range 416. Marked ✅ below.
 
-**Stashed (the rest):** everything else remains open — biggest remaining: #5 cross-tab
-manifest fencing, #7 native-HLS error/hole recovery, #8 server clears → local positions,
-#11–#16 engine correctness, #17–#35 UX/service-worker items. None were touched; the
-engine changes this session are additive/defensive only.
+**Fixed pass 2 (5 + 1 partial + 1 not-a-bug):** #7 native-HLS error/hole recovery,
+#11 stale intent sweep + #12 attach-window pause/cancel re-check, #14 synthetic master for
+captured CC on muxed-audio tops (test added), #16 autoAttempts reset on completion,
+#5 **partial** (same-key cross-tab run fence via Web Locks `ifAvailable`; whole-manifest
+write clobber still open), #13 verified working (not a bug — refresh rides
+`PieceDownloadError("auth")`).
+
+**Stashed / deferred (the rest):** #8 (blocked on server tombstones — unsafe otherwise),
+#15, #17–#35. Biggest open: #5b per-row manifest storage, #17/#18 offline subs UX,
+#19 source picker, #21–#35 service-worker/UX items.
 
 - Method: 4 parallel sweeps (store/UI, engine/hls, service worker, offline player) + spot-checks.
 - Line numbers verified against commit `7b34962`. Findings marked ✓ were re-checked against
@@ -67,12 +73,16 @@ engine changes this session are additive/defensive only.
    mid-drain is erased; concurrent drains in two contexts do the same. ✓ Lines verified.
    Fix: single serialized writer (in-memory promise queue) + re-read-merge before save.
 
-5. **Cross-tab manifest clobber, no run fencing**
+5. **✅ PARTIAL — Cross-tab manifest clobber, no run fencing**
    — `store.ts` `load()` (cache shared per tab, re-read races also noted ~:176/:294) +
    `engine.ts` `activeControllers`/`ownedHere` are per-context: two tabs can both believe they
    own a run and both commit the same row, last writer wins (can regress `bytesDone`/`state`).
    Fix: `navigator.locks` or BroadcastChannel writer lease + merge-on-commit instead of
    whole-row replace.
+   **Round-3 done:** same-key run fence added (`runExclusive` in `engine.ts` — Web Locks
+   `ifAvailable` per key, API-guarded fallback). **Remaining:** whole-manifest single-record
+   writes still clobber *other rows* when two tabs download *different* titles (needs
+   per-row storage or merge-on-commit design — do not rush).
 
 6. **✅ FIXED — Offline position mirror re-written after "finished" clears it**
    — `components/vix-player.tsx:739-745`: `writeOfflinePosition` runs before the shared save
@@ -84,16 +94,20 @@ engine changes this session are additive/defensive only.
 
 ## P1 — playback dead-ends / correctness
 
-7. **Native-HLS branch has no media error handling and no offline hole recovery**
+7. **✅ FIXED — Native-HLS branch has no media error handling and no offline hole recovery**
    — `lib/player-engine.ts:647` (`canPlayType("application/vnd.apple.mpegurl")`): all recovery,
    seek-attach and offline hop logic lives in the hls.js path; Safari/iOS hitting a bad stored
    segment loops on "Starting…" forever. Fix: mirror the fatal/`recoverMediaError`/hop logic for
    the native branch (at least `error` listener + reload-with-offset).
 
-8. **Server-side clears never reach local positions (stale Resume)**
+8. **⛔ DEFERRED (unsafe as-is) — Server-side clears never reach local positions (stale Resume)**
    — `store.ts` position sync skips rows with no local record (`if (!row) continue` pattern);
    a watch cleared on the server (other device) keeps its local saved position, so offline
    "Resume" reappears for something marked watched/cleared elsewhere. Reported by two sweeps.
+   **Why deferred:** absence of a server row is ambiguous — it also means "offline progress
+   not yet uploaded (outbox pending)". Clearing local on absence would delete legitimate
+   offline positions whenever sync runs before the outbox drains. Needs server-side
+   tombstones (`deletedAt`/`updatedAt` on cleared bookmarks) before this is safe to fix.
 
 9. **✅ FIXED — Auto-mark silently dropped on non-OK response**
    — `components/offline-player-host.tsx` `handlePlayerEvent`: only catches thrown errors and
@@ -107,35 +121,44 @@ engine changes this session are additive/defensive only.
     ~20 tab focus cycles delete a queued mark. Fix: don't count 5xx/network the same as 4xx;
     reset attempts on success path changes; consider time-based backoff instead of hard cap.
 
-11. **Pause/cancel intents leak past completion**
+11. **✅ FIXED — Pause/cancel intents leak past completion**
     — `lib/offline/engine.ts:83-84`, checked at :567-583 / :837-849: an intent added while a run
     was winding down is consumed by the *next* attempt → first segment of a retry "pauses"
     immediately, and in some orderings the failure path deletes the row. Reported.
 
-12. **Pre-controller start window: pause/cancel issued before `live.state` exists is lost**
+12. **✅ FIXED — Pre-controller start window: pause/cancel issued before `live.state` exists is lost**
     — `engine.ts` `startingKeys` (:457-461): intents recorded before the live entry is created
     are overwritten/ignored when the run attaches. Reported.
 
-13. **Expired-link auth refresh never fires in downloads**
+13. **✅ NOT A BUG — Expired-link auth refresh never fires in downloads**
     — `engine.ts downloadAttempt`: no `AuthRefresh` throw site; expired key/inits are not
     re-resolved, so a long queue crossing link expiry fails every remaining segment. Reported.
     (Streaming cascade refreshes; downloads do not.)
+    **Re-verified:** the mechanism runs through `PieceDownloadError("auth")` instead —
+    `classifyPieceStatus` (`hls.ts:221`) maps 401/403/signature errors to `"auth"`, and the
+    mirror loop (`engine.ts` ~:1792/:1813) catches it, calls `refreshCandidate` (re-resolves
+    the playlist) and retries the same mirror once. The `AuthRefresh` class itself is dead
+    legacy, but refresh works. No change needed.
 
-14. **Captured subs unreachable when the top level is a media playlist**
-    — mirror else-branch (`isMaster` false): `mediaText` is the variant media playlist, so the
-    master-only `withOfflineSubtitles` path never runs and any subtitle line appended there is
-    dead. Reported (multi-variant nested masters already fail earlier with "No video segments",
-    so the reachable case is single-variant). Fix: build a synthetic 1-variant master when
-    subs were captured but the fetched text is a media playlist.
+14. **✅ FIXED — Captured subs unreachable when the top level is a media playlist**
+    — mirror else-branch: reached whenever there is no separate audio rendition (muxed audio —
+    the common case), so `topText` is the variant **media** playlist; the captured
+    `#EXT-X-MEDIA` rendition becomes a dead line no playlist references. Reported
+    (multi-variant nested masters already fail earlier with "No video segments").
+    Fix: when `isMaster && pickedVariant && subs captured`, wrap the stored variant in
+    `buildOfflineMaster(audio: null)` before `withOfflineSubtitles` (engine.ts else-branch);
+    regression test added in `test-offline-download.ts`.
 
 15. **`refineEstimate` unreachable → estimates stay 0 → over-eviction**
     — engine: est refinement never runs for typical rows, so `estSize` stays 0/rough and
     `enforceQuota`/playback estimates fall back to full-bitrate math → evicts more than needed.
     Reported.
 
-16. **`autoAttempts` lifetime budget never resets**
+16. **✅ FIXED — `autoAttempts` lifetime budget never resets**
     — engine auto-quality attempts are a per-row lifetime counter; a row that had a few
     transient failures months ago permanently degrades to fallback bitrate. Reported.
+    Fix: reset to 0 when a run completes (`state = "done"`), alongside the existing
+    manual-retry reset in `resumeDownload`.
 
 ## P2 — offline UX / service worker
 
@@ -212,10 +235,11 @@ engine changes this session are additive/defensive only.
 
 ## Suggested fix order for the rest (deferred — ask before starting)
 
-1. P1 #7 (native-HLS error/hole recovery) — remaining playback dead-end.
-2. P1 #11–#13 (intent leaks, start-window, download auth refresh) — engine correctness.
-3. P0 #5 (cross-tab fencing) — needs `navigator.locks`/BroadcastChannel design; bigger change.
-4. P1 #8, #14–#16, then P2 by usage (#17/#18 subs UX are the most user-visible).
+1. P1 #15 (`refineEstimate` unreachable → over-eviction) + #17/#18 (offline subs UX) — most
+   user-visible remaining.
+2. P2 #19 (source picker live offline), #25 (orphaned active rows), #26 (byterange order).
+3. #5b per-row manifest storage (design first — replaces whole-manifest writes).
+4. #8 only after the server can return tombstones with timestamps.
 
 ## Verified green at `7b34962` (no new regressions)
 

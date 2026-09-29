@@ -456,11 +456,27 @@ export async function startDownload(req: DownloadRequest): Promise<void> {
   if (startingKeys.has(key)) return;
   startingKeys.add(key);
   try {
-    return await startDownloadInner(req, key);
+    return await runExclusive(key, () => startDownloadInner(req, key));
   } finally {
     startingKeys.delete(key);
     pumpQueue();
   }
+}
+
+/**
+ * Cross-tab run fence. Two contexts (e.g. an auto-resume timer in each tab)
+ * used to run the same key simultaneously: double bandwidth, and both wrote
+ * progress for one row. `ifAvailable` never queues — when another tab holds
+ * the key we hand off silently; its run owns the row. No Web Locks API
+ * (tests, old engines) falls back to the same-tab-only fencing above.
+ */
+async function runExclusive(key: string, fn: () => Promise<void>): Promise<void> {
+  const locks = typeof navigator !== "undefined" ? navigator.locks : undefined;
+  if (!locks?.request) return fn();
+  await locks.request(`tvtime-download:${key}`, { ifAvailable: true }, async (lock) => {
+    if (!lock) return; // another tab owns this key — hands off
+    await fn();
+  });
 }
 
 async function startDownloadInner(req: DownloadRequest, key: string): Promise<void> {
@@ -468,6 +484,13 @@ async function startDownloadInner(req: DownloadRequest, key: string): Promise<vo
   if (!settings.downloadMode) {
     throw new Error("Download mode is off — enable it in Download settings.");
   }
+  // Intents a previous run never consumed are stale: honoring them here
+  // would pause/cancel THIS attempt before it starts — worst case the catch
+  // path deletes a healthy re-download. Requests aimed at a run that is
+  // mid-attach land during the await window below and are re-checked after
+  // the controller registers (see the pre-run re-read).
+  pauseIntents.delete(key);
+  cancelIntents.delete(key);
   const existing = getRecordSync(key) ?? (await getManifest())[key];
   // A live loop in this instance owns the key — hands off.
   if (activeControllers.has(key)) return;
@@ -555,6 +578,28 @@ async function startDownloadInner(req: DownloadRequest, key: string): Promise<vo
   const controller = new AbortController();
   activeControllers.set(key, controller);
   try {
+    // Pause/cancel can land between the queued upsert and this attach — no
+    // controller existed yet, so they acted durably (or left an intent for
+    // us). Re-read before running: runDownload's `active` flip must not
+    // overwrite a pause from that window, and a cancel must not be
+    // resurrected by the first checkpoint.
+    const pre = getRecordSync(key) ?? (await getManifest())[key];
+    if (cancelIntents.has(key) || !pre) {
+      cancelIntents.delete(key);
+      pauseIntents.delete(key);
+      if (pre) {
+        await deleteRecordFiles(pre);
+        await removeRecord(key);
+      }
+      return;
+    }
+    if (pauseIntents.has(key) || pre.state === "paused") {
+      pauseIntents.delete(key);
+      if (pre.state !== "done" && pre.state !== "paused") {
+        await commitRecord({ ...pre, state: "paused", error: undefined, retryable: false });
+      }
+      return;
+    }
     await runDownload(req, rec, controller.signal);
   } catch (err) {
     // Stop straggler workers still burning data after the first failure.
@@ -623,13 +668,18 @@ export async function pauseDownload(key: string): Promise<void> {
   const controller = activeControllers.get(key);
   if (controller) {
     controller.abort();
-    return;
+    return; // consumed by the run's catch path
   }
-  pauseIntents.delete(key);
   const rec = getRecordSync(key) ?? (await getManifest())[key];
   if (rec && (rec.state === "active" || rec.state === "queued")) {
+    pauseIntents.delete(key);
     await commitRecord({ ...rec, state: "paused", error: undefined, retryable: false });
   }
+  // Otherwise the row is still being created, already paused, in error, or
+  // gone: keep the intent — startDownload's attach re-check consumes it
+  // (this used to be deleted unconditionally, silently dropping pauses
+  // issued while a run was still attaching). Stale copies are cleared when
+  // the next start enters startDownloadInner.
 }
 
 export async function resumeDownload(req: DownloadRequest): Promise<void> {
@@ -826,7 +876,12 @@ export function cancelDownload(key: string) {
   dequeueIos(key);
   systemPauseKeys.delete(key);
   if (!activeControllers.has(key)) {
-    // Not running — just drop the row + files.
+    // Not running — just drop the row + files. Leave the intent set too:
+    // when this key is mid-attach (no controller registered yet), the
+    // startDownload re-check consumes it instead of resurrecting the row
+    // after the durable delete; the entry-clear of the next start sweeps
+    // any intent whose run never materialised.
+    cancelIntents.add(key);
     void (async () => {
       const rec = getRecordSync(key);
       if (rec) await deleteRecordFiles(rec);
@@ -1663,6 +1718,18 @@ async function runDownload(
           .map((_, i) => segmentIndexUrl(rec.key, "vk", i)),
         gapIndexes: new Set(videoGaps),
       });
+      // Stream CC can only hang off a master playlist, but this top level is
+      // the variant itself (muxed audio — no separate rendition fetch). The
+      // captured rendition below would end up as a dead #EXT-X-MEDIA line,
+      // so wrap the stored variant in a synthetic master to make it reachable.
+      if (m.isMaster && m.pickedVariant && storedSubUrl && m.subEntry) {
+        topText = buildOfflineMaster({
+          variant: m.pickedVariant,
+          videoPlaylistUrl: videoStoredUrl,
+          audio: null,
+          audioPlaylistUrl: null,
+        });
+      }
     }
     // Replace every remote subtitle group with the captured rendition (or
     // none): remote URIs are unreachable offline and would error the moment
@@ -1712,6 +1779,10 @@ async function runDownload(
     rec.state = "done";
     rec.error = undefined;
     rec.retryable = false;
+    // A finished run restores the auto-quality budget: without this the
+    // lifetime counter kept counting against future, unrelated failures and
+    // the row could never auto-recover again (manual retry was the only reset).
+    rec.autoAttempts = 0;
     rec.downloadedAt = Date.now();
     rec.lastUsedAt = Date.now();
     // Honest partial state: the holes this run skipped stay on the record
