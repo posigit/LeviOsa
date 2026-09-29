@@ -446,8 +446,23 @@ export default async function MovieDetailPage({
           }`}
         >
           {(certification || releaseYear) && (
-            <span className="glass-control inline-flex rounded-full bg-white/10 px-3 py-1 text-xs font-semibold text-white/90">
-              {certification ? certification.code : releaseYear}
+            <span className="glass-control inline-flex items-center gap-1.5 rounded-full bg-white/10 px-3 py-1 text-xs font-semibold text-white/90">
+              {certification?.code}
+              {certification && releaseYear && (
+                <span aria-hidden className="text-white/40">
+                  {"·"}
+                </span>
+              )}
+              {yearNum ? (
+                <Link
+                  href={`/movie/year/${yearNum}`}
+                  className="transition hover:text-primary"
+                >
+                  {releaseYear}
+                </Link>
+              ) : (
+                releaseYear
+              )}
             </span>
           )}
 

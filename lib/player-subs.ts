@@ -37,7 +37,9 @@ export function stripAssTags(text: string): string {
 }
 
 export function parseVttTime(t: string): number {
-  const parts = t.split(":").map(Number);
+  // SRT-style files use "HH:MM:SS,mmm" — normalize so seconds parse
+  // (Number("01,500") is NaN, which silently dropped every cue).
+  const parts = t.replace(/,/g, ".").split(":").map(Number);
   if (parts.length === 3) return parts[0] * 3600 + parts[1] * 60 + parts[2];
   if (parts.length === 2) return parts[0] * 60 + parts[1];
   return 0;
@@ -68,7 +70,7 @@ export function injectVttTrack(
   let i = 0;
   while (i < lines.length) {
     const m = lines[i].match(
-      /(\d{2}:\d{2}:\d{2}\.\d{3}|\d{2}:\d{2}\.\d{3})\s*-->\s*(\d{2}:\d{2}:\d{2}\.\d{3}|\d{2}:\d{2}\.\d{3})/
+      /(\d{2}:\d{2}:\d{2}[.,]\d{3}|\d{2}:\d{2}[.,]\d{3})\s*-->\s*(\d{2}:\d{2}:\d{2}[.,]\d{3}|\d{2}:\d{2}[.,]\d{3})/
     );
     if (m) {
       const start = Math.max(0, parseVttTime(m[1]) + delay);
@@ -119,7 +121,7 @@ export function parseVttCues(vtt: string, delaySeconds = 0): VttCue[] {
   let i = 0;
   while (i < lines.length) {
     const m = lines[i].match(
-      /(\d{2}:\d{2}:\d{2}\.\d{3}|\d{2}:\d{2}\.\d{3})\s*-->\s*(\d{2}:\d{2}:\d{2}\.\d{3}|\d{2}:\d{2}\.\d{3})/
+      /(\d{2}:\d{2}:\d{2}[.,]\d{3}|\d{2}:\d{2}[.,]\d{3})\s*-->\s*(\d{2}:\d{2}:\d{2}[.,]\d{3}|\d{2}:\d{2}[.,]\d{3})/
     );
     if (m) {
       const start = Math.max(0, parseVttTime(m[1]) + delay);

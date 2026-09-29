@@ -27,6 +27,7 @@ import {
   getAllSync,
   getManifest,
   getRecordSync,
+  isPlaybackInUse,
   removeRecord,
   storageStats,
   updateProgress,
@@ -46,6 +47,7 @@ import {
   minVariantHeight,
   offlinePieceUrl,
   parseMasterAudio,
+  parseMasterSubtitles,
   parseMasterVariants,
   parseMediaPlaylist,
   pickAudioEntry,
@@ -53,10 +55,13 @@ import {
   rewritePlaylistToIndexUrls,
   segmentIndexUrl,
   segmentShouldReject,
+  withEndlist,
+  withOfflineSubtitles,
   type AudioEntry,
   type ByteRange,
   type MediaParts,
   type PieceFailureReason,
+  type SubEntry,
   type VariantInfo,
 } from "@/lib/offline/hls";
 import { formatBytes } from "@/lib/utils";
@@ -171,6 +176,8 @@ const STALL_TIMEOUT_MS = 60000;
 const RETRY_TRIES = 5;
 const RETRY_BASE_MS = 800;
 const AUTO_ATTEMPT_CAP = 5;
+/** Downloads finished this recently are LRU victims only as a last resort. */
+const RECENT_USE_FLOOR_MS = 10 * 60_000;
 
 /** WebKit Cache Storage corrupts under parallel puts. One writer at a time. */
 let cacheChain: Promise<void> = Promise.resolve();
@@ -271,16 +278,26 @@ function waitBackoff(ms: number, signal: AbortSignal): Promise<void> {
   });
 }
 
-/** Keep a requested byte range; never persist a 206 as if it were the whole file. */
+/**
+ * Keep a requested byte range; never persist a 206 as if it were the whole
+ * file. A truncated or offset-ambiguous body becomes an empty buffer so the
+ * caller's existing retry → gap/throw path handles it — previously a short
+ * 200 was sliced from byte 0 (wrong window) and a short body was stored
+ * as-is, then trusted forever on every later cache hit.
+ */
 function sliceToRange(
   buf: ArrayBuffer,
   status: number,
   range: ByteRange | null
 ): ArrayBuffer {
   if (!range) return buf;
-  if (status === 200 && buf.byteLength >= range.start + range.length) {
-    return buf.slice(range.start, range.start + range.length);
+  if (status === 200) {
+    if (buf.byteLength >= range.start + range.length) {
+      return buf.slice(range.start, range.start + range.length);
+    }
+    return new ArrayBuffer(0);
   }
+  if (buf.byteLength < range.length) return new ArrayBuffer(0);
   if (buf.byteLength > range.length) return buf.slice(0, range.length);
   return buf;
 }
@@ -635,6 +652,17 @@ export async function resumeDownload(req: DownloadRequest): Promise<void> {
   return startDownload(req);
 }
 
+/**
+ * Re-run a finished download as a cache-hit pass: stored indexes verify
+ * against the cache (only evicted ones refetch) and the `rec.missing`
+ * holes come off the network. Cheap — used by the "Partial" repair action.
+ */
+export async function repairDownload(key: string): Promise<void> {
+  const rec = getRecordSync(key) ?? (await getManifest())[key];
+  if (!rec || rec.state !== "done") return;
+  return startDownload(reqFromRecord(rec));
+}
+
 /** Poster path from our own API — never a browser-side TMDB key. */
 async function lookupPosterPath(
   type: "movie" | "tv",
@@ -894,6 +922,10 @@ async function runDownload(
     audioUrl: string | null;
     audioText: string | null;
     audioEntry: AudioEntry | null;
+    subParts: MediaParts | null;
+    subUrl: string | null;
+    subText: string | null;
+    subEntry: SubEntry | null;
   };
   const tryMirror = async (candidate: string): Promise<MirrorParse> => {
     // 2. Master → variant at/below the quality setting. The resolver may
@@ -989,6 +1021,55 @@ async function runDownload(
         throwIfAborted();
       }
     }
+
+    // 3c. Stream captions. Grab the picked variant's SUBTITLES rendition so
+    // the download keeps the stream's own frame-accurate CC offline — far
+    // better timing than an external OpenSubtitles guess. Bonus like the
+    // text cascade: any failure here continues without captions.
+    let subParts: MediaParts | null = null;
+    let subUrl: string | null = null;
+    let subText: string | null = null;
+    let subEntry: SubEntry | null = null;
+    if (isMaster && pickedVariant?.subGroup) {
+      const subGroup = pickedVariant.subGroup;
+      try {
+        const subs = parseMasterSubtitles(masterText, playlistBase).filter(
+          (e) => e.groupId === subGroup
+        );
+        // pickAudioEntry is typed on AudioEntry; re-find the chosen element
+        // in `subs` so its rawUri (master rewrites need it) survives.
+        const best = pickAudioEntry(subs, loadVixSettings().subs, matchLang);
+        const wanted = best ? (subs.find((e) => e.url === best.url) ?? null) : null;
+        if (wanted) {
+          const sRes = await fetchPieceRetry(wanted.url, signal, null, null);
+          if (sRes.ok) {
+            let sText = await sRes.text();
+            let sUrl = wanted.url;
+            if (isMasterPlaylist(sText)) {
+              const sVars = parseMasterVariants(sText, sUrl);
+              const sv = sVars[0];
+              if (sv) {
+                const svRes = await fetchPieceRetry(sv.url, signal, null, null);
+                if (svRes.ok) {
+                  sText = await svRes.text();
+                  sUrl = sv.url;
+                }
+              }
+            }
+            const parsed = parseMediaPlaylist(sText, sUrl);
+            if (parsed.segments.length > 0 && !parsed.sampleAes) {
+              subParts = parsed;
+              subText = sText;
+              subUrl = sUrl;
+              subEntry = wanted;
+            }
+          }
+        }
+      } catch (e) {
+        if (signal.aborted) throw e;
+        /* captions are a bonus — the download continues without them */
+      }
+    }
     return {
       mediaUrl,
       mediaText,
@@ -1000,6 +1081,10 @@ async function runDownload(
       audioUrl,
       audioText,
       audioEntry,
+      subParts,
+      subUrl,
+      subText,
+      subEntry,
     };
   };
   // Refined per attempt (bandwidth differs per mirror) — see downloadAttempt.
@@ -1046,8 +1131,10 @@ async function runDownload(
   let doneSeg = 0;
   let measuredBytes = 0;
 
+  // withEndlist: every stored media playlist terminates, so offline playback
+  // is always VOD (finite duration → working scrub bar, no live-window stop).
   const mpegResponse = (text: string, noStore = false) =>
-    new Response(text, {
+    new Response(withEndlist(text), {
       headers: {
         "Content-Type": "application/vnd.apple.mpegurl",
         "Cache-Control": noStore ? "no-store" : "public, max-age=31536000",
@@ -1110,6 +1197,8 @@ async function runDownload(
     range: ByteRange | null;
     encrypted: boolean;
     refreshed: boolean;
+    /** Subtitle (text) piece — HTML-sniff rejection must not reject VTT. */
+    textOk?: boolean;
   };
 
   const rememberFile = (url: string) => {
@@ -1137,18 +1226,27 @@ async function runDownload(
   const storeParts = async (
     list: MediaParts,
     label: string,
-    role: "v" | "a",
-    reload: () => Promise<MediaParts | null>
+    role: "v" | "a" | "s",
+    reload: () => Promise<MediaParts | null>,
+    opts?: { lenient?: boolean }
   ): Promise<number[]> => {
     const gaps = new Set<number>();
-    const budget = gapBudget(list.segments.length);
+    // Lenient (subtitles): a wrecked caption rendition must never sink the
+    // title — every failure lands as a gap and the caller decides later.
+    const budget = opts?.lenient
+      ? Number.MAX_SAFE_INTEGER
+      : gapBudget(list.segments.length);
     const jobs: PieceJob[] = [];
     let metaN = 0;
     for (const map of list.maps) {
       const index = metaN++;
       jobs.push({
         original: map.url,
-        dlUrl: segmentIndexUrl(rec.key, role === "v" ? "vi" : "ai", index),
+        dlUrl: segmentIndexUrl(
+          rec.key,
+          role === "v" ? "vi" : role === "a" ? "ai" : "si",
+          index
+        ),
         legacyUrl: offlinePieceUrl(map.url, map.byteRange),
         kind: "init",
         segNo: 0,
@@ -1164,7 +1262,11 @@ async function runDownload(
       const index = metaN++;
       jobs.push({
         original: k.url,
-        dlUrl: segmentIndexUrl(rec.key, role === "v" ? "vk" : "ak", index),
+        dlUrl: segmentIndexUrl(
+          rec.key,
+          role === "v" ? "vk" : role === "a" ? "ak" : "sk",
+          index
+        ),
         legacyUrl: offlinePieceUrl(k.url, null),
         kind: "key",
         segNo: 0,
@@ -1188,6 +1290,7 @@ async function runDownload(
         range: s.byteRange,
         encrypted: s.encrypted,
         refreshed: false,
+        textOk: role === "s",
       });
     }
     let reloadPromise: Promise<MediaParts | null> | null = null;
@@ -1275,15 +1378,23 @@ async function runDownload(
           }
         }
         if (hit) {
-          // Already paid for. Do not sniff and do not download again.
+          // Already paid for. Do not sniff and do not download again —
+          // EXCEPT a byterange piece whose stored size doesn't match the
+          // window: that's a truncated/offset-wrong entry that would be
+          // re-served (and re-trusted) forever. Evict and refetch it.
           const size = await storedSize(hit);
-          rememberFile(job.dlUrl);
-          if (job.kind === "seg") {
-            doneSeg++;
-            measuredBytes += size;
-            await reportProgress();
+          if (job.range && size !== job.range.length) {
+            await enqueueCache(() => cache.delete(job.dlUrl));
+            hit = undefined;
+          } else {
+            rememberFile(job.dlUrl);
+            if (job.kind === "seg") {
+              doneSeg++;
+              measuredBytes += size;
+              await reportProgress();
+            }
+            continue;
           }
-          continue;
         }
 
         let res: Response;
@@ -1330,7 +1441,15 @@ async function runDownload(
           }
         }
         const bytes = new Uint8Array(buf);
-        if (segmentShouldReject(bytes.subarray(0, Math.min(bytes.byteLength, 256)), job.kind)) {
+        // VTT caption segments ARE text — only emptiness disqualifies them
+        // (the HTML-error-page sniff belongs to audio/video pieces).
+        const rejected = job.textOk
+          ? bytes.byteLength === 0
+          : segmentShouldReject(
+              bytes.subarray(0, Math.min(bytes.byteLength, 256)),
+              job.kind
+            );
+        if (rejected) {
           const dead = fail(bytes.byteLength === 0 ? "was empty." : "was not media.", "dead");
           if (job.kind === "seg") {
             await gapOrThrow(job.index, dead);
@@ -1420,7 +1539,9 @@ async function runDownload(
     rec.rendition = rendition;
     rec.durationSec = m.parts.durationSec;
     rec.totalSegments =
-      m.parts.segments.length + (m.audioParts?.segments.length ?? 0);
+      m.parts.segments.length +
+      (m.audioParts?.segments.length ?? 0) +
+      (m.subParts?.segments.length ?? 0);
     rec.estimateBytes = estimateBytes(m.bandwidth, m.parts.durationSec);
     // Single-variant playlists hide bandwidth (0): the estimate is a quality
     // guess and drifts (e.g. vidsrc-sh). Refined from measured bytes once
@@ -1437,6 +1558,21 @@ async function runDownload(
     const audioGaps =
       m.audioParts && audioSource
         ? await storeParts(m.audioParts, "Audio", "a", () => reloadMedia(audioSource))
+        : [];
+    throwIfAborted();
+
+    // 5b. Stream captions (lenient — see storeParts): every failure is a
+    // gap, and a rendition that lost more than a third of its cues is
+    // dropped below instead of sinking the title.
+    const subGaps =
+      m.subParts && m.subUrl
+        ? await storeParts(
+            m.subParts,
+            "Subtitles",
+            "s",
+            () => reloadMedia(m.subUrl!),
+            { lenient: true }
+          )
         : [];
     throwIfAborted();
 
@@ -1459,6 +1595,34 @@ async function runDownload(
       )
     );
     rememberFile(videoStoredUrl);
+
+    // 6b. Captured stream CC: store the rewritten caption playlist, or drop
+    // the capture when too many cue segments went missing (a broken caption
+    // track must never ship — external VTT stays the fallback).
+    let storedSubUrl: string | null = null;
+    const subShipOk =
+      m.subParts && subGaps.length <= Math.max(8, Math.ceil(m.subParts.segments.length / 3));
+    if (subShipOk && m.subParts && m.subText && m.subEntry) {
+      const subStoredUrl = segmentIndexUrl(rec.key, "sp", 0);
+      const subPieceUrls = m.subParts.segments.map((_, i) =>
+        segmentIndexUrl(rec.key, "s", i)
+      );
+      await enqueueCache(() =>
+        cache.put(
+          subStoredUrl,
+          mpegResponse(
+            rewritePlaylistToIndexUrls(m.subText!, subPieceUrls, {
+              mapUrls: [],
+              keyUrls: [],
+              gapIndexes: new Set(subGaps),
+            })
+          )
+        )
+      );
+      rememberFile(subStoredUrl);
+      storedSubUrl = subStoredUrl;
+    }
+
     let topText: string;
     const audioUrl = m.audioUrl;
     const audioText = m.audioText;
@@ -1495,6 +1659,19 @@ async function runDownload(
         gapIndexes: new Set(videoGaps),
       });
     }
+    // Replace every remote subtitle group with the captured rendition (or
+    // none): remote URIs are unreachable offline and would error the moment
+    // the user enables captions.
+    topText = withOfflineSubtitles(
+      topText,
+      storedSubUrl && m.subEntry
+        ? {
+            name: m.subEntry.name,
+            language: m.subEntry.language,
+            uri: storedSubUrl,
+          }
+        : null
+    );
     const playlistKey = dlPlaylistUrl(rec.key);
     await enqueueCache(() => cache.put(playlistKey, mpegResponse(topText, true)));
     rememberFile(playlistKey);
@@ -1532,6 +1709,17 @@ async function runDownload(
     rec.retryable = false;
     rec.downloadedAt = Date.now();
     rec.lastUsedAt = Date.now();
+    // Honest partial state: the holes this run skipped stay on the record
+    // so the UI can badge "Partial" and repairDownload fetches exactly
+    // these indexes instead of re-walking the whole title.
+    const gaps = [
+      ...videoGaps.map((index) => ({ role: "v" as const, index })),
+      ...audioGaps.map((index) => ({ role: "a" as const, index })),
+      // Only cues we actually shipped owe a repair — a dropped rendition
+      // has no playlist to point at.
+      ...(storedSubUrl ? subGaps.map((index) => ({ role: "s" as const, index })) : []),
+    ];
+    rec.missing = gaps.length > 0 ? gaps : undefined;
     await commitRecord(rec);
     // Completion is silent at the engine layer by design — broadcast for UI
     // (toast with View action lives in the app shell, not here).
@@ -1768,12 +1956,20 @@ async function enforceQuota(rec: DownloadRecord, signal: AbortSignal): Promise<v
   // LRU: evict oldest finished downloads until the estimate fits the cap.
   // `used` counts finished bytes PLUS in-progress partials (bytesDone of
   // active/paused/queued/error rows approximates their cache footprint), so
-  // concurrent downloads can't overshoot the cap together.
+  // concurrent downloads can't overshoot the cap together. Two tiers: old
+  // downloads go first, recently-used ones only as a last resort, and the
+  // download being played right now is never a victim.
   if (need > 0) {
     let used = usedBytes(all);
-    const victims = all
-      .filter((r) => r.state === "done" && r.key !== rec.key)
-      .sort((a, b) => a.lastUsedAt - b.lastUsedAt);
+    const now = Date.now();
+    const done = all.filter(
+      (r) => r.state === "done" && r.key !== rec.key && !isPlaybackInUse(r.key)
+    );
+    const rank = (a: DownloadRecord, b: DownloadRecord) => a.lastUsedAt - b.lastUsedAt;
+    const victims = [
+      ...done.filter((r) => now - r.lastUsedAt >= RECENT_USE_FLOOR_MS).sort(rank),
+      ...done.filter((r) => now - r.lastUsedAt < RECENT_USE_FLOOR_MS).sort(rank),
+    ];
     for (const v of victims) {
       if (signal.aborted) throw abortError();
       if (used + need <= capBytes) break;

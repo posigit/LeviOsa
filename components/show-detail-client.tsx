@@ -720,6 +720,12 @@ export function ShowDetailClient({
     ...(show.networks && show.networks.length > 0 ? [show.networks[0]] : []),
   ];
 
+  /** Release year for the hero pill — visible without scrolling to Details. */
+  const showYear =
+    show.firstAirDate && show.firstAirDate.length >= 4
+      ? show.firstAirDate.slice(0, 4)
+      : null;
+
   /** Full-bleed key art. Poster crops best in a portrait frame; backdrop is fallback. */
   const heroSrc = show.posterPath
     ? posterUrl(show.posterPath, "original")
@@ -885,8 +891,14 @@ export function ShowDetailClient({
             progressStarted ? "pb-6" : "pb-2"
           }`}
         >
-          {show.status && (
-            <span className="glass-control inline-flex rounded-full bg-white/10 px-3 py-1 text-xs font-semibold text-white/90">
+          {(show.status || showYear) && (
+            <span className="glass-control inline-flex items-center gap-1.5 rounded-full bg-white/10 px-3 py-1 text-xs font-semibold text-white/90">
+              {showYear}
+              {showYear && show.status && (
+                <span aria-hidden className="text-white/40">
+                  {"·"}
+                </span>
+              )}
               {show.status}
             </span>
           )}

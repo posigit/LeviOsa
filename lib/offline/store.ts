@@ -112,6 +112,12 @@ export type DownloadRecord = {
    * bytes are discarded.
    */
   rendition?: string;
+  /**
+   * Segment indexes a finished run skipped (gap budget, quota). Absent or
+   * empty = complete. Keeps `state: "done"` honest: the row can badge
+   * "Partial" and a repair run fetches exactly these holes.
+   */
+  missing?: { role: "v" | "a" | "s"; index: number }[];
 };
 
 export function downloadKey(
@@ -147,12 +153,39 @@ export function subscribeDownloads(fn: () => void): () => void {
   };
 }
 
+/**
+ * Key of the download currently mounted in the offline player. Quota LRU
+ * must never evict the bytes being played — the host sets it on open and
+ * clears it on close.
+ */
+let playbackInUseKey: string | null = null;
+
+export function setPlaybackInUse(key: string | null): void {
+  playbackInUseKey = key;
+}
+
+export function isPlaybackInUse(key: string): boolean {
+  return playbackInUseKey === key;
+}
+
+/** Holes a finished download still owes — 0 means truly complete. */
+export function missingCount(rec: DownloadRecord): number {
+  return rec.state === "done" ? rec.missing?.length ?? 0 : 0;
+}
+
 async function load(): Promise<Record<string, DownloadRecord>> {
   if (cache) return cache;
   try {
     cache = (await get<Record<string, DownloadRecord>>(MANIFEST_IDB_KEY)) ?? {};
-  } catch {
-    cache = {};
+  } catch (err) {
+    // NEVER persist a failed read as an empty manifest: one transient IDB
+    // error used to write `{}` back over every download row while the media
+    // bytes stayed on disk — rows became unlistable and undeletable. Leaving
+    // `cache` null pauses all writes until a read succeeds; callers get a
+    // throwaway object for this round only.
+    cache = null;
+    console.warn("[downloads] manifest read failed — saving paused", err);
+    return {};
   }
   return cache;
 }
@@ -261,7 +294,9 @@ export async function updateProgress(
 export async function commitRecord(rec: DownloadRecord): Promise<void> {
   const m = await load();
   m[rec.key] = rec;
-  if (typeof window !== "undefined") {
+  // `m` is only the persisted manifest when the read succeeded (load()
+  // returns a throwaway object otherwise — writing it would wipe rows).
+  if (typeof window !== "undefined" && cache && m === cache) {
     try {
       await set(MANIFEST_IDB_KEY, m);
     } catch {
@@ -357,13 +392,18 @@ export async function verifyRecordFiles(key: string): Promise<boolean> {
       await upsertRecord({ ...rec, state: "missing" });
       return false;
     }
-    // Sample up to 2 owned segment files (first + last): catches partial
-    // eviction without reading the whole set.
+    // Sample owned segment files (first + middle + last): catches partial
+    // eviction without reading the whole set. First+last alone used to
+    // vouch for a long episode with a hole in the middle.
     const owned = (rec.fileUrls ?? []).filter((u) => u !== dlPlaylistUrl(rec.key));
-    const samples = [
-      ...(owned.length > 0 ? [owned[0]!] : []),
-      ...(owned.length > 1 ? [owned[owned.length - 1]!] : []),
-    ];
+    const sampleIdx = new Set<number>([
+      0,
+      Math.floor(owned.length / 2),
+      owned.length - 1,
+    ]);
+    const samples = [...sampleIdx]
+      .filter((i) => i >= 0 && i < owned.length)
+      .map((i) => owned[i]!);
     for (const u of samples) {
       const seg = await c.match(u);
       if (!seg) {
@@ -641,7 +681,11 @@ export async function drainPlaybackOutbox(): Promise<void> {
   try {
     const list = await loadOutbox();
     if (list.length === 0) return;
+    // Offline drains must not burn attempts — opening the app on a plane
+    // 20 times used to permanently discard every queued watched-mark.
+    if (typeof navigator !== "undefined" && !navigator.onLine) return;
     for (const entry of list) {
+      if (typeof navigator !== "undefined" && !navigator.onLine) break;
       try {
         const res = await fetch(entry.url ?? `/api/playback?${entry.params}`, {
           method: entry.method,

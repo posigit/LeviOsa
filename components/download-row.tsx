@@ -6,6 +6,7 @@ import { Check, Download, Pause, Play, Trash2 } from "lucide-react";
 import { useToast } from "@/components/toast";
 import {
   formatBytes,
+  missingCount,
   readOfflinePosition,
   type DownloadRecord,
 } from "@/lib/downloads";
@@ -128,6 +129,7 @@ export function DownloadRow({
   const runningHere = busy && (isDownloadActive(r.key) || isDownloadQueued(r.key));
   const stale = busy && !runningHere;
   const progress = r.totalSegments > 0 ? r.doneSegments / r.totalSegments : 0;
+  const partial = missingCount(r);
 
   const resumeAt = useResumeAt(r.state, r.key);
 
@@ -165,7 +167,9 @@ export function DownloadRow({
           <p className="truncate text-xs text-foreground/45">{r.subtitle}</p>
         )}
         <p className="mt-1 text-[11px] font-semibold tabular-nums text-foreground/40">
-          {r.state === "done" && r.sizeBytes > 0
+          {r.state === "done" && partial > 0
+            ? `Partial · ${partial} chunks missing — tap repair`
+            : r.state === "done" && r.sizeBytes > 0
             ? `${formatBytes(r.sizeBytes)} · ${qualityLabel(r)}`
             : runningHere
               ? `${Math.round(progress * 100)}%${r.estimateBytes > 0 ? ` · ~${formatBytes(r.estimateBytes)}` : ""}`
@@ -207,11 +211,12 @@ export function DownloadRow({
         {(r.state === "paused" ||
           r.state === "error" ||
           r.state === "missing" ||
+          (r.state === "done" && partial > 0) ||
           stale) && (
           <button
             type="button"
             onClick={tryResume}
-            aria-label="Resume download"
+            aria-label={partial > 0 ? "Repair download" : "Resume download"}
             title={!online ? "Needs connection" : undefined}
             className="flex h-9 w-9 cursor-pointer items-center justify-center rounded-full bg-secondary text-foreground ring-1 ring-border transition hover:bg-secondary active:scale-95 disabled:opacity-40"
           >
@@ -248,7 +253,10 @@ export function DownloadRow({
         </button>
         {r.state === "done" && (
           <span className="flex h-6 w-6 items-center justify-center">
-            <Check className="h-4 w-4 text-success" strokeWidth={3} />
+            <Check
+              className={partial > 0 ? "h-4 w-4 text-amber-400" : "h-4 w-4 text-success"}
+              strokeWidth={3}
+            />
           </span>
         )}
       </div>

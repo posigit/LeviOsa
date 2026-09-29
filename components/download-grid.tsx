@@ -2,10 +2,10 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { Check, Pause, Play, Trash2 } from "lucide-react";
+import { Check, Download, Pause, Play, Trash2 } from "lucide-react";
 import { useToast } from "@/components/toast";
 import { useOnline, useResumeAt } from "@/components/download-row";
-import { formatBytes, type DownloadRecord } from "@/lib/downloads";
+import { formatBytes, missingCount, type DownloadRecord } from "@/lib/downloads";
 import {
   deleteDownload,
   isDownloadActive,
@@ -22,6 +22,7 @@ function metaLabel(r: DownloadRecord, progress: number): string {
   const quality = r.quality === "best" ? "Best" : `${r.quality}p`;
   switch (r.state) {
     case "done":
+      if (missingCount(r) > 0) return `Partial · ${missingCount(r)} missing`;
       return r.sizeBytes > 0 ? `${formatBytes(r.sizeBytes)} · ${quality}` : quality;
     case "active":
     case "queued":
@@ -123,7 +124,27 @@ export function DownloadCard({
   };
 
   const chip =
-    r.state === "error" ? (
+    r.state === "done" && missingCount(r) > 0 ? (
+      <span
+        role="button"
+        tabIndex={0}
+        aria-label={`Repair ${missingCount(r)} missing chunks`}
+        onClick={(e) => {
+          e.stopPropagation();
+          tryResume();
+        }}
+        onKeyDown={(e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.stopPropagation();
+            tryResume();
+          }
+        }}
+        className="inline-flex cursor-pointer items-center gap-1 rounded-full bg-amber-400 px-2 py-[3px] text-[10px] font-black uppercase tracking-[0.08em] text-black"
+      >
+        <Download className="h-2.5 w-2.5" strokeWidth={3} />
+        Partial
+      </span>
+    ) : r.state === "error" ? (
       <span className="rounded-full bg-red-500/90 px-2 py-[3px] text-[10px] font-black uppercase tracking-[0.08em] text-white">
         Failed
       </span>

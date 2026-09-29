@@ -60,6 +60,8 @@ export type VariantInfo = {
   codecs: string | null;
   /** EXT-X-MEDIA audio GROUP-ID when the variant uses separate audio. */
   audioGroup: string | null;
+  /** EXT-X-MEDIA subtitles GROUP-ID when the variant declares one. */
+  subGroup: string | null;
   url: string;
 };
 
@@ -80,6 +82,7 @@ export function parseMasterVariants(
     const res = /RESOLUTION=(\d+)x(\d+)/.exec(line);
     const codecs = /CODECS="([^"]+)"/.exec(line)?.[1] ?? null;
     const audioGroup = /AUDIO="([^"]+)"/.exec(line)?.[1] ?? null;
+    const subGroup = /SUBTITLES="([^"]+)"/.exec(line)?.[1] ?? null;
     const uri = (lines[i + 1] ?? "").trim();
     if (!uri || uri.startsWith("#")) continue;
     try {
@@ -89,6 +92,7 @@ export function parseMasterVariants(
         width: res ? Number(res[1]) : 0,
         codecs,
         audioGroup,
+        subGroup,
         url: new URL(uri, baseUrl).toString(),
       });
     } catch {
@@ -452,7 +456,7 @@ function withHlsVersion(text: string, min: number): string {
 function rewriteTaggedUri(rawLine: string, baseUrl: string): string {
   const br = /BYTERANGE="([^"]+)"/.exec(rawLine);
   const range = br ? parseByteRangeSpec(br[1] ?? "", 0) : null;
-  let line = br ? rawLine.replace(/,?BYTERANGE="[^"]*"/, "") : rawLine;
+  const line = br ? rawLine.replace(/,?BYTERANGE="[^"]*"/, "") : rawLine;
   return line.replace(/URI="([^"]+)"/, (_m, uri: string) => {
     if (String(uri).startsWith("/api/dl?")) return `URI="${uri}"`;
     try {
@@ -567,10 +571,21 @@ export function rewritePlaylistToIndexUrls(
     const line = rawLine.trim();
     if (line.startsWith("#EXT-X-MAP:") || line.startsWith("#EXT-X-KEY:")) {
       const isMap = line.startsWith("#EXT-X-MAP:");
-      const replacement = isMap ? mapUrls[mapN++] : keyUrls[keyN++];
+      // Count only entries the parser pushed AND the downloader fetched:
+      // a URI must be present, and METHOD=NONE is never fetched. Advancing
+      // on every line desynced the index after a mid-playlist METHOD=NONE —
+      // later keys kept their absolute remote URL and failed offline.
+      const method = isMap
+        ? null
+        : /METHOD=([^,]+)/.exec(line)?.[1]?.trim() ?? "NONE";
+      const hasUri = /URI="[^"]*"/.test(line);
+      const countable = isMap ? hasUri : method !== "NONE" && hasUri;
       let rewritten = rawLine.replace(/,?BYTERANGE="[^"]*"/, "");
-      if (replacement) {
-        rewritten = rewritten.replace(/URI="[^"]*"/, `URI="${replacement}"`);
+      if (countable) {
+        const replacement = isMap ? mapUrls[mapN++] : keyUrls[keyN++];
+        if (replacement) {
+          rewritten = rewritten.replace(/URI="[^"]*"/, `URI="${replacement}"`);
+        }
       }
       out.push(rewritten);
       continue;
@@ -665,11 +680,93 @@ export function pickAudioEntry(
   return group[0] ?? null;
 }
 
+export type SubEntry = {
+  groupId: string;
+  name: string;
+  language: string;
+  isDefault: boolean;
+  url: string;
+  /** URI exactly as written in the master (in-place rewrite needs it). */
+  rawUri: string;
+};
+
+/** All TYPE=SUBTITLES EXT-X-MEDIA renditions in a master playlist. */
+export function parseMasterSubtitles(text: string, baseUrl: string): SubEntry[] {
+  const out: SubEntry[] = [];
+  for (const raw of text.split(/\r?\n/)) {
+    const line = raw.trim();
+    if (!line.startsWith("#EXT-X-MEDIA:")) continue;
+    if (!/TYPE=SUBTITLES/.test(line)) continue;
+    const uri = /URI="([^"]+)"/.exec(line)?.[1];
+    if (!uri) continue;
+    try {
+      out.push({
+        groupId: /GROUP-ID="([^"]+)"/.exec(line)?.[1] ?? "",
+        name: /NAME="([^"]+)"/.exec(line)?.[1] ?? "Subtitles",
+        language: /LANGUAGE="([^"]+)"/.exec(line)?.[1] ?? "",
+        isDefault: /DEFAULT=YES/.test(line),
+        url: new URL(uri, baseUrl).toString(),
+        rawUri: uri,
+      });
+    } catch {
+      /* skip unresolvable URI */
+    }
+  }
+  return out;
+}
+
+/**
+ * Attach a stored subtitle rendition to an offline master — or remove every
+ * subtitle group when `sub` is null. Original SUBTITLES groups are always
+ * stripped: their URIs point at remote files a cached playlist can never
+ * load (hls.js would error the moment the user enables captions). The
+ * replacement rendition points at the stored, index-rewritten playlist so
+ * stream CC plays offline with the stream's own frame-accurate timing.
+ */
+export function withOfflineSubtitles(
+  masterText: string,
+  sub: { name: string; language: string; uri: string } | null
+): string {
+  const mediaLine = sub
+    ? `#EXT-X-MEDIA:TYPE=SUBTITLES,GROUP-ID="offline-subs",NAME="${sub.name.replace(/["\r\n]/g, "")}",DEFAULT=NO,AUTOSELECT=YES,FORCED=NO,LANGUAGE="${sub.language || "und"}",URI="${sub.uri}"`
+    : null;
+  const out: string[] = [];
+  let placed = false;
+  for (const raw of masterText.split(/\r?\n/)) {
+    const line = raw.trim();
+    if (line.startsWith("#EXT-X-MEDIA:") && /TYPE=SUBTITLES/.test(line)) continue;
+    if (line.startsWith("#EXT-X-STREAM-INF")) {
+      if (mediaLine && !placed) {
+        out.push(mediaLine);
+        placed = true;
+      }
+      const stripped = line.replace(/,?SUBTITLES="[^"]*"/g, "");
+      out.push(mediaLine ? `${stripped},SUBTITLES="offline-subs"` : stripped);
+      continue;
+    }
+    out.push(raw);
+  }
+  if (mediaLine && !placed) out.push(mediaLine);
+  return out.join("\n");
+}
+
 /**
  * Minimal synthetic master pointing hls.js at the stored video + audio
- * playlists. Stream SUBTITLES groups are deliberately dropped — offline
- * subs come from the downloaded external VTT instead.
+ * playlists. Subtitle groups are handled separately — engine attaches the
+ * captured stream CC with `withOfflineSubtitles` after building this.
  */
+/**
+ * A stored media playlist must read as VOD. Without #EXT-X-ENDLIST hls.js
+ * treats it as live: duration stays Infinity, the scrub bar's finite-duration
+ * guard kills seek, and playback dies at the end of the captured window.
+ * Masters (no #EXTINF) and playlists that already terminate pass through.
+ */
+export function withEndlist(text: string): string {
+  if (!text.includes("#EXTINF:")) return text;
+  if (text.includes("#EXT-X-ENDLIST")) return text;
+  return text.replace(/\s+$/, "") + "\n#EXT-X-ENDLIST\n";
+}
+
 export function buildOfflineMaster(opts: {
   variant: VariantInfo;
   videoPlaylistUrl: string;

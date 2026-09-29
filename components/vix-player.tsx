@@ -167,6 +167,7 @@ export function VixPlayer({
   initialSubAlts = null,
   offlineKey = null,
   initialSegments = null,
+  initialDuration = null,
   overlaySlot = null,
 }: {
   src: string;
@@ -198,6 +199,12 @@ export function VixPlayer({
   initialSubVtt?: { vtt: string; label: string } | null;
   /** Stored spare subtitle files (best-first) for offline switching. */
   initialSubAlts?: { vtt: string; label: string }[] | null;
+  /**
+   * Known total duration (offline downloads know it up front). Fallback for
+   * the scrub bar and seek math while hls.js hasn't set one yet — otherwise
+   * a non-finite duration silently no-ops every seek.
+   */
+  initialDuration?: number | null;
   /**
    * Overlays rendered INSIDE the player shell (Up Next card, Next FAB,
    * end-of-line card). The shell is the fullscreen element — anything
@@ -252,6 +259,8 @@ export function VixPlayer({
   const pendingSeekWaitersRef = useRef<
     Array<(ok: boolean) => void>
   >([]);
+  /** Known total duration (offline) — kept fresh for seek/transport fallbacks. */
+  const initialDurationRef = useRef(initialDuration);
 
   const streamable = type === "movie" || type === "tv";
   // Source backend — prefer last user choice, then prop default.
@@ -576,6 +585,10 @@ export function VixPlayer({
     }, [onEvent]);
 
   useEffect(() => {
+    initialDurationRef.current = initialDuration;
+  }, [initialDuration]);
+
+  useEffect(() => {
     onCloseRef.current = onClose;
   }, [onClose]);
 
@@ -761,6 +774,21 @@ export function VixPlayer({
     if (!v || !Number.isFinite(t)) return Promise.resolve(false);
     // Shared robust seek (HLS often needs retries before currentTime sticks).
     return seekVideoElement(v, t, { play: true });
+  }, []);
+
+  /**
+   * A manual seek owns the timeline: drop the resume/source-switch pending
+   * target so the engine's restore loop (re-armed on every FRAG_LOADED —
+   * instant when fragments come from the service worker) can't snap the
+   * scrub back to the bookmark, and release anyone waiting on it.
+   */
+  const dropPendingSeek = useCallback(() => {
+    if (pendingSeekPosRef.current == null) return;
+    pendingSeekPosRef.current = null;
+    resumePosRef.current = 0;
+    const waiters = pendingSeekWaitersRef.current;
+    pendingSeekWaitersRef.current = [];
+    for (const w of waiters) w(true);
   }, []);
 
   /**
@@ -1843,6 +1871,8 @@ export function VixPlayer({
       // Offline with a stored track: engine must not fetch or wipe it.
       // Stable per mount (host remounts per open), listed for correctness.
       offlineStoredSubs: offlineOverride && initialSubVtt != null,
+      // Offline downloads recover from holes instead of unmounting.
+      offlineKey: offlineKey,
     });
   }, [
     mode,
@@ -1857,6 +1887,7 @@ export function VixPlayer({
     onPendingSeekSettled,
     offlineOverride,
     initialSubVtt,
+    offlineKey,
   ]);
 
   // ---------- offline subtitles (stored VTT, never fetched) ----------
@@ -1930,7 +1961,12 @@ export function VixPlayer({
     const syncTransport = () => {
       setTransport({
         currentTime: Number.isFinite(video.currentTime) ? video.currentTime : 0,
-        duration: Number.isFinite(video.duration) ? video.duration : 0,
+        // Download duration as fallback — keeps the scrub bar rendering and
+        // draggable before hls.js has set a finite duration.
+        duration:
+          Number.isFinite(video.duration) && video.duration > 0
+            ? video.duration
+            : initialDurationRef.current ?? 0,
         paused: video.paused,
         muted: video.muted,
         volume: Number.isFinite(video.volume) ? video.volume : 1,
@@ -2229,13 +2265,16 @@ export function VixPlayer({
       }
       const v = videoRef.current;
       if (!v || !Number.isFinite(v.currentTime)) return;
+      dropPendingSeek();
       const dur =
-        Number.isFinite(v.duration) && v.duration > 0 ? v.duration : null;
+        Number.isFinite(v.duration) && v.duration > 0
+          ? v.duration
+          : initialDurationRef.current;
       const target = Math.max(0, v.currentTime + delta);
-      v.currentTime = dur == null ? target : Math.min(target, dur);
+      v.currentTime = dur != null && dur > 0 ? Math.min(target, dur) : target;
       bumpChrome();
     },
-    [isDrivenEmbed, sendEmbedSeek, bumpChrome]
+    [isDrivenEmbed, sendEmbedSeek, bumpChrome, dropPendingSeek]
   );
 
   const seekRatio = useCallback(
@@ -2265,11 +2304,19 @@ export function VixPlayer({
         return;
       }
       const v = videoRef.current;
-      if (!v || !Number.isFinite(v.duration) || v.duration <= 0) return;
-      v.currentTime = Math.max(0, Math.min(v.duration, ratio * v.duration));
+      if (!v) return;
+      // The download knows its duration even before hls.js sets one — a
+      // silent return here is what made the offline scrub bar look dead.
+      const dur =
+        Number.isFinite(v.duration) && v.duration > 0
+          ? v.duration
+          : initialDurationRef.current;
+      if (dur == null || !(dur > 0)) return;
+      dropPendingSeek();
+      v.currentTime = Math.max(0, Math.min(dur, ratio * dur));
       bumpChrome();
     },
-    [isDrivenEmbed, sendEmbedSeek, bumpChrome]
+    [isDrivenEmbed, sendEmbedSeek, bumpChrome, dropPendingSeek]
   );
 
   const toggleMute = useCallback(() => {
@@ -2581,8 +2628,12 @@ export function VixPlayer({
               ? "brightness"
               : "volume";
       }
-      const dur = Number.isFinite(v.duration) && v.duration > 0 ? v.duration : 0;
+      const dur =
+        Number.isFinite(v.duration) && v.duration > 0
+          ? v.duration
+          : initialDurationRef.current ?? 0;
       if (g.active === "seek" && dur > 0) {
+        dropPendingSeek();
         const target = Math.max(0, Math.min(dur, g.startTime + dx / 4));
         v.currentTime = target;
         const m = Math.floor(target / 60);
@@ -2617,7 +2668,7 @@ export function VixPlayer({
         }
       }
     },
-    [locked, mode, setVolume, showGestureHint]
+    [locked, mode, setVolume, showGestureHint, dropPendingSeek]
   );
   const onVideoTouchEnd = useCallback(() => {
     if (gestureRef.current?.active) {

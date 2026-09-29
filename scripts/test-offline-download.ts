@@ -11,6 +11,8 @@ import {
   isHardDownloadError,
   isTransientFetchError,
   offlinePieceUrl,
+  parseMasterSubtitles,
+  parseMasterVariants,
   parseMediaPlaylist,
   pieceOutcome,
   rewritePlaylistForOffline,
@@ -18,6 +20,8 @@ import {
   segmentIndexUrl,
   segmentLooksValid,
   segmentShouldReject,
+  withEndlist,
+  withOfflineSubtitles,
 } from "../lib/offline/hls";
 import {
   nextDownloadedEpisode,
@@ -25,10 +29,14 @@ import {
   showNameOf,
 } from "../lib/offline/library";
 import {
+  isPlaybackInUse,
   mergeOfflinePosition,
+  missingCount,
   serverPositionKey,
+  setPlaybackInUse,
   type DownloadRecord,
 } from "../lib/offline/store";
+import { parseVttTime } from "../lib/player-subs";
 
 const base = "https://cdn.example.com/pl/master.m3u8";
 
@@ -194,6 +202,94 @@ assert.ok(indexed.includes("#EXT-X-GAP"));
 assert.ok(indexed.includes("https://app/seg-0"));
 assert.ok(indexed.includes("https://app/seg-1"));
 assert.ok(!indexed.includes("seg.mp4"));
+
+/* ------------------------------------------------------------------ */
+/* ENDLIST + subtitle capture: stored playlists must read as VOD, and  */
+/* the offline master carries the captured caption rendition instead of */
+/* remote SUBTITLES groups (which can never load offline).             */
+/* ------------------------------------------------------------------ */
+
+// A terminated media playlist passes through untouched (idempotent).
+const ended = "#EXTM3U\n#EXTINF:4.0,\nseg.ts\n#EXT-X-ENDLIST";
+assert.equal(withEndlist(ended), ended);
+// Masters (no EXTINF) are never terminated.
+const master = [
+  "#EXTM3U",
+  '#EXT-X-MEDIA:TYPE=AUDIO,GROUP-ID="aud",NAME="English",LANGUAGE="en",URI="a.m3u8"',
+  "#EXT-X-STREAM-INF:BANDWIDTH=1000,AUDIO=\"aud\"",
+  "v.m3u8",
+].join("\n");
+assert.equal(withEndlist(master), master);
+// An unterminated VOD playlist gains the tag exactly once.
+const live = "#EXTM3U\n#EXTINF:4.0,\nseg.ts";
+const liveEnded = withEndlist(live);
+assert.ok(liveEnded.includes("#EXT-X-ENDLIST"));
+assert.equal(withEndlist(liveEnded), liveEnded);
+
+const subMaster = [
+  "#EXTM3U",
+  '#EXT-X-MEDIA:TYPE=SUBTITLES,GROUP-ID="subs",NAME="English",LANGUAGE="en",DEFAULT=YES,URI="subs/en.m3u8"',
+  '#EXT-X-MEDIA:TYPE=SUBTITLES,GROUP-ID="subs",NAME="Forced",LANGUAGE="en",URI="subs/forced.m3u8"',
+  '#EXT-X-MEDIA:TYPE=AUDIO,GROUP-ID="aud",NAME="English",LANGUAGE="en",URI="a.m3u8"',
+  '#EXT-X-STREAM-INF:BANDWIDTH=1000,AUDIO="aud",SUBTITLES="subs"',
+  "v.m3u8",
+].join("\n");
+
+// Renditions parse with resolved URLs + the raw URI for rewrites.
+const parsedSubs = parseMasterSubtitles(subMaster, base);
+assert.equal(parsedSubs.length, 2);
+assert.equal(parsedSubs[0]?.groupId, "subs");
+assert.equal(parsedSubs[0]?.name, "English");
+assert.equal(parsedSubs[0]?.language, "en");
+assert.equal(parsedSubs[0]?.isDefault, true);
+assert.equal(parsedSubs[0]?.rawUri, "subs/en.m3u8");
+assert.equal(parsedSubs[0]?.url, "https://cdn.example.com/pl/subs/en.m3u8");
+assert.equal(parsedSubs[1]?.isDefault, false);
+
+// The picked variant carries its subtitle group (engine matches on it).
+const parsedVariants = parseMasterVariants(subMaster, base);
+assert.equal(parsedVariants.length, 1);
+assert.equal(parsedVariants[0]?.subGroup, "subs");
+assert.equal(parsedVariants[0]?.audioGroup, "aud");
+
+// Capture: one rendition replaces every original, before the STREAM-INF.
+const stored = "https://app/idx:e:10:1:2:sp:0";
+const attached = withOfflineSubtitles(subMaster, {
+  name: "English",
+  language: "en",
+  uri: stored,
+});
+assert.ok(attached.includes('GROUP-ID="offline-subs"'));
+assert.ok(attached.includes(`URI="${stored}"`));
+assert.ok(attached.includes('SUBTITLES="offline-subs"'));
+assert.ok(!attached.includes("subs/en.m3u8"));
+assert.ok(!attached.includes("subs/forced.m3u8"));
+assert.ok(attached.indexOf("#EXT-X-MEDIA:TYPE=SUBTITLES") < attached.indexOf("#EXT-X-STREAM-INF"));
+// Audio group survives untouched.
+assert.ok(attached.includes('TYPE=AUDIO'));
+// Exactly one subtitle rendition + one attr reference.
+assert.equal((attached.match(/TYPE=SUBTITLES/g) ?? []).length, 1);
+assert.equal((attached.match(/SUBTITLES="offline-subs"/g) ?? []).length, 1);
+
+// No capture: every remote subtitle group is stripped (they'd 404 offline).
+const dropped = withOfflineSubtitles(subMaster, null);
+assert.ok(!dropped.includes("TYPE=SUBTITLES"));
+assert.ok(!dropped.includes('SUBTITLES="subs"'));
+assert.ok(dropped.includes('TYPE=AUDIO'));
+assert.ok(dropped.includes("v.m3u8"));
+
+// A media playlist (no STREAM-INF) with nothing to attach passes through.
+assert.equal(withOfflineSubtitles(live, null), live);
+
+/* ------------------------------------------------------------------ */
+/* SRT-style comma timestamps: Number("01,500") is NaN, which silently  */
+/* dropped every cue from OpenSubtitles downloads.                     */
+/* ------------------------------------------------------------------ */
+assert.equal(parseVttTime("00:01:02.500"), 62.5);
+assert.equal(parseVttTime("00:01:02,500"), 62.5);
+assert.equal(parseVttTime("01:02.500"), 62.5);
+assert.equal(parseVttTime("01:02,500"), 62.5);
+assert.equal(parseVttTime("00:00:00,000"), 0);
 
 /* ------------------------------------------------------------------ */
 /* Library order: shows grouped + season/episode sorted, movies split  */
@@ -370,5 +466,27 @@ assert.equal(
   }),
   "e:10:0:0"
 );
+
+/* Honest partial state: `done` rows can owe segments, everything else
+ * never does (a repairing row shows progress, not a badge). */
+assert.equal(missingCount(fixture()), 0);
+assert.equal(
+  missingCount(
+    fixture({ missing: [{ role: "v", index: 3 }, { role: "s", index: 0 }] })
+  ),
+  2
+);
+assert.equal(missingCount(fixture({ missing: [] })), 0);
+assert.equal(
+  missingCount(fixture({ state: "paused", missing: [{ role: "a", index: 1 }] })),
+  0
+);
+
+/* The download being played is pinned against quota LRU eviction. */
+setPlaybackInUse("e:10:1:1");
+assert.equal(isPlaybackInUse("e:10:1:1"), true);
+assert.equal(isPlaybackInUse("e:10:1:2"), false);
+setPlaybackInUse(null);
+assert.equal(isPlaybackInUse("e:10:1:1"), false);
 
 console.log("offline download checks ok");

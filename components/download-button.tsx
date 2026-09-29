@@ -87,12 +87,19 @@ function stateLabel(rec: DownloadRecord | null): string {
     case "paused":
       return "Paused — tap to resume";
     case "done":
-      return "Downloaded — manage in Library";
+      return isPartial(rec)
+        ? `Incomplete — ${rec.missing!.length} chunk(s) missing, tap to repair`
+        : "Downloaded — manage in Library";
     case "error":
       return `Failed (${rec.error ?? "unknown error"}) — tap to retry`;
     case "missing":
       return "File no longer stored — tap to download again";
   }
+}
+
+/** Finished but still owing segments (gap budget / quota holes). */
+function isPartial(rec: DownloadRecord | null): boolean {
+  return !!rec && rec.state === "done" && (rec.missing?.length ?? 0) > 0;
 }
 
 function ProgressRing({ progress }: { progress: number }) {
@@ -151,6 +158,7 @@ export function DownloadButton({
 
   const busy = rec?.state === "active" || rec?.state === "queued";
   const runningHere = !!rec && busy && (isDownloadActive(key) || isDownloadQueued(key));
+  const partial = isPartial(rec);
   const progress =
     rec && rec.totalSegments > 0 ? rec.doneSegments / rec.totalSegments : 0;
 
@@ -161,6 +169,11 @@ export function DownloadButton({
       if (!rec || rec.state === "error" || rec.state === "missing" || rec.state === "paused") {
         void (rec ? resumeDownload(item) : startDownload(item)).catch((e: unknown) =>
           toast(e instanceof Error ? e.message : "Download failed", "error")
+        );
+      } else if (partial) {
+        // Done but owing holes: re-run as a cache-hit repair pass.
+        void resumeDownload(item).catch((e: unknown) =>
+          toast(e instanceof Error ? e.message : "Couldn't repair", "error")
         );
       } else if (runningHere) {
         void pauseDownload(key);
@@ -190,7 +203,11 @@ export function DownloadButton({
       >
         <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-secondary ring-1 ring-border">
           {rec?.state === "done" ? (
-            <Check className="h-4 w-4 text-success" strokeWidth={3} />
+            partial ? (
+              <Download className="h-4 w-4 text-amber-400" />
+            ) : (
+              <Check className="h-4 w-4 text-success" strokeWidth={3} />
+            )
           ) : busy ? (
             <span className="text-primary">
               <ProgressRing progress={progress} />
@@ -203,7 +220,9 @@ export function DownloadButton({
         </span>
         <span className="min-w-0 flex-1 text-left">
           {rec?.state === "done"
-            ? "Downloaded"
+            ? partial
+              ? `Partial · ${rec.missing!.length} missing — tap to repair`
+              : "Downloaded"
             : runningHere
               ? `Downloading… ${Math.round(progress * 100)}%`
               : busy
@@ -256,14 +275,20 @@ export function DownloadButton({
       aria-label={stateLabel(rec)}
       className={cn(
         "flex h-8 w-8 shrink-0 items-center justify-center rounded-full ring-1 backdrop-blur-xl transition-all active:scale-95",
-        rec?.state === "done"
-          ? "bg-success/20 text-success ring-success/50"
-          : "bg-secondary text-foreground/80 ring-border hover:bg-secondary",
+        partial
+          ? "bg-amber-500/15 text-amber-400 ring-amber-400/40"
+          : rec?.state === "done"
+            ? "bg-success/20 text-success ring-success/50"
+            : "bg-secondary text-foreground/80 ring-border hover:bg-secondary",
         className
       )}
     >
       {rec?.state === "done" ? (
-        <Check className="h-4 w-4" strokeWidth={3} />
+        partial ? (
+          <Download className="h-4 w-4" />
+        ) : (
+          <Check className="h-4 w-4" strokeWidth={3} />
+        )
       ) : busy ? (
         <span className="text-primary">
           <ProgressRing progress={progress} />

@@ -10,7 +10,12 @@
 export function seekVideoElement(
   video: HTMLVideoElement,
   targetSeconds: number,
-  opts?: { play?: boolean; maxAttempts?: number }
+  opts?: {
+    play?: boolean;
+    maxAttempts?: number;
+    /** Checked before every attempt — a manual scrub cancels an in-flight restore. */
+    shouldAbort?: () => boolean;
+  }
 ): Promise<boolean> {
   if (!Number.isFinite(targetSeconds) || targetSeconds < 0) {
     return Promise.resolve(false);
@@ -21,6 +26,10 @@ export function seekVideoElement(
 
   return new Promise((resolve) => {
     const trySeek = () => {
+      if (opts?.shouldAbort?.()) {
+        resolve(false);
+        return;
+      }
       if (attempts++ >= maxAttempts) {
         if (play) void video.play().catch(() => {});
         resolve(false);

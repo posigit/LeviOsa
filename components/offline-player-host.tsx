@@ -9,12 +9,14 @@ import {
   getManifest,
   getRecordSync,
   readOfflinePosition,
+  setPlaybackInUse,
   touchRecord,
   verifyRecordFiles,
   type DownloadRecord,
 } from "@/lib/downloads";
 import { isResumablePosition } from "@/lib/player-progress";
 import { nextDownloadedEpisode, showNameOf } from "@/lib/offline/library";
+import { postJsonOffline, queuedOffline } from "@/lib/offline/send";
 import { loadVixSettings } from "@/lib/vix-settings";
 import type { IntroDbSegments } from "@/lib/introdb";
 import { useToast } from "@/components/toast";
@@ -48,6 +50,8 @@ export function OfflinePlayerHost() {
     tmdbId: number;
     season?: number;
     episode?: number;
+    /** Known total duration — seeds the scrub bar before hls.js sets one. */
+    durationSec?: number;
   } | null>(null);
   /** Next downloaded episode offered at the end of an episode (TV only). */
   const [upNext, setUpNext] = useState<DownloadRecord | null>(null);
@@ -58,6 +62,7 @@ export function OfflinePlayerHost() {
 
   const close = useCallback(() => {
     openIdRef.current += 1;
+    setPlaybackInUse(null);
     setReq(null);
     setMeta(null);
     setSub(null);
@@ -77,6 +82,8 @@ export function OfflinePlayerHost() {
         }
         const openId = ++openIdRef.current;
         void touchRecord(key);
+        // Playing this download: quota LRU must not evict its bytes now.
+        setPlaybackInUse(key);
         setSub(
           rec.subVtt ? { vtt: rec.subVtt, label: rec.subLabel ?? "Subtitles" } : null
         );
@@ -95,6 +102,7 @@ export function OfflinePlayerHost() {
           tmdbId: rec.tmdbId,
           season: rec.season,
           episode: rec.episode,
+          durationSec: rec.durationSec,
         });
         setUpNext(null);
         setUpNextCount(0);
@@ -142,6 +150,43 @@ export function OfflinePlayerHost() {
     window.addEventListener("tvtime:play-offline", onPlay);
     return () => window.removeEventListener("tvtime:play-offline", onPlay);
   }, [open, toast]);
+
+  /**
+   * Finishing a downloaded title parks a watched mark in the playback
+   * outbox — the same one streaming uses — so it syncs once back online.
+   * (This host previously passed no `onEvent`, so offline finishes never
+   * reached /api/watch at all.)
+   */
+  const handlePlayerEvent = useCallback(
+    (event: string) => {
+      if (event !== "ended" || !meta) return;
+      const m = meta;
+      void (async () => {
+        try {
+          const res =
+            m.type === "tv"
+              ? m.season != null && m.episode != null
+                ? await postJsonOffline("/api/watch", {
+                    showTmdbId: m.tmdbId,
+                    seasonNumber: m.season,
+                    episodeNumber: m.episode,
+                    watched: true,
+                  })
+                : null
+              : await postJsonOffline("/api/movie-watch", {
+                  tmdbId: m.tmdbId,
+                  status: "watched",
+                });
+          if (res && queuedOffline(res)) {
+            toast("Watched — saved offline, will sync", "info");
+          }
+        } catch {
+          /* server rejected the replay — the local bookmark is already cleared */
+        }
+      })();
+    },
+    [meta, toast]
+  );
 
   /** Near-end: queue the next downloaded episode of this show (movies: none). */
   const handleNearEnd = useCallback(() => {
@@ -193,6 +238,8 @@ export function OfflinePlayerHost() {
       initialSubVtt={sub}
       initialSubAlts={storedAlts}
       initialSegments={storedSegments}
+      initialDuration={meta.durationSec ?? null}
+      onEvent={handlePlayerEvent}
       onNearEnd={handleNearEnd}
       overlaySlot={
         upNext ? (

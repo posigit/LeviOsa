@@ -11,6 +11,7 @@ export {
   isDownloadActive,
   isDownloadQueued,
   pauseDownload,
+  repairDownload,
   resumeDownload,
   startDownload,
   type DownloadRequest,

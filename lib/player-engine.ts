@@ -70,6 +70,11 @@ export type AttachNativePlaybackArgs = {
    * subSource state.
    */
   offlineStoredSubs?: boolean;
+  /**
+   * Download key when playing from cache — enables hole recovery (a fatal
+   * on local bytes means an evicted/gapped segment, not a dead stream).
+   */
+  offlineKey?: string | null;
   /** Fired once when pending seek lands (or is abandoned). */
   onPendingSeekSettled?: (result: { pos: number; ok: boolean }) => void;
 };
@@ -112,6 +117,7 @@ export function attachNativePlayback(args: AttachNativePlaybackArgs): () => void
     savePosition,
     revertExternalSub,
     offlineStoredSubs = false,
+    offlineKey = null,
     onPendingSeekSettled,
   } = args;
 
@@ -120,6 +126,10 @@ export function attachNativePlayback(args: AttachNativePlaybackArgs): () => void
      * a dead stream can't loop forever behind a "Loading…" spinner. */
     let fatalErrorCount = 0;
     const MAX_FATAL_ERRORS = 3;
+    /** Offline hole hops before giving up (see the offline branch in ERROR). */
+    let offlineRecoveries = 0;
+    const MAX_OFFLINE_RECOVERIES = 6;
+    const OFFLINE_HOP_SECONDS = 15;
     const cleanup: Array<() => void> = [];
     let bootstrapTimer: number | null = null;
     let pendingSeekTimer: number | null = null;
@@ -317,7 +327,12 @@ export function attachNativePlayback(args: AttachNativePlaybackArgs): () => void
           notifySeekSettled(pos, true);
           return;
         }
-        void seekVideoElement(video, pos, { play: true }).then((ok) => {
+        // Abort if the pending target is dropped (manual scrub) or replaced
+        // (source switch) — the retry loop must not snap playback back.
+        void seekVideoElement(video, pos, {
+          play: true,
+          shouldAbort: () => readPendingSeek(pendingSeekPosRef) !== pos,
+        }).then((ok) => {
           if (ok) notifySeekSettled(pos, true);
         });
         if (!restoreArmed) {
@@ -563,6 +578,49 @@ export function attachNativePlayback(args: AttachNativePlaybackArgs): () => void
 
       hls.on(Hls.Events.ERROR, (_evt, data) => {
         if (!data.fatal) return;
+        // Offline hole recovery: the SW serves local bytes, so a fatal here
+        // almost always means one evicted/gapped segment — not a dead
+        // stream. Unmounting (streamFailed → error card) would kill a
+        // mostly-fine download over one hole, so hop past it and reload
+        // instead. Bail only after repeated failures so a truly wrecked
+        // file still surfaces the error instead of looping forever.
+        if (offlineKey) {
+          if (offlineRecoveries >= MAX_OFFLINE_RECOVERIES) {
+            if (Number.isFinite(video.currentTime) && video.currentTime > 0) {
+              savePosition(video.currentTime, video.duration, true);
+            }
+            setStreamFailed(true);
+            return;
+          }
+          offlineRecoveries += 1;
+          const pos = Number.isFinite(video.currentTime) ? video.currentTime : 0;
+          if (pos > 0) savePosition(pos, video.duration, true);
+          const wasPlaying = !video.paused && !video.ended;
+          if (data.type === Hls.ErrorTypes.NETWORK_ERROR) {
+            // Hole in the buffer (404 from the SW): jump past it so the
+            // next fragment request lands on a stored index.
+            const dur = Number.isFinite(video.duration) ? video.duration : pos;
+            const hop = Math.min(pos + OFFLINE_HOP_SECONDS, Math.max(0, dur - 1));
+            if (hop > pos) {
+              try {
+                video.currentTime = hop;
+              } catch {
+                /* metadata not seekable yet — startLoad retries where we are */
+              }
+            }
+            hls?.startLoad();
+          } else if (data.type === Hls.ErrorTypes.MEDIA_ERROR) {
+            hls?.recoverMediaError();
+          } else {
+            hls?.startLoad();
+          }
+          if (wasPlaying) {
+            window.setTimeout(() => {
+              if (video.paused && !video.ended) void video.play().catch(() => {});
+            }, 300);
+          }
+          return;
+        }
         // Cap recoveries: an endlessly retrying loader looks like a frozen
         // player ("Loading…" forever). After 3 fatal errors, bail to the
         // streamFailed/iframe path so the user can act (or the cascade tries
@@ -803,7 +861,10 @@ export function attachNativePlayback(args: AttachNativePlaybackArgs): () => void
       if (pos != null) {
         const run = () => {
           if (pendingSeekSettled) return;
-          void seekVideoElement(video, pos, { play: true }).then((ok) => {
+          void seekVideoElement(video, pos, {
+            play: true,
+            shouldAbort: () => readPendingSeek(pendingSeekPosRef) !== pos,
+          }).then((ok) => {
             if (ok) notifySeekSettled(pos, true);
           });
         };
@@ -858,10 +919,15 @@ export function attachNativePlayback(args: AttachNativePlaybackArgs): () => void
       // Disable + drop injected external tracks so an episode change (or an
       // in-place vix↔goated source switch that reuses the same <video>) never
       // leaves a stale "showing" track or leaks duplicates.
-      for (const t of injectedTracksRef.current) t.mode = "disabled";
-      injectedTracksRef.current = [];
-      externalVttRef.current = null;
-      setHasExternalSubs(false);
+      // Offline stored subs belong to the HOST, not this cascade: the <video>
+      // dies with the remount anyway, and wiping here strands a re-attach
+      // (speed/volume change re-runs this effect) with no subs left to show.
+      if (!offlineStoredSubs) {
+        for (const t of injectedTracksRef.current) t.mode = "disabled";
+        injectedTracksRef.current = [];
+        externalVttRef.current = null;
+        setHasExternalSubs(false);
+      }
       reloadSubsRef.current = null;
       reapplyExternalSubsRef.current = null;
       if (safariTimerRef.current != null) {
