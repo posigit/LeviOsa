@@ -18,7 +18,7 @@ import { posterThumbUrl } from "@/lib/offline/store";
 import { cn } from "@/lib/utils";
 
 /** Short second line under a poster tile. */
-function metaLabel(r: DownloadRecord, progress: number): string {
+function metaLabel(r: DownloadRecord, progress: number, stale = false): string {
   const quality = r.quality === "best" ? "Best" : `${r.quality}p`;
   switch (r.state) {
     case "done":
@@ -26,6 +26,9 @@ function metaLabel(r: DownloadRecord, progress: number): string {
       return r.sizeBytes > 0 ? `${formatBytes(r.sizeBytes)} · ${quality}` : quality;
     case "active":
     case "queued":
+      // Orphaned row (crash / other tab): the state never moves again —
+      // say so instead of showing a frozen percent as if it were live.
+      if (stale) return `${Math.round(progress * 100)}% · tap to retry`;
       return r.estimateBytes > 0
         ? `${Math.round(progress * 100)}% · ~${formatBytes(r.estimateBytes)}`
         : `${Math.round(progress * 100)}%`;
@@ -89,6 +92,10 @@ export function DownloadCard({
   const online = useOnline();
   const busy = r.state === "active" || r.state === "queued";
   const runningHere = busy && (isDownloadActive(r.key) || isDownloadQueued(r.key));
+  // Orphaned active/queued state: no controller here owns it, so it will
+  // never progress — the tap already retries (primary → tryResume); the
+  // chip/labels must say that instead of pulsing like a live download.
+  const stale = busy && !runningHere;
   const progress = r.totalSegments > 0 ? r.doneSegments / r.totalSegments : 0;
   const resumeAt = useResumeAt(r.state, r.key);
   const code = episodeCode(r);
@@ -156,6 +163,10 @@ export function DownloadCard({
       <span className="rounded-full bg-black/75 px-2 py-[3px] text-[10px] font-black uppercase tracking-[0.08em] text-white ring-1 ring-white/20">
         {Math.round(progress * 100)}%
       </span>
+    ) : stale ? (
+      <span className="rounded-full bg-amber-400 px-2 py-[3px] text-[10px] font-black uppercase tracking-[0.08em] text-black">
+        {Math.round(progress * 100)}%
+      </span>
     ) : busy ? (
       <span className="inline-flex items-center gap-1.5 rounded-full bg-black/75 px-2 py-[3px] text-[10px] font-black tabular-nums text-primary ring-1 ring-primary/40">
         <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-primary" />
@@ -168,7 +179,7 @@ export function DownloadCard({
       <button
         type="button"
         onClick={primary}
-        aria-label={`${cardTitle(r)} — ${metaLabel(r, progress)}`}
+        aria-label={`${cardTitle(r)} — ${metaLabel(r, progress, stale)}`}
         className="block w-full text-left transition active:scale-[0.97]"
       >
         <div className="relative aspect-[2/3] overflow-hidden rounded-xl ring-1 ring-white/10">
@@ -188,7 +199,10 @@ export function DownloadCard({
           {(busy || (r.state === "paused" && progress > 0)) && (
             <div className="absolute inset-x-0 bottom-0 h-1 bg-white/20">
               <div
-                className="h-full bg-primary transition-all duration-300"
+                className={cn(
+                  "h-full transition-all duration-300",
+                  stale ? "bg-white/40" : "bg-primary"
+                )}
                 style={{ width: `${Math.round(progress * 100)}%` }}
               />
             </div>
@@ -200,7 +214,7 @@ export function DownloadCard({
         </p>
         <p className="mt-0.5 truncate text-[10px] font-semibold tabular-nums text-white/45">
           {code ? `${code} · ` : ""}
-          {metaLabel(r, progress)}
+          {metaLabel(r, progress, stale)}
         </p>
         {resumeAt != null && (
           <p className="mt-0.5 truncate text-[10px] font-black tabular-nums text-primary">
