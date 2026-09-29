@@ -1397,6 +1397,9 @@ export function VixPlayer({
   };
   const switchSource = useCallback((next: StreamSource) => {
     if (next === activeSource) return;
+    // Offline there is no source to switch to: resolution can only fail,
+    // re-attach a dead stream and clobber the persisted preference.
+    if (typeof navigator !== "undefined" && navigator.onLine === false) return;
     const v = videoRef.current;
     const pos =
       v && Number.isFinite(v.currentTime) && v.currentTime > RESUME_MIN_SECONDS
