@@ -14,7 +14,7 @@ const geistSans = Geist({
 export const metadata: Metadata = {
   title: "LeviOsa",
   description: "Personal TV and movie tracker",
-  manifest: "/manifest.json",
+  manifest: "/manifest.json?v=14",
   appleWebApp: {
     capable: true,
     statusBarStyle: "black-translucent",
