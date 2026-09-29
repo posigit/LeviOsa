@@ -1,6 +1,6 @@
 import { requireAuth } from "@/lib/auth";
 import { db, withDbRetry } from "@/lib/db";
-import { userMovies, watchHistory, movieReactions } from "@/lib/schema";
+import { userMovies, watchHistory } from "@/lib/schema";
 import { eq, and } from "drizzle-orm";
 import {
   backdropUrl,
@@ -157,7 +157,7 @@ export default async function MovieDetailPage({
     }
   };
 
-  const [userMovie, ownedMovies, playback, movieHistoryRows, movieReactionRows] =
+  const [userMovie, ownedMovies, playback, movieHistoryRows] =
     await Promise.all([
       loadUserMovie(),
       db
@@ -175,12 +175,6 @@ export default async function MovieDetailPage({
             eq(watchHistory.tmdbId, tmdbId)
           )
         ),
-      db
-        .select({ reactionKey: movieReactions.reactionKey })
-        .from(movieReactions)
-        .where(
-          and(eq(movieReactions.userId, userId), eq(movieReactions.tmdbId, tmdbId))
-        ),
     ]);
   /**
    * `watchHistory` gets a row on the first mark-watched *and* on every
@@ -195,7 +189,6 @@ export default async function MovieDetailPage({
   const isRewatchQueued = userMovieRow?.rewatchQueued === true;
 
   const ownedIds = new Set(ownedMovies.map((m) => m.tmdbId));
-  const movieReactionKeys = movieReactionRows.map((r) => r.reactionKey);
 
   const [
     similarRaw,

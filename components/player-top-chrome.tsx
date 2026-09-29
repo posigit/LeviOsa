@@ -39,7 +39,6 @@ type PlayerTopChromeProps = {
   mode: PlayerMode;
   activeSource: StreamSource;
   streamable: boolean;
-  isLoading: boolean;
   videoFit: VixSettings["videoFit"];
   embedZoom: VixSettings["embedZoom"];
   onCycleScreenFill: () => void;
@@ -84,7 +83,6 @@ type PlayerTopChromeProps = {
     >
   ) => void;
   subError: string | null;
-  onSwitchSource: () => void;
   /** Pick a specific source from the menu (sourceOptions). */
   onPickSource: (source: StreamSource) => void;
   /** All selectable sources for the picker (labels + active marker). */
@@ -141,7 +139,6 @@ export function PlayerTopChrome({
   mode,
   activeSource,
   streamable,
-  isLoading,
   videoFit,
   embedZoom,
   onCycleScreenFill,
@@ -175,7 +172,6 @@ export function PlayerTopChrome({
   subBgBlur,
   onPatchSubStyle,
   subError,
-  onSwitchSource,
   onPickSource,
   sourceOptions,
   disabledSources = [],

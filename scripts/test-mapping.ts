@@ -1,4 +1,3 @@
-import { db } from "../lib/db";
 import { mapShowsToTmdb } from "../lib/import/tmdb-mapper";
 
 async function main() {

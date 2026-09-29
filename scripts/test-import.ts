@@ -2,8 +2,6 @@ import { db } from "../lib/db";
 import { parseGdprExport } from "../lib/import/parser";
 import { importLists, importMovies, importShows } from "../lib/import/importer";
 import { mapMoviesToTmdb, mapShowsToTmdb } from "../lib/import/tmdb-mapper";
-import { users } from "../lib/schema";
-import { eq } from "drizzle-orm";
 import path from "path";
 
 async function main() {

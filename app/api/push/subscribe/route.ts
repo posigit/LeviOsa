@@ -43,7 +43,7 @@ export async function POST(request: Request) {
 }
 
 export async function DELETE(request: Request) {
-  const userId = await requireAuth();
+  await requireAuth();
 
   let body: { endpoint?: string };
   try {

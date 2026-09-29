@@ -418,7 +418,7 @@ async function proxyMedia(request, url) {
   }
 }
 
-export default {
+const worker = {
   async fetch(request, env) {
     const url = new URL(request.url);
 
@@ -449,3 +449,5 @@ export default {
     }
   },
 };
+
+export default worker;

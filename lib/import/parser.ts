@@ -244,7 +244,6 @@ export async function parseGdprExport(exportDir: string): Promise<ParsedGdprData
   // 5. Latest seen episode fallback
   const seenLatest = await readCsv(path.join(exportDir, "seen_episode_latest.csv"));
   for (const row of seenLatest) {
-    const tvShowId = Number(row.user_id); // This file doesn't have tv_show_id, only name
     const existing = Array.from(shows.values()).find((s) => s.name === row.tv_show_name);
     if (existing) {
       existing.lastSeason = Number(row.episode_season_number);
@@ -324,19 +323,6 @@ export async function parseGdprExport(exportDir: string): Promise<ParsedGdprData
 
       // Parse the objects column which contains Go slice of maps
       if (row.objects) {
-        try {
-          const cleaned = row.objects
-            .replace(/^\[/, "")
-            .replace(/\]$/, "")
-            .replace(/map\[/g, "{")
-            .replace(/\]/g, "}")
-            .replace(/(\w+):/g, '"$1":')
-            .replace(/<nil>/g, "null");
-          // This is risky; fallback to regex extraction
-        } catch {
-          // ignore
-        }
-
         // Extract IDs using regex
         const regex = /(?:id|uuid):(\d+|[a-f0-9-]+)/g;
         let match;
@@ -359,11 +345,7 @@ export async function parseGdprExport(exportDir: string): Promise<ParsedGdprData
     }
   }
 
-  // Mark completed shows
-  for (const show of shows.values()) {
-    // We'll determine completion later when we have TMDB episode counts
-    // For now, keep status as-is
-  }
+  // Mark completed shows: left as-is until TMDB episode counts land.
 
   return {
     shows,

@@ -3957,8 +3957,7 @@ export function VixPlayer({
           mode={mode}
           activeSource={activeSource}
           streamable={streamable && !offlineOverride}
-            isLoading={isLoading || (mode === "native" && !mediaReady)}
-            videoFit={videoFit}
+          videoFit={videoFit}
             embedZoom={embedZoom}
             onCycleScreenFill={cycleScreenFill}
           audioTracks={audioTracks}
@@ -4001,9 +4000,6 @@ export function VixPlayer({
           subBgBlur={subBgBlur}
           onPatchSubStyle={patchSubStyle}
           subError={subError}
-          onSwitchSource={() => {
-            switchSource(nextPlayableSource(activeSource));
-          }}
           onPickSource={(source) => switchSource(source)}
           sourceOptions={ALL_SOURCES}
           disabledSources={disabledSources}
