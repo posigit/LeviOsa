@@ -204,35 +204,42 @@ assert.ok(indexed.includes("https://app/seg-0"));
 assert.ok(indexed.includes("https://app/seg-1"));
 assert.ok(!indexed.includes("seg.mp4"));
 
-/* Reversed order: a BYTERANGE before its EXTINF applies to the following
-   segment in every pass — the tag must neither be dropped (parse/rewrite
-   would lose the range → corrupt bytes) nor leaked (index rewrite would
-   hand the player a range against an index URL). */
+/* Mixed tag orders in ONE playlist: before the first EXTINF (the fully
+   ungated position), after EXTINF (classic), and between a URI and the next
+   EXTINF. Each pass must bind every range to the following URI — a dropped
+   tag loses the range (corrupt bytes), a leaked one hits an index URL. */
 const reversed = [
   "#EXTM3U",
   "#EXT-X-VERSION:3",
   "#EXT-X-BYTERANGE:100@0",
   "#EXTINF:4.0,",
   "seg.mp4",
+  "#EXTINF:4.0,",
   "#EXT-X-BYTERANGE:50",
+  "seg.mp4",
+  "#EXT-X-BYTERANGE:25",
   "#EXTINF:4.0,",
   "seg.mp4",
   "",
 ].join("\n");
 const rParts = parseMediaPlaylist(reversed, base);
-assert.equal(rParts.segments.length, 2);
+assert.equal(rParts.segments.length, 3);
 assert.deepEqual(rParts.segments[0]?.byteRange, { start: 0, length: 100 });
 assert.deepEqual(rParts.segments[1]?.byteRange, { start: 100, length: 50 });
+assert.deepEqual(rParts.segments[2]?.byteRange, { start: 150, length: 25 });
 const rRewritten = rewritePlaylistForOffline(reversed, base, new Set());
 assert.ok(!rRewritten.includes("#EXT-X-BYTERANGE"));
 assert.ok(decodeURIComponent(rRewritten).includes("@0-99"));
 assert.ok(decodeURIComponent(rRewritten).includes("@100-149"));
+assert.ok(decodeURIComponent(rRewritten).includes("@150-174"));
 const rIndexed = rewritePlaylistToIndexUrls(reversed, [
   "https://app/rseg-0",
   "https://app/rseg-1",
+  "https://app/rseg-2",
 ]);
 assert.ok(!rIndexed.includes("#EXT-X-BYTERANGE"));
 assert.ok(rIndexed.includes("https://app/rseg-0"));
+assert.ok(rIndexed.includes("https://app/rseg-2"));
 assert.ok(!rIndexed.includes("seg.mp4"));
 
 /* ------------------------------------------------------------------ */
