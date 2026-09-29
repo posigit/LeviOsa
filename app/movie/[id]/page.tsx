@@ -34,10 +34,10 @@ import {
   ChevronRight,
   Play,
   ShieldAlert,
-  Star,
   TrendingUp,
   Wallet,
 } from "lucide-react";
+import { TmdbIcon } from "@/components/rt-icons";
 import { MovieWatchButton } from "@/components/movie-watch-button";
 import { FavoriteButton } from "@/components/favorite-button";
 import { AddToListButton } from "@/components/add-to-list-button";
@@ -512,7 +512,7 @@ export default async function MovieDetailPage({
                   🍅
                 </span>
               ) : (
-                <Star className="h-4 w-4 fill-primary text-primary" />
+                <TmdbIcon className="h-4 w-4" />
               )}
               <span className="text-sm font-bold text-white/85">{ratingText}</span>
             </div>
