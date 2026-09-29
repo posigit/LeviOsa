@@ -29,6 +29,22 @@ write clobber still open), #13 verified working (not a bug — refresh rides
 - Constraint carried from round 1: these must be fixed carefully — the download engine's
   resilience characteristics were explicitly preserved on purpose.
 
+## Round-4 status (2026-09-29)
+
+**Fixed (7):** #15 hidden-bandwidth estimate seed (`7f90d2c`), #17 offline subs re-inject after
+video remount (`7c25a61`), #18 Subtitle Sync wired to stored offline subs (`891e8a9`),
+#19 stream source picker locked offline (`c7bc9cb`), #25 stalled library grid rows marked
+stale with tap-to-retry (`fcb46b4`), #26 `EXT-X-BYTERANGE` in either tag order (`f4b0e10`,
+test `6342687`), #33 Up Next countdown pauses with the player / resets on scrub-back
+(`76ce50d`). All ✅ below.
+
+**Copy/icon polish:** offline page connection blurb removed + reconnect status split (`0599e82`),
+page em-dash fragments rewritten as proper sentences (`2a2b3d6`), movie hero score fallback
+uses the custom `TmdbIcon` (`8b9a618`).
+
+**Still open:** #8 bounded auto-repair after 100% (proposed — awaiting approval), #5b per-row
+manifest storage, remaining #17/#18 subs UX, #21–#35 service-worker/UX items.
+
 ## Already fixed in 7b34962 (for reference — do not re-report)
 
 1. Offline auto-mark-watched: `onEvent` → outbox queue on `"ended"` (`offline-player-host.tsx`),
@@ -149,10 +165,11 @@ write clobber still open), #13 verified working (not a bug — refresh rides
     `buildOfflineMaster(audio: null)` before `withOfflineSubtitles` (engine.ts else-branch);
     regression test added in `test-offline-download.ts`.
 
-15. **`refineEstimate` unreachable → estimates stay 0 → over-eviction**
+15. **✅ FIXED — `refineEstimate` unreachable → estimates stay 0 → over-eviction**
     — engine: est refinement never runs for typical rows, so `estSize` stays 0/rough and
     `enforceQuota`/playback estimates fall back to full-bitrate math → evicts more than needed.
-    Reported.
+    Reported. Fix: seed hidden-bandwidth rows with a `fallbackBitrateBps` estimate so
+    `refineEstimate` can run (`7f90d2c`).
 
 16. **✅ FIXED — `autoAttempts` lifetime budget never resets**
     — engine auto-quality attempts are a per-row lifetime counter; a row that had a few
@@ -162,18 +179,21 @@ write clobber still open), #13 verified working (not a bug — refresh rides
 
 ## P2 — offline UX / service worker
 
-17. **Stored subs injected once per mount; video remount loses them**
+17. **✅ FIXED — Stored subs injected once per mount; video remount loses them**
     — `components/vix-player.tsx:1900` (`offlineSubInjectedRef`): a remount (retry, source
     switch, error reload) clears tracks but doesn't re-inject stored VTT; stale injected tracks
-    can also double-draw with native CC. Reported (✓ flag verified).
+    can also double-draw with native CC. Reported (✓ flag verified). Fix: track the injected
+    video element and re-inject when it changes (`7c25a61`).
 
-18. **Subtitle Sync (delay) is a no-op offline**
+18. **✅ FIXED — Subtitle Sync (delay) is a no-op offline**
     — `vix-player.tsx:463` `externalVttRef` is never set on the stored-VTT path, so the delay
-    slider does nothing for downloads. Reported (✓ ref verified).
+    slider does nothing for downloads. Reported (✓ ref verified). Fix: set the ref on the
+    stored-VTT path so re-timing works (`891e8a9`).
 
-19. **Stream source picker is live while offline**
+19. **✅ FIXED — Stream source picker is live while offline**
     — top-chrome picker writes `preferredSource` and triggers attach; offline it clobbers the
-    saved preference and forces a reload loop. Reported.
+    saved preference and forces a reload loop. Reported. Fix: `useOnline` disables the picker
+    with an "Offline" label (`c7bc9cb`).
 
 20. **✅ FIXED — SW suffix Range `bytes=-N` → 416**
     — `public/sw.js:433-447` (416 sites at :437/:444): `end = m[2]` is empty for suffix ranges;
@@ -195,13 +215,15 @@ write clobber still open), #13 verified working (not a bug — refresh rides
 24. **Settings hydration overwrites a just-changed download setting**
     — late `load()`/hydration write beats a user toggle made during startup (race). Reported.
 
-25. **Library grid shows stale active/queued rows with live pulse but no retry path**
+25. **✅ FIXED — Library grid shows stale active/queued rows with live pulse but no retry path**
     — orphaned `active`/`queued` state after a crash shows animating progress forever with no
-    tap-to-retry affordance (separate from the Partial repair path). Reported.
+    tap-to-retry affordance (separate from the Partial repair path). Reported. Fix: stale rows
+    show a static % chip with tap-to-retry and a dimmed bar (`fcb46b4`).
 
-26. **`#EXT-X-BYTERANGE` before `#EXTINF` is dropped by the rewriter**
+26. **✅ FIXED — `#EXT-X-BYTERANGE` before `#EXTINF` is dropped by the rewriter**
     — `lib/offline/hls.ts` line-order assumption; nonstandard-but-legal order loses the range →
-    corrupt media. Reported.
+    corrupt media. Reported. Fix: honour the tag in either order at all three parse/rewrite
+    sites; mixed-order regression test (`f4b0e10`, `6342687`).
 
 27. **`deleteRecordFiles` deletes the shared poster thumb of siblings**
     — poster files are de-duplicated across rows but deletion is per-row → other rows' artwork
@@ -222,8 +244,9 @@ write clobber still open), #13 verified working (not a bug — refresh rides
 32. **Cast is offered while offline** — the receiver fetches the URL outside this SW's scope →
     guaranteed failure. Reported.
 
-33. **Up Next countdown ignores pause / seek-back** — auto-plays next even if the user paused or
-    scrubbed back in the last seconds. Reported.
+33. **✅ FIXED — Up Next countdown ignores pause / seek-back** — auto-plays next even if the user
+    paused or scrubbed back in the last seconds. Reported. Fix: players emit event positions;
+    the countdown is gated on pause state and dismissed on scrub-back (`76ce50d`).
 
 34. **Escape swallowed by a capture-phase menu cleaner** — Escape no longer dismisses Up Next or
     closes the player when a menu's capture listener stops propagation. Reported.
