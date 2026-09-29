@@ -43,6 +43,7 @@ export default function RootLayout({
     <html
       lang="en"
       data-theme="amoled"
+      data-accent="yellow"
       suppressHydrationWarning
       className={`${geistSans.variable} h-full antialiased`}
     >
@@ -54,8 +55,9 @@ export default function RootLayout({
           // Also toggles .dark (Tailwind dark: variant) and theme-color meta.
           // Light is unlisted (see VISIBLE_THEMES): stored "light" migrates
           // to soft so nobody strands on a theme with no picker entry.
+          // Accent (tv-accent) applies the same way; unset defaults to Yellow.
           dangerouslySetInnerHTML={{
-            __html: `(function(){try{var t=localStorage.getItem("tv-theme");if(t!=="soft"&&t!=="amoled"){t=t==="light"?"soft":"amoled";try{localStorage.setItem("tv-theme",t)}catch(e){}}var d=document.documentElement;d.dataset.theme=t;if(t!=="light"){d.classList.add("dark")}else{d.classList.remove("dark")}var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute("content",t==="light"?"#f4f4f6":t==="soft"?"#101014":"#000000")}catch(e){document.documentElement.dataset.theme="amoled"}})()`,
+            __html: `(function(){try{var t=localStorage.getItem("tv-theme");if(t!=="soft"&&t!=="amoled"){t=t==="light"?"soft":"amoled";try{localStorage.setItem("tv-theme",t)}catch(e){}}var d=document.documentElement;d.dataset.theme=t;if(t!=="light"){d.classList.add("dark")}else{d.classList.remove("dark")}var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute("content",t==="light"?"#f4f4f6":t==="soft"?"#101014":"#000000")}catch(e){document.documentElement.dataset.theme="amoled"}try{var a=localStorage.getItem("tv-accent");if(a!=="beige"&&a!=="yellow"){if(a)localStorage.setItem("tv-accent","yellow");a="yellow"}document.documentElement.dataset.accent=a}catch(e){document.documentElement.dataset.accent="yellow"}})()`,
           }}
         />
       </head>

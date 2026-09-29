@@ -6,7 +6,7 @@ import Link from "next/link";
 import { Download, History, MoreHorizontal, CalendarDays } from "lucide-react";
 import { DownloadSettingsSheet } from "@/components/download-settings-sheet";
 import { InstallButton } from "@/components/install-button";
-import { ThemeToggle } from "@/components/theme-toggle";
+import { AccentToggle, ThemeToggle } from "@/components/theme-toggle";
 
 /** Profile "⋯" menu: Watch history, Import data + Sign out */
 export function ProfileMenu() {
@@ -77,6 +77,10 @@ export function ProfileMenu() {
               Appearance
             </p>
             <ThemeToggle layout="stacked" />
+            <p className="mb-2 mt-3 px-2 text-[11px] font-bold uppercase tracking-widest text-muted-foreground">
+              Accent
+            </p>
+            <AccentToggle />
           </div>
           <button
             type="button"

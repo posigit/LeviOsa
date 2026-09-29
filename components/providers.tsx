@@ -6,7 +6,14 @@ import { ToastProvider } from "@/components/toast";
 import { hydrateVixSettings } from "@/lib/vix-settings";
 import { initPlaybackOutbox } from "@/lib/offline/store";
 import { initDownloadAutoRetry } from "@/lib/offline/engine";
-import { applyTheme, getSavedTheme, subscribeTheme } from "@/lib/theme";
+import {
+  applyAccent,
+  applyTheme,
+  getSavedAccent,
+  getSavedTheme,
+  subscribeAccent,
+  subscribeTheme,
+} from "@/lib/theme";
 
 /** Hydrates player settings once the session is known (per-user data). */
 function SettingsHydrator() {
@@ -17,16 +24,23 @@ function SettingsHydrator() {
   return null;
 }
 
-/** Re-asserts the saved appearance theme on mount + across tabs (single subscriber). */
+/** Re-asserts the saved appearance theme + accent on mount + across tabs. */
 function ThemeHydrator() {
   useEffect(() => {
     // Layout script owns first paint; re-assert here for late mounts and
     // route the single cross-tab / same-tab subscription through applyTheme
     // (dataset + .dark class + theme-color stay in sync). Stored "light"
-    // migrates to soft (unlisted — see VISIBLE_THEMES).
+    // migrates to soft (unlisted - see VISIBLE_THEMES). Accent is an
+    // independent axis (tv-accent) with the same plumbing.
     const saved = getSavedTheme();
     applyTheme(saved === "light" ? "soft" : saved);
-    return subscribeTheme(applyTheme);
+    applyAccent(getSavedAccent());
+    const unsubTheme = subscribeTheme(applyTheme);
+    const unsubAccent = subscribeAccent(applyAccent);
+    return () => {
+      unsubTheme();
+      unsubAccent();
+    };
   }, []);
   return null;
 }

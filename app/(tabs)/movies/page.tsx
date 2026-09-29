@@ -62,7 +62,7 @@ function PopcornIllustration() {
       <span className="absolute -right-6 top-8 text-2xl text-[#f5a623]">✦</span>
       <span className="absolute -right-9 bottom-12 text-lg text-[#7ed321]">✕</span>
       <span className="absolute -left-8 bottom-8 text-lg text-[#f5a623]">●</span>
-      <span className="absolute -left-4 bottom-16 text-sm text-[#e9e5d2]">＋</span>
+      <span className="absolute -left-4 bottom-16 text-sm text-primary">＋</span>
       <span className="absolute -top-3 right-8 text-lg text-[#b455f6]">●</span>
     </div>
   );

@@ -129,7 +129,7 @@ export function UpNextCard({
                   cy="19"
                   r={R}
                   fill="none"
-                  stroke="#e9e5d2"
+                  style={{ stroke: "var(--primary)" }}
                   strokeWidth="3"
                   strokeLinecap="round"
                   strokeDasharray={CIRC}

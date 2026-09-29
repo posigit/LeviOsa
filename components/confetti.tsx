@@ -17,24 +17,27 @@ type Piece = {
   phase: number;
 };
 
-/** LeviOsa celebration palette (orange, purple, blue, green, red, brand cream) */
+/** LeviOsa celebration palette (orange, purple, blue, green, red + accent) */
 const COLORS = [
   "#f97316", // orange
   "#a855f7", // purple
   "#3b82f6", // blue
   "#22c55e", // green
   "#ef4444", // red
-  "#e9e5d2", // brand cream
 ];
 
-function makePiece(canvasWidth: number, startAbove: boolean): Piece {
+function makePiece(
+  canvasWidth: number,
+  startAbove: boolean,
+  colors: readonly string[]
+): Piece {
   const size = 6 + Math.random() * 8;
   return {
     x: Math.random() * canvasWidth,
     y: startAbove ? -20 - Math.random() * canvasWidth * 0.4 : Math.random() * -40,
     w: size * (0.5 + Math.random() * 0.6),
     h: size,
-    color: COLORS[Math.floor(Math.random() * COLORS.length)],
+    color: colors[Math.floor(Math.random() * colors.length)],
     vy: 120 + Math.random() * 160,
     vx: -30 + Math.random() * 60,
     rotation: Math.random() * Math.PI * 2,
@@ -71,6 +74,12 @@ export function Confetti({ fire }: { fire: boolean }) {
     const width = () => canvas.width / dpr;
     const height = () => canvas.height / dpr;
 
+    // Accent piece follows the live accent axis (custom props inherit onto
+    // the canvas element); falls back to brand cream before styles apply.
+    const accent =
+      getComputedStyle(canvas).getPropertyValue("--primary").trim() || "#e9e5d2";
+    const colors = [...COLORS, accent];
+
     const pieces: Piece[] = [];
     const SPAWN_MS = 2600;
     const FADE_MS = 2200;
@@ -84,7 +93,7 @@ export function Confetti({ fire }: { fire: boolean }) {
 
       // Spawn while in spawn window
       if (elapsed < SPAWN_MS && pieces.length < 220) {
-        for (let i = 0; i < 4; i++) pieces.push(makePiece(width(), true));
+        for (let i = 0; i < 4; i++) pieces.push(makePiece(width(), true, colors));
       }
 
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);

@@ -207,6 +207,54 @@ html[data-theme="light"] {
   --theme-deep: 244 244 246;
 }
 
+/* ── Accent axis: Yellow (classic gold, default) / Beige (cream) ────────────
+   Same specificity as the theme blocks above - later source wins. The
+   :not() form keeps Yellow for pages that haven't picked an accent yet,
+   and the baked data-accent attr in app/layout.tsx covers no-JS. */
+html:not([data-accent="beige"]),
+html[data-accent="yellow"] {
+  --primary: #f5c518;
+  --primary-foreground: #000000;
+  --accent: #f5c518;
+  --accent-foreground: #000000;
+  --ring: #f5c518;
+  --chart-1: #f5c518;
+  --sidebar-primary: #f5c518;
+  --sidebar-primary-foreground: #000000;
+  --sidebar-ring: #f5c518;
+  --primary-tint: rgba(245, 197, 24, 0.12);
+  --primary-glow: rgba(245, 197, 24, 0.35);
+  --primary-soft: rgba(245, 197, 24, 0.45);
+}
+
+/* Light theme historically used a deeper yellow for contrast. */
+html[data-accent="yellow"][data-theme="light"] {
+  --primary: #eab308;
+  --accent: #eab308;
+  --ring: #eab308;
+  --chart-1: #eab308;
+  --sidebar-primary: #eab308;
+  --sidebar-ring: #eab308;
+  --primary-tint: rgba(234, 179, 8, 0.12);
+  --primary-glow: rgba(234, 179, 8, 0.35);
+  --primary-soft: rgba(234, 179, 8, 0.45);
+}
+
+html[data-accent="beige"] {
+  --primary: #e9e5d2;
+  --primary-foreground: #000000;
+  --accent: #e9e5d2;
+  --accent-foreground: #000000;
+  --ring: #e9e5d2;
+  --chart-1: #e9e5d2;
+  --sidebar-primary: #e9e5d2;
+  --sidebar-primary-foreground: #000000;
+  --sidebar-ring: #e9e5d2;
+  --primary-tint: rgba(233, 229, 210, 0.12);
+  --primary-glow: rgba(233, 229, 210, 0.35);
+  --primary-soft: rgba(233, 229, 210, 0.45);
+}
+
 /* Theme switch fades the shell (html/body only — descendant tokens snap by
    design; animating every token would jank on low-end devices). */
 html,
@@ -235,8 +283,8 @@ html[data-theme="light"] .top-ten-rank {
   -webkit-text-stroke: 2.5px rgba(0, 0, 0, 0.55);
 }
 html[data-theme="light"] .top-ten-rank-gold {
-  color: rgba(233, 229, 210, 0.14);
-  -webkit-text-stroke: 2.5px #e9e5d2;
+  color: var(--primary-tint);
+  -webkit-text-stroke: 2.5px var(--primary);
 }
 
 @layer base {
@@ -272,8 +320,8 @@ html[data-theme="light"] .top-ten-rank-gold {
     paint-order: stroke fill;
   }
   .top-ten-rank-gold {
-    color: rgba(233, 229, 210, 0.12);
-    -webkit-text-stroke: 2.5px #e9e5d2;
+    color: var(--primary-tint);
+    -webkit-text-stroke: 2.5px var(--primary);
   }
 
   .pt-safe {
@@ -491,7 +539,7 @@ html[data-theme="light"] .top-ten-rank-gold {
   position: absolute;
   inset: -35%;
   z-index: 0;
-  background: radial-gradient(circle, rgba(233, 229, 210, 0.12), transparent 65%);
+  background: radial-gradient(circle, var(--primary-tint), transparent 65%);
   animation: splash-glow 2.4s ease-in-out infinite;
 }
 
@@ -514,7 +562,7 @@ html[data-theme="light"] .top-ten-rank-gold {
   background: linear-gradient(
     90deg,
     transparent,
-    rgba(233, 229, 210, 0.45) 50%,
+    var(--primary-soft) 50%,
     transparent
   );
   transform: translateX(-150%) skewX(-18deg);
