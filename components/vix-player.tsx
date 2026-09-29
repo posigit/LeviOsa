@@ -1915,6 +1915,10 @@ export function VixPlayer({
     // Anything still recorded pointed at the dead element: drop it.
     if (offlineSubInjectedRef.current !== null) injectedTracksRef.current = [];
     offlineSubInjectedRef.current = video;
+    // Publish the cached VTT like the online picker paths do — without it the
+    // engine's reapply hook bails (empty externalVttRef) and the Subtitle
+    // Sync slider was a silent no-op for downloads.
+    externalVttRef.current = { vtt: initialSubVtt.vtt, label: initialSubVtt.label };
     const delay = loadVixSettings().subDelaySeconds;
     const tr = injectVttTrack(
       video,
