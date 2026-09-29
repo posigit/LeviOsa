@@ -501,8 +501,8 @@ html[data-theme="light"] .top-ten-rank-gold {
   z-index: 2;
   overflow: hidden;
   pointer-events: none;
-  -webkit-mask: url(/icons/icon-512x512.png) center / contain no-repeat;
-  mask: url(/icons/icon-512x512.png) center / contain no-repeat;
+  -webkit-mask: url("/icons/icon-512x512.png?v=14") center / contain no-repeat;
+  mask: url("/icons/icon-512x512.png?v=14") center / contain no-repeat;
 }
 
 .splash-shine::after {

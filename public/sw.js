@@ -12,7 +12,7 @@
  * offline.html is the exception — it is precached cache-first, so bump it
  * whenever that page changes or installs keep serving the old markup.
  */
-const VERSION = "13";
+const VERSION = "14";
 const SHELL_CACHE = `tvtime-shell-v${VERSION}`;
 const STATIC_CACHE = `tvtime-static-v${VERSION}`;
 const IMAGE_CACHE = `tvtime-images-v${VERSION}`;
@@ -31,8 +31,8 @@ const ALL_CACHES = [SHELL_CACHE, STATIC_CACHE, IMAGE_CACHE];
 const PRECACHE_URLS = [
   "/offline.html",
   "/manifest.json",
-  "/icons/icon-192x192.png",
-  "/icons/icon-512x512.png",
+  "/icons/icon-192x192.png?v=14",
+  "/icons/icon-512x512.png?v=14",
   "/avatars/profile.jpg",
   // Library shell: static prerender — cold offline opens in OUR player UI,
   // never the bare fallback, once any online visit has run this worker.
@@ -479,8 +479,8 @@ self.addEventListener("push", (event) => {
   event.waitUntil(
     self.registration.showNotification(title, {
       body: data.body || "",
-      icon: "/icons/icon-192x192.png",
-      badge: "/icons/icon-192x192.png",
+      icon: "/icons/icon-192x192.png?v=14",
+      badge: "/icons/icon-192x192.png?v=14",
       tag: data.tag || "episode-alert",
       data: { url: data.url || "/calendar" },
     })

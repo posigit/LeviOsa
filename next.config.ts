@@ -58,6 +58,10 @@ const nextConfig: NextConfig = {
         ],
       },
       {
+        source: "/manifest.json",
+        headers: [{ key: "Cache-Control", value: "no-cache" }],
+      },
+      {
         source: "/icons/:path*",
         headers: [
           {

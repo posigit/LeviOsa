@@ -45,7 +45,7 @@ export function AppSplash() {
         <div className="splash-glow" />
         <Image
           className="splash-logo"
-          src="/icons/icon-512x512.png"
+          src="/icons/icon-512x512.png?v=14"
           alt=""
           width={160}
           height={160}

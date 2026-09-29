@@ -43,7 +43,7 @@ export default function LoginPage() {
       <div className="w-full max-w-sm space-y-6">
         <div className="flex flex-col items-center gap-3">
           <Image
-            src="/icon.svg"
+            src="/icon.svg?v=14"
             alt=""
             width={72}
             height={72}
