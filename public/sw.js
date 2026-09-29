@@ -12,7 +12,7 @@
  * offline.html is the exception — it is precached cache-first, so bump it
  * whenever that page changes or installs keep serving the old markup.
  */
-const VERSION = "12";
+const VERSION = "13";
 const SHELL_CACHE = `tvtime-shell-v${VERSION}`;
 const STATIC_CACHE = `tvtime-static-v${VERSION}`;
 const IMAGE_CACHE = `tvtime-images-v${VERSION}`;
