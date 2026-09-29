@@ -7,9 +7,9 @@
  * resume-position saves use. The queue drains on `online`, on startup and on
  * tab focus via `initPlaybackOutbox()`.
  *
- * Deliberately never throws: callers already treat a non-OK response as
- * failure, so a parked action answers `200` and the caller's optimistic UI
- * stays put until the replay lands.
+ * Deliberately never throws: failures (network or status) are parked and
+ * answered `200`, so the caller's optimistic UI stays put until the replay
+ * lands.
  */
 
 import { enqueuePlayback } from "@/lib/offline/store";
@@ -22,36 +22,50 @@ export function queuedOffline(res: Response): boolean {
 }
 
 /**
- * POST `body` to `url`; on a network failure park it in the outbox and hand
- * back a synthetic 200 carrying `x-offline-queued: 1`.
+ * POST `body` to `url`; park it in the outbox whenever it does not land on
+ * the server (network failure OR non-OK status) and hand back a synthetic 200
+ * carrying `x-offline-queued: 1`.
+ *
+ * Non-OK used to fall through untouched: a 401/500 during an episode's
+ * auto-mark silently dropped the watched action. Parked entries are
+ * classified by the drain — permanent 4xx leave, everything else retries.
  *
  * The URL plus the serialized body is the coalesce key, so re-tapping the
  * same action offline replaces the pending copy rather than stacking a
  * duplicate, while two different episodes keep two entries.
  */
+function parkedResponse(): Response {
+  return new Response(JSON.stringify({ ok: true, offlineQueued: true }), {
+    status: 200,
+    headers: { "Content-Type": "application/json", "x-offline-queued": "1" },
+  });
+}
+
 export async function postJsonOffline(
   url: string,
   body: unknown
 ): Promise<Response> {
   const text = JSON.stringify(body);
-  try {
-    return await fetch(url, {
-      method: "POST",
-      headers: HEADERS,
-      body: text,
-      credentials: "same-origin",
-      keepalive: true,
-    });
-  } catch {
+  const park = async (): Promise<Response> => {
     await enqueuePlayback({
       params: `${url}|${text}`,
       method: "POST",
       body: text,
       url,
     });
-    return new Response(JSON.stringify({ ok: true, offlineQueued: true }), {
-      status: 200,
-      headers: { "Content-Type": "application/json", "x-offline-queued": "1" },
+    return parkedResponse();
+  };
+  try {
+    const res = await fetch(url, {
+      method: "POST",
+      headers: HEADERS,
+      body: text,
+      credentials: "same-origin",
+      keepalive: true,
     });
+    if (res.ok) return res;
+    return await park();
+  } catch {
+    return await park();
   }
 }

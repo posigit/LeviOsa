@@ -430,8 +430,18 @@ async function serveRange(cached, request) {
   try {
     const buf = await cached.arrayBuffer();
     const total = buf.byteLength;
-    let start = m[1] === "" ? Math.max(0, total - Number(m[2] || 0)) : Number(m[1]);
-    let end = m[2] === "" ? total - 1 : Number(m[2]);
+    let start;
+    let end;
+    if (m[1] === "") {
+      // Suffix form `bytes=-N`: m[2] is a LENGTH from the end, not an end
+      // offset — using it as one made every suffix request return 416
+      // (start=total-N > end=N for any file > 2N).
+      start = Math.max(0, total - Number(m[2] || 0));
+      end = total - 1;
+    } else {
+      start = Number(m[1]);
+      end = m[2] === "" ? total - 1 : Number(m[2]);
+    }
     if (!Number.isFinite(start) || !Number.isFinite(end) || start >= total) {
       return new Response(null, {
         status: 416,

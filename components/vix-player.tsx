@@ -736,11 +736,22 @@ export function VixPlayer({
       if (isPreSeekNoise(pos, resumePosRef.current)) return;
       // Offline: mirror to the local position store (server saves below
       // fail without connection). Throttled — timeupdate ticks constantly.
+      // Mirror the shared clear rules too: the final ticks after "ended"
+      // (and the 92%-finished zone) used to re-write the mirror right after
+      // clearPosition deleted it, leaving a resume-at-credits bookmark.
       if (offlineOverride && offlineKey) {
         const now = Date.now();
         if (force || now - offlinePosAtRef.current > 2000) {
           offlinePosAtRef.current = now;
-          writeOfflinePosition(offlineKey, pos, duration);
+          if (
+            endedRef.current ||
+            bookmarkClearedRef.current ||
+            isFinishedPosition(pos, duration)
+          ) {
+            clearOfflinePosition(offlineKey);
+          } else {
+            writeOfflinePosition(offlineKey, pos, duration);
+          }
         }
       }
       // Delegate to shared save rules (throttle, 92% clear, ordered queue).

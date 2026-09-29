@@ -1529,12 +1529,17 @@ async function runDownload(
     lastProgressAt = Date.now();
     const rendition = `${m.pickedVariant?.height ?? 0}:${m.parts.segments.length}:${m.audioParts?.segments.length ?? 0}`;
     if (rec.rendition && rec.rendition !== rendition) {
-      await deleteRecordFiles(rec);
+      // Persist the reset BEFORE deleting: a crash between the two used to
+      // leave the stored row claiming files that were already gone (a
+      // "done"/progress row pointing at nothing). Reset first, delete after.
+      const staleUrls = rec.fileUrls;
       fileUrls.clear();
       touched.clear();
       rec.bytesDone = 0;
       rec.doneSegments = 0;
       rec.fileUrls = [];
+      await upsertRecord(rec);
+      await deleteRecordFiles({ ...rec, fileUrls: staleUrls });
     }
     rec.rendition = rendition;
     rec.durationSec = m.parts.durationSec;
@@ -1960,7 +1965,11 @@ async function enforceQuota(rec: DownloadRecord, signal: AbortSignal): Promise<v
   // downloads go first, recently-used ones only as a last resort, and the
   // download being played right now is never a victim.
   if (need > 0) {
-    let used = usedBytes(all);
+    // Exclude this row's own footprint: `need` covers it in full, so
+    // counting bytesDone/sizeBytes again double-counted the running row
+    // (refused early and evicted more than necessary).
+    const own = rec.state === "done" ? rec.sizeBytes : Math.max(0, rec.bytesDone || 0);
+    let used = Math.max(0, usedBytes(all) - own);
     const now = Date.now();
     const done = all.filter(
       (r) => r.state === "done" && r.key !== rec.key && !isPlaybackInUse(r.key)
@@ -1970,6 +1979,16 @@ async function enforceQuota(rec: DownloadRecord, signal: AbortSignal): Promise<v
       ...done.filter((r) => now - r.lastUsedAt >= RECENT_USE_FLOOR_MS).sort(rank),
       ...done.filter((r) => now - r.lastUsedAt < RECENT_USE_FLOOR_MS).sort(rank),
     ];
+    const refuse = () =>
+      new Error(
+        `Needs ~${formatBytes(need)} — free space or raise the cap in Download settings.`
+      );
+    // Feasibility first: if the whole evictable library still can't hold
+    // this download, refuse BEFORE evicting. The old loop deleted every
+    // victim and only then threw — one oversized request destroyed the
+    // entire offline library just to learn "doesn't fit".
+    const freeable = victims.reduce((sum, v) => sum + v.sizeBytes, 0);
+    if (used - freeable + need > capBytes) throw refuse();
     for (const v of victims) {
       if (signal.aborted) throw abortError();
       if (used + need <= capBytes) break;
@@ -1977,11 +1996,7 @@ async function enforceQuota(rec: DownloadRecord, signal: AbortSignal): Promise<v
       await removeRecord(v.key);
       used -= v.sizeBytes;
     }
-    if (used + need > capBytes) {
-      throw new Error(
-        `Needs ~${formatBytes(need)} — free space or raise the cap in Download settings.`
-      );
-    }
+    if (used + need > capBytes) throw refuse();
   }
 
   // Device headroom (best-effort — the OS has the final word).

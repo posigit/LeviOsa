@@ -656,11 +656,26 @@ export function coalesceOutbox(
   return next.slice(-OUTBOX_MAX);
 }
 
+/**
+ * Serialize every outbox read-modify-write. Drain used to save its own
+ * (mutated) snapshot wholesale, so anything enqueued mid-drain — e.g. the
+ * watched-mark from an episode ending during a reconnect flush — was erased
+ * on save; two concurrent enqueues lost the same way.
+ */
+let outboxChain: Promise<unknown> = Promise.resolve();
+function withOutbox<T>(fn: () => Promise<T>): Promise<T> {
+  const run = outboxChain.then(fn, fn);
+  outboxChain = run.catch(() => undefined);
+  return run;
+}
+
 export async function enqueuePlayback(entry: Omit<OutboxEntry, "at" | "attempts">): Promise<void> {
-  const list = await loadOutbox();
-  await saveOutbox(
-    coalesceOutbox(list, { ...entry, at: Date.now(), attempts: 0 })
-  );
+  await withOutbox(async () => {
+    const list = await loadOutbox();
+    await saveOutbox(
+      coalesceOutbox(list, { ...entry, at: Date.now(), attempts: 0 })
+    );
+  });
 }
 
 /** Non-replayable statuses: replaying can never heal these. */
@@ -679,30 +694,40 @@ export async function drainPlaybackOutbox(): Promise<void> {
   if (draining || typeof window === "undefined") return;
   draining = true;
   try {
-    const list = await loadOutbox();
-    if (list.length === 0) return;
-    // Offline drains must not burn attempts — opening the app on a plane
-    // 20 times used to permanently discard every queued watched-mark.
-    if (typeof navigator !== "undefined" && !navigator.onLine) return;
-    for (const entry of list) {
-      if (typeof navigator !== "undefined" && !navigator.onLine) break;
-      try {
-        const res = await fetch(entry.url ?? `/api/playback?${entry.params}`, {
-          method: entry.method,
-          headers: { "Content-Type": "application/json" },
-          body: entry.body,
-          credentials: "same-origin",
-        });
-        if (res.ok || isPermanentFailure(res.status)) {
-          entry.attempts = OUTBOX_MAX_ATTEMPTS + 1; // mark for removal
-        } else {
-          entry.attempts += 1;
+    await withOutbox(async () => {
+      const list = await loadOutbox();
+      if (list.length === 0) return;
+      // Offline drains must not burn attempts — opening the app on a plane
+      // 20 times used to permanently discard every queued watched-mark.
+      if (typeof navigator !== "undefined" && !navigator.onLine) return;
+      for (const entry of list) {
+        if (typeof navigator !== "undefined" && !navigator.onLine) break;
+        try {
+          const res = await fetch(entry.url ?? `/api/playback?${entry.params}`, {
+            method: entry.method,
+            headers: { "Content-Type": "application/json" },
+            body: entry.body,
+            credentials: "same-origin",
+          });
+          if (res.ok || isPermanentFailure(res.status)) {
+            entry.attempts = OUTBOX_MAX_ATTEMPTS + 1; // mark for removal
+          } else if (
+            res.status >= 400 &&
+            res.status < 500 &&
+            res.status !== 408 &&
+            res.status !== 425 &&
+            res.status !== 429
+          ) {
+            entry.attempts += 1; // client rejection: bounded retries
+          }
+          // 5xx/429: server-side trouble — retry on the next drain without
+          // burning the budget (a flaky night used to discard the mark).
+        } catch {
+          // Network failure mid-flight: keep the entry untouched.
         }
-      } catch {
-        entry.attempts += 1;
       }
-    }
-    await saveOutbox(list.filter((e) => e.attempts < OUTBOX_MAX_ATTEMPTS));
+      await saveOutbox(list.filter((e) => e.attempts < OUTBOX_MAX_ATTEMPTS));
+    });
   } finally {
     draining = false;
   }
