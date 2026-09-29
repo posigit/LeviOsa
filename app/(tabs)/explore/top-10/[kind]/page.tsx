@@ -244,7 +244,7 @@ export default async function TopTenPage({
         })}
         {items.length === 0 && (
           <p className="py-16 text-center text-sm text-muted-foreground">
-            Chart is warming up — check back in a minute.
+            Chart is warming up. Check back in a minute.
           </p>
         )}
       </div>

@@ -80,7 +80,7 @@ export default async function YearPage({
           totalPages={data.totalPages}
           totalResults={data.totalResults}
           showYear={false}
-          emptyLabel={`Nothing ranked for ${year} yet — check back later.`}
+          emptyLabel={`Nothing ranked for ${year} yet. Check back later.`}
         />
 
         <Link

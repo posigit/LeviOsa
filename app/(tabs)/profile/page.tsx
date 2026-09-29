@@ -1452,7 +1452,7 @@ export default async function ProfilePage() {
           <PosterCarousel
             items={allShows}
             hrefPrefix="/show"
-            emptyLabel="No shows yet — explore to follow some"
+            emptyLabel="No shows yet. Explore to follow some."
           />
         </section>
 
@@ -1474,7 +1474,7 @@ export default async function ProfilePage() {
           <PosterCarousel
             items={allMoviesBadged}
             hrefPrefix="/movie"
-            emptyLabel="No movies yet — add some from Explore"
+            emptyLabel="No movies yet. Add some from Explore."
           />
         </section>
 

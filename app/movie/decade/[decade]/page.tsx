@@ -81,7 +81,7 @@ export default async function DecadePage({
           totalPages={data.totalPages}
           totalResults={data.totalResults}
           showYear
-          emptyLabel={`Nothing ranked for the ${start}s yet — check back later.`}
+          emptyLabel={`Nothing ranked for the ${start}s yet. Check back later.`}
         />
       </div>
     </div>

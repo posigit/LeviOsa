@@ -383,7 +383,7 @@ export default function LibraryPage() {
         )}
 
         <p className="pt-2 text-center text-xs leading-relaxed text-white/30">
-          Downloads live on this device only — they stay playable with no
+          Downloads live on this device only. They stay playable with no
           signal.
         </p>
       </div>
