@@ -421,3 +421,114 @@ html[data-theme="light"] .top-ten-rank-gold {
     drop-shadow(0 -1px 0 #fff)
     drop-shadow(0 10px 14px rgba(0, 0, 0, 0.6));
 }
+
+@keyframes splash-enter {
+  from {
+    opacity: 0;
+    transform: translateY(16px) scale(0.86);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes splash-float {
+  0%,
+  100% {
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    transform: translateY(-7px) scale(1.02);
+  }
+}
+
+@keyframes splash-leave {
+  to {
+    opacity: 0;
+    transform: translateY(-20px) scale(0.94);
+  }
+}
+
+@keyframes splash-shine {
+  0% {
+    transform: translateX(-150%) skewX(-18deg);
+  }
+  55%,
+  100% {
+    transform: translateX(360%) skewX(-18deg);
+  }
+}
+
+@keyframes splash-glow {
+  0%,
+  100% {
+    opacity: 0.55;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.splash-mark {
+  position: relative;
+  animation:
+    splash-enter 0.7s cubic-bezier(0.22, 1.15, 0.36, 1) both,
+    splash-float 2.4s ease-in-out 0.7s infinite;
+}
+
+.splash-mark.is-leaving {
+  animation: splash-leave 0.4s ease-out both;
+}
+
+.splash-mark .splash-logo {
+  position: relative;
+  z-index: 1;
+  display: block;
+}
+
+.splash-glow {
+  position: absolute;
+  inset: -35%;
+  z-index: 0;
+  background: radial-gradient(circle, rgba(233, 229, 210, 0.12), transparent 65%);
+  animation: splash-glow 2.4s ease-in-out infinite;
+}
+
+.splash-shine {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  overflow: hidden;
+  pointer-events: none;
+  -webkit-mask: url(/icons/icon-512x512.png) center / contain no-repeat;
+  mask: url(/icons/icon-512x512.png) center / contain no-repeat;
+}
+
+.splash-shine::after {
+  content: "";
+  position: absolute;
+  top: -25%;
+  bottom: -25%;
+  width: 42%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(233, 229, 210, 0.45) 50%,
+    transparent
+  );
+  transform: translateX(-150%) skewX(-18deg);
+  animation: splash-shine 2.6s ease-in-out 1s infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .splash-mark,
+  .splash-mark.is-leaving,
+  .splash-glow,
+  .splash-shine::after {
+    animation: none;
+  }
+  .splash-shine {
+    display: none;
+  }
+}

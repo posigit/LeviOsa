@@ -4,6 +4,7 @@ import "./globals.css";
 import { Providers } from "@/components/providers";
 import { OfflinePlayerHost } from "@/components/offline-player-host";
 import { DownloadDoneNotifier } from "@/components/download-row";
+import { AppSplash } from "@/components/app-splash";
 
 const geistSans = Geist({
   variable: "--font-sans",
@@ -59,6 +60,7 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-full min-h-dvh bg-background text-foreground">
+        <AppSplash />
         <Providers>
           <DownloadDoneNotifier />
           {children}
