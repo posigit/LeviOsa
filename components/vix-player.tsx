@@ -457,8 +457,8 @@ export function VixPlayer({
   }, [subSource]);
   /** Externally injected VTT tracks (VDRK / OpenSubtitles) so we can hide them. */
   const injectedTracksRef = useRef<TextTrack[]>([]);
-  /** Offline playback: stored VTT already injected (inject once per mount). */
-  const offlineSubInjectedRef = useRef(false);
+  /** Offline playback: the <video> the stored VTT was injected into. */
+  const offlineSubInjectedRef = useRef<HTMLVideoElement | null>(null);
   /** Last fetched external VTT — re-used when adjusting sync delay (no re-fetch). */
   const externalVttRef = useRef<{ vtt: string; label: string } | null>(null);
   /** Set by the native effect; lets the picker re-run subtitle loading. */
@@ -1907,11 +1907,17 @@ export function VixPlayer({
   useEffect(() => {
     if (!offlineOverride || !initialSubVtt) return;
     if (mode !== "native" || !videoRef.current) return;
-    if (offlineSubInjectedRef.current) return;
-    offlineSubInjectedRef.current = true;
+    const video = videoRef.current;
+    // Guard on the ELEMENT, not a boolean: mode switches (native → iframe →
+    // native) and reloads remount the <video>, and the tracks die with the
+    // old element — a one-shot flag left the re-mount with no subs.
+    if (offlineSubInjectedRef.current === video) return;
+    // Anything still recorded pointed at the dead element: drop it.
+    if (offlineSubInjectedRef.current !== null) injectedTracksRef.current = [];
+    offlineSubInjectedRef.current = video;
     const delay = loadVixSettings().subDelaySeconds;
     const tr = injectVttTrack(
-      videoRef.current,
+      video,
       initialSubVtt.vtt,
       initialSubVtt.label,
       true,
