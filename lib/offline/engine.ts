@@ -1602,10 +1602,19 @@ async function runDownload(
       m.parts.segments.length +
       (m.audioParts?.segments.length ?? 0) +
       (m.subParts?.segments.length ?? 0);
-    rec.estimateBytes = estimateBytes(m.bandwidth, m.parts.durationSec);
-    // Single-variant playlists hide bandwidth (0): the estimate is a quality
-    // guess and drifts (e.g. vidsrc-sh). Refined from measured bytes once
-    // enough segments land (see reportProgress); real estimates stay.
+    // Single-variant playlists hide bandwidth (0): estimateBytes() returns 0
+    // for those, and the refinement block in reportProgress requires
+    // estimateBytes > 0 — so the guess never refined itself and enforceQuota
+    // lived on full-bitrate math (over-eviction). Seed the hidden-bandwidth
+    // case with the same quality × duration fallback quota already uses.
+    rec.estimateBytes =
+      estimateBytes(m.bandwidth, m.parts.durationSec) ||
+      (m.parts.durationSec > 0
+        ? Math.round((fallbackBitrateBps(rec.quality) * m.parts.durationSec) / 8)
+        : 0);
+    // A zero estimate can never refine itself; real (bandwidth-known)
+    // estimates stay untouched and only drift-prone guesses are refined
+    // from measured bytes once enough segments land (see reportProgress).
     refineEstimate = m.bandwidth <= 0;
     await upsertRecord(rec);
 
