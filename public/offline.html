@@ -291,10 +291,6 @@
       </div>
 
       <h1>You&rsquo;re offline</h1>
-      <p class="sub">
-        This page needs a connection. Your saved downloads don&rsquo;t — they
-        play straight from this device.
-      </p>
 
       <span class="chip" id="chip">
         <span class="dot" aria-hidden="true"></span>
@@ -433,7 +429,7 @@
         var status = document.getElementById("status");
         status.classList.add("back");
         document.getElementById("statusText").textContent =
-          "Back online — reloading…";
+          "Back online. Reloading…";
         setTimeout(function () {
           location.reload();
         }, 600);
