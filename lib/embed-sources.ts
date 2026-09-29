@@ -183,6 +183,19 @@ export function isEmbedPlayerOrigin(origin: string): boolean {
   }
 }
 
+// Log a rejected iframe origin once per page load (not per message — spam).
+let loggedRejectedOrigin = false;
+
+export function warnOnceRejectedPlayerEvent(origin: string): void {
+  if (loggedRejectedOrigin) return;
+  loggedRejectedOrigin = true;
+  console.warn(
+    "[player] PLAYER_EVENT from origin",
+    origin,
+    "ignored (expected registered embed source)"
+  );
+}
+
 /** Build an embed URL for a source key (null when not an embed source or
  *  the source has no URL for this media shape — e.g. movie-only embeds). */
 export function embedUrlFor(

@@ -49,6 +49,8 @@ then committed separately.
 | `lib/player-error-copy.ts` | `StreamErrorInfo` type + `streamErrorCopy(offline, error)` |
 | `components/embed-hint.tsx` | `EmbedHint` |
 | `components/player-error-overlay.tsx` | error-card JSX (Retry / Close / Try-next buttons) |
+| `components/player-overlays.tsx` | `UnlockButton`, `TapCue`, `LoadingPill`, `BufferingSpinner` |
+| `lib/embed-sources.ts` (addition) | `warnOnceRejectedPlayerEvent()` — once-per-page rejected-origin log |
 
 Placement follows existing conventions: player logic in flat `lib/player-*.ts`, UI in flat
 `components/*.tsx`.
@@ -69,13 +71,24 @@ Placement follows existing conventions: player logic in flat `lib/player-*.ts`, 
   - Error overlay: Close renders when `!canRetry`, Try-next when
     `streamable && !offlineOverride` — identical to the inlined JSX.
 
+### Batch B — render overlays + rejected-origin flag (verified ✅)
+- Moved: lock button, tap cue (+10/−10), loading pill, rebuffer spinner →
+  `components/player-overlays.tsx`; `loggedRejectedOrigin` →
+  `warnOnceRejectedPlayerEvent()` in `lib/embed-sources.ts` (next to
+  `isEmbedPlayerOrigin`).
+- Result: `vix-player.tsx` **3,927 → 3,900 lines (−27)**; total 4,171 → 3,900 (−271).
+- Verified green: `tsc --noEmit`, `eslint` (0 errors / 21 baseline warnings),
+  `test:offline`, `test:player`, `build`.
+- Behavior notes:
+  - Rebuffer-spinner z-index rationale comment moved into the component doc.
+  - `LoaderCircle`/`Lock` lucide imports removed from `vix-player.tsx` (still used by
+    the new overlays file; `SkipForward` stays).
+
 ## Remaining candidates (next batches)
 
-1. `loggedRejectedOrigin` → tiny module flag (postMessage effect, ~3233).
-2. postMessage normalizers (3071–3485, ~415 lines) → `lib/player-embed-bus.ts` handlers.
-3. Resume/position machinery (718–1400) → `usePositionSaver` hook — highest care: hold/abort
+1. postMessage normalizers (≈3071–3485, ~415 lines) → `lib/player-embed-bus.ts` handlers;
+   big refactor — the effect closes over ~30 refs/callbacks, needs a context object.
+2. Resume/position machinery (718–1400) → `usePositionSaver` hook — highest care: hold/abort
    semantics documented at 1174–1250 are load-bearing.
-4. Cast block (2833–3071) → `useCastRemote` hook (state + poll + 4 callbacks).
-5. Render subtrees: loading pill, rebuffer spinner, tap cue, lock button →
-   `components/player-overlays.tsx`.
-6. Gesture handlers (2620–2713) → `useVolumeBrightnessGestures`.
+3. Cast block (2833–3071) → `useCastRemote` hook (state + poll + 4 callbacks).
+4. Gesture handlers (2620–2713) → `useVolumeBrightnessGestures`.

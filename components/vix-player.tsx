@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import type { ReactNode } from "react";
-import { LoaderCircle, Lock, SkipForward } from "lucide-react";
+import { SkipForward } from "lucide-react";
 import {
   parseVixPlayerEventData,
 } from "@/lib/vixsrc";
@@ -27,9 +27,16 @@ import {
   sourceLabel,
   withCineSrcQuality,
   withCineSrcServer,
+  warnOnceRejectedPlayerEvent,
 } from "@/lib/embed-sources";
 import { EmbedHint } from "@/components/embed-hint";
 import { PlayerErrorOverlay } from "@/components/player-error-overlay";
+import {
+  BufferingSpinner,
+  LoadingPill,
+  TapCue,
+  UnlockButton,
+} from "@/components/player-overlays";
 import { ResumeOverlay } from "@/components/resume-overlay";
 import { DownloadButton } from "@/components/download-button";
 import {
@@ -98,9 +105,6 @@ import {
   readSessionLocked,
   writeSessionLocked,
 } from "@/lib/player-session-lock";
-
-// Log a rejected iframe origin once per page load (not per message — spam).
-let loggedRejectedOrigin = false;
 
 /**
  * Full-screen VixSrc player overlay.
@@ -3156,14 +3160,7 @@ export function VixPlayer({
       // Nested player frames post from inner windows, so trust any registered
       // embed player origin instead of requiring the exact embed frame/source.
       if (!isEmbedPlayerOrigin(e.origin)) {
-        if (isPlayerEvent && !loggedRejectedOrigin) {
-          loggedRejectedOrigin = true;
-          console.warn(
-            "[player] PLAYER_EVENT from origin",
-            e.origin,
-            "ignored (expected registered embed source)"
-          );
-        }
+        if (isPlayerEvent) warnOnceRejectedPlayerEvent(e.origin);
         return;
       }
       // VidFast enriches PLAYER_EVENT payloads with live state
@@ -3978,61 +3975,36 @@ export function VixPlayer({
       )}
 
       {locked && (
-        <button
-          type="button"
-          onClick={() => {
+        <UnlockButton
+          onUnlock={() => {
             navigator.vibrate?.(10);
             setLockedPersisted(false);
             setChromeVisible(true);
           }}
-          aria-label="Unlock player controls"
-          className="absolute right-4 top-4 z-40 flex h-9 w-9 items-center justify-center rounded-full bg-black/60 text-white ring-1 ring-white/20 backdrop-blur transition hover:bg-black/80"
-        >
-          <Lock className="h-5 w-5" />
-        </button>
+        />
       )}
 
       {mode === "iframe" && !locked && !isDrivenEmbed && <EmbedHint />}
 
       {(mode === "native" || isDrivenEmbed) && tapCue && (
-        <div
-          role="status"
-          aria-label={tapCue.side === "right" ? "Skipped forward 10 seconds" : "Skipped back 10 seconds"}
-          className={`pointer-events-none absolute inset-y-0 z-40 flex items-center ${
-            tapCue.side === "right" ? "justify-end pr-6" : "justify-start pl-6"
-          }`}
-        >
-          <span className="flex h-11 w-11 items-center justify-center rounded-full bg-black/70 text-lg font-bold text-white backdrop-blur">
-            {tapCue.side === "right" ? "+10" : "−10"}
-          </span>
-        </div>
+        <TapCue side={tapCue.side} />
       )}
 
       {isLoading && (
-        <div className="pointer-events-none absolute inset-0 z-[5] flex items-center justify-center text-white/70">
-          <div className="flex items-center gap-2 rounded-full bg-black/60 px-4 py-2 text-xs font-semibold backdrop-blur">
-            <LoaderCircle className="h-4 w-4 animate-spin" />
-            {offlineOverride
+        <LoadingPill
+          label={
+            offlineOverride
               ? "Starting…"
-              : `Loading ${sourceLabel(activeSource)}…`}
-          </div>
-        </div>
+              : `Loading ${sourceLabel(activeSource)}…`
+          }
+        />
       )}
 
-      {/* Rebuffer spinner only once playback has started — centered above the
-          picture, never over the Play control (it sits at z-30 vs the
-          transport's z-20, so a spinner while paused would swallow the tap). */}
       {mode === "native" &&
         buffering &&
         mediaReady &&
         !showResume &&
-        !transport.paused && (
-        <div className="pointer-events-none absolute inset-0 z-30 flex items-center justify-center">
-          <span className="flex h-11 w-11 items-center justify-center rounded-full bg-black/60 backdrop-blur">
-            <LoaderCircle className="h-5 w-5 animate-spin text-white/85" />
-          </span>
-        </div>
-      )}
+        !transport.paused && <BufferingSpinner />}
 
       {hasError && (
         <PlayerErrorOverlay
