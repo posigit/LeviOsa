@@ -149,6 +149,9 @@ function EmbedHint() {
     </p>
   );
 }
+/** Position payload attached to player events (seeked / ended / near-end). */
+type PlayerEventPos = { t?: number; duration?: number };
+
 export function VixPlayer({
   src,
   title,
@@ -172,10 +175,10 @@ export function VixPlayer({
 }: {
   src: string;
   title: string;
-  onEvent?: (event: string) => void;
+  onEvent?: (event: string, detail?: PlayerEventPos) => void;
   onClose: () => void;
   /** Fires once when playback reaches ~96% (sticky Next FAB gate). */
-  onNearEnd?: () => void;
+  onNearEnd?: (pos?: PlayerEventPos) => void;
   type?: "movie" | "tv";
   tmdbId?: number;
   season?: number;
@@ -712,12 +715,12 @@ export function VixPlayer({
     };
   }, []);
 
-  const emit = useCallback((event: string) => {
+  const emit = useCallback((event: string, detail?: PlayerEventPos) => {
     if (event === "ended") {
       if (endedRef.current) return;
       endedRef.current = true;
     }
-    onEventRef.current?.(event);
+    onEventRef.current?.(event, detail);
   }, []);
 
   // ---------- resume playback ----------
@@ -2024,7 +2027,7 @@ export function VixPlayer({
       if (chromeHideTimerRef.current) clearTimeout(chromeHideTimerRef.current);
     };
     const onSeeked = () => {
-      emit("seeked");
+      emit("seeked", { t: video.currentTime, duration: video.duration });
       // A manual scrub during the resume hold means the user wants to watch
       // from where they dragged — release the hold and drop the overlay so
       // their seek wins (was: the hold re-paused and froze the timer).
@@ -2053,9 +2056,9 @@ export function VixPlayer({
     const onEnded = () => {
       if (!nearEndFiredRef.current) {
         nearEndFiredRef.current = true;
-        onNearEndRef.current?.();
+        onNearEndRef.current?.({ t: video.currentTime, duration: video.duration });
       }
-      emit("ended");
+      emit("ended", { t: video.currentTime, duration: video.duration });
       clearPosition();
       syncTransport();
     };
@@ -2080,10 +2083,10 @@ export function VixPlayer({
           : isNearEndPosition(t, dur, NEXT_FAB_RATIO))
       ) {
         nearEndFiredRef.current = true;
-        onNearEndRef.current?.();
+        onNearEndRef.current?.({ t, duration: dur });
       }
       if (!endedRef.current && shouldFireEnded(t, dur, outroStartNative)) {
-        emit("ended");
+        emit("ended", { t, duration: dur });
         clearPosition();
       }
     };
@@ -3296,7 +3299,10 @@ export function VixPlayer({
 
       const d = parseVixPlayerEventData(data);
       if (!d) return;
-      emit(d.event);
+      emit(d.event, {
+        t: typeof d.currentTime === "number" ? d.currentTime : undefined,
+        duration: typeof d.duration === "number" ? d.duration : undefined,
+      });
 
       if (typeof d.currentTime === "number") {
         remotePositionRef.current = d.currentTime;
@@ -3388,7 +3394,10 @@ export function VixPlayer({
       if (d.event === "ended") {
         if (!nearEndFiredRef.current) {
           nearEndFiredRef.current = true;
-          onNearEndRef.current?.();
+          onNearEndRef.current?.({
+            t: remotePositionRef.current,
+            duration: remoteDurationRef.current,
+          });
         }
         clearPosition();
         return;
@@ -3408,7 +3417,10 @@ export function VixPlayer({
             ))
       ) {
         nearEndFiredRef.current = true;
-        onNearEndRef.current?.();
+        onNearEndRef.current?.({
+          t: remotePositionRef.current,
+          duration: remoteDurationRef.current,
+        });
       }
 
       // Auto-complete at the outro start when known, else ~92% (a vixsrc
@@ -3423,7 +3435,10 @@ export function VixPlayer({
           outroStartEmbed
         )
       ) {
-        emit("ended");
+        emit("ended", {
+          t: remotePositionRef.current,
+          duration: remoteDurationRef.current,
+        });
         clearPosition();
         // Skip the resume-bookmark logic below; the item is now complete.
         return;

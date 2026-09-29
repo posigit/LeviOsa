@@ -57,6 +57,12 @@ export function OfflinePlayerHost() {
   const [upNext, setUpNext] = useState<DownloadRecord | null>(null);
   /** 10 → 1 auto-advance countdown; 0 = autoplay off (tap-to-play card). */
   const [upNextCount, setUpNextCount] = useState(0);
+  /** True while the player reports paused — freezes the Up Next countdown. */
+  const [playerPaused, setPlayerPaused] = useState(false);
+  /** Where the card appeared — a scrub ≥30s behind it cancels auto-advance. */
+  const upNextTriggerRef = useRef<number | null>(null);
+  /** Pause events after "ended" (some embeds send one) must not freeze it. */
+  const sawEndedRef = useRef(false);
   /** Bumped on every open/close — an in-flight verify can't close a newer player. */
   const openIdRef = useRef(0);
 
@@ -71,6 +77,9 @@ export function OfflinePlayerHost() {
     setStoredAlts(null);
     setUpNext(null);
     setUpNextCount(0);
+    setPlayerPaused(false);
+    upNextTriggerRef.current = null;
+    sawEndedRef.current = false;
   }, []);
 
   const open = useCallback(
@@ -158,8 +167,33 @@ export function OfflinePlayerHost() {
    * reached /api/watch at all.)
    */
   const handlePlayerEvent = useCallback(
-    (event: string) => {
+    (event: string, detail?: { t?: number; duration?: number }) => {
+      if (event === "play") {
+        sawEndedRef.current = false;
+        setPlayerPaused(false);
+        return;
+      }
+      if (event === "pause") {
+        // Ignore a pause that arrives after the episode finished — some
+        // embeds emit one at their end screen; it must not freeze the count.
+        if (!sawEndedRef.current) setPlayerPaused(true);
+        return;
+      }
+      if (
+        event === "seeked" &&
+        upNext != null &&
+        upNextTriggerRef.current != null &&
+        detail?.t != null &&
+        detail.t < upNextTriggerRef.current - 30
+      ) {
+        // Scrubbed back out of the outro — the user is still watching.
+        setUpNext(null);
+        setUpNextCount(0);
+        upNextTriggerRef.current = null;
+        return;
+      }
       if (event !== "ended" || !meta) return;
+      sawEndedRef.current = true;
       const m = meta;
       void (async () => {
         try {
@@ -185,21 +219,28 @@ export function OfflinePlayerHost() {
         }
       })();
     },
-    [meta, toast]
+    [meta, toast, upNext]
   );
 
   /** Near-end: queue the next downloaded episode of this show (movies: none). */
-  const handleNearEnd = useCallback(() => {
-    const key = req?.key;
-    if (!key) return;
-    const current = getAllSync().find((r) => r.key === key);
-    if (!current) return;
-    const next = nextDownloadedEpisode(getAllSync(), current);
-    // No later finished download: stay on the current ending, no card.
-    if (!next) return;
-    setUpNext(next);
-    setUpNextCount(loadVixSettings().autoplayNext ? 10 : 0);
-  }, [req]);
+  const handleNearEnd = useCallback(
+    (pos?: { t?: number; duration?: number }) => {
+      const key = req?.key;
+      if (!key) return;
+      const current = getAllSync().find((r) => r.key === key);
+      if (!current) return;
+      const next = nextDownloadedEpisode(getAllSync(), current);
+      // No later finished download: stay on the current ending, no card.
+      if (!next) return;
+      // Remember where the card appeared: a scrub ≥30s behind this point
+      // cancels auto-advance (the player only reports the post-seek position).
+      upNextTriggerRef.current =
+        pos?.t ?? pos?.duration ?? current.durationSec ?? null;
+      setUpNext(next);
+      setUpNextCount(loadVixSettings().autoplayNext ? 10 : 0);
+    },
+    [req]
+  );
 
   const playUpNext = useCallback(() => {
     if (!upNext) return;
@@ -208,8 +249,10 @@ export function OfflinePlayerHost() {
 
   // Count the card down; at 0 swap onto the next download. autoplayNext off
   // seeds 0, so the card sits there tap-to-play instead of advancing.
+  // Frozen while the player is paused — a countdown that keeps ticking behind
+  // a paused video would advance against the user's intent.
   useEffect(() => {
-    if (!upNext || !req || upNextCount <= 0) return;
+    if (!upNext || !req || upNextCount <= 0 || playerPaused) return;
     const t = window.setTimeout(() => {
       if (upNextCount <= 1) {
         playUpNext();
@@ -218,7 +261,7 @@ export function OfflinePlayerHost() {
       }
     }, 1000);
     return () => window.clearTimeout(t);
-  }, [upNext, req, upNextCount, playUpNext]);
+  }, [upNext, req, upNextCount, playUpNext, playerPaused]);
 
   if (!req || !meta) return null;
 

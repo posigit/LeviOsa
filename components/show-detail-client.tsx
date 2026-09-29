@@ -190,6 +190,12 @@ export function ShowDetailClient({
   /** Next episode queued after the current one ends (autoplay countdown). */
   const [upNext, setUpNext] = useState<DetailEpisode | null>(null);
   const [upNextCount, setUpNextCount] = useState(0);
+  /** True while the player reports paused — freezes the Up Next countdown. */
+  const [playerPaused, setPlayerPaused] = useState(false);
+  /** Where the card appeared (the ending) — a scrub ≥30s behind cancels it. */
+  const upNextTriggerRef = useRef<number | null>(null);
+  /** Pause events after "ended" (some embeds send one) must not freeze it. */
+  const sawEndedRef = useRef(false);
   /**
    * Stashed next ep after the user cancels Up Next. The glass Next FAB only
    * appears once playback hits ~96% (see nearEnd) — cancel alone does not
@@ -531,14 +537,44 @@ export function ShowDetailClient({
     setNearEnd(false);
     setUpNext(null);
     setUpNextCount(0);
+    setPlayerPaused(false);
+    upNextTriggerRef.current = null;
+    sawEndedRef.current = false;
   };
 
   /**
    * Streaming events from VixSrc. On "ended": mark the episode watched,
    * then auto-advance to the next unwatched aired episode (seamless binge).
    */
-  const handlePlayerEvent = async (event: string) => {
+  const handlePlayerEvent = async (
+    event: string,
+    detail?: { t?: number; duration?: number }
+  ) => {
+    if (event === "play") {
+      sawEndedRef.current = false;
+      setPlayerPaused(false);
+      return;
+    }
+    if (event === "pause") {
+      // Ignore a pause after the episode finished — some embeds emit one at
+      // their end screen; it must not freeze the countdown.
+      if (!sawEndedRef.current) setPlayerPaused(true);
+      return;
+    }
+    if (
+      event === "seeked" &&
+      upNext != null &&
+      upNextTriggerRef.current != null &&
+      detail?.t != null &&
+      detail.t < upNextTriggerRef.current - 30
+    ) {
+      // Scrubbed back from the ending — the user is still watching.
+      cancelUpNext();
+      return;
+    }
     if (event !== "ended" || !playerEp) return;
+    sawEndedRef.current = true;
+    upNextTriggerRef.current = detail?.t ?? detail?.duration ?? null;
     const session = playerSessionRef.current;
     const endedEpisode = playerEp;
     const alreadyWatched = isWatched(endedEpisode);
@@ -599,6 +635,11 @@ export function ShowDetailClient({
     setManualNext(null);
     setNearEnd(false);
     setSeriesEnded(false);
+    // Fresh episode: pause events matter again, and no old ending may keep
+    // the next countdown frozen (or unfreezable).
+    setPlayerPaused(false);
+    upNextTriggerRef.current = null;
+    sawEndedRef.current = false;
   }, [upNext, manualNext]);
 
   /**
@@ -615,9 +656,10 @@ export function ShowDetailClient({
   // upNextCount === 0 means autoplay is off — card stays, no timer.
   // Auto-fire happens in the timeout callback (event context), never in the
   // render phase. Bail if the player was closed mid-countdown (playerEp gone) —
-  // never reopen an episode the user dismissed.
+  // never reopen an episode the user dismissed. Frozen while paused: a count
+  // ticking behind a paused video would advance against the user's intent.
   useEffect(() => {
-    if (!upNext || !playerEp || upNextCount <= 0) return;
+    if (!upNext || !playerEp || upNextCount <= 0 || playerPaused) return;
     const t = window.setTimeout(() => {
       if (upNextCount <= 1) {
         playUpNext();
@@ -626,7 +668,7 @@ export function ShowDetailClient({
       }
     }, 1000);
     return () => window.clearTimeout(t);
-  }, [upNext, upNextCount, playerEp, playUpNext]);
+  }, [upNext, upNextCount, playerEp, playUpNext, playerPaused]);
 
   const confirmRewatch = async () => {
     if (rewatchSeason === null) return;
@@ -1855,6 +1897,9 @@ export function ShowDetailClient({
             setNearEnd(false);
             setUpNext(null);
             setUpNextCount(0);
+            setPlayerPaused(false);
+            upNextTriggerRef.current = null;
+            sawEndedRef.current = false;
             // Re-fetch playback server state so resume labels reflect saves.
             router.refresh();
           }}
