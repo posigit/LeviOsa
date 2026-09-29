@@ -400,8 +400,9 @@ export function parseMediaPlaylist(text: string, baseUrl: string): MediaParts {
     } else if (line.startsWith("#EXTINF:")) {
       durationSec += Number(line.slice(8).split(",")[0]) || 0;
       expectSegment = true;
-      pendingRange = null;
-    } else if (expectSegment && line.startsWith("#EXT-X-BYTERANGE")) {
+      // A BYTERANGE may legally precede EXTINF — keep a pending range.
+    } else if (line.startsWith("#EXT-X-BYTERANGE")) {
+      // Legal before or after EXTINF; either way it applies to the next URI.
       const spec = line.slice("#EXT-X-BYTERANGE:".length).trim();
       const parsed = parseByteRangeSpec(spec, prevRangeEnd);
       if (parsed) {
@@ -494,11 +495,12 @@ export function rewritePlaylistForOffline(
     }
     if (line.startsWith("#EXTINF:")) {
       expectSegment = true;
-      pendingRange = null;
+      // A BYTERANGE may legally precede EXTINF — keep a pending range.
       out.push(rawLine);
       continue;
     }
-    if (expectSegment && line.startsWith("#EXT-X-BYTERANGE")) {
+    if (line.startsWith("#EXT-X-BYTERANGE")) {
+      // Legal before or after EXTINF; either way it applies to the next URI.
       const parsed = parseByteRangeSpec(
         line.slice("#EXT-X-BYTERANGE:".length).trim(),
         prevRangeEnd
@@ -595,7 +597,10 @@ export function rewritePlaylistToIndexUrls(
       out.push(rawLine);
       continue;
     }
-    if (expectSegment && line.startsWith("#EXT-X-BYTERANGE")) continue;
+    // Dropped in either order: segments map by position and the stored slice
+    // is whole — an un-dropped tag (before EXTINF) would hand the player a
+    // range against an index URL and corrupt playback.
+    if (line.startsWith("#EXT-X-BYTERANGE")) continue;
     if (expectSegment && line.startsWith("#")) {
       out.push(rawLine);
       continue;
