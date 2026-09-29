@@ -51,6 +51,7 @@ then committed separately.
 | `components/player-error-overlay.tsx` | error-card JSX (Retry / Close / Try-next buttons) |
 | `components/player-overlays.tsx` | `UnlockButton`, `TapCue`, `LoadingPill`, `BufferingSpinner` |
 | `lib/embed-sources.ts` (addition) | `warnOnceRejectedPlayerEvent()` — once-per-page rejected-origin log |
+| `lib/player-cast.ts` | `useCastRemote()` hook: cast state, SDK load, poll, start/stop, `castPlayPause`/`castSeekBy`/`endCastForNewMedia`, shared remote handle |
 
 Placement follows existing conventions: player logic in flat `lib/player-*.ts`, UI in flat
 `components/*.tsx`.
@@ -84,11 +85,30 @@ Placement follows existing conventions: player logic in flat `lib/player-*.ts`, 
   - `LoaderCircle`/`Lock` lucide imports removed from `vix-player.tsx` (still used by
     the new overlays file; `SkipForward` stays).
 
+### Batch C — cast block → `useCastRemote` hook (verified ✅)
+- Moved: cast state + mirror, shared remote ref, SDK-load effect, poll control,
+  `startCast`/`stopCast`/`castPlayPause`/`castSeekBy`, switchSource teardown
+  (`endCastForNewMedia`), unmount cleanup → `lib/player-cast.ts` (275 lines).
+- Result: `vix-player.tsx` **3,900 → 3,686 lines (−214)**; total 4,171 → 3,686 (−485).
+- Verified green: `tsc --noEmit`, `eslint` (**0 errors / 16 warnings — below the 21
+  baseline**), `test:offline`, `test:player`, `build`.
+- Behavior notes:
+  - Hook params (`videoRef`, `remotePositionRef`, `setTransport`) and the returned
+    bindings are in dep arrays now — added only where the value is stable
+    (ref objects, setState, `useCallback([])`), so re-run timing is unchanged.
+  - `getCastRemote`/`endCastForNewMedia` are `useCallback([])` (were plain closures).
+  - Unmount cleanup consolidated: hook clears poll + remote handle (was spread over
+    the lifecycle effect + a standalone effect).
+  - Media Session effect stays in `vix-player` — it mixes cast with driven-embed and
+    native paths; it only borrows `castingRef`/`getCastRemote` from the hook.
+- Incident: a PowerShell splice read the file with ANSI encoding and double-encoded
+  107 em-dashes; restored from HEAD and re-applied with `-Encoding UTF8`.
+  Rule: any PowerShell read of source files MUST pass `-Encoding UTF8`.
+
 ## Remaining candidates (next batches)
 
 1. postMessage normalizers (≈3071–3485, ~415 lines) → `lib/player-embed-bus.ts` handlers;
    big refactor — the effect closes over ~30 refs/callbacks, needs a context object.
 2. Resume/position machinery (718–1400) → `usePositionSaver` hook — highest care: hold/abort
    semantics documented at 1174–1250 are load-bearing.
-3. Cast block (2833–3071) → `useCastRemote` hook (state + poll + 4 callbacks).
-4. Gesture handlers (2620–2713) → `useVolumeBrightnessGestures`.
+3. Gesture handlers (2620–2713) → `useVolumeBrightnessGestures`.

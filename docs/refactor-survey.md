@@ -7,7 +7,7 @@ Status: `pending` / `in progress` / `done` (link the commit when done).
 
 | Lines | File | Problem / direction | Status |
 |---:|---|---|---|
-| 4,171 → 3,900 | `components/vix-player.tsx` | One `VixPlayer` function from :155 to EOF (~4,000 lines). Extract pure helpers → `lib/player-*.ts`, overlays → `components/*`, later: hooks for resume/cast/subtitles/source-cascade | in progress (Batches A+B done) → see `docs/vix-player-refactor.md` |
+| 4,171 → 3,686 | `components/vix-player.tsx` | One `VixPlayer` function from :155 to EOF (~4,000 lines). Extract pure helpers → `lib/player-*.ts`, overlays → `components/*`, later: hooks for resume/cast/subtitles/source-cascade | in progress (Batches A–C done) → see `docs/vix-player-refactor.md` |
 | 2,097 | `lib/offline/engine.ts` | Retry policy, queue pump, auto-resume timers, cache-chain, poster lookup in one module → split into 4–5 files | pending |
 | 1,919 | `components/show-detail-client.tsx` | Single component from :118 (~1,790 lines) — episode rows, season rails, download buttons → separate components | pending |
 | 1,496 | `app/(tabs)/profile/page.tsx` | Lists / history / stats / settings sections → own components + data loader | pending |

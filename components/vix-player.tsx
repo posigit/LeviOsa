@@ -54,10 +54,6 @@ import {
   NEXT_FAB_RATIO,
   RESUME_MIN_SECONDS,
 } from "@/lib/player-constants";
-import type {
-  CastPlayerControllerLike,
-  CastRemotePlayerLike,
-} from "@/lib/cast-types";
   import {
     addStartAt,
     isFinishedPosition,
@@ -85,6 +81,7 @@ import {
   type VttCue,
 } from "@/lib/player-subs";
 import { attachNativePlayback } from "@/lib/player-engine";
+import { useCastRemote } from "@/lib/player-cast";
 import { resolveStreamPlaylist } from "@/lib/player-stream";
 import { seekVideoElement } from "@/lib/player-seek";
 import type {
@@ -339,14 +336,6 @@ export function VixPlayer({
     () => loadVixSettings().ambilight !== false
   );
   const ambilightCanvasRef = useRef<HTMLCanvasElement>(null);
-  /** Chromecast: framework ready + active session. Native mode only. */
-  const [castReady, setCastReady] = useState(false);
-  const [casting, setCasting] = useState(false);
-  const castingRef = useRef(false);
-  const castPollRef = useRef<ReturnType<typeof setInterval> | null>(null);
-  useEffect(() => {
-    castingRef.current = casting;
-  }, [casting]);
   const [videoFit, setVideoFit] = useState<VixSettings["videoFit"]>(
     () => loadVixSettings().videoFit
   );
@@ -509,11 +498,6 @@ export function VixPlayer({
   const singleTapTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   /** Latest gesture volume, persisted once on touch end (not per move). */
   const gestureDirtyVolume = useRef<number | null>(null);
-  /** Shared Cast receiver handle — one RemotePlayer per mount, never per call. */
-  const castRemoteRef = useRef<{
-    remote: CastRemotePlayerLike;
-    controller: CastPlayerControllerLike;
-  } | null>(null);
   /** Show-speed already applied for a show key (guards the memory effect). */
   const appliedShowSpeedRef = useRef<string | null>(null);
   /** Last lockscreen position push (throttles MediaSession IPC). */
@@ -629,7 +613,7 @@ export function VixPlayer({
   }, [src, initialSegments]);
 
   // Single mount lifecycle: lock handoff across episode-advance remounts +
-  // full teardown on real unmount (timers, audio graph, cast poll). The lock
+  // full teardown on real unmount (timers, audio graph). The lock
   // clear is deferred one macrotask so a synchronous advance-remount can
   // cancel it; a genuine unmount (navigate away) lets it fire.
   useEffect(() => {
@@ -659,11 +643,6 @@ export function VixPlayer({
         window.clearTimeout(safariTimerRef.current);
         safariTimerRef.current = null;
       }
-      if (castPollRef.current) {
-        clearInterval(castPollRef.current);
-        castPollRef.current = null;
-      }
-      castRemoteRef.current = null;
       destroyAudioGraph(audioGraphRef);
       endLockMount();
     };
@@ -953,6 +932,26 @@ export function VixPlayer({
       }, 3200);
     }
   }, [locked, subMenuOpen, audioMenuOpen, qualityMenuOpen, serverMenuOpen, moreMenuOpen]);
+
+  const {
+    castReady,
+    casting,
+    castingRef,
+    getCastRemote,
+    startCast,
+    stopCast,
+    castPlayPause,
+    castSeekBy,
+    endCastForNewMedia,
+  } = useCastRemote({
+    mode,
+    playlistUrl,
+    title,
+    bumpChrome,
+    videoRef,
+    remotePositionRef,
+    setTransport,
+  });
 
   /** Double-tap ±10s; single tap toggles custom chrome (no native controls). */
   const handleTap = useCallback(
@@ -1358,16 +1357,7 @@ export function VixPlayer({
     saveVixSettings({ preferredSource: next });
     setActiveSource(next);
     // Casting follows the old media — end it so the receiver never plays stale.
-    if (castingRef.current) {
-      try {
-        window.chrome?.framework.CastContext.getInstance()
-          .getCurrentSession()
-          ?.endSession(true);
-      } catch {
-        /* ignore */
-      }
-      setCasting(false);
-    }
+    endCastForNewMedia();
     // Reset playback state so the resolution effect re-runs fresh. The user
     // picked a source to watch — autoplay when the new stream is ready.
     advanceNeedsPlayRef.current = true;
@@ -1400,7 +1390,7 @@ export function VixPlayer({
     setMoreMenuOpen(false);
     // Keep ended/nearEnd so binge overlays don't double-fire after a switch.
     bookmarkClearedRef.current = false;
-  }, [activeSource, savePosition]);
+  }, [activeSource, savePosition, endCastForNewMedia]);
 
   /** Error-card Retry: re-run stream resolution for the same source. */
   const retryStream = useCallback(() => {
@@ -2204,7 +2194,7 @@ export function VixPlayer({
     if (v.paused) void v.play().catch(() => {});
     else v.pause();
     bumpChrome();
-  }, [isDrivenEmbed, sendDrivenPlay, bumpChrome]);
+  }, [isDrivenEmbed, sendDrivenPlay, bumpChrome, castPlayPause, castingRef]);
 
   const seekBySeconds = useCallback(
     (delta: number) => {
@@ -2231,7 +2221,7 @@ export function VixPlayer({
       v.currentTime = dur != null && dur > 0 ? Math.min(target, dur) : target;
       bumpChrome();
     },
-    [isDrivenEmbed, sendEmbedSeek, bumpChrome, dropPendingSeek]
+    [isDrivenEmbed, sendEmbedSeek, bumpChrome, dropPendingSeek, castSeekBy, castingRef]
   );
 
   const seekRatio = useCallback(
@@ -2273,7 +2263,7 @@ export function VixPlayer({
       v.currentTime = Math.max(0, Math.min(dur, ratio * dur));
       bumpChrome();
     },
-    [isDrivenEmbed, sendEmbedSeek, bumpChrome, dropPendingSeek]
+    [isDrivenEmbed, sendEmbedSeek, bumpChrome, dropPendingSeek, getCastRemote, castingRef]
   );
 
   const toggleMute = useCallback(() => {
@@ -2679,23 +2669,6 @@ export function VixPlayer({
   }, [mode, ambilight, mediaReady, playlistUrl]);
 
   // ---------- lockscreen / bluetooth controls (Media Session API) ----------
-  /** One shared Cast receiver handle per mount (never a fresh RemotePlayer per call). */
-  const getCastRemote = () => {
-    try {
-      const framework = window.chrome?.framework;
-      if (!framework) return null;
-      if (!castRemoteRef.current) {
-        const remote = new framework.RemotePlayer();
-        castRemoteRef.current = {
-          remote,
-          controller: new framework.RemotePlayerController(remote),
-        };
-      }
-      return castRemoteRef.current;
-    } catch {
-      return null;
-    }
-  };
   useEffect(() => {
     if (typeof window === "undefined" || typeof window.MediaMetadata === "undefined") {
       return;
@@ -2759,7 +2732,7 @@ export function VixPlayer({
         /* ignore */
       }
     };
-  }, [title, type, season, episode, mode, isDrivenEmbed, sendDrivenPlay, seekBySeconds]);
+  }, [title, type, season, episode, mode, isDrivenEmbed, sendDrivenPlay, seekBySeconds, getCastRemote, castingRef]);
   // Lockscreen position: transport ticks ~4Hz, but lockscreen IPC is gated
   // to 5s / duration / rate changes.
   useEffect(() => {
@@ -2783,193 +2756,6 @@ export function VixPlayer({
       /* ignore */
     }
   }, [transport.currentTime, transport.duration, playbackSpeed]);
-
-  // ---------- chromecast (sender SDK, native mode only) ----------
-  // Load the Cast sender SDK once; readiness gates the chrome button.
-  // Restores the previous __onGCastApiAvailable on unmount and subscribes to
-  // externally-initiated session ends (receiver stop, second sender).
-  useEffect(() => {
-    if (typeof window === "undefined") return;
-    if (window.chrome?.framework) {
-      setCastReady(true);
-      return;
-    }
-    if (document.querySelector('script[data-cast-sender="1"]')) return;
-    let cancelled = false;
-    const prev = window.__onGCastApiAvailable;
-    const ours = (available: boolean) => {
-      if (cancelled || !available) return;
-      try {
-        const framework = window.chrome?.framework;
-        if (!framework) return;
-        framework.CastContext.getInstance().setOptions({
-          receiverApplicationId:
-            window.chrome?.cast.media.DEFAULT_MEDIA_RECEIVER_APP_ID,
-          autoJoinPolicy: window.chrome?.cast.AutoJoinPolicy.ORIGIN_SCOPED,
-        });
-        try {
-          framework.CastContext.getInstance().addEventListener(
-            "sessionstatechanged",
-            () => {
-              try {
-                if (!framework.CastContext.getInstance().getCurrentSession()) {
-                  if (castPollRef.current) {
-                    clearInterval(castPollRef.current);
-                    castPollRef.current = null;
-                  }
-                  castRemoteRef.current = null;
-                  setCasting(false);
-                }
-              } catch {
-                /* ignore */
-              }
-            }
-          );
-        } catch {
-          /* session listener unsupported — poll still detects local ends */
-        }
-        setCastReady(true);
-      } catch {
-        /* Cast init failed — button stays hidden */
-      }
-    };
-    window.__onGCastApiAvailable = ours;
-    const s = document.createElement("script");
-    s.dataset.castSender = "1";
-    s.src =
-      "https://www.gstatic.com/cv/js/sender/v1/cast_sender.js?loadCastFramework=1";
-    s.async = true;
-    s.onerror = () => {
-      if (!cancelled) setCastReady(false);
-    };
-    document.head.appendChild(s);
-    return () => {
-      cancelled = true;
-      if (window.__onGCastApiAvailable === ours) {
-        window.__onGCastApiAvailable = prev;
-      }
-    };
-  }, []);
-  const stopCastPoll = useCallback(() => {
-    if (castPollRef.current) {
-      clearInterval(castPollRef.current);
-      castPollRef.current = null;
-    }
-  }, []);
-  useEffect(() => () => stopCastPoll(), [stopCastPoll]);
-  /** Load current media on the Cast receiver and mirror transport to it. */
-  const startCast = useCallback(async () => {
-    if (mode !== "native" || !playlistUrl) return;
-    const framework = window.chrome?.framework;
-    const castMedia = window.chrome?.cast.media;
-    if (!framework || !castMedia) return;
-    try {
-      const context = framework.CastContext.getInstance();
-      let session = context.getCurrentSession();
-      if (!session) {
-        await context.requestSession();
-        session = context.getCurrentSession();
-      }
-      if (!session) return;
-      let absoluteUrl: string;
-      try {
-        absoluteUrl = new URL(playlistUrl, window.location.origin).toString();
-      } catch {
-        return;
-      }
-      const metadata = new castMedia.GenericMediaMetadata();
-      metadata.metadataType = castMedia.MetadataType.GENERIC;
-      metadata.title = title;
-      const mediaInfo = new castMedia.MediaInfo(
-        absoluteUrl,
-        "application/x-mpegurl"
-      );
-      mediaInfo.streamType = castMedia.StreamType.BUFFERED;
-      mediaInfo.metadata = metadata;
-      const v = videoRef.current;
-      const pos =
-        v && Number.isFinite(v.currentTime) && v.currentTime > 0
-          ? v.currentTime
-          : remotePositionRef.current;
-      const req = new castMedia.LoadRequest(mediaInfo);
-      req.autoplay = true;
-      req.currentTime = Math.max(0, pos);
-      await session.loadMedia(req);
-      try {
-        v?.pause();
-      } catch {
-        /* ignore */
-      }
-      setCasting(true);
-      bumpChrome();
-      stopCastPoll();
-      // Mirror receiver clock into our transport (progress saves keep working).
-      // Reuses the single shared RemotePlayer — never a fresh one per tick.
-      const pair = getCastRemote();
-      if (!pair) return;
-      const { remote } = pair;
-      castPollRef.current = setInterval(() => {
-        try {
-          if (!castingRef.current) return;
-          setTransport((t) => ({
-            ...t,
-            currentTime:
-              Number.isFinite(remote.currentTime) && remote.currentTime >= 0
-                ? remote.currentTime
-                : t.currentTime,
-            duration:
-              Number.isFinite(remote.duration) && remote.duration > 0
-                ? remote.duration
-                : t.duration,
-            paused: remote.isPaused,
-          }));
-        } catch {
-          /* receiver quiet — keep last known clock */
-        }
-      }, 1000);
-    } catch {
-      /* picker dismissed or load failed — stay local */
-      bumpChrome();
-    }
-  }, [mode, playlistUrl, title, stopCastPoll, bumpChrome]);
-  const stopCast = useCallback(() => {
-    try {
-      window.chrome?.framework.CastContext.getInstance()
-        .getCurrentSession()
-        ?.endSession(true);
-    } catch {
-      /* ignore */
-    }
-    stopCastPoll();
-    setCasting(false);
-    bumpChrome();
-  }, [stopCastPoll, bumpChrome]);
-  /** Remote play/pause while casting (transport intercepts below). */
-  const castPlayPause = useCallback(() => {
-    try {
-      getCastRemote()?.controller.playOrPause();
-    } catch {
-      /* ignore */
-    }
-    bumpChrome();
-  }, [bumpChrome]);
-  const castSeekBy = useCallback((delta: number) => {
-    try {
-      const pair = getCastRemote();
-      if (!pair) return false;
-      const { remote, controller } = pair;
-      const dur = remote.duration;
-      const target = remote.currentTime + delta;
-      remote.currentTime = Math.max(
-        0,
-        Number.isFinite(dur) && dur > 0 ? Math.min(target, dur) : target
-      );
-      controller.seek();
-      return true;
-    } catch {
-      return false;
-    }
-  }, []);
 
   /** Cycle playback speed (native + CineSrc — the only embed with a rate API). */
   const cycleSpeed = useCallback(() => {
