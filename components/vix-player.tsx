@@ -3956,7 +3956,7 @@ export function VixPlayer({
           title={title}
           mode={mode}
           activeSource={activeSource}
-          streamable={streamable}
+          streamable={streamable && !offlineOverride}
             isLoading={isLoading || (mode === "native" && !mediaReady)}
             videoFit={videoFit}
             embedZoom={embedZoom}
