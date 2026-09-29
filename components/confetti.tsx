@@ -17,14 +17,14 @@ type Piece = {
   phase: number;
 };
 
-/** TV Time celebration palette (see reference: orange, purple, blue, green, red) */
+/** LeviOsa celebration palette (orange, purple, blue, green, red, brand cream) */
 const COLORS = [
   "#f97316", // orange
   "#a855f7", // purple
   "#3b82f6", // blue
   "#22c55e", // green
   "#ef4444", // red
-  "#f5c518", // tvtime yellow
+  "#e9e5d2", // brand cream
 ];
 
 function makePiece(canvasWidth: number, startAbove: boolean): Piece {

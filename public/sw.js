@@ -1,4 +1,4 @@
-/* TV Time service worker
+/* LeviOsa service worker
  *
  * Goals:
  * - Cache hashed Next static assets (fast repeat loads)
@@ -12,7 +12,7 @@
  * offline.html is the exception — it is precached cache-first, so bump it
  * whenever that page changes or installs keep serving the old markup.
  */
-const VERSION = "11";
+const VERSION = "12";
 const SHELL_CACHE = `tvtime-shell-v${VERSION}`;
 const STATIC_CACHE = `tvtime-static-v${VERSION}`;
 const IMAGE_CACHE = `tvtime-images-v${VERSION}`;
@@ -475,7 +475,7 @@ self.addEventListener("push", (event) => {
   } catch {
     data = {};
   }
-  const title = data.title || "TV Time";
+  const title = data.title || "LeviOsa";
   event.waitUntil(
     self.registration.showNotification(title, {
       body: data.body || "",

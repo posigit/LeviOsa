@@ -136,7 +136,7 @@ export function NotificationToggle() {
   if (state === "unsupported") {
     const message =
       unsupportedReason === "ios-install"
-        ? "Add TV Time to your Home Screen to enable alerts"
+        ? "Add LeviOsa to your Home Screen to enable alerts"
         : unsupportedReason === "config"
           ? "Alerts are not configured on this deployment"
           : "Push alerts are not supported in this browser";

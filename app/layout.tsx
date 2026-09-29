@@ -11,13 +11,13 @@ const geistSans = Geist({
 });
 
 export const metadata: Metadata = {
-  title: "TV Time",
+  title: "LeviOsa",
   description: "Personal TV and movie tracker",
   manifest: "/manifest.json",
   appleWebApp: {
     capable: true,
     statusBarStyle: "black-translucent",
-    title: "TV Time",
+    title: "LeviOsa",
   },
 };
 
@@ -46,7 +46,6 @@ export default function RootLayout({
       className={`${geistSans.variable} h-full antialiased`}
     >
       <head>
-        <link rel="apple-touch-icon" href="/icons/icon-192x192.png" />
         <link rel="preconnect" href="https://image.tmdb.org" crossOrigin="" />
         <link rel="dns-prefetch" href="https://image.tmdb.org" />
         <script

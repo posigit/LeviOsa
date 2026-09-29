@@ -233,7 +233,7 @@ async function DiscoverBody({ userId }: { userId: string }) {
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Explore — TV Time",
+  title: "Explore — LeviOsa",
   description: "Discover trending shows, top 10, and tonight's premieres.",
 };
 

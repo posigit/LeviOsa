@@ -48,7 +48,7 @@ function dateKey(airDate: string): string {
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Shows — TV Time",
+  title: "Shows — LeviOsa",
   description: "Your followed shows, watch next, and upcoming episodes.",
 };
 

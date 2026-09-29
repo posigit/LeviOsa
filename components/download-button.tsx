@@ -204,7 +204,7 @@ export function DownloadButton({
         <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-secondary ring-1 ring-border">
           {rec?.state === "done" ? (
             partial ? (
-              <Download className="h-4 w-4 text-amber-400" />
+              <Download className="h-4 w-4 text-primary" />
             ) : (
               <Check className="h-4 w-4 text-success" strokeWidth={3} />
             )
@@ -276,7 +276,7 @@ export function DownloadButton({
       className={cn(
         "flex h-8 w-8 shrink-0 items-center justify-center rounded-full ring-1 backdrop-blur-xl transition-all active:scale-95",
         partial
-          ? "bg-amber-500/15 text-amber-400 ring-amber-400/40"
+          ? "bg-primary/15 text-primary ring-primary/40"
           : rec?.state === "done"
             ? "bg-success/20 text-success ring-success/50"
             : "bg-secondary text-foreground/80 ring-border hover:bg-secondary",

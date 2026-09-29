@@ -2779,8 +2779,8 @@ export function VixPlayer({
           : title;
       ms.metadata = new window.MediaMetadata({
         title: label,
-        artist: "TV Time",
-        album: "TV Time",
+        artist: "LeviOsa",
+        album: "LeviOsa",
       });
       ms.setActionHandler("play", () => {
         if (castingRef.current) {

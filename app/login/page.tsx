@@ -1,6 +1,7 @@
 "use client";
 
 import { useSyncExternalStore, useState } from "react";
+import Image from "next/image";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
@@ -40,7 +41,17 @@ export default function LoginPage() {
   return (
     <div className="flex min-h-dvh flex-col items-center justify-center px-6 pt-safe pb-safe">
       <div className="w-full max-w-sm space-y-6">
-        <h1 className="text-center text-3xl font-bold">TV Time</h1>
+        <div className="flex flex-col items-center gap-3">
+          <Image
+            src="/icon.svg"
+            alt=""
+            width={72}
+            height={72}
+            unoptimized
+            className="rounded-[1.35rem] shadow-xl shadow-black/50"
+          />
+          <h1 className="text-center text-3xl font-bold">LeviOsa</h1>
+        </div>
         <form onSubmit={handleSubmit} method="post" action="#" className="space-y-4">
           <Input
             name="username"

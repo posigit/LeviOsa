@@ -46,7 +46,7 @@ function StarGlyph({
           style={{ width: fill === "half" ? size / 2 : size }}
         >
           <Star
-            className="text-primary drop-shadow-[0_0_6px_rgba(245,197,24,0.45)]"
+            className="text-primary drop-shadow-[0_0_6px_rgba(233,229,210,0.45)]"
             fill="currentColor"
             style={{ width: size, height: size }}
             strokeWidth={1.5}

@@ -110,7 +110,7 @@ function PodiumCard({
       className={cn(
         "group relative block overflow-hidden bg-card transition active:scale-[0.99]",
         large
-          ? "h-52 rounded-3xl ring-1 ring-[#f5c518]/50 shadow-[0_20px_60px_-16px_rgba(245,197,24,0.35)]"
+          ? "h-52 rounded-3xl ring-1 ring-[#e9e5d2]/50 shadow-[0_20px_60px_-16px_rgba(233,229,210,0.35)]"
           : "h-32 rounded-2xl ring-1 ring-white/15"
       )}
     >

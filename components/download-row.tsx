@@ -254,7 +254,7 @@ export function DownloadRow({
         {r.state === "done" && (
           <span className="flex h-6 w-6 items-center justify-center">
             <Check
-              className={partial > 0 ? "h-4 w-4 text-amber-400" : "h-4 w-4 text-success"}
+              className={partial > 0 ? "h-4 w-4 text-primary" : "h-4 w-4 text-success"}
               strokeWidth={3}
             />
           </span>

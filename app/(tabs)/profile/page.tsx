@@ -53,7 +53,7 @@ import {
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Profile — TV Time",
+  title: "Profile — LeviOsa",
   description: "Your stats, taste, yearly recap, lists, and playback history.",
 };
 

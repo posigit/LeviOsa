@@ -76,7 +76,7 @@ export async function GET() {
   const day = new Date().toISOString().slice(0, 10);
   return NextResponse.json(
     {
-      app: "tvtime",
+      app: "leviosa",
       version: 1,
       exportedAt: new Date().toISOString(),
       shows: showRows,
@@ -86,7 +86,7 @@ export async function GET() {
     },
     {
       headers: {
-        "Content-Disposition": `attachment; filename="tvtime-backup-${day}.json"`,
+        "Content-Disposition": `attachment; filename="leviosa-backup-${day}.json"`,
       },
     }
   );

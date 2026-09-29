@@ -146,7 +146,7 @@ export function DownloadCard({
             tryResume();
           }
         }}
-        className="inline-flex cursor-pointer items-center gap-1 rounded-full bg-amber-400 px-2 py-[3px] text-[10px] font-black uppercase tracking-[0.08em] text-black"
+        className="inline-flex cursor-pointer items-center gap-1 rounded-full bg-primary px-2 py-[3px] text-[10px] font-black uppercase tracking-[0.08em] text-black"
       >
         <Download className="h-2.5 w-2.5" strokeWidth={3} />
         Partial
@@ -164,7 +164,7 @@ export function DownloadCard({
         {Math.round(progress * 100)}%
       </span>
     ) : stale ? (
-      <span className="rounded-full bg-amber-400 px-2 py-[3px] text-[10px] font-black uppercase tracking-[0.08em] text-black">
+      <span className="rounded-full bg-primary px-2 py-[3px] text-[10px] font-black uppercase tracking-[0.08em] text-black">
         {Math.round(progress * 100)}%
       </span>
     ) : busy ? (

@@ -17,7 +17,7 @@ import { ChevronLeft, CalendarDays } from "lucide-react";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Calendar — TV Time",
+  title: "Calendar — LeviOsa",
   description: "Every premiere and finale on each day for shows you follow.",
 };
 
