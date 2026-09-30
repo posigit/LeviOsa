@@ -210,8 +210,9 @@ function clampSettings(merged: VixSettings): VixSettings {
     "2embed",
     "mapple",
     "vidapi",
-    "ythd",
-    "xpass",
+    "vidstuck",
+    "vidzee",
+    "vidy",
   ] as const;
   if (!(SOURCE_VALUES as readonly string[]).includes(next.preferredSource)) {
     next.preferredSource = "vix";

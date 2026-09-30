@@ -264,6 +264,15 @@ export function VixPlayer({
   const [streamError, setStreamError] = useState<StreamErrorInfo>(null);
   /** Bumped by the error-card Retry button to re-run resolution. */
   const [retryNonce, setRetryNonce] = useState(0);
+  /**
+   * VidSrc.sh answers with several signed mirror playlists for one title
+   * (offline downloads already rotate them). The player pinned the first, so
+   * one dead mirror wedged the title on the error card — Retry re-resolved
+   * the same list and picked the same URL forever. Retry now steps through
+   * the chain; sources without mirrors return a 1-entry chain (no behavior
+   * change for Vix/Goated).
+   */
+  const [mirrorStep, setMirrorStep] = useState(0);
   /** Rebuffer spinner (native waiting/stalled/seek stalls after load). */
   const [buffering, setBuffering] = useState(false);
   // Non-streamable mounts (no type/tmdbId) go straight to iframe fallback.
@@ -601,6 +610,7 @@ export function VixPlayer({
     if (hasResolvedRef.current) advanceNeedsPlayRef.current = true;
     setPlaylistUrl(null);
     setThumbnailsUrl(null);
+    setMirrorStep(0);
     setStreamFailed(false);
     setIframeError(false);
     // Fresh title/episode: drop transient gesture state (no strand-over).
@@ -878,16 +888,20 @@ export function VixPlayer({
   const isDrivenEmbed =
     mode === "iframe" && (activeSource === "cinesrc" || activeSource === "vidfast");
   const vidfastEmbed = mode === "iframe" && activeSource === "vidfast";
-  const mappleEmbed = mode === "iframe" && activeSource === "mapple";
   // Subs only need a clock: driven embeds (transport) + read-only
   // timeupdate clocks (Mapple/VidLink/VidNest/2Embed post PLAYER_EVENT like
-  // the others — same assumption Mapple already ships with).
+  // the others — same assumption Mapple already ships with; VidStuck +
+  // Vidy post the same tick via VIDEO_PROGRESS / PLAYER_EVENT, VidZee via
+  // its {type,data} pair).
   const passiveClockEmbed =
     mode === "iframe" &&
     (activeSource === "mapple" ||
       activeSource === "vidlink" ||
       activeSource === "vidnest" ||
-      activeSource === "2embed");
+      activeSource === "2embed" ||
+      activeSource === "vidstuck" ||
+      activeSource === "vidzee" ||
+      activeSource === "vidy");
   const clockEmbed = isDrivenEmbed || passiveClockEmbed;
 
   /** Native / driven-embed ±10s seek, with a transient on-screen cue. */
@@ -1363,6 +1377,7 @@ export function VixPlayer({
     advanceNeedsPlayRef.current = true;
     setPlaylistUrl(null);
     setThumbnailsUrl(null);
+    setMirrorStep(0);
     setStreamFailed(false);
     setStreamError(null);
     setBuffering(false);
@@ -1398,6 +1413,8 @@ export function VixPlayer({
     advanceNeedsPlayRef.current = true;
     setPlaylistUrl(null);
     setThumbnailsUrl(null);
+    // Step to the next resolver mirror (no-op for single-playlist sources).
+    setMirrorStep((s) => s + 1);
     setStreamFailed(false);
     setStreamError(null);
     setBuffering(false);
@@ -1642,7 +1659,15 @@ export function VixPlayer({
       if (cancelled) return;
       imdbIdRef.current = result.imdbId;
       if (result.playlistUrl) {
-        const next = result.playlistUrl;
+        // VidSrc.sh returns several signed mirrors of the same title — pick
+        // by mirrorStep so Retry rotates instead of re-trying a dead first
+        // URL. Single-playlist sources (Vix/Goated) get a 1-entry chain.
+        const mirrors = (result.playlistUrls ?? []).filter(
+          (u) => u !== result.playlistUrl
+        );
+        const chain =
+          mirrors.length > 0 ? [result.playlistUrl, ...mirrors] : [result.playlistUrl];
+        const next = chain[mirrorStep % chain.length] ?? result.playlistUrl;
         hasResolvedRef.current = true;
         setPlaylistUrl(next);
         setThumbnailsUrl(result.thumbnailsUrl ?? null);
@@ -1669,7 +1694,7 @@ export function VixPlayer({
       cancelled = true;
       controller.abort();
     };
-  }, [streamable, type, tmdbId, season, episode, activeSource, isEmbedActive, offlineOverride, initialPlaylistUrl, retryNonce]);
+  }, [streamable, type, tmdbId, season, episode, activeSource, isEmbedActive, offlineOverride, initialPlaylistUrl, retryNonce, mirrorStep]);
 
   // ---------- Driven-embed subtitles (VDRK / OpenSubs overlay) ----------
   // CineSrc hides its CC menu (controls=false) with no subtitle postMessage
@@ -2789,6 +2814,30 @@ export function VixPlayer({
       // CineSrc posts cinesrc:* instead of PLAYER_EVENT — normalize the 5
       // events the bridge already consumes.
       let data: unknown = e.data;
+      // Vidy posts PLAYER_EVENT / MEDIA_DATA as JSON strings, not objects —
+      // unwrap once here so every shape below sees a real payload. Anything
+      // that is not a JSON object/array was never handled anyway.
+      if (typeof data === "string") {
+        const raw = data.trim();
+        if (!raw.startsWith("{") && !raw.startsWith("[")) return;
+        try {
+          data = JSON.parse(raw);
+        } catch {
+          return;
+        }
+      }
+      // Vidy's docs (and VidZee's playground excerpt) also show the event
+      // payload flat — {event, currentTime, duration} with no wrapper. The
+      // parser below only accepts {type:"PLAYER_EVENT", data}, so wrap the
+      // flat form. Objects that already carry a `type` pass through.
+      if (
+        typeof data === "object" &&
+        data !== null &&
+        (data as { type?: unknown }).type == null &&
+        typeof (data as { event?: unknown }).event === "string"
+      ) {
+        data = { type: "PLAYER_EVENT", data };
+      }
       if (
         e.origin === "https://cinesrc.st" &&
         typeof e.data === "object" &&
@@ -2889,6 +2938,34 @@ export function VixPlayer({
               },
             };
           }
+        }
+      }
+      // VidStuck posts {type:"VIDEO_PROGRESS"|"VIDEO_ENDED", payload:{...}}
+      // instead of PLAYER_EVENT: a progress tick on every playback event
+      // (timeupdate/play/pause/loadedmetadata/volumechange) and a bare
+      // VIDEO_ENDED on finish. Fold both into the pipeline below so progress
+      // saves, near-end/ended and the passive subtitle clock keep working.
+      if (
+        (e.origin === "https://vidstuck.xyz" ||
+          e.origin.endsWith(".vidstuck.xyz")) &&
+        typeof data === "object" &&
+        data !== null
+      ) {
+        const vsType = (data as { type?: unknown }).type;
+        if (vsType === "VIDEO_PROGRESS" || vsType === "VIDEO_ENDED") {
+          const vsPayload = (data as {
+            payload?: { currentTime?: unknown; duration?: unknown };
+          }).payload;
+          const vsNum = (v: unknown) =>
+            typeof v === "number" && Number.isFinite(v) ? v : undefined;
+          data = {
+            type: "PLAYER_EVENT",
+            data: {
+              event: vsType === "VIDEO_ENDED" ? "ended" : "timeupdate",
+              currentTime: vsNum(vsPayload?.currentTime),
+              duration: vsNum(vsPayload?.duration),
+            },
+          };
         }
       }
       const isPlayerEvent =
@@ -3077,10 +3154,11 @@ export function VixPlayer({
         }
       }
 
-      // Mapple has no command channel — sync only the clock so our subtitle
-      // overlay can follow it. Transport stays hidden; its player owns control.
+      // Passive clock embeds have no command channel — sync only the clock
+      // so our subtitle overlay can follow it. Transport stays hidden; their
+      // player owns control.
       if (
-        mappleEmbed &&
+        passiveClockEmbed &&
         (d.event === "timeupdate" || d.event === "seeked")
       ) {
         if (
@@ -3547,7 +3625,12 @@ export function VixPlayer({
             // sources strip it — except players that refuse an empty referrer
             // (vixsrc itself: use origin). Per-frame policy above.
             referrerPolicy={iframeReferrerPolicy}
-            allow="autoplay; fullscreen; encrypted-media; picture-in-picture; clipboard-write"
+            // Permissions policy: a bare `autoplay`/`fullscreen` reads as
+            // 'src', so any in-frame redirect to another host silently kills
+            // autoplay/fullscreen (Vidy's docs call this out explicitly and
+            // require `autoplay *` + `fullscreen *`). The `*` form keeps the
+            // grant valid across the redirect chains these players use.
+            allow="autoplay *; fullscreen *; encrypted-media; picture-in-picture; clipboard-write"
             allowFullScreen
             // NOTE: no sandbox attribute on purpose — every source gates
             // playback on window.open/navigation working and shows a "disable

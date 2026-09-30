@@ -1,9 +1,22 @@
 /**
  * Embed-source registry for the player's iframe fallback.
  *
- * Picker order: cinesrc, vidfast, mapple, vidlink, vidnest, 2embed, vidapi,
- * ythd, xpass.
+ * Picker order (native vidsrc-sh / vix / goated are interleaved by
+ * lib/player-source-picker.ts):
+ *   vidy, vidstuck, cinesrc, vidsrc-sh, vix, mapple, vidzee, vidfast,
+ *   vidlink, vidnest, 2embed, vidapi, goated.
+ * This array lists the embed keys in that same relative order; XPass and
+ * YTHD were dropped from the picker on 2026-09-30 (user request — both had
+ * undocumented/undiscoverable event shapes).
  * Native vix + goated are appended in vix-player (goated parked: backend down).
+ *
+ * NOTE the order above is the user's ranking, not a safety ranking: CineSrc +
+ * VidFast are the driven pair (tap-catcher owns all taps, their ads never see
+ * a gesture) and get host transport + subs. Everything else is a raw embed
+ * that can still pop a scam tab on tap — no sandbox is possible (sources wall
+ * on it), so only ranking used to defend; the tap-catcher now covers driven
+ * embeds first regardless of position.
+ *
  * Mapple + VidFast + VidLink post PLAYER_EVENT (progress saves); VidFast also
  * accepts {command} control messages. CineSrc posts cinesrc:* events, not
  * PLAYER_EVENT — vix-player adapts those. VidAPI posts PLAYER_EVENT in its own
@@ -12,6 +25,14 @@
  * query param, so lock mode cannot leak embed chrome (host chrome +
  * postMessage instead). VidAPI/Mapple/VidLink/2Embed keep their own chrome;
  * the host only syncs progress for those.
+ *
+ * VidStuck posts {type:"VIDEO_PROGRESS"|"VIDEO_ENDED", payload:{...}} instead
+ * of PLAYER_EVENT — vix-player folds those into the same 5-event pipeline.
+ * Vidy posts PLAYER_EVENT / MEDIA_DATA as JSON *strings* (parsed in
+ * vix-player). VidZee posts the object shape {type:"PLAYER_EVENT", data}.
+ * `progress` (seconds) resumes on VidStuck + Vidy (verified live); VidZee
+ * ignores every resume param we tried — its bookmark only lives in its own
+ * origin storage, so playback restarts at 0 (progress still saves).
  */
 export type EmbedSourceDef = {
   /** Stable key — persisted as preferredSource. */
@@ -35,10 +56,35 @@ export type EmbedSourceDef = {
 };
 
 export const EMBED_SOURCES: EmbedSourceDef[] = [
-  // Driven first: CineSrc + VidFast are popup-proof (tap-catcher owns all
-  // taps, their ads never see a gesture) and get host transport + subs.
-  // Raw embeds after them can still pop scam tabs on tap — no sandbox is
-  // possible (sources wall on it), so ranking is the defense.
+  // Vidy leads (user-ranked picker). Driven pair (CineSrc + VidFast) is
+  // popup-proof — tap-catcher owns all taps, their ads never see a gesture —
+  // and gets host transport + subs wherever it sits in the order.
+  {
+    key: "vidy",
+    name: "Vidy",
+    base: "https://www.vidy.st",
+    host: "vidy.st",
+    // Documented params (vidy.st/playground "Reference" block): color,
+    // progress (seconds), autoplay, nextEpisode, episodeSelector,
+    // autoplayNextEpisode; routes /movie/{tmdb}, /tv/{tmdb}/{s}/{e},
+    // /anime/{anilist}/{ep}. Allow attr needs autoplay * + fullscreen *.
+    movieUrl: (tmdbId) => `https://www.vidy.st/movie/${tmdbId}?autoplay=true`,
+    tvUrl: (tmdbId, season, episode) =>
+      `https://www.vidy.st/tv/${tmdbId}/${season}/${episode}?autoplay=true`,
+  },
+  {
+    key: "vidstuck",
+    name: "VidStuck",
+    base: "https://vidstuck.xyz",
+    host: "vidstuck.xyz",
+    // Same /embed/{movie|tv}/ path shape as CineSrc but TV ids are path
+    // segments, not query params. Own `server` param defaults to andromeda;
+    // autoplay + resume progress both confirmed against the live player.
+    movieUrl: (tmdbId) =>
+      `https://vidstuck.xyz/embed/movie/${tmdbId}?autoplay=true`,
+    tvUrl: (tmdbId, season, episode) =>
+      `https://vidstuck.xyz/embed/tv/${tmdbId}/${season}/${episode}?autoplay=true`,
+  },
   {
     key: "cinesrc",
     name: "CineSrc",
@@ -51,18 +97,6 @@ export const EMBED_SOURCES: EmbedSourceDef[] = [
       `https://cinesrc.st/embed/tv/${tmdbId}?s=${season}&e=${episode}&controls=false`,
   },
   {
-    key: "vidfast",
-    name: "VidFast",
-    base: "https://vidfast.vc",
-    host: "vidfast.vc",
-    // Host-driven like CineSrc (tap-catcher owns taps, our transport owns
-    // play/seek/volume via the command channel): hide its title overlay and
-    // internal next/auto-next so only our chrome and Up Next advance episodes.
-    movieUrl: (tmdbId) => `https://vidfast.vc/movie/${tmdbId}?autoPlay=true&title=false&poster=true`,
-    tvUrl: (tmdbId, season, episode) =>
-      `https://vidfast.vc/tv/${tmdbId}/${season}/${episode}?autoPlay=true&title=false&poster=true&nextButton=false&autoNext=false`,
-  },
-  {
     key: "mapple",
     name: "Mapple",
     base: "https://mapple.rip",
@@ -73,6 +107,34 @@ export const EMBED_SOURCES: EmbedSourceDef[] = [
       `https://mapple.rip/watch/movie/${tmdbId}?autoPlay=true`,
     tvUrl: (tmdbId, season, episode) =>
       `https://mapple.rip/watch/tv/${tmdbId}-${season}-${episode}?autoPlay=true`,
+  },
+  {
+    key: "vidzee",
+    name: "VidZee",
+    base: "https://player.vidzee.wtf",
+    // Events may post from an inner frame (core.vidzee.wtf), so the accepted
+    // origin is the apex — isEmbedPlayerOrigin matches host + subdomains.
+    // Official playground (player.vidzee.wtf/playground) embeds with no query
+    // flags and documents only MEDIA_DATA / PLAYER_EVENT objects. Verified
+    // against the live player: resume flags (progress/startAt/t) are ignored
+    // — playback restarts at 0 — so ?autoplay=true is best-effort only.
+    host: "vidzee.wtf",
+    movieUrl: (tmdbId) =>
+      `https://player.vidzee.wtf/embed/movie/${tmdbId}?autoplay=true`,
+    tvUrl: (tmdbId, season, episode) =>
+      `https://player.vidzee.wtf/embed/tv/${tmdbId}/${season}/${episode}?autoplay=true`,
+  },
+  {
+    key: "vidfast",
+    name: "VidFast",
+    base: "https://vidfast.vc",
+    host: "vidfast.vc",
+    // Host-driven like CineSrc (tap-catcher owns taps, our transport owns
+    // play/seek/volume via the command channel): hide its title overlay and
+    // internal next/auto-next so only our chrome and Up Next advance episodes.
+    movieUrl: (tmdbId) => `https://vidfast.vc/movie/${tmdbId}?autoPlay=true&title=false&poster=true`,
+    tvUrl: (tmdbId, season, episode) =>
+      `https://vidfast.vc/tv/${tmdbId}/${season}/${episode}?autoPlay=true&title=false&poster=true&nextButton=false&autoNext=false`,
   },
   {
     key: "vidlink",
@@ -119,30 +181,6 @@ export const EMBED_SOURCES: EmbedSourceDef[] = [
       `https://vaplayer.ru/embed/movie/${tmdbId}?autoplay=1&showTitle=false`,
     tvUrl: (tmdbId, season, episode) =>
       `https://vaplayer.ru/embed/tv/${tmdbId}/${season}/${episode}?autoplay=1&showTitle=false`,
-  },
-  {
-    key: "ythd",
-    name: "YTHD",
-    base: "https://ythd.org",
-    host: "cloudorchestranova.com",
-    // Signed cloudorchestranova embeds minted per play via /api/ythd/mint
-    // (the iframe follows the 302 to the fresh signed URL). Unknown event
-    // shape — playable with host progress only where posted.
-    movieUrl: (tmdbId) => `/api/ythd/mint?type=movie&id=${tmdbId}`,
-    tvUrl: (tmdbId, season, episode) =>
-      `/api/ythd/mint?type=tv&id=${tmdbId}&season=${season}&episode=${episode}`,
-  },
-  {
-    key: "xpass",
-    name: "XPass",
-    base: "https://play.xpass.top",
-    host: "play.xpass.top",
-    // Minimal loader pages with TMDB ids. Ships sandbox detection — our
-    // iframes are unsandboxed, matching what its player expects.
-    movieUrl: (tmdbId) =>
-      `https://play.xpass.top/e/movie/${tmdbId}?autostart=true`,
-    tvUrl: (tmdbId, season, episode) =>
-      `https://play.xpass.top/e/tv/${tmdbId}/${season}/${episode}?autostart=true`,
   },
 ];
 

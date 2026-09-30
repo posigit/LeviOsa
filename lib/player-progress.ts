@@ -151,6 +151,15 @@ export function addStartAt(src: string, position: number | null): string {
       );
       return url.toString();
     }
+    // VidStuck + Vidy resume via `progress` (seconds) — the default
+    // `startAt` above is ignored there. VidZee answers to neither (its own
+    // origin storage owns resume) but is sent `progress` for sibling parity;
+    // a no-op param never seeks, so it cannot mis-seek like a wrong one.
+    const progressHosts = ["vidstuck.xyz", "vidzee.wtf", "vidy.st"];
+    if (progressHosts.some((h) => url.hostname === h || url.hostname.endsWith(`.${h}`))) {
+      url.searchParams.set("progress", t);
+      return url.toString();
+    }
     url.searchParams.set("startAt", t);
     return url.toString();
   } catch {

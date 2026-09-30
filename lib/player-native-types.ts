@@ -20,8 +20,9 @@ export type StreamSource =
   | "2embed"
   | "mapple"
   | "vidapi"
-  | "ythd"
-  | "xpass";
+  | "vidstuck"
+  | "vidzee"
+  | "vidy";
 
 export type AudioTrackInfo = { id: number; lang: string; name: string };
 export type QualityLevelInfo = { height: number; index: number };
