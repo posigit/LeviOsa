@@ -1,11 +1,15 @@
 import { EMBED_SOURCES } from "@/lib/embed-sources";
 import type { StreamSource } from "@/lib/player-native-types";
 
-// Picker order: cinesrc, vidfast, mapple, vidlink, vidnest, 2embed,
-// vidapi, then vix. Goated is parked (backend DNS dead 2026-09-23) —
+// Picker order: cinesrc, vidsrc-sh, vidfast, mapple, vidlink, vidnest,
+// 2embed, vidapi, then vix. Goated is parked (backend DNS dead 2026-09-23) —
 // swap GOATED_RESOLVER in lib/goated.ts to resurrect.
+const EMBED_KEYS = EMBED_SOURCES.map((s) => s.key as StreamSource);
+
 export const ALL_SOURCES: StreamSource[] = [
-  ...EMBED_SOURCES.map((s) => s.key as StreamSource),
+  ...EMBED_KEYS.slice(0, 1),
+  "vidsrc-sh",
+  ...EMBED_KEYS.slice(1),
   "vix",
   "goated",
 ];

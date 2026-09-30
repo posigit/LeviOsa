@@ -377,5 +377,6 @@ export function sendVidfastCommand(
 export function sourceLabel(key: string): string {
   if (key === "vix") return "Vix";
   if (key === "goated") return "Goated";
+  if (key === "vidsrc-sh") return "VidSrc.sh";
   return EMBED_SOURCES.find((s) => s.key === key)?.name ?? key;
 }

@@ -921,7 +921,10 @@ async function runDownload(
 
   // 1. Resolve a native playlist (vix/goated/vidsrc-sh cascade).
   const preferred = loadVixSettings().preferredSource;
-  const source = preferred === "vix" || preferred === "goated" ? preferred : "goated";
+  const source =
+    preferred === "vix" || preferred === "goated" || preferred === "vidsrc-sh"
+      ? preferred
+      : "goated";
   const resolved = await resolveStreamPlaylist({
     source,
     type: req.type,

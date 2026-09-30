@@ -12,6 +12,7 @@ export type PlayerMode = "loading" | "native" | "iframe" | "error";
 export type StreamSource =
   | "vix"
   | "goated"
+  | "vidsrc-sh"
   | "vidfast"
   | "vidlink"
   | "vidnest"

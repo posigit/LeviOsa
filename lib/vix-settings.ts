@@ -202,6 +202,7 @@ function clampSettings(merged: VixSettings): VixSettings {
   const SOURCE_VALUES = [
     "vix",
     "goated",
+    "vidsrc-sh",
     "vidfast",
     "vidlink",
     "vidnest",

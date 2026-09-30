@@ -322,6 +322,27 @@ export async function resolveStreamPlaylist(opts: {
     };
   }
 
+  // Explicit VidSrc.sh selection: try it first, then fall through to the
+  // goated → vix cascade. vidsrcTried stops the end-of-cascade last resort
+  // from re-running the request that just failed.
+  let vidsrcTried = false;
+  if (opts.source === "vidsrc-sh") {
+    vidsrcTried = true;
+    const s = await resolveVidsrcSh(base, opts.signal, budget(), record);
+    if (s.playlistUrl) {
+      return {
+        playlistUrl: s.playlistUrl,
+        imdbId: s.imdbId,
+        thumbnailsUrl: s.thumbnailsUrl,
+        playlistUrls: s.playlistUrls,
+        failed: false,
+        usedSource: "vidsrc-sh",
+        attempts,
+      };
+    }
+    if (opts.signal?.aborted) return abortedResult(s.imdbId, attempts);
+  }
+
   // First structured diagnosis seen across attempts (surfaced on failure).
   const diag: {
     code?: string;
@@ -386,8 +407,7 @@ export async function resolveStreamPlaylist(opts: {
   // + proxied through /api/vidsrc-sh/media). Runs only when vix + goated
   // both failed, so it never slows the working paths — and in prod it may be
   // the ONLY reachable native backend.
-  let vidsrcTried = false;
-  if (!opts.signal?.aborted && !expired()) {
+  if (!vidsrcTried && !opts.signal?.aborted && !expired()) {
     vidsrcTried = true;
     const s = await resolveVidsrcSh(base, opts.signal, budget(), record);
     if (s.playlistUrl) {
