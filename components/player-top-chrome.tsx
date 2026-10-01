@@ -112,6 +112,7 @@ type PlayerTopChromeProps = {
    * awake while it is open (same as the other menus).
    */
   onMoreMenuOpenChange?: (open: boolean) => void;
+  onSourceMenuOpenChange?: (open: boolean) => void;
   /** Sleep timer end (ms epoch) or null. */
   sleepUntil?: number | null;
   /** Picked minutes — owns the option check (exact, drift-proof). */
@@ -198,6 +199,7 @@ export function PlayerTopChrome({
   setHlsAudioTrackRef,
   setHlsQualityRef,
   onMoreMenuOpenChange,
+  onSourceMenuOpenChange,
   sleepUntil = null,
   sleepMinutes = null,
   sleepAfterEpisode = false,
@@ -251,12 +253,21 @@ export function PlayerTopChrome({
       window.removeEventListener("scroll", onScroll);
     };
   }, [sourceMenuOpen]);
+  // Mirror the open state up so the shell's auto-hide timer treats the
+  // Source menu like the other menus (open menu = player in use, never hide).
+  // Push false on unmount so a chrome that unmounts with the menu open
+  // (tap-toggle path) can't leave the guard stuck on forever.
+  useEffect(() => {
+    onSourceMenuOpenChange?.(sourceMenuOpen);
+    return () => onSourceMenuOpenChange?.(false);
+  }, [sourceMenuOpen, onSourceMenuOpenChange]);
   // Mobile More sheet (overflow for speed/fill/autoplay/autorotate on small
   // portrait screens). Same dismiss + keep-awake contract as other menus.
   const [moreOpen, setMoreOpen] = useState(false);
   const moreRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
     onMoreMenuOpenChange?.(moreOpen);
+    return () => onMoreMenuOpenChange?.(false);
   }, [moreOpen, onMoreMenuOpenChange]);
   useEffect(() => {
     if (!moreOpen) return;

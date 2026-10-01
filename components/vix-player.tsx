@@ -304,6 +304,9 @@ export function VixPlayer({
   });
   const [isFullscreen, setIsFullscreen] = useState(false);
     const chromeHideTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+    /** True while the pointer rests on the shell — hovering counts as active
+     *  use, so the auto-hide timer never fires (leave re-arms it normally). */
+    const pointerInsideRef = useRef(false);
   /** Blocks synthetic mouse click after touch chrome toggle. */
   const lastTouchChromeRef = useRef(0);
   const [playbackSpeed, setPlaybackSpeed] = useState<number>(
@@ -446,6 +449,9 @@ export function VixPlayer({
   const [serverMenuOpen, setServerMenuOpen] = useState(false);
   /** Mobile More sheet (top chrome) — same keep-awake contract. */
   const [moreMenuOpen, setMoreMenuOpen] = useState(false);
+  /** Mirrored up from PlayerTopChrome (its state is local): the auto-hide
+   *  timer must treat the Source menu like every other open menu. */
+  const [sourceMenuOpen, setSourceMenuOpen] = useState(false);
   /** Surface external-subtitle fetch failures instead of stranding the picker. */
   const [subError, setSubError] = useState<string | null>(null);
   /** Top subtitle files (max 3, OpenSubs/SubDL) for the CC picker. */
@@ -605,6 +611,7 @@ export function VixPlayer({
     setCineSrcT(null);
     setServerMenuOpen(false);
     setMoreMenuOpen(false);
+    setSourceMenuOpen(false);
     segmentsKeyRef.current = null;
     // Stored segments come back with the reset — the download captured them
     // offline, and wiping them here would cost skip intro / the outro marker.
@@ -942,21 +949,37 @@ export function VixPlayer({
     [isDrivenEmbed, sendEmbedSeek]
   );
 
-  const bumpChrome = useCallback(() => {
+  /** Arms the auto-hide timer (shared by bumpChrome and pointer-leave so
+   *  leaving the player summons nothing — it just schedules the hide). */
+  const armChromeHide = useCallback(() => {
     if (locked) return;
-    setChromeVisible(true);
     if (chromeHideTimerRef.current) clearTimeout(chromeHideTimerRef.current);
     const v = videoRef.current;
     const playing = v ? !v.paused : !iframePausedRef.current;
-    // Auto-hide only while playing and no menus are open.
+    // Auto-hide only while playing, no menus are open, and the pointer is
+    // not resting on the player.
     if (playing) {
       chromeHideTimerRef.current = setTimeout(() => {
-        if (!subMenuOpen && !audioMenuOpen && !qualityMenuOpen && !serverMenuOpen && !moreMenuOpen) {
+        if (
+          !subMenuOpen &&
+          !audioMenuOpen &&
+          !qualityMenuOpen &&
+          !serverMenuOpen &&
+          !moreMenuOpen &&
+          !sourceMenuOpen &&
+          !pointerInsideRef.current
+        ) {
           setChromeVisible(false);
         }
       }, 3200);
     }
-  }, [locked, subMenuOpen, audioMenuOpen, qualityMenuOpen, serverMenuOpen, moreMenuOpen]);
+  }, [locked, subMenuOpen, audioMenuOpen, qualityMenuOpen, serverMenuOpen, moreMenuOpen, sourceMenuOpen]);
+
+  const bumpChrome = useCallback(() => {
+    if (locked) return;
+    setChromeVisible(true);
+    armChromeHide();
+  }, [locked, armChromeHide]);
 
   const {
     castReady,
@@ -1413,6 +1436,7 @@ export function VixPlayer({
     }
     setServerMenuOpen(false);
     setMoreMenuOpen(false);
+    setSourceMenuOpen(false);
     // Keep ended/nearEnd so binge overlays don't double-fire after a switch.
     bookmarkClearedRef.current = false;
   }, [activeSource, savePosition, endCastForNewMedia]);
@@ -3562,6 +3586,14 @@ export function VixPlayer({
       aria-modal="true"
       aria-label={`${title} player`}
       className="fixed inset-0 z-[100] flex touch-manipulation flex-col bg-black"
+      onPointerEnter={() => {
+        pointerInsideRef.current = true;
+      }}
+      onPointerLeave={() => {
+        pointerInsideRef.current = false;
+        armChromeHide();
+      }}
+      onPointerMove={() => bumpChrome()}
     >
       {mode === "native" && (
         <>
@@ -3849,7 +3881,8 @@ export function VixPlayer({
           qualityMenuRef={qualityMenuRef}
           setHlsAudioTrackRef={setHlsAudioTrackRef}
           setHlsQualityRef={setHlsQualityRef}
-          onMoreMenuOpenChange={setMoreMenuOpen}
+            onMoreMenuOpenChange={setMoreMenuOpen}
+            onSourceMenuOpenChange={setSourceMenuOpen}
           downloadSlot={
             streamable && type && tmdbId ? (
               <DownloadButton
