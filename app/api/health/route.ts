@@ -40,6 +40,7 @@ export async function GET(request: Request) {
       Boolean(process.env.OPENSUBTITLES_API_KEY) &&
       Boolean(process.env.OPENSUBTITLES_USERNAME) &&
       Boolean(process.env.OPENSUBTITLES_PASSWORD),
+    subdl: Boolean(process.env.SUBDL_API_KEY),
     push:
       Boolean(process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY) &&
       Boolean(process.env.VAPID_PRIVATE_KEY),

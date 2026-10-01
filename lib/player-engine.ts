@@ -62,7 +62,7 @@ export type AttachNativePlaybackArgs = {
   setHasExternalSubs: Dispatch<SetStateAction<boolean>>;
   setStreamFailed: Dispatch<SetStateAction<boolean>>;
   savePosition: (pos: number, duration: number, force?: boolean) => void;
-  revertExternalSub: (failed: "vdrk" | "opensub") => void;
+  revertExternalSub: (failed: "vdrk" | "opensub" | "subdl") => void;
   /**
    * Offline playback with a stored subtitle track already injected by the
    * host: skip all network subtitle cascades and never wipe injected tracks
@@ -243,9 +243,12 @@ export function attachNativePlayback(args: AttachNativePlaybackArgs): () => void
         }
 
         hls.subtitleDisplay = false; // we render via SubtitleOverlay, not native ::cue
-        // Forced external modes (vdrk/opensub) own the subtitle surface: never
-        // re-enable the stream's CC track here — the injected track is the one.
-        const forcedExternal = subSourceRef.current === "vdrk" || subSourceRef.current === "opensub";
+        // Forced external modes (vdrk/opensub/subdl) own the subtitle surface:
+        // never re-enable the stream's CC track here — the injected track is.
+        const forcedExternal =
+          subSourceRef.current === "vdrk" ||
+          subSourceRef.current === "opensub" ||
+          subSourceRef.current === "subdl";
         const externalActive = injectedTracksRef.current.some(
           (t) => t.mode !== "disabled"
         );
@@ -369,11 +372,13 @@ export function attachNativePlayback(args: AttachNativePlaybackArgs): () => void
 
       // Fallback subtitles — Tier 1: goated VDRK open VTT built directly from
       // tmdbId (no API call, no PoW, CORS-open). Tier 3: OpenSubtitles.
+      // Tier 4: SubDL (TMDB-keyed, works without IMDb).
       // Respects the user's subSource preference:
-      //   auto   = stream CC when present, else VDRK → OpenSubtitles
+      //   auto   = stream CC when present, else VDRK → OpenSubs → SubDL
       //   stream = stream's own English CC only (never inject)
       //   vdrk   = force VDRK, even if stream has CC
       //   opensub= force OpenSubtitles
+      //   subdl  = force SubDL
       //   off    = never
       let osLoaded = false;
       let osLoading = false;
@@ -403,8 +408,11 @@ export function attachNativePlayback(args: AttachNativePlaybackArgs): () => void
           return;
         }
         // Forced external mode on a CC-bearing stream: disable the stream's own
-        // CC so the injected VDRK/OS track is the ONLY one (no double subs).
-        if ((src === "vdrk" || src === "opensub") && engTrack) {
+        // CC so the injected VDRK/OS/SubDL track is the ONLY one (no doubles).
+        if (
+          (src === "vdrk" || src === "opensub" || src === "subdl") &&
+          engTrack
+        ) {
           applying = true;
           hls.subtitleDisplay = false;
           hls.subtitleTrack = -1;
@@ -413,13 +421,15 @@ export function attachNativePlayback(args: AttachNativePlaybackArgs): () => void
         osLoading = true;
 
         const delay = loadVixSettings().subDelaySeconds;
-        // Tier 1 — VDRK direct, or Tier 3 — OpenSubtitles.
-        // Auto on both Vix and Goated: stream CC (handled above) → VDRK → OS.
-        const wantVdrk = src === "vdrk" || src === "auto";
-        const wantOs = src === "opensub" || src === "auto";
+        // Ordered tiers: VDRK (TMDB-only) → OpenSubtitles (needs IMDb) →
+        // SubDL (TMDB-only). A forced source gets its single tier; Auto walks
+        // the whole chain after the stream-CC handling above missed.
+        const tiers: Array<"vdrk" | "opensub" | "subdl"> =
+          src === "vdrk" || src === "opensub" || src === "subdl"
+            ? [src]
+            : ["vdrk", "opensub", "subdl"];
         try {
-          if (wantVdrk || wantOs) {
-            const source = wantVdrk ? "vdrk" : "opensub";
+          for (const source of tiers) {
             const ext = await fetchExternalVtt({
               source,
               type,
@@ -440,29 +450,9 @@ export function attachNativePlayback(args: AttachNativePlaybackArgs): () => void
             // Forced external source failed (dead API key / empty result):
             // don't strand the picker on it — revert to Auto so stream CC (if
             // present) keeps working and the user sees WHY.
-            if (src === "vdrk" || src === "opensub") {
+            if (src !== "auto") {
               revertExternalSub(src);
               return;
-            }
-            // VDRK failed/empty → fall through to OpenSubtitles in auto mode.
-            if (wantVdrk && src === "auto") {
-              const os = await fetchExternalVtt({
-                source: "opensub",
-                type,
-                tmdbId,
-                season,
-                episode,
-                imdbId: imdbIdRef.current,
-              });
-              if (os) {
-                const show = loadVixSettings().subs !== "off";
-                externalVttRef.current = { vtt: os.vtt, label: os.label };
-                setHasExternalSubs(true);
-                const tr = injectVttTrack(video, os.vtt, os.label, show, delay);
-                if (tr) injectedTracksRef.current.push(tr);
-                osLoaded = true;
-                return;
-              }
             }
           }
         } finally {
@@ -488,9 +478,9 @@ export function attachNativePlayback(args: AttachNativePlaybackArgs): () => void
         // Hide any previously injected external tracks.
         for (const t of injectedTracksRef.current) t.mode = "disabled";
         injectedTracksRef.current = [];
-        if (src === "vdrk" || src === "opensub") {
+        if (src === "vdrk" || src === "opensub" || src === "subdl") {
           // Forced external source: kill the stream's own CC track so only the
-          // injected VDRK/OS track shows (no double subtitles).
+          // injected VDRK/OS/SubDL track shows (no double subtitles).
           if (hls) {
             applying = true;
             hls.subtitleDisplay = false;
@@ -720,7 +710,7 @@ export function attachNativePlayback(args: AttachNativePlaybackArgs): () => void
         tt?.removeEventListener?.("change", onNativeChange);
       });
 
-      // Safari native path: Auto cascade + forced VDRK/OpenSubtitles via
+      // Safari native path: Auto cascade + forced VDRK/OpenSubs/SubDL via
       // injected text tracks. Native HLS has no hls.subtitleTrack.
       const loadSafariExternal = async () => {
         const src = subSourceRef.current;
@@ -753,8 +743,8 @@ export function attachNativePlayback(args: AttachNativePlaybackArgs): () => void
         if (src === "auto") {
           applyNative();
           if (hasEngTrack) return;
-          // Cascade VDRK → OS when stream has no English CC showing.
-          for (const source of ["vdrk", "opensub"] as const) {
+          // Cascade VDRK → OS → SubDL when stream has no English CC showing.
+          for (const source of ["vdrk", "opensub", "subdl"] as const) {
             const ext = await fetchExternalVtt({
               source,
               type,
@@ -810,7 +800,7 @@ export function attachNativePlayback(args: AttachNativePlaybackArgs): () => void
           setHasExternalSubs(true);
           const tr = injectVttTrack(video, ext.vtt, ext.label, true, delay);
           if (tr) injectedTracksRef.current.push(tr);
-        } else if (src === "vdrk" || src === "opensub") {
+        } else if (src === "vdrk" || src === "opensub" || src === "subdl") {
           revertExternalSub(src);
         }
       };

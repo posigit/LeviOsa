@@ -76,8 +76,10 @@ import {
   fetchExternalVtt,
   injectVttTrack,
   listOpenSubtitles,
+  listSubDl,
   parseVttCues,
   type OpenSubListItem,
+  type SubFileId,
   type SubSource,
   type VttCue,
 } from "@/lib/player-subs";
@@ -448,9 +450,9 @@ export function VixPlayer({
   const [moreMenuOpen, setMoreMenuOpen] = useState(false);
   /** Surface external-subtitle fetch failures instead of stranding the picker. */
   const [subError, setSubError] = useState<string | null>(null);
-  /** Top OpenSubtitles files (max 3) for the CC picker. */
+  /** Top subtitle files (max 3, OpenSubs/SubDL) for the CC picker. */
   const [openSubItems, setOpenSubItems] = useState<OpenSubListItem[]>([]);
-  const [openSubFileId, setOpenSubFileId] = useState<number | null>(null);
+  const [openSubFileId, setOpenSubFileId] = useState<SubFileId | null>(null);
   /** Stored-file picker override (best-first; null = injected default active). */
   const [savedSubAltPick, setSavedSubAltPick] = useState<number | null>(null);
   /** Active stored-file index: explicit pick wins, else the injected default. */
@@ -1491,31 +1493,39 @@ export function VixPlayer({
     };
   }, [type, tmdbId, season, episode, mode, playlistUrl, activeSource, ensureIframeImdb, initialSegments]);
 
-  /** Load top-3 OpenSubtitles list once per episode (no download quota). */
+  /** Load top-3 file list once per episode (no download quota). */
   const ensureOpenSubList = useCallback(async () => {
-    let imdb = imdbIdRef.current;
-    // Embed mode never resolves IMDb via streams — fetch it so the CC menu
-    // doesn't strand on "No English files found" for want of an id.
-    if (!imdb) imdb = await ensureIframeImdb();
-    if (!imdb) {
-      setOpenSubItems([]);
-      return;
-    }
-    const key = `${imdb}:${season ?? ""}:${episode ?? ""}`;
+    // Whichever provider the menu is showing — the key must include it so
+    // switching OpenSubs ↔ SubDL refetches instead of showing stale rows.
+    const provider: SubSource =
+      subSourceRef.current === "subdl" ? "subdl" : "opensub";
+    const key = `${provider}:${season ?? ""}:${episode ?? ""}`;
     if (openSubListKeyRef.current === key && openSubItems.length > 0) return;
     setOpenSubListLoading(true);
     try {
-      const items = await listOpenSubtitles({
-        imdbId: imdb,
-        season,
-        episode,
-      });
+      let items: OpenSubListItem[] = [];
+      if (provider === "subdl") {
+        // SubDL keys on TMDB ids — no IMDb round-trip needed.
+        items = await listSubDl({ tmdbId, type, season, episode });
+      } else {
+        let imdb = imdbIdRef.current;
+        // Embed mode never resolves IMDb via streams — fetch it so the CC menu
+        // doesn't strand on "No English files found" for want of an id.
+        if (!imdb) imdb = await ensureIframeImdb();
+        if (imdb) {
+          items = await listOpenSubtitles({
+            imdbId: imdb,
+            season,
+            episode,
+          });
+        }
+      }
       openSubListKeyRef.current = key;
       setOpenSubItems(items);
     } finally {
       setOpenSubListLoading(false);
     }
-  }, [season, episode, openSubItems.length, ensureIframeImdb]);
+  }, [season, episode, openSubItems.length, ensureIframeImdb, tmdbId, type]);
 
   /** Subtitle source picker: persist choice + re-run the subtitle loader. */
   const handleSubSource = useCallback(
@@ -1525,7 +1535,7 @@ export function VixPlayer({
       // source (passive useEffect would run only after the commit).
       subSourceRef.current = next;
       setSubError(null);
-      if (next !== "opensub") {
+      if (next !== "opensub" && next !== "subdl") {
         setOpenSubFileId(null);
         setSavedSubAltPick(null);
         setSubMenuOpen(false);
@@ -1536,8 +1546,8 @@ export function VixPlayer({
         subSource: next,
         subs: next === "off" ? "off" : "en",
       });
-      // OpenSubs: keep menu open, list top 3, still load best as default.
-      if (next === "opensub") {
+      // File providers: keep menu open, list top 3, still load best as default.
+      if (next === "opensub" || next === "subdl") {
         void ensureOpenSubList();
       }
       reloadSubsRef.current?.();
@@ -1545,40 +1555,47 @@ export function VixPlayer({
     [ensureOpenSubList]
   );
 
-  /** User picked one of the top-3 OpenSubtitles files. */
+  /** User picked one of the top-3 files (OpenSubs or SubDL). */
   const handleOpenSubPick = useCallback(
     async (item: OpenSubListItem) => {
+      // Rows come from whichever provider the menu is listing.
+      const provider: SubSource =
+        subSourceRef.current === "subdl" ? "subdl" : "opensub";
       // Clocked iframe: no <video> track — the iframe-sub effect downloads
       // the picked file once openSubFileId is set.
       if (clockEmbed) {
-        const imdb = imdbIdRef.current ?? (await ensureIframeImdb());
-        if (!imdb) {
+        // OpenSubs needs an IMDb id; SubDL keys on TMDB ids and doesn't.
+        let imdb = imdbIdRef.current;
+        if (provider === "opensub" && !imdb) imdb = await ensureIframeImdb();
+        if (provider === "opensub" && !imdb) {
           setSubError("Subtitles unavailable");
           return;
         }
         setOpenSubFileId(item.fileId);
-        setSubSource("opensub");
-        subSourceRef.current = "opensub";
+        setSubSource(provider);
+        subSourceRef.current = provider;
         setSubError(null);
-        saveVixSettings({ subSource: "opensub", subs: "en" });
+        saveVixSettings({ subSource: provider, subs: "en" });
         setSubMenuOpen(false);
         return;
       }
       const video = videoRef.current;
       const imdb = imdbIdRef.current;
-      if (!video || !imdb) {
+      if (!video || (provider === "opensub" && !imdb)) {
         setSubError("Subtitles unavailable");
         return;
       }
       setOpenSubFileId(item.fileId);
       setSavedSubAltPick(null);
-      setSubSource("opensub");
-      subSourceRef.current = "opensub";
+      setSubSource(provider);
+      subSourceRef.current = provider;
       setSubError(null);
-      saveVixSettings({ subSource: "opensub", subs: "en" });
+      saveVixSettings({ subSource: provider, subs: "en" });
       const ext = await fetchExternalVtt({
-        source: "opensub",
-        imdbId: imdb,
+        source: provider,
+        type,
+        tmdbId,
+        imdbId: imdb ?? null,
         season,
         episode,
         fileId: item.fileId,
@@ -1597,7 +1614,7 @@ export function VixPlayer({
       if (tr) injectedTracksRef.current.push(tr);
       setSubMenuOpen(false);
     },
-    [season, episode, clockEmbed, ensureIframeImdb]
+    [season, episode, type, tmdbId, clockEmbed, ensureIframeImdb]
   );
 
   /** Switch to one of the stored spare subtitle files (offline, no fetch). */
@@ -1624,24 +1641,24 @@ export function VixPlayer({
     [initialSubAlts]
   );
 
-  // Prefetch OS list when CC menu opens on OpenSubs.
+  // Prefetch the file list when CC menu opens on a file provider.
   useEffect(() => {
-    if (subMenuOpen && subSource === "opensub") {
+    if (subMenuOpen && (subSource === "opensub" || subSource === "subdl")) {
       void ensureOpenSubList();
     }
   }, [subMenuOpen, subSource, ensureOpenSubList]);
 
   /**
    * Revert the picker to "auto" when a forced external source (VDRK /
-   * OpenSubtitles) fails to load. Without this the checkmark strands on a
-   * dead source and the user sees no subs and no error. Re-run Auto load so
-   * stream/VDRK/OS cascade actually applies after the revert.
+   * OpenSubtitles / SubDL) fails to load. Without this the checkmark strands
+   * on a dead source and the user sees no subs and no error. Re-run Auto load
+   * so stream/VDRK/OS/SubDL cascade actually applies after the revert.
    */
-  const revertExternalSub = useCallback((failed: "vdrk" | "opensub") => {
+  const revertExternalSub = useCallback((failed: "vdrk" | "opensub" | "subdl") => {
     subSourceRef.current = "auto";
     setSubSource("auto");
     setSubError(
-      `${failed === "vdrk" ? "VDRK" : "OpenSubtitles"} subtitles unavailable — switched to Auto`
+      `${failed === "vdrk" ? "VDRK" : failed === "subdl" ? "SubDL" : "OpenSubtitles"} subtitles unavailable — switched to Auto`
     );
     saveVixSettings({ subSource: "auto", subs: "en" });
     queueMicrotask(() => reloadSubsRef.current?.());
@@ -1708,12 +1725,12 @@ export function VixPlayer({
     };
   }, [streamable, type, tmdbId, season, episode, activeSource, isEmbedActive, offlineOverride, initialPlaylistUrl, retryNonce, mirrorStep]);
 
-  // ---------- Driven-embed subtitles (VDRK / OpenSubs overlay) ----------
+  // ---------- Driven-embed subtitles (VDRK / OpenSubs / SubDL overlay) ----------
   // CineSrc hides its CC menu (controls=false) with no subtitle postMessage
   // API; VidFast has no subtitle commands either — so render our own cues
-  // over the iframe, synced to its timeupdate position. VDRK needs only TMDB
-  // ids; OpenSubs needs an IMDb id (resolved lazily via /api/imdb since
-  // embeds never resolve).
+  // over the iframe, synced to its timeupdate position. VDRK and SubDL need
+  // only TMDB ids; OpenSubs needs an IMDb id (resolved lazily via /api/imdb
+  // since embeds never resolve).
   useEffect(() => {
     if (!clockEmbed) return;
     if (subSource === "off" || subSource === "stream") {
@@ -1723,13 +1740,15 @@ export function VixPlayer({
     if (!type || !tmdbId) return;
     let cancelled = false;
     void (async () => {
-      // Forced OpenSubs (or a picked file): download it directly.
+      // Forced file provider (or a picked file): download it directly.
       // NOTE: this path never touches the embed player — VidFast/CineSrc
       // only supply the clock. Failures here are our lookup chain, not them.
-      if (subSource === "opensub") {
-        const imdb = await ensureIframeImdb();
+      if (subSource === "opensub" || subSource === "subdl") {
+        const provider: SubSource = subSource;
+        let imdb = imdbIdRef.current ?? null;
+        if (provider === "opensub" && !imdb) imdb = await ensureIframeImdb();
         if (cancelled) return;
-        if (!imdb) {
+        if (provider === "opensub" && !imdb) {
           setIframeCues([]);
           setSubError("Couldn’t match this title to IMDb — OpenSubs needs it");
           return;
@@ -1737,7 +1756,9 @@ export function VixPlayer({
         // Keep the top-3 list fresh for the picker.
         void ensureOpenSubList();
         const ext = await fetchExternalVtt({
-          source: "opensub",
+          source: provider,
+          type,
+          tmdbId,
           imdbId: imdb,
           season,
           episode,
@@ -1746,7 +1767,11 @@ export function VixPlayer({
         if (cancelled) return;
         if (!ext?.vtt) {
           setIframeCues([]);
-          setSubError("No English OpenSubtitles files found for this title");
+          setSubError(
+            provider === "subdl"
+              ? "No English SubDL files found for this title"
+              : "No English OpenSubtitles files found for this title"
+          );
           return;
         }
         // Guard: setting state re-runs this effect — only touch the picker
@@ -1759,7 +1784,7 @@ export function VixPlayer({
         setSubError(null);
         return;
       }
-      // Auto / VDRK: VDRK first (TMDB ids only), then OpenSubs best on Auto.
+      // Auto / VDRK: VDRK first (TMDB ids only), then file providers on Auto.
       const vdrk = await fetchExternalVtt({
         source: "vdrk",
         type,
@@ -1779,23 +1804,36 @@ export function VixPlayer({
         setSubError("VDRK subtitles unavailable for this episode");
         return;
       }
-      const imdb = await ensureIframeImdb();
+      const imdb = imdbIdRef.current ?? (await ensureIframeImdb());
       if (cancelled) return;
-      if (!imdb) {
-        setIframeCues([]);
-        setSubError("Subtitles unavailable for this episode");
+      // OpenSubs needs IMDb; skip straight to SubDL when we never got one.
+      const os = imdb
+        ? await fetchExternalVtt({ source: "opensub", imdbId: imdb, season, episode })
+        : null;
+      if (cancelled) return;
+      if (os?.vtt) {
+        setIframeCues(parseVttCues(os.vtt));
+        setHasExternalSubs(true);
+        setSubError(null);
         return;
       }
-      const os = await fetchExternalVtt({ source: "opensub", imdbId: imdb, season, episode });
+      // SubDL keys on TMDB ids — last tier of the Auto cascade.
+      const dl = await fetchExternalVtt({
+        source: "subdl",
+        type,
+        tmdbId,
+        season,
+        episode,
+      });
       if (cancelled) return;
-      if (!os?.vtt) {
-        setIframeCues([]);
-        setSubError("Subtitles unavailable for this episode");
+      if (dl?.vtt) {
+        setIframeCues(parseVttCues(dl.vtt));
+        setHasExternalSubs(true);
+        setSubError(null);
         return;
       }
-      setIframeCues(parseVttCues(os.vtt));
-      setHasExternalSubs(true);
-      setSubError(null);
+      setIframeCues([]);
+      setSubError("Subtitles unavailable for this episode");
     })();
     return () => {
       cancelled = true;

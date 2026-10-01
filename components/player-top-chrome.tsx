@@ -20,7 +20,11 @@ import { useOnline } from "@/components/download-row";
 import { cn } from "@/lib/utils";
 import { sourceLabel } from "@/lib/embed-sources";
 import type { VixSettings } from "@/lib/vix-settings";
-import type { OpenSubListItem, SubSource } from "@/lib/player-subs";
+import type {
+  OpenSubListItem,
+  SubFileId,
+  SubSource,
+} from "@/lib/player-subs";
 import type {
   AudioTrackInfo,
   PlayerMode,
@@ -60,7 +64,7 @@ type PlayerTopChromeProps = {
   onSubSource: (next: SubSource) => void;
   /** Top OpenSubtitles files (max 3). */
   openSubItems: OpenSubListItem[];
-  openSubFileId: number | null;
+  openSubFileId: SubFileId | null;
   openSubListLoading: boolean;
   onOpenSubPick: (item: OpenSubListItem) => void;
   /** Stored subtitle files (downloaded with the item) for offline switching. */
@@ -477,6 +481,7 @@ export function PlayerTopChrome({
                             ["auto", "Auto"],
                             ["vdrk", "VDRK"],
                             ["opensub", "OpenSubs"],
+                            ["subdl", "SubDL"],
                             ["off", "Off"],
                           ]
                         : [
@@ -484,6 +489,7 @@ export function PlayerTopChrome({
                             ["stream", "Stream"],
                             ["vdrk", "VDRK"],
                             ["opensub", "OpenSubs"],
+                            ["subdl", "SubDL"],
                             ["off", "Off"],
                           ]
                     ) as [SubSource, string][]
@@ -495,12 +501,7 @@ export function PlayerTopChrome({
                       onClick={() => onSubSource(key)}
                       className={cn(
                         "flex w-full items-center justify-between px-3.5 py-2.5 text-left text-sm font-semibold text-white hover:bg-secondary",
-                        subSource === key &&
-                          key !== "opensub" &&
-                          "bg-secondary/60 text-primary",
-                        subSource === "opensub" &&
-                          key === "opensub" &&
-                          "bg-secondary/60 text-primary"
+                        subSource === key && "bg-secondary/60 text-primary"
                       )}
                     >
                       {label}
@@ -512,7 +513,8 @@ export function PlayerTopChrome({
 
                   {/* Stored files (downloaded with the item) — offline switching
                       when the default misaligns. */}
-                  {subSource === "opensub" && savedSubAlts.length > 0 && (
+                  {(subSource === "opensub" || subSource === "subdl") &&
+                    savedSubAlts.length > 0 && (
                     <div className="border-t border-white/10 py-1">
                       <p className="px-3.5 py-1.5 text-[10px] font-semibold uppercase tracking-wide text-white/45">
                         Saved files
@@ -545,8 +547,8 @@ export function PlayerTopChrome({
                     </div>
                   )}
 
-                  {/* Top 3 OpenSubtitles releases — pick the one that syncs. */}
-                  {subSource === "opensub" && (
+                  {/* Top 3 files (OpenSubs / SubDL) — pick the one that syncs. */}
+                  {(subSource === "opensub" || subSource === "subdl") && (
                     <div className="border-t border-white/10 py-1">
                       <p className="px-3.5 py-1.5 text-[10px] font-semibold uppercase tracking-wide text-white/45">
                         Top 3 files
@@ -595,6 +597,7 @@ export function PlayerTopChrome({
                   {subSource !== "off" &&
                     (subSource === "vdrk" ||
                       subSource === "opensub" ||
+                      subSource === "subdl" ||
                       hasExternalSubs) && (
                       <div className="flex items-center justify-between border-t border-white/10 px-3.5 py-2.5">
                         <span className="text-xs font-semibold text-white/70">

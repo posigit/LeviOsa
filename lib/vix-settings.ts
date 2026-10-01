@@ -39,11 +39,12 @@ export type VixSettings = {
   autoRotate: boolean;
   /**
    * Subtitle source preference (picker in the player):
-   * "auto" (default) = stream CC when present, else VDRK → OpenSubtitles;
+   * "auto" (default) = stream CC when present, else VDRK → OpenSubs → SubDL;
    * "off" = never show; "stream" = stream's own English CC only;
-   * "vdrk" = force VDRK VTT; "opensub" = force OpenSubtitles VTT.
+   * "vdrk" = force VDRK VTT; "opensub" = force OpenSubtitles VTT;
+   * "subdl" = force SubDL VTT.
    */
-  subSource: "auto" | "off" | "stream" | "vdrk" | "opensub";
+  subSource: "auto" | "off" | "stream" | "vdrk" | "opensub" | "subdl";
   /** Last stream backend the user picked (native or embed source). */
   preferredSource: StreamSource;
   /**

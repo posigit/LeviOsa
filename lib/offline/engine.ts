@@ -12,7 +12,7 @@
  */
 
 import { resolveStreamPlaylist } from "@/lib/player-stream";
-import { fetchExternalVtt } from "@/lib/player-subs";
+import { fetchExternalVtt, type SubFileId } from "@/lib/player-subs";
 import { fetchSegments } from "@/lib/introdb";
 import { loadVixSettings, matchLang } from "@/lib/vix-settings";
 import {
@@ -1162,7 +1162,8 @@ async function runDownload(
   const subsSignal = linkSignals([signal, AbortSignal.timeout(30000)]);
   const subsPromise = (async () => {
     const sub = await fetchDownloadSubs(req, resolved.imdbId, subsSignal);
-    let alts: { vtt: string; label: string }[] = [];
+    const alts: { vtt: string; label: string }[] = [];
+    // OpenSubs spares only when the picker opted into a file provider…
     const subOpts = loadVixSettings().subSource;
     if (subOpts === "vdrk" || subOpts === "auto" || subOpts === "opensub") {
       const fetched = await fetchDownloadSubAlts(
@@ -1171,12 +1172,27 @@ async function runDownload(
         sub?.fileId,
         subsSignal
       );
-      alts = fetched;
+      alts.push(...fetched);
+    }
+    // …but the top-2 SubDL results are stored for EVERY download, so the
+    // offline copy always carries them as swap spares regardless of picker.
+    try {
+      if (!subsSignal.aborted) {
+        const dlAlts = await fetchDownloadSubDlAlts(
+          req,
+          resolved.imdbId,
+          sub?.fileId,
+          subsSignal
+        );
+        alts.push(...dlAlts);
+      }
+    } catch {
+      /* SubDL spares are a bonus — never fail the download for them */
     }
     const entries = [
       ...(sub ? [{ vtt: sub.vtt, label: sub.label }] : []),
       ...alts,
-    ].slice(0, 3);
+    ].slice(0, 5);
     return {
       subVtt: sub?.vtt ?? null,
       subLabel: sub?.label ?? null,
@@ -1933,7 +1949,7 @@ async function fetchDownloadSubs(
   req: DownloadRequest,
   imdbId: string | null,
   signal: AbortSignal
-): Promise<{ vtt: string; label: string; fileId?: number } | null> {
+): Promise<{ vtt: string; label: string; fileId?: SubFileId } | null> {
   const settings = loadVixSettings();
   const subSource = settings.subSource;
   if (subSource === "off" || subSource === "stream") return null;
@@ -1950,16 +1966,46 @@ async function fetchDownloadSubs(
     if (vdrk?.vtt) return { vtt: vdrk.vtt, label: vdrk.label };
     if (subSource === "vdrk") return null;
   }
-  if (!imdbId) return null;
+  if (subSource === "subdl") {
+    const dl = await fetchExternalVtt({
+      source: "subdl",
+      type: req.type,
+      tmdbId: req.tmdbId,
+      imdbId,
+      season: req.season,
+      episode: req.episode,
+      signal,
+    });
+    if (dl?.vtt) return { vtt: dl.vtt, label: dl.label, fileId: dl.fileId };
+    return null;
+  }
+  // Auto / opensub → OpenSubtitles (needs IMDb)…
+  if (imdbId) {
+    if (signal.aborted) throw abortError();
+    const os = await fetchExternalVtt({
+      source: "opensub",
+      imdbId,
+      season: req.season,
+      episode: req.episode,
+      signal,
+    });
+    if (os?.vtt) return { vtt: os.vtt, label: os.label, fileId: os.fileId };
+    if (subSource === "opensub") return null;
+  } else if (subSource === "opensub") {
+    return null;
+  }
+  // …then SubDL: Auto's last tier, and the only tier that works with no IMDb.
   if (signal.aborted) throw abortError();
-  const os = await fetchExternalVtt({
-    source: "opensub",
+  const dl = await fetchExternalVtt({
+    source: "subdl",
+    type: req.type,
+    tmdbId: req.tmdbId,
     imdbId,
     season: req.season,
     episode: req.episode,
     signal,
   });
-  if (os?.vtt) return { vtt: os.vtt, label: os.label, fileId: os.fileId };
+  if (dl?.vtt) return { vtt: dl.vtt, label: dl.label, fileId: dl.fileId };
   return null;
 }
 
@@ -1974,7 +2020,7 @@ const MAX_ALT_VTT_BYTES = 500 * 1024;
 async function fetchDownloadSubAlts(
   req: DownloadRequest,
   imdbId: string | null,
-  excludeFileId: number | undefined,
+  excludeFileId: SubFileId | undefined,
   signal: AbortSignal
 ): Promise<{ vtt: string; label: string }[]> {
   const out: { vtt: string; label: string }[] = [];
@@ -1995,6 +2041,64 @@ async function fetchDownloadSubAlts(
       try {
         const ext = await fetchExternalVtt({
           source: "opensub",
+          imdbId,
+          season: req.season,
+          episode: req.episode,
+          fileId: item.fileId,
+          label: item.label,
+          signal,
+        });
+        if (ext?.vtt && ext.vtt.length <= MAX_ALT_VTT_BYTES) {
+          out.push({ vtt: ext.vtt, label: ext.label });
+        }
+      } catch {
+        /* one bad file skips — the rest still land */
+      }
+    }
+  } catch {
+    /* alts are a bonus */
+  }
+  return out;
+}
+
+/**
+ * Top 2 SubDL files — fetched for EVERY download, whatever the picker says,
+ * so the offline item always carries the two best SubDL results as spares
+ * alongside the default. List mode costs no download quota; each file fetch
+ * does, so a miss just yields fewer spares. Never throws.
+ */
+async function fetchDownloadSubDlAlts(
+  req: DownloadRequest,
+  imdbId: string | null,
+  excludeFileId: SubFileId | undefined,
+  signal: AbortSignal
+): Promise<{ vtt: string; label: string }[]> {
+  const out: { vtt: string; label: string }[] = [];
+  if (!req.tmdbId && !imdbId) return out;
+  try {
+    const q = new URLSearchParams({
+      lang: "en",
+      list: "1",
+      type: req.type === "tv" ? "tv" : "movie",
+    });
+    if (req.tmdbId) q.set("tmdbId", String(req.tmdbId));
+    if (imdbId) q.set("imdbId", imdbId);
+    if (req.season != null) q.set("season", String(req.season));
+    if (req.episode != null) q.set("episode", String(req.episode));
+    const res = await fetch(`/api/subdl?${q.toString()}`, { signal });
+    if (!res.ok) return out;
+    const data = (await res.json()) as {
+      items?: { fileId: SubFileId; label: string }[];
+    };
+    for (const item of data.items ?? []) {
+      if (out.length >= 2) break;
+      if (item.fileId === excludeFileId) continue;
+      if (signal.aborted) throw abortError();
+      try {
+        const ext = await fetchExternalVtt({
+          source: "subdl",
+          type: req.type,
+          tmdbId: req.tmdbId,
           imdbId,
           season: req.season,
           episode: req.episode,

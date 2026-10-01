@@ -18,7 +18,13 @@ export const SUB_COLORS: Record<VixSettings["subColor"], string> = {
   cyan: "#7dd3fc",
 };
 
-export type SubSource = "auto" | "off" | "stream" | "vdrk" | "opensub";
+export type SubSource =
+  | "auto"
+  | "off"
+  | "stream"
+  | "vdrk"
+  | "opensub"
+  | "subdl";
 
 /**
  * Strip ASS/SSA formatting that leaks into real-world subtitle files
@@ -156,29 +162,86 @@ export function cueTextAt(cues: VttCue[], t: number): string {
   return lines.join("\n");
 }
 
-export type ExternalVttResult = { vtt: string; label: string; fileId?: number };
+export type ExternalVttResult = {
+  vtt: string;
+  label: string;
+  fileId?: SubFileId;
+};
 
-export type OpenSubListItem = {
-  fileId: number;
+/**
+ * OpenSubtitles file ids are numbers; SubDL ids are its download paths
+ * ("/subtitle/{n_id}-{file_n_id}.zip"). The CC picker and both API routes
+ * treat them as opaque keys, so one union covers both.
+ */
+export type SubFileId = number | string;
+
+/** One row of the CC file picker — shared by OpenSubs and SubDL. */
+export type SubFileItem = {
+  fileId: SubFileId;
   label: string;
   downloads: number;
   format: string;
 };
 
+/** Legacy name for the same row type (existing props/imports). */
+export type OpenSubListItem = SubFileItem;
+
 /**
- * Fetch an external VTT (VDRK or OpenSubtitles) for the current item.
+ * SRT -> WebVTT. Strips ASS remnants first (OpenSubtitles/SubDL SRTs
+ * converted from ASS carry {\an8}-style overrides browsers render literally).
+ */
+export function srtToVtt(srt: string): string {
+  const cleaned = stripAssTags(srt)
+    .replace(/^\uFEFF/, "")
+    .replace(/\r/g, "")
+    .replace(/(\d{2}:\d{2}:\d{2}),(\d{3})/g, "$1.$2")
+    .replace(/\n{3,}/g, "\n\n");
+  const body = cleaned
+    .split("\n")
+    .filter((line) => !/^\d+$/.test(line.trim()))
+    .join("\n")
+    .trim();
+  return `WEBVTT\n\n${body}\n`;
+}
+
+/**
+ * Any downloaded subtitle becomes a VTT document: pass through real VTT,
+ * convert classic SRT (comma millis), convert anything else the same way.
+ */
+export function toVtt(raw: string): string {
+  const text = raw.replace(/^\uFEFF/, "");
+  if (text.trimStart().toUpperCase().startsWith("WEBVTT")) return text;
+  return srtToVtt(text);
+}
+
+/**
+ * English-latin sanity check for a downloaded file. SubDL lets uploaders tag
+ * any file "EN", so an entry can come back in Persian/Arabic script — reject
+ * those instead of storing junk under an English label (only Latin-script
+ * English survives; Spanish/French etc. are Latin too and pass).
+ */
+export function looksLatin(text: string): boolean {
+  const letters = text.match(/\p{L}/gu);
+  if (!letters || letters.length < 40) return true; // too short to judge
+  const ascii = text.match(/[A-Za-z]/g);
+  const asciiCount = ascii ? ascii.length : 0;
+  return asciiCount / letters.length >= 0.6;
+}
+
+/**
+ * Fetch an external VTT (VDRK / OpenSubtitles / SubDL) for the current item.
  * Returns { vtt, label } or null.
- * For opensub, pass fileId to download a specific list pick.
+ * For opensub/subdl, pass fileId to download a specific list pick.
  */
 export async function fetchExternalVtt(opts: {
-  source: "vdrk" | "opensub";
+  source: "vdrk" | "opensub" | "subdl";
   type?: "movie" | "tv";
   tmdbId?: number;
   season?: number;
   episode?: number;
   imdbId?: string | null;
-  /** OpenSubtitles: download this file instead of auto-best. */
-  fileId?: number;
+  /** Specific list pick (OpenSubtitles file id, SubDL path). */
+  fileId?: SubFileId;
   label?: string;
   /** Optional abort (offline engine pauses) — player callers omit it. */
   signal?: AbortSignal;
@@ -196,6 +259,41 @@ export async function fetchExternalVtt(opts: {
       const vtt = await res.text();
       if (vtt.trim().length === 0) return null;
       return { vtt, label: "English (VDRK)" };
+    } catch {
+      return null;
+    }
+  }
+
+  if (opts.source === "subdl") {
+    // SubDL keys on TMDB ids (IMDb is only a fallback), so embeds that never
+    // resolve IMDb still get subtitles.
+    if (!opts.tmdbId && !opts.imdbId) return null;
+    try {
+      const q = new URLSearchParams({ lang: "en" });
+      if (opts.tmdbId) q.set("tmdbId", String(opts.tmdbId));
+      if (opts.type) q.set("type", opts.type);
+      if (opts.imdbId) q.set("imdbId", opts.imdbId);
+      if (opts.season != null) q.set("season", String(opts.season));
+      if (opts.episode != null) q.set("episode", String(opts.episode));
+      if (opts.fileId != null) {
+        q.set("fileId", String(opts.fileId));
+        if (opts.label) q.set("label", opts.label);
+      }
+      const res = await fetch(`/api/subdl?${q.toString()}`, {
+        signal: opts.signal,
+      });
+      if (!res.ok) return null;
+      const data = (await res.json()) as {
+        vtt?: string;
+        label?: string;
+        fileId?: SubFileId;
+      };
+      if (!data.vtt) return null;
+      return {
+        vtt: data.vtt,
+        label: data.label ?? "SubDL (English)",
+        fileId: data.fileId,
+      };
     } catch {
       return null;
     }
@@ -235,7 +333,7 @@ export async function listOpenSubtitles(opts: {
   imdbId?: string | null;
   season?: number;
   episode?: number;
-}): Promise<OpenSubListItem[]> {
+}): Promise<SubFileItem[]> {
   if (!opts.imdbId) return [];
   try {
     const q = new URLSearchParams({
@@ -247,8 +345,33 @@ export async function listOpenSubtitles(opts: {
     if (opts.episode != null) q.set("episode", String(opts.episode));
     const res = await fetch(`/api/vixsrc/subs?${q.toString()}`);
     if (!res.ok) return [];
-    const data = (await res.json()) as { items?: OpenSubListItem[] };
+    const data = (await res.json()) as { items?: SubFileItem[] };
     // Player only needs the top 3 ranked files.
+    return Array.isArray(data.items) ? data.items.slice(0, 3) : [];
+  } catch {
+    return [];
+  }
+}
+
+/** List SubDL English files (no download quota hit). */
+export async function listSubDl(opts: {
+  tmdbId?: number;
+  type?: "movie" | "tv";
+  imdbId?: string | null;
+  season?: number;
+  episode?: number;
+}): Promise<SubFileItem[]> {
+  if (!opts.tmdbId && !opts.imdbId) return [];
+  try {
+    const q = new URLSearchParams({ lang: "en", list: "1" });
+    if (opts.tmdbId) q.set("tmdbId", String(opts.tmdbId));
+    if (opts.type) q.set("type", opts.type);
+    if (opts.imdbId) q.set("imdbId", opts.imdbId);
+    if (opts.season != null) q.set("season", String(opts.season));
+    if (opts.episode != null) q.set("episode", String(opts.episode));
+    const res = await fetch(`/api/subdl?${q.toString()}`);
+    if (!res.ok) return [];
+    const data = (await res.json()) as { items?: SubFileItem[] };
     return Array.isArray(data.items) ? data.items.slice(0, 3) : [];
   } catch {
     return [];

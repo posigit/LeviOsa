@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { stripAssTags } from "@/lib/player-subs";
+import { srtToVtt } from "@/lib/player-subs";
 
 /**
  * OpenSubtitles (opensubtitles.com) subtitle lookup, gated on env:
@@ -59,22 +59,6 @@ async function getToken(): Promise<string> {
   if (!data.token) throw new Error("opensubtitles login returned no token");
   cachedToken = { token: data.token, expiresAt: Date.now() + 12 * 60 * 60 * 1000 };
   return data.token;
-}
-
-function srtToVtt(srt: string): string {
-  // Strip ASS remnants first (OpenSubtitles SRTs converted from ASS carry
-  // {\\an8}-style overrides browsers/overlays render literally).
-  const cleaned = stripAssTags(srt)
-    .replace(/^\uFEFF/, "")
-    .replace(/\r/g, "")
-    .replace(/(\d{2}:\d{2}:\d{2}),(\d{3})/g, "$1.$2")
-    .replace(/\n{3,}/g, "\n\n");
-  const body = cleaned
-    .split("\n")
-    .filter((line) => !/^\d+$/.test(line.trim()))
-    .join("\n")
-    .trim();
-  return `WEBVTT\n\n${body}\n`;
 }
 
 function englishSubs(rows: OsSubRow[]): OsSubRow[] {
