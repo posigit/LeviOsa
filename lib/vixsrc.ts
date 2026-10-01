@@ -38,6 +38,33 @@ export function isVixPlayerOrigin(origin: string): boolean {
   }
 }
 
+/**
+ * Origin suffixes vixsrc.to's WAF refuses to serve an *embed* to.
+ *
+ * Verified 2026-10-01 against https://vixsrc.to/movie/550 with a browser UA:
+ * a Referer from these hosts answers 403 + Cloudflare's "Sorry, you have been
+ * blocked" page (both origin-only and full referers), while no Referer at all
+ * and other hosts (outray.app, pages.dev, fly.dev, railway.app, herokuapp.com,
+ * example.com, localhost) answer 200. The embed player itself refuses an empty
+ * referrer — it walls with "CANNOT BE EMBEDDED WITH REFERRERPOLICY=
+ * NO-REFERRER ... USE REFERRERPOLICY=ORIGIN" — so from a blocked host the two
+ * requirements contradict and the frame can only ever show the block page.
+ * Native playback never uses this check: it talks to vixsrc.to with no
+ * Referer (allowed) or through the resolver.
+ */
+const VIX_EMBED_BLOCKED_HOST_SUFFIXES = [
+  ".vercel.app",
+  ".netlify.app",
+  ".onrender.com",
+  ".web.app",
+];
+
+/** True when an embed of vixsrc.to from this page host would be WAF-blocked. */
+export function isVixEmbedBlockedHost(hostname: string): boolean {
+  const host = hostname.toLowerCase();
+  return VIX_EMBED_BLOCKED_HOST_SUFFIXES.some((suffix) => host.endsWith(suffix));
+}
+
 export function vixMovieUrl(tmdbId: number) {
   return `${VIX_BASE}/movie/${tmdbId}?primaryColor=${VIX_PRIMARY_COLOR}&secondaryColor=${VIX_SECONDARY_COLOR}&autoplay=true&lang=${VIX_LANG}`;
 }

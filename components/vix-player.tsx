@@ -4,6 +4,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import type { ReactNode } from "react";
 import { SkipForward } from "lucide-react";
 import {
+  isVixEmbedBlockedHost,
   parseVixPlayerEventData,
 } from "@/lib/vixsrc";
 import {
@@ -523,6 +524,17 @@ export function VixPlayer({
   const offlineOverride = initialPlaylistUrl != null;
   const isEmbedActive =
     !offlineOverride && EMBED_SOURCES.some((s) => s.key === activeSource);
+  /**
+   * The vixsrc embed (the fallback frame for every native source) can never
+   * render from a host vixsrc's WAF blocks — *.vercel.app & friends get a 403
+   * block page for any Referer, while the player refuses an empty one. From
+   * there, skip the frame and land on the error card (Retry + source switch
+   * still work, native playback through the resolver is untouched).
+   */
+  const vixIframeBlocked =
+    !isEmbedActive &&
+    typeof window !== "undefined" &&
+    isVixEmbedBlockedHost(window.location.hostname);
   // mode: native -> iframe -> error.
   // Offline has no iframe fallback (there is no embed to fall back to, and
   // the cached playlist would render as garbage in a frame) — a dead native
@@ -534,7 +546,7 @@ export function VixPlayer({
     : offlineOverride && streamFailed
       ? "error"
       : streamFailed
-        ? iframeError
+        ? iframeError || vixIframeBlocked
           ? "error"
           : "iframe"
         : playlistUrl
@@ -3414,8 +3426,16 @@ export function VixPlayer({
 
   const isLoading = mode === "loading" || (mode === "native" && !mediaReady);
   const hasError = mode === "error";
-  const { title: streamErrorTitle, detail: streamErrorDetail } =
-    streamErrorCopy(offlineOverride, streamError);
+  // vixIframeBlocked: the fallback frame would only render Cloudflare's
+  // block page, so the error card explains both halves (native failed AND
+  // the embed is unusable from this host) instead of "Try another source".
+  const { title: streamErrorTitle, detail: streamErrorDetail } = vixIframeBlocked
+    ? {
+        title: "Source unavailable here",
+        detail:
+          "Native playback failed, and vixsrc blocks its embed from this host, so the fallback can't load either. Try Retry, or switch source.",
+      }
+    : streamErrorCopy(offlineOverride, streamError);
   const canRetry = streamable || offlineOverride;
   const playbackKey = playbackParams();
   const showResume =
@@ -3458,9 +3478,12 @@ export function VixPlayer({
   }
   /**
    * Iframe referrer policy per final frame URL. vixsrc's player refuses an
-   * empty referrer (plays for seconds, then walls) — it gets origin. Every
-   * other source keeps stripped referrers (WAF-safe default); a source that
-   * starts walling the same way flips with one referrerPolicy line in its def.
+   * empty referrer (walls with "CANNOT BE EMBEDDED WITH REFERRERPOLICY=
+   * NO-REFERRER"), so it gets origin — that is only safe from hosts its WAF
+   * allows; blocked hosts never reach this line (vixIframeBlocked -> error
+   * card above). Every other source keeps stripped referrers (WAF-safe
+   * default); a source that starts walling the same way flips with one
+   * referrerPolicy line in its def.
    */
   const iframeReferrerPolicy: "no-referrer" | "origin" = (() => {
     try {

@@ -39,6 +39,16 @@ const nextConfig: NextConfig = {
   },
   async headers() {
     return [
+      // vixsrc's WAF 403s any *.vercel.app-style Referer with a "Sorry, you
+      // have been blocked" page but serves requests that carry none, and
+      // hls.js talks straight to vixsrc.to whenever a resolved playlist points
+      // there — so never leak a Referer cross-origin: native playback then
+      // works from any host. Iframes keep their own referrerPolicy attribute
+      // (it overrides this header for that frame and everything it loads).
+      {
+        source: "/(.*)",
+        headers: [{ key: "Referrer-Policy", value: "no-referrer" }],
+      },
       {
         source: "/sw.js",
         headers: [
