@@ -1,5 +1,5 @@
 import { auth } from "@/lib/auth";
-import { db } from "@/lib/db";
+import { db, withDbRetry } from "@/lib/db";
 import { userSettings } from "@/lib/schema";
 import {
   DEFAULT_VIX_SETTINGS,
@@ -24,9 +24,11 @@ export async function GET() {
   if (!session?.user?.id) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
-  const row = await db.query.userSettings.findFirst({
-    where: eq(userSettings.userId, session.user.id),
-  });
+  const row = await withDbRetry(() =>
+    db.query.userSettings.findFirst({
+      where: eq(userSettings.userId, session.user.id),
+    })
+  );
   return NextResponse.json({ settings: row?.settings ?? null });
 }
 
@@ -107,20 +109,24 @@ export async function POST(request: Request) {
     );
   }
 
-  await db
-    .insert(userSettings)
-    .values({
-      userId: session.user.id,
-      settings: merged as unknown as object,
-      updatedAt: new Date(),
-    })
-    .onConflictDoUpdate({
-      target: userSettings.userId,
-      set: {
+  // Transient DB failures (Railway cold start, dropped pool connections)
+  // retry instead of 500ing the whole settings sync.
+  await withDbRetry(() =>
+    db
+      .insert(userSettings)
+      .values({
+        userId: session.user.id,
         settings: merged as unknown as object,
         updatedAt: new Date(),
-      },
-    });
+      })
+      .onConflictDoUpdate({
+        target: userSettings.userId,
+        set: {
+          settings: merged as unknown as object,
+          updatedAt: new Date(),
+        },
+      })
+  );
 
   return NextResponse.json({ success: true, settings: merged });
 }
