@@ -919,10 +919,13 @@ async function runDownload(
   rec.state = "active";
   await upsertRecord(rec);
 
-  // 1. Resolve a native playlist (vix/goated/vidsrc-sh cascade).
+  // 1. Resolve a native playlist (vix/goated/vidsrc-pm/vidsrc-sh cascade).
   const preferred = loadVixSettings().preferredSource;
   const source =
-    preferred === "vix" || preferred === "goated" || preferred === "vidsrc-sh"
+    preferred === "vix" ||
+    preferred === "goated" ||
+    preferred === "vidsrc-sh" ||
+    preferred === "vidsrc-pm"
       ? preferred
       : "goated";
   const resolved = await resolveStreamPlaylist({

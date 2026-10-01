@@ -204,6 +204,7 @@ function clampSettings(merged: VixSettings): VixSettings {
     "vix",
     "goated",
     "vidsrc-sh",
+    "vidsrc-pm",
     "vidfast",
     "vidlink",
     "vidnest",

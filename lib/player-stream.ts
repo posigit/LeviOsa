@@ -3,8 +3,8 @@
  *
  * Goated has TWO backends behind one API: Orbit first (media proven working
  * end-to-end through the proxy, 2026-08-09) then Valenox (fallback), then Vix
- * as the LAST native fallback before iframe, then vidsrc-sh as the final
- * resort (prod: vix blocked, vidsrc-sh may answer).
+ * as the LAST native fallback before the vidsrc-pm → vidsrc-sh last resorts
+ * (prod: vix blocked, those two may answer).
  *
  * Each attempt is time-bounded AND the whole cascade has an overall deadline
  * so a throttled resolver ("Loading…" forever) fails fast instead of hanging
@@ -34,7 +34,7 @@ export type StreamResolveResult = {
   /** False when the deployment has no VIX resolver configured. */
   resolverConfigured?: boolean;
   /** Which backend actually produced the playlist (diagnostics). */
-  usedSource?: "valenox" | "orbit" | "vix" | "vidsrc-sh";
+  usedSource?: "valenox" | "orbit" | "vix" | "vidsrc-sh" | "vidsrc-pm";
   /** True when the goated cascade exhausted and vix was tried as fallback. */
   fellBackToVix?: boolean;
   /** True when vidsrc-sh was tried as the final resort. */
@@ -184,8 +184,9 @@ async function resolveOne(
   }
 }
 
-/** Single shared vidsrc-sh last-resort fetch (was duplicated 30+ lines twice). */
-async function resolveVidsrcSh(
+/** Shared native last-resort fetch for vidsrc-sh / vidsrc-pm stream routes. */
+async function resolveNativeRoute(
+  route: "vidsrc-sh" | "vidsrc-pm",
   base: URLSearchParams,
   signal: AbortSignal | undefined,
   timeoutMs: number,
@@ -199,7 +200,7 @@ async function resolveVidsrcSh(
 }> {
   const empty = { playlistUrl: null, imdbId: null, thumbnailsUrl: null, playlistUrls: [] as string[] };
   try {
-    const res = await fetchWithTimeout(`/api/vidsrc-sh/stream?${base.toString()}`, signal, timeoutMs);
+    const res = await fetchWithTimeout(`/api/${route}/stream?${base.toString()}`, signal, timeoutMs);
     if (res.ok) {
       const data = (await readJson(res)) as {
         playlistUrl?: string;
@@ -219,19 +220,19 @@ async function resolveVidsrcSh(
           thumbnailsUrl: data.thumbnailsUrl ?? null,
           playlistUrls,
         };
-        record("vidsrc-sh", out);
+        record(route, out);
         return out;
       }
     }
     const err = `route ${res.status}`;
-    record("vidsrc-sh", { playlistUrl: null, error: err });
+    record(route, { playlistUrl: null, error: err });
     return { ...empty, error: err };
   } catch (err) {
     if (err instanceof Error && signal?.aborted) {
       return empty;
     }
     const msg = err instanceof Error ? err.message : String(err);
-    record("vidsrc-sh", { playlistUrl: null, error: msg });
+    record(route, { playlistUrl: null, error: msg });
     return { ...empty, error: msg };
   }
 }
@@ -275,8 +276,12 @@ export async function resolveStreamPlaylist(opts: {
     r: { playlistUrl: string | null; error?: string }
   ) => attempts!.push({ source, ok: !!r.playlistUrl, error: r.error });
 
-  // Vix: single attempt — unchanged behavior, plus the vidsrc-sh last
-  // resort on failure (prod: vix blocked, vidsrc-sh may answer).
+  // Declared before the vix branch below also consults it (TDZ-safe).
+  // Set when vidsrc-pm was already tried so the end-of-cascade skips it.
+  let vidsrcPmTried = false;
+
+  // Vix: single attempt — unchanged behavior, plus the vidsrc-pm → vidsrc-sh
+  // last resorts on failure (prod: vix blocked, these two may answer).
   if (opts.source === "vix") {
     const r = await resolveOne("vix", base, opts.signal, budget());
     record("vix", r);
@@ -292,7 +297,22 @@ export async function resolveStreamPlaylist(opts: {
     }
     if (opts.signal?.aborted) return abortedResult(r.imdbId, attempts);
     if (!expired()) {
-      const s = await resolveVidsrcSh(base, opts.signal, budget(), record);
+      const p = await resolveNativeRoute("vidsrc-pm", base, opts.signal, budget(), record);
+      vidsrcPmTried = true;
+      if (p.playlistUrl) {
+        return {
+          playlistUrl: p.playlistUrl,
+          imdbId: p.imdbId ?? r.imdbId,
+          thumbnailsUrl: p.thumbnailsUrl ?? null,
+          playlistUrls: p.playlistUrls,
+          failed: false,
+          usedSource: "vidsrc-pm",
+          attempts,
+        };
+      }
+    }
+    if (!expired()) {
+      const s = await resolveNativeRoute("vidsrc-sh", base, opts.signal, budget(), record);
       if (s.playlistUrl) {
         return {
           playlistUrl: s.playlistUrl,
@@ -322,13 +342,33 @@ export async function resolveStreamPlaylist(opts: {
     };
   }
 
+  // Explicit VidSrc.pm selection: try it first, then fall through to the
+  // goated → vix → vidsrc-sh cascade (vidsrcPmTried stops the end-of-cascade
+  // from re-running the request that just failed).
+  if (opts.source === "vidsrc-pm") {
+    vidsrcPmTried = true;
+    const p = await resolveNativeRoute("vidsrc-pm", base, opts.signal, budget(), record);
+    if (p.playlistUrl) {
+      return {
+        playlistUrl: p.playlistUrl,
+        imdbId: p.imdbId,
+        thumbnailsUrl: p.thumbnailsUrl,
+        playlistUrls: p.playlistUrls,
+        failed: false,
+        usedSource: "vidsrc-pm",
+        attempts,
+      };
+    }
+    if (opts.signal?.aborted) return abortedResult(p.imdbId, attempts);
+  }
+
   // Explicit VidSrc.sh selection: try it first, then fall through to the
   // goated → vix cascade. vidsrcTried stops the end-of-cascade last resort
   // from re-running the request that just failed.
   let vidsrcTried = false;
   if (opts.source === "vidsrc-sh") {
     vidsrcTried = true;
-    const s = await resolveVidsrcSh(base, opts.signal, budget(), record);
+    const s = await resolveNativeRoute("vidsrc-sh", base, opts.signal, budget(), record);
     if (s.playlistUrl) {
       return {
         playlistUrl: s.playlistUrl,
@@ -403,13 +443,32 @@ export async function resolveStreamPlaylist(opts: {
     }
     imdbId = v.imdbId ?? imdbId;
   }
+  // Second-to-last resort: vidsrc.pm (netocdn HLS, verified full chain
+  // 2026-10-01) behind its signed media proxy. Runs only when vix + goated
+  // failed, so it never slows the working paths.
+  if (!vidsrcPmTried && !opts.signal?.aborted && !expired()) {
+    vidsrcPmTried = true;
+    const p = await resolveNativeRoute("vidsrc-pm", base, opts.signal, budget(), record);
+    if (p.playlistUrl) {
+      return {
+        playlistUrl: p.playlistUrl,
+        imdbId: p.imdbId ?? imdbId,
+        thumbnailsUrl: p.thumbnailsUrl ?? null,
+        playlistUrls: p.playlistUrls,
+        failed: false,
+        usedSource: "vidsrc-pm",
+        fellBackToVix: attempts.some((a) => a.source === "vix"),
+        attempts,
+      };
+    }
+  }
   // Last resort native: data.vidsrc.sh (WASM-decrypted direct HLS, tokenized
   // + proxied through /api/vidsrc-sh/media). Runs only when vix + goated
   // both failed, so it never slows the working paths — and in prod it may be
   // the ONLY reachable native backend.
   if (!vidsrcTried && !opts.signal?.aborted && !expired()) {
     vidsrcTried = true;
-    const s = await resolveVidsrcSh(base, opts.signal, budget(), record);
+    const s = await resolveNativeRoute("vidsrc-sh", base, opts.signal, budget(), record);
     if (s.playlistUrl) {
       return {
         playlistUrl: s.playlistUrl,

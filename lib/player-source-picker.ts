@@ -1,23 +1,24 @@
 import { EMBED_SOURCES } from "@/lib/embed-sources";
 import type { StreamSource } from "@/lib/player-native-types";
 
-// Picker order (user-ranked, 2026-09-30): vidy, vidstuck, cinesrc, vidsrc-sh,
-// vix, mapple, vidzee, vidfast, vidlink, vidnest, 2embed, goated.
+// Picker order (user-ranked, 2026-10-01): vidsrc-pm, cinesrc, vidstuck,
+// mapple, vidy, vix, vidzee, then the rest in their previous relative order.
 // Written out explicitly now that native sources sit *between* embeds (the
 // old slice trick only ever spliced vidsrc-sh in). XPass + YTHD were dropped
-// from the picker the same day; VidAPI followed 2026-10-01 (dead player
+// from the picker 2026-09-30; VidAPI followed 2026-10-01 (dead player
 // host). Goated is parked (backend DNS dead
 // 2026-09-23) — swap GOATED_RESOLVER in lib/goated.ts to resurrect.
 const EMBED_KEYS = new Set(EMBED_SOURCES.map((s) => s.key));
 
 export const ALL_SOURCES: StreamSource[] = [
-  "vidy",
-  "vidstuck",
+  "vidsrc-pm",
   "cinesrc",
-  "vidsrc-sh",
-  "vix",
+  "vidstuck",
   "mapple",
+  "vidy",
+  "vix",
   "vidzee",
+  "vidsrc-sh",
   "vidfast",
   "vidlink",
   "vidnest",

@@ -13,6 +13,7 @@ export type StreamSource =
   | "vix"
   | "goated"
   | "vidsrc-sh"
+  | "vidsrc-pm"
   | "vidfast"
   | "vidlink"
   | "vidnest"
