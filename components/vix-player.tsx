@@ -541,21 +541,17 @@ export function VixPlayer({
     !isEmbedActive &&
     typeof window !== "undefined" &&
     isVixEmbedBlockedHost(window.location.hostname);
-  // mode: native -> iframe -> error.
-  // Offline has no iframe fallback (there is no embed to fall back to, and
-  // the cached playlist would render as garbage in a frame) — a dead native
-  // stream goes straight to error with download-specific copy below.
+  // mode: native -> error (NO fallback frame: a failed picked source goes
+  // straight to the error card with its real status; switching source —
+  // embed included — is always a manual action via the picker/Try button).
+  // Offline shares the error path with download-specific copy below.
   const mode = isEmbedActive
     ? iframeError
       ? "error"
       : "iframe"
-    : offlineOverride && streamFailed
+    : streamFailed
       ? "error"
-      : streamFailed
-        ? iframeError || vixIframeBlocked
-          ? "error"
-          : "iframe"
-        : playlistUrl
+      : playlistUrl
             ? "native"
             : "loading";
 
@@ -1725,7 +1721,7 @@ export function VixPlayer({
       }
       if (result.failed) {
         console.warn(
-          `[player] ${activeSource} stream resolution failed — falling back to iframe:`,
+          `[player] ${activeSource} stream resolution failed:`,
           result.errorMessage ?? "no playlist",
           result.code ? `(code: ${result.code})` : "",
           result.detail ?? ""
@@ -1735,6 +1731,7 @@ export function VixPlayer({
           detail: result.detail,
           message: result.errorMessage,
           resolverConfigured: result.resolverConfigured,
+          attempts: result.attempts,
         });
         setStreamFailed(true);
       }
@@ -3959,6 +3956,7 @@ export function VixPlayer({
           tryNextLabel={sourceLabel(
             nextPlayableSource(activeSource, disabledSources)
           )}
+          attempts={streamError?.attempts}
           onRetry={retryStream}
           onClose={() => {
             void flushPosition().then(() => {

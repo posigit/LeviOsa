@@ -30,12 +30,28 @@ const RESOLVE_TIMEOUT_MS = 15_000;
 /**
  * The vidsrc.pm API intermittently 502s / times out between healthy answers
  * (observed 2026-10-01: same URL fails then succeeds seconds later). One quick
- * retry covers that blip so the player doesn't waste a cascade falling back
- * to a weaker source. 4xx is NOT retried — a rotated player key etc. needs
- * a code change, not another identical request.
+ * retry covers that blip. Permanent answers (404 no-stream, 401/403 key or
+ * block, invalid/blocked payload) are NOT retried — they need a code change,
+ * not another identical request.
  */
 const RESOLVE_RETRIES = 1;
 const RETRY_BACKOFF_MS = 500;
+
+/**
+ * Failure with the REAL upstream status so the error card can say
+ * "vidsrc-pm ✗ 404" instead of a blanket 502. `code` is a stable slug for
+ * the client (not_found / blocked / rate_limited / upstream_unreachable).
+ */
+export class VidsrcPmError extends Error {
+  readonly status: number;
+  readonly code: string;
+  constructor(message: string, status: number, code: string) {
+    super(message);
+    this.name = "VidsrcPmError";
+    this.status = status;
+    this.code = code;
+  }
+}
 
 export type VidsrcPmResolveResult = {
   playlistUrl: string;
@@ -78,16 +94,32 @@ export async function vidsrcPmResolve(
       );
     } catch (err) {
       // Network error / timeout — the flake class retry exists for.
-      lastErr = err instanceof Error ? new Error(`vidsrc.pm: ${err.message}`) : new Error("vidsrc.pm: fetch failed");
+      lastErr = new VidsrcPmError(
+        `vidsrc.pm: ${err instanceof Error ? err.message : "fetch failed"}`,
+        502,
+        "upstream_unreachable"
+      );
       continue;
     }
     if (!res.ok) {
-      const err = new Error(`vidsrc.pm api ${res.status}`);
       if (res.status >= 500 || res.status === 429) {
-        lastErr = err;
+        lastErr = new VidsrcPmError(
+          `vidsrc.pm api ${res.status}`,
+          res.status,
+          res.status === 429 ? "rate_limited" : "upstream_unreachable"
+        );
         continue;
       }
-      throw err;
+      // Permanent 4xx — surface the real status, no retry (actionable).
+      throw new VidsrcPmError(
+        `vidsrc.pm api ${res.status}`,
+        res.status,
+        res.status === 404
+          ? "not_found"
+          : res.status === 403 || res.status === 401
+            ? "blocked"
+            : "upstream_error"
+      );
     }
     const data = (await res.json().catch(() => null)) as {
       result?: boolean;
@@ -97,21 +129,29 @@ export async function vidsrcPmResolve(
     } | null;
     if (!data?.result) {
       // 200 with no payload = upstream blip (seen under load) — retryable.
-      lastErr = new Error("vidsrc.pm returned no result");
+      lastErr = new VidsrcPmError(
+        "vidsrc.pm returned no result",
+        502,
+        "upstream_unreachable"
+      );
       continue;
     }
     const url = data.sources?.find(
       (s) => typeof s.url === "string" && s.url.length > 0
     )?.url;
-    if (!url) throw new Error("vidsrc.pm returned no sources");
+    if (!url) {
+      // API acknowledged the request but has no stream for this title —
+      // the actionable "remove this source" case.
+      throw new VidsrcPmError("vidsrc.pm returned no sources", 404, "not_found");
+    }
     let parsed: URL;
     try {
       parsed = new URL(url);
     } catch {
-      throw new Error("vidsrc.pm returned an invalid url");
+      throw new VidsrcPmError("vidsrc.pm returned an invalid url", 502, "bad_payload");
     }
     if (parsed.protocol !== "https:" || !vidsrcPmAllowedHost(parsed.hostname)) {
-      throw new Error("vidsrc.pm returned a blocked host");
+      throw new VidsrcPmError("vidsrc.pm returned a blocked host", 502, "bad_payload");
     }
     return {
       playlistUrl: parsed.toString(),
@@ -119,7 +159,7 @@ export async function vidsrcPmResolve(
       imdbId: data.imdb_id ?? null,
     };
   }
-  throw lastErr ?? new Error("vidsrc.pm failed");
+  throw lastErr ?? new VidsrcPmError("vidsrc.pm failed", 502, "upstream_unreachable");
 }
 
 // ---------- proxy URL signing (abuse guard, WebCrypto — Node + Workers) ----------

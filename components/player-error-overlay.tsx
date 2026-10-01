@@ -4,10 +4,17 @@ type PlayerErrorOverlayProps = {
   canRetry: boolean;
   showTryNext: boolean;
   tryNextLabel: string;
+  /** Failed resolve attempts — shown as "source ✗ status" lines. */
+  attempts?: Array<{ source: string; ok?: boolean; error?: string }>;
   onRetry: () => void;
   onClose: () => void;
   onTryNext: () => void;
 };
+
+function attemptStatus(error?: string): string {
+  const m = /\b([45]\d{2})\b/.exec(error ?? "");
+  return m ? m[1] : "failed";
+}
 
 export function PlayerErrorOverlay({
   title,
@@ -15,15 +22,26 @@ export function PlayerErrorOverlay({
   canRetry,
   showTryNext,
   tryNextLabel,
+  attempts,
   onRetry,
   onClose,
   onTryNext,
 }: PlayerErrorOverlayProps) {
+  const failed = (attempts ?? []).filter((a) => !a.ok);
   return (
     <div className="absolute inset-0 z-[6] flex items-center justify-center bg-black/85 p-6 text-center">
       <div>
         <p className="font-bold text-white">{title}</p>
         <p className="mx-auto mt-1 max-w-xs text-sm text-white/55">{detail}</p>
+        {failed.length > 0 && (
+          <div className="mx-auto mt-2 space-y-0.5">
+            {failed.map((a, i) => (
+              <p key={`${a.source}-${i}`} className="font-mono text-xs text-white/45">
+                {a.source} ✗ {attemptStatus(a.error)}
+              </p>
+            ))}
+          </div>
+        )}
         <div className="mt-4 flex items-center justify-center gap-2">
           {canRetry && (
             <button

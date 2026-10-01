@@ -216,20 +216,30 @@ export async function GET(req: NextRequest) {
       : resolvers.length === 0
         ? "resolver_misconfigured"
         : "resolution_failed";
+    // Real upstream status when the source itself answered badly ("vixsrc
+    // api 404") — misconfiguration codes stay 502 (our problem, not vix's).
+    const statusMatch = /\b([45]\d{2})\b/.exec(directErr);
+    const upstream = statusMatch ? Number(statusMatch[1]) : null;
+    const status =
+      code === "resolution_failed" && upstream && upstream >= 400 && upstream <= 599
+        ? upstream
+        : 502;
     return NextResponse.json(
       {
         error: directErr,
-        code,
+        code: status === 404 && code === "resolution_failed" ? "not_found" : code,
         detail: !resolverRaw
           ? "VIX_RESOLVER_URL is not set on this deployment and vixsrc blocks direct requests from it. Streaming still works via embeds, but native playback and downloads need the resolver."
           : resolvers.length === 0
             ? "VIX_RESOLVER_URL(S) is set but holds no valid http(s) base URL (placeholder or malformed). Paste the resolver service's public root URL with no trailing slash or path, then redeploy."
-            : `Resolver and direct paths both failed (resolver: ${stages.resolver ?? "n/a"}; direct: ${directErr}). The resolver service may be down or blocked.`,
+            : status === 404
+              ? "vixsrc has no stream for this title/episode."
+              : `Resolver and direct paths both failed (resolver: ${stages.resolver ?? "n/a"}; direct: ${directErr}). The resolver service may be down or blocked.`,
         resolverConfigured: resolvers.length > 0,
         resolverCount: resolvers.length,
         stages,
       },
-      { status: 502 }
+      { status }
     );
   }
 }

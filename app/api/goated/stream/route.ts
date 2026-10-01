@@ -74,14 +74,23 @@ export async function GET(req: NextRequest) {
     });
   } catch (err) {
     const message = err instanceof Error ? err.message : "goated stream failed";
+    // fetchJson surfaces upstream statuses as reallyfast_unreachable_<code>.
+    // Pass the real one through so the player can show "goated ✗ 404" etc.
+    const m = /reallyfast_unreachable_(\d{3})/.exec(message);
+    const upstream = m ? Number(m[1]) : null;
+    const status = upstream && upstream >= 400 && upstream <= 599 ? upstream : 502;
+    const code =
+      status === 404 ? "not_found" : status === 403 ? "blocked" : "upstream_unreachable";
     return NextResponse.json(
       {
         error: message,
-        code: "upstream_unreachable",
+        code,
         detail:
-          "The goated backend is unreachable from this deployment (DNS / connection / TLS failure, not a missing title).",
+          code === "not_found"
+            ? "goated has no stream for this title/episode."
+            : "The goated backend is unreachable from this deployment (DNS / connection / TLS failure, not a missing title).",
       },
-      { status: 502 }
+      { status }
     );
   }
 }

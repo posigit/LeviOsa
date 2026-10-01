@@ -3,6 +3,8 @@ export type StreamErrorInfo = {
   detail?: string;
   message?: string;
   resolverConfigured?: boolean;
+  /** Per-source attempts — lets the title detect the real status (404 etc.). */
+  attempts?: Array<{ source: string; ok?: boolean; error?: string }>;
 } | null;
 
 /**
@@ -13,7 +15,11 @@ export function streamErrorCopy(
   offlineOverride: boolean,
   streamError: StreamErrorInfo
 ): { title: string; detail: string } {
-  const text = `${streamError?.code ?? ""} ${streamError?.message ?? ""}`;
+  const attemptText = (streamError?.attempts ?? [])
+    .filter((a) => !a.ok)
+    .map((a) => a.error ?? "")
+    .join(" ");
+  const text = `${streamError?.code ?? ""} ${streamError?.message ?? ""} ${attemptText}`;
   const title = offlineOverride
     ? "Couldn't play this download"
     : streamError?.resolverConfigured === false
@@ -22,7 +28,9 @@ export function streamErrorCopy(
         ? "Source blocked on this network"
         : /timeout|timed out|504|522|524/i.test(text)
           ? "Source timed out"
-          : "Player unavailable here";
+          : /404|not.?found|no sources|no streams/i.test(text)
+            ? "Not available on this source"
+            : "Player unavailable here";
   const detail = offlineOverride
     ? "The saved file may be incomplete — try downloading it again."
     : streamError?.detail ||

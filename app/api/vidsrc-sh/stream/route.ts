@@ -66,14 +66,24 @@ export async function GET(req: NextRequest) {
     });
   } catch (err) {
     const message = err instanceof Error ? err.message : "vidsrc-sh failed";
+    // The lib throws status-bearing messages ("vidsrc.sh api 404",
+    // "wasm 403", "token endpoint 502") — pass the real status through so
+    // the player can show "vidsrc-sh ✗ 404" instead of a blanket 502.
+    const m = /\b([45]\d{2})\b/.exec(message);
+    const upstream = m ? Number(m[1]) : null;
+    const status = upstream && upstream >= 400 && upstream <= 599 ? upstream : 502;
+    const code =
+      status === 404 ? "not_found" : status === 403 ? "blocked" : "upstream_unreachable";
     return NextResponse.json(
       {
         error: message,
-        code: "upstream_unreachable",
+        code,
         detail:
-          "data.vidsrc.sh unreachable from this deployment (blocked, down, or format change).",
+          code === "not_found"
+            ? "data.vidsrc.sh has no stream for this title/episode."
+            : "data.vidsrc.sh unreachable from this deployment (blocked, down, or format change).",
       },
-      { status: 502 }
+      { status }
     );
   }
 }

@@ -1,13 +1,17 @@
 /**
- * Resolve Vix / Goated master playlist URLs for native playback.
+ * Resolve a native master playlist URL for the PICKED source only.
  *
- * Goated has TWO backends behind one API: Orbit first (media proven working
- * end-to-end through the proxy, 2026-08-09) then Valenox (fallback), then Vix
- * as the LAST native fallback before the vidsrc-pm → vidsrc-sh last resorts
- * (prod: vix blocked, those two may answer).
+ * No cross-source fallback: the picked source either answers or the failure
+ * (with its REAL route status — 404 / 403 / 429 / 5xx) is returned so the
+ * error card can say e.g. "vidsrc-pm ✗ 404" and the source can be removed.
+ * The player's "Try <source>" button is the manual escape hatch.
  *
- * Each attempt is time-bounded AND the whole cascade has an overall deadline
- * so a throttled resolver ("Loading…" forever) fails fast instead of hanging
+ * Goated keeps its two backends (Orbit first — media proven working
+ * end-to-end through the proxy, 2026-08-09 — then Valenox) as its internal
+ * order: both are servers OF the goated source, not other sources.
+ *
+ * Each attempt is time-bounded AND a deadline caps the whole resolve so a
+ * throttled resolver ("Loading…" forever) fails fast instead of hanging
  * the player for ~2 minutes.
  */
 
@@ -35,11 +39,8 @@ export type StreamResolveResult = {
   resolverConfigured?: boolean;
   /** Which backend actually produced the playlist (diagnostics). */
   usedSource?: "valenox" | "orbit" | "vix" | "vidsrc-sh" | "vidsrc-pm";
-  /** True when the goated cascade exhausted and vix was tried as fallback. */
-  fellBackToVix?: boolean;
-  /** True when vidsrc-sh was tried as the final resort. */
-  fellBackToVidsrcSh?: boolean;
-  /** Per-attempt outcomes (diagnostics / console). */
+  /** Per-attempt outcomes — surfaced on failure so the error card can name
+   *  the failing source with its real HTTP status (e.g. "vidsrc-pm ✗ 404"). */
   attempts?: Array<{ source: string; ok: boolean; error?: string }>;
 };
 
@@ -184,7 +185,9 @@ async function resolveOne(
   }
 }
 
-/** Shared native last-resort fetch for vidsrc-sh / vidsrc-pm stream routes. */
+/** Shared native fetch for vidsrc-sh / vidsrc-pm stream routes. On failure it
+ *  keeps the route's structured body (code/detail) and the real HTTP status
+ *  so the error card can name the source + status. */
 async function resolveNativeRoute(
   route: "vidsrc-sh" | "vidsrc-pm",
   base: URLSearchParams,
@@ -197,36 +200,46 @@ async function resolveNativeRoute(
   thumbnailsUrl: string | null;
   playlistUrls: string[];
   error?: string;
+  code?: string;
+  detail?: string;
 }> {
   const empty = { playlistUrl: null, imdbId: null, thumbnailsUrl: null, playlistUrls: [] as string[] };
   try {
     const res = await fetchWithTimeout(`/api/${route}/stream?${base.toString()}`, signal, timeoutMs);
-    if (res.ok) {
-      const data = (await readJson(res)) as {
-        playlistUrl?: string;
-        playlistUrls?: string[];
-        imdbId?: string | null;
-        thumbnailsUrl?: string | null;
-      };
-      if (data?.playlistUrl) {
-        const mirrors = Array.isArray(data.playlistUrls)
-          ? data.playlistUrls.filter((u): u is string => typeof u === "string" && u.length > 0)
-          : [];
-        // Primary first, then the rest (deduped) — downloads walk them all.
-        const playlistUrls = [data.playlistUrl, ...mirrors.filter((u) => u !== data.playlistUrl)];
-        const out = {
-          playlistUrl: data.playlistUrl,
-          imdbId: data.imdbId ?? null,
-          thumbnailsUrl: data.thumbnailsUrl ?? null,
-          playlistUrls,
-        };
-        record(route, out);
-        return out;
-      }
+    type Body = {
+      playlistUrl?: string;
+      playlistUrls?: string[];
+      imdbId?: string | null;
+      thumbnailsUrl?: string | null;
+      error?: string;
+      code?: string;
+      detail?: string;
+    };
+    let data: Body | null = null;
+    try {
+      data = await readJson<Body>(res);
+    } catch {
+      /* non-JSON / hanging body — status still carries the verdict */
     }
-    const err = `route ${res.status}`;
+    if (res.ok && data?.playlistUrl) {
+      const mirrors = Array.isArray(data.playlistUrls)
+        ? data.playlistUrls.filter((u): u is string => typeof u === "string" && u.length > 0)
+        : [];
+      // Primary first, then the rest (deduped) — downloads walk them all.
+      const playlistUrls = [data.playlistUrl, ...mirrors.filter((u) => u !== data.playlistUrl)];
+      const out = {
+        playlistUrl: data.playlistUrl,
+        imdbId: data.imdbId ?? null,
+        thumbnailsUrl: data.thumbnailsUrl ?? null,
+        playlistUrls,
+      };
+      record(route, out);
+      return out;
+    }
+    const text = data?.error ?? (res.ok ? "no playlist in response" : "");
+    const err = res.ok ? text : `route ${res.status}${text ? `: ${text.slice(0, 200)}` : ""}`;
     record(route, { playlistUrl: null, error: err });
-    return { ...empty, error: err };
+    return { ...empty, error: err, code: data?.code, detail: data?.detail };
   } catch (err) {
     if (err instanceof Error && signal?.aborted) {
       return empty;
@@ -268,7 +281,6 @@ export async function resolveStreamPlaylist(opts: {
 
   const deadline = Date.now() + OVERALL_DEADLINE_MS;
   const budget = () => Math.max(1_000, Math.min(RESOLVE_TIMEOUT_MS, deadline - Date.now()));
-  const expired = () => Date.now() >= deadline || opts.signal?.aborted === true;
 
   const attempts: StreamResolveResult["attempts"] = [];
   const record = (
@@ -276,114 +288,7 @@ export async function resolveStreamPlaylist(opts: {
     r: { playlistUrl: string | null; error?: string }
   ) => attempts!.push({ source, ok: !!r.playlistUrl, error: r.error });
 
-  // Declared before the vix branch below also consults it (TDZ-safe).
-  // Set when vidsrc-pm was already tried so the end-of-cascade skips it.
-  let vidsrcPmTried = false;
-
-  // Vix: single attempt — unchanged behavior, plus the vidsrc-pm → vidsrc-sh
-  // last resorts on failure (prod: vix blocked, these two may answer).
-  if (opts.source === "vix") {
-    const r = await resolveOne("vix", base, opts.signal, budget());
-    record("vix", r);
-    if (r.playlistUrl) {
-      return {
-        playlistUrl: r.playlistUrl,
-        imdbId: r.imdbId,
-        thumbnailsUrl: r.thumbnailsUrl ?? null,
-        failed: false,
-        usedSource: "vix",
-        attempts,
-      };
-    }
-    if (opts.signal?.aborted) return abortedResult(r.imdbId, attempts);
-    if (!expired()) {
-      const p = await resolveNativeRoute("vidsrc-pm", base, opts.signal, budget(), record);
-      vidsrcPmTried = true;
-      if (p.playlistUrl) {
-        return {
-          playlistUrl: p.playlistUrl,
-          imdbId: p.imdbId ?? r.imdbId,
-          thumbnailsUrl: p.thumbnailsUrl ?? null,
-          playlistUrls: p.playlistUrls,
-          failed: false,
-          usedSource: "vidsrc-pm",
-          attempts,
-        };
-      }
-    }
-    if (!expired()) {
-      const s = await resolveNativeRoute("vidsrc-sh", base, opts.signal, budget(), record);
-      if (s.playlistUrl) {
-        return {
-          playlistUrl: s.playlistUrl,
-          imdbId: s.imdbId ?? r.imdbId,
-          thumbnailsUrl: s.thumbnailsUrl ?? null,
-          playlistUrls: s.playlistUrls,
-          failed: false,
-          usedSource: "vidsrc-sh",
-          fellBackToVidsrcSh: true,
-          attempts,
-        };
-      }
-    }
-    return {
-      playlistUrl: null,
-      imdbId: r.imdbId,
-      thumbnailsUrl: null,
-      failed: true,
-      errorMessage: [...attempts].reverse().find((a) => !a.ok)?.error ?? r.error,
-      code: r.code,
-      detail: r.detail,
-      resolverConfigured: r.resolverConfigured,
-      usedSource: undefined,
-      fellBackToVix: false,
-      fellBackToVidsrcSh: attempts.some((a) => a.source === "vidsrc-sh"),
-      attempts,
-    };
-  }
-
-  // Explicit VidSrc.pm selection: try it first, then fall through to the
-  // goated → vix → vidsrc-sh cascade (vidsrcPmTried stops the end-of-cascade
-  // from re-running the request that just failed).
-  if (opts.source === "vidsrc-pm") {
-    vidsrcPmTried = true;
-    const p = await resolveNativeRoute("vidsrc-pm", base, opts.signal, budget(), record);
-    if (p.playlistUrl) {
-      return {
-        playlistUrl: p.playlistUrl,
-        imdbId: p.imdbId,
-        thumbnailsUrl: p.thumbnailsUrl,
-        playlistUrls: p.playlistUrls,
-        failed: false,
-        usedSource: "vidsrc-pm",
-        attempts,
-      };
-    }
-    if (opts.signal?.aborted) return abortedResult(p.imdbId, attempts);
-  }
-
-  // Explicit VidSrc.sh selection: try it first, then fall through to the
-  // goated → vix cascade. vidsrcTried stops the end-of-cascade last resort
-  // from re-running the request that just failed.
-  let vidsrcTried = false;
-  if (opts.source === "vidsrc-sh") {
-    vidsrcTried = true;
-    const s = await resolveNativeRoute("vidsrc-sh", base, opts.signal, budget(), record);
-    if (s.playlistUrl) {
-      return {
-        playlistUrl: s.playlistUrl,
-        imdbId: s.imdbId,
-        thumbnailsUrl: s.thumbnailsUrl,
-        playlistUrls: s.playlistUrls,
-        failed: false,
-        usedSource: "vidsrc-sh",
-        attempts,
-      };
-    }
-    if (opts.signal?.aborted) return abortedResult(s.imdbId, attempts);
-  }
-
-  // First structured diagnosis seen across attempts (surfaced on failure).
+  // Structured diagnosis from the picked source's route (surfaced on failure).
   const diag: {
     code?: string;
     detail?: string;
@@ -401,101 +306,87 @@ export async function resolveStreamPlaylist(opts: {
     }
   };
 
-  // Goated cascade: Orbit → Valenox → Vix (last native fallback).
-  let imdbId: string | null = null;
-  for (const backend of GOATED_ORDER) {
-    if (opts.signal?.aborted) return abortedResult(imdbId, attempts);
-    if (expired()) break;
-    const p = new URLSearchParams(base);
-    p.set("source", backend);
-    const r = await resolveOne("goated", p, opts.signal, budget());
-    record(`goated:${backend}`, r);
+  const fail = (imdbId: string | null, errorMessage?: string): StreamResolveResult => {
+    const lastErr = [...attempts].reverse().find((a) => !a.ok)?.error;
+    return {
+      playlistUrl: null,
+      imdbId,
+      thumbnailsUrl: null,
+      failed: true,
+      errorMessage: errorMessage ?? lastErr ?? "source failed",
+      code: diag.code,
+      detail: diag.detail,
+      resolverConfigured: diag.resolverConfigured,
+      attempts,
+    };
+  };
+
+  // Picked source = vix: single attempt — its real status on failure.
+  if (opts.source === "vix") {
+    const r = await resolveOne("vix", base, opts.signal, budget());
+    record("vix", r);
     noteDiag(r);
-    if (r.imdbId) imdbId = r.imdbId;
+    if (opts.signal?.aborted) return abortedResult(r.imdbId, attempts);
     if (r.playlistUrl) {
       return {
         playlistUrl: r.playlistUrl,
-        imdbId,
+        imdbId: r.imdbId,
         thumbnailsUrl: r.thumbnailsUrl ?? null,
         failed: false,
-        usedSource: backend.toLowerCase() as "valenox" | "orbit",
+        usedSource: "vix",
         attempts,
       };
     }
+    return fail(r.imdbId, r.error);
   }
 
-  // Last native fallback — vix before giving up to iframe.
-  if (opts.signal?.aborted) return abortedResult(imdbId, attempts);
-  if (!expired()) {
-    const v = await resolveOne("vix", base, opts.signal, budget());
-    record("vix", v);
-    noteDiag(v);
-    if (v.playlistUrl) {
+  // Picked source = vidsrc-pm / vidsrc-sh: single attempt, real status kept.
+  if (opts.source === "vidsrc-pm" || opts.source === "vidsrc-sh") {
+    const r = await resolveNativeRoute(opts.source, base, opts.signal, budget(), record);
+    if (opts.signal?.aborted) return abortedResult(r.imdbId, attempts);
+    noteDiag(r);
+    if (r.playlistUrl) {
       return {
-        playlistUrl: v.playlistUrl,
-        imdbId: v.imdbId ?? imdbId,
-        thumbnailsUrl: v.thumbnailsUrl ?? null,
+        playlistUrl: r.playlistUrl,
+        imdbId: r.imdbId,
+        thumbnailsUrl: r.thumbnailsUrl ?? null,
+        playlistUrls: r.playlistUrls,
         failed: false,
-        usedSource: "vix",
-        fellBackToVix: true,
+        usedSource: opts.source,
         attempts,
       };
     }
-    imdbId = v.imdbId ?? imdbId;
+    return fail(r.imdbId, r.error);
   }
-  // Second-to-last resort: vidsrc.pm (netocdn HLS, verified full chain
-  // 2026-10-01) behind its signed media proxy. Runs only when vix + goated
-  // failed, so it never slows the working paths.
-  if (!vidsrcPmTried && !opts.signal?.aborted && !expired()) {
-    vidsrcPmTried = true;
-    const p = await resolveNativeRoute("vidsrc-pm", base, opts.signal, budget(), record);
-    if (p.playlistUrl) {
-      return {
-        playlistUrl: p.playlistUrl,
-        imdbId: p.imdbId ?? imdbId,
-        thumbnailsUrl: p.thumbnailsUrl ?? null,
-        playlistUrls: p.playlistUrls,
-        failed: false,
-        usedSource: "vidsrc-pm",
-        fellBackToVix: attempts.some((a) => a.source === "vix"),
-        attempts,
-      };
+
+  // Picked source = goated: its two backends (Orbit → Valenox) in order —
+  // both are servers OF goated, not other sources.
+  if (opts.source === "goated") {
+    let imdbId: string | null = null;
+    for (const backend of GOATED_ORDER) {
+      if (opts.signal?.aborted) return abortedResult(imdbId, attempts);
+      if (Date.now() >= deadline) return fail(imdbId, "resolve deadline exceeded");
+      const p = new URLSearchParams(base);
+      p.set("source", backend);
+      const r = await resolveOne("goated", p, opts.signal, budget());
+      record(`goated:${backend}`, r);
+      noteDiag(r);
+      if (r.imdbId) imdbId = r.imdbId;
+      if (r.playlistUrl) {
+        return {
+          playlistUrl: r.playlistUrl,
+          imdbId,
+          thumbnailsUrl: r.thumbnailsUrl ?? null,
+          failed: false,
+          usedSource: backend.toLowerCase() as "valenox" | "orbit",
+          attempts,
+        };
+      }
     }
+    return fail(imdbId);
   }
-  // Last resort native: data.vidsrc.sh (WASM-decrypted direct HLS, tokenized
-  // + proxied through /api/vidsrc-sh/media). Runs only when vix + goated
-  // both failed, so it never slows the working paths — and in prod it may be
-  // the ONLY reachable native backend.
-  if (!vidsrcTried && !opts.signal?.aborted && !expired()) {
-    vidsrcTried = true;
-    const s = await resolveNativeRoute("vidsrc-sh", base, opts.signal, budget(), record);
-    if (s.playlistUrl) {
-      return {
-        playlistUrl: s.playlistUrl,
-        imdbId: s.imdbId ?? imdbId,
-        thumbnailsUrl: s.thumbnailsUrl ?? null,
-        playlistUrls: s.playlistUrls,
-        failed: false,
-        usedSource: "vidsrc-sh",
-        fellBackToVix: attempts.some((a) => a.source === "vix"),
-        fellBackToVidsrcSh: true,
-        attempts,
-      };
-    }
-  }
-  if (opts.signal?.aborted) return abortedResult(imdbId, attempts);
-  const lastErr = [...attempts].reverse().find((a) => !a.ok)?.error;
-  return {
-    playlistUrl: null,
-    imdbId,
-    thumbnailsUrl: null,
-    failed: true,
-    errorMessage: lastErr ?? "all sources failed",
-    code: diag.code,
-    detail: diag.detail,
-    resolverConfigured: diag.resolverConfigured,
-    fellBackToVix: attempts.some((a) => a.source === "vix"),
-    fellBackToVidsrcSh: vidsrcTried,
-    attempts,
-  };
+
+  // Embed/other sources have no native resolver — the player guards with
+  // iframe mode before resolving, but fail loud if ever asked.
+  return fail(null, `source "${opts.source}" has no native resolver`);
 }
