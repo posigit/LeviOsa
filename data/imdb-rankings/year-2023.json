@@ -1,7 +1,7 @@
 {
  "tag": "year-2023",
- "builtAt": "2026-09-15T22:46:38.707Z",
- "mean": 6.387,
+ "builtAt": "2026-10-01T06:19:54.122Z",
+ "mean": 6.388,
  "minVotes": 10000,
  "items": [
   {
@@ -9,400 +9,400 @@
    "title": "12th Fail",
    "year": 2023,
    "rating": 8.7,
-   "votes": 177267,
-   "score": 8.576492134928092
+   "votes": 178047,
+   "score": 8.577063707226806
   },
   {
    "tconst": "tt9362722",
    "title": "Spider-Man: Across the Spider-Verse",
    "year": 2023,
    "rating": 8.5,
-   "votes": 552827,
-   "score": 8.462459250589575
+   "votes": 555677,
+   "score": 8.462668093192544
   },
   {
    "tconst": "tt24082438",
    "title": "20 Days in Mariupol",
    "year": 2023,
    "rating": 8.6,
-   "votes": 65628,
-   "score": 8.30739742729649
+   "votes": 65757,
+   "score": 8.308042807303346
   },
   {
    "tconst": "tt15398776",
    "title": "Oppenheimer",
    "year": 2023,
    "rating": 8.2,
-   "votes": 1097276,
-   "score": 8.183627435825917
+   "votes": 1101485,
+   "score": 8.183699464187892
   },
   {
    "tconst": "tt21626284",
    "title": "Lost Ladies",
    "year": 2023,
    "rating": 8.3,
-   "votes": 62169,
-   "score": 8.034942324704224
+   "votes": 62363,
+   "score": 8.035806958706516
   },
   {
    "tconst": "tt6791350",
    "title": "Guardians of the Galaxy Vol. 3",
    "year": 2023,
    "rating": 7.9,
-   "votes": 487419,
-   "score": 7.869585103567775
+   "votes": 489165,
+   "score": 7.869713819985135
   },
   {
    "tconst": "tt14849194",
    "title": "The Holdovers",
    "year": 2023,
    "rating": 7.9,
-   "votes": 273834,
-   "score": 7.846697903110899
+   "votes": 274468,
+   "score": 7.846855881691016
   },
   {
    "tconst": "tt25433734",
    "title": "Hi Nanna",
    "year": 2023,
    "rating": 8.3,
-   "votes": 27309,
-   "score": 7.787283299782331
+   "votes": 27549,
+   "score": 7.790857251934262
   },
   {
    "tconst": "tt27503384",
    "title": "Perfect Days",
    "year": 2023,
    "rating": 7.9,
-   "votes": 111740,
-   "score": 7.775727391420888
+   "votes": 112608,
+   "score": 7.776698086200571
   },
   {
    "tconst": "tt13238346",
    "title": "Past Lives",
    "year": 2023,
    "rating": 7.8,
-   "votes": 177964,
-   "score": 7.724831630692999
+   "votes": 178532,
+   "score": 7.725117215925571
   },
   {
    "tconst": "tt16277242",
    "title": "Society of the Snow",
    "year": 2023,
    "rating": 7.8,
-   "votes": 177812,
-   "score": 7.72477079543149
+   "votes": 178317,
+   "score": 7.72503172285497
   },
   {
    "tconst": "tt14230458",
    "title": "Poor Things",
    "year": 2023,
    "rating": 7.7,
-   "votes": 423089,
-   "score": 7.66968533634329
+   "votes": 424148,
+   "score": 7.6697849557129825
   },
   {
    "tconst": "tt24485052",
    "title": "Sirf Ek Bandaa Kaafi Hai",
    "year": 2023,
    "rating": 8,
-   "votes": 31395,
-   "score": 7.610364841927261
+   "votes": 31433,
+   "score": 7.61099121359495
   },
   {
    "tconst": "tt9006564",
    "title": "2018",
    "year": 2023,
    "rating": 8.3,
-   "votes": 17124,
-   "score": 7.5947593508176885
+   "votes": 17171,
+   "score": 7.596389494419771
   },
   {
    "tconst": "tt10366206",
    "title": "John Wick: Chapter 4",
    "year": 2023,
    "rating": 7.6,
-   "votes": 419579,
-   "score": 7.571765502111552
+   "votes": 420475,
+   "score": 7.571850163082361
   },
   {
    "tconst": "tt9603212",
    "title": "Mission: Impossible - Dead Reckoning Part One",
    "year": 2023,
    "rating": 7.6,
-   "votes": 332897,
-   "score": 7.56462801550197
+   "votes": 333458,
+   "score": 7.564718244888398
   },
   {
    "tconst": "tt28814949",
    "title": "Taylor Swift: The Eras Tour",
    "year": 2023,
    "rating": 8,
-   "votes": 26222,
-   "score": 7.55471958013304
+   "votes": 26261,
+   "score": 7.55550588656903
   },
   {
    "tconst": "tt17009710",
    "title": "Anatomy of a Fall",
    "year": 2023,
    "rating": 7.6,
-   "votes": 237665,
-   "score": 7.55102680084622
+   "votes": 238416,
+   "score": 7.551219723982673
   },
   {
    "tconst": "tt23289160",
    "title": "Godzilla Minus One",
    "year": 2023,
    "rating": 7.6,
-   "votes": 230790,
-   "score": 7.54962852540213
+   "votes": 231784,
+   "score": 7.549881708272175
   },
   {
    "tconst": "tt23736044",
    "title": "Monster",
    "year": 2023,
    "rating": 7.8,
-   "votes": 43440,
-   "score": 7.53561101481248
+   "votes": 43698,
+   "score": 7.537088885114521
   },
   {
    "tconst": "tt27719898",
    "title": "Kaiva",
    "year": 2023,
    "rating": 7.7,
-   "votes": 69662,
-   "score": 7.5351918434332426
+   "votes": 69664,
+   "score": 7.535335897681256
   },
   {
    "tconst": "tt7599146",
    "title": "Sound of Freedom",
    "year": 2023,
    "rating": 7.6,
-   "votes": 139558,
-   "score": 7.518901380277744
+   "votes": 139798,
+   "score": 7.519105722058235
   },
   {
    "tconst": "tt19853258",
    "title": "Still: A Michael J. Fox Movie",
    "year": 2023,
    "rating": 8.1,
-   "votes": 18269,
-   "score": 7.49407310593155
+   "votes": 18293,
+   "score": 7.494981053719279
   },
   {
    "tconst": "tt21192142",
    "title": "All of Us Strangers",
    "year": 2023,
    "rating": 7.6,
-   "votes": 81085,
-   "score": 7.466839245008277
+   "votes": 81340,
+   "score": 7.467333029919855
   },
   {
    "tconst": "tt5537002",
    "title": "Killers of the Flower Moon",
    "year": 2023,
    "rating": 7.5,
-   "votes": 313488,
-   "score": 7.465597031826772
+   "votes": 314367,
+   "score": 7.465724623506336
   },
   {
    "tconst": "tt4873118",
    "title": "The Covenant",
    "year": 2023,
    "rating": 7.5,
-   "votes": 216498,
-   "score": 7.450865140670466
+   "votes": 217399,
+   "score": 7.451108839321543
   },
   {
    "tconst": "tt20561198",
    "title": "The Promised Land",
    "year": 2023,
    "rating": 7.7,
-   "votes": 42281,
-   "score": 7.448877271505499
+   "votes": 42551,
+   "score": 7.450379611289597
   },
   {
    "tconst": "tt23561236",
    "title": "American Fiction",
    "year": 2023,
    "rating": 7.5,
-   "votes": 157112,
-   "score": 7.433404259607801
+   "votes": 157361,
+   "score": 7.433569941341648
   },
   {
    "tconst": "tt21064584",
    "title": "The Iron Claw",
    "year": 2023,
    "rating": 7.5,
-   "votes": 122019,
-   "score": 7.41570192647709
+   "votes": 122398,
+   "score": 7.416027424529673
   },
   {
    "tconst": "tt16419074",
    "title": "Air",
    "year": 2023,
    "rating": 7.4,
-   "votes": 198887,
-   "score": 7.351509919868536
+   "votes": 199318,
+   "score": 7.351663014900199
   },
   {
    "tconst": "tt19500164",
    "title": "Nimona",
    "year": 2023,
    "rating": 7.5,
-   "votes": 63500,
-   "score": 7.3485857500895095
+   "votes": 63647,
+   "score": 7.349039322075299
   },
   {
    "tconst": "tt11396310",
    "title": "Viduthalai: Part 1",
    "year": 2023,
    "rating": 8.1,
-   "votes": 12209,
-   "score": 7.3287384678094
+   "votes": 12242,
+   "score": 7.330383911198615
   },
   {
    "tconst": "tt12758060",
    "title": "Tetris",
    "year": 2023,
    "rating": 7.4,
-   "votes": 110716,
-   "score": 7.316092751843824
+   "votes": 111147,
+   "score": 7.316483271999139
   },
   {
    "tconst": "tt27542289",
    "title": "Por Thozhil",
    "year": 2023,
    "rating": 8,
-   "votes": 13477,
-   "score": 7.312989420776887
+   "votes": 13547,
+   "score": 7.315505115423603
   },
   {
    "tconst": "tt11992424",
    "title": "Saptha Sagaradaache Ello - Side A",
    "year": 2023,
    "rating": 8.2,
-   "votes": 10360,
-   "score": 7.309580188191502
+   "votes": 10406,
+   "score": 7.312133634856394
   },
   {
    "tconst": "tt15732324",
    "title": "OMG 2",
    "year": 2023,
    "rating": 7.5,
-   "votes": 48017,
-   "score": 7.308177820838357
+   "votes": 48069,
+   "score": 7.308541544591428
   },
   {
    "tconst": "tt28479262",
    "title": "Sing Sing",
    "year": 2023,
    "rating": 7.6,
-   "votes": 30820,
-   "score": 7.30286753139586
+   "votes": 30980,
+   "score": 7.3042996328179495
   },
   {
    "tconst": "tt10786774",
    "title": "Sam Bahadur",
    "year": 2023,
    "rating": 7.7,
-   "votes": 22089,
-   "score": 7.290858320034248
+   "votes": 22125,
+   "score": 7.2916637806343845
   },
   {
    "tconst": "tt13097932",
    "title": "One Life",
    "year": 2023,
    "rating": 7.5,
-   "votes": 41505,
-   "score": 7.283924912757577
+   "votes": 41632,
+   "score": 7.284672275969933
   },
   {
    "tconst": "tt24226474",
    "title": "Jigarthanda Double X",
    "year": 2023,
    "rating": 8,
-   "votes": 12114,
-   "score": 7.270645411575426
+   "votes": 12155,
+   "score": 7.272498260116434
   },
   {
    "tconst": "tt13231544",
    "title": "About Dry Grasses",
    "year": 2023,
    "rating": 7.7,
-   "votes": 20180,
-   "score": 7.264978549754108
+   "votes": 20264,
+   "score": 7.266554287367155
   },
   {
    "tconst": "tt13429870",
    "title": "Robot Dreams",
    "year": 2023,
    "rating": 7.6,
-   "votes": 25887,
-   "score": 7.2620239259781805
+   "votes": 26022,
+   "score": 7.263599993139736
   },
   {
    "tconst": "tt7160372",
    "title": "The Zone of Interest",
    "year": 2023,
    "rating": 7.3,
-   "votes": 192646,
-   "score": 7.254951258014365
+   "votes": 193150,
+   "score": 7.255117888027958
   },
   {
    "tconst": "tt21800162",
    "title": "There's Still Tomorrow",
    "year": 2023,
    "rating": 7.7,
-   "votes": 18858,
-   "score": 7.245049990698558
+   "votes": 18952,
+   "score": 7.246912094255306
   },
   {
    "tconst": "tt6587046",
    "title": "The Boy and the Heron",
    "year": 2023,
    "rating": 7.3,
-   "votes": 151214,
-   "score": 7.243373730765188
+   "votes": 151623,
+   "score": 7.243585993038613
   },
   {
    "tconst": "tt26537229",
    "title": "Demon Slayer: Kimetsu No Yaiba - To the Swordsmith Village",
    "year": 2023,
    "rating": 7.7,
-   "votes": 18087,
-   "score": 7.232561420998291
+   "votes": 18166,
+   "score": 7.2342682295277845
   },
   {
    "tconst": "tt24132732",
    "title": "The Deepest Breath",
    "year": 2023,
    "rating": 7.7,
-   "votes": 17637,
-   "score": 7.22495034307555
+   "votes": 17681,
+   "score": 7.226108123004211
   },
   {
    "tconst": "tt28259207",
    "title": "Kill",
    "year": 2023,
    "rating": 7.4,
-   "votes": 47821,
-   "score": 7.2248223419100155
+   "votes": 47978,
+   "score": 7.225488960517431
   },
   {
    "tconst": "tt28184712",
    "title": "Parking",
    "year": 2023,
    "rating": 7.8,
-   "votes": 14163,
-   "score": 7.215265183610436
+   "votes": 14195,
+   "score": 7.2164992334316835
   },
   {
    "tconst": "tt21867434",
    "title": "BlackBerry",
    "year": 2023,
    "rating": 7.3,
-   "votes": 72768,
-   "score": 7.189704386134484
+   "votes": 73190,
+   "score": 7.190397871774006
   },
   {
    "tconst": "tt28362963",
@@ -410,1199 +410,1199 @@
    "year": 2023,
    "rating": 7.5,
    "votes": 24774,
-   "score": 7.179963554137544
+   "score": 7.180284090207614
   },
   {
    "tconst": "tt14225838",
    "title": "Io Capitano",
    "year": 2023,
    "rating": 7.6,
-   "votes": 18421,
-   "score": 7.173239950444353
+   "votes": 18518,
+   "score": 7.175082367377782
   },
   {
    "tconst": "tt2906216",
    "title": "Dungeons & Dragons: Honor Among Thieves",
    "year": 2023,
    "rating": 7.2,
-   "votes": 278254,
-   "score": 7.171799359702135
-  },
-  {
-   "tconst": "tt5971474",
-   "title": "The Little Mermaid",
-   "year": 2023,
-   "rating": 7.2,
-   "votes": 180337,
-   "score": 7.1572918173112905
+   "votes": 278821,
+   "score": 7.171893314381156
   },
   {
    "tconst": "tt26612950",
    "title": "The Teachers' Lounge",
    "year": 2023,
    "rating": 7.4,
-   "votes": 31581,
-   "score": 7.156404430667347
+   "votes": 31771,
+   "score": 7.157779295513145
+  },
+  {
+   "tconst": "tt5971474",
+   "title": "The Little Mermaid",
+   "year": 2023,
+   "rating": 7.2,
+   "votes": 180530,
+   "score": 7.157393580816037
   },
   {
    "tconst": "tt9185206",
    "title": "Are You There God? It's Me, Margaret.",
    "year": 2023,
    "rating": 7.3,
-   "votes": 39273,
-   "score": 7.114727185914781
+   "votes": 39374,
+   "score": 7.1153319348823185
   },
   {
    "tconst": "tt8589698",
    "title": "Teenage Mutant Ninja Turtles: Mutant Mayhem",
    "year": 2023,
    "rating": 7.2,
-   "votes": 79266,
-   "score": 7.108935682472374
+   "votes": 79392,
+   "score": 7.10918873000805
   },
   {
    "tconst": "tt27542448",
    "title": "Take Care of Maya",
    "year": 2023,
    "rating": 7.7,
-   "votes": 12096,
-   "score": 7.10582243987957
+   "votes": 12137,
+   "score": 7.1074264332511
   },
   {
    "tconst": "tt15654328",
    "title": "Leo",
    "year": 2023,
    "rating": 7.2,
-   "votes": 75025,
-   "score": 7.104393444652502
+   "votes": 75145,
+   "score": 7.104659098630332
   },
   {
    "tconst": "tt15434074",
    "title": "Kho Gaye Hum Kahan",
    "year": 2023,
    "rating": 7.3,
-   "votes": 31884,
-   "score": 7.08204213140051
+   "votes": 31908,
+   "score": 7.082432923376912
   },
   {
    "tconst": "tt19760052",
    "title": "The Taste of Things",
    "year": 2023,
    "rating": 7.4,
-   "votes": 21662,
-   "score": 7.080091359723927
+   "votes": 21766,
+   "score": 7.081489610050985
   },
   {
    "tconst": "tt22297828",
    "title": "Chor Nikal Ke Bhaga",
    "year": 2023,
    "rating": 7.2,
-   "votes": 56689,
-   "score": 7.078106623754727
+   "votes": 56712,
+   "score": 7.078315729597069
   },
   {
    "tconst": "tt26915336",
    "title": "Mars Express",
    "year": 2023,
    "rating": 7.5,
-   "votes": 15642,
-   "score": 7.065987545104866
+   "votes": 15726,
+   "score": 7.067837944215174
   },
   {
    "tconst": "tt25274786",
    "title": "Kannur Squad",
    "year": 2023,
    "rating": 7.6,
-   "votes": 12677,
-   "score": 7.065143212575693
+   "votes": 12715,
+   "score": 7.066528679413585
   },
   {
    "tconst": "tt11663228",
    "title": "Jailer",
    "year": 2023,
    "rating": 7.2,
-   "votes": 46849,
-   "score": 7.057008085130415
+   "votes": 46972,
+   "score": 7.057512443882603
   },
   {
    "tconst": "tt21940010",
    "title": "A Million Miles Away",
    "year": 2023,
    "rating": 7.3,
-   "votes": 27015,
-   "score": 7.053371677200566
+   "votes": 27129,
+   "score": 7.05442912421233
   },
   {
    "tconst": "tt4495098",
    "title": "Gran Turismo",
    "year": 2023,
    "rating": 7.1,
-   "votes": 138934,
-   "score": 7.052133513043221
+   "votes": 139264,
+   "score": 7.052314013780144
   },
   {
    "tconst": "tt26596953",
    "title": "Forgotten Love",
    "year": 2023,
    "rating": 7.5,
-   "votes": 14278,
-   "score": 7.0416036177435934
+   "votes": 14337,
+   "score": 7.0431729035164405
   },
   {
    "tconst": "tt21027780",
    "title": "Fallen Leaves",
    "year": 2023,
    "rating": 7.2,
-   "votes": 37384,
-   "score": 7.0284453113198335
+   "votes": 37506,
+   "score": 7.029120510101453
   },
   {
    "tconst": "tt14561712",
    "title": "La Chimera",
    "year": 2023,
    "rating": 7.3,
-   "votes": 23206,
-   "score": 7.025081389856622
+   "votes": 23355,
+   "score": 7.026643650213749
   },
   {
    "tconst": "tt10855768",
    "title": "Missing",
    "year": 2023,
    "rating": 7.1,
-   "votes": 73090,
-   "score": 7.014202101715958
+   "votes": 73207,
+   "score": 7.014456703797511
   },
   {
    "tconst": "tt15944428",
    "title": "Ghoomer",
    "year": 2023,
    "rating": 7.5,
-   "votes": 12888,
-   "score": 7.0137649699221845
+   "votes": 12894,
+   "score": 7.014379267619446
   },
   {
    "tconst": "tt20249418",
    "title": "Romancham",
    "year": 2023,
    "rating": 7.5,
-   "votes": 11841,
-   "score": 6.990456143563892
-  },
-  {
-   "tconst": "tt6718170",
-   "title": "The Super Mario Bros. Movie",
-   "year": 2023,
-   "rating": 7,
-   "votes": 302371,
-   "score": 6.980379268983289
+   "votes": 11883,
+   "score": 6.9919434699483425
   },
   {
    "tconst": "tt28358950",
    "title": "Neru",
    "year": 2023,
    "rating": 7.5,
-   "votes": 11413,
-   "score": 6.980271453396487
+   "votes": 11438,
+   "score": 6.981397469581099
+  },
+  {
+   "tconst": "tt6718170",
+   "title": "The Super Mario Bros. Movie",
+   "year": 2023,
+   "rating": 7,
+   "votes": 302905,
+   "score": 6.980448375554496
   },
   {
    "tconst": "tt17351924",
    "title": "Saltburn",
    "year": 2023,
    "rating": 7,
-   "votes": 271507,
-   "score": 6.978228081829506
+   "votes": 272137,
+   "score": 6.978316204371917
   },
   {
    "tconst": "tt5302918",
    "title": "Nyad",
    "year": 2023,
    "rating": 7.1,
-   "votes": 45441,
-   "score": 6.971413802629443
+   "votes": 45505,
+   "score": 6.971762885377526
   },
   {
    "tconst": "tt5648882",
    "title": "The Burial",
    "year": 2023,
    "rating": 7.1,
-   "votes": 43758,
-   "score": 6.967388158629022
+   "votes": 43868,
+   "score": 6.9678658749699185
   },
   {
    "tconst": "tt12263384",
    "title": "Extraction II",
    "year": 2023,
    "rating": 7,
-   "votes": 176475,
-   "score": 6.967132605612436
+   "votes": 176838,
+   "score": 6.967256120023119
   },
   {
    "tconst": "tt15789038",
    "title": "Elemental",
    "year": 2023,
    "rating": 7,
-   "votes": 169399,
-   "score": 6.96583622334338
+   "votes": 169874,
+   "score": 6.96598840829069
   },
   {
    "tconst": "tt14966898",
    "title": "Late Night with the Devil",
    "year": 2023,
    "rating": 7,
-   "votes": 151882,
-   "score": 6.962139414089145
+   "votes": 152520,
+   "score": 6.962356626586756
   },
   {
    "tconst": "tt27726927",
    "title": "Wham!",
    "year": 2023,
    "rating": 7.5,
-   "votes": 10255,
-   "score": 6.950558016863933
+   "votes": 10266,
+   "score": 6.95140624459092
   },
   {
    "tconst": "tt22543326",
    "title": "Maaveeran",
    "year": 2023,
    "rating": 7.4,
-   "votes": 11860,
-   "score": 6.936644676650456
+   "votes": 11888,
+   "score": 6.937746662686385
   },
   {
    "tconst": "tt21262240",
    "title": "Mission Raniganj",
    "year": 2023,
    "rating": 7.2,
-   "votes": 20522,
-   "score": 6.933669242892961
+   "votes": 20540,
+   "score": 6.934191190336595
   },
   {
    "tconst": "tt22444570",
    "title": "Ponniyin Selvan: Part Two",
    "year": 2023,
    "rating": 7.2,
-   "votes": 20053,
-   "score": 6.929512948177519
+   "votes": 20083,
+   "score": 6.930153207887498
   },
   {
    "tconst": "tt22375054",
    "title": "Strange Darling",
    "year": 2023,
    "rating": 7,
-   "votes": 72245,
-   "score": 6.92547939244427
+   "votes": 72629,
+   "score": 6.925960606480528
   },
   {
    "tconst": "tt14153080",
    "title": "A Good Person",
    "year": 2023,
    "rating": 7.1,
-   "votes": 29862,
-   "score": 6.9211593154277
+   "votes": 29925,
+   "score": 6.921720700134742
   },
   {
    "tconst": "tt10172266",
    "title": "Red, White & Royal Blue",
    "year": 2023,
    "rating": 7,
-   "votes": 67608,
-   "score": 6.921026861039827
+   "votes": 67834,
+   "score": 6.921399374988817
   },
   {
    "tconst": "tt22868844",
    "title": "Black Clover: Sword of the Wizard King",
    "year": 2023,
    "rating": 7.4,
-   "votes": 10260,
-   "score": 6.900051956149012
+   "votes": 10335,
+   "score": 6.902444010468631
   },
   {
    "tconst": "tt23554840",
    "title": "The Vaccine War",
    "year": 2023,
    "rating": 7.1,
-   "votes": 25443,
-   "score": 6.898861626599864
+   "votes": 25445,
+   "score": 6.899187444008453
   },
   {
    "tconst": "tt15893750",
    "title": "Rye Lane",
    "year": 2023,
    "rating": 7.2,
-   "votes": 16693,
-   "score": 6.895465201797437
+   "votes": 16757,
+   "score": 6.89661019370182
   },
   {
    "tconst": "tt5755238",
    "title": "Leo",
    "year": 2023,
    "rating": 7,
-   "votes": 47294,
-   "score": 6.893026366313732
-  },
-  {
-   "tconst": "tt20234774",
-   "title": "Wicked Little Letters",
-   "year": 2023,
-   "rating": 7,
-   "votes": 46348,
-   "score": 6.89123043642328
+   "votes": 47406,
+   "score": 6.893429240025077
   },
   {
    "tconst": "tt22207786",
    "title": "Red Rooms",
    "year": 2023,
    "rating": 7.1,
-   "votes": 24131,
-   "score": 6.8911298418323215
+   "votes": 24425,
+   "score": 6.893237442349443
+  },
+  {
+   "tconst": "tt20234774",
+   "title": "Wicked Little Letters",
+   "year": 2023,
+   "rating": 7,
+   "votes": 46471,
+   "score": 6.891664729735256
   },
   {
    "tconst": "tt15427980",
    "title": "Vaathi",
    "year": 2023,
    "rating": 7.3,
-   "votes": 12142,
-   "score": 6.887708997903485
+   "votes": 12181,
+   "score": 6.888936429957154
   },
   {
    "tconst": "tt28491891",
    "title": "His Three Daughters",
    "year": 2023,
    "rating": 7.1,
-   "votes": 22333,
-   "score": 6.8795148186552115
+   "votes": 22406,
+   "score": 6.880355457411579
   },
   {
    "tconst": "tt6166392",
    "title": "Wonka",
    "year": 2023,
    "rating": 6.9,
-   "votes": 197277,
-   "score": 6.875255588567853
+   "votes": 197727,
+   "score": 6.875362851015418
   },
   {
    "tconst": "tt14295590",
    "title": "Mrs. Chatterjee vs. Norway",
    "year": 2023,
    "rating": 7.3,
-   "votes": 11369,
-   "score": 6.872794825755953
+   "votes": 11386,
+   "score": 6.873655613620107
   },
   {
    "tconst": "tt18376122",
    "title": "Pamela: A Love Story",
    "year": 2023,
    "rating": 7.2,
-   "votes": 14440,
-   "score": 6.8673916788698435
+   "votes": 14463,
+   "score": 6.868160035681626
   },
   {
    "tconst": "tt15354916",
    "title": "Jawan",
    "year": 2023,
    "rating": 6.9,
-   "votes": 112782,
-   "score": 6.8582272045705315
+   "votes": 112929,
+   "score": 6.858367829827621
   },
   {
    "tconst": "tt20115766",
    "title": "Knox Goes Away",
    "year": 2023,
    "rating": 7,
-   "votes": 31375,
-   "score": 6.8518683415487365
+   "votes": 31461,
+   "score": 6.852444440628051
   },
   {
    "tconst": "tt1856080",
    "title": "The Boys in the Boat",
    "year": 2023,
    "rating": 7,
-   "votes": 30847,
-   "score": 6.8499535493813255
+   "votes": 30906,
+   "score": 6.850442452277896
+  },
+  {
+   "tconst": "tt26684398",
+   "title": "Spy x Family Code: White",
+   "year": 2023,
+   "rating": 7.3,
+   "votes": 10030,
+   "score": 6.844792758506221
   },
   {
    "tconst": "tt14308636",
    "title": "Bank of Dave",
    "year": 2023,
    "rating": 7.1,
-   "votes": 17289,
-   "score": 6.838761135680273
+   "votes": 17316,
+   "score": 6.839427403458764
   },
   {
    "tconst": "tt10098448",
    "title": "Jesus Revolution",
    "year": 2023,
    "rating": 7.1,
-   "votes": 16922,
-   "score": 6.835199934313163
+   "votes": 16955,
+   "score": 6.835937635053964
   },
   {
    "tconst": "tt16300962",
    "title": "When Evil Lurks",
    "year": 2023,
    "rating": 6.9,
-   "votes": 64275,
-   "score": 6.830946518095981
+   "votes": 64590,
+   "score": 6.831387571428873
   },
   {
    "tconst": "tt19883634",
    "title": "The Old Oak",
    "year": 2023,
    "rating": 7.1,
-   "votes": 15101,
-   "score": 6.815989507652244
+   "votes": 15149,
+   "score": 6.816974788376459
   },
   {
    "tconst": "tt13131232",
    "title": "Mission Majnu",
    "year": 2023,
    "rating": 6.9,
-   "votes": 45736,
-   "score": 6.807977835359175
+   "votes": 45757,
+   "score": 6.808212402978633
   },
   {
    "tconst": "tt15767808",
    "title": "The Last Kingdom: Seven Kings Must Die",
    "year": 2023,
    "rating": 6.9,
-   "votes": 44833,
-   "score": 6.806462397307807
+   "votes": 44955,
+   "score": 6.80687287695168
   },
   {
    "tconst": "tt1517268",
    "title": "Barbie",
    "year": 2023,
    "rating": 6.8,
-   "votes": 705648,
-   "score": 6.794230477317869
+   "votes": 707134,
+   "score": 6.794257975431202
   },
   {
    "tconst": "tt5112584",
    "title": "Lee",
    "year": 2023,
    "rating": 6.9,
-   "votes": 36348,
-   "score": 6.789338323802085
+   "votes": 36479,
+   "score": 6.7898900353467075
   },
   {
    "tconst": "tt15073166",
    "title": "IB 71",
    "year": 2023,
    "rating": 7.1,
-   "votes": 12091,
-   "score": 6.777291776360462
+   "votes": 12109,
+   "score": 6.778058661761255
   },
   {
    "tconst": "tt17024450",
    "title": "The Equalizer 3",
    "year": 2023,
    "rating": 6.8,
-   "votes": 165796,
-   "score": 6.776512848026002
-  },
-  {
-   "tconst": "tt28218009",
-   "title": "Surongo",
-   "year": 2023,
-   "rating": 6.9,
-   "votes": 30833,
-   "score": 6.774392100300712
+   "votes": 166287,
+   "score": 6.77664149343332
   },
   {
    "tconst": "tt25471950",
    "title": "Flora and Son",
    "year": 2023,
    "rating": 7,
-   "votes": 17150,
-   "score": 6.774256082194437
+   "votes": 17210,
+   "score": 6.775163504332217
+  },
+  {
+   "tconst": "tt28218009",
+   "title": "Surongo",
+   "year": 2023,
+   "rating": 6.9,
+   "votes": 30849,
+   "score": 6.774714165655943
   },
   {
    "tconst": "tt15748830",
    "title": "Jaane Jaan",
    "year": 2023,
    "rating": 7,
-   "votes": 17084,
-   "score": 6.773705975172758
+   "votes": 17119,
+   "score": 6.77440904726869
   },
   {
    "tconst": "tt20215968",
    "title": "Hit Man",
    "year": 2023,
    "rating": 6.8,
-   "votes": 134317,
-   "score": 6.771389736701698
-  },
-  {
-   "tconst": "tt12531856",
-   "title": "The American",
-   "year": 2023,
-   "rating": 7.1,
-   "votes": 11379,
-   "score": 6.766544395508628
+   "votes": 134698,
+   "score": 6.771542101154678
   },
   {
    "tconst": "tt13274016",
    "title": "Reptile",
    "year": 2023,
    "rating": 6.8,
-   "votes": 112064,
-   "score": 6.766173913943333
+   "votes": 112384,
+   "score": 6.766353436338733
   },
   {
    "tconst": "tt21942866",
    "title": "Dream Scenario",
    "year": 2023,
    "rating": 6.8,
-   "votes": 97223,
-   "score": 6.761491961907231
+   "votes": 97572,
+   "score": 6.761720512334805
   },
   {
    "tconst": "tt11674730",
    "title": "The Last Stop in Yuma County",
    "year": 2023,
    "rating": 6.9,
-   "votes": 26311,
-   "score": 6.758749487251218
+   "votes": 26521,
+   "score": 6.759866897206528
   },
   {
    "tconst": "tt13957560",
    "title": "Dumb Money",
    "year": 2023,
    "rating": 6.8,
-   "votes": 64273,
-   "score": 6.744408501495549
+   "votes": 64459,
+   "score": 6.744697067552339
   },
   {
    "tconst": "tt28490044",
    "title": "Evil Does Not Exist",
    "year": 2023,
    "rating": 7,
-   "votes": 13722,
-   "score": 6.741634458796854
+   "votes": 13818,
+   "score": 6.743143796829271
   },
   {
    "tconst": "tt28254460",
    "title": "Sly",
    "year": 2023,
    "rating": 7,
-   "votes": 13278,
-   "score": 6.736706445209167
+   "votes": 13312,
+   "score": 6.737568589262166
   },
   {
    "tconst": "tt24216998",
    "title": "Humanist Vampire Seeking Consenting Suicidal Person",
    "year": 2023,
    "rating": 7,
-   "votes": 12750,
-   "score": 6.730595720069406
+   "votes": 12845,
+   "score": 6.732203937530295
   },
   {
    "tconst": "tt21232992",
    "title": "Theater Camp",
    "year": 2023,
    "rating": 6.9,
-   "votes": 19973,
-   "score": 6.728881080691922
+   "votes": 19999,
+   "score": 6.729400945127491
   },
   {
    "tconst": "tt2183014",
    "title": "Love at First Sight",
    "year": 2023,
    "rating": 6.8,
-   "votes": 44051,
-   "score": 6.723610157658118
+   "votes": 44202,
+   "score": 6.724028614310903
   },
   {
    "tconst": "tt26440619",
    "title": "Afire",
    "year": 2023,
    "rating": 7,
-   "votes": 11615,
-   "score": 6.716449346822992
+   "votes": 11653,
+   "score": 6.717461735227433
+  },
+  {
+   "tconst": "tt12531856",
+   "title": "The American",
+   "year": 2023,
+   "rating": 7,
+   "votes": 11407,
+   "score": 6.714214927494726
   },
   {
    "tconst": "tt15339570",
    "title": "Champions",
    "year": 2023,
    "rating": 6.8,
-   "votes": 37031,
-   "score": 6.712207961378218
+   "votes": 37090,
+   "score": 6.712554660286251
   },
   {
    "tconst": "tt14124080",
    "title": "The Great Escaper",
    "year": 2023,
    "rating": 7,
-   "votes": 10644,
-   "score": 6.703112411915276
+   "votes": 10684,
+   "score": 6.704225437675479
   },
   {
    "tconst": "tt1136617",
    "title": "The Killer",
    "year": 2023,
    "rating": 6.7,
-   "votes": 227659,
-   "score": 6.686834298854993
+   "votes": 228146,
+   "score": 6.686908026810778
   },
   {
    "tconst": "tt11858890",
    "title": "The Creator",
    "year": 2023,
    "rating": 6.7,
-   "votes": 205063,
-   "score": 6.6854510196155505
+   "votes": 205675,
+   "score": 6.685543984944383
   },
   {
    "tconst": "tt17009348",
    "title": "DogMan",
    "year": 2023,
    "rating": 6.8,
-   "votes": 23483,
-   "score": 6.676685262120448
+   "votes": 23662,
+   "score": 6.6776721214687065
   },
   {
    "tconst": "tt11145118",
    "title": "Creed III",
    "year": 2023,
    "rating": 6.7,
-   "votes": 111118,
-   "score": 6.674166124205973
+   "votes": 111397,
+   "score": 6.674317313878264
   },
   {
    "tconst": "tt8105234",
    "title": "Flamin' Hot",
    "year": 2023,
    "rating": 6.8,
-   "votes": 21860,
-   "score": 6.67040340965408
+   "votes": 21934,
+   "score": 6.671052763602417
   },
   {
    "tconst": "tt1200263",
    "title": "The Color Purple",
    "year": 2023,
    "rating": 6.8,
-   "votes": 20835,
-   "score": 6.666095431541396
+   "votes": 20880,
+   "score": 6.666651520494805
   },
   {
    "tconst": "tt24268454",
    "title": "The Kerala Story",
    "year": 2023,
    "rating": 6.7,
-   "votes": 80837,
-   "score": 6.665554263478306
+   "votes": 80877,
+   "score": 6.665692077785135
   },
   {
    "tconst": "tt13927994",
    "title": "Salaar",
    "year": 2023,
    "rating": 6.7,
-   "votes": 79926,
-   "score": 6.665205309160632
+   "votes": 80103,
+   "score": 6.665397366934282
   },
   {
    "tconst": "tt13651794",
    "title": "May December",
    "year": 2023,
    "rating": 6.7,
-   "votes": 74052,
-   "score": 6.662773671436479
+   "votes": 74176,
+   "score": 6.662960926545329
   },
   {
    "tconst": "tt15428940",
    "title": "Jules",
    "year": 2023,
    "rating": 6.8,
-   "votes": 19818,
-   "score": 6.661528359768562
+   "votes": 19925,
+   "score": 6.662395954983445
   },
   {
    "tconst": "tt17527468",
    "title": "Bottoms",
    "year": 2023,
    "rating": 6.7,
-   "votes": 59825,
-   "score": 6.655188723688922
+   "votes": 59967,
+   "score": 6.655438977702054
   },
   {
    "tconst": "tt9873892",
    "title": "They Cloned Tyrone",
    "year": 2023,
    "rating": 6.7,
-   "votes": 49022,
-   "score": 6.646986761403866
+   "votes": 49140,
+   "score": 6.6472810103632
   },
   {
    "tconst": "tt12573454",
    "title": "Sharper",
    "year": 2023,
    "rating": 6.7,
-   "votes": 39970,
-   "score": 6.637383482721212
+   "votes": 40093,
+   "score": 6.637759745930162
   },
   {
    "tconst": "tt24068064",
    "title": "Reality",
    "year": 2023,
    "rating": 6.7,
-   "votes": 31219,
-   "score": 6.62408968270892
+   "votes": 31365,
+   "score": 6.624627074891324
   },
   {
    "tconst": "tt2353868",
    "title": "True Spirit",
    "year": 2023,
    "rating": 6.8,
-   "votes": 12632,
-   "score": 6.6175615337389075
+   "votes": 12670,
+   "score": 6.61835901865371
   },
   {
    "tconst": "tt12672536",
    "title": "The Three Musketeers - Part I: D'Artagnan",
    "year": 2023,
    "rating": 6.7,
-   "votes": 27576,
-   "score": 6.6167301637103195
+   "votes": 27683,
+   "score": 6.617262398240045
   },
   {
    "tconst": "tt27933364",
    "title": "Mortal World 2",
    "year": 2023,
    "rating": 6.8,
-   "votes": 12127,
-   "score": 6.613397777899352
+   "votes": 12167,
+   "score": 6.61423733265122
   },
   {
    "tconst": "tt13405810",
    "title": "Quiz Lady",
    "year": 2023,
    "rating": 6.7,
-   "votes": 25698,
-   "score": 6.612349505058518
+   "votes": 25762,
+   "score": 6.612818045771478
   },
   {
    "tconst": "tt0439572",
    "title": "The Flash",
    "year": 2023,
    "rating": 6.6,
-   "votes": 252141,
-   "score": 6.591878617353175
+   "votes": 252682,
+   "score": 6.5919377762955955
   },
   {
    "tconst": "tt10545296",
    "title": "The Hunger Games: The Ballad of Songbirds & Snakes",
    "year": 2023,
    "rating": 6.6,
-   "votes": 190033,
-   "score": 6.589357019249718
+   "votes": 190884,
+   "score": 6.589457592206844
   },
   {
    "tconst": "tt17277414",
    "title": "Jeanne du Barry",
    "year": 2023,
    "rating": 6.7,
-   "votes": 16975,
-   "score": 6.584005658260573
+   "votes": 17029,
+   "score": 6.584649781822472
   },
   {
    "tconst": "tt7461686",
    "title": "Daddio",
    "year": 2023,
    "rating": 6.7,
-   "votes": 16825,
-   "score": 6.583357041251778
+   "votes": 16922,
+   "score": 6.584191328760108
   },
   {
    "tconst": "tt13539646",
    "title": "The Wandering Earth II",
    "year": 2023,
    "rating": 6.7,
-   "votes": 16713,
-   "score": 6.58286799055063
+   "votes": 16747,
+   "score": 6.583433616961887
   },
   {
    "tconst": "tt21807222",
    "title": "Saw X",
    "year": 2023,
    "rating": 6.6,
-   "votes": 100260,
-   "score": 6.580691571118981
+   "votes": 100557,
+   "score": 6.5808442609050495
   },
   {
    "tconst": "tt13521006",
    "title": "Beau Is Afraid",
    "year": 2023,
    "rating": 6.6,
-   "votes": 80316,
-   "score": 6.576427793874606
+   "votes": 80531,
+   "score": 6.5766068965644875
   },
   {
    "tconst": "tt21454134",
    "title": "The Bikeriders",
    "year": 2023,
    "rating": 6.6,
-   "votes": 79552,
-   "score": 6.576226690990475
+   "votes": 79827,
+   "score": 6.576423558093664
   },
   {
    "tconst": "tt7737800",
    "title": "Woman of the Hour",
    "year": 2023,
    "rating": 6.6,
-   "votes": 76738,
-   "score": 6.5754554247455435
-  },
-  {
-   "tconst": "tt10275534",
-   "title": "To Catch a Killer",
-   "year": 2023,
-   "rating": 6.6,
-   "votes": 58009,
-   "score": 6.568696093628475
-  },
-  {
-   "tconst": "tt27145269",
-   "title": "Mr. Monk's Last Case: A Monk Movie",
-   "year": 2023,
-   "rating": 6.7,
-   "votes": 13811,
-   "score": 6.568592357800133
+   "votes": 76943,
+   "score": 6.575641500211398
   },
   {
    "tconst": "tt13638858",
    "title": "What You Wish For",
    "year": 2023,
    "rating": 6.7,
-   "votes": 13762,
-   "score": 6.568321380000799
+   "votes": 13858,
+   "score": 6.569318423710269
+  },
+  {
+   "tconst": "tt27145269",
+   "title": "Mr. Monk's Last Case: A Monk Movie",
+   "year": 2023,
+   "rating": 6.7,
+   "votes": 13853,
+   "score": 6.56929103059907
+  },
+  {
+   "tconst": "tt10275534",
+   "title": "To Catch a Killer",
+   "year": 2023,
+   "rating": 6.6,
+   "votes": 58178,
+   "score": 6.56893717845756
   },
   {
    "tconst": "tt15257160",
    "title": "Pain Hustlers",
    "year": 2023,
    "rating": 6.6,
-   "votes": 56372,
-   "score": 6.567924013613856
+   "votes": 56491,
+   "score": 6.568149057058543
   },
   {
    "tconst": "tt12226632",
    "title": "Big George Foreman",
    "year": 2023,
    "rating": 6.7,
-   "votes": 13025,
-   "score": 6.564106520372594
+   "votes": 13077,
+   "score": 6.564895738305655
   },
   {
    "tconst": "tt6495056",
    "title": "Migration",
    "year": 2023,
    "rating": 6.6,
-   "votes": 48523,
-   "score": 6.563622039737863
+   "votes": 48660,
+   "score": 6.563897015903164
   },
   {
    "tconst": "tt16606592",
    "title": "The Animal Kingdom",
    "year": 2023,
    "rating": 6.7,
-   "votes": 12341,
-   "score": 6.559945957279395
+   "votes": 12391,
+   "score": 6.560756507207342
   },
   {
    "tconst": "tt18413766",
    "title": "Kathal: A Jackfruit Mystery",
    "year": 2023,
    "rating": 6.7,
-   "votes": 10835,
-   "score": 6.549822540512549
+   "votes": 10853,
+   "score": 6.550486690302575
   },
   {
    "tconst": "tt19864828",
    "title": "Memory",
    "year": 2023,
    "rating": 6.7,
-   "votes": 10787,
-   "score": 6.549475760406936
+   "votes": 10850,
+   "score": 6.550465177596144
   },
   {
    "tconst": "tt14914988",
    "title": "Satyaprem Ki Katha",
    "year": 2023,
    "rating": 6.6,
-   "votes": 31928,
-   "score": 6.549223731911347
+   "votes": 31949,
+   "score": 6.549514862163093
   },
   {
    "tconst": "tt11732164",
    "title": "Pathu Thala",
    "year": 2023,
    "rating": 6.7,
-   "votes": 10389,
-   "score": 6.546537477638872
+   "votes": 10399,
+   "score": 6.54715912313739
   },
   {
    "tconst": "tt15078804",
    "title": "Problemista",
    "year": 2023,
    "rating": 6.7,
-   "votes": 10080,
-   "score": 6.544175927867479
+   "votes": 10143,
+   "score": 6.545216648606444
   },
   {
    "tconst": "tt22695402",
    "title": "Hunger",
    "year": 2023,
    "rating": 6.6,
-   "votes": 22828,
-   "score": 6.5351484291330255
+   "votes": 22885,
+   "score": 6.535599785704108
   },
   {
    "tconst": "tt19755170",
    "title": "Bawaal",
    "year": 2023,
    "rating": 6.6,
-   "votes": 17754,
-   "score": 6.523292232888195
+   "votes": 17775,
+   "score": 6.523751537457411
   },
   {
    "tconst": "tt16900880",
    "title": "Kill Boksoon",
    "year": 2023,
    "rating": 6.6,
-   "votes": 16886,
-   "score": 6.520815764025105
+   "votes": 16959,
+   "score": 6.521443634885552
   },
   {
    "tconst": "tt27197387",
    "title": "AKA",
    "year": 2023,
    "rating": 6.6,
-   "votes": 15150,
-   "score": 6.5153500052317685
+   "votes": 15184,
+   "score": 6.51590688345297
   },
   {
    "tconst": "tt16252698",
    "title": "Passages",
    "year": 2023,
    "rating": 6.6,
-   "votes": 14982,
-   "score": 6.5147807474012875
+   "votes": 15017,
+   "score": 6.515345523159435
   },
   {
    "tconst": "tt18257464",
    "title": "Polite Society",
    "year": 2023,
    "rating": 6.6,
-   "votes": 13217,
-   "score": 6.508302219562346
+   "votes": 13236,
+   "score": 6.5088569010535196
   },
   {
    "tconst": "tt15440322",
    "title": "Dasara",
    "year": 2023,
    "rating": 6.6,
-   "votes": 12547,
-   "score": 6.505577355372287
+   "votes": 12633,
+   "score": 6.506428619841806
   },
   {
    "tconst": "tt15516226",
    "title": "Chhatriwali",
    "year": 2023,
    "rating": 6.6,
-   "votes": 11281,
-   "score": 6.499960181926553
+   "votes": 11286,
+   "score": 6.500507326547007
   },
   {
    "tconst": "tt1462764",
    "title": "Indiana Jones and the Dial of Destiny",
    "year": 2023,
    "rating": 6.5,
-   "votes": 236841,
-   "score": 6.495426418753687
+   "votes": 237260,
+   "score": 6.495479248373694
   },
   {
    "tconst": "tt13345606",
    "title": "Evil Dead Rise",
    "year": 2023,
    "rating": 6.5,
-   "votes": 177532,
-   "score": 6.493979974786058
+   "votes": 178275,
+   "score": 6.494062934286972
   },
   {
    "tconst": "tt22687790",
    "title": "A Haunting in Venice",
    "year": 2023,
    "rating": 6.5,
-   "votes": 143912,
-   "score": 6.492664981493184
+   "votes": 144235,
+   "score": 6.492752610969491
   },
   {
    "tconst": "tt5884796",
    "title": "Plane",
    "year": 2023,
    "rating": 6.5,
-   "votes": 105507,
-   "score": 6.490226156263941
+   "votes": 105694,
+   "score": 6.490338297170808
   },
   {
    "tconst": "tt15428134",
    "title": "Dunki",
    "year": 2023,
    "rating": 6.5,
-   "votes": 86497,
-   "score": 6.488300699830866
+   "votes": 86586,
+   "score": 6.488426883325529
   },
   {
    "tconst": "tt11426232",
    "title": "Totally Killer",
    "year": 2023,
    "rating": 6.5,
-   "votes": 70723,
-   "score": 6.48601455138658
+   "votes": 70925,
+   "score": 6.486187197440588
   },
   {
    "tconst": "tt5535276",
    "title": "Maestro",
    "year": 2023,
    "rating": 6.5,
-   "votes": 70166,
-   "score": 6.485917379332622
+   "votes": 70236,
+   "score": 6.486068584586466
   },
   {
    "tconst": "tt14993250",
    "title": "Rocky Aur Rani Kii Prem Kahaani",
    "year": 2023,
    "rating": 6.5,
-   "votes": 51409,
-   "score": 6.481615929775423
+   "votes": 51463,
+   "score": 6.481813431704921
   },
   {
    "tconst": "tt2560078",
    "title": "Boston Strangler",
    "year": 2023,
    "rating": 6.5,
-   "votes": 42099,
-   "score": 6.47833072864314
+   "votes": 42185,
+   "score": 6.478580031673462
   },
   {
    "tconst": "tt10767052",
    "title": "Next Goal Wins",
    "year": 2023,
    "rating": 6.5,
-   "votes": 31898,
-   "score": 6.473054862560957
+   "votes": 31958,
+   "score": 6.473359048402678
   },
   {
    "tconst": "tt27501039",
    "title": "Bloody Daddy",
    "year": 2023,
    "rating": 6.5,
-   "votes": 23661,
-   "score": 6.466461264715219
+   "votes": 23676,
+   "score": 6.466807190666337
   },
   {
    "tconst": "tt18073328",
    "title": "Blood & Gold",
    "year": 2023,
    "rating": 6.5,
-   "votes": 20600,
-   "score": 6.46310629514964
+   "votes": 20654,
+   "score": 6.463534904184759
   },
   {
    "tconst": "tt15771916",
    "title": "You Hurt My Feelings",
    "year": 2023,
    "rating": 6.5,
-   "votes": 17760,
-   "score": 6.459331867131808
+   "votes": 17778,
+   "score": 6.459759484227791
   },
   {
    "tconst": "tt14160834",
    "title": "Rustin",
    "year": 2023,
    "rating": 6.5,
-   "votes": 14940,
-   "score": 6.454733465580552
+   "votes": 14956,
+   "score": 6.455209126177256
   },
   {
    "tconst": "tt26160190",
    "title": "Unlocked",
    "year": 2023,
    "rating": 6.5,
-   "votes": 14665,
-   "score": 6.454228770791769
+   "votes": 14733,
+   "score": 6.454805278489451
   },
   {
    "tconst": "tt15680228",
    "title": "Bheed",
    "year": 2023,
    "rating": 6.5,
-   "votes": 12856,
-   "score": 6.450606082935726
+   "votes": 12859,
+   "score": 6.451100177299077
   },
   {
    "tconst": "tt29548562",
    "title": "Pindam",
    "year": 2023,
    "rating": 6.5,
-   "votes": 11160,
-   "score": 6.4466470997910665
+   "votes": 11162,
+   "score": 6.447178856104319
   },
   {
    "tconst": "tt12747748",
    "title": "Leave the World Behind",
    "year": 2023,
    "rating": 6.4,
-   "votes": 247321,
-   "score": 6.399498885172912
+   "votes": 247970,
+   "score": 6.3995433536957
   },
   {
    "tconst": "tt17663992",
    "title": "Scream VI",
    "year": 2023,
    "rating": 6.4,
-   "votes": 155757,
-   "score": 6.399222069846697
+   "votes": 156112,
+   "score": 6.399290833611537
   },
   {
    "tconst": "tt14230388",
    "title": "Asteroid City",
    "year": 2023,
    "rating": 6.4,
-   "votes": 147050,
-   "score": 6.399178940665896
+   "votes": 147310,
+   "score": 6.3992511534732675
   },
   {
    "tconst": "tt11358390",
    "title": "Renfield",
    "year": 2023,
    "rating": 6.4,
-   "votes": 121502,
-   "score": 6.3990194265606535
+   "votes": 121721,
+   "score": 6.3991056775524
   },
   {
    "tconst": "tt3155298",
    "title": "Luther: The Fallen Sun",
    "year": 2023,
    "rating": 6.4,
-   "votes": 73528,
-   "score": 6.398456237807429
+   "votes": 73637,
+   "score": 6.398591519935909
   },
   {
    "tconst": "tt3758542",
    "title": "Ferrari",
    "year": 2023,
    "rating": 6.4,
-   "votes": 69225,
-   "score": 6.398372390426999
-  },
-  {
-   "tconst": "tt22041854",
-   "title": "Priscilla",
-   "year": 2023,
-   "rating": 6.4,
-   "votes": 56601,
-   "score": 6.398063882397847
+   "votes": 69385,
+   "score": 6.398516079270387
   }
  ]
 }

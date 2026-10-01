@@ -1,1608 +1,1608 @@
 {
  "tag": "year-2022",
- "builtAt": "2026-09-15T22:46:38.707Z",
- "mean": 6.403,
+ "builtAt": "2026-10-01T06:19:54.122Z",
+ "mean": 6.398,
  "minVotes": 10000,
  "items": [
   {
    "tconst": "tt10811166",
    "title": "The Kashmir Files",
    "year": 2022,
-   "rating": 8.5,
-   "votes": 579917,
-   "score": 8.464446263998427
+   "rating": 8.4,
+   "votes": 579998,
+   "score": 8.36607052124358
   },
   {
    "tconst": "tt7466810",
    "title": "777 Charlie",
    "year": 2022,
    "rating": 8.7,
-   "votes": 48646,
-   "score": 8.30826393478089
+   "votes": 48816,
+   "score": 8.308638387388978
   },
   {
    "tconst": "tt9263550",
    "title": "Rocketry: The Nambi Effect",
    "year": 2022,
    "rating": 8.6,
-   "votes": 62653,
-   "score": 8.297552017386208
+   "votes": 62736,
+   "score": 8.297284362525712
   },
   {
    "tconst": "tt20850406",
    "title": "Sita Ramam",
    "year": 2022,
    "rating": 8.5,
-   "votes": 85658,
-   "score": 8.280742297760357
+   "votes": 85973,
+   "score": 8.280997524227336
   },
   {
    "tconst": "tt1745960",
    "title": "Top Gun: Maverick",
    "year": 2022,
    "rating": 8.2,
-   "votes": 905200,
-   "score": 8.180360846502579
+   "votes": 907536,
+   "score": 8.180362269592331
   },
   {
    "tconst": "tt9179430",
    "title": "Vikram",
    "year": 2022,
    "rating": 8.3,
-   "votes": 91106,
-   "score": 8.112338008814117
+   "votes": 91293,
+   "score": 8.112244433402804
   },
   {
    "tconst": "tt10698680",
    "title": "K.G.F: Chapter 2",
    "year": 2022,
    "rating": 8.2,
-   "votes": 172863,
-   "score": 8.10170918512307
+   "votes": 173187,
+   "score": 8.101639720027459
   },
   {
    "tconst": "tt15327088",
    "title": "Kantara",
    "year": 2022,
    "rating": 8.1,
-   "votes": 118439,
-   "score": 7.967845800100903
+   "votes": 118689,
+   "score": 7.967756182678163
   },
   {
    "tconst": "tt15501640",
    "title": "Drishyam 2",
    "year": 2022,
    "rating": 8.2,
-   "votes": 53180,
-   "score": 7.915515142753405
+   "votes": 53391,
+   "score": 7.915758946738024
   },
   {
    "tconst": "tt3915174",
    "title": "Puss in Boots: The Last Wish",
    "year": 2022,
    "rating": 7.9,
-   "votes": 231295,
-   "score": 7.837944204062083
+   "votes": 232166,
+   "score": 7.837983347755962
   },
   {
    "tconst": "tt20256528",
    "title": "What Is a Woman?",
    "year": 2022,
    "rating": 8.1,
-   "votes": 47632,
-   "score": 7.805480405315799
+   "votes": 47670,
+   "score": 7.804901602092425
   },
   {
    "tconst": "tt1877830",
    "title": "The Batman",
    "year": 2022,
    "rating": 7.8,
-   "votes": 948950,
-   "score": 7.785428068949538
+   "votes": 951314,
+   "score": 7.785417538278512
   },
   {
    "tconst": "tt1016150",
    "title": "All Quiet on the Western Front",
    "year": 2022,
    "rating": 7.8,
-   "votes": 346158,
-   "score": 7.7607652971971985
+   "votes": 347274,
+   "score": 7.760763098889564
   },
   {
    "tconst": "tt8178634",
    "title": "RRR",
    "year": 2022,
    "rating": 7.8,
-   "votes": 227270,
-   "score": 7.741106109997725
+   "votes": 227679,
+   "score": 7.741019927686796
   },
   {
    "tconst": "tt9851854",
    "title": "Major",
    "year": 2022,
    "rating": 8.1,
-   "votes": 34618,
-   "score": 7.7195761064852775
+   "votes": 34657,
+   "score": 7.718910258026069
   },
   {
    "tconst": "tt13391710",
    "title": "Jana Gana Mana",
    "year": 2022,
    "rating": 8.3,
-   "votes": 22381,
-   "score": 7.714046716258304
+   "votes": 22442,
+   "score": 7.713774594435305
   },
   {
    "tconst": "tt6710474",
    "title": "Everything Everywhere All at Once",
    "year": 2022,
    "rating": 7.7,
-   "votes": 661186,
-   "score": 7.68067040540053
+   "votes": 662638,
+   "score": 7.680645868048892
   },
   {
    "tconst": "tt12262116",
    "title": "Thirteen Lives",
    "year": 2022,
    "rating": 7.8,
-   "votes": 81319,
-   "score": 7.646978687011028
+   "votes": 81534,
+   "score": 7.646851174346911
   },
   {
    "tconst": "tt17592606",
    "title": "Daman",
    "year": 2022,
    "rating": 8.5,
-   "votes": 14314,
-   "score": 7.637379564002638
+   "votes": 14324,
+   "score": 7.635901800389334
   },
   {
    "tconst": "tt17041964",
    "title": "Navalny",
    "year": 2022,
    "rating": 7.8,
-   "votes": 69681,
-   "score": 7.62462879129479
+   "votes": 69740,
+   "score": 7.624199591079385
   },
   {
    "tconst": "tt10083340",
    "title": "Gangubai Kathiawadi",
    "year": 2022,
    "rating": 7.8,
-   "votes": 67941,
-   "score": 7.620713702918362
+   "votes": 68010,
+   "score": 7.620300927992182
   },
   {
    "tconst": "tt13664684",
    "title": "Karthikeya 2",
    "year": 2022,
    "rating": 7.8,
-   "votes": 65331,
-   "score": 7.61450195429717
+   "votes": 65358,
+   "score": 7.613976955235943
   },
   {
    "tconst": "tt9660502",
    "title": "Close",
    "year": 2022,
    "rating": 7.8,
-   "votes": 49186,
-   "score": 7.563901036041633
+   "votes": 49315,
+   "score": 7.563663076669817
   },
   {
    "tconst": "tt13833688",
    "title": "The Whale",
    "year": 2022,
    "rating": 7.6,
-   "votes": 310342,
-   "score": 7.562621968768253
+   "votes": 311006,
+   "score": 7.562560436230694
   },
   {
    "tconst": "tt11813216",
    "title": "The Banshees of Inisherin",
    "year": 2022,
    "rating": 7.6,
-   "votes": 300175,
-   "score": 7.56139678155609
+   "votes": 300807,
+   "score": 7.561331872810683
   },
   {
    "tconst": "tt1488589",
    "title": "Guillermo del Toro's Pinocchio",
    "year": 2022,
    "rating": 7.6,
-   "votes": 167066,
-   "score": 7.532376891775722
+   "votes": 167313,
+   "score": 7.532219721016903
   },
   {
    "tconst": "tt19770238",
    "title": "Aftersun",
    "year": 2022,
    "rating": 7.6,
-   "votes": 133137,
-   "score": 7.516347602081643
+   "votes": 133722,
+   "score": 7.516377975485105
   },
   {
    "tconst": "tt11375428",
    "title": "Hridayam",
    "year": 2022,
    "rating": 8,
-   "votes": 21553,
-   "score": 7.493748509465348
+   "votes": 21620,
+   "score": 7.493411618996527
   },
   {
    "tconst": "tt1630029",
    "title": "Avatar: The Way of Water",
    "year": 2022,
    "rating": 7.5,
-   "votes": 647819,
-   "score": 7.483317974578356
+   "votes": 648934,
+   "score": 7.4832785611194295
   },
   {
    "tconst": "tt4139928",
    "title": "The Legend of Maula Jatt",
    "year": 2022,
    "rating": 8.4,
-   "votes": 11779,
-   "score": 7.482889330050055
+   "votes": 11786,
+   "score": 7.481138134245394
   },
   {
    "tconst": "tt7405458",
    "title": "A Man Called Otto",
    "year": 2022,
    "rating": 7.5,
-   "votes": 215866,
-   "score": 7.451414762377516
+   "votes": 216457,
+   "score": 7.4513447382623195
   },
   {
    "tconst": "tt22488728",
    "title": "Love Today",
    "year": 2022,
    "rating": 8,
-   "votes": 18819,
-   "score": 7.445721458730702
+   "votes": 18873,
+   "score": 7.445214400743607
   },
   {
    "tconst": "tt16428256",
    "title": "Suzume",
    "year": 2022,
    "rating": 7.6,
-   "votes": 65880,
-   "score": 7.442201459134951
+   "votes": 66244,
+   "score": 7.4423702244461225
   },
   {
    "tconst": "tt18568902",
    "title": "Kaun Pravin Tambe?",
    "year": 2022,
    "rating": 8.3,
-   "votes": 11856,
-   "score": 7.431874392348103
+   "votes": 11870,
+   "score": 7.430392107575225
   },
   {
    "tconst": "tt14208870",
    "title": "The Fabelmans",
    "year": 2022,
    "rating": 7.5,
-   "votes": 137055,
-   "score": 7.425376537480263
+   "votes": 137278,
+   "score": 7.425186894123156
   },
   {
    "tconst": "tt19653180",
    "title": "Leila's Brothers",
    "year": 2022,
    "rating": 7.9,
-   "votes": 19513,
-   "score": 7.392638725956701
+   "votes": 19575,
+   "score": 7.392195279549286
   },
   {
    "tconst": "tt11772746",
    "title": "Thiruchitrambalam",
    "year": 2022,
    "rating": 7.9,
-   "votes": 19243,
-   "score": 7.387954270053008
+   "votes": 19308,
+   "score": 7.38756910716085
   },
   {
    "tconst": "tt15109082",
    "title": "The Quiet Girl",
    "year": 2022,
    "rating": 7.7,
-   "votes": 29887,
-   "score": 7.374737300853916
+   "votes": 30007,
+   "score": 7.3745988300215
   },
   {
    "tconst": "tt18687124",
    "title": "BTS Permission to Dance on Stage - Seoul: Live Viewing",
    "year": 2022,
    "rating": 7.9,
-   "votes": 17608,
-   "score": 7.357629915935965
+   "votes": 17609,
+   "score": 7.356035183913585
   },
   {
    "tconst": "tt15301048",
    "title": "Argentina, 1985",
    "year": 2022,
    "rating": 7.6,
-   "votes": 36986,
-   "score": 7.3451633831175265
+   "votes": 37075,
+   "score": 7.344698362032292
   },
   {
    "tconst": "tt14444726",
    "title": "Tár",
    "year": 2022,
    "rating": 7.4,
-   "votes": 111067,
-   "score": 7.3176179034679985
+   "votes": 111231,
+   "score": 7.317361692905859
   },
   {
    "tconst": "tt15242330",
    "title": "The First Slam Dunk",
    "year": 2022,
    "rating": 8,
-   "votes": 13329,
-   "score": 7.315283412026238
+   "votes": 13372,
+   "score": 7.314636119830146
   },
   {
    "tconst": "tt12593682",
    "title": "Bullet Train",
    "year": 2022,
    "rating": 7.3,
-   "votes": 547630,
-   "score": 7.2839073341089255
+   "votes": 548918,
+   "score": 7.283864673158979
   },
   {
    "tconst": "tt13028258",
    "title": "A Thursday",
    "year": 2022,
    "rating": 7.6,
-   "votes": 27497,
-   "score": 7.280674366460254
+   "votes": 27521,
+   "score": 7.279690717003016
   },
   {
    "tconst": "tt10701074",
    "title": "Ponniyin Selvan: Part I",
    "year": 2022,
    "rating": 7.5,
-   "votes": 38832,
-   "score": 7.275275366955278
+   "votes": 38878,
+   "score": 7.274574970184339
   },
   {
    "tconst": "tt14641542",
    "title": "The Eight Mountains",
    "year": 2022,
    "rating": 7.7,
-   "votes": 20023,
-   "score": 7.267872854783336
+   "votes": 20091,
+   "score": 7.26736816299459
   },
   {
    "tconst": "tt3704428",
    "title": "Elvis",
    "year": 2022,
    "rating": 7.3,
-   "votes": 264795,
-   "score": 7.267343826194654
+   "votes": 265140,
+   "score": 7.267222778922258
   },
   {
    "tconst": "tt12472554",
    "title": "Mahaan",
    "year": 2022,
    "rating": 7.7,
-   "votes": 19631,
-   "score": 7.26215607705309
+   "votes": 19696,
+   "score": 7.261613530194982
   },
   {
    "tconst": "tt21819228",
    "title": "Stutz",
    "year": 2022,
    "rating": 7.7,
-   "votes": 19403,
-   "score": 7.258760899199405
+   "votes": 19429,
+   "score": 7.257636188544299
   },
   {
    "tconst": "tt8009428",
    "title": "Hustle",
    "year": 2022,
    "rating": 7.3,
-   "votes": 167283,
-   "score": 7.249381760908604
+   "votes": 167577,
+   "score": 7.2492145682868285
   },
   {
    "tconst": "tt8745676",
    "title": "The Swimmers",
    "year": 2022,
    "rating": 7.4,
-   "votes": 41041,
-   "score": 7.2045933018389166
+   "votes": 41091,
+   "score": 7.203912144852717
   },
   {
    "tconst": "tt15006566",
    "title": "The Beasts",
    "year": 2022,
    "rating": 7.5,
-   "votes": 26498,
-   "score": 7.199332750264675
+   "votes": 26612,
+   "score": 7.199051551203708
   },
   {
    "tconst": "tt11703710",
    "title": "Downton Abbey: A New Era",
    "year": 2022,
    "rating": 7.4,
-   "votes": 39410,
-   "score": 7.198143022043315
+   "votes": 39492,
+   "score": 7.197576889046112
   },
   {
    "tconst": "tt14107554",
    "title": "Dasvi",
    "year": 2022,
    "rating": 7.3,
-   "votes": 62790,
-   "score": 7.176717223782938
+   "votes": 62804,
+   "score": 7.17612872084872
   },
   {
    "tconst": "tt7322224",
    "title": "Triangle of Sadness",
    "year": 2022,
    "rating": 7.2,
-   "votes": 220286,
-   "score": 7.16537456345223
+   "votes": 220762,
+   "score": 7.165252837957159
   },
   {
    "tconst": "tt16227014",
    "title": "Fire of Love",
    "year": 2022,
    "rating": 7.6,
-   "votes": 16939,
-   "score": 7.155523468545979
+   "votes": 16979,
+   "score": 7.1545303900318835
   },
   {
    "tconst": "tt9411972",
    "title": "Where the Crawdads Sing",
    "year": 2022,
    "rating": 7.2,
-   "votes": 161097,
-   "score": 7.153396299871769
+   "votes": 161402,
+   "score": 7.153219188764835
   },
   {
    "tconst": "tt11198810",
    "title": "She Said",
    "year": 2022,
    "rating": 7.3,
-   "votes": 50367,
-   "score": 7.151346707955672
+   "votes": 50451,
+   "score": 7.1508159566040295
   },
   {
    "tconst": "tt9883832",
    "title": "Moonage Daydream",
    "year": 2022,
    "rating": 7.6,
-   "votes": 16654,
-   "score": 7.150770868130866
+   "votes": 16679,
+   "score": 7.149521173682302
   },
   {
    "tconst": "tt15654262",
    "title": "Chup",
    "year": 2022,
    "rating": 7.4,
-   "votes": 27837,
-   "score": 7.136402112196002
+   "votes": 27889,
+   "score": 7.135587515972187
   },
   {
    "tconst": "tt8983228",
    "title": "Jhund",
    "year": 2022,
    "rating": 7.4,
-   "votes": 26284,
-   "score": 7.1251197971326246
+   "votes": 26292,
+   "score": 7.123952259249151
   },
   {
    "tconst": "tt14114802",
    "title": "The Outfit",
    "year": 2022,
    "rating": 7.2,
-   "votes": 88110,
-   "score": 7.118726396077466
+   "votes": 88281,
+   "score": 7.118414295669257
   },
   {
    "tconst": "tt15128068",
    "title": "Monica, O My Darling",
    "year": 2022,
    "rating": 7.4,
-   "votes": 24433,
-   "score": 7.1103431800644765
+   "votes": 24477,
+   "score": 7.109420059537378
   },
   {
    "tconst": "tt15145764",
    "title": "Freddy",
    "year": 2022,
    "rating": 7.3,
-   "votes": 36892,
-   "score": 7.108629333770368
+   "votes": 36923,
+   "score": 7.107805881820646
   },
   {
    "tconst": "tt12818328",
    "title": "Hundreds of Beavers",
    "year": 2022,
    "rating": 7.5,
-   "votes": 17864,
-   "score": 7.106167338471149
+   "votes": 18007,
+   "score": 7.10658676019103
   },
   {
    "tconst": "tt12477480",
    "title": "Decision to Leave",
    "year": 2022,
    "rating": 7.2,
-   "votes": 71388,
-   "score": 7.102027899925789
+   "votes": 71630,
+   "score": 7.101772331160973
   },
   {
    "tconst": "tt18550140",
    "title": "Holy Spider",
    "year": 2022,
    "rating": 7.3,
-   "votes": 32557,
-   "score": 7.089135670257774
+   "votes": 32626,
+   "score": 7.088431365661103
   },
   {
    "tconst": "tt11564570",
    "title": "Glass Onion",
    "year": 2022,
    "rating": 7.1,
-   "votes": 533496,
-   "score": 7.08716871277647
+   "votes": 534485,
+   "score": 7.087110159862384
   },
   {
    "tconst": "tt9764362",
    "title": "The Menu",
    "year": 2022,
    "rating": 7.1,
-   "votes": 515101,
-   "score": 7.08671921538744
+   "votes": 516982,
+   "score": 7.086682041118425
   },
   {
    "tconst": "tt14376344",
    "title": "Cha Cha Real Smooth",
    "year": 2022,
    "rating": 7.3,
-   "votes": 32064,
-   "score": 7.086664290584825
+   "votes": 32164,
+   "score": 7.0861131627139295
   },
   {
    "tconst": "tt10687116",
    "title": "Entergalactic",
    "year": 2022,
    "rating": 7.4,
-   "votes": 21530,
-   "score": 7.083674174410407
+   "votes": 21618,
+   "score": 7.083144898243727
   },
   {
    "tconst": "tt11866324",
    "title": "Prey",
    "year": 2022,
    "rating": 7.1,
-   "votes": 277482,
-   "score": 7.075741948084263
+   "votes": 277956,
+   "score": 7.075627093697197
   },
   {
    "tconst": "tt14002046",
    "title": "Bheeshma Parvam",
    "year": 2022,
    "rating": 7.5,
-   "votes": 15828,
-   "score": 7.075121833636368
+   "votes": 15857,
+   "score": 7.073874594603788
   },
   {
    "tconst": "tt10638522",
    "title": "Talk to Me",
    "year": 2022,
    "rating": 7.1,
-   "votes": 224765,
-   "score": 7.070294748872958
+   "votes": 225784,
+   "score": 7.070234093037144
   },
   {
    "tconst": "tt10640346",
    "title": "Babylon",
    "year": 2022,
    "rating": 7.1,
-   "votes": 209978,
-   "score": 7.068297951245852
+   "votes": 210420,
+   "score": 7.068159311281509
   },
   {
    "tconst": "tt13352968",
    "title": "Good Luck to You, Leo Grande",
    "year": 2022,
    "rating": 7.2,
-   "votes": 45352,
-   "score": 7.0559446220400375
+   "votes": 45440,
+   "score": 7.055369325264614
   },
   {
    "tconst": "tt21059520",
    "title": "Girl in the Picture",
    "year": 2022,
    "rating": 7.3,
-   "votes": 26487,
-   "score": 7.054056149290435
+   "votes": 26626,
+   "score": 7.053772603960852
   },
   {
    "tconst": "tt9051908",
    "title": "Living",
    "year": 2022,
    "rating": 7.2,
-   "votes": 40539,
-   "score": 7.04222574089634
+   "votes": 40603,
+   "score": 7.041544481407627
   },
   {
    "tconst": "tt15340724",
    "title": "20th Century Girl",
    "year": 2022,
    "rating": 7.4,
-   "votes": 16413,
-   "score": 7.02239225832583
+   "votes": 16515,
+   "score": 7.022163884317186
   },
   {
    "tconst": "tt14992922",
    "title": "The Tinder Swindler",
    "year": 2022,
    "rating": 7.1,
-   "votes": 78406,
-   "score": 7.021116742293057
+   "votes": 78482,
+   "score": 7.020680764366427
   },
   {
    "tconst": "tt13022984",
    "title": "Khuda Haafiz: Chapter 2 - Agni Pariksha",
    "year": 2022,
    "rating": 7.4,
-   "votes": 15492,
-   "score": 7.008749675159271
+   "votes": 15510,
+   "score": 7.00727853362094
   },
   {
    "tconst": "tt14859416",
    "title": "Burning Days",
    "year": 2022,
    "rating": 7.4,
-   "votes": 15158,
-   "score": 7.003555398646956
+   "votes": 15201,
+   "score": 7.002463211486456
   },
   {
    "tconst": "tt11893274",
    "title": "Downfall: The Case Against Boeing",
    "year": 2022,
    "rating": 7.4,
-   "votes": 15086,
-   "score": 7.002417552386197
-  },
-  {
-   "tconst": "tt9098938",
-   "title": "Sharmaji Namkeen",
-   "year": 2022,
-   "rating": 7.4,
-   "votes": 13873,
-   "score": 6.982216173885147
+   "votes": 15111,
+   "score": 7.0010384051877725
   },
   {
    "tconst": "tt11138512",
    "title": "The Northman",
    "year": 2022,
    "rating": 7,
-   "votes": 306338,
-   "score": 6.981115916264122
+   "votes": 307029,
+   "score": 6.981016485534983
+  },
+  {
+   "tconst": "tt9098938",
+   "title": "Sharmaji Namkeen",
+   "year": 2022,
+   "rating": 7.4,
+   "votes": 13877,
+   "score": 6.980419457748887
   },
   {
    "tconst": "tt15791034",
    "title": "Barbarian",
    "year": 2022,
    "rating": 7,
-   "votes": 270711,
-   "score": 6.978719204873197
+   "votes": 274076,
+   "score": 6.9788143855611535
   },
   {
    "tconst": "tt11291274",
    "title": "The Unbearable Weight of Massive Talent",
    "year": 2022,
    "rating": 7,
-   "votes": 181565,
-   "score": 6.968816050526767
+   "votes": 181853,
+   "score": 6.9686305420956165
   },
   {
    "tconst": "tt18925334",
    "title": "Pearl",
    "year": 2022,
    "rating": 7,
-   "votes": 164401,
-   "score": 6.965747023922799
+   "votes": 165062,
+   "score": 6.965621753394055
   },
   {
    "tconst": "tt21837726",
    "title": "The Redeem Team",
    "year": 2022,
    "rating": 7.4,
-   "votes": 12523,
-   "score": 6.957174742226174
+   "votes": 12541,
+   "score": 6.955551013383176
   },
   {
    "tconst": "tt5151570",
    "title": "Mrs. Harris Goes to Paris",
    "year": 2022,
    "rating": 7.1,
-   "votes": 38081,
-   "score": 6.954958231300516
+   "votes": 38172,
+   "score": 6.954306970702278
   },
   {
    "tconst": "tt5301942",
    "title": "Jersey",
    "year": 2022,
    "rating": 7.3,
-   "votes": 15838,
-   "score": 6.952691644831648
+   "votes": 15859,
+   "score": 6.9512500635241175
   },
   {
    "tconst": "tt13229894",
    "title": "God's Crooked Lines",
    "year": 2022,
    "rating": 7.1,
-   "votes": 30740,
-   "score": 6.928822943523812
+   "votes": 30968,
+   "score": 6.928687643835925
   },
   {
    "tconst": "tt9288046",
    "title": "The Sea Beast",
    "year": 2022,
    "rating": 7,
-   "votes": 66494,
-   "score": 6.9219055967678536
+   "votes": 66599,
+   "score": 6.921430767930001
   },
   {
    "tconst": "tt4960748",
    "title": "Till",
    "year": 2022,
    "rating": 7.2,
-   "votes": 18183,
-   "score": 6.917072232166913
+   "votes": 18208,
+   "score": 6.915742888282408
   },
   {
    "tconst": "tt13131350",
    "title": "Vikram Vedha",
    "year": 2022,
    "rating": 7.1,
-   "votes": 27644,
-   "score": 6.9147446264785914
+   "votes": 27671,
+   "score": 6.913694231442493
   },
   {
    "tconst": "tt18816518",
    "title": "Sick of Myself",
    "year": 2022,
    "rating": 7.1,
-   "votes": 24503,
-   "score": 6.897879799413387
+   "votes": 24610,
+   "score": 6.897216856188101
   },
   {
    "tconst": "tt13056052",
    "title": "Broker",
    "year": 2022,
    "rating": 7.1,
-   "votes": 21089,
-   "score": 6.875684220115156
+   "votes": 21135,
+   "score": 6.874584081987158
   },
   {
    "tconst": "tt8097030",
    "title": "Turning Red",
    "year": 2022,
    "rating": 6.9,
-   "votes": 177095,
-   "score": 6.8734158941669214
+   "votes": 177465,
+   "score": 6.8732306051405345
   },
   {
    "tconst": "tt11278476",
    "title": "Rescued by Ruby",
    "year": 2022,
    "rating": 7.2,
-   "votes": 14231,
-   "score": 6.870927601797703
+   "votes": 14285,
+   "score": 6.869823981579994
   },
   {
    "tconst": "tt8129806",
    "title": "To Leslie",
    "year": 2022,
    "rating": 7.1,
-   "votes": 19700,
-   "score": 6.865193492227613
-  },
-  {
-   "tconst": "tt3447590",
-   "title": "Matilda: The Musical",
-   "year": 2022,
-   "rating": 7,
-   "votes": 33860,
-   "score": 6.863799514800732
-  },
-  {
-   "tconst": "tt15600222",
-   "title": "An Action Hero",
-   "year": 2022,
-   "rating": 7,
-   "votes": 33848,
-   "score": 6.863762240447914
+   "votes": 19718,
+   "score": 6.8638359039191785
   },
   {
    "tconst": "tt14846026",
    "title": "Sisu",
    "year": 2022,
    "rating": 6.9,
-   "votes": 126118,
-   "score": 6.863459988533185
+   "votes": 126485,
+   "score": 6.86323167668733
+  },
+  {
+   "tconst": "tt3447590",
+   "title": "Matilda: The Musical",
+   "year": 2022,
+   "rating": 7,
+   "votes": 33934,
+   "score": 6.8630144169133285
+  },
+  {
+   "tconst": "tt15600222",
+   "title": "An Action Hero",
+   "year": 2022,
+   "rating": 7,
+   "votes": 33870,
+   "score": 6.862814574713248
   },
   {
    "tconst": "tt7978758",
    "title": "Apollo 10½: A Space Age Childhood",
    "year": 2022,
    "rating": 7.2,
-   "votes": 13688,
-   "score": 6.8633842755471175
+   "votes": 13713,
+   "score": 6.861859545087933
   },
   {
    "tconst": "tt14614892",
    "title": "Dragon Ball Super: Super Hero",
    "year": 2022,
    "rating": 7.1,
-   "votes": 19388,
-   "score": 6.862700650577111
+   "votes": 19468,
+   "score": 6.861832339916865
   },
   {
    "tconst": "tt11460992",
    "title": "Runway 34",
    "year": 2022,
    "rating": 7,
-   "votes": 31813,
-   "score": 6.857131674817883
+   "votes": 31844,
+   "score": 6.856172339945276
   },
   {
    "tconst": "tt13669038",
    "title": "Women Talking",
    "year": 2022,
    "rating": 6.9,
-   "votes": 85951,
-   "score": 6.848163611834792
+   "votes": 86121,
+   "score": 6.847791589690808
   },
   {
    "tconst": "tt8093700",
    "title": "The Woman King",
    "year": 2022,
    "rating": 6.9,
-   "votes": 84297,
-   "score": 6.8472543847541285
+   "votes": 84395,
+   "score": 6.846836965863342
   },
   {
    "tconst": "tt8115900",
    "title": "The Bad Guys",
    "year": 2022,
    "rating": 6.9,
-   "votes": 82608,
-   "score": 6.8462924015113185
+   "votes": 82836,
+   "score": 6.845944196138031
   },
   {
    "tconst": "tt14279982",
    "title": "HIT: The 2nd Case",
    "year": 2022,
    "rating": 7.2,
-   "votes": 12097,
-   "score": 6.839147699649732
+   "votes": 12140,
+   "score": 6.8378353835894385
   },
   {
    "tconst": "tt7466442",
    "title": "The Bob's Burgers Movie",
    "year": 2022,
    "rating": 7,
-   "votes": 24646,
-   "score": 6.827577403427816
+   "votes": 24708,
+   "score": 6.82660122717155
   },
   {
    "tconst": "tt11934846",
    "title": "Badhaai Do",
    "year": 2022,
    "rating": 7,
-   "votes": 23261,
-   "score": 6.820397664506783
+   "votes": 23285,
+   "score": 6.819188084502634
   },
   {
    "tconst": "tt3513500",
    "title": "Chip 'n Dale: Rescue Rangers",
    "year": 2022,
    "rating": 6.9,
-   "votes": 51521,
-   "score": 6.81915356901156
+   "votes": 51596,
+   "score": 6.818528401075885
   },
   {
    "tconst": "tt8323668",
    "title": "Jerry & Marge Go Large",
    "year": 2022,
    "rating": 6.9,
-   "votes": 36826,
-   "score": 6.793782230366894
+   "votes": 37003,
+   "score": 6.793233950868459
   },
   {
    "tconst": "tt9419884",
    "title": "Doctor Strange in the Multiverse of Madness",
    "year": 2022,
    "rating": 6.8,
-   "votes": 559844,
-   "score": 6.7930265945050925
+   "votes": 561597,
+   "score": 6.7929700040284855
   },
   {
    "tconst": "tt10954984",
    "title": "Nope",
    "year": 2022,
    "rating": 6.8,
-   "votes": 323001,
-   "score": 6.788066842799752
+   "votes": 323705,
+   "score": 6.787958452503469
   },
   {
    "tconst": "tt12015102",
    "title": "Vikrant Rona",
    "year": 2022,
    "rating": 6.9,
-   "votes": 29769,
-   "score": 6.774933911316858
+   "votes": 29787,
+   "score": 6.773870243865336
   },
   {
    "tconst": "tt14641788",
    "title": "Enola Holmes 2",
    "year": 2022,
    "rating": 6.8,
-   "votes": 126697,
-   "score": 6.7709302085573215
+   "votes": 127119,
+   "score": 6.770694618489562
   },
   {
    "tconst": "tt15838850",
    "title": "The Roundup",
    "year": 2022,
    "rating": 7,
-   "votes": 16019,
-   "score": 6.770408037171302
+   "votes": 16089,
+   "score": 6.769315626994908
   },
   {
    "tconst": "tt4273800",
    "title": "The Good Nurse",
    "year": 2022,
    "rating": 6.8,
-   "votes": 92329,
-   "score": 6.761166890316138
+   "votes": 92569,
+   "score": 6.760823205770458
   },
   {
    "tconst": "tt14145426",
    "title": "Beavis and Butt-Head Do the Universe",
    "year": 2022,
    "rating": 7,
-   "votes": 14952,
-   "score": 6.760590201954157
+   "votes": 14981,
+   "score": 6.759083919485615
   },
   {
    "tconst": "tt13885320",
    "title": "India Lockdown",
    "year": 2022,
    "rating": 7.1,
-   "votes": 10408,
-   "score": 6.758283355505689
+   "votes": 10413,
+   "score": 6.756183578732678
   },
   {
    "tconst": "tt8912936",
    "title": "DC League of Super-Pets",
    "year": 2022,
    "rating": 6.8,
-   "votes": 80847,
-   "score": 6.756258838697591
+   "votes": 80929,
+   "score": 6.755808107343864
   },
   {
    "tconst": "tt10168670",
    "title": "Bones and All",
    "year": 2022,
    "rating": 6.8,
-   "votes": 75845,
-   "score": 6.753710137097793
+   "votes": 76040,
+   "score": 6.75329701758101
   },
   {
    "tconst": "tt16953666",
    "title": "The Night of the 12th",
    "year": 2022,
    "rating": 7,
-   "votes": 13596,
-   "score": 6.746831951142571
+   "votes": 13665,
+   "score": 6.745686684668082
   },
   {
    "tconst": "tt11466222",
    "title": "Jackass Forever",
    "year": 2022,
    "rating": 6.8,
-   "votes": 56232,
-   "score": 6.740002517199542
+   "votes": 56328,
+   "score": 6.73941737113542
   },
   {
    "tconst": "tt17076046",
    "title": "Weird: The Al Yankovic Story",
    "year": 2022,
    "rating": 6.8,
-   "votes": 50227,
-   "score": 6.734020401467118
+   "votes": 50407,
+   "score": 6.733479156267819
   },
   {
    "tconst": "tt11976532",
    "title": "Vengeance",
    "year": 2022,
    "rating": 6.8,
-   "votes": 42171,
-   "score": 6.723832142745206
+   "votes": 42220,
+   "score": 6.723050084118539
   },
   {
    "tconst": "tt10268488",
    "title": "The Greatest Beer Run Ever",
    "year": 2022,
    "rating": 6.8,
-   "votes": 38134,
-   "score": 6.71744394231022
+   "votes": 38253,
+   "score": 6.716723838780389
   },
   {
    "tconst": "tt11703050",
    "title": "The House",
    "year": 2022,
    "rating": 6.8,
-   "votes": 26387,
-   "score": 6.690791950948418
+   "votes": 26448,
+   "score": 6.689751849008728
   },
   {
    "tconst": "tt15445056",
    "title": "Athena",
    "year": 2022,
    "rating": 6.8,
-   "votes": 26141,
-   "score": 6.69004860737556
+   "votes": 26217,
+   "score": 6.689048662028058
   },
   {
    "tconst": "tt2463208",
    "title": "The Adam Project",
    "year": 2022,
    "rating": 6.7,
-   "votes": 262389,
-   "score": 6.689082696875278
+   "votes": 262918,
+   "score": 6.68894054401934
   },
   {
    "tconst": "tt12003946",
    "title": "Violent Night",
    "year": 2022,
    "rating": 6.7,
-   "votes": 122663,
-   "score": 6.677584154731614
+   "votes": 122846,
+   "score": 6.677279522098296
   },
   {
    "tconst": "tt11365186",
    "title": "Redeeming Love",
    "year": 2022,
    "rating": 6.8,
-   "votes": 21207,
-   "score": 6.672664681615026
+   "votes": 21296,
+   "score": 6.671602613518346
   },
   {
    "tconst": "tt13403046",
    "title": "Fresh",
    "year": 2022,
    "rating": 6.7,
-   "votes": 95373,
-   "score": 6.671778792661879
+   "votes": 95709,
+   "score": 6.671446853084129
   },
   {
    "tconst": "tt4614584",
    "title": "Purple Hearts",
    "year": 2022,
    "rating": 6.7,
-   "votes": 74531,
-   "score": 6.6648205595480965
+   "votes": 74855,
+   "score": 6.664429619853517
   },
   {
    "tconst": "tt9198364",
    "title": "Three Thousand Years of Longing",
    "year": 2022,
    "rating": 6.7,
-   "votes": 73921,
-   "score": 6.664564849312569
+   "votes": 74043,
+   "score": 6.664085948772297
   },
   {
    "tconst": "tt15255876",
    "title": "Emily the Criminal",
    "year": 2022,
    "rating": 6.7,
-   "votes": 68120,
-   "score": 6.661933521750641
-  },
-  {
-   "tconst": "tt19719836",
-   "title": "Return to Seoul",
-   "year": 2022,
-   "rating": 6.9,
-   "votes": 10867,
-   "score": 6.6616450241606415
-  },
-  {
-   "tconst": "tt13130760",
-   "title": "Hit: The First Case",
-   "year": 2022,
-   "rating": 6.8,
-   "votes": 18685,
-   "score": 6.661469294724077
+   "votes": 68201,
+   "score": 6.661402992195371
   },
   {
    "tconst": "tt14253846",
    "title": "Speak No Evil",
    "year": 2022,
    "rating": 6.7,
-   "votes": 65664,
-   "score": 6.660697910752274
+   "votes": 65840,
+   "score": 6.660201416042591
+  },
+  {
+   "tconst": "tt13130760",
+   "title": "Hit: The First Case",
+   "year": 2022,
+   "rating": 6.8,
+   "votes": 18705,
+   "score": 6.660013077605649
+  },
+  {
+   "tconst": "tt19719836",
+   "title": "Return to Seoul",
+   "year": 2022,
+   "rating": 6.9,
+   "votes": 10893,
+   "score": 6.659808327797356
   },
   {
    "tconst": "tt7529298",
    "title": "Attack",
    "year": 2022,
    "rating": 6.8,
-   "votes": 17480,
-   "score": 6.655394713215433
+   "votes": 17485,
+   "score": 6.653799359384035
   },
   {
    "tconst": "tt12141112",
    "title": "Metal Lords",
    "year": 2022,
    "rating": 6.7,
-   "votes": 37524,
-   "score": 6.637426283965157
+   "votes": 37595,
+   "score": 6.636583157740732
   },
   {
    "tconst": "tt13320662",
    "title": "Slumberland",
    "year": 2022,
    "rating": 6.7,
-   "votes": 36453,
-   "score": 6.6359836118046225
+   "votes": 36513,
+   "score": 6.635107935258318
   },
   {
    "tconst": "tt10709484",
    "title": "Don",
    "year": 2022,
    "rating": 6.8,
-   "votes": 13077,
-   "score": 6.62780459848161
-  },
-  {
-   "tconst": "tt14438964",
-   "title": "Goodbye",
-   "year": 2022,
-   "rating": 6.8,
-   "votes": 12728,
-   "score": 6.625160450508629
-  },
-  {
-   "tconst": "tt21440780",
-   "title": "How to Blow Up a Pipeline",
-   "year": 2022,
-   "rating": 6.8,
-   "votes": 12683,
-   "score": 6.624813592521276
+   "votes": 13098,
+   "score": 6.626031491586724
   },
   {
    "tconst": "tt14099334",
    "title": "Bhediya",
    "year": 2022,
    "rating": 6.7,
-   "votes": 29424,
-   "score": 6.624569975628047
+   "votes": 29466,
+   "score": 6.623520888680641
+  },
+  {
+   "tconst": "tt14438964",
+   "title": "Goodbye",
+   "year": 2022,
+   "rating": 6.8,
+   "votes": 12745,
+   "score": 6.623331518692907
+  },
+  {
+   "tconst": "tt21440780",
+   "title": "How to Blow Up a Pipeline",
+   "year": 2022,
+   "rating": 6.8,
+   "votes": 12712,
+   "score": 6.623074823558919
   },
   {
    "tconst": "tt13793230",
    "title": "Jaadugar",
    "year": 2022,
    "rating": 6.8,
-   "votes": 12369,
-   "score": 6.622354451211951
+   "votes": 12385,
+   "score": 6.620490301213766
   },
   {
    "tconst": "tt14402146",
    "title": "Empire of Light",
    "year": 2022,
    "rating": 6.7,
-   "votes": 27686,
-   "score": 6.6210912996646005
+   "votes": 27733,
+   "score": 6.620008358536829
   },
   {
    "tconst": "tt16183464",
    "title": "One Piece Film: Red",
    "year": 2022,
    "rating": 6.7,
-   "votes": 27170,
-   "score": 6.6199958762216875
+   "votes": 27228,
+   "score": 6.618923267236225
   },
   {
    "tconst": "tt14152140",
    "title": "Darlings",
    "year": 2022,
    "rating": 6.7,
-   "votes": 23586,
-   "score": 6.611458545797658
-  },
-  {
-   "tconst": "tt12374656",
-   "title": "Emily",
-   "year": 2022,
-   "rating": 6.8,
-   "votes": 10552,
-   "score": 6.606648828297008
+   "votes": 23618,
+   "score": 6.6102170085272824
   },
   {
    "tconst": "tt17220704",
    "title": "A Christmas Story Christmas",
    "year": 2022,
    "rating": 6.7,
-   "votes": 21805,
-   "score": 6.606500447073106
+   "votes": 21824,
+   "score": 6.60515571243936
+  },
+  {
+   "tconst": "tt12374656",
+   "title": "Emily",
+   "year": 2022,
+   "rating": 6.8,
+   "votes": 10584,
+   "score": 6.604784074653622
   },
   {
    "tconst": "tt4081630",
    "title": "The Valet",
    "year": 2022,
    "rating": 6.7,
-   "votes": 19185,
-   "score": 6.598106791816349
+   "votes": 19231,
+   "score": 6.596742341783386
   },
   {
    "tconst": "tt9114286",
    "title": "Black Panther: Wakanda Forever",
    "year": 2022,
    "rating": 6.6,
-   "votes": 401674,
-   "score": 6.595205543024724
+   "votes": 402938,
+   "score": 6.595112281729145
   },
   {
    "tconst": "tt19652910",
    "title": "EO",
    "year": 2022,
    "rating": 6.7,
-   "votes": 17375,
-   "score": 6.591369743165666
+   "votes": 17415,
+   "score": 6.589902440002559
   },
   {
    "tconst": "tt14176542",
    "title": "Bardo: False Chronicle of a Handful of Truths",
    "year": 2022,
    "rating": 6.7,
-   "votes": 16716,
-   "score": 6.588690175144487
+   "votes": 16771,
+   "score": 6.587253946160777
   },
   {
    "tconst": "tt14138650",
    "title": "The Pale Blue Eye",
    "year": 2022,
    "rating": 6.6,
-   "votes": 143489,
-   "score": 6.587140750927819
+   "votes": 143780,
+   "score": 6.586875246408311
   },
   {
    "tconst": "tt15218000",
    "title": "Fire Island",
    "year": 2022,
    "rating": 6.7,
-   "votes": 15971,
-   "score": 6.585497159106701
+   "votes": 15996,
+   "score": 6.583892729368755
   },
   {
    "tconst": "tt21874760",
    "title": "The Coffee Table",
    "year": 2022,
    "rating": 6.7,
-   "votes": 15204,
-   "score": 6.582012645578484
+   "votes": 15332,
+   "score": 6.580849336517849
   },
   {
    "tconst": "tt10999120",
    "title": "Spirited",
    "year": 2022,
    "rating": 6.6,
-   "votes": 60255,
-   "score": 6.571905867470786
+   "votes": 60346,
+   "score": 6.57130860877193
   },
   {
    "tconst": "tt9288822",
    "title": "The Wonder",
    "year": 2022,
    "rating": 6.6,
-   "votes": 50387,
-   "score": 6.5673149306830965
+   "votes": 50485,
+   "score": 6.566630989380345
   },
   {
    "tconst": "tt15257644",
    "title": "Mili",
    "year": 2022,
    "rating": 6.7,
-   "votes": 11822,
-   "score": 6.563726822434246
+   "votes": 11831,
+   "score": 6.561741349121441
   },
   {
    "tconst": "tt13421498",
    "title": "The Lost King",
    "year": 2022,
    "rating": 6.7,
-   "votes": 10793,
-   "score": 6.556982961533214
-  },
-  {
-   "tconst": "tt13270424",
-   "title": "Brian and Charles",
-   "year": 2022,
-   "rating": 6.7,
-   "votes": 10465,
-   "score": 6.554690775429275
+   "votes": 10814,
+   "score": 6.55498584571299
   },
   {
    "tconst": "tt7693316",
    "title": "Devotion",
    "year": 2022,
    "rating": 6.6,
-   "votes": 33262,
-   "score": 6.554376744467665
+   "votes": 33329,
+   "score": 6.553418620154404
+  },
+  {
+   "tconst": "tt13270424",
+   "title": "Brian and Charles",
+   "year": 2022,
+   "rating": 6.7,
+   "votes": 10490,
+   "score": 6.552692796128364
   },
   {
    "tconst": "tt11897478",
    "title": "The Stranger",
    "year": 2022,
    "rating": 6.6,
-   "votes": 31219,
-   "score": 6.552115449650891
+   "votes": 31287,
+   "score": 6.551114767182652
   },
   {
    "tconst": "tt14369780",
    "title": "Lady Chatterley's Lover",
    "year": 2022,
    "rating": 6.6,
-   "votes": 28519,
-   "score": 6.548758968798777
+   "votes": 28622,
+   "score": 6.5477415823279514
   },
   {
    "tconst": "tt10192406",
    "title": "Causeway",
    "year": 2022,
    "rating": 6.6,
-   "votes": 27529,
-   "score": 6.547407250903571
+   "votes": 27588,
+   "score": 6.546304017044539
   },
   {
    "tconst": "tt12193804",
    "title": "Whitney Houston: I Wanna Dance with Somebody",
    "year": 2022,
    "rating": 6.6,
-   "votes": 27435,
-   "score": 6.54727518950608
+   "votes": 27488,
+   "score": 6.546160781921419
   },
   {
    "tconst": "tt13139228",
    "title": "My Policeman",
    "year": 2022,
    "rating": 6.6,
-   "votes": 26162,
-   "score": 6.545419133874235
+   "votes": 26214,
+   "score": 6.544266730896067
   },
   {
    "tconst": "tt9737876",
    "title": "Narvik: Hitler's First Defeat",
    "year": 2022,
    "rating": 6.6,
-   "votes": 21212,
-   "score": 6.536762998819688
+   "votes": 21271,
+   "score": 6.535456985471209
   },
   {
    "tconst": "tt9054970",
    "title": "Doctor G",
    "year": 2022,
    "rating": 6.6,
-   "votes": 19718,
-   "score": 6.533583912751871
+   "votes": 19744,
+   "score": 6.5321434707056945
   },
   {
    "tconst": "tt19704638",
    "title": "Our Father",
    "year": 2022,
    "rating": 6.6,
-   "votes": 15974,
-   "score": 6.524010422698087
+   "votes": 15995,
+   "score": 6.5223571991794635
   },
   {
    "tconst": "tt20859464",
    "title": "The Artifice Girl",
    "year": 2022,
    "rating": 6.6,
-   "votes": 13594,
-   "score": 6.516345118214806
+   "votes": 13661,
+   "score": 6.514698254201859
   },
   {
    "tconst": "tt15807910",
    "title": "I Used to Be Famous",
    "year": 2022,
    "rating": 6.6,
-   "votes": 12854,
-   "score": 6.513636418970863
+   "votes": 12879,
+   "score": 6.511782656264267
   },
   {
    "tconst": "tt21998526",
    "title": "Zwigato",
    "year": 2022,
    "rating": 6.6,
-   "votes": 11260,
-   "score": 6.507161181522113
+   "votes": 11272,
+   "score": 6.505118248997281
   },
   {
    "tconst": "tt1649418",
    "title": "The Gray Man",
    "year": 2022,
    "rating": 6.5,
-   "votes": 278703,
-   "score": 6.496627145264026
+   "votes": 279290,
+   "score": 6.496479917704276
   },
   {
    "tconst": "tt15474916",
    "title": "Smile",
    "year": 2022,
    "rating": 6.5,
-   "votes": 248841,
-   "score": 6.496238025348227
+   "votes": 249750,
+   "score": 6.496079597276883
   },
   {
    "tconst": "tt13560574",
    "title": "X",
    "year": 2022,
    "rating": 6.5,
-   "votes": 228747,
-   "score": 6.495921400977437
+   "votes": 229530,
+   "score": 6.495748655252663
   },
   {
    "tconst": "tt12412888",
    "title": "Sonic the Hedgehog 2",
    "year": 2022,
    "rating": 6.5,
-   "votes": 119441,
-   "score": 6.492477242289229
+   "votes": 119772,
+   "score": 6.492152971308681
   },
   {
    "tconst": "tt5113044",
    "title": "Minions: The Rise of Gru",
    "year": 2022,
    "rating": 6.5,
-   "votes": 109313,
-   "score": 6.491838665687395
+   "votes": 109571,
+   "score": 6.491483515172327
   },
   {
    "tconst": "tt13640696",
    "title": "See How They Run",
    "year": 2022,
    "rating": 6.5,
-   "votes": 75052,
-   "score": 6.4885510830922275
+   "votes": 75227,
+   "score": 6.488051619705846
   },
   {
    "tconst": "tt11252248",
    "title": "Dog",
    "year": 2022,
    "rating": 6.5,
-   "votes": 53158,
-   "score": 6.48458226541626
+   "votes": 53248,
+   "score": 6.4838994971014134
   },
   {
    "tconst": "tt14439896",
    "title": "Father Stu",
    "year": 2022,
    "rating": 6.5,
-   "votes": 36769,
-   "score": 6.479179514617805
+   "votes": 36838,
+   "score": 6.478258580483159
   },
   {
    "tconst": "tt7214954",
    "title": "Luck",
    "year": 2022,
    "rating": 6.5,
-   "votes": 36345,
-   "score": 6.478989032671488
+   "votes": 36437,
+   "score": 6.478070835598126
   },
   {
    "tconst": "tt13873302",
    "title": "Against the Ice",
    "year": 2022,
    "rating": 6.5,
-   "votes": 32258,
-   "score": 6.476956948250275
+   "votes": 32329,
+   "score": 6.475942625449932
   },
   {
    "tconst": "tt6462958",
    "title": "I Want You Back",
    "year": 2022,
    "rating": 6.5,
-   "votes": 27763,
-   "score": 6.474214091019254
+   "votes": 27836,
+   "score": 6.473085828117934
   },
   {
    "tconst": "tt14458442",
    "title": "The Son",
    "year": 2022,
    "rating": 6.5,
-   "votes": 21512,
-   "score": 6.469098969254891
+   "votes": 21612,
+   "score": 6.467786770614646
   },
   {
    "tconst": "tt9853500",
    "title": "Bandit",
    "year": 2022,
    "rating": 6.5,
-   "votes": 18477,
-   "score": 6.465805622753805
+   "votes": 18553,
+   "score": 6.464335635228178
   },
   {
    "tconst": "tt9731386",
    "title": "Rogue Agent",
    "year": 2022,
    "rating": 6.5,
-   "votes": 17035,
-   "score": 6.463981753991496
+   "votes": 17080,
+   "score": 6.4623956939686185
   },
   {
    "tconst": "tt14592948",
    "title": "Loving Adults",
    "year": 2022,
    "rating": 6.5,
-   "votes": 16642,
-   "score": 6.463450443628862
+   "votes": 16690,
+   "score": 6.461846211789815
   },
   {
    "tconst": "tt15710136",
    "title": "Yashoda",
    "year": 2022,
    "rating": 6.5,
-   "votes": 12537,
-   "score": 6.4567931277082184
+   "votes": 12556,
+   "score": 6.454853493202259
   },
   {
    "tconst": "tt16491324",
    "title": "Honor Society",
    "year": 2022,
    "rating": 6.5,
-   "votes": 12346,
-   "score": 6.4564238216754735
+   "votes": 12385,
+   "score": 6.454508617050264
   },
   {
    "tconst": "tt1777606",
    "title": "Rosaline",
    "year": 2022,
    "rating": 6.5,
-   "votes": 12106,
-   "score": 6.455950724652136
+   "votes": 12140,
+   "score": 6.454005211954389
   },
   {
    "tconst": "tt11992694",
    "title": "Corsage",
    "year": 2022,
    "rating": 6.5,
-   "votes": 11699,
-   "score": 6.455124508924841
+   "votes": 11718,
+   "score": 6.453111492433473
   },
   {
    "tconst": "tt16077702",
    "title": "Govinda Naam Mera",
    "year": 2022,
    "rating": 6.5,
-   "votes": 11249,
-   "score": 6.454174159685637
+   "votes": 11265,
+   "score": 6.45211264484694
   },
   {
-   "tconst": "tt16360006",
-   "title": "Bubble",
+   "tconst": "tt15325794",
+   "title": "Fall",
    "year": 2022,
    "rating": 6.4,
-   "votes": 10091,
-   "score": 6.401306391874975
+   "votes": 147070,
+   "score": 6.399883334772205
   },
   {
-   "tconst": "tt21994906",
-   "title": "Your Christmas or Mine?",
+   "tconst": "tt4595186",
+   "title": "Luckiest Girl Alive",
    "year": 2022,
    "rating": 6.4,
-   "votes": 11800,
-   "score": 6.401203977943125
+   "votes": 60930,
+   "score": 6.399741652229947
   }
  ]
 }

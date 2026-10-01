@@ -1,6 +1,6 @@
 {
  "tag": "year-1968",
- "builtAt": "2026-09-15T22:46:38.707Z",
+ "builtAt": "2026-10-01T06:19:54.122Z",
  "mean": 6.529,
  "minVotes": 1000,
  "items": [
@@ -9,280 +9,280 @@
    "title": "Once Upon a Time in the West",
    "year": 1968,
    "rating": 8.5,
-   "votes": 387734,
-   "score": 8.49493068773226
+   "votes": 388239,
+   "score": 8.494937264675205
   },
   {
    "tconst": "tt0062622",
    "title": "2001: A Space Odyssey",
    "year": 1968,
    "rating": 8.3,
-   "votes": 792731,
-   "score": 8.297769251755208
+   "votes": 794007,
+   "score": 8.297772832144764
   },
   {
    "tconst": "tt0063522",
    "title": "Rosemary's Baby",
    "year": 1968,
    "rating": 8,
-   "votes": 260990,
-   "score": 7.9943867550857375
+   "votes": 261372,
+   "score": 7.9943949276786865
   },
   {
    "tconst": "tt0063442",
    "title": "Planet of the Apes",
    "year": 1968,
    "rating": 8,
-   "votes": 211252,
-   "score": 7.993071377253982
+   "votes": 211487,
+   "score": 7.993079039964385
   },
   {
    "tconst": "tt0063404",
    "title": "Padosan",
    "year": 1968,
    "rating": 8.1,
-   "votes": 10371,
-   "score": 7.961875469607975
+   "votes": 10388,
+   "score": 7.962081661829318
   },
   {
    "tconst": "tt0063611",
    "title": "Shame",
    "year": 1968,
    "rating": 8,
-   "votes": 16690,
-   "score": 7.916867493776839
+   "votes": 16731,
+   "score": 7.917059723924893
   },
   {
    "tconst": "tt0063845",
    "title": "The Golden Calf",
    "year": 1968,
    "rating": 8.2,
-   "votes": 3537,
-   "score": 7.831780023123712
+   "votes": 3539,
+   "score": 7.831942270304534
   },
   {
    "tconst": "tt0063350",
    "title": "Night of the Living Dead",
    "year": 1968,
    "rating": 7.8,
-   "votes": 152469,
-   "score": 7.7917207120976375
+   "votes": 152715,
+   "score": 7.791733961974513
   },
   {
    "tconst": "tt0063227",
    "title": "The Lion in Winter",
    "year": 1968,
    "rating": 7.8,
-   "votes": 37214,
-   "score": 7.7667500383344406
+   "votes": 37278,
+   "score": 7.766805631561532
   },
   {
    "tconst": "tt0064689",
    "title": "Monterey Pop",
    "year": 1968,
    "rating": 7.9,
-   "votes": 5529,
-   "score": 7.690072900124412
+   "votes": 5542,
+   "score": 7.690490058837096
   },
   {
    "tconst": "tt0063032",
    "title": "The Great Silence",
    "year": 1968,
    "rating": 7.7,
-   "votes": 20848,
-   "score": 7.646420082612243
+   "votes": 20906,
+   "score": 7.646561944896937
   },
   {
    "tconst": "tt0252084",
    "title": "My Prostitute Love",
    "year": 1968,
    "rating": 7.9,
-   "votes": 3744,
-   "score": 7.611084731220971
+   "votes": 3752,
+   "score": 7.611571120562349
   },
   {
    "tconst": "tt0122136",
    "title": "Black Cat",
    "year": 1968,
    "rating": 7.7,
-   "votes": 10066,
-   "score": 7.594215250760191
+   "votes": 10084,
+   "score": 7.594387041222689
   },
   {
    "tconst": "tt0065207",
    "title": "Where Eagles Dare",
    "year": 1968,
    "rating": 7.6,
-   "votes": 67328,
-   "score": 7.584331254608832
+   "votes": 67421,
+   "score": 7.584352552066066
   },
   {
    "tconst": "tt0063374",
    "title": "The Odd Couple",
    "year": 1968,
    "rating": 7.6,
-   "votes": 40371,
-   "score": 7.57412163024612
+   "votes": 40431,
+   "score": 7.574159107067468
   },
   {
    "tconst": "tt0063518",
    "title": "Romeo and Juliet",
    "year": 1968,
    "rating": 7.6,
-   "votes": 37796,
-   "score": 7.572404009818339
+   "votes": 37857,
+   "score": 7.572447331623961
   },
   {
    "tconst": "tt0063663",
    "title": "The Swimmer",
    "year": 1968,
    "rating": 7.6,
-   "votes": 16679,
-   "score": 7.539441482262134
+   "votes": 16722,
+   "score": 7.53958841919153
   },
   {
    "tconst": "tt0062164",
    "title": "The Boys of Paul Street",
    "year": 1968,
    "rating": 7.8,
-   "votes": 3707,
-   "score": 7.530058628619563
+   "votes": 3713,
+   "score": 7.530402284089176
   },
   {
    "tconst": "tt0063759",
    "title": "Hour of the Wolf",
    "year": 1968,
    "rating": 7.5,
-   "votes": 25410,
-   "score": 7.463248237974717
+   "votes": 25494,
+   "score": 7.463364760508503
   },
   {
    "tconst": "tt0062695",
    "title": "Stolen Kisses",
    "year": 1968,
    "rating": 7.5,
-   "votes": 16747,
-   "score": 7.445308275478237
+   "votes": 16772,
+   "score": 7.4453852107198
   },
   {
    "tconst": "tt0063291",
    "title": "Memories of Underdevelopment",
    "year": 1968,
    "rating": 7.6,
-   "votes": 5468,
-   "score": 7.434475257407588
+   "votes": 5481,
+   "score": 7.434807277412788
   },
   {
    "tconst": "tt0063050",
    "title": "The Heart Is a Lonely Hunter",
    "year": 1968,
    "rating": 7.6,
-   "votes": 5125,
-   "score": 7.425205871822413
+   "votes": 5132,
+   "score": 7.425405408498415
   },
   {
    "tconst": "tt0062765",
    "title": "Bullitt",
    "year": 1968,
    "rating": 7.4,
-   "votes": 81866,
-   "score": 7.389493712317624
+   "votes": 82003,
+   "score": 7.389511053394604
   },
   {
    "tconst": "tt0063415",
    "title": "The Party",
    "year": 1968,
    "rating": 7.4,
-   "votes": 47511,
-   "score": 7.3820532655462126
+   "votes": 47565,
+   "score": 7.382073220733291
   },
   {
    "tconst": "tt0063385",
    "title": "Oliver!",
    "year": 1968,
    "rating": 7.4,
-   "votes": 44833,
-   "score": 7.38100464654097
+   "votes": 44892,
+   "score": 7.381029067482618
   },
   {
    "tconst": "tt0063823",
    "title": "Yellow Submarine",
    "year": 1968,
    "rating": 7.4,
-   "votes": 30150,
-   "score": 7.372050913801358
+   "votes": 30180,
+   "score": 7.372077805160753
   },
   {
    "tconst": "tt0062994",
    "title": "Funny Girl",
    "year": 1968,
    "rating": 7.4,
-   "votes": 27713,
-   "score": 7.369678750562891
+   "votes": 27746,
+   "score": 7.369713558926888
   },
   {
    "tconst": "tt0063850",
    "title": "If....",
    "year": 1968,
    "rating": 7.4,
-   "votes": 26631,
-   "score": 7.368491403311943
+   "votes": 26667,
+   "score": 7.368532401955843
   },
   {
    "tconst": "tt0062907",
    "title": "We'll Live Till Monday",
    "year": 1968,
    "rating": 7.8,
-   "votes": 1905,
-   "score": 7.362611347646225
+   "votes": 1909,
+   "score": 7.363212775837842
   },
   {
    "tconst": "tt0063493",
    "title": "Reconstruction",
    "year": 1968,
    "rating": 7.8,
-   "votes": 1860,
-   "score": 7.3557293583609376
+   "votes": 1864,
+   "score": 7.356349848083898
   },
   {
    "tconst": "tt0062952",
    "title": "Faces",
    "year": 1968,
    "rating": 7.4,
-   "votes": 12920,
-   "score": 7.3374558882839285
+   "votes": 12937,
+   "score": 7.337532178009062
   },
   {
    "tconst": "tt0122770",
    "title": "The Valley of the Bees",
    "year": 1968,
    "rating": 7.7,
-   "votes": 2184,
-   "score": 7.33234483822622
+   "votes": 2190,
+   "score": 7.33303635263708
   },
   {
    "tconst": "tt0063198",
    "title": "Death by Hanging",
    "year": 1968,
    "rating": 7.5,
-   "votes": 3951,
-   "score": 7.303955961404218
+   "votes": 3959,
+   "score": 7.3042722252293375
   },
   {
    "tconst": "tt0123186",
    "title": "Don't Grieve",
    "year": 1968,
    "rating": 7.8,
-   "votes": 1499,
-   "score": 7.291551006367461
+   "votes": 1503,
+   "score": 7.292363549705267
   },
   {
    "tconst": "tt0062393",
    "title": "Three Poplars on Plyuschikha Street",
    "year": 1968,
    "rating": 7.8,
-   "votes": 1408,
-   "score": 7.272336364166231
+   "votes": 1409,
+   "score": 7.272555402620292
   },
   {
    "tconst": "tt0063615",
@@ -297,200 +297,200 @@
    "title": "Targets",
    "year": 1968,
    "rating": 7.3,
-   "votes": 13958,
-   "score": 7.248481479135733
+   "votes": 13994,
+   "score": 7.248605173063377
   },
   {
    "tconst": "tt0064429",
    "title": "High School",
    "year": 1968,
    "rating": 7.5,
-   "votes": 2784,
-   "score": 7.243495233856311
+   "votes": 2797,
+   "score": 7.244373443484931
   },
   {
    "tconst": "tt0063186",
    "title": "Kill!",
    "year": 1968,
    "rating": 7.4,
-   "votes": 3479,
-   "score": 7.205623122329156
+   "votes": 3483,
+   "score": 7.205796556973519
   },
   {
    "tconst": "tt0063173",
    "title": "Profound Desires of the Gods",
    "year": 1968,
    "rating": 7.5,
-   "votes": 2206,
-   "score": 7.197250768843507
+   "votes": 2216,
+   "score": 7.198192153268745
   },
   {
    "tconst": "tt0065695",
    "title": "L'enfance nue",
    "year": 1968,
    "rating": 7.4,
-   "votes": 2959,
-   "score": 7.180092438725002
+   "votes": 2962,
+   "score": 7.180258951265089
   },
   {
    "tconst": "tt0062687",
    "title": "Asterix and Cleopatra",
    "year": 1968,
    "rating": 7.2,
-   "votes": 16165,
-   "score": 7.160931311675636
+   "votes": 16201,
+   "score": 7.161013078594982
   },
   {
    "tconst": "tt0061955",
    "title": "The Bride Wore Black",
    "year": 1968,
    "rating": 7.2,
-   "votes": 11702,
-   "score": 7.147204059590008
+   "votes": 11739,
+   "score": 7.147357403635473
   },
   {
    "tconst": "tt0063084",
    "title": "The Hour of the Furnaces",
    "year": 1968,
    "rating": 7.6,
-   "votes": 1336,
-   "score": 7.14168919730834
+   "votes": 1341,
+   "score": 7.142668075571245
   },
   {
    "tconst": "tt0063056",
    "title": "Hell in the Pacific",
    "year": 1968,
    "rating": 7.2,
-   "votes": 9986,
-   "score": 7.138957397133833
+   "votes": 10005,
+   "score": 7.13906278645273
   },
   {
    "tconst": "tt0064482",
    "title": "In the Year of the Pig",
    "year": 1968,
    "rating": 7.4,
-   "votes": 2111,
-   "score": 7.12014977978537
+   "votes": 2114,
+   "score": 7.120419385007157
   },
   {
    "tconst": "tt0062925",
    "title": "Stars of Eger",
    "year": 1968,
    "rating": 7.3,
-   "votes": 2921,
-   "score": 7.103464923466535
+   "votes": 2924,
+   "score": 7.103615179641254
   },
   {
    "tconst": "tt0061343",
    "title": "Very Happy Alexander",
    "year": 1968,
    "rating": 7.3,
-   "votes": 2518,
-   "score": 7.080951098610655
+   "votes": 2524,
+   "score": 7.081324053607345
   },
   {
    "tconst": "tt0061802",
    "title": "I Was Nineteen",
    "year": 1968,
    "rating": 7.5,
-   "votes": 1216,
-   "score": 7.0619972765849655
+   "votes": 1239,
+   "score": 7.066496634619153
   },
   {
    "tconst": "tt0063829",
    "title": "Yours, Mine and Ours",
    "year": 1968,
    "rating": 7.1,
-   "votes": 11191,
-   "score": 7.0531938286368865
+   "votes": 11213,
+   "score": 7.0532781433646345
   },
   {
    "tconst": "tt0063731",
    "title": "Under the Northern Star",
    "year": 1968,
    "rating": 7.5,
-   "votes": 1158,
-   "score": 7.050225192267045
+   "votes": 1161,
+   "score": 7.050849590426786
   },
   {
    "tconst": "tt0296881",
    "title": "Symbiopsychotaxiplasm: Take One",
    "year": 1968,
    "rating": 7.2,
-   "votes": 2964,
-   "score": 7.030823906385541
+   "votes": 2972,
+   "score": 7.03116464373421
   },
   {
    "tconst": "tt0063293",
    "title": "The Mercenary",
    "year": 1968,
    "rating": 7.1,
-   "votes": 7029,
-   "score": 7.0289308712059135
+   "votes": 7048,
+   "score": 7.029098653691884
   },
   {
    "tconst": "tt0063268",
    "title": "Mandabi",
    "year": 1968,
    "rating": 7.3,
-   "votes": 1821,
-   "score": 7.026829480649516
+   "votes": 1826,
+   "score": 7.027312797208877
   },
   {
    "tconst": "tt0062900",
    "title": "They Call Us Misfits",
    "year": 1968,
    "rating": 7.3,
-   "votes": 1761,
-   "score": 7.020893141945774
+   "votes": 1764,
+   "score": 7.02119607992485
   },
   {
    "tconst": "tt0061752",
    "title": "Even the Wind Is Afraid",
    "year": 1968,
    "rating": 7.2,
-   "votes": 2486,
-   "score": 7.007626495958774
+   "votes": 2495,
+   "score": 7.008121878372614
   },
   {
    "tconst": "tt0063483",
    "title": "Rachel, Rachel",
    "year": 1968,
    "rating": 7.1,
-   "votes": 4525,
-   "score": 6.996721441613083
-  },
-  {
-   "tconst": "tt0062803",
-   "title": "Chitty Chitty Bang Bang",
-   "year": 1968,
-   "rating": 7,
-   "votes": 55596,
-   "score": 6.9916846767423895
-  },
-  {
-   "tconst": "tt11669728",
-   "title": "Toby Dammit",
-   "year": 1968,
-   "rating": 7.4,
-   "votes": 1130,
-   "score": 6.991261016390744
-  },
-  {
-   "tconst": "tt0061747",
-   "title": "Hang 'Em High",
-   "year": 1968,
-   "rating": 7,
-   "votes": 48972,
-   "score": 6.990582445467707
+   "votes": 4531,
+   "score": 6.996833477655447
   },
   {
    "tconst": "tt0063171",
    "title": "The Snow Woman",
    "year": 1968,
    "rating": 7.3,
-   "votes": 1486,
-   "score": 6.990018489506149
+   "votes": 1505,
+   "score": 6.992369646671571
+  },
+  {
+   "tconst": "tt11669728",
+   "title": "Toby Dammit",
+   "year": 1968,
+   "rating": 7.4,
+   "votes": 1134,
+   "score": 6.992027162564332
+  },
+  {
+   "tconst": "tt0062803",
+   "title": "Chitty Chitty Bang Bang",
+   "year": 1968,
+   "rating": 7,
+   "votes": 55665,
+   "score": 6.991694802169104
+  },
+  {
+   "tconst": "tt0061747",
+   "title": "Hang 'Em High",
+   "year": 1968,
+   "rating": 7,
+   "votes": 49057,
+   "score": 6.990598437079974
   },
   {
    "tconst": "tt0063835",
@@ -505,160 +505,160 @@
    "title": "The Red Light Bandit",
    "year": 1968,
    "rating": 7.2,
-   "votes": 2091,
-   "score": 6.983043016794657
+   "votes": 2093,
+   "score": 6.983183305823564
   },
   {
    "tconst": "tt0063152",
    "title": "I Love You, I Love You",
    "year": 1968,
    "rating": 7.1,
-   "votes": 3821,
-   "score": 6.981639901454528
+   "votes": 3824,
+   "score": 6.981713508480987
   },
   {
    "tconst": "tt0063678",
    "title": "Teorema",
    "year": 1968,
    "rating": 7,
-   "votes": 17186,
-   "score": 6.9741221799687825
+   "votes": 17221,
+   "score": 6.974171887652284
   },
   {
    "tconst": "tt0063748",
    "title": "Uptight",
    "year": 1968,
    "rating": 7.3,
-   "votes": 1327,
-   "score": 6.968837973748295
+   "votes": 1329,
+   "score": 6.9691223550503585
   },
   {
    "tconst": "tt0062755",
    "title": "The Boston Strangler",
    "year": 1968,
    "rating": 7,
-   "votes": 12138,
-   "score": 6.964179172241763
+   "votes": 12160,
+   "score": 6.96423905508452
   },
   {
    "tconst": "tt0063477",
    "title": "The Queen",
    "year": 1968,
    "rating": 7.2,
-   "votes": 1583,
-   "score": 6.940373970155743
+   "votes": 1584,
+   "score": 6.940474444625497
   },
   {
    "tconst": "tt0164983",
    "title": "Samaritan Zatoichi",
    "year": 1968,
    "rating": 7.2,
-   "votes": 1472,
-   "score": 6.928716005223416
+   "votes": 1471,
+   "score": 6.928606218094814
   },
   {
    "tconst": "tt0063458",
    "title": "Woman in Chains",
    "year": 1968,
    "rating": 7.1,
-   "votes": 2170,
-   "score": 6.919995572527533
+   "votes": 2179,
+   "score": 6.920505179274075
   },
   {
    "tconst": "tt0063599",
    "title": "The Shoes of the Fisherman",
    "year": 1968,
    "rating": 7,
-   "votes": 4703,
-   "score": 6.917479566002505
+   "votes": 4707,
+   "score": 6.917537404049813
   },
   {
    "tconst": "tt0063456",
    "title": "Pretty Poison",
    "year": 1968,
    "rating": 7,
-   "votes": 4694,
-   "score": 6.917349133282803
+   "votes": 4700,
+   "score": 6.917436134195137
   },
   {
    "tconst": "tt0063288",
    "title": "Be Sick... It's Free",
    "year": 1968,
    "rating": 7.1,
-   "votes": 1997,
-   "score": 6.909604926563992
+   "votes": 2003,
+   "score": 6.909985336301126
   },
   {
    "tconst": "tt0063840",
    "title": "Zigzag of Luck",
    "year": 1968,
    "rating": 7.2,
-   "votes": 1261,
-   "score": 6.9033993652862815
+   "votes": 1266,
+   "score": 6.904053823880091
   },
   {
    "tconst": "tt0063688",
    "title": "The Thomas Crown Affair",
    "year": 1968,
    "rating": 6.9,
-   "votes": 32630,
-   "score": 6.888979659973604
+   "votes": 32829,
+   "score": 6.889044487419441
   },
   {
    "tconst": "tt0063356",
    "title": "No Way to Treat a Lady",
    "year": 1968,
    "rating": 7,
-   "votes": 2870,
-   "score": 6.878394306178885
+   "votes": 2877,
+   "score": 6.878613867658572
   },
   {
    "tconst": "tt0063729",
    "title": "Twisted Nerve",
    "year": 1968,
    "rating": 7,
-   "votes": 2864,
-   "score": 6.878205477461771
+   "votes": 2874,
+   "score": 6.8785198670398255
   },
   {
    "tconst": "tt0063218",
    "title": "Signs of Life",
    "year": 1968,
    "rating": 7,
-   "votes": 2844,
-   "score": 6.877571791080198
+   "votes": 2857,
+   "score": 6.87798443477114
   },
   {
    "tconst": "tt0063185",
    "title": "The Killing of Sister George",
    "year": 1968,
    "rating": 7,
-   "votes": 2799,
-   "score": 6.87612160171421
+   "votes": 2802,
+   "score": 6.876219349003757
   },
   {
    "tconst": "tt0063010",
    "title": "Mafia",
    "year": 1968,
    "rating": 7,
-   "votes": 2454,
-   "score": 6.86374810796534
+   "votes": 2466,
+   "score": 6.864219839847745
   },
   {
    "tconst": "tt0064609",
    "title": "Lucia",
    "year": 1968,
    "rating": 7.1,
-   "votes": 1372,
-   "score": 6.859437590603829
+   "votes": 1376,
+   "score": 6.859842577825035
   },
   {
    "tconst": "tt0062794",
    "title": "Charly",
    "year": 1968,
    "rating": 6.9,
-   "votes": 7851,
-   "score": 6.858127439262489
+   "votes": 7857,
+   "score": 6.85815580500308
   },
   {
    "tconst": "tt0063369",
@@ -673,64 +673,64 @@
    "title": "The Subject Was Roses",
    "year": 1968,
    "rating": 7,
-   "votes": 2046,
-   "score": 6.84549769038486
+   "votes": 2045,
+   "score": 6.84544695071011
+  },
+  {
+   "tconst": "tt0293608",
+   "title": "King of the Hearts",
+   "year": 1968,
+   "rating": 7.1,
+   "votes": 1123,
+   "score": 6.831222781400038
   },
   {
    "tconst": "tt0061754",
    "title": "Nanami: The Inferno of First Love",
    "year": 1968,
    "rating": 7.1,
-   "votes": 1018,
-   "score": 6.817237841879229
+   "votes": 1020,
+   "score": 6.817517804412022
   },
   {
    "tconst": "tt0062671",
    "title": "The Anniversary",
    "year": 1968,
    "rating": 6.9,
-   "votes": 3053,
-   "score": 6.808558096450108
+   "votes": 3058,
+   "score": 6.808670765133634
   },
   {
    "tconst": "tt0183368",
    "title": "Köroglu",
    "year": 1968,
    "rating": 7,
-   "votes": 1229,
-   "score": 6.788867637914888
+   "votes": 1239,
+   "score": 6.789810614074267
   },
   {
    "tconst": "tt0062885",
    "title": "The Devil Rides Out",
    "year": 1968,
    "rating": 6.8,
-   "votes": 11760,
-   "score": 6.778792003519771
-  },
-  {
-   "tconst": "tt0293608",
-   "title": "King of the Hearts",
-   "year": 1968,
-   "rating": 7,
-   "votes": 1123,
-   "score": 6.778325937311485
+   "votes": 11785,
+   "score": 6.7788334739861
   },
   {
    "tconst": "tt0063005",
    "title": "The Gendarme Gets Married",
    "year": 1968,
    "rating": 6.8,
-   "votes": 9570,
-   "score": 6.774397915318097
+   "votes": 9584,
+   "score": 6.774431780509475
   },
   {
    "tconst": "tt0062737",
    "title": "Blackbeard's Ghost",
    "year": 1968,
    "rating": 6.8,
-   "votes": 7553,
-   "score": 6.768360337298291
+   "votes": 7579,
+   "score": 6.7684562262399215
   },
   {
    "tconst": "tt0063527",
@@ -745,176 +745,176 @@
    "title": "Through Fire, Water and... Trumpets",
    "year": 1968,
    "rating": 7,
-   "votes": 1010,
-   "score": 6.765863664135464
+   "votes": 1013,
+   "score": 6.766212600552551
   },
   {
    "tconst": "tt0062782",
    "title": "Carry on Up the Khyber",
    "year": 1968,
    "rating": 6.8,
-   "votes": 6067,
-   "score": 6.761707367328751
+   "votes": 6076,
+   "score": 6.761756071920899
   },
   {
    "tconst": "tt0062975",
    "title": "Firecreek",
    "year": 1968,
    "rating": 6.8,
-   "votes": 4479,
-   "score": 6.7506088638277575
+   "votes": 4488,
+   "score": 6.7506898624111304
   },
   {
    "tconst": "tt0062728",
    "title": "Les Biches",
    "year": 1968,
    "rating": 6.8,
-   "votes": 4269,
-   "score": 6.7486403425531005
+   "votes": 4279,
+   "score": 6.7487376330578295
   },
   {
    "tconst": "tt0062863",
    "title": "Dark of the Sun",
    "year": 1968,
    "rating": 6.8,
-   "votes": 4002,
-   "score": 6.745898833449077
+   "votes": 4011,
+   "score": 6.745996001778543
   },
   {
    "tconst": "tt0063426",
    "title": "Petulia",
    "year": 1968,
    "rating": 6.8,
-   "votes": 3759,
-   "score": 6.743136365814727
+   "votes": 3764,
+   "score": 6.743196046371176
   },
   {
    "tconst": "tt0063141",
    "title": "Isadora",
    "year": 1968,
    "rating": 6.8,
-   "votes": 2885,
-   "score": 6.7303438777123
+   "votes": 2888,
+   "score": 6.730397624720238
   },
   {
    "tconst": "tt0063508",
    "title": "Will Our Heroes Be Able to Find Their Friend Who Has Mysteriously Disappeared in Africa?",
    "year": 1968,
    "rating": 6.9,
-   "votes": 1175,
-   "score": 6.729602742488407
+   "votes": 1177,
+   "score": 6.729759285673993
   },
   {
    "tconst": "tt0063094",
    "title": "Hot Millions",
    "year": 1968,
    "rating": 6.8,
-   "votes": 2608,
-   "score": 6.724996110008948
+   "votes": 2613,
+   "score": 6.725099907254991
   },
   {
    "tconst": "tt0062426",
    "title": "Up the Junction",
    "year": 1968,
    "rating": 6.9,
-   "votes": 1112,
-   "score": 6.724519869750134
+   "votes": 1115,
+   "score": 6.724768777736305
   },
   {
    "tconst": "tt0062825",
    "title": "Run, Man, Run",
    "year": 1968,
    "rating": 6.8,
-   "votes": 2281,
-   "score": 6.717520867086951
+   "votes": 2288,
+   "score": 6.717696461348019
   },
   {
    "tconst": "tt0062767",
    "title": "Buona Sera, Mrs. Campbell",
    "year": 1968,
    "rating": 6.8,
-   "votes": 2202,
-   "score": 6.71548593532551
+   "votes": 2203,
+   "score": 6.715512321233932
   },
   {
    "tconst": "tt0062804",
    "title": "The Chronicle of Anna Magdalena Bach",
    "year": 1968,
    "rating": 6.8,
-   "votes": 1750,
-   "score": 6.7015948963317395
+   "votes": 1752,
+   "score": 6.7016664116687075
   },
   {
    "tconst": "tt0063661",
    "title": "Sweet November",
    "year": 1968,
    "rating": 6.8,
-   "votes": 1440,
-   "score": 6.689092608570608
+   "votes": 1442,
+   "score": 6.689183441815022
   },
   {
    "tconst": "tt0063285",
    "title": "Witchfinder General",
    "year": 1968,
    "rating": 6.7,
-   "votes": 14036,
-   "score": 6.6886529638808385
+   "votes": 14076,
+   "score": 6.6886830701056175
   },
   {
    "tconst": "tt0136551",
    "title": "O striglos pou egine arnaki",
    "year": 1968,
    "rating": 6.8,
-   "votes": 1301,
-   "score": 6.682392857415159
+   "votes": 1304,
+   "score": 6.682545991715401
   },
   {
    "tconst": "tt0062886",
    "title": "The Devil's Brigade",
    "year": 1968,
    "rating": 6.7,
-   "votes": 7056,
-   "score": 6.678821495147999
+   "votes": 7063,
+   "score": 6.678839881546855
   },
   {
    "tconst": "tt0061643",
    "title": "Fando and Lis",
    "year": 1968,
    "rating": 6.7,
-   "votes": 6686,
-   "score": 6.6778019730565035
+   "votes": 6688,
+   "score": 6.677807747777352
   },
   {
    "tconst": "tt0063557",
    "title": "The Scalphunters",
    "year": 1968,
    "rating": 6.7,
-   "votes": 5184,
-   "score": 6.672410408297587
+   "votes": 5200,
+   "score": 6.672481607243918
   },
   {
    "tconst": "tt0063080",
    "title": "The Man Who Lies",
    "year": 1968,
    "rating": 6.8,
-   "votes": 1073,
-   "score": 6.669457773715525
+   "votes": 1074,
+   "score": 6.669520715965421
   },
   {
    "tconst": "tt0063485",
    "title": "The Girl with a Pistol",
    "year": 1968,
    "rating": 6.7,
-   "votes": 1986,
-   "score": 6.642862011022198
+   "votes": 1990,
+   "score": 6.64293844980344
   },
   {
    "tconst": "tt0062092",
    "title": "Pasha",
    "year": 1968,
    "rating": 6.7,
-   "votes": 1701,
-   "score": 6.636833011814989
+   "votes": 1704,
+   "score": 6.636903093532649
   },
   {
    "tconst": "tt0062977",
@@ -929,80 +929,80 @@
    "title": "The Girls",
    "year": 1968,
    "rating": 6.7,
-   "votes": 1240,
-   "score": 6.623833020050127
+   "votes": 1243,
+   "score": 6.623934892961339
   },
   {
    "tconst": "tt0063121",
    "title": "Ice Station Zebra",
    "year": 1968,
    "rating": 6.6,
-   "votes": 13123,
-   "score": 6.595000068322048
+   "votes": 13146,
+   "score": 6.5950081977175365
   },
   {
    "tconst": "tt0062120",
    "title": "The Little Bather",
    "year": 1968,
    "rating": 6.6,
-   "votes": 5097,
-   "score": 6.588418232723025
+   "votes": 5107,
+   "score": 6.58843719746394
   },
   {
    "tconst": "tt0062639",
    "title": "Farewell, Friend",
    "year": 1968,
    "rating": 6.6,
-   "votes": 4964,
-   "score": 6.588159953875299
+   "votes": 4974,
+   "score": 6.588179773169114
   },
   {
    "tconst": "tt0062790",
    "title": "The Charge of the Light Brigade",
    "year": 1968,
    "rating": 6.6,
-   "votes": 4406,
-   "score": 6.586937840346334
+   "votes": 4413,
+   "score": 6.586954732110158
   },
   {
    "tconst": "tt0065032",
    "title": "The Stalking Moon",
    "year": 1968,
    "rating": 6.6,
-   "votes": 3711,
-   "score": 6.585010818278981
+   "votes": 3719,
+   "score": 6.585036229055369
   },
   {
    "tconst": "tt0063386",
    "title": "The Olsen Gang",
    "year": 1968,
    "rating": 6.6,
-   "votes": 2869,
-   "score": 6.581748763223644
+   "votes": 2875,
+   "score": 6.58177702320317
   },
   {
    "tconst": "tt0063668",
    "title": "Horus: Prince of the Sun",
    "year": 1968,
    "rating": 6.6,
-   "votes": 2776,
-   "score": 6.581299249182278
+   "votes": 2783,
+   "score": 6.581333852739172
   },
   {
    "tconst": "tt0062713",
    "title": "Guns for San Sebastian",
    "year": 1968,
    "rating": 6.6,
-   "votes": 2759,
-   "score": 6.581214675422262
+   "votes": 2764,
+   "score": 6.581239629360329
   },
   {
    "tconst": "tt0063569",
    "title": "The Sea Gull",
    "year": 1968,
    "rating": 6.6,
-   "votes": 1182,
-   "score": 6.5676379307572335
+   "votes": 1184,
+   "score": 6.567667566351778
   },
   {
    "tconst": "tt0063769",
@@ -1017,184 +1017,184 @@
    "title": "Yokai Monsters: 100 Monsters",
    "year": 1968,
    "rating": 6.5,
-   "votes": 1188,
-   "score": 6.513430514128101
+   "votes": 1196,
+   "score": 6.513381586936378
   },
   {
    "tconst": "tt0063674",
    "title": "The Tattoo",
    "year": 1968,
    "rating": 6.5,
-   "votes": 3999,
-   "score": 6.505878368656188
+   "votes": 4009,
+   "score": 6.505866633042979
   },
   {
    "tconst": "tt0063256",
    "title": "Madigan",
    "year": 1968,
    "rating": 6.5,
-   "votes": 4489,
-   "score": 6.505353609931186
+   "votes": 4495,
+   "score": 6.505347764315248
   },
   {
    "tconst": "tt0062883",
    "title": "The Detective",
    "year": 1968,
    "rating": 6.5,
-   "votes": 4604,
-   "score": 6.5052437481999075
+   "votes": 4618,
+   "score": 6.505230680831663
   },
   {
    "tconst": "tt0062626",
    "title": "5 Card Stud",
    "year": 1968,
    "rating": 6.5,
-   "votes": 5083,
-   "score": 6.504830834277871
+   "votes": 5095,
+   "score": 6.504821323201359
   },
   {
    "tconst": "tt0064860",
    "title": "Ace High",
    "year": 1968,
    "rating": 6.5,
-   "votes": 5384,
-   "score": 6.504603064679243
+   "votes": 5397,
+   "score": 6.504593710319257
   },
   {
    "tconst": "tt0062708",
    "title": "Bandolero!",
    "year": 1968,
    "rating": 6.5,
-   "votes": 6436,
-   "score": 6.503951851117844
+   "votes": 6456,
+   "score": 6.503941250658837
   },
   {
    "tconst": "tt0063060",
    "title": "Hellfighters",
    "year": 1968,
    "rating": 6.5,
-   "votes": 7356,
-   "score": 6.503516750228851
+   "votes": 7379,
+   "score": 6.5035070968984705
   },
   {
    "tconst": "tt0062861",
    "title": "Danger: Diabolik",
    "year": 1968,
    "rating": 6.5,
-   "votes": 8186,
-   "score": 6.503198994656247
+   "votes": 8203,
+   "score": 6.503193085397402
   },
   {
    "tconst": "tt0062909",
    "title": "Dracula Has Risen from the Grave",
    "year": 1968,
    "rating": 6.5,
-   "votes": 9269,
-   "score": 6.502861618941697
+   "votes": 9288,
+   "score": 6.502856334070012
   },
   {
    "tconst": "tt0064603",
    "title": "The Love Bug",
    "year": 1968,
    "rating": 6.5,
-   "votes": 19297,
-   "score": 6.501447798438798
+   "votes": 19339,
+   "score": 6.501444808737513
   },
   {
    "tconst": "tt0064674",
    "title": "Mr. Freedom",
    "year": 1968,
    "rating": 6.4,
-   "votes": 1372,
-   "score": 6.454547202745482
+   "votes": 1373,
+   "score": 6.454524216145084
   },
   {
    "tconst": "tt0062732",
    "title": "The Birthday Party",
    "year": 1968,
    "rating": 6.4,
-   "votes": 1391,
-   "score": 6.45411374525817
+   "votes": 1394,
+   "score": 6.45404593354732
   },
   {
    "tconst": "tt0062865",
    "title": "Day of the Evil Gun",
    "year": 1968,
    "rating": 6.4,
-   "votes": 1785,
-   "score": 6.4464581561624
+   "votes": 1798,
+   "score": 6.446242303399672
   },
   {
    "tconst": "tt0063800",
    "title": "Where Angels Go Trouble Follows!",
    "year": 1968,
    "rating": 6.4,
-   "votes": 2046,
-   "score": 6.442477335821499
+   "votes": 2047,
+   "score": 6.442463395113975
   },
   {
    "tconst": "tt0063642",
    "title": "Star!",
    "year": 1968,
    "rating": 6.4,
-   "votes": 2402,
-   "score": 6.4380323236073735
+   "votes": 2404,
+   "score": 6.438009977941329
   },
   {
    "tconst": "tt0065119",
    "title": "A Quiet Place in the Country",
    "year": 1968,
    "rating": 6.4,
-   "votes": 2520,
-   "score": 6.436757376395535
+   "votes": 2532,
+   "score": 6.436632492897024
   },
   {
    "tconst": "tt0063821",
    "title": "With Six You Get Eggroll",
    "year": 1968,
    "rating": 6.4,
-   "votes": 3319,
-   "score": 6.429957389421691
+   "votes": 3323,
+   "score": 6.4299296703475095
   },
   {
    "tconst": "tt0063591",
    "title": "The Shakiest Gun in the West",
    "year": 1968,
    "rating": 6.4,
-   "votes": 3363,
-   "score": 6.429655275020006
+   "votes": 3379,
+   "score": 6.42954692050977
   },
   {
    "tconst": "tt0063049",
    "title": "Head",
    "year": 1968,
    "rating": 6.4,
-   "votes": 7457,
-   "score": 6.4152992745550765
+   "votes": 7477,
+   "score": 6.415263178590573
   },
   {
    "tconst": "tt0063715",
    "title": "Spirits of the Dead",
    "year": 1968,
    "rating": 6.4,
-   "votes": 7868,
-   "score": 6.414590208041529
+   "votes": 7875,
+   "score": 6.414578700271807
   },
   {
    "tconst": "tt0063172",
    "title": "Destroy All Monsters",
    "year": 1968,
    "rating": 6.4,
-   "votes": 9011,
-   "score": 6.412924379673587
+   "votes": 9049,
+   "score": 6.412875506509334
   },
   {
    "tconst": "tt0062824",
    "title": "Coogan's Bluff",
    "year": 1968,
    "rating": 6.4,
-   "votes": 21149,
-   "score": 6.405841616547577
+   "votes": 21244,
+   "score": 6.405816668086328
   },
   {
    "tconst": "tt0063389",
@@ -1209,40 +1209,40 @@
    "title": "The Horse in the Gray Flannel Suit",
    "year": 1968,
    "rating": 6.3,
-   "votes": 1244,
-   "score": 6.402221909497452
+   "votes": 1245,
+   "score": 6.4021763763529105
   },
   {
    "tconst": "tt0063694",
    "title": "Thunderbird 6",
    "year": 1968,
    "rating": 6.3,
-   "votes": 1750,
-   "score": 6.383413078149921
+   "votes": 1752,
+   "score": 6.383352458180335
   },
   {
    "tconst": "tt0061357",
    "title": "Angelique and the Sultan",
    "year": 1968,
    "rating": 6.3,
-   "votes": 1803,
-   "score": 6.381835877599816
+   "votes": 1810,
+   "score": 6.381632015983019
   },
   {
    "tconst": "tt0063573",
    "title": "The Secret War of Harry Frigg",
    "year": 1968,
    "rating": 6.3,
-   "votes": 1979,
-   "score": 6.377000995270992
+   "votes": 1985,
+   "score": 6.3768462194011
   },
   {
    "tconst": "tt0063568",
    "title": "If You Meet Sartana Pray for Your Death",
    "year": 1968,
    "rating": 6.3,
-   "votes": 2203,
-   "score": 6.371615974059408
+   "votes": 2208,
+   "score": 6.371504353152208
   },
   {
    "tconst": "tt0063775",
@@ -1253,228 +1253,228 @@
    "score": 6.364110107577497
   },
   {
-   "tconst": "tt0063571",
-   "title": "Secret Ceremony",
-   "year": 1968,
-   "rating": 6.3,
-   "votes": 2976,
-   "score": 6.357692647110735
-  },
-  {
    "tconst": "tt0062151",
    "title": "Django, Prepare a Coffin",
    "year": 1968,
    "rating": 6.3,
-   "votes": 3592,
-   "score": 6.34995338957149
+   "votes": 3599,
+   "score": 6.349877357015065
   },
   {
    "tconst": "tt0062659",
    "title": "Kill Them All and Come Back Alone",
    "year": 1968,
    "rating": 6.2,
-   "votes": 1260,
-   "score": 6.345746002173577
+   "votes": 1264,
+   "score": 6.345488500402952
   },
   {
    "tconst": "tt0063410",
    "title": "Paper Lion",
    "year": 1968,
    "rating": 6.2,
-   "votes": 1322,
-   "score": 6.341854420720192
+   "votes": 1326,
+   "score": 6.341610475026778
   },
   {
    "tconst": "tt0062859",
    "title": "A Dandy in Aspic",
    "year": 1968,
    "rating": 6.2,
-   "votes": 1638,
-   "score": 6.324862003378424
+   "votes": 1644,
+   "score": 6.324578655413118
   },
   {
    "tconst": "tt0063414",
    "title": "Partner",
    "year": 1968,
    "rating": 6.1,
-   "votes": 1035,
-   "score": 6.31100047415837
+   "votes": 1036,
+   "score": 6.31089683934788
   },
   {
    "tconst": "tt0064645",
    "title": "Mayerling",
    "year": 1968,
    "rating": 6.2,
-   "votes": 1996,
-   "score": 6.309941910851897
+   "votes": 1999,
+   "score": 6.309831932281521
   },
   {
    "tconst": "tt0063067",
    "title": "The High Commissioner",
    "year": 1968,
    "rating": 6.1,
-   "votes": 1050,
-   "score": 6.309456568249894
+   "votes": 1054,
+   "score": 6.309048668409096
+  },
+  {
+   "tconst": "tt0063571",
+   "title": "Secret Ceremony",
+   "year": 1968,
+   "rating": 6.2,
+   "votes": 2981,
+   "score": 6.28273950387146
   },
   {
    "tconst": "tt0063665",
    "title": "One + One",
    "year": 1968,
    "rating": 6.2,
-   "votes": 3548,
-   "score": 6.272424354642102
+   "votes": 3555,
+   "score": 6.272313054865485
   },
   {
    "tconst": "tt0063115",
    "title": "I Love You, Alice B. Toklas!",
    "year": 1968,
    "rating": 6.2,
-   "votes": 3688,
-   "score": 6.27026151128675
+   "votes": 3692,
+   "score": 6.270201612300146
   },
   {
    "tconst": "tt0063818",
    "title": "The Valley of Death",
    "year": 1968,
    "rating": 6.1,
-   "votes": 1883,
-   "score": 6.248937206004955
+   "votes": 1891,
+   "score": 6.248525065690862
   },
   {
    "tconst": "tt0063348",
    "title": "The Night They Raided Minsky's",
    "year": 1968,
    "rating": 6.1,
-   "votes": 2044,
-   "score": 6.241059778223482
+   "votes": 2047,
+   "score": 6.240920894293495
   },
   {
    "tconst": "tt0063206",
    "title": "Goke, Body Snatcher from Hell",
    "year": 1968,
    "rating": 6.1,
-   "votes": 2233,
-   "score": 6.232813475073394
+   "votes": 2236,
+   "score": 6.232690347624315
   },
   {
    "tconst": "tt0062760",
    "title": "The Brotherhood",
    "year": 1968,
    "rating": 6,
-   "votes": 1364,
-   "score": 6.223936533380831
+   "votes": 1367,
+   "score": 6.223652710144607
   },
   {
    "tconst": "tt0064243",
    "title": "The Sweet Body of Deborah",
    "year": 1968,
    "rating": 5.9,
-   "votes": 1101,
-   "score": 6.199564952361868
+   "votes": 1105,
+   "score": 6.19899570779681
   },
   {
    "tconst": "tt0062645",
    "title": "Beyond the Law",
    "year": 1968,
    "rating": 6,
-   "votes": 1732,
-   "score": 6.1937723151216275
+   "votes": 1734,
+   "score": 6.193630565073988
   },
   {
    "tconst": "tt0063149",
    "title": "I Am Curious (Blue)",
    "year": 1968,
    "rating": 6,
-   "votes": 1793,
-   "score": 6.189540266706869
+   "votes": 1797,
+   "score": 6.189269204473465
   },
   {
    "tconst": "tt0063636",
    "title": "The Split",
    "year": 1968,
    "rating": 6,
-   "votes": 1797,
-   "score": 6.189269204473465
+   "votes": 1801,
+   "score": 6.188998916427092
   },
   {
    "tconst": "tt0063379",
    "title": "Today We Kill, Tomorrow We Die!",
    "year": 1968,
    "rating": 6,
-   "votes": 1987,
-   "score": 6.177229984905351
+   "votes": 1992,
+   "score": 6.176933811802234
   },
   {
    "tconst": "tt0062974",
    "title": "Finian's Rainbow",
    "year": 1968,
    "rating": 6.1,
-   "votes": 4635,
-   "score": 6.176199816310964
+   "votes": 4641,
+   "score": 6.1761187670470274
   },
   {
    "tconst": "tt0063801",
    "title": "Where Were You When the Lights Went Out?",
    "year": 1968,
    "rating": 5.8,
-   "votes": 1038,
-   "score": 6.157893015167951
+   "votes": 1039,
+   "score": 6.157717491374342
   },
   {
    "tconst": "tt0063452",
    "title": "The Power",
    "year": 1968,
    "rating": 5.9,
-   "votes": 2079,
-   "score": 6.104412460185867
+   "votes": 2084,
+   "score": 6.104081052176487
   },
   {
    "tconst": "tt0062673",
    "title": "Anzio",
    "year": 1968,
    "rating": 6,
-   "votes": 4332,
-   "score": 6.099284689593452
+   "votes": 4340,
+   "score": 6.099135948485446
   },
   {
    "tconst": "tt0063808",
    "title": "Wild in the Streets",
    "year": 1968,
    "rating": 5.9,
-   "votes": 2438,
-   "score": 6.0830674708878085
+   "votes": 2442,
+   "score": 6.082854725424836
   },
   {
    "tconst": "tt0063370",
    "title": "The Young, the Evil and the Savage",
    "year": 1968,
    "rating": 5.7,
-   "votes": 1180,
-   "score": 6.080452277482699
+   "votes": 1181,
+   "score": 6.0802778381074205
   },
   {
    "tconst": "tt0062768",
    "title": "Bye Bye Braverman",
    "year": 1968,
    "rating": 5.6,
-   "votes": 1034,
-   "score": 6.056925253152548
+   "votes": 1035,
+   "score": 6.0567007198586165
   },
   {
    "tconst": "tt0063469",
    "title": "Psych-Out",
    "year": 1968,
    "rating": 5.9,
-   "votes": 3190,
-   "score": 6.050211447473099
+   "votes": 3197,
+   "score": 6.04996091610967
   },
   {
    "tconst": "tt0063275",
    "title": "Frankenstein's Bloody Terror",
    "year": 1968,
    "rating": 5.6,
-   "votes": 1075,
-   "score": 6.047896850560137
+   "votes": 1080,
+   "score": 6.046820175438598
   },
   {
    "tconst": "tt0065224",
@@ -1489,80 +1489,80 @@
    "title": "Deadfall",
    "year": 1968,
    "rating": 5.7,
-   "votes": 1441,
-   "score": 6.039773029460174
+   "votes": 1442,
+   "score": 6.039633892265472
   },
   {
    "tconst": "tt0061994",
    "title": "Death Laid an Egg",
    "year": 1968,
    "rating": 5.8,
-   "votes": 2064,
-   "score": 6.038050249645002
+   "votes": 2071,
+   "score": 6.0375076408050425
   },
   {
    "tconst": "tt0061520",
    "title": "Corruption",
    "year": 1968,
    "rating": 5.8,
-   "votes": 2098,
-   "score": 6.035437690417135
+   "votes": 2103,
+   "score": 6.035058319340085
   },
   {
    "tconst": "tt0063161",
    "title": "Journey to Shiloh",
    "year": 1968,
    "rating": 5.6,
-   "votes": 1220,
-   "score": 6.018642326537065
+   "votes": 1223,
+   "score": 6.01807735713553
   },
   {
    "tconst": "tt0063219",
    "title": "The Legend of Lylah Clare",
    "year": 1968,
    "rating": 5.7,
-   "votes": 1683,
-   "score": 6.009126338021724
+   "votes": 1712,
+   "score": 6.005820783522228
   },
   {
    "tconst": "tt0182730",
    "title": "The Lady and the Tramp",
    "year": 1968,
    "rating": 5.6,
-   "votes": 1422,
-   "score": 5.983726657684675
+   "votes": 1427,
+   "score": 5.9829361206890335
   },
   {
    "tconst": "tt0063210",
    "title": "Lady in Cement",
    "year": 1968,
    "rating": 5.8,
-   "votes": 3160,
-   "score": 5.975333164642376
+   "votes": 3164,
+   "score": 5.975164737010635
   },
   {
    "tconst": "tt0063231",
    "title": "Live a Little, Love a Little",
    "year": 1968,
    "rating": 5.7,
-   "votes": 2305,
-   "score": 5.950948854738966
+   "votes": 2307,
+   "score": 5.950797086456693
   },
   {
    "tconst": "tt0062711",
    "title": "Barbarella",
    "year": 1968,
    "rating": 5.9,
-   "votes": 41265,
-   "score": 5.91489142233319
+   "votes": 41328,
+   "score": 5.914869258290312
   },
   {
    "tconst": "tt0063260",
    "title": "The Magus",
    "year": 1968,
    "rating": 5.6,
-   "votes": 1994,
-   "score": 5.910416153945318
+   "votes": 1999,
+   "score": 5.90989862117782
   },
   {
    "tconst": "tt0062819",
@@ -1577,32 +1577,32 @@
    "title": "Flesh",
    "year": 1968,
    "rating": 5.6,
-   "votes": 2788,
-   "score": 5.84535004353545
+   "votes": 2792,
+   "score": 5.845091235472648
   },
   {
    "tconst": "tt0062751",
    "title": "Boom!",
    "year": 1968,
    "rating": 5.5,
-   "votes": 1992,
-   "score": 5.844046111267474
+   "votes": 1996,
+   "score": 5.843586770664981
   },
   {
    "tconst": "tt0063634",
    "title": "Speedway",
    "year": 1968,
    "rating": 5.6,
-   "votes": 3016,
-   "score": 5.8314208079960865
+   "votes": 3018,
+   "score": 5.831305615956268
   },
   {
    "tconst": "tt0163114",
    "title": "Murder à la Mod",
    "year": 1968,
    "rating": 5.3,
-   "votes": 1325,
-   "score": 5.82876815695152
+   "votes": 1329,
+   "score": 5.827860010696558
   }
  ]
 }

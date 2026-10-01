@@ -1,7 +1,7 @@
 {
  "tag": "year-1961",
- "builtAt": "2026-09-15T22:46:38.707Z",
- "mean": 6.659,
+ "builtAt": "2026-10-01T06:19:54.122Z",
+ "mean": 6.658,
  "minVotes": 1000,
  "items": [
   {
@@ -9,1008 +9,1008 @@
    "title": "The Human Condition III: A Soldier's Prayer",
    "year": 1961,
    "rating": 8.8,
-   "votes": 9112,
-   "score": 8.588320181060729
+   "votes": 9160,
+   "score": 8.589195654340676
   },
   {
    "tconst": "tt0055031",
    "title": "Judgment at Nuremberg",
    "year": 1961,
    "rating": 8.3,
-   "votes": 98555,
-   "score": 8.283521607863856
+   "votes": 98700,
+   "score": 8.28353287711235
   },
   {
    "tconst": "tt0055630",
    "title": "Yojimbo",
    "year": 1961,
    "rating": 8.2,
-   "votes": 144703,
-   "score": 8.189427078858268
+   "votes": 144939,
+   "score": 8.189435502834069
   },
   {
    "tconst": "tt0055601",
    "title": "Viridiana",
    "year": 1961,
    "rating": 8,
-   "votes": 28559,
-   "score": 7.954649807871919
+   "votes": 28603,
+   "score": 7.954674453538535
   },
   {
    "tconst": "tt0054997",
    "title": "The Hustler",
    "year": 1961,
    "rating": 7.9,
-   "votes": 90524,
-   "score": 7.886446108899153
+   "votes": 90628,
+   "score": 7.886447678090772
   },
   {
    "tconst": "tt0055353",
    "title": "A Raisin in the Sun",
    "year": 1961,
    "rating": 8,
-   "votes": 10661,
-   "score": 7.885043621549273
+   "votes": 10688,
+   "score": 7.885200876805379
   },
   {
    "tconst": "tt0055499",
    "title": "Through a Glass Darkly",
    "year": 1961,
    "rating": 7.9,
-   "votes": 29731,
-   "score": 7.859633388789368
+   "votes": 29799,
+   "score": 7.859681413295927
   },
   {
    "tconst": "tt0054130",
    "title": "La Notte",
    "year": 1961,
    "rating": 7.9,
-   "votes": 26947,
-   "score": 7.855612182734679
+   "votes": 27018,
+   "score": 7.85567948633383
   },
   {
    "tconst": "tt0055913",
    "title": "Divorce Italian Style",
    "year": 1961,
    "rating": 7.9,
-   "votes": 15934,
-   "score": 7.82674463628712
+   "votes": 15979,
+   "score": 7.8268642351199285
   },
   {
    "tconst": "tt1073122",
    "title": "Jhinder Bandi",
    "year": 1961,
    "rating": 8.1,
-   "votes": 4034,
-   "score": 7.813844590958695
+   "votes": 4038,
+   "score": 7.813820533565157
   },
   {
    "tconst": "tt0055320",
    "title": "The Sound of Trumpets",
    "year": 1961,
    "rating": 7.9,
-   "votes": 7868,
-   "score": 7.760114306595183
+   "votes": 7884,
+   "score": 7.760223755977179
   },
   {
    "tconst": "tt0055256",
    "title": "One, Two, Three",
    "year": 1961,
    "rating": 7.8,
-   "votes": 25008,
-   "score": 7.756147864921796
+   "votes": 25048,
+   "score": 7.756166609647622
   },
   {
    "tconst": "tt0054743",
    "title": "The Children's Hour",
    "year": 1961,
    "rating": 7.8,
-   "votes": 21329,
-   "score": 7.748922641895565
-  },
-  {
-   "tconst": "tt0059855",
-   "title": "Havoc in Heaven",
-   "year": 1961,
-   "rating": 8.1,
-   "votes": 2795,
-   "score": 7.7204199396274245
+   "votes": 21383,
+   "score": 7.748989315467152
   },
   {
    "tconst": "tt0055018",
    "title": "The Innocents",
    "year": 1961,
    "rating": 7.7,
-   "votes": 36585,
-   "score": 7.672315915149291
+   "votes": 36659,
+   "score": 7.672336701667629
   },
   {
    "tconst": "tt0055471",
    "title": "Splendor in the Grass",
    "year": 1961,
    "rating": 7.7,
-   "votes": 23148,
-   "score": 7.6569112833727875
+   "votes": 23177,
+   "score": 7.656910611246278
+  },
+  {
+   "tconst": "tt0059855",
+   "title": "Havoc in Heaven",
+   "year": 1961,
+   "rating": 8,
+   "votes": 2797,
+   "score": 7.646623083513632
   },
   {
    "tconst": "tt0055602",
    "title": "A Difficult Life",
    "year": 1961,
    "rating": 8,
-   "votes": 2591,
-   "score": 7.626703890528007
+   "votes": 2597,
+   "score": 7.626974658910553
   },
   {
    "tconst": "tt0055614",
    "title": "West Side Story",
    "year": 1961,
    "rating": 7.6,
-   "votes": 128754,
-   "score": 7.592751619764216
+   "votes": 128920,
+   "score": 7.59275113799339
   },
   {
    "tconst": "tt0055597",
    "title": "Victim",
    "year": 1961,
    "rating": 7.7,
-   "votes": 8252,
-   "score": 7.587537145577829
+   "votes": 8286,
+   "score": 7.587812604792297
   },
   {
    "tconst": "tt0055310",
    "title": "Placido",
    "year": 1961,
    "rating": 7.8,
-   "votes": 4253,
-   "score": 7.582884765064929
+   "votes": 4265,
+   "score": 7.583139192421892
   },
   {
    "tconst": "tt0054632",
    "title": "Last Year at Marienbad",
    "year": 1961,
    "rating": 7.6,
-   "votes": 27315,
-   "score": 7.566784166374221
+   "votes": 27369,
+   "score": 7.566802772325469
   },
   {
    "tconst": "tt0122883",
    "title": "Woe to the Young",
    "year": 1961,
    "rating": 8.1,
-   "votes": 1538,
-   "score": 7.532424614218311
+   "votes": 1543,
+   "score": 7.533042803028417
   },
   {
    "tconst": "tt0055052",
    "title": "The End of Summer",
    "year": 1961,
    "rating": 7.7,
-   "votes": 5001,
-   "score": 7.526611176618243
+   "votes": 5013,
+   "score": 7.526746690188137
   },
   {
    "tconst": "tt0054599",
    "title": "Accattone",
    "year": 1961,
    "rating": 7.6,
-   "votes": 11370,
-   "score": 7.523968768867103
+   "votes": 11389,
+   "score": 7.5239831986521315
   },
   {
    "tconst": "tt0054698",
    "title": "Breakfast at Tiffany's",
    "year": 1961,
    "rating": 7.5,
-   "votes": 206370,
-   "score": 7.495946827751777
+   "votes": 206624,
+   "score": 7.495945689554681
   },
   {
    "tconst": "tt0054953",
    "title": "The Guns of Navarone",
    "year": 1961,
    "rating": 7.5,
-   "votes": 60948,
-   "score": 7.4864320667476925
-  },
-  {
-   "tconst": "tt0055635",
-   "title": "Chasing Two Hares",
-   "year": 1961,
-   "rating": 8,
-   "votes": 1571,
-   "score": 7.47860508396969
+   "votes": 61112,
+   "score": 7.4864475117223925
   },
   {
    "tconst": "tt0055508",
    "title": "Three Daughters",
    "year": 1961,
    "rating": 7.9,
-   "votes": 1855,
-   "score": 7.465496907490745
+   "votes": 1858,
+   "score": 7.465510093807301
   },
   {
    "tconst": "tt0056160",
    "title": "Two Half-Times in Hell",
    "year": 1961,
    "rating": 7.9,
-   "votes": 1634,
-   "score": 7.429040877329564
+   "votes": 1638,
+   "score": 7.429275150910259
+  },
+  {
+   "tconst": "tt0055635",
+   "title": "Chasing Two Hares",
+   "year": 1961,
+   "rating": 7.9,
+   "votes": 1583,
+   "score": 7.4192519737132265
   },
   {
    "tconst": "tt0055618",
    "title": "Whistle Down the Wind",
    "year": 1961,
    "rating": 7.6,
-   "votes": 4190,
-   "score": 7.418784907685177
+   "votes": 4198,
+   "score": 7.418820286283428
   },
   {
    "tconst": "tt0196995",
    "title": "A Neighborhood Named 'The Dream'",
    "year": 1961,
    "rating": 8.1,
-   "votes": 1086,
-   "score": 7.409440877701856
+   "votes": 1089,
+   "score": 7.409826638631529
   },
   {
    "tconst": "tt0055082",
    "title": "Léon Morin, Priest",
    "year": 1961,
    "rating": 7.5,
-   "votes": 6344,
-   "score": 7.385551970436557
+   "votes": 6359,
+   "score": 7.385613242030338
   },
   {
    "tconst": "tt0055153",
    "title": "Mother Joan of the Angels",
    "year": 1961,
    "rating": 7.5,
-   "votes": 4917,
-   "score": 7.357950595045812
+   "votes": 4925,
+   "score": 7.35792875073439
   },
   {
    "tconst": "tt0055038",
    "title": "Gas, Inspector Palmu!",
    "year": 1961,
    "rating": 7.7,
-   "votes": 1828,
-   "score": 7.332069897767353
+   "votes": 1829,
+   "score": 7.33175250904958
   },
   {
    "tconst": "tt0054731",
    "title": "Cash on Demand",
    "year": 1961,
    "rating": 7.5,
-   "votes": 3924,
-   "score": 7.329304157369227
+   "votes": 3936,
+   "score": 7.329462692078863
   },
   {
    "tconst": "tt0055093",
    "title": "Lola",
    "year": 1961,
    "rating": 7.4,
-   "votes": 8608,
-   "score": 7.322928150591807
+   "votes": 8635,
+   "score": 7.323012750192141
   },
   {
    "tconst": "tt0053987",
    "title": "The Steamroller and the Violin",
    "year": 1961,
    "rating": 7.4,
-   "votes": 7979,
-   "score": 7.317529086856673
+   "votes": 7994,
+   "score": 7.317525889270765
   },
   {
    "tconst": "tt0055506",
    "title": "A Taste of Honey",
    "year": 1961,
    "rating": 7.4,
-   "votes": 7054,
-   "score": 7.30805732193768
+   "votes": 7075,
+   "score": 7.308139671591488
   },
   {
    "tconst": "tt0055505",
    "title": "Scream of Fear",
    "year": 1961,
    "rating": 7.4,
-   "votes": 6691,
-   "score": 7.303717809242761
+   "votes": 6702,
+   "score": 7.303690969631429
   },
   {
    "tconst": "tt0054687",
    "title": "Blast of Silence",
    "year": 1961,
    "rating": 7.4,
-   "votes": 6492,
-   "score": 7.301160393871607
+   "votes": 6505,
+   "score": 7.301162937788311
   },
   {
    "tconst": "tt0055254",
    "title": "One Hundred and One Dalmatians",
    "year": 1961,
    "rating": 7.3,
-   "votes": 198866,
-   "score": 7.296795321219648
+   "votes": 199130,
+   "score": 7.296793223645136
   },
   {
    "tconst": "tt0055572",
    "title": "A Woman Is a Woman",
    "year": 1961,
    "rating": 7.3,
-   "votes": 20651,
-   "score": 7.27041677848072
+   "votes": 20689,
+   "score": 7.270410247042338
   },
   {
    "tconst": "tt0054745",
    "title": "Chronicle of a Summer",
    "year": 1961,
    "rating": 7.4,
-   "votes": 4082,
-   "score": 7.254288404345942
+   "votes": 4093,
+   "score": 7.254354574533922
   },
   {
    "tconst": "tt0055205",
    "title": "Murder She Said",
    "year": 1961,
    "rating": 7.3,
-   "votes": 9726,
-   "score": 7.240284698012873
+   "votes": 9771,
+   "score": 7.240416660300925
   },
   {
    "tconst": "tt0054225",
    "title": "Girl with a Suitcase",
    "year": 1961,
    "rating": 7.4,
-   "votes": 3007,
-   "score": 7.2151968232807775
+   "votes": 3024,
+   "score": 7.215662984120593
   },
   {
    "tconst": "tt0054709",
    "title": "Pigs and Battleships",
    "year": 1961,
    "rating": 7.4,
-   "votes": 2932,
-   "score": 7.211671838984251
+   "votes": 2945,
+   "score": 7.2119715711283305
   },
   {
    "tconst": "tt0057637",
    "title": "The Night Before Christmas",
    "year": 1961,
    "rating": 7.4,
-   "votes": 2521,
-   "score": 7.1896886313223725
+   "votes": 2528,
+   "score": 7.189747122477683
   },
   {
    "tconst": "tt0055571",
    "title": "Underworld U.S.A.",
    "year": 1961,
    "rating": 7.3,
-   "votes": 4420,
-   "score": 7.181825400532485
+   "votes": 4428,
+   "score": 7.181766368478494
   },
   {
    "tconst": "tt0055277",
    "title": "The Parent Trap",
    "year": 1961,
    "rating": 7.2,
-   "votes": 26680,
-   "score": 7.180473037242994
+   "votes": 26726,
+   "score": 7.1804597795607465
   },
   {
    "tconst": "tt0055184",
    "title": "The Misfits",
    "year": 1961,
    "rating": 7.2,
-   "votes": 24878,
-   "score": 7.179113288155425
+   "votes": 24930,
+   "score": 7.179106357427739
   },
   {
    "tconst": "tt0054847",
    "title": "El Cid",
    "year": 1961,
    "rating": 7.2,
-   "votes": 17448,
-   "score": 7.1707010879708415
+   "votes": 17527,
+   "score": 7.1707576967723465
   },
   {
    "tconst": "tt0056357",
    "title": "Striped Trip",
    "year": 1961,
    "rating": 7.3,
-   "votes": 3036,
-   "score": 7.141301702399919
+   "votes": 3050,
+   "score": 7.141537740271916
   },
   {
    "tconst": "tt0054790",
    "title": "The Day the Earth Caught Fire",
    "year": 1961,
    "rating": 7.2,
-   "votes": 7107,
-   "score": 7.133328440962881
+   "votes": 7122,
+   "score": 7.133295721263392
   },
   {
    "tconst": "tt0366442",
    "title": "A Man in Our House",
    "year": 1961,
    "rating": 7.5,
-   "votes": 1231,
-   "score": 7.123260273817156
+   "votes": 1232,
+   "score": 7.122861939113469
   },
   {
    "tconst": "tt0055257",
    "title": "One-Eyed Jacks",
    "year": 1961,
    "rating": 7.1,
-   "votes": 15385,
-   "score": 7.073115268287218
+   "votes": 15425,
+   "score": 7.073103674161416
   },
   {
    "tconst": "tt0055100",
    "title": "Lover Come Back",
    "year": 1961,
    "rating": 7.1,
-   "votes": 9822,
-   "score": 7.059295293927746
+   "votes": 9839,
+   "score": 7.059242351517784
   },
   {
    "tconst": "tt0055312",
    "title": "Pocketful of Miracles",
    "year": 1961,
    "rating": 7.1,
-   "votes": 8907,
-   "score": 7.0555358504982415
+   "votes": 8923,
+   "score": 7.055479980661217
   },
   {
    "tconst": "tt0054425",
    "title": "Taxi for Tobruk",
    "year": 1961,
    "rating": 7.2,
-   "votes": 2323,
-   "score": 7.037343867254311
+   "votes": 2328,
+   "score": 7.037207887049657
   },
   {
    "tconst": "tt0055551",
    "title": "A Wife Confesses",
    "year": 1961,
    "rating": 7.4,
-   "votes": 1005,
-   "score": 7.03067016004293
+   "votes": 1009,
+   "score": 7.030775434594954
   },
   {
    "tconst": "tt0055539",
    "title": "Town Without Pity",
    "year": 1961,
    "rating": 7.2,
-   "votes": 2157,
-   "score": 7.0287911532740175
+   "votes": 2163,
+   "score": 7.028715728138243
   },
   {
    "tconst": "tt0054944",
    "title": "Greyfriars Bobby: The True Story of a Dog",
    "year": 1961,
    "rating": 7.2,
-   "votes": 2120,
-   "score": 7.0267607919506645
+   "votes": 2124,
+   "score": 7.026577416165577
   },
   {
    "tconst": "tt0055304",
    "title": "The Pit and the Pendulum",
    "year": 1961,
    "rating": 7,
-   "votes": 18893,
-   "score": 6.982883108173029
+   "votes": 18938,
+   "score": 6.98285825298933
   },
   {
    "tconst": "tt0055047",
    "title": "King of Kings",
    "year": 1961,
    "rating": 7,
-   "votes": 10140,
-   "score": 6.969433902233938
+   "votes": 10159,
+   "score": 6.969372510807533
   },
   {
    "tconst": "tt0055146",
    "title": "The Mark",
    "year": 1961,
    "rating": 7.2,
-   "votes": 1168,
-   "score": 6.9506889625858275
+   "votes": 1170,
+   "score": 6.950335413871549
   },
   {
    "tconst": "tt0055270",
    "title": "The Outsider",
    "year": 1961,
    "rating": 7.2,
-   "votes": 1152,
-   "score": 6.948835348924755
-  },
-  {
-   "tconst": "tt0055375",
-   "title": "Antigone",
-   "year": 1961,
-   "rating": 7.2,
-   "votes": 1007,
-   "score": 6.930689422464411
+   "votes": 1155,
+   "score": 6.948597609327733
   },
   {
    "tconst": "tt0054936",
    "title": "Goodbye Again",
    "year": 1961,
    "rating": 7,
-   "votes": 3496,
-   "score": 6.924264606513806
+   "votes": 3501,
+   "score": 6.92406750679877
   },
   {
    "tconst": "tt0055336",
    "title": "The President",
    "year": 1961,
    "rating": 7.1,
-   "votes": 1204,
-   "score": 6.900133244503662
+   "votes": 1206,
+   "score": 6.899740638305196
+  },
+  {
+   "tconst": "tt0055375",
+   "title": "Antigone",
+   "year": 1961,
+   "rating": 7.1,
+   "votes": 1011,
+   "score": 6.880322152213457
   },
   {
    "tconst": "tt0054640",
    "title": "The Assassin",
    "year": 1961,
    "rating": 7,
-   "votes": 1798,
-   "score": 6.878303670795594
+   "votes": 1803,
+   "score": 6.878069157367557
   },
   {
    "tconst": "tt0055774",
    "title": "Barabbas",
    "year": 1961,
    "rating": 6.9,
-   "votes": 7845,
-   "score": 6.872808781332513
+   "votes": 7856,
+   "score": 6.872699621510983
   },
   {
    "tconst": "tt0054734",
    "title": "The Counterfeiters of Paris",
    "year": 1961,
    "rating": 7,
-   "votes": 1606,
-   "score": 6.869337555980842
+   "votes": 1609,
+   "score": 6.869002624799258
   },
   {
    "tconst": "tt0054759",
    "title": "Come September",
    "year": 1961,
    "rating": 6.9,
-   "votes": 4579,
-   "score": 6.856890781660885
+   "votes": 4586,
+   "score": 6.856718196939002
   },
   {
    "tconst": "tt0054885",
    "title": "Flower Drum Song",
    "year": 1961,
    "rating": 6.9,
-   "votes": 4124,
-   "score": 6.85306277730017
+   "votes": 4144,
+   "score": 6.85299919286572
   },
   {
    "tconst": "tt0054426",
    "title": "The Long Absence",
    "year": 1961,
    "rating": 7,
-   "votes": 1293,
-   "score": 6.8515018189647074
+   "votes": 1300,
+   "score": 6.85140341221794
   },
   {
    "tconst": "tt0054763",
    "title": "The Connection",
    "year": 1961,
    "rating": 7,
-   "votes": 1219,
-   "score": 6.8465496488896225
+   "votes": 1223,
+   "score": 6.846256341925894
   },
   {
    "tconst": "tt0055633",
    "title": "The Young Savages",
    "year": 1961,
    "rating": 6.9,
-   "votes": 3347,
-   "score": 6.844673032179911
+   "votes": 3352,
+   "score": 6.844445737155622
   },
   {
    "tconst": "tt0055844",
    "title": "Amphibian Man",
    "year": 1961,
    "rating": 6.9,
-   "votes": 3192,
-   "score": 6.842627306986182
+   "votes": 3202,
+   "score": 6.842462600690448
   },
   {
    "tconst": "tt0055283",
    "title": "Payroll",
    "year": 1961,
    "rating": 7,
-   "votes": 1111,
-   "score": 6.838699038790182
+   "votes": 1115,
+   "score": 6.838405601939131
   },
   {
    "tconst": "tt0054814",
    "title": "Don Camillo monsignore... ma non troppo",
    "year": 1961,
    "rating": 6.9,
-   "votes": 2119,
-   "score": 6.82288992333635
+   "votes": 2122,
+   "score": 6.8225585676173175
   },
   {
    "tconst": "tt0054757",
    "title": "The Comancheros",
    "year": 1961,
    "rating": 6.8,
-   "votes": 11015,
-   "score": 6.788305757044201
+   "votes": 11039,
+   "score": 6.788223926248132
   },
   {
    "tconst": "tt0054988",
    "title": "Homicidal",
    "year": 1961,
    "rating": 6.8,
-   "votes": 4365,
-   "score": 6.773810563072893
+   "votes": 4373,
+   "score": 6.773613967634703
   },
   {
    "tconst": "tt0054866",
    "title": "Fanny",
    "year": 1961,
    "rating": 6.8,
-   "votes": 2997,
-   "score": 6.764847053011277
+   "votes": 3004,
+   "score": 6.76459236965566
   },
   {
    "tconst": "tt0055489",
    "title": "Summer and Smoke",
    "year": 1961,
    "rating": 6.8,
-   "votes": 2272,
-   "score": 6.757057967874717
+   "votes": 2276,
+   "score": 6.756724007356919
   },
   {
    "tconst": "tt0055534",
    "title": "Too Late Blues",
    "year": 1961,
    "rating": 6.8,
-   "votes": 1747,
-   "score": 6.748850990493656
+   "votes": 1752,
+   "score": 6.748483956432145
   },
   {
    "tconst": "tt0055124",
    "title": "A Majority of One",
    "year": 1961,
    "rating": 6.8,
-   "votes": 1412,
-   "score": 6.7417469613955525
+   "votes": 1416,
+   "score": 6.741319473551847
   },
   {
    "tconst": "tt0055361",
    "title": "Call Me Genius",
    "year": 1961,
    "rating": 6.8,
-   "votes": 1212,
-   "score": 6.736479959713415
+   "votes": 1213,
+   "score": 6.735936668821176
   },
   {
    "tconst": "tt0054594",
    "title": "The Absent Minded Professor",
    "year": 1961,
    "rating": 6.7,
-   "votes": 10208,
-   "score": 6.6963859449398715
+   "votes": 10217,
+   "score": 6.696275996086411
   },
   {
    "tconst": "tt0055207",
    "title": "Mysterious Island",
    "year": 1961,
    "rating": 6.7,
-   "votes": 9877,
-   "score": 6.696275964961486
+   "votes": 9899,
+   "score": 6.696167340866252
   },
   {
    "tconst": "tt0055558",
    "title": "Two Rode Together",
    "year": 1961,
    "rating": 6.7,
-   "votes": 7789,
-   "score": 6.695391247114127
+   "votes": 7809,
+   "score": 6.695258014315049
   },
   {
    "tconst": "tt0055278",
    "title": "Paris Blues",
    "year": 1961,
    "rating": 6.7,
-   "votes": 4646,
-   "score": 6.692825659030477
+   "votes": 4660,
+   "score": 6.692619761148633
   },
   {
    "tconst": "tt0055073",
    "title": "The Last Sunset",
    "year": 1961,
    "rating": 6.7,
-   "votes": 4195,
-   "score": 6.692202824039668
+   "votes": 4201,
+   "score": 6.691968438396705
   },
   {
    "tconst": "tt0054156",
    "title": "Paris Belongs to Us",
    "year": 1961,
    "rating": 6.7,
-   "votes": 3034,
-   "score": 6.689958768191887
+   "votes": 3043,
+   "score": 6.689668030695341
   },
   {
    "tconst": "tt0055464",
    "title": "Something Wild",
    "year": 1961,
    "rating": 6.7,
-   "votes": 1989,
-   "score": 6.6864482003633565
+   "votes": 1994,
+   "score": 6.686048045458004
   },
   {
    "tconst": "tt0055307",
    "title": "The Pleasure of His Company",
    "year": 1961,
    "rating": 6.6,
-   "votes": 1006,
-   "score": 6.629657861857464
+   "votes": 1007,
+   "score": 6.629012380718118
   },
   {
    "tconst": "tt0054037",
    "title": "Jungle Fighters",
    "year": 1961,
    "rating": 6.6,
-   "votes": 1119,
-   "score": 6.628076295840525
+   "votes": 1122,
+   "score": 6.627440079218315
   },
   {
    "tconst": "tt0054601",
    "title": "Ada",
    "year": 1961,
    "rating": 6.6,
-   "votes": 1161,
-   "score": 6.627530620493324
+   "votes": 1162,
+   "score": 6.62693239967681
   },
   {
    "tconst": "tt0054653",
    "title": "Back Street",
    "year": 1961,
    "rating": 6.6,
-   "votes": 1509,
-   "score": 6.623712104777231
+   "votes": 1516,
+   "score": 6.623143023887625
   },
   {
    "tconst": "tt0055318",
    "title": "Posse from Hell",
    "year": 1961,
    "rating": 6.6,
-   "votes": 1515,
-   "score": 6.623655535143568
+   "votes": 1520,
+   "score": 6.623106288929073
   },
   {
    "tconst": "tt0054861",
    "title": "The Exiles",
    "year": 1961,
    "rating": 6.6,
-   "votes": 1605,
-   "score": 6.622838261376611
+   "votes": 1608,
+   "score": 6.622326628873183
   },
   {
    "tconst": "tt0055214",
    "title": "The Naked Edge",
    "year": 1961,
    "rating": 6.6,
-   "votes": 1796,
-   "score": 6.621278136940655
+   "votes": 1801,
+   "score": 6.620788235666284
   },
   {
    "tconst": "tt0055200",
    "title": "Mr. Sardonicus",
    "year": 1961,
    "rating": 6.6,
-   "votes": 4134,
-   "score": 6.611588171189339
+   "votes": 4145,
+   "score": 6.611317366006077
+  },
+  {
+   "tconst": "tt0055198",
+   "title": "Mothra",
+   "year": 1961,
+   "rating": 6.6,
+   "votes": 6365,
+   "score": 6.607906021466566
   },
   {
    "tconst": "tt0055421",
    "title": "The Second Time Around",
    "year": 1961,
    "rating": 6.5,
-   "votes": 1036,
-   "score": 6.578336773519682
+   "votes": 1038,
+   "score": 6.577638787095811
   },
   {
    "tconst": "tt0055279",
    "title": "Parrish",
    "year": 1961,
    "rating": 6.5,
-   "votes": 1348,
-   "score": 6.5679274577879365
-  },
-  {
-   "tconst": "tt0055198",
-   "title": "Mothra",
-   "year": 1961,
-   "rating": 6.5,
-   "votes": 6330,
-   "score": 6.521759027406013
+   "votes": 1353,
+   "score": 6.567245154314179
   },
   {
    "tconst": "tt0054777",
    "title": "The Curse of the Werewolf",
    "year": 1961,
    "rating": 6.5,
-   "votes": 7915,
-   "score": 6.517890484675948
+   "votes": 7935,
+   "score": 6.517708768673897
   },
   {
    "tconst": "tt0179634",
    "title": "Alice in the Navy",
    "year": 1961,
    "rating": 6.4,
-   "votes": 2179,
-   "score": 6.481627452307667
+   "votes": 2188,
+   "score": 6.480999952352969
   },
   {
    "tconst": "tt0054853",
    "title": "The Errand Boy",
    "year": 1961,
    "rating": 6.4,
-   "votes": 2384,
-   "score": 6.476682526857587
+   "votes": 2391,
+   "score": 6.476150943114498
   },
   {
    "tconst": "tt0055490",
    "title": "Susan Slade",
    "year": 1961,
    "rating": 6.3,
-   "votes": 1058,
-   "score": 6.474681084006838
+   "votes": 1063,
+   "score": 6.473644133834835
   },
   {
    "tconst": "tt0056285",
    "title": "No Place Like Homicide!",
    "year": 1961,
    "rating": 6.3,
-   "votes": 1123,
-   "score": 6.469332864289248
+   "votes": 1126,
+   "score": 6.468498517451205
   },
   {
    "tconst": "tt0054805",
    "title": "The Devil at 4 O'Clock",
    "year": 1961,
    "rating": 6.4,
-   "votes": 2776,
-   "score": 6.468721840806694
+   "votes": 2781,
+   "score": 6.468296177757541
   },
   {
    "tconst": "tt0055382",
    "title": "The Roman Spring of Mrs. Stone",
    "year": 1961,
    "rating": 6.4,
-   "votes": 3303,
-   "score": 6.460305291862904
+   "votes": 3305,
+   "score": 6.459983239977065
   },
   {
    "tconst": "tt0054892",
    "title": "Francis of Assisi",
    "year": 1961,
    "rating": 6.3,
-   "votes": 1262,
-   "score": 6.458927352292694
+   "votes": 1267,
+   "score": 6.458018459682957
   },
   {
    "tconst": "tt0055230",
    "title": "Night Tide",
    "year": 1961,
    "rating": 6.4,
-   "votes": 4787,
-   "score": 6.44484079331019
+   "votes": 4805,
+   "score": 6.4444836947633535
   },
   {
    "tconst": "tt0054395",
    "title": "Dead Eyes of London",
    "year": 1961,
    "rating": 6.3,
-   "votes": 1581,
-   "score": 6.439284645829552
+   "votes": 1582,
+   "score": 6.438740452401728
   },
   {
    "tconst": "tt0055438",
    "title": "The Shadow of the Cat",
    "year": 1961,
    "rating": 6.3,
-   "votes": 1883,
-   "score": 6.424694301382614
+   "votes": 1892,
+   "score": 6.423868550519108
   },
   {
    "tconst": "tt0054615",
    "title": "All in a Night's Work",
    "year": 1961,
    "rating": 6.2,
-   "votes": 1086,
-   "score": 6.4202750100124995
+   "votes": 1089,
+   "score": 6.419352727669345
   },
   {
    "tconst": "tt0054652",
    "title": "Bachelor in Paradise",
    "year": 1961,
    "rating": 6.3,
-   "votes": 2095,
-   "score": 6.416153043905032
+   "votes": 2104,
+   "score": 6.4154084562181914
   },
   {
    "tconst": "tt0055022",
    "title": "Erik the Conqueror",
    "year": 1961,
    "rating": 6.2,
-   "votes": 1175,
-   "score": 6.411261457878655
+   "votes": 1182,
+   "score": 6.410003596746684
   },
   {
    "tconst": "tt0055623",
    "title": "Wild in the Country",
    "year": 1961,
    "rating": 6.3,
-   "votes": 2353,
-   "score": 6.40721552964094
+   "votes": 2358,
+   "score": 6.406678930345819
   },
   {
    "tconst": "tt0054898",
    "title": "The Frightened City",
    "year": 1961,
    "rating": 6.2,
-   "votes": 1369,
-   "score": 6.393961026123289
+   "votes": 1377,
+   "score": 6.3927757038709565
   },
   {
    "tconst": "tt0055069",
    "title": "The Ladies Man",
    "year": 1961,
    "rating": 6.3,
-   "votes": 5155,
-   "score": 6.358406770249565
+   "votes": 5161,
+   "score": 6.358144432413774
   },
   {
    "tconst": "tt0055008",
    "title": "The Return of Dr. Mabuse",
    "year": 1961,
    "rating": 6,
-   "votes": 1003,
-   "score": 6.329252956009023
+   "votes": 1005,
+   "score": 6.32829319107295
   },
   {
    "tconst": "tt0054989",
    "title": "The Honeymoon Machine",
    "year": 1961,
    "rating": 6.1,
-   "votes": 1610,
-   "score": 6.31436539114409
+   "votes": 1615,
+   "score": 6.3134714524287805
   },
   {
    "tconst": "tt0055524",
    "title": "A Thunder of Drums",
    "year": 1961,
    "rating": 6,
-   "votes": 1179,
-   "score": 6.302658866859144
+   "votes": 1181,
+   "score": 6.301800939065227
   },
   {
    "tconst": "tt0055526",
    "title": "Tintin and the Mystery of the Golden Fleece",
    "year": 1961,
    "rating": 6.1,
-   "votes": 1804,
-   "score": 6.299534119431552
+   "votes": 1813,
+   "score": 6.298445733416731
   },
   {
    "tconst": "tt0054947",
    "title": "The Green Archer",
    "year": 1961,
    "rating": 5.9,
-   "votes": 1003,
-   "score": 6.279178068340526
+   "votes": 1004,
+   "score": 6.27835720963137
   },
   {
    "tconst": "tt0055370",
@@ -1018,255 +1018,255 @@
    "year": 1961,
    "rating": 5.9,
    "votes": 1092,
-   "score": 6.263046687804051
+   "score": 6.262441609991043
   },
   {
    "tconst": "tt0054850",
    "title": "Hercules in the Haunted World",
    "year": 1961,
    "rating": 6.1,
-   "votes": 2864,
-   "score": 6.24479649867652
+   "votes": 2872,
+   "score": 6.244170415315408
   },
   {
    "tconst": "tt0054881",
    "title": "Flight That Disappeared",
    "year": 1961,
    "rating": 5.8,
-   "votes": 1087,
-   "score": 6.21183213746338
+   "votes": 1093,
+   "score": 6.210046750167827
   },
   {
    "tconst": "tt0057460",
    "title": "Duel of the Titans",
    "year": 1961,
    "rating": 5.8,
-   "votes": 1124,
-   "score": 6.2046580371403355
+   "votes": 1128,
+   "score": 6.203302560197962
   },
   {
    "tconst": "tt0054649",
    "title": "Babes in Toyland",
    "year": 1961,
    "rating": 6.1,
-   "votes": 5256,
-   "score": 6.1894331315354965
+   "votes": 5262,
+   "score": 6.189145296726487
   },
   {
    "tconst": "tt0055151",
    "title": "The Mask",
    "year": 1961,
    "rating": 5.8,
-   "votes": 1275,
-   "score": 6.177799415774098
+   "votes": 1284,
+   "score": 6.175756500919993
   },
   {
    "tconst": "tt0054727",
    "title": "Carry on Regardless",
    "year": 1961,
    "rating": 6,
-   "votes": 2838,
-   "score": 6.171832639626387
+   "votes": 2845,
+   "score": 6.171190597685634
   },
   {
    "tconst": "tt0054692",
    "title": "Blue Hawaii",
    "year": 1961,
    "rating": 6.1,
-   "votes": 8544,
-   "score": 6.1586225556251115
+   "votes": 8562,
+   "score": 6.158379820968548
   },
   {
    "tconst": "tt0054795",
    "title": "The Deadly Companions",
    "year": 1961,
    "rating": 6,
-   "votes": 3247,
-   "score": 6.155284594039575
+   "votes": 3255,
+   "score": 6.15469514643978
   },
   {
    "tconst": "tt0055516",
    "title": "The Terror of the Tongs",
    "year": 1961,
    "rating": 5.7,
-   "votes": 1363,
-   "score": 6.106048950861648
+   "votes": 1365,
+   "score": 6.105170337463536
   },
   {
    "tconst": "tt0054923",
    "title": "Gidget Goes Hawaiian",
    "year": 1961,
    "rating": 5.7,
-   "votes": 1383,
-   "score": 6.102641070451562
+   "votes": 1386,
+   "score": 6.101604295096925
   },
   {
    "tconst": "tt0055608",
    "title": "Voyage to the Bottom of the Sea",
    "year": 1961,
    "rating": 6,
-   "votes": 7245,
-   "score": 6.07998710380668
+   "votes": 7259,
+   "score": 6.07969825016361
   },
   {
    "tconst": "tt0055152",
    "title": "Master of the World",
    "year": 1961,
    "rating": 5.9,
-   "votes": 4062,
-   "score": 6.050038259756238
+   "votes": 4072,
+   "score": 6.049492872259713
   },
   {
    "tconst": "tt0054817",
    "title": "Five Minutes to Live",
    "year": 1961,
    "rating": 5.5,
-   "votes": 1257,
-   "score": 6.013732242306634
+   "votes": 1259,
+   "score": 6.01271706423252
   },
   {
    "tconst": "tt0054756",
    "title": "The Colossus of Rhodes",
    "year": 1961,
    "rating": 5.8,
-   "votes": 4991,
-   "score": 5.943464141359718
+   "votes": 5004,
+   "score": 5.942942679563835
   },
   {
    "tconst": "tt0055458",
    "title": "Snow White and the Three Stooges",
    "year": 1961,
    "rating": 5.3,
-   "votes": 1308,
-   "score": 5.889035385999165
+   "votes": 1310,
+   "score": 5.887977423420461
   },
   {
    "tconst": "tt0054642",
    "title": "Atlantis: The Lost Continent",
    "year": 1961,
    "rating": 5.5,
-   "votes": 2364,
-   "score": 5.844677072201568
+   "votes": 2368,
+   "score": 5.843891878889924
   },
   {
    "tconst": "tt0054938",
    "title": "Gorgo",
    "year": 1961,
    "rating": 5.6,
-   "votes": 4980,
-   "score": 5.777172854663222
+   "votes": 4984,
+   "score": 5.776842889054356
   },
   {
    "tconst": "tt0054823",
    "title": "Doctor Blood's Coffin",
    "year": 1961,
    "rating": 5,
-   "votes": 1277,
-   "score": 5.728807057920981
+   "votes": 1282,
+   "score": 5.7266554987297384
   },
   {
    "tconst": "tt0055106",
    "title": "Werewolf in a Girls' Dormitory",
    "year": 1961,
    "rating": 4.8,
-   "votes": 1528,
-   "score": 5.535559205255566
+   "votes": 1538,
+   "score": 5.532162272695533
   },
   {
    "tconst": "tt0055902",
    "title": "The Devil's Hand",
    "year": 1961,
    "rating": 4.7,
-   "votes": 1624,
-   "score": 5.446758258721827
+   "votes": 1626,
+   "score": 5.445707482140618
   },
   {
    "tconst": "tt0054950",
    "title": "Battle of the Worlds",
    "year": 1961,
    "rating": 4.4,
-   "votes": 1183,
-   "score": 5.435040618820922
+   "votes": 1187,
+   "score": 5.432568746274011
   },
   {
    "tconst": "tt0054851",
    "title": "Hercules and the Captive Women",
    "year": 1961,
    "rating": 4.4,
-   "votes": 1840,
-   "score": 5.195596362988054
+   "votes": 1847,
+   "score": 5.193195591184146
   },
   {
    "tconst": "tt0055058",
    "title": "Konga",
    "year": 1961,
    "rating": 4.5,
-   "votes": 2386,
-   "score": 5.1377713144967725
+   "votes": 2390,
+   "score": 5.136645382920726
   },
   {
    "tconst": "tt0056293",
    "title": "Nude on the Moon",
    "year": 1961,
    "rating": 3.8,
-   "votes": 1554,
-   "score": 4.919613810057194
+   "votes": 1557,
+   "score": 4.91780518111117
   },
   {
    "tconst": "tt0054691",
    "title": "Bloodlust!",
    "year": 1961,
    "rating": 3.7,
-   "votes": 2700,
-   "score": 4.499863154293534
+   "votes": 2705,
+   "score": 4.498442064264848
   },
   {
    "tconst": "tt0055294",
    "title": "The Phantom Planet",
    "year": 1961,
    "rating": 3.9,
-   "votes": 3682,
-   "score": 4.489383526460076
+   "votes": 3687,
+   "score": 4.48848471263095
   },
   {
    "tconst": "tt0056405",
    "title": "Reptilicus",
    "year": 1961,
    "rating": 3.7,
-   "votes": 4844,
-   "score": 4.2064157547717445
+   "votes": 4853,
+   "score": 4.20542078388882
   },
   {
    "tconst": "tt0054768",
    "title": "Creature from the Haunted Sea",
    "year": 1961,
    "rating": 3.5,
-   "votes": 3614,
-   "score": 4.184762390742539
+   "votes": 3618,
+   "score": 4.183895159831369
   },
   {
    "tconst": "tt0056415",
    "title": "Ring of Terror",
    "year": 1961,
    "rating": 1.9,
-   "votes": 1517,
-   "score": 3.790939082592798
+   "votes": 1520,
+   "score": 3.7881856540084375
   },
   {
    "tconst": "tt0055562",
    "title": "Invasion of the Neptune Men",
    "year": 1961,
    "rating": 2.3,
-   "votes": 2931,
-   "score": 3.4090037321002473
+   "votes": 2933,
+   "score": 3.4081179374780732
   },
   {
    "tconst": "tt0054673",
    "title": "The Beast of Yucca Flats",
    "year": 1961,
    "rating": 2,
-   "votes": 10311,
-   "score": 2.411943565633991
+   "votes": 10321,
+   "score": 2.4114678781115857
   }
  ]
 }

@@ -1,7 +1,7 @@
 {
  "tag": "year-2000",
- "builtAt": "2026-09-15T22:46:38.707Z",
- "mean": 6.455,
+ "builtAt": "2026-10-01T06:19:54.122Z",
+ "mean": 6.454,
  "minVotes": 10000,
  "items": [
   {
@@ -9,1600 +9,1600 @@
    "title": "Gladiator",
    "year": 2000,
    "rating": 8.5,
-   "votes": 1881463,
-   "score": 8.489186329028595
+   "votes": 1885267,
+   "score": 8.489205459396821
   },
   {
    "tconst": "tt0209144",
    "title": "Memento",
    "year": 2000,
    "rating": 8.4,
-   "votes": 1458988,
-   "score": 8.38675710180302
+   "votes": 1461260,
+   "score": 8.38677423665065
   },
   {
    "tconst": "tt0180093",
    "title": "Requiem for a Dream",
    "year": 2000,
    "rating": 8.3,
-   "votes": 984902,
-   "score": 8.281451782651372
+   "votes": 986316,
+   "score": 8.28147321072294
   },
   {
    "tconst": "tt0208092",
    "title": "Snatch",
    "year": 2000,
    "rating": 8.2,
-   "votes": 985738,
-   "score": 8.182471635574233
+   "votes": 987039,
+   "score": 8.182489615165137
   },
   {
    "tconst": "tt0242519",
    "title": "Hera Pheri",
    "year": 2000,
    "rating": 8.2,
-   "votes": 81994,
-   "score": 8.010273946816255
+   "votes": 82126,
+   "score": 8.010492840399388
   },
   {
    "tconst": "tt0245712",
    "title": "Amores Perros",
    "year": 2000,
    "rating": 8,
-   "votes": 272986,
-   "score": 7.945390731214316
+   "votes": 273259,
+   "score": 7.945426141498184
   },
   {
    "tconst": "tt0271383",
    "title": "A Dog's Will",
    "year": 2000,
    "rating": 8.6,
-   "votes": 22123,
-   "score": 7.932140256620324
+   "votes": 22187,
+   "score": 7.93331666246106
   },
   {
    "tconst": "tt0118694",
    "title": "In the Mood for Love",
    "year": 2000,
    "rating": 8,
-   "votes": 191521,
-   "score": 7.923314897521423
+   "votes": 191924,
+   "score": 7.9234437878342066
   },
   {
    "tconst": "tt0181875",
    "title": "Almost Famous",
    "year": 2000,
    "rating": 7.9,
-   "votes": 317689,
-   "score": 7.8558921461001585
+   "votes": 318103,
+   "score": 7.855932933909883
   },
   {
    "tconst": "tt0168629",
    "title": "Dancer in the Dark",
    "year": 2000,
    "rating": 7.9,
-   "votes": 125195,
-   "score": 7.79309028783176
+   "votes": 125333,
+   "score": 7.793163259623553
   },
   {
    "tconst": "tt0162222",
    "title": "Cast Away",
    "year": 2000,
    "rating": 7.8,
-   "votes": 696602,
-   "score": 7.780960061623679
+   "votes": 697552,
+   "score": 7.780978731477876
   },
   {
    "tconst": "tt0190332",
    "title": "Crouching Tiger, Hidden Dragon",
    "year": 2000,
    "rating": 7.8,
-   "votes": 297331,
-   "score": 7.756224206030027
+   "votes": 297791,
+   "score": 7.756273781282214
   },
   {
    "tconst": "tt0210945",
    "title": "Remember the Titans",
    "year": 2000,
    "rating": 7.8,
-   "votes": 253749,
-   "score": 7.748990674707447
+   "votes": 254201,
+   "score": 7.749059479012699
   },
   {
    "tconst": "tt0244316",
    "title": "Yi Yi",
    "year": 2000,
    "rating": 8.1,
-   "votes": 35034,
-   "score": 7.734639194018177
+   "votes": 35143,
+   "score": 7.735413318003547
   },
   {
    "tconst": "tt0247586",
    "title": "Nine Queens",
    "year": 2000,
    "rating": 7.9,
-   "votes": 63775,
-   "score": 7.704084601333983
+   "votes": 63957,
+   "score": 7.704500769563857
   },
   {
    "tconst": "tt0190590",
    "title": "O Brother, Where Art Thou?",
    "year": 2000,
    "rating": 7.7,
-   "votes": 355640,
-   "score": 7.66594010902367
+   "votes": 356004,
+   "score": 7.66596065456835
   },
   {
    "tconst": "tt0249462",
    "title": "Billy Elliot",
    "year": 2000,
    "rating": 7.7,
-   "votes": 153766,
-   "score": 7.623954553835439
+   "votes": 153999,
+   "score": 7.62403285028954
   },
   {
    "tconst": "tt0144084",
    "title": "American Psycho",
    "year": 2000,
    "rating": 7.6,
-   "votes": 856393,
-   "score": 7.586780065701609
+   "votes": 858524,
+   "score": 7.586806885491516
   },
   {
    "tconst": "tt0216651",
    "title": "Vampire Hunter D: Bloodlust",
    "year": 2000,
    "rating": 7.7,
-   "votes": 42409,
-   "score": 7.462375574107781
+   "votes": 42519,
+   "score": 7.46278039213683
   },
   {
    "tconst": "tt0195685",
    "title": "Erin Brockovich",
    "year": 2000,
    "rating": 7.5,
-   "votes": 249782,
-   "score": 7.459759881221234
+   "votes": 250209,
+   "score": 7.459807168140357
   },
   {
    "tconst": "tt0181865",
    "title": "Traffic",
    "year": 2000,
    "rating": 7.5,
-   "votes": 232067,
-   "score": 7.456815020070537
+   "votes": 232233,
+   "score": 7.45682447649426
   },
   {
    "tconst": "tt0266308",
    "title": "Battle Royale",
    "year": 2000,
    "rating": 7.5,
-   "votes": 208844,
-   "score": 7.45223237312156
+   "votes": 209031,
+   "score": 7.4522508841882384
   },
   {
    "tconst": "tt0260991",
    "title": "Joint Security Area",
    "year": 2000,
    "rating": 7.7,
-   "votes": 39552,
-   "score": 7.4486749568819555
+   "votes": 39639,
+   "score": 7.449017172276521
   },
   {
    "tconst": "tt0249241",
    "title": "Werckmeister Harmonies",
    "year": 2000,
    "rating": 7.9,
-   "votes": 18440,
-   "score": 7.391784158347914
+   "votes": 18481,
+   "score": 7.392344489822484
   },
   {
    "tconst": "tt0222012",
    "title": "Hey Ram",
    "year": 2000,
    "rating": 8,
-   "votes": 15320,
-   "score": 7.3896659345740385
+   "votes": 15337,
+   "score": 7.389882914892615
   },
   {
    "tconst": "tt0218839",
    "title": "Best in Show",
    "year": 2000,
    "rating": 7.5,
-   "votes": 76489,
-   "score": 7.3791330858654245
+   "votes": 76605,
+   "score": 7.379238651517051
   },
   {
    "tconst": "tt0120917",
    "title": "The Emperor's New Groove",
    "year": 2000,
    "rating": 7.4,
-   "votes": 252833,
-   "score": 7.364031691086792
+   "votes": 253310,
+   "score": 7.3640783237045095
   },
   {
    "tconst": "tt0146882",
    "title": "High Fidelity",
    "year": 2000,
    "rating": 7.4,
-   "votes": 201064,
-   "score": 7.355209516845198
+   "votes": 201402,
+   "score": 7.355258055338333
   },
   {
    "tconst": "tt0213847",
    "title": "Malena",
    "year": 2000,
    "rating": 7.4,
-   "votes": 126302,
-   "score": 7.330641820834725
+   "votes": 126499,
+   "score": 7.330706184035299
   },
   {
    "tconst": "tt0186151",
    "title": "Frequency",
    "year": 2000,
    "rating": 7.4,
-   "votes": 125043,
-   "score": 7.329995197554962
+   "votes": 125259,
+   "score": 7.330070926257286
   },
   {
    "tconst": "tt0120903",
    "title": "X-Men",
    "year": 2000,
    "rating": 7.3,
-   "votes": 704584,
-   "score": 7.288169818332645
+   "votes": 706121,
+   "score": 7.28818839751192
   },
   {
    "tconst": "tt0217869",
    "title": "Unbreakable",
    "year": 2000,
    "rating": 7.3,
-   "votes": 471487,
-   "score": 7.282442602735722
+   "votes": 472003,
+   "score": 7.28245127813444
   },
   {
    "tconst": "tt0203230",
    "title": "You Can Count on Me",
    "year": 2000,
    "rating": 7.5,
-   "votes": 33788,
-   "score": 7.261266590468043
+   "votes": 33829,
+   "score": 7.26137861723138
   },
   {
    "tconst": "tt0177858",
    "title": "In July",
    "year": 2000,
    "rating": 7.6,
-   "votes": 23634,
-   "score": 7.2594618975862115
+   "votes": 23648,
+   "score": 7.259458613131067
   },
   {
    "tconst": "tt0238883",
    "title": "Brother 2",
    "year": 2000,
    "rating": 7.6,
-   "votes": 20788,
-   "score": 7.2279830279139485
+   "votes": 20870,
+   "score": 7.228813197752969
   },
   {
    "tconst": "tt0181536",
    "title": "Finding Forrester",
    "year": 2000,
    "rating": 7.3,
-   "votes": 95703,
-   "score": 7.220024421855715
+   "votes": 95921,
+   "score": 7.220142968954543
   },
   {
    "tconst": "tt0236027",
    "title": "Flickering Lights",
    "year": 2000,
    "rating": 7.5,
-   "votes": 27243,
-   "score": 7.219312124786259
+   "votes": 27307,
+   "score": 7.219662889394327
   },
   {
    "tconst": "tt0203119",
    "title": "Sexy Beast",
    "year": 2000,
    "rating": 7.3,
-   "votes": 76946,
-   "score": 7.2027711621398876
+   "votes": 77143,
+   "score": 7.202934985192547
   },
   {
    "tconst": "tt0146309",
    "title": "Thirteen Days",
    "year": 2000,
    "rating": 7.3,
-   "votes": 65883,
-   "score": 7.188596147535214
+   "votes": 65949,
+   "score": 7.188628729998211
   },
   {
    "tconst": "tt0187393",
    "title": "The Patriot",
    "year": 2000,
    "rating": 7.2,
-   "votes": 316556,
-   "score": 7.177174945379704
+   "votes": 316922,
+   "score": 7.177185577644313
   },
   {
    "tconst": "tt0120263",
    "title": "Songs from the Second Floor",
    "year": 2000,
    "rating": 7.5,
-   "votes": 21725,
-   "score": 7.170491456687618
+   "votes": 21762,
+   "score": 7.170721724533536
   },
   {
    "tconst": "tt0241303",
    "title": "Chocolat",
    "year": 2000,
    "rating": 7.2,
-   "votes": 211606,
-   "score": 7.166365267472066
+   "votes": 211775,
+   "score": 7.166368902782704
   },
   {
    "tconst": "tt0203019",
    "title": "Men of Honor",
    "year": 2000,
    "rating": 7.2,
-   "votes": 131612,
-   "score": 7.147365629066849
+   "votes": 131757,
+   "score": 7.147385056220393
   },
   {
    "tconst": "tt0223897",
    "title": "Pay It Forward",
    "year": 2000,
    "rating": 7.2,
-   "votes": 128424,
-   "score": 7.146153423274971
+   "votes": 128534,
+   "score": 7.14616096708847
   },
   {
    "tconst": "tt0203166",
    "title": "Together",
    "year": 2000,
    "rating": 7.4,
-   "votes": 24366,
-   "score": 7.1249124560150925
+   "votes": 24383,
+   "score": 7.1249065938002545
   },
   {
    "tconst": "tt0185014",
    "title": "Wonder Boys",
    "year": 2000,
    "rating": 7.2,
-   "votes": 69418,
-   "score": 7.106146483963517
+   "votes": 69451,
+   "score": 7.1061240691071745
   },
   {
    "tconst": "tt0180073",
    "title": "Quills",
    "year": 2000,
    "rating": 7.2,
-   "votes": 59392,
-   "score": 7.092586198170029
+   "votes": 59440,
+   "score": 7.092590198943465
   },
   {
    "tconst": "tt0247380",
    "title": "The Gleaners & I",
    "year": 2000,
    "rating": 7.7,
-   "votes": 10356,
-   "score": 7.088206988770615
+   "votes": 10391,
+   "score": 7.089017871346877
   },
   {
    "tconst": "tt0120630",
    "title": "Chicken Run",
    "year": 2000,
    "rating": 7.1,
-   "votes": 226922,
-   "score": 7.0727604083344495
+   "votes": 227146,
+   "score": 7.072765568108398
   },
   {
    "tconst": "tt0203632",
    "title": "The Princess and the Warrior",
    "year": 2000,
    "rating": 7.4,
-   "votes": 15280,
-   "score": 7.026041988267984
+   "votes": 15298,
+   "score": 7.026115242890116
   },
   {
    "tconst": "tt0199725",
    "title": "Love & Basketball",
    "year": 2000,
    "rating": 7.2,
-   "votes": 27025,
-   "score": 6.998685792394725
+   "votes": 27086,
+   "score": 6.998885385715207
   },
   {
    "tconst": "tt0239894",
    "title": "Paradise Lost 2: Revelations",
    "year": 2000,
    "rating": 7.5,
-   "votes": 10450,
-   "score": 6.988818653467709
+   "votes": 10464,
+   "score": 6.98892999485116
   },
   {
    "tconst": "tt0212338",
    "title": "Meet the Parents",
    "year": 2000,
    "rating": 7,
-   "votes": 382008,
-   "score": 6.986087889694636
-  },
-  {
-   "tconst": "tt0282599",
-   "title": "Il Mare",
-   "year": 2000,
-   "rating": 7.5,
-   "votes": 10234,
-   "score": 6.983361740803334
+   "votes": 382346,
+   "score": 6.986087441734169
   },
   {
    "tconst": "tt0221073",
    "title": "Chopper",
    "year": 2000,
    "rating": 7.1,
-   "votes": 44989,
-   "score": 6.982637281336533
+   "votes": 45073,
+   "score": 6.982727714390611
   },
   {
    "tconst": "tt0134847",
    "title": "Pitch Black",
    "year": 2000,
    "rating": 7,
-   "votes": 266145,
-   "score": 6.980250743136449
+   "votes": 266349,
+   "score": 6.980247670209171
   },
   {
    "tconst": "tt0213890",
    "title": "Mohabbatein",
    "year": 2000,
    "rating": 7.1,
-   "votes": 37900,
-   "score": 6.965268089006569
+   "votes": 37973,
+   "score": 6.9653714258986135
   },
   {
    "tconst": "tt0205873",
    "title": "The Dish",
    "year": 2000,
    "rating": 7.2,
-   "votes": 18198,
-   "score": 6.935667120484242
+   "votes": 18209,
+   "score": 6.93559727089348
+  },
+  {
+   "tconst": "tt0282599",
+   "title": "Il Mare",
+   "year": 2000,
+   "rating": 7.4,
+   "votes": 10254,
+   "score": 6.93300401968175
   },
   {
    "tconst": "tt0247196",
    "title": "Before Night Falls",
    "year": 2000,
    "rating": 7.1,
-   "votes": 27445,
-   "score": 6.927649658523558
+   "votes": 27470,
+   "score": 6.927634465295815
   },
   {
    "tconst": "tt0237539",
    "title": "Bread and Tulips",
    "year": 2000,
    "rating": 7.3,
-   "votes": 12587,
-   "score": 6.925729023925915
+   "votes": 12594,
+   "score": 6.925629079164121
   },
   {
    "tconst": "tt0181984",
    "title": "Boiler Room",
    "year": 2000,
    "rating": 7,
-   "votes": 60881,
-   "score": 6.923058950401583
+   "votes": 60960,
+   "score": 6.923075865482442
   },
   {
    "tconst": "tt0222851",
    "title": "Brother",
    "year": 2000,
    "rating": 7.1,
-   "votes": 26106,
-   "score": 6.92125800319655
+   "votes": 26142,
+   "score": 6.921301073948152
   },
   {
    "tconst": "tt0255067",
    "title": "Common Wealth",
    "year": 2000,
    "rating": 7.2,
-   "votes": 13977,
-   "score": 6.889132980081522
+   "votes": 14002,
+   "score": 6.889253537814939
   },
   {
    "tconst": "tt0218967",
    "title": "The Family Man",
    "year": 2000,
    "rating": 6.9,
-   "votes": 131910,
-   "score": 6.868616316421779
+   "votes": 132053,
+   "score": 6.868613569686204
   },
   {
    "tconst": "tt0183659",
    "title": "Pollock",
    "year": 2000,
    "rating": 7,
-   "votes": 31159,
-   "score": 6.867497788173052
+   "votes": 31193,
+   "score": 6.867488733877944
   },
   {
    "tconst": "tt0138749",
    "title": "The Road to El Dorado",
    "year": 2000,
    "rating": 6.9,
-   "votes": 120824,
-   "score": 6.865956869254989
+   "votes": 121059,
+   "score": 6.8659806912507655
   },
   {
    "tconst": "tt0216625",
    "title": "Code Unknown",
    "year": 2000,
    "rating": 7.1,
-   "votes": 16605,
-   "score": 6.857426854479032
+   "votes": 16631,
+   "score": 6.8574805082285355
   },
   {
    "tconst": "tt0216787",
    "title": "The Taste of Others",
    "year": 2000,
    "rating": 7.2,
-   "votes": 11282,
-   "score": 6.849767007960466
+   "votes": 11293,
+   "score": 6.84971884725657
   },
   {
    "tconst": "tt0122459",
    "title": "Return to Me",
    "year": 2000,
    "rating": 7,
-   "votes": 25439,
-   "score": 6.846111387550852
+   "votes": 25558,
+   "score": 6.846489212403233
   },
   {
    "tconst": "tt0228786",
    "title": "The Crimson Rivers",
    "year": 2000,
    "rating": 6.9,
-   "votes": 70479,
-   "score": 6.844660612873106
+   "votes": 70568,
+   "score": 6.844661198175879
   },
   {
    "tconst": "tt0156812",
    "title": "My Dog Skip",
    "year": 2000,
    "rating": 7,
-   "votes": 22187,
-   "score": 6.8305633163517765
+   "votes": 22201,
+   "score": 6.8304854946937725
   },
   {
    "tconst": "tt0189998",
    "title": "Shadow of the Vampire",
    "year": 2000,
    "rating": 6.9,
-   "votes": 48220,
-   "score": 6.82350294509472
+   "votes": 48307,
+   "score": 6.8235334250541815
   },
   {
    "tconst": "tt0170691",
    "title": "Tigerland",
    "year": 2000,
    "rating": 6.9,
-   "votes": 44418,
-   "score": 6.818158356856457
+   "votes": 44460,
+   "score": 6.818131902582339
   },
   {
    "tconst": "tt0216800",
    "title": "With a Friend Like Harry...",
    "year": 2000,
    "rating": 7.1,
-   "votes": 11283,
-   "score": 6.796769321214802
+   "votes": 11298,
+   "score": 6.7967538461186106
   },
   {
    "tconst": "tt0208196",
    "title": "Happy Accidents",
    "year": 2000,
    "rating": 7.1,
-   "votes": 10654,
-   "score": 6.787534688845485
+   "votes": 10666,
+   "score": 6.787480083936618
   },
   {
    "tconst": "tt0243862",
    "title": "Italian for Beginners",
    "year": 2000,
    "rating": 7,
-   "votes": 14514,
-   "score": 6.777528818773543
+   "votes": 14523,
+   "score": 6.777411548939125
   },
   {
    "tconst": "tt0208874",
    "title": "The Contender",
    "year": 2000,
    "rating": 6.9,
-   "votes": 26199,
-   "score": 6.77696735996615
+   "votes": 26214,
+   "score": 6.776883619998734
   },
   {
    "tconst": "tt0195234",
    "title": "Saving Grace",
    "year": 2000,
    "rating": 6.9,
-   "votes": 20300,
-   "score": 6.753014569749658
+   "votes": 20326,
+   "score": 6.752979734044521
   },
   {
    "tconst": "tt0210070",
    "title": "Ginger Snaps",
    "year": 2000,
    "rating": 6.8,
-   "votes": 58313,
-   "score": 6.749443611954015
+   "votes": 58443,
+   "score": 6.749468366591677
   },
   {
    "tconst": "tt0234000",
    "title": "Kaho Naa... Pyaar Hai",
    "year": 2000,
    "rating": 6.9,
-   "votes": 18861,
-   "score": 6.745685924375962
+   "votes": 18898,
+   "score": 6.745714700485645
   },
   {
    "tconst": "tt0240913",
    "title": "Under the Sand",
    "year": 2000,
    "rating": 7,
-   "votes": 10799,
-   "score": 6.737792271908008
+   "votes": 10814,
+   "score": 6.737746873000585
   },
   {
    "tconst": "tt0255589",
    "title": "The Isle",
    "year": 2000,
    "rating": 6.9,
-   "votes": 15805,
-   "score": 6.727411023577394
+   "votes": 15828,
+   "score": 6.7273758484835895
   },
   {
    "tconst": "tt0269743",
    "title": "Barking Dogs Never Bite",
    "year": 2000,
    "rating": 6.9,
-   "votes": 12182,
-   "score": 6.69922195759691
+   "votes": 12236,
+   "score": 6.6994901697532905
   },
   {
    "tconst": "tt0195714",
    "title": "Final Destination",
    "year": 2000,
    "rating": 6.7,
-   "votes": 340911,
-   "score": 6.69300774687432
+   "votes": 341502,
+   "score": 6.693005625614177
   },
   {
    "tconst": "tt0190138",
    "title": "The Whole Nine Yards",
    "year": 2000,
    "rating": 6.7,
-   "votes": 136579,
-   "score": 6.68326050432473
+   "votes": 136722,
+   "score": 6.683243572297504
   },
   {
    "tconst": "tt0219699",
    "title": "The Gift",
    "year": 2000,
    "rating": 6.7,
-   "votes": 82385,
-   "score": 6.673440942397734
+   "votes": 82565,
+   "score": 6.673439889965259
   },
   {
    "tconst": "tt0191397",
    "title": "The Replacements",
    "year": 2000,
    "rating": 6.7,
-   "votes": 75176,
-   "score": 6.671193076258743
+   "votes": 75290,
+   "score": 6.6711743863833295
   },
   {
    "tconst": "tt0146984",
    "title": "The Legend of Bagger Vance",
    "year": 2000,
    "rating": 6.7,
-   "votes": 62822,
-   "score": 6.666306081450862
+   "votes": 62871,
+   "score": 6.6662617970747515
   },
   {
    "tconst": "tt0269389",
    "title": "Jalla! Jalla!",
    "year": 2000,
    "rating": 6.8,
-   "votes": 15483,
-   "score": 6.664472058368898
-  },
-  {
-   "tconst": "tt0196216",
-   "title": "Small Time Crooks",
-   "year": 2000,
-   "rating": 6.7,
-   "votes": 42993,
-   "score": 6.653698440613187
+   "votes": 15504,
+   "score": 6.664392386081954
   },
   {
    "tconst": "tt0198021",
    "title": "Where the Heart Is",
    "year": 2000,
    "rating": 6.7,
-   "votes": 38625,
-   "score": 6.649539156059941
+   "votes": 38664,
+   "score": 6.649479356703809
   },
   {
    "tconst": "tt0814243",
    "title": "One Piece: The Movie",
    "year": 2000,
    "rating": 6.8,
-   "votes": 10138,
-   "score": 6.628500420270864
+   "votes": 10180,
+   "score": 6.628615630061158
   },
   {
    "tconst": "tt0120202",
    "title": "State and Main",
    "year": 2000,
    "rating": 6.7,
-   "votes": 23665,
-   "score": 6.627115445222476
+   "votes": 23695,
+   "score": 6.627035566542044
   },
   {
    "tconst": "tt0210616",
    "title": "Center Stage",
    "year": 2000,
    "rating": 6.7,
-   "votes": 22917,
-   "score": 6.625459229681158
+   "votes": 22949,
+   "score": 6.625383575059461
   },
   {
    "tconst": "tt0210065",
    "title": "Gangster No. 1",
    "year": 2000,
    "rating": 6.7,
-   "votes": 15968,
-   "score": 6.605512225177705
+   "votes": 16001,
+   "score": 6.605444537311417
   },
   {
    "tconst": "tt0163978",
    "title": "The Beach",
    "year": 2000,
    "rating": 6.6,
-   "votes": 271363,
-   "score": 6.594833512094392
+   "votes": 271648,
+   "score": 6.5948214204064435
   },
   {
    "tconst": "tt0183505",
    "title": "Me, Myself & Irene",
    "year": 2000,
    "rating": 6.6,
-   "votes": 265854,
-   "score": 6.594730333667138
+   "votes": 266124,
+   "score": 6.594717820307666
   },
   {
    "tconst": "tt0215545",
    "title": "Bamboozled",
    "year": 2000,
    "rating": 6.7,
-   "votes": 13203,
-   "score": 6.594252530423422
+   "votes": 13228,
+   "score": 6.594156337809288
   },
   {
    "tconst": "tt0161081",
    "title": "What Lies Beneath",
    "year": 2000,
    "rating": 6.6,
-   "votes": 146886,
-   "score": 6.590734300469224
+   "votes": 147132,
+   "score": 6.590717762229426
   },
   {
    "tconst": "tt0184894",
    "title": "Shanghai Noon",
    "year": 2000,
    "rating": 6.6,
-   "votes": 143328,
-   "score": 6.5905192884757815
+   "votes": 143451,
+   "score": 6.590495098856535
   },
   {
    "tconst": "tt0141926",
    "title": "U-571",
    "year": 2000,
    "rating": 6.6,
-   "votes": 92889,
-   "score": 6.585871584556314
+   "votes": 93018,
+   "score": 6.585841924854241
   },
   {
    "tconst": "tt0210075",
    "title": "Girlfight",
    "year": 2000,
    "rating": 6.7,
-   "votes": 10757,
-   "score": 6.5817912734698965
+   "votes": 10766,
+   "score": 6.581607599664556
   },
   {
    "tconst": "tt0120913",
    "title": "Titan A.E.",
    "year": 2000,
    "rating": 6.6,
-   "votes": 67219,
-   "score": 6.581174859340507
+   "votes": 67293,
+   "score": 6.581129771319966
   },
   {
    "tconst": "tt0237993",
    "title": "101 Reykjavík",
    "year": 2000,
    "rating": 6.7,
-   "votes": 10254,
-   "score": 6.578855606962311
+   "votes": 10261,
+   "score": 6.578656700786445
+  },
+  {
+   "tconst": "tt0196216",
+   "title": "Small Time Crooks",
+   "year": 2000,
+   "rating": 6.6,
+   "votes": 43047,
+   "score": 6.57250482429985
   },
   {
    "tconst": "tt0202677",
    "title": "The Way of the Gun",
    "year": 2000,
    "rating": 6.6,
-   "votes": 37488,
-   "score": 6.569388929064493
+   "votes": 37517,
+   "score": 6.569304952219925
+  },
+  {
+   "tconst": "tt0204137",
+   "title": "Animal Factory",
+   "year": 2000,
+   "rating": 6.6,
+   "votes": 16308,
+   "score": 6.544559199279085
   },
   {
    "tconst": "tt0275230",
    "title": "Blood: The Last Vampire",
    "year": 2000,
    "rating": 6.6,
-   "votes": 14273,
-   "score": 6.540112118955822
+   "votes": 14300,
+   "score": 6.539977918297701
   },
   {
    "tconst": "tt0187078",
    "title": "Gone in 60 Seconds",
    "year": 2000,
    "rating": 6.5,
-   "votes": 312674,
-   "score": 6.498594065414054
+   "votes": 312973,
+   "score": 6.498580263410979
   },
   {
    "tconst": "tt0207201",
    "title": "What Women Want",
    "year": 2000,
    "rating": 6.5,
-   "votes": 240842,
-   "score": 6.498191457026393
+   "votes": 241190,
+   "score": 6.498174542834644
   },
   {
    "tconst": "tt0215129",
    "title": "Road Trip",
    "year": 2000,
    "rating": 6.5,
-   "votes": 190389,
-   "score": 6.497736110581991
+   "votes": 190553,
+   "score": 6.497713638861718
   },
   {
    "tconst": "tt0177971",
    "title": "The Perfect Storm",
    "year": 2000,
    "rating": 6.5,
-   "votes": 190209,
-   "score": 6.49773407520848
+   "votes": 190401,
+   "score": 6.497711904704238
   },
   {
    "tconst": "tt0186566",
    "title": "Space Cowboys",
    "year": 2000,
    "rating": 6.5,
-   "votes": 90633,
-   "score": 6.495491950586931
+   "votes": 90735,
+   "score": 6.4954480906798455
   },
   {
    "tconst": "tt0183869",
    "title": "Taxi 2",
    "year": 2000,
    "rating": 6.5,
-   "votes": 62456,
-   "score": 6.493738840998877
-  },
-  {
-   "tconst": "tt0204137",
-   "title": "Animal Factory",
-   "year": 2000,
-   "rating": 6.5,
-   "votes": 16283,
-   "score": 6.482739468988115
+   "votes": 62548,
+   "score": 6.493679542022305
   },
   {
    "tconst": "tt0220099",
    "title": "The Tigger Movie",
    "year": 2000,
    "rating": 6.4,
-   "votes": 22035,
-   "score": 6.4170545173533515
+   "votes": 22063,
+   "score": 6.416887484472264
   },
   {
    "tconst": "tt0138946",
    "title": "The Yards",
    "year": 2000,
    "rating": 6.4,
-   "votes": 25151,
-   "score": 6.415542700447061
+   "votes": 25216,
+   "score": 6.415375494509149
   },
   {
    "tconst": "tt0164212",
    "title": "Under Suspicion",
    "year": 2000,
    "rating": 6.4,
-   "votes": 30624,
-   "score": 6.4134487362991
+   "votes": 30718,
+   "score": 6.413297888271383
   },
   {
    "tconst": "tt0160797",
    "title": "Rules of Engagement",
    "year": 2000,
    "rating": 6.4,
-   "votes": 53129,
-   "score": 6.408654365876455
+   "votes": 53193,
+   "score": 6.408568408124859
   },
   {
    "tconst": "tt0171433",
    "title": "Keeping the Faith",
    "year": 2000,
    "rating": 6.4,
-   "votes": 54512,
-   "score": 6.408468834688348
+   "votes": 54551,
+   "score": 6.408388149132224
   },
   {
    "tconst": "tt0130623",
    "title": "Dinosaur",
    "year": 2000,
    "rating": 6.4,
-   "votes": 73724,
-   "score": 6.4065255059889
+   "votes": 73823,
+   "score": 6.406459604340505
   },
   {
    "tconst": "tt0209958",
    "title": "The Cell",
    "year": 2000,
    "rating": 6.4,
-   "votes": 115997,
-   "score": 6.40433614660202
+   "votes": 116170,
+   "score": 6.404291538516559
   },
   {
    "tconst": "tt0212346",
    "title": "Miss Congeniality",
    "year": 2000,
    "rating": 6.4,
-   "votes": 252027,
-   "score": 6.402085057888747
+   "votes": 252646,
+   "score": 6.402061571143799
   },
   {
    "tconst": "tt0170016",
    "title": "How the Grinch Stole Christmas",
    "year": 2000,
    "rating": 6.4,
-   "votes": 336179,
-   "score": 6.401578205100294
+   "votes": 336526,
+   "score": 6.401562547729851
   },
   {
    "tconst": "tt0275773",
    "title": "Versus",
    "year": 2000,
    "rating": 6.3,
-   "votes": 14255,
-   "score": 6.363753513230867
+   "votes": 14276,
+   "score": 6.3634974219242935
   },
   {
    "tconst": "tt0160611",
    "title": "Ordinary Decent Criminal",
    "year": 2000,
    "rating": 6.3,
-   "votes": 14812,
-   "score": 6.362322322401042
+   "votes": 14820,
+   "score": 6.362105697608145
   },
   {
    "tconst": "tt0173716",
    "title": "Cecil B. Demented",
    "year": 2000,
    "rating": 6.3,
-   "votes": 16893,
-   "score": 6.357499775533212
+   "votes": 16916,
+   "score": 6.35726940907394
   },
   {
    "tconst": "tt0171580",
    "title": "Nurse Betty",
    "year": 2000,
    "rating": 6.3,
-   "votes": 35972,
-   "score": 6.333636593217929
-  },
-  {
-   "tconst": "tt0134630",
-   "title": "Duets",
-   "year": 2000,
-   "rating": 6.2,
-   "votes": 10560,
-   "score": 6.323849292967639
+   "votes": 35981,
+   "score": 6.33352392106814
   },
   {
    "tconst": "tt0228750",
    "title": "Proof of Life",
    "year": 2000,
    "rating": 6.3,
-   "votes": 61257,
-   "score": 6.321700906064171
+   "votes": 61330,
+   "score": 6.321610310032724
   },
   {
    "tconst": "tt0175142",
    "title": "Scary Movie",
    "year": 2000,
    "rating": 6.3,
-   "votes": 334867,
-   "score": 6.3044838777366765
+   "votes": 335562,
+   "score": 6.304460743411123
   },
   {
    "tconst": "tt0213203",
    "title": "Rugrats in Paris",
    "year": 2000,
    "rating": 6.2,
-   "votes": 14729,
-   "score": 6.3029698517293316
+   "votes": 14752,
+   "score": 6.302677093351413
   },
   {
    "tconst": "tt0244870",
    "title": "Uzumaki",
    "year": 2000,
    "rating": 6.1,
-   "votes": 10103,
-   "score": 6.276408569040175
+   "votes": 10123,
+   "score": 6.275990827144768
+  },
+  {
+   "tconst": "tt0134630",
+   "title": "Duets",
+   "year": 2000,
+   "rating": 6.1,
+   "votes": 10576,
+   "score": 6.2721162234950505
   },
   {
    "tconst": "tt0151150",
    "title": "Josh",
    "year": 2000,
    "rating": 6.1,
-   "votes": 11928,
-   "score": 6.2617266263870235
+   "votes": 11943,
+   "score": 6.261393766332505
   },
   {
    "tconst": "tt0195945",
    "title": "Next Friday",
    "year": 2000,
    "rating": 6.2,
-   "votes": 48111,
-   "score": 6.243818579329467
+   "votes": 48171,
+   "score": 6.243689525960258
   },
   {
    "tconst": "tt0206917",
    "title": "The Man Who Cried",
    "year": 2000,
    "rating": 6.1,
-   "votes": 17232,
-   "score": 6.230226992634204
+   "votes": 17249,
+   "score": 6.229966729591331
   },
   {
    "tconst": "tt0204946",
    "title": "Bring It On",
    "year": 2000,
    "rating": 6.2,
-   "votes": 115944,
-   "score": 6.220218045031241
+   "votes": 116137,
+   "score": 6.220148437132913
   },
   {
    "tconst": "tt0187696",
    "title": "Anatomy",
    "year": 2000,
    "rating": 6,
-   "votes": 14703,
-   "score": 6.184040054382652
+   "votes": 14725,
+   "score": 6.183679005647488
   },
   {
    "tconst": "tt0171359",
    "title": "Hamlet",
    "year": 2000,
    "rating": 5.9,
-   "votes": 10396,
-   "score": 6.171932803658297
+   "votes": 10411,
+   "score": 6.171493969655292
   },
   {
    "tconst": "tt0235712",
    "title": "Ring 0: Birthday",
    "year": 2000,
    "rating": 5.9,
-   "votes": 10866,
-   "score": 6.165807603920955
+   "votes": 10891,
+   "score": 6.165256015252222
   },
   {
    "tconst": "tt0219854",
    "title": "The Kid",
    "year": 2000,
    "rating": 6.1,
-   "votes": 46699,
-   "score": 6.1625468079404335
+   "votes": 46745,
+   "score": 6.162410140358342
   },
   {
    "tconst": "tt0191754",
    "title": "28 Days",
    "year": 2000,
    "rating": 6.1,
-   "votes": 58311,
-   "score": 6.151914647178561
+   "votes": 58407,
+   "score": 6.151770482766883
   },
   {
    "tconst": "tt0165929",
    "title": "Romeo Must Die",
    "year": 2000,
    "rating": 6.1,
-   "votes": 77670,
-   "score": 6.140451026159629
+   "votes": 77751,
+   "score": 6.140358097510389
   },
   {
    "tconst": "tt0230030",
    "title": "Bedazzled",
    "year": 2000,
    "rating": 6.1,
-   "votes": 120284,
-   "score": 6.127220084303634
+   "votes": 120410,
+   "score": 6.127156379224247
   },
   {
    "tconst": "tt0210382",
    "title": "The Weight of Water",
    "year": 2000,
    "rating": 5.8,
-   "votes": 10549,
-   "score": 6.118572264509934
+   "votes": 10561,
+   "score": 6.118149088791117
   },
   {
    "tconst": "tt0120755",
    "title": "Mission: Impossible II",
    "year": 2000,
    "rating": 6.1,
-   "votes": 418329,
-   "score": 6.108279480173919
+   "votes": 418860,
+   "score": 6.1082578543455535
   },
   {
    "tconst": "tt0235679",
    "title": "Pokémon 3 the Movie: Spell of the Unown",
    "year": 2000,
    "rating": 5.9,
-   "votes": 16991,
-   "score": 6.1054885503840035
+   "votes": 17026,
+   "score": 6.1050419379351055
   },
   {
    "tconst": "tt0176783",
    "title": "Gossip",
    "year": 2000,
    "rating": 5.9,
-   "votes": 17240,
-   "score": 6.103610185881596
+   "votes": 17258,
+   "score": 6.103296772126868
   },
   {
    "tconst": "tt0192255",
    "title": "The Little Vampire",
    "year": 2000,
    "rating": 5.8,
-   "votes": 12648,
-   "score": 6.089047221097432
+   "votes": 12681,
+   "score": 6.088411596253876
   },
   {
    "tconst": "tt0156323",
    "title": "Screwed",
    "year": 2000,
    "rating": 5.7,
-   "votes": 10051,
-   "score": 6.076357361897893
+   "votes": 10062,
+   "score": 6.07590785637694
   },
   {
    "tconst": "tt0181151",
    "title": "What Planet Are You From?",
    "year": 2000,
    "rating": 5.7,
-   "votes": 10162,
-   "score": 6.074285361740634
+   "votes": 10177,
+   "score": 6.073765347407155
   },
   {
    "tconst": "tt0149624",
    "title": "All the Pretty Horses",
    "year": 2000,
    "rating": 5.8,
-   "votes": 15276,
-   "score": 6.0589943607934265
+   "votes": 15300,
+   "score": 6.058555866191073
   },
   {
    "tconst": "tt0205177",
    "title": "Kevin & Perry Go Large",
    "year": 2000,
    "rating": 5.8,
-   "votes": 15466,
-   "score": 6.057062022438336
+   "votes": 15483,
+   "score": 6.056699109784333
   },
   {
    "tconst": "tt0190865",
    "title": "Vertical Limit",
    "year": 2000,
    "rating": 6,
-   "votes": 71285,
-   "score": 6.05593087855588
+   "votes": 71414,
+   "score": 6.055782339826494
   },
   {
    "tconst": "tt0162650",
    "title": "Shaft",
    "year": 2000,
    "rating": 6,
-   "votes": 86097,
-   "score": 6.047309920844715
+   "votes": 86201,
+   "score": 6.0472080686753165
   },
   {
    "tconst": "tt0186045",
    "title": "Drowning Mona",
    "year": 2000,
    "rating": 5.8,
-   "votes": 16745,
-   "score": 6.044768796538218
+   "votes": 16789,
+   "score": 6.044184680825493
   },
   {
    "tconst": "tt0211938",
    "title": "Bait",
    "year": 2000,
    "rating": 5.7,
-   "votes": 12536,
-   "score": 6.03485718243764
+   "votes": 12552,
+   "score": 6.034403308559515
   },
   {
    "tconst": "tt0216216",
    "title": "The 6th Day",
    "year": 2000,
    "rating": 6,
-   "votes": 134935,
-   "score": 6.0313681406383175
+   "votes": 135053,
+   "score": 6.0313089933654185
   },
   {
    "tconst": "tt0186894",
    "title": "Bounce",
    "year": 2000,
    "rating": 5.8,
-   "votes": 22813,
-   "score": 5.999504509292494
+   "votes": 22854,
+   "score": 5.999107061990447
   },
   {
    "tconst": "tt0214388",
    "title": "100 Girls",
    "year": 2000,
    "rating": 5.8,
-   "votes": 23356,
-   "score": 5.996256789285725
+   "votes": 23365,
+   "score": 5.9960576476737355
   },
   {
    "tconst": "tt0164052",
    "title": "Hollow Man",
    "year": 2000,
    "rating": 5.9,
-   "votes": 149426,
-   "score": 5.934789441266887
+   "votes": 149779,
+   "score": 5.9346820509243035
   },
   {
    "tconst": "tt0120753",
    "title": "The Million Dollar Hotel",
    "year": 2000,
    "rating": 5.7,
-   "votes": 23352,
-   "score": 5.926263536322099
+   "votes": 23370,
+   "score": 5.925995307600664
   },
   {
    "tconst": "tt0184858",
    "title": "Reindeer Games",
    "year": 2000,
    "rating": 5.8,
-   "votes": 45027,
-   "score": 5.9189659887585115
+   "votes": 45067,
+   "score": 5.918790989424412
   },
   {
    "tconst": "tt0119273",
    "title": "Heavy Metal 2000",
    "year": 2000,
    "rating": 5.4,
-   "votes": 10355,
-   "score": 5.918120435441644
+   "votes": 10378,
+   "score": 5.917296271205917
   },
   {
    "tconst": "tt0202402",
    "title": "Whatever It Takes",
    "year": 2000,
    "rating": 5.5,
-   "votes": 13346,
-   "score": 5.908906941806504
+   "votes": 13371,
+   "score": 5.908260811032227
   },
   {
    "tconst": "tt0160009",
    "title": "The Art of War",
    "year": 2000,
    "rating": 5.7,
-   "votes": 32607,
-   "score": 5.877115062393846
+   "votes": 32646,
+   "score": 5.876838705028237
+  },
+  {
+   "tconst": "tt0192614",
+   "title": "The Skulls",
+   "year": 2000,
+   "rating": 5.7,
+   "votes": 35684,
+   "score": 5.865078876951102
   },
   {
    "tconst": "tt0200550",
    "title": "Coyote Ugly",
    "year": 2000,
    "rating": 5.8,
-   "votes": 128787,
-   "score": 5.847168261172982
+   "votes": 128948,
+   "score": 5.847078499975776
   },
   {
    "tconst": "tt0206420",
    "title": "Woman on Top",
    "year": 2000,
    "rating": 5.3,
-   "votes": 11261,
-   "score": 5.843076123579072
+   "votes": 11285,
+   "score": 5.842234597821665
   },
   {
    "tconst": "tt0174480",
    "title": "Autumn in New York",
    "year": 2000,
    "rating": 5.6,
-   "votes": 30756,
-   "score": 5.809695295500408
+   "votes": 30858,
+   "score": 5.809052411146756
   },
   {
    "tconst": "tt0199753",
    "title": "Red Planet",
    "year": 2000,
    "rating": 5.7,
-   "votes": 62811,
-   "score": 5.803642876260656
+   "votes": 62870,
+   "score": 5.8034920188641985
   },
   {
    "tconst": "tt0217756",
    "title": "Ready to Rumble",
    "year": 2000,
    "rating": 5.4,
-   "votes": 16331,
-   "score": 5.800529469576341
-  },
-  {
-   "tconst": "tt0192614",
-   "title": "The Skulls",
-   "year": 2000,
-   "rating": 5.6,
-   "votes": 35638,
-   "score": 5.787263715838001
+   "votes": 16357,
+   "score": 5.799949289169259
   },
   {
    "tconst": "tt0183523",
    "title": "Mission to Mars",
    "year": 2000,
    "rating": 5.7,
-   "votes": 80193,
-   "score": 5.783668815356122
+   "votes": 80247,
+   "score": 5.783564699265729
   },
   {
    "tconst": "tt0204175",
    "title": "Boys and Girls",
    "year": 2000,
    "rating": 5.4,
-   "votes": 18530,
-   "score": 5.769657955254633
+   "votes": 18549,
+   "score": 5.769241073755094
   },
   {
    "tconst": "tt0134084",
    "title": "Scream 3",
    "year": 2000,
    "rating": 5.7,
-   "votes": 188331,
-   "score": 5.738049228125783
+   "votes": 188668,
+   "score": 5.737960131549289
   },
   {
    "tconst": "tt0160127",
    "title": "Charlie's Angels",
    "year": 2000,
    "rating": 5.7,
-   "votes": 208248,
-   "score": 5.734576910044604
+   "votes": 208479,
+   "score": 5.7345180242249105
   },
   {
    "tconst": "tt0219952",
    "title": "Lucky Numbers",
    "year": 2000,
    "rating": 5.1,
-   "votes": 11355,
-   "score": 5.734340504023163
+   "votes": 11362,
+   "score": 5.733904288673072
   },
   {
    "tconst": "tt0213790",
    "title": "The Ladies Man",
    "year": 2000,
    "rating": 5.2,
-   "votes": 14565,
-   "score": 5.710740544002224
+   "votes": 14583,
+   "score": 5.710168141180253
   },
   {
    "tconst": "tt0184907",
    "title": "Snow Day",
    "year": 2000,
    "rating": 5.2,
-   "votes": 14798,
-   "score": 5.7059416672076235
+   "votes": 14811,
+   "score": 5.705479965121687
   },
   {
    "tconst": "tt0217630",
    "title": "Loser",
    "year": 2000,
    "rating": 5.4,
-   "votes": 31077,
-   "score": 5.656745659697998
+   "votes": 31107,
+   "score": 5.656439618912453
   },
   {
    "tconst": "tt0163983",
    "title": "Bless the Child",
    "year": 2000,
    "rating": 5.1,
-   "votes": 16036,
-   "score": 5.620292727892712
+   "votes": 16064,
+   "score": 5.619546631930408
   },
   {
    "tconst": "tt0204626",
    "title": "The Watcher",
    "year": 2000,
    "rating": 5.3,
-   "votes": 29780,
-   "score": 5.590254938748483
+   "votes": 29810,
+   "score": 5.589913675323642
   },
   {
    "tconst": "tt0160484",
    "title": "Lost Souls",
    "year": 2000,
    "rating": 4.8,
-   "votes": 11801,
-   "score": 5.55897167393306
+   "votes": 11813,
+   "score": 5.55833051000019
   },
   {
    "tconst": "tt0242423",
    "title": "Dude, Where's My Car?",
    "year": 2000,
    "rating": 5.5,
-   "votes": 153921,
-   "score": 5.558237452574195
+   "votes": 154054,
+   "score": 5.558160504557244
   },
   {
    "tconst": "tt0132910",
    "title": "The Crow: Salvation",
    "year": 2000,
    "rating": 4.9,
-   "votes": 13857,
-   "score": 5.5516469574302985
+   "votes": 13874,
+   "score": 5.550978613329738
   },
   {
    "tconst": "tt0162983",
    "title": "Hanging Up",
    "year": 2000,
    "rating": 4.9,
-   "votes": 13859,
-   "score": 5.551592332596281
+   "votes": 13879,
+   "score": 5.550842305566991
   },
   {
    "tconst": "tt0186975",
    "title": "Down to You",
    "year": 2000,
    "rating": 5,
-   "votes": 16573,
-   "score": 5.547410584556304
+   "votes": 16625,
+   "score": 5.546158250314898
   },
   {
    "tconst": "tt0156841",
    "title": "The Next Best Thing",
    "year": 2000,
    "rating": 4.7,
-   "votes": 12146,
-   "score": 5.49230296502369
+   "votes": 12160,
+   "score": 5.491582284053888
   },
   {
    "tconst": "tt0208988",
    "title": "Get Carter",
    "year": 2000,
    "rating": 5.2,
-   "votes": 39488,
-   "score": 5.453522903803238
+   "votes": 39543,
+   "score": 5.453142995269446
   },
   {
    "tconst": "tt0208003",
    "title": "Big Momma's House",
    "year": 2000,
    "rating": 5.3,
-   "votes": 96948,
-   "score": 5.4079622009146
+   "votes": 97042,
+   "score": 5.407821821477871
   },
   {
    "tconst": "tt0134983",
    "title": "Supernova",
    "year": 2000,
    "rating": 4.9,
-   "votes": 21213,
-   "score": 5.39807264484076
+   "votes": 21248,
+   "score": 5.397358660222547
   },
   {
    "tconst": "tt0185431",
    "title": "Little Nicky",
    "year": 2000,
    "rating": 5.3,
-   "votes": 120540,
-   "score": 5.3884506010679845
+   "votes": 120662,
+   "score": 5.388330680799576
   },
   {
    "tconst": "tt0190524",
    "title": "Left Behind: The Movie",
    "year": 2000,
    "rating": 4.4,
-   "votes": 11188,
-   "score": 5.369715945979547
+   "votes": 11199,
+   "score": 5.368982660249737
   },
   {
    "tconst": "tt0205271",
    "title": "Dr. T & the Women",
    "year": 2000,
    "rating": 4.7,
-   "votes": 19848,
-   "score": 5.2878565218243985
+   "votes": 19858,
+   "score": 5.287496262798385
   },
   {
    "tconst": "tt0219653",
    "title": "Dracula 2000",
    "year": 2000,
    "rating": 4.9,
-   "votes": 39106,
-   "score": 5.2165874121984
+   "votes": 39194,
+   "score": 5.215921929801077
   },
   {
    "tconst": "tt0211181",
    "title": "102 Dalmatians",
    "year": 2000,
    "rating": 4.9,
-   "votes": 42304,
-   "score": 5.197230450126465
+   "votes": 42350,
+   "score": 5.196876091970089
   },
   {
    "tconst": "tt0144964",
    "title": "Highlander: Endgame",
    "year": 2000,
    "rating": 4.6,
-   "votes": 22597,
-   "score": 5.168958538007015
+   "votes": 22621,
+   "score": 5.168390405402476
   },
   {
    "tconst": "tt0249380",
    "title": "Fuck Me",
    "year": 2000,
    "rating": 4.5,
-   "votes": 19732,
-   "score": 5.157417646421857
+   "votes": 19755,
+   "score": 5.156745535695989
   },
   {
    "tconst": "tt0196267",
    "title": "Cruel Intentions 2",
    "year": 2000,
    "rating": 4.4,
-   "votes": 17263,
-   "score": 5.153634650017043
+   "votes": 17291,
+   "score": 5.1526826944646285
   },
   {
    "tconst": "tt0192731",
    "title": "Urban Legends: Final Cut",
    "year": 2000,
    "rating": 4.5,
-   "votes": 20451,
-   "score": 5.141894895517869
+   "votes": 20475,
+   "score": 5.141229316312852
   },
   {
    "tconst": "tt0131704",
    "title": "The Adventures of Rocky & Bullwinkle",
    "year": 2000,
    "rating": 4.3,
-   "votes": 22081,
-   "score": 4.9716231246973175
+   "votes": 22103,
+   "score": 4.971010915323619
   },
   {
    "tconst": "tt0144528",
    "title": "Nutty Professor II: The Klumps",
    "year": 2000,
    "rating": 4.5,
-   "votes": 56138,
-   "score": 4.795538744192668
+   "votes": 56199,
+   "score": 4.7951927282078906
   }
  ]
 }

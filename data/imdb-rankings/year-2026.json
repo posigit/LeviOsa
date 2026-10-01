@@ -1,7 +1,7 @@
 {
  "tag": "year-2026",
- "builtAt": "2026-09-15T22:55:48.897Z",
- "mean": 6.225,
+ "builtAt": "2026-10-01T06:19:54.122Z",
+ "mean": 6.251,
  "minVotes": 10000,
  "items": [
   {
@@ -9,976 +9,1056 @@
    "title": "Punjab '95",
    "year": 2026,
    "rating": 8.8,
-   "votes": 106594,
-   "score": 8.579113004437145
+   "votes": 106759,
+   "score": 8.581666302020192
   },
   {
    "tconst": "tt33764258",
    "title": "The Odyssey",
    "year": 2026,
    "rating": 8.4,
-   "votes": 492857,
-   "score": 8.356738996651819
+   "votes": 514803,
+   "score": 8.35904668181694
   },
   {
    "tconst": "tt12042730",
    "title": "Project Hail Mary",
    "year": 2026,
    "rating": 8.2,
-   "votes": 545349,
-   "score": 8.164429397800921
+   "votes": 562343,
+   "score": 8.165942757677783
   },
   {
    "tconst": "tt43383343",
    "title": "BLEACH: Thousand-Year Blood War - The Calamity",
    "year": 2026,
    "rating": 9,
-   "votes": 16978,
-   "score": 7.971232175822681
+   "votes": 17260,
+   "score": 7.991473798883924
   },
   {
    "tconst": "tt39139925",
    "title": "Dhurandhar: The Revenge",
    "year": 2026,
    "rating": 8.2,
-   "votes": 72117,
-   "score": 7.959439600074823
+   "votes": 73011,
+   "score": 7.96518263552512
   },
   {
    "tconst": "tt22084616",
    "title": "Spider-Man: Brand New Day",
    "year": 2026,
    "rating": 8,
-   "votes": 298659,
-   "score": 7.942479894120515
+   "votes": 315325,
+   "score": 7.946230925251904
   },
   {
-   "tconst": "tt36626888",
-   "title": "Ohh My Dog",
+   "tconst": "tt39390582",
+   "title": "Hanuman Ansh",
    "year": 2026,
-   "rating": 8.1,
-   "votes": 16973,
-   "score": 7.404708472893051
+   "rating": 8.6,
+   "votes": 11638,
+   "score": 7.514297798205738
+  },
+  {
+   "tconst": "tt35538033",
+   "title": "Resident Evil",
+   "year": 2026,
+   "rating": 7.6,
+   "votes": 74830,
+   "score": 7.4409474921322145
   },
   {
    "tconst": "tt33100314",
    "title": "Remarkably Bright Creatures",
    "year": 2026,
    "rating": 7.6,
-   "votes": 50373,
-   "score": 7.37218130023925
+   "votes": 52779,
+   "score": 7.385080612268048
   },
   {
-   "tconst": "tt11378946",
-   "title": "Michael",
+   "tconst": "tt36626888",
+   "title": "Ohh My Dog",
    "year": 2026,
-   "rating": 7.4,
-   "votes": 186562,
-   "score": 7.34020157324073
-  },
-  {
-   "tconst": "tt14173636",
-   "title": "The Invite",
-   "year": 2026,
-   "rating": 7.5,
-   "votes": 67626,
-   "score": 7.335698111964345
-  },
-  {
-   "tconst": "tt32565993",
-   "title": "The Sheep Detectives",
-   "year": 2026,
-   "rating": 7.4,
-   "votes": 112725,
-   "score": 7.304224091581538
+   "rating": 8,
+   "votes": 16986,
+   "score": 7.351796329859029
   },
   {
    "tconst": "tt18259538",
    "title": "Avatar Aang: The Last Airbender",
    "year": 2026,
    "rating": 7.7,
-   "votes": 26938,
-   "score": 7.3005712718432045
+   "votes": 28663,
+   "score": 7.325160379628477
   },
   {
-   "tconst": "tt43215564",
-   "title": "Uttar Da Puttar",
-   "year": 2026,
-   "rating": 8.1,
-   "votes": 12665,
-   "score": 7.27255246588768
-  },
-  {
-   "tconst": "tt29355505",
-   "title": "Toy Story 5",
+   "tconst": "tt32565993",
+   "title": "The Sheep Detectives",
    "year": 2026,
    "rating": 7.4,
-   "votes": 80885,
-   "score": 7.2706706457539125
+   "votes": 117699,
+   "score": 7.310003803926231
+  },
+  {
+   "tconst": "tt14173636",
+   "title": "The Invite",
+   "year": 2026,
+   "rating": 7.4,
+   "votes": 77753,
+   "score": 7.269036679744007
   },
   {
    "tconst": "tt37333137",
    "title": "Main Vaapas Aaunga",
    "year": 2026,
    "rating": 8,
-   "votes": 13191,
-   "score": 7.234440155204359
+   "votes": 13680,
+   "score": 7.261299651924653
+  },
+  {
+   "tconst": "tt11378946",
+   "title": "Michael",
+   "year": 2026,
+   "rating": 7.3,
+   "votes": 190965,
+   "score": 7.247789793036477
+  },
+  {
+   "tconst": "tt43215564",
+   "title": "Uttar Da Puttar",
+   "year": 2026,
+   "rating": 8,
+   "votes": 12669,
+   "score": 7.2283548351306095
+  },
+  {
+   "tconst": "tt29355505",
+   "title": "Toy Story 5",
+   "year": 2026,
+   "rating": 7.3,
+   "votes": 91449,
+   "score": 7.1965743945980325
+  },
+  {
+   "tconst": "tt1756855",
+   "title": "Coyote vs. Acme",
+   "year": 2026,
+   "rating": 7.4,
+   "votes": 34459,
+   "score": 7.1415051116214
   },
   {
    "tconst": "tt10375624",
    "title": "Voicemails for Isabelle",
    "year": 2026,
    "rating": 7.3,
-   "votes": 53202,
-   "score": 7.129845600445306
+   "votes": 55375,
+   "score": 7.1395040268845245
   },
   {
    "tconst": "tt32141377",
    "title": "28 Years Later: The Bone Temple",
    "year": 2026,
    "rating": 7.2,
-   "votes": 126699,
-   "score": 7.1286454300276105
-  },
-  {
-   "tconst": "tt1756855",
-   "title": "Coyote vs. Acme",
-   "year": 2026,
-   "rating": 7.5,
-   "votes": 23820,
-   "score": 7.122882957993621
+   "votes": 129295,
+   "score": 7.131853804928935
   },
   {
    "tconst": "tt39122441",
    "title": "Jockey",
    "year": 2026,
    "rating": 7.7,
-   "votes": 14739,
-   "score": 7.103609751378159
+   "votes": 14744,
+   "score": 7.114305518815703
   },
   {
    "tconst": "tt26443616",
    "title": "Hoppers",
    "year": 2026,
    "rating": 7.2,
-   "votes": 85243,
-   "score": 7.09758724147018
-  },
-  {
-   "tconst": "tt33071426",
-   "title": "The Drama",
-   "year": 2026,
-   "rating": 7.1,
-   "votes": 126964,
-   "score": 7.036084676552555
+   "votes": 86968,
+   "score": 7.102107661884084
   },
   {
    "tconst": "tt32547691",
    "title": "Pressure",
    "year": 2026,
    "rating": 7.3,
-   "votes": 28741,
-   "score": 7.022410408594107
+   "votes": 35426,
+   "score": 7.069021612239153
+  },
+  {
+   "tconst": "tt33071426",
+   "title": "The Drama",
+   "year": 2026,
+   "rating": 7.1,
+   "votes": 132635,
+   "score": 7.040460446297022
   },
   {
    "tconst": "tt37809949",
    "title": "Dulhaniya Le Aaeegi",
    "year": 2026,
    "rating": 7.6,
-   "votes": 10587,
-   "score": 6.931903708133496
+   "votes": 10596,
+   "score": 6.944900745658176
+  },
+  {
+   "tconst": "tt33095251",
+   "title": "Tony",
+   "year": 2026,
+   "rating": 7.4,
+   "votes": 14523,
+   "score": 6.93136140592814
   },
   {
    "tconst": "tt29552248",
    "title": "Swapped",
    "year": 2026,
    "rating": 7.2,
-   "votes": 24588,
-   "score": 6.91799183645612
+   "votes": 25058,
+   "score": 6.929236572467791
   },
   {
    "tconst": "tt37971394",
    "title": "Blast",
    "year": 2026,
    "rating": 7.3,
-   "votes": 17341,
-   "score": 6.9066677019620455
-  },
-  {
-   "tconst": "tt27548557",
-   "title": "Dhamaal 4",
-   "year": 2026,
-   "rating": 7,
-   "votes": 38283,
-   "score": 6.839403136494092
+   "votes": 17616,
+   "score": 6.920059956459146
   },
   {
    "tconst": "tt30413898",
    "title": "Dacoit: A Love Story",
    "year": 2026,
    "rating": 7.4,
-   "votes": 10238,
-   "score": 6.819206524327715
+   "votes": 10320,
+   "score": 6.83442794082558
   },
   {
-   "tconst": "tt26657236",
-   "title": "Backrooms",
+   "tconst": "tt7526136",
+   "title": "Heart of the Beast",
    "year": 2026,
-   "rating": 6.8,
-   "votes": 198120,
-   "score": 6.772352016333578
+   "rating": 7.3,
+   "votes": 12492,
+   "score": 6.833504168485496
   },
   {
    "tconst": "tt42863533",
    "title": "Maternal Instinct",
    "year": 2026,
    "rating": 7.2,
-   "votes": 12657,
-   "score": 6.769488530667974
+   "votes": 13014,
+   "score": 6.78753696695819
   },
   {
    "tconst": "tt32642706",
    "title": "The Rip",
    "year": 2026,
    "rating": 6.8,
-   "votes": 146397,
-   "score": 6.763208384044095
+   "votes": 148017,
+   "score": 6.765241561082515
   },
   {
    "tconst": "tt30825738",
    "title": "Star Wars: The Mandalorian and Grogu",
    "year": 2026,
    "rating": 6.8,
-   "votes": 107957,
-   "score": 6.751218678326375
+   "votes": 115455,
+   "score": 6.756219965386599
   },
   {
    "tconst": "tt32430579",
    "title": "Crime 101",
    "year": 2026,
    "rating": 6.8,
-   "votes": 95852,
-   "score": 6.745640154549221
+   "votes": 97444,
+   "score": 6.7488810520603835
   },
   {
-   "tconst": "tt8036976",
-   "title": "Send Help",
+   "tconst": "tt22526100",
+   "title": "The Love Hypothesis",
    "year": 2026,
-   "rating": 6.7,
-   "votes": 154246,
-   "score": 6.671055012842591
-  },
-  {
-   "tconst": "tt39792948",
-   "title": "Louis Theroux: Inside the Manosphere",
-   "year": 2026,
-   "rating": 6.9,
-   "votes": 17974,
-   "score": 6.658558005267187
+   "rating": 7,
+   "votes": 18100,
+   "score": 6.7333656853229815
   },
   {
    "tconst": "tt28014327",
    "title": "Mayday",
    "year": 2026,
    "rating": 6.8,
-   "votes": 27592,
-   "score": 6.6469329016637655
+   "votes": 43010,
+   "score": 6.696388903180075
+  },
+  {
+   "tconst": "tt26657236",
+   "title": "Backrooms",
+   "year": 2026,
+   "rating": 6.7,
+   "votes": 213258,
+   "score": 6.679877880109899
+  },
+  {
+   "tconst": "tt8036976",
+   "title": "Send Help",
+   "year": 2026,
+   "rating": 6.7,
+   "votes": 157301,
+   "score": 6.673147654572153
+  },
+  {
+   "tconst": "tt39792948",
+   "title": "Louis Theroux: Inside the Manosphere",
+   "year": 2026,
+   "rating": 6.9,
+   "votes": 18144,
+   "score": 6.669314090306131
   },
   {
    "tconst": "tt35672862",
    "title": "Hokum",
    "year": 2026,
    "rating": 6.7,
-   "votes": 62549,
-   "score": 6.63447051839921
+   "votes": 65441,
+   "score": 6.640451157296109
+  },
+  {
+   "tconst": "tt27548557",
+   "title": "Dhamaal 4",
+   "year": 2026,
+   "rating": 6.7,
+   "votes": 39064,
+   "score": 6.608437464486707
   },
   {
    "tconst": "tt32104007",
    "title": "Young Washington",
    "year": 2026,
-   "rating": 6.9,
-   "votes": 13476,
-   "score": 6.612297735531789
+   "rating": 6.8,
+   "votes": 14149,
+   "score": 6.572561006980653
   },
   {
    "tconst": "tt31390893",
    "title": "Raja Shivaji",
    "year": 2026,
    "rating": 6.7,
-   "votes": 23724,
-   "score": 6.55902922664406
+   "votes": 23780,
+   "score": 6.56700934747116
   },
   {
    "tconst": "tt22740896",
    "title": "People We Meet on Vacation",
    "year": 2026,
    "rating": 6.6,
-   "votes": 53377,
-   "score": 6.540765603284225
+   "votes": 54258,
+   "score": 6.54564996977148
   },
   {
    "tconst": "tt27613895",
    "title": "GOAT",
    "year": 2026,
    "rating": 6.6,
-   "votes": 31459,
-   "score": 6.509450339838015
+   "votes": 32074,
+   "score": 6.5169932917615565
   },
   {
    "tconst": "tt15574124",
    "title": "Peaky Blinders: The Immortal Man",
    "year": 2026,
    "rating": 6.5,
-   "votes": 89798,
-   "score": 6.472403271000864
+   "votes": 90806,
+   "score": 6.475275040747333
   },
   {
    "tconst": "tt33978029",
    "title": "Ready or Not 2: Here I Come",
    "year": 2026,
    "rating": 6.5,
-   "votes": 74488,
-   "score": 6.467402490760159
+   "votes": 76790,
+   "score": 6.471282126484339
+  },
+  {
+   "tconst": "tt35298123",
+   "title": "Teenage Sex and Death at Camp Miasma",
+   "year": 2026,
+   "rating": 6.6,
+   "votes": 16947,
+   "score": 6.470396547206581
   },
   {
    "tconst": "tt32306991",
    "title": "Solo Mio",
    "year": 2026,
    "rating": 6.6,
-   "votes": 15180,
-   "score": 6.450909517051004
+   "votes": 15593,
+   "score": 6.463539864712061
   },
   {
    "tconst": "tt4357198",
    "title": "How to Make a Killing",
    "year": 2026,
    "rating": 6.5,
-   "votes": 43213,
-   "score": 6.448243880994198
-  },
-  {
-   "tconst": "tt27165187",
-   "title": "The End of Oak Street",
-   "year": 2026,
-   "rating": 6.5,
-   "votes": 39062,
-   "score": 6.443864939043338
-  },
-  {
-   "tconst": "tt35064672",
-   "title": "Cocktail 2",
-   "year": 2026,
-   "rating": 6.5,
-   "votes": 30634,
-   "score": 6.432221825056462
-  },
-  {
-   "tconst": "tt21285562",
-   "title": "The Dog Stars",
-   "year": 2026,
-   "rating": 6.5,
-   "votes": 15497,
-   "score": 6.391983434888194
+   "votes": 44813,
+   "score": 6.454528592807834
   },
   {
    "tconst": "tt34385135",
    "title": "Colony",
    "year": 2026,
    "rating": 6.5,
-   "votes": 15250,
-   "score": 6.3909267975977935
-  },
-  {
-   "tconst": "tt15047880",
-   "title": "Disclosure Day",
-   "year": 2026,
-   "rating": 6.4,
-   "votes": 154560,
-   "score": 6.389340675980459
-  },
-  {
-   "tconst": "tt0427340",
-   "title": "Masters of the Universe",
-   "year": 2026,
-   "rating": 6.4,
-   "votes": 121084,
-   "score": 6.386618516671328
+   "votes": 17164,
+   "score": 6.408245315769982
   },
   {
    "tconst": "tt40792117",
    "title": "The Crash",
    "year": 2026,
    "rating": 6.5,
-   "votes": 13838,
-   "score": 6.384466047459698
+   "votes": 14104,
+   "score": 6.396597069265507
+  },
+  {
+   "tconst": "tt15047880",
+   "title": "Disclosure Day",
+   "year": 2026,
+   "rating": 6.4,
+   "votes": 161115,
+   "score": 6.391278238363533
+  },
+  {
+   "tconst": "tt0427340",
+   "title": "Masters of the Universe",
+   "year": 2026,
+   "rating": 6.4,
+   "votes": 125865,
+   "score": 6.389015388492812
   },
   {
    "tconst": "tt33046197",
    "title": "The Wrecking Crew",
    "year": 2026,
    "rating": 6.4,
-   "votes": 54642,
-   "score": 6.372864416932401
+   "votes": 55282,
+   "score": 6.377138809435615
+  },
+  {
+   "tconst": "tt35064672",
+   "title": "Cocktail 2",
+   "year": 2026,
+   "rating": 6.4,
+   "votes": 30987,
+   "score": 6.363587863409759
   },
   {
    "tconst": "tt39143902",
    "title": "Leviticus",
    "year": 2026,
    "rating": 6.4,
-   "votes": 17066,
-   "score": 6.335191814059864
+   "votes": 18436,
+   "score": 6.347516379152334
   },
   {
-   "tconst": "tt36300841",
-   "title": "Awarapan 2",
+   "tconst": "tt21285562",
+   "title": "The Dog Stars",
    "year": 2026,
    "rating": 6.4,
-   "votes": 12503,
-   "score": 6.3220504661309285
+   "votes": 17225,
+   "score": 6.345181846008293
   },
   {
    "tconst": "tt15940132",
    "title": "War Machine",
    "year": 2026,
    "rating": 6.3,
-   "votes": 118417,
-   "score": 6.2941277372882425
+   "votes": 120412,
+   "score": 6.296224087948776
   },
   {
    "tconst": "tt33612209",
    "title": "The Devil Wears Prada 2",
    "year": 2026,
    "rating": 6.3,
-   "votes": 113574,
-   "score": 6.293897596900191
+   "votes": 117510,
+   "score": 6.296138151969067
   },
   {
    "tconst": "tt17490712",
    "title": "Mortal Kombat II",
    "year": 2026,
    "rating": 6.3,
-   "votes": 89240,
-   "score": 6.292401266015158
+   "votes": 91872,
+   "score": 6.295166245460733
   },
   {
    "tconst": "tt28650488",
    "title": "The Super Mario Galaxy Movie",
    "year": 2026,
    "rating": 6.3,
-   "votes": 74471,
-   "score": 6.2910726952367595
+   "votes": 75749,
+   "score": 6.294257376267662
   },
   {
    "tconst": "tt31728330",
    "title": "They Will Kill You",
    "year": 2026,
    "rating": 6.3,
-   "votes": 51742,
-   "score": 6.287786298457197
-  },
-  {
-   "tconst": "tt31170389",
-   "title": "Evil Dead Burn",
-   "year": 2026,
-   "rating": 6.3,
-   "votes": 46051,
-   "score": 6.286546210403816
+   "votes": 53158,
+   "score": 6.29220329582279
   },
   {
    "tconst": "tt27681354",
    "title": "In the Grey",
    "year": 2026,
    "rating": 6.3,
-   "votes": 43583,
-   "score": 6.2859265371357385
+   "votes": 50044,
+   "score": 6.291798943401101
+  },
+  {
+   "tconst": "tt31170389",
+   "title": "Evil Dead Burn",
+   "year": 2026,
+   "rating": 6.3,
+   "votes": 49624,
+   "score": 6.291741173983224
   },
   {
    "tconst": "tt34685692",
    "title": "Over Your Dead Body",
    "year": 2026,
    "rating": 6.3,
-   "votes": 34474,
-   "score": 6.283044062583628
+   "votes": 35743,
+   "score": 6.289234981474231
   },
   {
    "tconst": "tt32890033",
    "title": "Minions & Monsters",
    "year": 2026,
    "rating": 6.3,
-   "votes": 31945,
-   "score": 6.2820217341600735
+   "votes": 33651,
+   "score": 6.288719061592536
   },
   {
    "tconst": "tt33714084",
    "title": "Reminders of Him",
    "year": 2026,
    "rating": 6.3,
-   "votes": 12584,
-   "score": 6.266609176379042
+   "votes": 12986,
+   "score": 6.278577210370477
+  },
+  {
+   "tconst": "tt32588798",
+   "title": "Practical Magic 2",
+   "year": 2026,
+   "rating": 6.3,
+   "votes": 10448,
+   "score": 6.2759182197562495
+  },
+  {
+   "tconst": "tt36300841",
+   "title": "Awarapan 2",
+   "year": 2026,
+   "rating": 6.2,
+   "votes": 12986,
+   "score": 6.222081952387357
   },
   {
    "tconst": "tt39316472",
    "title": "Jackass: Best and Last",
    "year": 2026,
    "rating": 6.2,
-   "votes": 12390,
-   "score": 6.210982654727301
+   "votes": 13449,
+   "score": 6.2216459447130275
+  },
+  {
+   "tconst": "tt6933238",
+   "title": "Unabomber",
+   "year": 2026,
+   "rating": 6.2,
+   "votes": 13745,
+   "score": 6.221376111079207
   },
   {
    "tconst": "tt32393988",
    "title": "Insidious: Out of the Further",
    "year": 2026,
    "rating": 6.2,
-   "votes": 14628,
-   "score": 6.209984636971914
+   "votes": 16629,
+   "score": 6.219061014592204
   },
   {
    "tconst": "tt27552099",
    "title": "Mike & Nick & Nick & Alice",
    "year": 2026,
    "rating": 6.2,
-   "votes": 26237,
-   "score": 6.206785927073001
+   "votes": 26713,
+   "score": 6.213825504796007
   },
   {
    "tconst": "tt11561116",
    "title": "The Whisper Man",
    "year": 2026,
    "rating": 6.2,
-   "votes": 48003,
-   "score": 6.204239464154341
+   "votes": 59995,
+   "score": 6.207251600222527
+  },
+  {
+   "tconst": "tt27165187",
+   "title": "The End of Oak Street",
+   "year": 2026,
+   "rating": 6.2,
+   "votes": 69507,
+   "score": 6.2063840386076174
   },
   {
    "tconst": "tt31050594",
    "title": "Mercy",
    "year": 2026,
    "rating": 6.2,
-   "votes": 81950,
-   "score": 6.202674297328378
-  },
-  {
-   "tconst": "tt37853455",
-   "title": "One Night Only",
-   "year": 2026,
-   "rating": 6.1,
-   "votes": 10077,
-   "score": 6.162056165729156
+   "votes": 82964,
+   "score": 6.205459917361299
   },
   {
    "tconst": "tt33499146",
    "title": "The Dink",
    "year": 2026,
    "rating": 6.1,
-   "votes": 10945,
-   "score": 6.159484442078981
+   "votes": 11608,
+   "score": 6.169769333467964
   },
   {
    "tconst": "tt33988385",
    "title": "Karuppu",
    "year": 2026,
    "rating": 6.1,
-   "votes": 11530,
-   "score": 6.15786816717809
+   "votes": 11749,
+   "score": 6.169317014923711
   },
   {
    "tconst": "tt15464188",
    "title": "Ikkis",
    "year": 2026,
    "rating": 6.1,
-   "votes": 26874,
-   "score": 6.1337880793877595
+   "votes": 26896,
+   "score": 6.140860140870982
   },
   {
    "tconst": "tt32357218",
    "title": "Shelter",
    "year": 2026,
    "rating": 6.1,
-   "votes": 48065,
-   "score": 6.121457016091351
-  },
-  {
-   "tconst": "tt32612507",
-   "title": "Lee Cronin's The Mummy",
-   "year": 2026,
-   "rating": 6.1,
-   "votes": 71725,
-   "score": 6.1152450491201495
-  },
-  {
-   "tconst": "tt32897959",
-   "title": "Wuthering Heights",
-   "year": 2026,
-   "rating": 6.1,
-   "votes": 91750,
-   "score": 6.112244733556209
-  },
-  {
-   "tconst": "tt16431404",
-   "title": "Apex",
-   "year": 2026,
-   "rating": 6.1,
-   "votes": 109405,
-   "score": 6.110434250151536
+   "votes": 49219,
+   "score": 6.125457636190678
   },
   {
    "tconst": "tt27673536",
    "title": "Mardaani 3",
    "year": 2026,
    "rating": 6,
-   "votes": 11160,
-   "score": 6.106139018872604
+   "votes": 11200,
+   "score": 6.118281875357348
+  },
+  {
+   "tconst": "tt32612507",
+   "title": "Lee Cronin's The Mummy",
+   "year": 2026,
+   "rating": 6.1,
+   "votes": 73783,
+   "score": 6.117993814468039
+  },
+  {
+   "tconst": "tt32897959",
+   "title": "Wuthering Heights",
+   "year": 2026,
+   "rating": 6.1,
+   "votes": 93309,
+   "score": 6.114592879202932
+  },
+  {
+   "tconst": "tt16431404",
+   "title": "Apex",
+   "year": 2026,
+   "rating": 6.1,
+   "votes": 110886,
+   "score": 6.11247105336909
   },
   {
    "tconst": "tt31852278",
    "title": "Subedaar",
    "year": 2026,
    "rating": 6,
-   "votes": 13903,
-   "score": 6.093958985873918
+   "votes": 13931,
+   "score": 6.104783576013363
+  },
+  {
+   "tconst": "tt37853455",
+   "title": "One Night Only",
+   "year": 2026,
+   "rating": 6,
+   "votes": 14241,
+   "score": 6.103443577310168
   },
   {
    "tconst": "tt32273171",
    "title": "The Death of Robin Hood",
    "year": 2026,
    "rating": 6,
-   "votes": 19118,
-   "score": 6.077131040570928
-  },
-  {
-   "tconst": "tt8879928",
-   "title": "Cold Storage",
-   "year": 2026,
-   "rating": 6,
-   "votes": 29317,
-   "score": 6.057122914753015
+   "votes": 20826,
+   "score": 6.081346128514104
   },
   {
    "tconst": "tt37209937",
    "title": "Pizza Movie",
    "year": 2026,
    "rating": 5.9,
-   "votes": 11309,
-   "score": 6.052325385487084
+   "votes": 11489,
+   "score": 6.063226569760147
+  },
+  {
+   "tconst": "tt8879928",
+   "title": "Cold Storage",
+   "year": 2026,
+   "rating": 6,
+   "votes": 30028,
+   "score": 6.062645542059953
   },
   {
    "tconst": "tt14619456",
    "title": "Faces of Death",
    "year": 2026,
    "rating": 5.8,
-   "votes": 10585,
-   "score": 6.006261920784274
+   "votes": 10962,
+   "score": 6.015035576642294
+  },
+  {
+   "tconst": "tt37540875",
+   "title": "Roommates",
+   "year": 2026,
+   "rating": 5.7,
+   "votes": 10050,
+   "score": 5.974692057734453
   },
   {
    "tconst": "tt26678938",
    "title": "Pretty Lethal",
    "year": 2026,
    "rating": 5.8,
-   "votes": 15990,
-   "score": 5.963366742568075
+   "votes": 16202,
+   "score": 5.972031744049148
   },
   {
    "tconst": "tt27419466",
    "title": "Moana",
    "year": 2026,
    "rating": 5.8,
-   "votes": 16380,
-   "score": 5.960951540536174
+   "votes": 18513,
+   "score": 5.958088442379818
   },
   {
    "tconst": "tt14181714",
    "title": "The Bluff",
    "year": 2026,
    "rating": 5.8,
-   "votes": 19689,
-   "score": 5.943012618792963
+   "votes": 19886,
+   "score": 5.950825662771056
   },
   {
    "tconst": "tt30387012",
    "title": "Border 2",
    "year": 2026,
    "rating": 5.8,
-   "votes": 21358,
-   "score": 5.935400906924685
+   "votes": 21418,
+   "score": 5.943471123482583
   },
   {
    "tconst": "tt33397980",
    "title": "Office Romance",
    "year": 2026,
    "rating": 5.8,
-   "votes": 24008,
-   "score": 5.9248500834904805
+   "votes": 24477,
+   "score": 5.930741530805342
   },
   {
    "tconst": "tt27564844",
    "title": "Iron Lung",
    "year": 2026,
    "rating": 5.8,
-   "votes": 32102,
-   "score": 5.90084797965285
+   "votes": 32535,
+   "score": 5.905973333903274
   },
   {
    "tconst": "tt34611082",
    "title": "Ladies First",
    "year": 2026,
    "rating": 5.8,
-   "votes": 36829,
-   "score": 5.890668210710121
-  },
-  {
-   "tconst": "tt35309713",
-   "title": "Citizen Vigilante",
-   "year": 2026,
-   "rating": 5.8,
-   "votes": 37576,
-   "score": 5.889244611555076
+   "votes": 37679,
+   "score": 5.894540064967297
   },
   {
    "tconst": "tt32338669",
    "title": "Mutiny",
    "year": 2026,
    "rating": 5.7,
-   "votes": 19438,
-   "score": 5.8782016998214655
-  },
-  {
-   "tconst": "tt41110859",
-   "title": "Aakhri Sawal",
-   "year": 2026,
-   "rating": 5.6,
-   "votes": 13182,
-   "score": 5.869428937940828
+   "votes": 22514,
+   "score": 5.869390901075715
   },
   {
    "tconst": "tt8814476",
    "title": "Supergirl",
    "year": 2026,
    "rating": 5.8,
-   "votes": 97248,
-   "score": 5.839589564741015
+   "votes": 109251,
+   "score": 5.8377990604487655
   },
   {
    "tconst": "tt32278481",
    "title": "Enola Holmes 3",
    "year": 2026,
    "rating": 5.7,
-   "votes": 31187,
-   "score": 5.827367898592864
+   "votes": 32214,
+   "score": 5.830467990656554
   },
   {
    "tconst": "tt34378301",
    "title": "Tom Clancy's Jack Ryan: Ghost War",
    "year": 2026,
    "rating": 5.7,
-   "votes": 33165,
-   "score": 5.821531371234665
+   "votes": 33715,
+   "score": 5.825988236476627
+  },
+  {
+   "tconst": "tt41110859",
+   "title": "Aakhri Sawal",
+   "year": 2026,
+   "rating": 5.5,
+   "votes": 13214,
+   "score": 5.82340724380011
+  },
+  {
+   "tconst": "tt35309713",
+   "title": "Citizen Vigilante",
+   "year": 2026,
+   "rating": 5.7,
+   "votes": 38372,
+   "score": 5.8138587562551844
   },
   {
    "tconst": "tt27200708",
    "title": "Mother Mary",
    "year": 2026,
    "rating": 5.4,
-   "votes": 10434,
-   "score": 5.8035383008390085
+   "votes": 10984,
+   "score": 5.805431555355308
   },
   {
    "tconst": "tt34888871",
    "title": "Little Brother",
    "year": 2026,
    "rating": 5.5,
-   "votes": 14968,
-   "score": 5.790207531213724
+   "votes": 15365,
+   "score": 5.79598169751925
   },
   {
    "tconst": "tt29516222",
    "title": "Deep Water",
    "year": 2026,
    "rating": 5.4,
-   "votes": 12097,
-   "score": 5.773168377578146
+   "votes": 12681,
+   "score": 5.775097030888223
   },
   {
    "tconst": "tt30851137",
    "title": "The Bride!",
    "year": 2026,
    "rating": 5.6,
-   "votes": 38095,
-   "score": 5.729865924510744
+   "votes": 38724,
+   "score": 5.733559965470318
   },
   {
    "tconst": "tt33763941",
    "title": "Passenger",
    "year": 2026,
    "rating": 5.5,
-   "votes": 21829,
-   "score": 5.727650935918322
+   "votes": 23340,
+   "score": 5.725182236280017
   },
   {
    "tconst": "tt36304003",
    "title": "72 Hours",
    "year": 2026,
    "rating": 5.4,
-   "votes": 22224,
-   "score": 5.655893174011428
+   "votes": 23179,
+   "score": 5.656414471731391
   },
   {
    "tconst": "tt32268156",
    "title": "The Last House",
    "year": 2026,
    "rating": 5.5,
-   "votes": 57791,
-   "score": 5.606885893988056
+   "votes": 61143,
+   "score": 5.605527961395721
   },
   {
    "tconst": "tt27047903",
    "title": "Scream 7",
    "year": 2026,
    "rating": 5.5,
-   "votes": 66807,
-   "score": 5.594339078981659
+   "votes": 68190,
+   "score": 5.5960170834835115
   },
   {
    "tconst": "tt33088887",
    "title": "Hotspot 2 Much",
    "year": 2026,
    "rating": 5,
-   "votes": 13587,
-   "score": 5.519180126312981
+   "votes": 13596,
+   "score": 5.530071866315298
   },
   {
    "tconst": "tt31969779",
    "title": "O' Romeo",
    "year": 2026,
    "rating": 5.2,
-   "votes": 24135,
-   "score": 5.500158243425934
+   "votes": 24168,
+   "score": 5.507526801614838
   },
   {
    "tconst": "tt14850054",
    "title": "Greenland 2: Migration",
    "year": 2026,
    "rating": 5.2,
-   "votes": 48501,
-   "score": 5.37514062390975
+   "votes": 49265,
+   "score": 5.377298165149343
   },
   {
    "tconst": "tt29540862",
    "title": "Bhooth Bangla",
    "year": 2026,
    "rating": 5,
-   "votes": 24253,
-   "score": 5.35751325838158
+   "votes": 24362,
+   "score": 5.363994405377329
   },
   {
    "tconst": "tt26735622",
    "title": "Balls Up",
    "year": 2026,
    "rating": 4.7,
-   "votes": 15661,
-   "score": 5.2941273387375505
-  },
-  {
-   "tconst": "tt36958312",
-   "title": "The Devil's Mouth",
-   "year": 2026,
-   "rating": 4.7,
-   "votes": 15930,
-   "score": 5.287963811775715
+   "votes": 15909,
+   "score": 5.298540111836651
   },
   {
    "tconst": "tt32362890",
    "title": "Thrash",
    "year": 2026,
    "rating": 5,
-   "votes": 33469,
-   "score": 5.281715743158211
+   "votes": 33884,
+   "score": 5.285014487229418
+  },
+  {
+   "tconst": "tt36958312",
+   "title": "The Devil's Mouth",
+   "year": 2026,
+   "rating": 4.7,
+   "votes": 16527,
+   "score": 5.284595911998181
   },
   {
    "tconst": "tt23724682",
    "title": "Outcome",
    "year": 2026,
    "rating": 4.5,
-   "votes": 12229,
-   "score": 5.2758289459419805
+   "votes": 12369,
+   "score": 5.282671364726889
+  },
+  {
+   "tconst": "tt16478058",
+   "title": "Best of the Best",
+   "year": 2026,
+   "rating": 4.9,
+   "votes": 26311,
+   "score": 5.271996798699452
   },
   {
    "tconst": "tt32093575",
    "title": "Scary Movie",
    "year": 2026,
    "rating": 4.8,
-   "votes": 56250,
-   "score": 5.015032477575008
+   "votes": 59795,
+   "score": 5.007859814565165
   },
   {
    "tconst": "tt30447822",
    "title": "Hai Jawani Toh Ishq Hona Hai",
    "year": 2026,
    "rating": 4,
-   "votes": 12969,
-   "score": 4.968518509266589
+   "votes": 13035,
+   "score": 4.97710335392124
   },
   {
    "tconst": "tt34564059",
    "title": "The Runner",
    "year": 2026,
-   "rating": 4.1,
-   "votes": 17600,
-   "score": 4.869779044903778
+   "rating": 4.2,
+   "votes": 22342,
+   "score": 4.834084959420437
   },
   {
    "tconst": "tt22868010",
    "title": "Return to Silent Hill",
    "year": 2026,
    "rating": 4,
-   "votes": 25407,
-   "score": 4.628291062200815
+   "votes": 26011,
+   "score": 4.625019459542244
   },
   {
    "tconst": "tt28540171",
    "title": "Welcome to the Jungle",
    "year": 2026,
    "rating": 3.9,
-   "votes": 23349,
-   "score": 4.597049435945435
+   "votes": 23636,
+   "score": 4.598881429348786
   },
   {
    "tconst": "tt27530512",
    "title": "Toxic",
    "year": 2026,
    "rating": 4,
-   "votes": 28108,
-   "score": 4.58375935864764
+   "votes": 28696,
+   "score": 4.581651223836463
   },
   {
    "tconst": "tt23790696",
    "title": "The Raja Saab",
    "year": 2026,
    "rating": 3.1,
-   "votes": 12099,
-   "score": 4.513905680770364
+   "votes": 12152,
+   "score": 4.522335489236898
   },
   {
    "tconst": "tt39328471",
    "title": "Shatak",
    "year": 2026,
    "rating": 3.4,
-   "votes": 20388,
-   "score": 4.329508412509684
+   "votes": 20394,
+   "score": 4.337934321167854
   },
   {
    "tconst": "tt28363783",
    "title": "Alpha",
    "year": 2026,
-   "rating": 3.5,
-   "votes": 27346,
-   "score": 4.229553409718425
+   "rating": 3.6,
+   "votes": 27934,
+   "score": 4.298781456149517
   },
   {
    "tconst": "tt35291758",
    "title": "Melania",
    "year": 2026,
    "rating": 1.6,
-   "votes": 69560,
-   "score": 2.1812707596699887
+   "votes": 69637,
+   "score": 2.183994572341698
   }
  ]
 }

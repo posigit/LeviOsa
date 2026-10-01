@@ -1,6 +1,6 @@
 {
  "tag": "year-1978",
- "builtAt": "2026-09-15T22:46:38.707Z",
+ "builtAt": "2026-10-01T06:19:54.122Z",
  "mean": 6.399,
  "minVotes": 1000,
  "items": [
@@ -9,112 +9,112 @@
    "title": "Happy Days",
    "year": 1978,
    "rating": 8.7,
-   "votes": 13211,
-   "score": 8.53809609974452
+   "votes": 13237,
+   "score": 8.53836310389858
   },
   {
    "tconst": "tt0252597",
    "title": "Feyzo, the Polite One",
    "year": 1978,
    "rating": 8.6,
-   "votes": 18868,
-   "score": 8.489228089061275
+   "votes": 18894,
+   "score": 8.48935234292772
   },
   {
    "tconst": "tt0077416",
    "title": "The Deer Hunter",
    "year": 1978,
    "rating": 8.1,
-   "votes": 389527,
-   "score": 8.095644817575915
+   "votes": 390102,
+   "score": 8.095650176962032
   },
   {
    "tconst": "tt0077711",
    "title": "Autumn Sonata",
    "year": 1978,
    "rating": 8.1,
-   "votes": 43429,
-   "score": 8.061718329772656
+   "votes": 43626,
+   "score": 8.061878176628065
   },
   {
    "tconst": "tt0077838",
    "title": "The Last Waltz",
    "year": 1978,
    "rating": 8.1,
-   "votes": 22441,
-   "score": 8.027442671962346
+   "votes": 22493,
+   "score": 8.027585898361387
   },
   {
    "tconst": "tt0078355",
    "title": "The Herd",
    "year": 1978,
    "rating": 8.1,
-   "votes": 5773,
-   "score": 7.848882869255778
+   "votes": 5784,
+   "score": 7.849229880631498
   },
   {
    "tconst": "tt0077402",
    "title": "Dawn of the Dead",
    "year": 1978,
    "rating": 7.8,
-   "votes": 137588,
-   "score": 7.789892224965144
+   "votes": 137751,
+   "score": 7.789901157542677
   },
   {
    "tconst": "tt0077651",
    "title": "Halloween",
    "year": 1978,
    "rating": 7.7,
-   "votes": 342995,
-   "score": 7.696218502226688
+   "votes": 343817,
+   "score": 7.696226333128019
   },
   {
    "tconst": "tt0077405",
    "title": "Days of Heaven",
    "year": 1978,
    "rating": 7.7,
-   "votes": 69987,
-   "score": 7.681675288059354
+   "votes": 70117,
+   "score": 7.681703045828762
   },
   {
    "tconst": "tt0077138",
    "title": "The Tree of Wooden Clogs",
    "year": 1978,
    "rating": 7.8,
-   "votes": 9524,
-   "score": 7.666893165475996
+   "votes": 9551,
+   "score": 7.667195100957642
   },
   {
    "tconst": "tt0077451",
    "title": "Don",
    "year": 1978,
    "rating": 7.7,
-   "votes": 13610,
-   "score": 7.610963974912346
+   "votes": 13623,
+   "score": 7.611015216453811
   },
   {
    "tconst": "tt0078299",
    "title": "Desiderium",
    "year": 1978,
    "rating": 8.1,
-   "votes": 2374,
-   "score": 7.595905060305094
+   "votes": 2375,
+   "score": 7.595933484504913
   },
   {
    "tconst": "tt0078243",
    "title": "The 36th Chamber of Shaolin",
    "year": 1978,
    "rating": 7.6,
-   "votes": 20727,
-   "score": 7.544731609217536
+   "votes": 20755,
+   "score": 7.544783981163138
   },
   {
    "tconst": "tt0253970",
    "title": "Man Number 100",
    "year": 1978,
    "rating": 7.7,
-   "votes": 6699,
-   "score": 7.531040871992387
+   "votes": 6716,
+   "score": 7.531360226827901
   },
   {
    "tconst": "tt0189154",
@@ -122,615 +122,615 @@
    "year": 1978,
    "rating": 8.4,
    "votes": 1293,
-   "score": 7.527424192529171
+   "score": 7.52724618848848
   },
   {
    "tconst": "tt0077928",
    "title": "Midnight Express",
    "year": 1978,
    "rating": 7.5,
-   "votes": 95740,
-   "score": 7.488620877335842
+   "votes": 95902,
+   "score": 7.488635688739181
   },
   {
    "tconst": "tt0078480",
    "title": "Watership Down",
    "year": 1978,
    "rating": 7.5,
-   "votes": 43847,
-   "score": 7.47545395842463
+   "votes": 43917,
+   "score": 7.47548312465668
   },
   {
    "tconst": "tt0077248",
    "title": "Blue Collar",
    "year": 1978,
    "rating": 7.5,
-   "votes": 12314,
-   "score": 7.417318887897656
+   "votes": 12348,
+   "score": 7.417498914459401
   },
   {
    "tconst": "tt0078346",
    "title": "Superman",
    "year": 1978,
    "rating": 7.4,
-   "votes": 208906,
-   "score": 7.395232073754297
+   "votes": 209174,
+   "score": 7.395236211473371
   },
   {
    "tconst": "tt0077975",
    "title": "National Lampoon's Animal House",
    "year": 1978,
    "rating": 7.4,
-   "votes": 136848,
-   "score": 7.392739710938639
+   "votes": 136978,
+   "score": 7.392743593255476
   },
   {
    "tconst": "tt0077745",
    "title": "Invasion of the Body Snatchers",
    "year": 1978,
    "rating": 7.4,
-   "votes": 83319,
-   "score": 7.38813059539925
+   "votes": 83470,
+   "score": 7.388146981297551
   },
   {
    "tconst": "tt0080179",
    "title": "Drunken Master",
    "year": 1978,
    "rating": 7.4,
-   "votes": 48375,
-   "score": 7.379730302247482
-  },
-  {
-   "tconst": "tt0235609",
-   "title": "Mullum Malarum",
-   "year": 1978,
-   "rating": 8.2,
-   "votes": 1164,
-   "score": 7.367829793654985
+   "votes": 48449,
+   "score": 7.379752381447635
   },
   {
    "tconst": "tt0156079",
    "title": "Sigappu Rojakkal",
    "year": 1978,
    "rating": 7.8,
-   "votes": 2241,
-   "score": 7.36778268234168
+   "votes": 2245,
+   "score": 7.368189679569824
+  },
+  {
+   "tconst": "tt0235609",
+   "title": "Mullum Malarum",
+   "year": 1978,
+   "rating": 8.2,
+   "votes": 1165,
+   "score": 7.368025639817127
   },
   {
    "tconst": "tt0078326",
    "title": "Straight Time",
    "year": 1978,
    "rating": 7.4,
-   "votes": 11574,
-   "score": 7.320405891002815
+   "votes": 11640,
+   "score": 7.320789201756653
   },
   {
    "tconst": "tt0253143",
    "title": "Inek Saban",
    "year": 1978,
    "rating": 7.5,
-   "votes": 4969,
-   "score": 7.315577764025698
+   "votes": 4984,
+   "score": 7.315971843282768
   },
   {
    "tconst": "tt0078269",
    "title": "The Silent Partner",
    "year": 1978,
    "rating": 7.4,
-   "votes": 9389,
-   "score": 7.303665768935353
+   "votes": 9412,
+   "score": 7.303839369016912
   },
   {
    "tconst": "tt0264051",
    "title": "Sultan",
    "year": 1978,
    "rating": 7.5,
-   "votes": 4255,
-   "score": 7.290520204275811
+   "votes": 4264,
+   "score": 7.290800818807766
   },
   {
    "tconst": "tt0078418",
    "title": "Trishul",
    "year": 1978,
    "rating": 7.6,
-   "votes": 2852,
-   "score": 7.2882615974738805
+   "votes": 2857,
+   "score": 7.288559893752678
   },
   {
    "tconst": "tt0077413",
    "title": "Death on the Nile",
    "year": 1978,
    "rating": 7.3,
-   "votes": 45153,
-   "score": 7.280481955094347
+   "votes": 45258,
+   "score": 7.280517435042675
   },
   {
    "tconst": "tt0077362",
    "title": "Coming Home",
    "year": 1978,
    "rating": 7.3,
-   "votes": 16114,
-   "score": 7.247363776643064
+   "votes": 16135,
+   "score": 7.247404465141761
   },
   {
    "tconst": "tt0078252",
    "title": "Snake in the Eagle's Shadow",
    "year": 1978,
    "rating": 7.3,
-   "votes": 14317,
-   "score": 7.241188462066292
+   "votes": 14347,
+   "score": 7.241276830012645
   },
   {
    "tconst": "tt0080172",
    "title": "Heroes of the East",
    "year": 1978,
    "rating": 7.5,
-   "votes": 3158,
-   "score": 7.235253408722796
+   "votes": 3162,
+   "score": 7.235409781404153
   },
   {
    "tconst": "tt0077631",
    "title": "Grease",
    "year": 1978,
    "rating": 7.2,
-   "votes": 329990,
-   "score": 7.197580542232301
+   "votes": 330482,
+   "score": 7.197582901968144
   },
   {
    "tconst": "tt0077598",
    "title": "Gates of Heaven",
    "year": 1978,
    "rating": 7.3,
-   "votes": 6700,
-   "score": 7.183010866684335
+   "votes": 6717,
+   "score": 7.183215693948955
   },
   {
    "tconst": "tt0079590",
    "title": "Muqaddar Ka Sikandar",
    "year": 1978,
    "rating": 7.4,
-   "votes": 3384,
-   "score": 7.1717116043497695
+   "votes": 3391,
+   "score": 7.171982580324318
   },
   {
    "tconst": "tt0077742",
    "title": "Interiors",
    "year": 1978,
    "rating": 7.2,
-   "votes": 22675,
-   "score": 7.1661746007801215
+   "votes": 22700,
+   "score": 7.166193059502281
   },
   {
    "tconst": "tt0077729",
    "title": "In a Year with 13 Moons",
    "year": 1978,
    "rating": 7.3,
-   "votes": 5237,
-   "score": 7.15556897121523
+   "votes": 5248,
+   "score": 7.155757924168387
   },
   {
    "tconst": "tt0077350",
    "title": "What Will You Do When You Catch Me?",
    "year": 1978,
    "rating": 7.5,
-   "votes": 2166,
-   "score": 7.15230059174649
+   "votes": 2168,
+   "score": 7.152391259534117
   },
   {
    "tconst": "tt0077288",
    "title": "La Cage aux Folles",
    "year": 1978,
    "rating": 7.2,
-   "votes": 13316,
-   "score": 7.144061446875481
+   "votes": 13356,
+   "score": 7.144188876442191
   },
   {
    "tconst": "tt0077280",
    "title": "The Buddy Holly Story",
    "year": 1978,
    "rating": 7.2,
-   "votes": 11008,
-   "score": 7.133309766278264
+   "votes": 11026,
+   "score": 7.133375645285555
   },
   {
    "tconst": "tt0078084",
    "title": "The Adventures of Picasso",
    "year": 1978,
    "rating": 7.3,
-   "votes": 4275,
-   "score": 7.129229132411258
+   "votes": 4284,
+   "score": 7.129442753634384
   },
   {
    "tconst": "tt0289968",
    "title": "The Chaos Class Is Fretting Over",
    "year": 1978,
    "rating": 7.2,
-   "votes": 9905,
-   "score": 7.126564298346574
+   "votes": 9921,
+   "score": 7.1266345124259765
   },
   {
    "tconst": "tt0078054",
    "title": "Beauty and the Beast",
    "year": 1978,
    "rating": 7.4,
-   "votes": 2602,
-   "score": 7.122149826060352
+   "votes": 2621,
+   "score": 7.123495031815544
   },
   {
    "tconst": "tt0076336",
    "title": "The Place Without Limits",
    "year": 1978,
    "rating": 7.5,
-   "votes": 1902,
-   "score": 7.120669770320257
+   "votes": 1910,
+   "score": 7.121572340276318
   },
   {
    "tconst": "tt0076263",
    "title": "Killer of Sheep",
    "year": 1978,
    "rating": 7.2,
-   "votes": 8775,
-   "score": 7.1180750561094
+   "votes": 8797,
+   "score": 7.118217363499447
   },
   {
    "tconst": "tt0183459",
    "title": "The Mine",
    "year": 1978,
    "rating": 7.5,
-   "votes": 1867,
-   "score": 7.1160389513321896
+   "votes": 1873,
+   "score": 7.116698750506119
   },
   {
    "tconst": "tt0079815",
    "title": "Rockers",
    "year": 1978,
    "rating": 7.4,
-   "votes": 2438,
-   "score": 7.108895774714773
+   "votes": 2443,
+   "score": 7.109199973919281
   },
   {
    "tconst": "tt0078199",
    "title": "Same Time, Next Year",
    "year": 1978,
    "rating": 7.2,
-   "votes": 7547,
-   "score": 7.106304396100314
+   "votes": 7563,
+   "score": 7.106431800794591
   },
   {
    "tconst": "tt0075633",
    "title": "Adela Has Not Had Supper Yet",
    "year": 1978,
    "rating": 7.4,
-   "votes": 2341,
-   "score": 7.1004440806553095
-  },
-  {
-   "tconst": "tt0078444",
-   "title": "An Unmarried Woman",
-   "year": 1978,
-   "rating": 7.2,
-   "votes": 6994,
-   "score": 7.099822826303401
+   "votes": 2348,
+   "score": 7.100948479750324
   },
   {
    "tconst": "tt0077292",
    "title": "Crippled Avengers",
    "year": 1978,
    "rating": 7.3,
-   "votes": 3500,
-   "score": 7.099818594104309
+   "votes": 3511,
+   "score": 7.100216251430743
+  },
+  {
+   "tconst": "tt0078444",
+   "title": "An Unmarried Woman",
+   "year": 1978,
+   "rating": 7.2,
+   "votes": 7008,
+   "score": 7.099946991783726
   },
   {
    "tconst": "tt0077474",
    "title": "The Driver",
    "year": 1978,
    "rating": 7.1,
-   "votes": 22023,
-   "score": 7.069560164768683
+   "votes": 22072,
+   "score": 7.069607121628124
   },
   {
    "tconst": "tt0077318",
    "title": "The Chant of Jimmie Blacksmith",
    "year": 1978,
    "rating": 7.3,
-   "votes": 2862,
-   "score": 7.066748750251007
+   "votes": 2867,
+   "score": 7.066944791881065
   },
   {
    "tconst": "tt0078152",
    "title": "Meetings with Anna",
    "year": 1978,
    "rating": 7.3,
-   "votes": 2723,
-   "score": 7.0580402023823225
+   "votes": 2731,
+   "score": 7.058449614099191
   },
   {
    "tconst": "tt0076551",
    "title": "Po semeynym obstoyatelstvam",
    "year": 1978,
    "rating": 7.6,
-   "votes": 1207,
-   "score": 7.0559056064655135
+   "votes": 1212,
+   "score": 7.056950953980146
   },
   {
    "tconst": "tt0076001",
    "title": "La escopeta nacional",
    "year": 1978,
    "rating": 7.3,
-   "votes": 2556,
-   "score": 7.046677073529073
+   "votes": 2562,
+   "score": 7.046989194330175
   },
   {
    "tconst": "tt0078058",
    "title": "Odds and Evens",
    "year": 1978,
    "rating": 7.1,
-   "votes": 11315,
-   "score": 7.043092462319885
+   "votes": 11334,
+   "score": 7.043147033420146
   },
   {
    "tconst": "tt0075811",
    "title": "The Sorcerer's Apprentice",
    "year": 1978,
    "rating": 7.5,
-   "votes": 1355,
-   "score": 7.0325620694137525
+   "votes": 1358,
+   "score": 7.032983676931333
   },
   {
    "tconst": "tt0077613",
    "title": "Girlfriends",
    "year": 1978,
    "rating": 7.2,
-   "votes": 3708,
-   "score": 7.029903074228842
+   "votes": 3720,
+   "score": 7.030249048772051
   },
   {
    "tconst": "tt0077235",
    "title": "Big Wednesday",
    "year": 1978,
    "rating": 7.1,
-   "votes": 8176,
-   "score": 7.023625073394658
+   "votes": 8194,
+   "score": 7.023730205591047
   },
   {
    "tconst": "tt0079659",
    "title": "Occupation in 26 Pictures",
    "year": 1978,
    "rating": 7.5,
-   "votes": 1193,
-   "score": 6.998031770847874
+   "votes": 1199,
+   "score": 6.999215784540283
   },
   {
    "tconst": "tt0079759",
    "title": "Orchestra Rehearsal",
    "year": 1978,
    "rating": 7.1,
-   "votes": 5571,
-   "score": 6.9933470816419705
+   "votes": 5583,
+   "score": 6.993479494182604
   },
   {
    "tconst": "tt0077269",
    "title": "The Boys from Brazil",
    "year": 1978,
    "rating": 7,
-   "votes": 34331,
-   "score": 6.982994641348091
+   "votes": 34410,
+   "score": 6.983021053662922
   },
   {
    "tconst": "tt0077797",
    "title": "Khatta Meetha",
    "year": 1978,
    "rating": 7.5,
-   "votes": 1106,
-   "score": 6.977295191580906
+   "votes": 1108,
+   "score": 6.977597490609147
   },
   {
    "tconst": "tt0077707",
    "title": "The Hypothesis of the Stolen Painting",
    "year": 1978,
    "rating": 7.4,
-   "votes": 1357,
-   "score": 6.97538552120042
+   "votes": 1365,
+   "score": 6.976649264356906
   },
   {
    "tconst": "tt0080662",
    "title": "You Are Not Alone",
    "year": 1978,
    "rating": 7.1,
-   "votes": 4556,
-   "score": 6.973863152172315
+   "votes": 4560,
+   "score": 6.9738804874467775
   },
   {
    "tconst": "tt0077157",
    "title": "American Boy: A Profile of Steven Prince",
    "year": 1978,
    "rating": 7.2,
-   "votes": 2263,
-   "score": 6.954576669773027
+   "votes": 2275,
+   "score": 6.955351300825674
   },
   {
    "tconst": "tt0077559",
    "title": "Five Deadly Venoms",
    "year": 1978,
    "rating": 7,
-   "votes": 8802,
-   "score": 6.938704720819158
+   "votes": 8814,
+   "score": 6.938738079295301
   },
   {
    "tconst": "tt0253151",
    "title": "A Good Family Kid",
    "year": 1978,
    "rating": 7.1,
-   "votes": 3327,
-   "score": 6.938036439442891
+   "votes": 3335,
+   "score": 6.938241178824471
   },
   {
    "tconst": "tt0202434",
    "title": "The Demon",
    "year": 1978,
    "rating": 7.4,
-   "votes": 1161,
-   "score": 6.9368735184957835
+   "votes": 1164,
+   "score": 6.937326945565658
   },
   {
    "tconst": "tt0172812",
    "title": "The Shooting Party",
    "year": 1978,
    "rating": 7.3,
-   "votes": 1419,
-   "score": 6.927607967535918
+   "votes": 1423,
+   "score": 6.928054275775518
   },
   {
    "tconst": "tt0078467",
    "title": "Violette",
    "year": 1978,
    "rating": 7.1,
-   "votes": 2809,
-   "score": 6.916010415717875
+   "votes": 2817,
+   "score": 6.916289104061851
   },
   {
    "tconst": "tt0077132",
    "title": "Empire of Passion",
    "year": 1978,
    "rating": 7,
-   "votes": 5699,
-   "score": 6.91031253522457
+   "votes": 5709,
+   "score": 6.910385379371602
   },
   {
    "tconst": "tt0078517",
    "title": "Warriors Two",
    "year": 1978,
    "rating": 7.2,
-   "votes": 1752,
-   "score": 6.909005695301376
+   "votes": 1754,
+   "score": 6.90906881271027
   },
   {
    "tconst": "tt0077868",
    "title": "The Avenging Eagle",
    "year": 1978,
    "rating": 7.3,
-   "votes": 1243,
-   "score": 6.898387727806236
+   "votes": 1247,
+   "score": 6.898921010326696
   },
   {
    "tconst": "tt0078446",
    "title": "Up in Smoke",
    "year": 1978,
    "rating": 6.9,
-   "votes": 43934,
-   "score": 6.888854401421405
+   "votes": 43979,
+   "score": 6.888856477694127
   },
   {
    "tconst": "tt0078481",
    "title": "A Wedding",
    "year": 1978,
    "rating": 7,
-   "votes": 4295,
-   "score": 6.88653138309148
+   "votes": 4303,
+   "score": 6.886625591213291
   },
   {
    "tconst": "tt0077663",
    "title": "Heaven Can Wait",
    "year": 1978,
    "rating": 6.9,
-   "votes": 25972,
-   "score": 6.881431991452966
+   "votes": 26021,
+   "score": 6.881450557351841
   },
   {
    "tconst": "tt0077355",
    "title": "Coma",
    "year": 1978,
    "rating": 6.9,
-   "votes": 23189,
-   "score": 6.879295699428227
+   "votes": 23220,
+   "score": 6.879305347242118
   },
   {
    "tconst": "tt0079240",
    "title": "The Great Train Robbery",
    "year": 1978,
    "rating": 6.9,
-   "votes": 22074,
-   "score": 6.878295209910263
+   "votes": 22102,
+   "score": 6.878303848593372
   },
   {
    "tconst": "tt0252618",
    "title": "The Man Who Strikes Gold",
    "year": 1978,
    "rating": 7,
-   "votes": 3557,
-   "score": 6.868155293717224
+   "votes": 3568,
+   "score": 6.868383430429965
   },
   {
    "tconst": "tt0078513",
    "title": "Yagyu Clan Conspiracy",
    "year": 1978,
    "rating": 7.1,
-   "votes": 1893,
-   "score": 6.857754467151533
+   "votes": 1895,
+   "score": 6.85778083254027
   },
   {
    "tconst": "tt0306646",
    "title": "Ringing Bell",
    "year": 1978,
    "rating": 7.2,
-   "votes": 1277,
-   "score": 6.848302008550455
+   "votes": 1279,
+   "score": 6.848431553402406
   },
   {
    "tconst": "tt0077921",
    "title": "The Medusa Touch",
    "year": 1978,
    "rating": 6.9,
-   "votes": 8566,
-   "score": 6.847646212990737
+   "votes": 8578,
+   "score": 6.847669190875347
   },
   {
    "tconst": "tt0077482",
    "title": "Ecce bombo",
    "year": 1978,
    "rating": 7,
-   "votes": 2815,
-   "score": 6.842512103137454
+   "votes": 2831,
+   "score": 6.84306330206319
   },
   {
    "tconst": "tt0077714",
    "title": "I Wanna Hold Your Hand",
    "year": 1978,
    "rating": 6.9,
-   "votes": 6354,
-   "score": 6.831898786166629
+   "votes": 6366,
+   "score": 6.831954318518067
   },
   {
    "tconst": "tt0176666",
    "title": "Dossier 51",
    "year": 1978,
    "rating": 7.2,
-   "votes": 1149,
-   "score": 6.8273539662491345
+   "votes": 1150,
+   "score": 6.827337446606549
   },
   {
    "tconst": "tt0252249",
    "title": "Apdi the Gullible",
    "year": 1978,
    "rating": 6.9,
-   "votes": 5013,
-   "score": 6.816711071589788
+   "votes": 5024,
+   "score": 6.8167954034203335
   },
   {
    "tconst": "tt0074168",
    "title": "Return of the Prodigal Son",
    "year": 1978,
    "rating": 7.2,
-   "votes": 1081,
-   "score": 6.815177161686394
+   "votes": 1085,
+   "score": 6.815719669162629
   },
   {
    "tconst": "tt0078122",
    "title": "Get Out Your Handkerchiefs",
    "year": 1978,
    "rating": 6.9,
-   "votes": 4777,
-   "score": 6.813308581178707
+   "votes": 4783,
+   "score": 6.813327945738213
   },
   {
    "tconst": "tt0076097",
@@ -738,663 +738,663 @@
    "year": 1978,
    "rating": 7.2,
    "votes": 1011,
-   "score": 6.801782035539229
+   "score": 6.801579070215855
   },
   {
    "tconst": "tt0078026",
    "title": "The Olsen Gang Goes to War",
    "year": 1978,
    "rating": 7,
-   "votes": 2011,
-   "score": 6.800459539511586
+   "votes": 2013,
+   "score": 6.800456525125815
   },
   {
    "tconst": "tt0077270",
    "title": "The Boys in Company C",
    "year": 1978,
    "rating": 6.9,
-   "votes": 3933,
-   "score": 6.798476317346319
+   "votes": 3942,
+   "score": 6.7985786139627855
   },
   {
    "tconst": "tt0078212",
    "title": "The Swissmakers",
    "year": 1978,
    "rating": 7.1,
-   "votes": 1303,
-   "score": 6.795694169982365
+   "votes": 1305,
+   "score": 6.79578113240958
   },
   {
    "tconst": "tt0077294",
    "title": "Capricorn One",
    "year": 1978,
    "rating": 6.8,
-   "votes": 27614,
-   "score": 6.785992300044362
+   "votes": 27681,
+   "score": 6.786010791471848
   },
   {
    "tconst": "tt0077578",
    "title": "Foul Play",
    "year": 1978,
    "rating": 6.8,
-   "votes": 19774,
-   "score": 6.780705866634706
+   "votes": 19831,
+   "score": 6.78073906726533
   },
   {
    "tconst": "tt0078492",
    "title": "The Wild Geese",
    "year": 1978,
    "rating": 6.8,
-   "votes": 15942,
-   "score": 6.776341852996659
+   "votes": 15978,
+   "score": 6.776367976805518
   },
   {
    "tconst": "tt0077889",
    "title": "Magic",
    "year": 1978,
    "rating": 6.8,
-   "votes": 15815,
-   "score": 6.7761631682110846
+   "votes": 15859,
+   "score": 6.7762011691205934
   },
   {
    "tconst": "tt0077421",
    "title": "Despair",
    "year": 1978,
    "rating": 6.9,
-   "votes": 3018,
-   "score": 6.775356812710151
+   "votes": 3024,
+   "score": 6.775441230170001
   },
   {
    "tconst": "tt0077215",
    "title": "Battlestar Galactica",
    "year": 1978,
    "rating": 6.8,
-   "votes": 11870,
-   "score": 6.768856540285112
+   "votes": 11900,
+   "score": 6.768897326372409
   },
   {
    "tconst": "tt0077204",
    "title": "Lucky Luke: Ballad of the Daltons",
    "year": 1978,
    "rating": 6.9,
-   "votes": 2478,
-   "score": 6.7560045064604335
+   "votes": 2488,
+   "score": 6.756300318292455
   },
   {
    "tconst": "tt0077539",
    "title": "Fedora",
    "year": 1978,
    "rating": 6.8,
-   "votes": 5972,
-   "score": 6.742510567049539
+   "votes": 5983,
+   "score": 6.742542676529297
   },
   {
    "tconst": "tt0078187",
    "title": "Lupin the 3rd: The Mystery of Mamo",
    "year": 1978,
    "rating": 6.9,
-   "votes": 2004,
-   "score": 6.733283513138945
+   "votes": 2009,
+   "score": 6.733424895381882
   },
   {
    "tconst": "tt0078073",
    "title": "Perceval le Gallois",
    "year": 1978,
    "rating": 6.9,
-   "votes": 1724,
-   "score": 6.716146723006384
+   "votes": 1726,
+   "score": 6.716131881953075
   },
   {
    "tconst": "tt0075993",
    "title": "An Enemy of the People",
    "year": 1978,
    "rating": 6.9,
-   "votes": 1669,
-   "score": 6.712358064244806
+   "votes": 1671,
+   "score": 6.712345754475508
   },
   {
    "tconst": "tt0077315",
    "title": "The Green Room",
    "year": 1978,
    "rating": 6.8,
-   "votes": 3555,
-   "score": 6.712005197249042
+   "votes": 3562,
+   "score": 6.71205074752391
   },
   {
    "tconst": "tt0077973",
    "title": "Invincible Shaolin",
    "year": 1978,
    "rating": 6.9,
-   "votes": 1467,
-   "score": 6.696993787381187
+   "votes": 1468,
+   "score": 6.696910660536499
   },
   {
    "tconst": "tt0077158",
    "title": "American Hot Wax",
    "year": 1978,
    "rating": 6.9,
-   "votes": 1436,
-   "score": 6.694410374987433
+   "votes": 1440,
+   "score": 6.69458012713282
   },
   {
    "tconst": "tt0078204",
    "title": "Satyam Shivam Sundaram: Love Sublime",
    "year": 1978,
    "rating": 6.9,
-   "votes": 1317,
-   "score": 6.683851391225458
+   "votes": 1322,
+   "score": 6.684141046599519
   },
   {
    "tconst": "tt0077276",
    "title": "French Fried Vacation",
    "year": 1978,
    "rating": 6.7,
-   "votes": 8683,
-   "score": 6.668933561238189
+   "votes": 8700,
+   "score": 6.668945928887019
   },
   {
    "tconst": "tt0079701",
    "title": "Graduate First",
    "year": 1978,
    "rating": 6.9,
-   "votes": 1158,
-   "score": 6.667925705963572
+   "votes": 1160,
+   "score": 6.667951625094483
   },
   {
    "tconst": "tt0077864",
    "title": "They Called Him Bulldozer",
    "year": 1978,
    "rating": 6.7,
-   "votes": 6770,
-   "score": 6.66128490006041
+   "votes": 6789,
+   "score": 6.661326936731812
   },
   {
    "tconst": "tt0075975",
    "title": "A Simple Story",
    "year": 1978,
    "rating": 6.8,
-   "votes": 1601,
-   "score": 6.645899143971313
+   "votes": 1606,
+   "score": 6.646038185036103
   },
   {
    "tconst": "tt0077427",
    "title": "Germany in Autumn",
    "year": 1978,
    "rating": 6.8,
-   "votes": 1504,
-   "score": 6.639929582056466
+   "votes": 1508,
+   "score": 6.640022133255217
   },
   {
    "tconst": "tt0077549",
    "title": "Fingers",
    "year": 1978,
    "rating": 6.7,
-   "votes": 3146,
-   "score": 6.627444204888902
+   "votes": 3150,
+   "score": 6.627415785591346
   },
   {
    "tconst": "tt0078163",
    "title": "Revenge of the Pink Panther",
    "year": 1978,
    "rating": 6.6,
-   "votes": 25284,
-   "score": 6.592359750170043
+   "votes": 25317,
+   "score": 6.592353821111984
   },
   {
    "tconst": "tt0282062",
    "title": "Petrol Krallari",
    "year": 1978,
    "rating": 6.7,
-   "votes": 1552,
-   "score": 6.5821252638986625
+   "votes": 1555,
+   "score": 6.5821039178880945
   },
   {
    "tconst": "tt0077716",
    "title": "Ice Castles",
    "year": 1978,
    "rating": 6.6,
-   "votes": 4526,
-   "score": 6.563659730993375
+   "votes": 4532,
+   "score": 6.563625363377454
   },
   {
    "tconst": "tt0078490",
    "title": "Who'll Stop the Rain",
    "year": 1978,
    "rating": 6.6,
-   "votes": 3897,
-   "score": 6.558991969260647
+   "votes": 3907,
+   "score": 6.558992359935619
   },
   {
    "tconst": "tt0077617",
    "title": "Go Tell the Spartans",
    "year": 1978,
    "rating": 6.6,
-   "votes": 3605,
-   "score": 6.55639167719205
+   "votes": 3609,
+   "score": 6.556340965546557
   },
   {
    "tconst": "tt0078389",
    "title": "The Thirty Nine Steps",
    "year": 1978,
    "rating": 6.6,
-   "votes": 3217,
-   "score": 6.552379339214937
+   "votes": 3222,
+   "score": 6.55233905973569
   },
   {
    "tconst": "tt0077699",
    "title": "House Calls",
    "year": 1978,
    "rating": 6.6,
-   "votes": 2166,
-   "score": 6.5365709644565335
+   "votes": 2169,
+   "score": 6.536502212118675
   },
   {
    "tconst": "tt0077538",
    "title": "Enter the Fat Dragon",
    "year": 1978,
    "rating": 6.6,
-   "votes": 1129,
-   "score": 6.505675750807603
+   "votes": 1135,
+   "score": 6.505749653491374
   },
   {
    "tconst": "tt0078351",
    "title": "Sweeney 2",
    "year": 1978,
    "rating": 6.6,
-   "votes": 1098,
-   "score": 6.504282017859575
+   "votes": 1100,
+   "score": 6.504178814382897
   },
   {
    "tconst": "tt0078111",
    "title": "Pretty Baby",
    "year": 1978,
    "rating": 6.5,
-   "votes": 14434,
-   "score": 6.493467906794699
+   "votes": 14466,
+   "score": 6.493455031049017
   },
   {
    "tconst": "tt0076584",
    "title": "The Inglorious Bastards",
    "year": 1978,
    "rating": 6.5,
-   "votes": 11112,
-   "score": 6.491676327069798
+   "votes": 11129,
+   "score": 6.491654341677308
   },
   {
    "tconst": "tt0079482",
    "title": "Long Weekend",
    "year": 1978,
    "rating": 6.5,
-   "votes": 7060,
-   "score": 6.48749177090191
+   "votes": 7090,
+   "score": 6.487487702126586
   },
   {
    "tconst": "tt0078259",
    "title": "The Shout",
    "year": 1978,
    "rating": 6.5,
-   "votes": 6198,
-   "score": 6.4859938418268115
+   "votes": 6214,
+   "score": 6.485968326892721
   },
   {
    "tconst": "tt0077275",
    "title": "The Brink's Job",
    "year": 1978,
    "rating": 6.5,
-   "votes": 3944,
-   "score": 6.479608348193647
+   "votes": 3983,
+   "score": 6.4796860345583145
   },
   {
    "tconst": "tt0081975",
    "title": "Absolution",
    "year": 1978,
    "rating": 6.5,
-   "votes": 2231,
-   "score": 6.46879717532324
+   "votes": 2238,
+   "score": 6.468738576344683
   },
   {
    "tconst": "tt0132381",
    "title": "Olsenbanden og Data-Harry sprenger verdensbanken",
    "year": 1978,
    "rating": 6.5,
-   "votes": 1132,
-   "score": 6.452712792434047
+   "votes": 1133,
+   "score": 6.4525436053464995
   },
   {
    "tconst": "tt0077944",
    "title": "Money Movers",
    "year": 1978,
    "rating": 6.5,
-   "votes": 1129,
-   "score": 6.452646159450158
+   "votes": 1132,
+   "score": 6.452521346249569
   },
   {
    "tconst": "tt0077572",
    "title": "Force 10 from Navarone",
    "year": 1978,
    "rating": 6.4,
-   "votes": 21635,
-   "score": 6.399963935209605
+   "votes": 21669,
+   "score": 6.399945983951833
   },
   {
    "tconst": "tt0077531",
    "title": "F.I.S.T.",
    "year": 1978,
    "rating": 6.4,
-   "votes": 9472,
-   "score": 6.399922046740775
+   "votes": 9489,
+   "score": 6.399883259624757
   },
   {
    "tconst": "tt0077696",
    "title": "Hooper",
    "year": 1978,
    "rating": 6.4,
-   "votes": 9009,
-   "score": 6.399918440750264
+   "votes": 9030,
+   "score": 6.399877917268603
   },
   {
    "tconst": "tt0077321",
    "title": "The Cheap Detective",
    "year": 1978,
    "rating": 6.4,
-   "votes": 6542,
-   "score": 6.39989176259207
+   "votes": 6556,
+   "score": 6.399837944706735
   },
   {
    "tconst": "tt0078528",
    "title": "La zizanie",
    "year": 1978,
    "rating": 6.4,
-   "votes": 4731,
-   "score": 6.399857559495619
+   "votes": 4744,
+   "score": 6.399786822807117
   },
   {
    "tconst": "tt0079118",
    "title": "Lemon Popsicle",
    "year": 1978,
    "rating": 6.4,
-   "votes": 4124,
-   "score": 6.399840685688796
+   "votes": 4132,
+   "score": 6.399761401053018
   },
   {
    "tconst": "tt0078251",
    "title": "Snake and Crane Arts of Shaolin",
    "year": 1978,
    "rating": 6.4,
-   "votes": 3284,
-   "score": 6.399809447588559
+   "votes": 3292,
+   "score": 6.399714704148202
   },
   {
    "tconst": "tt0078488",
    "title": "Who Is Killing the Great Chefs of Europe?",
    "year": 1978,
    "rating": 6.4,
-   "votes": 3024,
-   "score": 6.3997971355540235
+   "votes": 3030,
+   "score": 6.399696156378185
   },
   {
    "tconst": "tt0077233",
    "title": "The Big Fix",
    "year": 1978,
    "rating": 6.4,
-   "votes": 2632,
-   "score": 6.399775240492673
+   "votes": 2638,
+   "score": 6.399663416768577
   },
   {
    "tconst": "tt0077768",
    "title": "I'm Shy, But I'll Heal",
    "year": 1978,
    "rating": 6.4,
-   "votes": 1811,
-   "score": 6.399709595684593
+   "votes": 1813,
+   "score": 6.3995647032364325
   },
   {
    "tconst": "tt0077295",
    "title": "The Escape",
    "year": 1978,
    "rating": 6.4,
-   "votes": 1730,
-   "score": 6.399700979292815
+   "votes": 1734,
+   "score": 6.399552125166087
   },
   {
    "tconst": "tt0077952",
    "title": "Movie Movie",
    "year": 1978,
    "rating": 6.4,
-   "votes": 1409,
-   "score": 6.39966113469049
+   "votes": 1415,
+   "score": 6.39949296488782
   },
   {
    "tconst": "tt0077532",
    "title": "FM",
    "year": 1978,
    "rating": 6.3,
-   "votes": 1411,
-   "score": 6.341137981530231
+   "votes": 1415,
+   "score": 6.340900832382643
   },
   {
    "tconst": "tt0075848",
    "title": "Bye Bye Monkey",
    "year": 1978,
    "rating": 6.3,
-   "votes": 1488,
-   "score": 6.339864820526281
+   "votes": 1487,
+   "score": 6.339716731083266
   },
   {
    "tconst": "tt0077807",
    "title": "King of the Gypsies",
    "year": 1978,
    "rating": 6.3,
-   "votes": 1692,
-   "score": 6.3368438608727296
+   "votes": 1697,
+   "score": 6.336624215870998
   },
   {
    "tconst": "tt0078150",
    "title": "Remember My Name",
    "year": 1978,
    "rating": 6.3,
-   "votes": 2145,
-   "score": 6.331536939099964
+   "votes": 2146,
+   "score": 6.331397174254317
   },
   {
    "tconst": "tt0078288",
    "title": "The Bloodstained Shadow",
    "year": 1978,
    "rating": 6.3,
-   "votes": 2315,
-   "score": 6.32991966017176
+   "votes": 2316,
+   "score": 6.329787548312449
   },
   {
    "tconst": "tt0077360",
    "title": "Comes a Horseman",
    "year": 1978,
    "rating": 6.3,
-   "votes": 4127,
-   "score": 6.319345362486715
+   "votes": 4134,
+   "score": 6.3192394838730195
   },
   {
    "tconst": "tt0077588",
    "title": "The Fury",
    "year": 1978,
    "rating": 6.3,
-   "votes": 19260,
-   "score": 6.30489554163225
+   "votes": 19301,
+   "score": 6.304865548997787
   },
   {
    "tconst": "tt0077369",
    "title": "Convoy",
    "year": 1978,
    "rating": 6.3,
-   "votes": 21163,
-   "score": 6.304475191691981
+   "votes": 21202,
+   "score": 6.304448946500498
   },
   {
    "tconst": "tt0077523",
    "title": "Every Which Way But Loose",
    "year": 1978,
    "rating": 6.3,
-   "votes": 31584,
-   "score": 6.303043937928719
+   "votes": 31626,
+   "score": 6.303027509048123
   },
   {
    "tconst": "tt0076313",
    "title": "Blood Relatives",
    "year": 1978,
    "rating": 6.2,
-   "votes": 1310,
-   "score": 6.286226698471596
+   "votes": 1314,
+   "score": 6.285901257650856
   },
   {
    "tconst": "tt0077373",
    "title": "Stay as You Are",
    "year": 1978,
    "rating": 6.2,
-   "votes": 2024,
-   "score": 6.265867616888025
+   "votes": 2033,
+   "score": 6.265537589912325
   },
   {
    "tconst": "tt0077629",
    "title": "Gray Lady Down",
    "year": 1978,
    "rating": 6.2,
-   "votes": 3981,
-   "score": 6.239988691722424
+   "votes": 3986,
+   "score": 6.239866728881685
   },
   {
    "tconst": "tt0076544",
    "title": "Knock-Out Cop",
    "year": 1978,
    "rating": 6.2,
-   "votes": 4262,
-   "score": 6.237853225668831
+   "votes": 4267,
+   "score": 6.237739796887048
   },
   {
    "tconst": "tt0076884",
    "title": "Hotel Fear",
    "year": 1978,
    "rating": 6.1,
-   "votes": 1178,
-   "score": 6.237366241262345
+   "votes": 1179,
+   "score": 6.2371158835264255
   },
   {
    "tconst": "tt0078067",
    "title": "Patrick",
    "year": 1978,
    "rating": 6.2,
-   "votes": 4584,
-   "score": 6.235670428629905
+   "votes": 4596,
+   "score": 6.235520998964275
   },
   {
    "tconst": "tt0077621",
    "title": "Goin' South",
    "year": 1978,
    "rating": 6.2,
-   "votes": 8929,
-   "score": 6.220060799019981
+   "votes": 8963,
+   "score": 6.219951371093455
   },
   {
    "tconst": "tt0077289",
    "title": "California Suite",
    "year": 1978,
    "rating": 6.2,
-   "votes": 9211,
-   "score": 6.219506774406952
+   "votes": 9222,
+   "score": 6.2194458530819885
   },
   {
    "tconst": "tt0078477",
    "title": "The Water Babies",
    "year": 1978,
    "rating": 6.1,
-   "votes": 1624,
-   "score": 6.214018168242907
-  },
-  {
-   "tconst": "tt0077698",
-   "title": "Hot Lead and Cold Feet",
-   "year": 1978,
-   "rating": 6.1,
-   "votes": 1631,
-   "score": 6.213714813177266
+   "votes": 1627,
+   "score": 6.213732588581683
   },
   {
    "tconst": "tt0077530",
    "title": "Eyes of Laura Mars",
    "year": 1978,
    "rating": 6.2,
-   "votes": 13764,
-   "score": 6.213491172681482
+   "votes": 13791,
+   "score": 6.213438950050982
+  },
+  {
+   "tconst": "tt0077698",
+   "title": "Hot Lead and Cold Feet",
+   "year": 1978,
+   "rating": 6.1,
+   "votes": 1635,
+   "score": 6.213387290400031
   },
   {
    "tconst": "tt0077327",
    "title": "China 9, Liberty 37",
    "year": 1978,
    "rating": 6.1,
-   "votes": 1652,
-   "score": 6.212814356511835
+   "votes": 1655,
+   "score": 6.212533148852762
   },
   {
    "tconst": "tt0077869",
    "title": "The Lord of the Rings",
    "year": 1978,
    "rating": 6.2,
-   "votes": 38629,
-   "score": 6.205026209933871
+   "votes": 38689,
+   "score": 6.205008327501425
   },
   {
    "tconst": "tt0077394",
    "title": "Damien: Omen II",
    "year": 1978,
    "rating": 6.2,
-   "votes": 40477,
-   "score": 6.2048022680876
+   "votes": 40573,
+   "score": 6.2047813607438504
   },
   {
    "tconst": "tt0077393",
    "title": "A Dama do Lotação",
    "year": 1978,
    "rating": 6,
-   "votes": 1174,
-   "score": 6.183617145110114
+   "votes": 1185,
+   "score": 6.182505954326811
   },
   {
    "tconst": "tt0077272",
    "title": "Brass Target",
    "year": 1978,
    "rating": 6,
-   "votes": 1617,
-   "score": 6.152534838926018
+   "votes": 1622,
+   "score": 6.152088295272343
   },
   {
    "tconst": "tt0075834",
    "title": "The Pyjama Girl Case",
    "year": 1978,
    "rating": 6,
-   "votes": 1639,
-   "score": 6.151263233599616
+   "votes": 1646,
+   "score": 6.150708809600939
   },
   {
    "tconst": "tt0077504",
    "title": "The End",
    "year": 1978,
    "rating": 6.1,
-   "votes": 4925,
-   "score": 6.150495134762766
+   "votes": 4934,
+   "score": 6.150349765791048
   },
   {
    "tconst": "tt0077296",
    "title": "Caravans",
    "year": 1978,
    "rating": 5.9,
-   "votes": 1192,
-   "score": 6.127729778042603
+   "votes": 1196,
+   "score": 6.127129103007324
   },
   {
    "tconst": "tt0075999",
    "title": "Satan's Blood",
    "year": 1978,
    "rating": 5.9,
-   "votes": 1491,
-   "score": 6.100394890995338
+   "votes": 1493,
+   "score": 6.1000704012050075
   },
   {
    "tconst": "tt0078034",
@@ -1402,15 +1402,15 @@
    "year": 1978,
    "rating": 5.8,
    "votes": 1037,
-   "score": 6.094150060613346
+   "score": 6.093949685912657
   },
   {
    "tconst": "tt0078077",
    "title": "The Grapes of Death",
    "year": 1978,
    "rating": 6,
-   "votes": 3331,
-   "score": 6.092168938690692
+   "votes": 3342,
+   "score": 6.091841434869664
   },
   {
    "tconst": "tt0078878",
@@ -1418,191 +1418,191 @@
    "year": 1978,
    "rating": 5.8,
    "votes": 1078,
-   "score": 6.088346329869772
+   "score": 6.088149908664139
   },
   {
    "tconst": "tt0077743",
    "title": "International Velvet",
    "year": 1978,
    "rating": 5.9,
-   "votes": 1784,
-   "score": 6.079304480412855
+   "votes": 1785,
+   "score": 6.079093540468252
   },
   {
    "tconst": "tt0077305",
    "title": "The Cat from Outer Space",
    "year": 1978,
    "rating": 6,
-   "votes": 6813,
-   "score": 6.051092240300703
+   "votes": 6816,
+   "score": 6.051020408163264
   },
   {
    "tconst": "tt0077660",
    "title": "Harper Valley P.T.A.",
    "year": 1978,
    "rating": 5.8,
-   "votes": 1408,
-   "score": 6.04883042918164
+   "votes": 1412,
+   "score": 6.048248553152604
   },
   {
    "tconst": "tt0077191",
    "title": "To Be Twenty",
    "year": 1978,
    "rating": 5.8,
-   "votes": 1439,
-   "score": 6.045667762800077
+   "votes": 1440,
+   "score": 6.045399799263968
   },
   {
    "tconst": "tt0076240",
    "title": "Jubilee",
    "year": 1978,
    "rating": 5.9,
-   "votes": 4088,
-   "score": 5.998109998716467
+   "votes": 4093,
+   "score": 5.997933538229743
   },
   {
    "tconst": "tt0077505",
    "title": "Rings of Fear",
    "year": 1978,
    "rating": 5.6,
-   "votes": 1099,
-   "score": 5.980744961157402
+   "votes": 1103,
+   "score": 5.979826681029046
   },
   {
    "tconst": "tt0077357",
    "title": "The Comeback",
    "year": 1978,
    "rating": 5.7,
-   "votes": 1617,
-   "score": 5.967169917259987
+   "votes": 1619,
+   "score": 5.966810045896938
   },
   {
    "tconst": "tt0078128",
    "title": "Spiritual Kung Fu",
    "year": 1978,
    "rating": 5.8,
-   "votes": 2893,
-   "score": 5.953913093621729
+   "votes": 2903,
+   "score": 5.953414171202685
   },
   {
    "tconst": "tt0077415",
    "title": "Debbie Does Dallas",
    "year": 1978,
    "rating": 5.8,
-   "votes": 3151,
-   "score": 5.9443468256972745
+   "votes": 3153,
+   "score": 5.944179029666285
   },
   {
    "tconst": "tt0077541",
    "title": "Magnificent Bodyguards",
    "year": 1978,
    "rating": 5.5,
-   "votes": 1107,
-   "score": 5.926760167759557
+   "votes": 1110,
+   "score": 5.925959957442693
   },
   {
    "tconst": "tt0079450",
    "title": "The Legacy",
    "year": 1978,
    "rating": 5.8,
-   "votes": 3855,
-   "score": 5.923415792681645
+   "votes": 3861,
+   "score": 5.923179491916083
   },
   {
    "tconst": "tt0077594",
    "title": "Game of Death",
    "year": 1978,
    "rating": 5.9,
-   "votes": 22997,
-   "score": 5.920801919967887
+   "votes": 23039,
+   "score": 5.92074859645593
   },
   {
    "tconst": "tt0078087",
    "title": "Piranha",
    "year": 1978,
    "rating": 5.9,
-   "votes": 28483,
-   "score": 5.916931237440878
+   "votes": 28570,
+   "score": 5.91686761955374
   },
   {
    "tconst": "tt0077234",
    "title": "The Big Sleep",
    "year": 1978,
    "rating": 5.8,
-   "votes": 6221,
-   "score": 5.88297793566949
+   "votes": 6233,
+   "score": 5.882783839375651
   },
   {
    "tconst": "tt0078975",
    "title": "Circle of Iron",
    "year": 1978,
    "rating": 5.7,
-   "votes": 2853,
-   "score": 5.881464747850867
+   "votes": 2860,
+   "score": 5.881029924923338
   },
   {
    "tconst": "tt0077304",
    "title": "The Cat and the Canary",
    "year": 1978,
    "rating": 5.6,
-   "votes": 1961,
-   "score": 5.869903300732654
+   "votes": 1965,
+   "score": 5.869401521148088
   },
   {
    "tconst": "tt0080623",
    "title": "Half a Loaf of Kung Fu",
    "year": 1978,
    "rating": 5.6,
-   "votes": 2422,
-   "score": 5.833542861913906
+   "votes": 2428,
+   "score": 5.833015026313909
   },
   {
    "tconst": "tt0079867",
    "title": "Just a Gigolo",
    "year": 1978,
    "rating": 5.4,
-   "votes": 1316,
-   "score": 5.831426456593
+   "votes": 1319,
+   "score": 5.830692328677914
   },
   {
    "tconst": "tt0077372",
    "title": "Corvette Summer",
    "year": 1978,
    "rating": 5.7,
-   "votes": 4351,
-   "score": 5.830664113898222
+   "votes": 4356,
+   "score": 5.830465927969396
   },
   {
    "tconst": "tt0077766",
    "title": "Jaws 2",
    "year": 1978,
    "rating": 5.8,
-   "votes": 92799,
-   "score": 5.8063879537465155
+   "votes": 92955,
+   "score": 5.806373003141973
   },
   {
    "tconst": "tt0077636",
    "title": "The Greek Tycoon",
    "year": 1978,
    "rating": 5.4,
-   "votes": 1498,
-   "score": 5.799993464159083
+   "votes": 1501,
+   "score": 5.799350463896075
   },
   {
    "tconst": "tt0077682",
    "title": "Little Lips",
    "year": 1978,
    "rating": 5.3,
-   "votes": 1204,
-   "score": 5.798722174895366
+   "votes": 1209,
+   "score": 5.797408560526972
   },
   {
    "tconst": "tt0078158",
    "title": "Return from Witch Mountain",
    "year": 1978,
    "rating": 5.7,
-   "votes": 6191,
-   "score": 5.797230381514307
+   "votes": 6202,
+   "score": 5.797025202749803
   }
  ]
 }

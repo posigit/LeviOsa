@@ -1,7 +1,7 @@
 {
  "tag": "year-1993",
- "builtAt": "2026-09-15T22:46:38.707Z",
- "mean": 6.489,
+ "builtAt": "2026-10-01T06:19:54.122Z",
+ "mean": 6.495,
  "minVotes": 2000,
  "items": [
   {
@@ -9,648 +9,648 @@
    "title": "Schindler's List",
    "year": 1993,
    "rating": 9,
-   "votes": 1602967,
-   "score": 8.99687105447985
+   "votes": 1605926,
+   "score": 8.996884205630478
   },
   {
    "tconst": "tt0259534",
    "title": "Ramayana: The Legend of Prince Rama",
    "year": 1993,
    "rating": 9.1,
-   "votes": 18084,
-   "score": 8.839999287759621
+   "votes": 18132,
+   "score": 8.841209677259656
   },
   {
    "tconst": "tt0214915",
    "title": "Manichitrathazhu",
    "year": 1993,
    "rating": 8.7,
-   "votes": 14656,
-   "score": 8.43451883377547
+   "votes": 14705,
+   "score": 8.436009172259284
   },
   {
    "tconst": "tt0291855",
    "title": "Devasuram",
    "year": 1993,
    "rating": 8.7,
-   "votes": 7283,
-   "score": 8.223661068120677
+   "votes": 7298,
+   "score": 8.225708025660504
   },
   {
    "tconst": "tt0107290",
    "title": "Jurassic Park",
    "year": 1993,
    "rating": 8.2,
-   "votes": 1198763,
-   "score": 8.19715026670156
+   "votes": 1201188,
+   "score": 8.197165890303587
   },
   {
    "tconst": "tt0107207",
    "title": "In the Name of the Father",
    "year": 1993,
    "rating": 8.1,
-   "votes": 204763,
-   "score": 8.084417645784614
+   "votes": 205000,
+   "score": 8.084492914118798
   },
   {
    "tconst": "tt0106332",
    "title": "Farewell My Concubine",
    "year": 1993,
    "rating": 8.1,
-   "votes": 37709,
-   "score": 8.018863373425777
+   "votes": 37806,
+   "score": 8.01935972523216
   },
   {
    "tconst": "tt0107048",
    "title": "Groundhog Day",
    "year": 1993,
    "rating": 8,
-   "votes": 740873,
-   "score": 7.995932206037054
+   "votes": 741588,
+   "score": 7.995952104152557
   },
   {
    "tconst": "tt0107688",
    "title": "The Nightmare Before Christmas",
    "year": 1993,
    "rating": 7.9,
-   "votes": 415503,
-   "score": 7.893241116100638
+   "votes": 416124,
+   "score": 7.893279585057522
   },
   {
    "tconst": "tt0108399",
    "title": "True Romance",
    "year": 1993,
    "rating": 7.9,
-   "votes": 263756,
-   "score": 7.889381785153917
+   "votes": 264402,
+   "score": 7.8894521558493995
   },
   {
    "tconst": "tt0106519",
    "title": "Carlito's Way",
    "year": 1993,
    "rating": 7.9,
-   "votes": 250854,
-   "score": 7.88883998550691
+   "votes": 251314,
+   "score": 7.888907179321283
   },
   {
    "tconst": "tt0106469",
    "title": "Blood in Blood Out",
    "year": 1993,
    "rating": 7.9,
-   "votes": 38292,
-   "score": 7.82996489862415
+   "votes": 38362,
+   "score": 7.830380883568489
   },
   {
    "tconst": "tt0106977",
    "title": "The Fugitive",
    "year": 1993,
    "rating": 7.8,
-   "votes": 350418,
-   "score": 7.792560384813954
+   "votes": 350880,
+   "score": 7.792603812124777
   },
   {
    "tconst": "tt0108358",
    "title": "Tombstone",
    "year": 1993,
    "rating": 7.8,
-   "votes": 195261,
-   "score": 7.786708704180574
+   "votes": 195706,
+   "score": 7.7867987477496445
   },
   {
    "tconst": "tt0106489",
    "title": "A Bronx Tale",
    "year": 1993,
    "rating": 7.8,
-   "votes": 190049,
-   "score": 7.786347992935991
+   "votes": 190772,
+   "score": 7.786460861653099
   },
   {
    "tconst": "tt0108394",
    "title": "Three Colors: Blue",
    "year": 1993,
    "rating": 7.8,
-   "votes": 119335,
-   "score": 7.778391607494656
+   "votes": 119514,
+   "score": 7.778521266871236
   },
   {
    "tconst": "tt0108037",
    "title": "The Sandlot",
    "year": 1993,
    "rating": 7.8,
-   "votes": 117635,
-   "score": 7.778084554648424
+   "votes": 117798,
+   "score": 7.778213603086791
   },
   {
    "tconst": "tt0107943",
    "title": "The Remains of the Day",
    "year": 1993,
    "rating": 7.8,
-   "votes": 94172,
-   "score": 7.772737862323381
+   "votes": 94358,
+   "score": 7.7729138548184
   },
   {
    "tconst": "tt0106364",
    "title": "Batman: Mask of the Phantasm",
    "year": 1993,
    "rating": 7.8,
-   "votes": 64941,
-   "score": 7.760833356169824
+   "votes": 65152,
+   "score": 7.761133446845832
   },
   {
    "tconst": "tt0107692",
    "title": "Ninja Scroll",
    "year": 1993,
    "rating": 7.8,
-   "votes": 45292,
-   "score": 7.744560299741272
+   "votes": 45380,
+   "score": 7.744914166791713
   },
   {
    "tconst": "tt0271857",
    "title": "Vatsalyam",
    "year": 1993,
    "rating": 8.4,
-   "votes": 3717,
-   "score": 7.731493037495932
+   "votes": 3720,
+   "score": 7.733921892061427
   },
   {
    "tconst": "tt0107818",
    "title": "Philadelphia",
    "year": 1993,
    "rating": 7.7,
-   "votes": 276855,
-   "score": 7.691315004914253
+   "votes": 277151,
+   "score": 7.691366798695299
   },
   {
    "tconst": "tt0108550",
    "title": "What's Eating Gilbert Grape",
    "year": 1993,
    "rating": 7.7,
-   "votes": 271373,
-   "score": 7.691140843080202
+   "votes": 271662,
+   "score": 7.691193637489281
   },
   {
    "tconst": "tt0106677",
    "title": "Dazed and Confused",
    "year": 1993,
    "rating": 7.6,
-   "votes": 218932,
-   "score": 7.589943266232886
+   "votes": 219222,
+   "score": 7.5900101853459025
   },
   {
    "tconst": "tt0107282",
    "title": "The Joy Luck Club",
    "year": 1993,
    "rating": 7.7,
-   "votes": 19859,
-   "score": 7.589205622186022
+   "votes": 19889,
+   "score": 7.58990055382116
   },
   {
    "tconst": "tt0108122",
    "title": "Short Cuts",
    "year": 1993,
    "rating": 7.6,
-   "votes": 50330,
-   "score": 7.557541480897463
+   "votes": 50402,
+   "score": 7.557826671168875
   },
   {
    "tconst": "tt0107653",
    "title": "Naked",
    "year": 1993,
    "rating": 7.6,
-   "votes": 49387,
-   "score": 7.556762326957484
+   "votes": 49498,
+   "score": 7.557086357190403
   },
   {
    "tconst": "tt0107007",
    "title": "Gettysburg",
    "year": 1993,
    "rating": 7.6,
-   "votes": 32593,
-   "score": 7.535771563477127
+   "votes": 32633,
+   "score": 7.536188988034283
   },
   {
    "tconst": "tt0106333",
    "title": "Baazigar",
    "year": 1993,
    "rating": 7.6,
-   "votes": 32235,
-   "score": 7.535099918076945
+   "votes": 32279,
+   "score": 7.53553001028593
   },
   {
    "tconst": "tt0109555",
    "title": "Darr",
    "year": 1993,
    "rating": 7.6,
-   "votes": 27348,
-   "score": 7.524292820477179
+   "votes": 27389,
+   "score": 7.5248029270336305
   },
   {
    "tconst": "tt0107156",
    "title": "The Wedding Banquet",
    "year": 1993,
    "rating": 7.6,
-   "votes": 19149,
-   "score": 7.494942819772293
+   "votes": 19173,
+   "score": 7.495623351560543
   },
   {
    "tconst": "tt0106856",
    "title": "Falling Down",
    "year": 1993,
    "rating": 7.5,
-   "votes": 229221,
-   "score": 7.491255749673967
+   "votes": 229617,
+   "score": 7.49132202395589
   },
   {
    "tconst": "tt0107822",
    "title": "The Piano",
    "year": 1993,
    "rating": 7.5,
-   "votes": 102523,
-   "score": 7.480656369367166
+   "votes": 102644,
+   "score": 7.480792336135768
   },
   {
    "tconst": "tt0107808",
    "title": "A Perfect World",
    "year": 1993,
    "rating": 7.5,
-   "votes": 94752,
-   "score": 7.479102713074296
+   "votes": 94897,
+   "score": 7.479256666590207
   },
   {
    "tconst": "tt0108002",
    "title": "Rudy",
    "year": 1993,
    "rating": 7.5,
-   "votes": 75612,
-   "score": 7.473949204960113
+   "votes": 75743,
+   "score": 7.474146009577599
   },
   {
    "tconst": "tt0107554",
    "title": "Menace II Society",
    "year": 1993,
    "rating": 7.5,
-   "votes": 71077,
-   "score": 7.4723325491654595
-  },
-  {
-   "tconst": "tt0108211",
-   "title": "Stalingrad",
-   "year": 1993,
-   "rating": 7.5,
-   "votes": 39651,
-   "score": 7.451457244612716
+   "votes": 71175,
+   "score": 7.472532056338796
   },
   {
    "tconst": "tt0106534",
    "title": "The Earth's Most Beloved Son",
    "year": 1993,
    "rating": 8.4,
-   "votes": 2022,
-   "score": 7.449762728832482
+   "votes": 2027,
+   "score": 7.45389451765368
+  },
+  {
+   "tconst": "tt0108211",
+   "title": "Stalingrad",
+   "year": 1993,
+   "rating": 7.5,
+   "votes": 39720,
+   "score": 7.451822464587521
   },
   {
    "tconst": "tt0107472",
    "title": "The Wonderful, Horrible Life of Leni Riefenstahl",
    "year": 1993,
    "rating": 8,
-   "votes": 3174,
-   "score": 7.415953941894907
+   "votes": 3175,
+   "score": 7.418363907747123
   },
   {
    "tconst": "tt0108148",
    "title": "Iron Monkey",
    "year": 1993,
    "rating": 7.5,
-   "votes": 18282,
-   "score": 7.400312873255313
+   "votes": 18305,
+   "score": 7.401011239723781
   },
   {
    "tconst": "tt0106655",
    "title": "Damini",
    "year": 1993,
    "rating": 7.8,
-   "votes": 4518,
-   "score": 7.397751717607279
-  },
-  {
-   "tconst": "tt0108289",
-   "title": "Flirting Scholar",
-   "year": 1993,
-   "rating": 7.6,
-   "votes": 7191,
-   "score": 7.358257610201745
+   "votes": 4529,
+   "score": 7.400250148964828
   },
   {
    "tconst": "tt0107214",
    "title": "India",
    "year": 1993,
    "rating": 7.9,
-   "votes": 3205,
-   "score": 7.357857001991209
+   "votes": 3208,
+   "score": 7.360451847655792
+  },
+  {
+   "tconst": "tt0108289",
+   "title": "Flirting Scholar",
+   "year": 1993,
+   "rating": 7.6,
+   "votes": 7202,
+   "score": 7.359838428884087
   },
   {
    "tconst": "tt0107376",
    "title": "Latcho Drom",
    "year": 1993,
    "rating": 8.1,
-   "votes": 2305,
-   "score": 7.351601787541056
+   "votes": 2308,
+   "score": 7.354882363647021
   },
   {
    "tconst": "tt0108551",
    "title": "What's Love Got to Do with It",
    "year": 1993,
    "rating": 7.4,
-   "votes": 25941,
-   "score": 7.334796381495446
+   "votes": 25977,
+   "score": 7.335305187210615
   },
   {
    "tconst": "tt0108188",
    "title": "Sonatine",
    "year": 1993,
    "rating": 7.4,
-   "votes": 24391,
-   "score": 7.330966833214514
+   "votes": 24434,
+   "score": 7.331528834931958
   },
   {
    "tconst": "tt0271459",
    "title": "Dhruvam",
    "year": 1993,
    "rating": 8.1,
-   "votes": 2168,
-   "score": 7.327002326143052
-  },
-  {
-   "tconst": "tt0107616",
-   "title": "Much Ado About Nothing",
-   "year": 1993,
-   "rating": 7.3,
-   "votes": 56269,
-   "score": 7.272166086518805
+   "votes": 2171,
+   "score": 7.330408348739239
   },
   {
    "tconst": "tt0482389",
    "title": "Gentleman",
    "year": 1993,
    "rating": 7.8,
-   "votes": 2956,
-   "score": 7.270973707700614
+   "votes": 2963,
+   "score": 7.274115096230378
+  },
+  {
+   "tconst": "tt0107616",
+   "title": "Much Ado About Nothing",
+   "year": 1993,
+   "rating": 7.3,
+   "votes": 56324,
+   "score": 7.272396152914604
   },
   {
    "tconst": "tt0107507",
    "title": "Manhattan Murder Mystery",
    "year": 1993,
    "rating": 7.3,
-   "votes": 50182,
-   "score": 7.268919276673263
+   "votes": 50222,
+   "score": 7.269170717754804
   },
   {
    "tconst": "tt0108071",
    "title": "The Secret Garden",
    "year": 1993,
    "rating": 7.3,
-   "votes": 47789,
-   "score": 7.267425449303345
-  },
-  {
-   "tconst": "tt0108065",
-   "title": "Searching for Bobby Fischer",
-   "year": 1993,
-   "rating": 7.3,
-   "votes": 45092,
-   "score": 7.265559876313688
+   "votes": 47864,
+   "score": 7.267712843385836
   },
   {
    "tconst": "tt0263388",
    "title": "The Shadow Play",
    "year": 1993,
    "rating": 7.6,
-   "votes": 4608,
-   "score": 7.263762968426791
+   "votes": 4636,
+   "score": 7.26697305946223
+  },
+  {
+   "tconst": "tt0108065",
+   "title": "Searching for Bobby Fischer",
+   "year": 1993,
+   "rating": 7.3,
+   "votes": 45137,
+   "score": 7.265844946063419
   },
   {
    "tconst": "tt0109747",
    "title": "The Strategy of the Snail",
    "year": 1993,
    "rating": 7.7,
-   "votes": 3180,
-   "score": 7.232460558950627
+   "votes": 3183,
+   "score": 7.235024739068371
   },
   {
    "tconst": "tt0108101",
    "title": "Shadowlands",
    "year": 1993,
    "rating": 7.3,
-   "votes": 21733,
-   "score": 7.2316624824238085
-  },
-  {
-   "tconst": "tt0124770",
-   "title": "Patlabor 2: The Movie",
-   "year": 1993,
-   "rating": 7.5,
-   "votes": 5211,
-   "score": 7.219615267697163
+   "votes": 21758,
+   "score": 7.232234751350759
   },
   {
    "tconst": "tt0181080",
    "title": "Three Tickets to Hollywood",
    "year": 1993,
    "rating": 7.8,
-   "votes": 2517,
-   "score": 7.219558489122037
+   "votes": 2524,
+   "score": 7.223084266708966
+  },
+  {
+   "tconst": "tt0124770",
+   "title": "Patlabor 2: The Movie",
+   "year": 1993,
+   "rating": 7.5,
+   "votes": 5219,
+   "score": 7.22157268632655
   },
   {
    "tconst": "tt0106341",
    "title": "Bad Boy Bubby",
    "year": 1993,
    "rating": 7.3,
-   "votes": 16284,
-   "score": 7.211296526764617
+   "votes": 16309,
+   "score": 7.212066919143118
   },
   {
    "tconst": "tt0107625",
    "title": "Mother's Day",
    "year": 1993,
    "rating": 7.8,
-   "votes": 2353,
-   "score": 7.19769025852613
+   "votes": 2355,
+   "score": 7.200696491984241
   },
   {
    "tconst": "tt0142242",
    "title": "Dragon Ball Z: Broly - The Legendary Super Saiyan",
    "year": 1993,
    "rating": 7.3,
-   "votes": 13580,
-   "score": 7.195901520883456
+   "votes": 13611,
+   "score": 7.196869721516325
   },
   {
    "tconst": "tt0107206",
    "title": "In the Line of Fire",
    "year": 1993,
    "rating": 7.2,
-   "votes": 124550,
-   "score": 7.188764485937292
+   "votes": 124703,
+   "score": 7.188871875350951
   },
   {
    "tconst": "tt0106966",
    "title": "Strawberry & Chocolate",
    "year": 1993,
    "rating": 7.4,
-   "votes": 6399,
-   "score": 7.183086759776669
+   "votes": 6405,
+   "score": 7.184655945578984
   },
   {
    "tconst": "tt0106226",
    "title": "The Age of Innocence",
    "year": 1993,
    "rating": 7.2,
-   "votes": 75695,
-   "score": 7.181699539164222
+   "votes": 75819,
+   "score": 7.181881458546003
   },
   {
    "tconst": "tt0108330",
    "title": "This Boy's Life",
    "year": 1993,
    "rating": 7.2,
-   "votes": 63026,
-   "score": 7.178134064764314
+   "votes": 63137,
+   "score": 7.178353826897022
   },
   {
    "tconst": "tt0107617",
    "title": "The Scent of Green Papaya",
    "year": 1993,
    "rating": 7.3,
-   "votes": 11175,
-   "score": 7.176899104012466
-  },
-  {
-   "tconst": "tt0106307",
-   "title": "Arizona Dream",
-   "year": 1993,
-   "rating": 7.2,
-   "votes": 48102,
-   "score": 7.171620807460066
+   "votes": 11194,
+   "score": 7.177977355054674
   },
   {
    "tconst": "tt0106417",
    "title": "Sailor Moon R: The Movie: The Promise of the Rose",
    "year": 1993,
    "rating": 7.6,
-   "votes": 3178,
-   "score": 7.170904923786065
+   "votes": 3188,
+   "score": 7.1740233659582415
+  },
+  {
+   "tconst": "tt0106307",
+   "title": "Arizona Dream",
+   "year": 1993,
+   "rating": 7.2,
+   "votes": 48141,
+   "score": 7.17187996295629
   },
   {
    "tconst": "tt0107322",
    "title": "King of the Hill",
    "year": 1993,
    "rating": 7.3,
-   "votes": 9461,
-   "score": 7.158489284998189
+   "votes": 9472,
+   "score": 7.159661194437881
   },
   {
    "tconst": "tt0107358",
    "title": "The Blue Kite",
    "year": 1993,
    "rating": 7.5,
-   "votes": 3532,
-   "score": 7.134516575445453
+   "votes": 3537,
+   "score": 7.136993538484986
   },
   {
    "tconst": "tt0107474",
    "title": "Madadayo",
    "year": 1993,
    "rating": 7.3,
-   "votes": 6832,
-   "score": 7.116366133985988
+   "votes": 6851,
+   "score": 7.118103403298086
   },
   {
    "tconst": "tt0107166",
    "title": "Hum Hain Rahi Pyar Ke",
    "year": 1993,
    "rating": 7.3,
-   "votes": 6812,
-   "score": 7.115949352628715
+   "votes": 6824,
+   "score": 7.11754682939612
   },
   {
    "tconst": "tt0108281",
    "title": "Tai Chi Master",
    "year": 1993,
    "rating": 7.2,
-   "votes": 11830,
-   "score": 7.097190578117445
+   "votes": 11853,
+   "score": 7.098219390932749
   },
   {
    "tconst": "tt0107614",
    "title": "Mrs. Doubtfire",
    "year": 1993,
    "rating": 7.1,
-   "votes": 320120,
-   "score": 7.096206835016032
+   "votes": 320636,
+   "score": 7.096249746533529
   },
   {
    "tconst": "tt0109382",
    "title": "Dear Diary",
    "year": 1993,
    "rating": 7.2,
-   "votes": 10227,
-   "score": 7.0837119240504
+   "votes": 10250,
+   "score": 7.084900671231948
   },
   {
    "tconst": "tt0106246",
    "title": "Alive",
    "year": 1993,
    "rating": 7.1,
-   "votes": 69288,
-   "score": 7.0828603088228625
+   "votes": 69370,
+   "score": 7.083046563298184
   },
   {
    "tconst": "tt0106387",
    "title": "Benny & Joon",
    "year": 1993,
    "rating": 7.1,
-   "votes": 65836,
-   "score": 7.081988113912439
+   "votes": 65903,
+   "score": 7.082180952573396
   },
   {
    "tconst": "tt0107209",
    "title": "Faraway, So Close!",
    "year": 1993,
    "rating": 7.2,
-   "votes": 9895,
-   "score": 7.08046622071158
+   "votes": 9913,
+   "score": 7.081644692570416
   },
   {
    "tconst": "tt0107920",
    "title": "Raining Stones",
    "year": 1993,
    "rating": 7.3,
-   "votes": 5334,
-   "score": 7.078858153172108
+   "votes": 5345,
+   "score": 7.080807790686367
   },
   {
    "tconst": "tt0108194",
    "title": "Sose halunk meg",
    "year": 1993,
    "rating": 7.6,
-   "votes": 2182,
-   "score": 7.068710113669116
+   "votes": 2186,
+   "score": 7.072057626037115
   },
   {
    "tconst": "tt0108515",
    "title": "The War Room",
    "year": 1993,
    "rating": 7.3,
-   "votes": 4755,
-   "score": 7.059903137729718
+   "votes": 4763,
+   "score": 7.061944879874518
   },
   {
    "tconst": "tt0108328",
    "title": "Thirty Two Short Films About Glenn Gould",
    "year": 1993,
    "rating": 7.3,
-   "votes": 4278,
-   "score": 7.041660671450183
+   "votes": 4283,
+   "score": 7.043758271938781
   },
   {
    "tconst": "tt0106949",
@@ -658,951 +658,951 @@
    "year": 1993,
    "rating": 7.4,
    "votes": 2512,
-   "score": 6.996220233901649
+   "score": 6.998854880893476
   },
   {
    "tconst": "tt0106880",
    "title": "Fear of a Black Hat",
    "year": 1993,
    "rating": 7.2,
-   "votes": 4922,
-   "score": 6.994589092078048
+   "votes": 4925,
+   "score": 6.9963946891828686
+  },
+  {
+   "tconst": "tt0106438",
+   "title": "Blue",
+   "year": 1993,
+   "rating": 7.3,
+   "votes": 3253,
+   "score": 6.993514795848346
   },
   {
    "tconst": "tt0106611",
    "title": "Cool Runnings",
    "year": 1993,
    "rating": 7,
-   "votes": 124869,
-   "score": 6.991945595026084
+   "votes": 125018,
+   "score": 6.9920486326551465
   },
   {
    "tconst": "tt0106936",
    "title": "The Legend",
    "year": 1993,
    "rating": 7.1,
-   "votes": 8932,
-   "score": 6.98823140279585
+   "votes": 8943,
+   "score": 6.989430066946118
   },
   {
    "tconst": "tt0107050",
    "title": "Grumpy Old Men",
    "year": 1993,
    "rating": 7,
-   "votes": 57951,
-   "score": 6.982955174982306
-  },
-  {
-   "tconst": "tt0107131",
-   "title": "Homeward Bound: The Incredible Journey",
-   "year": 1993,
-   "rating": 7,
-   "votes": 56073,
-   "score": 6.98240396906246
+   "votes": 58011,
+   "score": 6.9831703058204555
   },
   {
    "tconst": "tt0142238",
    "title": "Dragon Ball Z: Bojack Unbound",
    "year": 1993,
    "rating": 7.1,
-   "votes": 8326,
-   "score": 6.981672060368414
+   "votes": 8344,
+   "score": 6.98302718702546
+  },
+  {
+   "tconst": "tt0107131",
+   "title": "Homeward Bound: The Incredible Journey",
+   "year": 1993,
+   "rating": 7,
+   "votes": 56174,
+   "score": 6.982638863110519
   },
   {
    "tconst": "tt0108500",
    "title": "The Visitors",
    "year": 1993,
    "rating": 7,
-   "votes": 41548,
-   "score": 6.9765349888712285
+   "votes": 41628,
+   "score": 6.976850491028499
   },
   {
    "tconst": "tt0106559",
    "title": "Green Snake",
    "year": 1993,
    "rating": 7.2,
-   "votes": 4297,
-   "score": 6.974201317351793
+   "votes": 4309,
+   "score": 6.976515013883558
   },
   {
    "tconst": "tt0106770",
    "title": "Dragon: The Bruce Lee Story",
    "year": 1993,
    "rating": 7,
-   "votes": 34113,
-   "score": 6.97170397627902
+   "votes": 34156,
+   "score": 6.97206641283857
   },
   {
    "tconst": "tt0105226",
    "title": "Red Rock West",
    "year": 1993,
    "rating": 7,
-   "votes": 28714,
-   "score": 6.96673001547712
+   "votes": 28768,
+   "score": 6.967174766724889
   },
   {
    "tconst": "tt0106881",
    "title": "Fearless",
    "year": 1993,
    "rating": 7,
-   "votes": 26424,
-   "score": 6.964049595249235
+   "votes": 26451,
+   "score": 6.964501536768176
   },
   {
    "tconst": "tt0107086",
    "title": "Hated: GG Allin & the Murder Junkies",
    "year": 1993,
    "rating": 7.2,
-   "votes": 3971,
-   "score": 6.961873337022986
+   "votes": 3976,
+   "score": 6.964061784235502
   },
   {
    "tconst": "tt0106749",
    "title": "Whistle If You Come Back",
    "year": 1993,
    "rating": 7.3,
-   "votes": 2707,
-   "score": 6.955437793788878
+   "votes": 2717,
+   "score": 6.958688408435735
   },
   {
    "tconst": "tt0107091",
    "title": "Heart and Souls",
    "year": 1993,
    "rating": 7,
-   "votes": 20454,
-   "score": 6.954491212940423
+   "votes": 20480,
+   "score": 6.9550726522505055
   },
   {
    "tconst": "tt0107002",
    "title": "Germinal",
    "year": 1993,
    "rating": 7.1,
-   "votes": 6228,
-   "score": 6.951500449120593
+   "votes": 6238,
+   "score": 6.953123722091693
   },
   {
    "tconst": "tt0112389",
    "title": "The Thief and the Cobbler",
    "year": 1993,
    "rating": 7.1,
-   "votes": 5409,
-   "score": 6.935085125572175
+   "votes": 5423,
+   "score": 6.936997605091117
   },
   {
    "tconst": "tt0106305",
    "title": "The Red Squirrel",
    "year": 1993,
    "rating": 7.1,
-   "votes": 5200,
-   "score": 6.930298013245034
-  },
-  {
-   "tconst": "tt0106438",
-   "title": "Blue",
-   "year": 1993,
-   "rating": 7.2,
-   "votes": 3246,
-   "score": 6.928964105101839
+   "votes": 5203,
+   "score": 6.9320190507554305
   },
   {
    "tconst": "tt0107130",
    "title": "A Home of Our Own",
    "year": 1993,
    "rating": 7.1,
-   "votes": 4738,
-   "score": 6.918662169095316
+   "votes": 4746,
+   "score": 6.920639374828248
   },
   {
    "tconst": "tt0107311",
    "title": "Khalnayak",
    "year": 1993,
    "rating": 7.1,
-   "votes": 4320,
-   "score": 6.906668622684215
+   "votes": 4327,
+   "score": 6.908761375468841
   },
   {
    "tconst": "tt0104602",
    "title": "Kein Pardon",
    "year": 1993,
    "rating": 7.2,
-   "votes": 2806,
-   "score": 6.904150165494016
+   "votes": 2807,
+   "score": 6.9066846728919
   },
   {
    "tconst": "tt0108167",
    "title": "Smoking/No Smoking",
    "year": 1993,
    "rating": 7.3,
-   "votes": 2069,
-   "score": 6.901412065707604
+   "votes": 2074,
+   "score": 6.904819151347905
   },
   {
    "tconst": "tt0107120",
    "title": "Hocus Pocus",
    "year": 1993,
    "rating": 6.9,
-   "votes": 174075,
-   "score": 6.895332362319263
+   "votes": 174432,
+   "score": 6.8954091844030065
   },
   {
    "tconst": "tt0106918",
    "title": "The Firm",
    "year": 1993,
    "rating": 6.9,
-   "votes": 164360,
-   "score": 6.895059784175068
+   "votes": 164832,
+   "score": 6.8951450154801925
   },
   {
    "tconst": "tt0106220",
    "title": "Addams Family Values",
    "year": 1993,
    "rating": 6.9,
-   "votes": 124686,
-   "score": 6.893512666714272
+   "votes": 124874,
+   "score": 6.893615975082297
   },
   {
    "tconst": "tt0106673",
    "title": "Dave",
    "year": 1993,
    "rating": 6.9,
-   "votes": 60727,
-   "score": 6.886897917888058
+   "votes": 60800,
+   "score": 6.887102439850182
   },
   {
    "tconst": "tt0106579",
    "title": "Clean, Shaven",
    "year": 1993,
    "rating": 7,
-   "votes": 6625,
-   "score": 6.8815241385929555
+   "votes": 6639,
+   "score": 6.883092166059887
   },
   {
    "tconst": "tt0107151",
    "title": "The House of the Spirits",
    "year": 1993,
    "rating": 6.9,
-   "votes": 26766,
-   "score": 6.871429663330468
+   "votes": 26804,
+   "score": 6.871880059109547
   },
   {
    "tconst": "tt0108252",
    "title": "Sune's Summer",
    "year": 1993,
    "rating": 7,
-   "votes": 5671,
-   "score": 6.86678994855485
+   "votes": 5682,
+   "score": 6.868528146653393
   },
   {
    "tconst": "tt0106330",
    "title": "From Karkheh to Rhein",
    "year": 1993,
    "rating": 7.1,
-   "votes": 3155,
-   "score": 6.8629768565207065
-  },
-  {
-   "tconst": "tt0108026",
-   "title": "The Saint of Fort Washington",
-   "year": 1993,
-   "rating": 7.1,
-   "votes": 3103,
-   "score": 6.860561570716097
-  },
-  {
-   "tconst": "tt0115819",
-   "title": "Cannibal! The Musical",
-   "year": 1993,
-   "rating": 6.9,
-   "votes": 13940,
-   "score": 6.848440758805787
+   "votes": 3154,
+   "score": 6.865237334612217
   },
   {
    "tconst": "tt0107529",
    "title": "Matinee",
    "year": 1993,
    "rating": 6.9,
-   "votes": 13906,
-   "score": 6.848330547929351
+   "votes": 14005,
+   "score": 6.849392891133482
+  },
+  {
+   "tconst": "tt0115819",
+   "title": "Cannibal! The Musical",
+   "year": 1993,
+   "rating": 6.9,
+   "votes": 13958,
+   "score": 6.849243841495888
   },
   {
    "tconst": "tt0108596",
    "title": "Wrestling Ernest Hemingway",
    "year": 1993,
    "rating": 7,
-   "votes": 3564,
-   "score": 6.816345380187679
+   "votes": 3567,
+   "score": 6.818579705872349
   },
   {
    "tconst": "tt0106632",
    "title": "Kitchen with Apartment",
    "year": 1993,
    "rating": 7.1,
-   "votes": 2217,
-   "score": 6.81025508545512
+   "votes": 2220,
+   "score": 6.813278014832077
   },
   {
-   "tconst": "tt0108160",
-   "title": "Sleepless in Seattle",
+   "tconst": "tt0108026",
+   "title": "The Saint of Fort Washington",
    "year": 1993,
-   "rating": 6.8,
-   "votes": 209858,
-   "score": 6.797064758920429
+   "rating": 7,
+   "votes": 3109,
+   "score": 6.802316152396038
   },
   {
    "tconst": "tt0106535",
    "title": "The Cement Garden",
    "year": 1993,
    "rating": 6.9,
-   "votes": 5917,
-   "score": 6.796191195574618
+   "votes": 5927,
+   "score": 6.797821776534801
+  },
+  {
+   "tconst": "tt0108160",
+   "title": "Sleepless in Seattle",
+   "year": 1993,
+   "rating": 6.8,
+   "votes": 210370,
+   "score": 6.797127811002455
   },
   {
    "tconst": "tt0106335",
    "title": "The Baby of Mâcon",
    "year": 1993,
    "rating": 6.9,
-   "votes": 5485,
-   "score": 6.7901998256999665
+   "votes": 5495,
+   "score": 6.7919323846019175
   },
   {
    "tconst": "tt0107623",
    "title": "The Music of Chance",
    "year": 1993,
    "rating": 7,
-   "votes": 2802,
-   "score": 6.787202352220792
+   "votes": 2807,
+   "score": 6.789896655417384
   },
   {
    "tconst": "tt0106937",
    "title": "The Legend of Fong Sai-Yuk 2",
    "year": 1993,
    "rating": 6.9,
-   "votes": 5079,
-   "score": 6.783902485572009
+   "votes": 5089,
+   "score": 6.785743154548084
   },
   {
    "tconst": "tt0108265",
    "title": "Swing Kids",
    "year": 1993,
    "rating": 6.8,
-   "votes": 18417,
-   "score": 6.76954232724515
+   "votes": 18431,
+   "score": 6.770145035612126
   },
   {
    "tconst": "tt0108451",
    "title": "Untamed Heart",
    "year": 1993,
    "rating": 6.8,
-   "votes": 17236,
-   "score": 6.767672369274498
+   "votes": 17311,
+   "score": 6.768413506425941
   },
   {
    "tconst": "tt0107096",
    "title": "Heaven & Earth",
    "year": 1993,
    "rating": 6.8,
-   "votes": 16280,
-   "score": 6.765981712000231
+   "votes": 16304,
+   "score": 6.76667576609437
   },
   {
    "tconst": "tt0107157",
    "title": "The Puppetmaster",
    "year": 1993,
    "rating": 7,
-   "votes": 2301,
-   "score": 6.762414716429724
+   "votes": 2304,
+   "score": 6.765342291494276
   },
   {
    "tconst": "tt0107630",
    "title": "My Life",
    "year": 1993,
    "rating": 6.8,
-   "votes": 13082,
-   "score": 6.758768445522095
+   "votes": 13102,
+   "score": 6.759610198820776
   },
   {
    "tconst": "tt0108074",
    "title": "The Eagle Shooting Heroes",
    "year": 1993,
    "rating": 6.9,
-   "votes": 3701,
-   "score": 6.755840325445403
+   "votes": 3707,
+   "score": 6.758074859399223
   },
   {
    "tconst": "tt0108000",
    "title": "Ruby in Paradise",
    "year": 1993,
    "rating": 6.9,
-   "votes": 3452,
-   "score": 6.749256363786545
+   "votes": 3459,
+   "score": 6.751627261877884
   },
   {
    "tconst": "tt0108583",
    "title": "Wittgenstein",
    "year": 1993,
    "rating": 6.9,
-   "votes": 3250,
-   "score": 6.743456322926523
-  },
-  {
-   "tconst": "tt0103743",
-   "title": "The Eight Immortals Restaurant: The Untold Story",
-   "year": 1993,
-   "rating": 6.8,
-   "votes": 5369,
-   "score": 6.715612117704471
+   "votes": 3253,
+   "score": 6.745808723127996
   },
   {
    "tconst": "tt0105599",
    "title": "Tirangaa",
    "year": 1993,
    "rating": 6.9,
-   "votes": 2437,
-   "score": 6.714772525437063
+   "votes": 2446,
+   "score": 6.717821237649879
+  },
+  {
+   "tconst": "tt0103743",
+   "title": "The Eight Immortals Restaurant: The Untold Story",
+   "year": 1993,
+   "rating": 6.8,
+   "votes": 5381,
+   "score": 6.7173598729970685
   },
   {
    "tconst": "tt0107471",
    "title": "My Favorite Season",
    "year": 1993,
    "rating": 6.9,
-   "votes": 2374,
-   "score": 6.71210464000097
+   "votes": 2377,
+   "score": 6.714949331183771
   },
   {
    "tconst": "tt0106342",
    "title": "The Bride with White Hair",
    "year": 1993,
    "rating": 6.8,
-   "votes": 4142,
-   "score": 6.698753776516484
+   "votes": 4145,
+   "score": 6.700737709127967
   },
   {
    "tconst": "tt0106697",
    "title": "Demolition Man",
    "year": 1993,
    "rating": 6.7,
-   "votes": 211264,
-   "score": 6.698021915069417
-  },
-  {
-   "tconst": "tt0107977",
-   "title": "Robin Hood: Men in Tights",
-   "year": 1993,
-   "rating": 6.7,
-   "votes": 147324,
-   "score": 6.697174906213096
-  },
-  {
-   "tconst": "tt0107798",
-   "title": "The Pelican Brief",
-   "year": 1993,
-   "rating": 6.7,
-   "votes": 105437,
-   "score": 6.696073472782786
+   "votes": 211541,
+   "score": 6.698080149585285
   },
   {
    "tconst": "tt0107443",
    "title": "Lost in Yonkers",
    "year": 1993,
    "rating": 6.8,
-   "votes": 3945,
-   "score": 6.695398771297603
+   "votes": 3949,
+   "score": 6.697467342846085
+  },
+  {
+   "tconst": "tt0107977",
+   "title": "Robin Hood: Men in Tights",
+   "year": 1993,
+   "rating": 6.7,
+   "votes": 147500,
+   "score": 6.697257747308304
+  },
+  {
+   "tconst": "tt0107798",
+   "title": "The Pelican Brief",
+   "year": 1993,
+   "rating": 6.7,
+   "votes": 105595,
+   "score": 6.696189722780718
   },
   {
    "tconst": "tt0107302",
    "title": "Kalifornia",
    "year": 1993,
    "rating": 6.7,
-   "votes": 63399,
-   "score": 6.69354952973844
+   "votes": 63493,
+   "score": 6.693740296254429
   },
   {
    "tconst": "tt0107501",
    "title": "The Man Without a Face",
    "year": 1993,
    "rating": 6.7,
-   "votes": 33176,
-   "score": 6.688007325885952
+   "votes": 33207,
+   "score": 6.6883555322121
   },
   {
    "tconst": "tt0108149",
    "title": "Six Degrees of Separation",
    "year": 1993,
    "rating": 6.7,
-   "votes": 24422,
-   "score": 6.684033975299532
+   "votes": 24452,
+   "score": 6.684501482783585
   },
   {
    "tconst": "tt0107468",
    "title": "M. Butterfly",
    "year": 1993,
    "rating": 6.7,
-   "votes": 11875,
-   "score": 6.669596086152378
+   "votes": 11892,
+   "score": 6.6704890024900205
   },
   {
    "tconst": "tt0106204",
    "title": "Aankhen",
    "year": 1993,
    "rating": 6.8,
-   "votes": 2637,
-   "score": 6.6658929685926775
+   "votes": 2644,
+   "score": 6.668654871359037
   },
   {
    "tconst": "tt0108656",
    "title": "Crime Story",
    "year": 1993,
    "rating": 6.7,
-   "votes": 8514,
-   "score": 6.659876897029128
+   "votes": 8526,
+   "score": 6.661051987705811
   },
   {
    "tconst": "tt0106866",
    "title": "Fanfan",
    "year": 1993,
    "rating": 6.7,
-   "votes": 3277,
-   "score": 6.620057929763927
+   "votes": 3279,
+   "score": 6.622340068685615
   },
   {
    "tconst": "tt0106504",
    "title": "Calendar",
    "year": 1993,
    "rating": 6.7,
-   "votes": 2562,
-   "score": 6.60752864869887
+   "votes": 2565,
+   "score": 6.610193477018919
   },
   {
    "tconst": "tt0107144",
    "title": "Hot Shots! Part Deux",
    "year": 1993,
    "rating": 6.6,
-   "votes": 104722,
-   "score": 6.597921194274509
+   "votes": 104818,
+   "score": 6.598034350227409
   },
   {
    "tconst": "tt0107286",
    "title": "Judgment Night",
    "year": 1993,
    "rating": 6.6,
-   "votes": 21354,
-   "score": 6.590500372328691
+   "votes": 21396,
+   "score": 6.5910255266965025
   },
   {
    "tconst": "tt0107004",
    "title": "Geronimo: An American Legend",
    "year": 1993,
    "rating": 6.6,
-   "votes": 15580,
-   "score": 6.5873803012152585
+   "votes": 15598,
+   "score": 6.588068713637422
   },
   {
    "tconst": "tt0107750",
    "title": "Only the Strong",
    "year": 1993,
    "rating": 6.6,
-   "votes": 7638,
-   "score": 6.576981292318349
+   "votes": 7645,
+   "score": 6.578230505193505
   },
   {
    "tconst": "tt0107212",
    "title": "Indian Summer",
    "year": 1993,
    "rating": 6.6,
-   "votes": 6845,
-   "score": 6.574917546112408
+   "votes": 6856,
+   "score": 6.5762910142944175
   },
   {
    "tconst": "tt0105619",
    "title": "The Heroic Trio",
    "year": 1993,
    "rating": 6.6,
-   "votes": 5395,
-   "score": 6.569999417899154
+   "votes": 5406,
+   "score": 6.571649098378526
   },
   {
    "tconst": "tt0108593",
    "title": "Last Hero in China",
    "year": 1993,
    "rating": 6.6,
-   "votes": 3813,
-   "score": 6.561834800509934
+   "votes": 3819,
+   "score": 6.563917034299942
   },
   {
    "tconst": "tt0107447",
    "title": "Love and Human Remains",
    "year": 1993,
    "rating": 6.6,
-   "votes": 2983,
-   "score": 6.555477763468641
+   "votes": 2985,
+   "score": 6.557880285374396
   },
   {
    "tconst": "tt0108317",
    "title": "Texas - Doc Snyder hält die Welt in Atem",
    "year": 1993,
    "rating": 6.6,
-   "votes": 2687,
-   "score": 6.552666032721195
+   "votes": 2689,
+   "score": 6.555221416632834
   },
   {
    "tconst": "tt0107146",
    "title": "The Advocate",
    "year": 1993,
    "rating": 6.6,
-   "votes": 2341,
-   "score": 6.548893272371399
+   "votes": 2346,
+   "score": 6.551687349882965
   },
   {
    "tconst": "tt0107362",
    "title": "Last Action Hero",
    "year": 1993,
    "rating": 6.5,
-   "votes": 175089,
-   "score": 6.49987659140525
+   "votes": 175319,
+   "score": 6.499943791824855
   },
   {
    "tconst": "tt0106582",
    "title": "Cliffhanger",
    "year": 1993,
    "rating": 6.5,
-   "votes": 149833,
-   "score": 6.499856063539312
+   "votes": 150031,
+   "score": 6.499934442466283
   },
   {
    "tconst": "tt0108174",
    "title": "So I Married an Axe Murderer",
    "year": 1993,
    "rating": 6.5,
-   "votes": 46425,
-   "score": 6.499548697890846
+   "votes": 46494,
+   "score": 6.4997944740089775
   },
   {
    "tconst": "tt0106912",
    "title": "Fire in the Sky",
    "year": 1993,
    "rating": 6.5,
-   "votes": 32291,
-   "score": 6.499362681034797
+   "votes": 32361,
+   "score": 6.499709939250644
   },
   {
    "tconst": "tt0107497",
    "title": "Malice",
    "year": 1993,
    "rating": 6.5,
-   "votes": 31607,
-   "score": 6.499349709743929
+   "votes": 31679,
+   "score": 6.4997040655183165
   },
   {
    "tconst": "tt0107983",
    "title": "Romeo Is Bleeding",
    "year": 1993,
    "rating": 6.5,
-   "votes": 17029,
-   "score": 6.498851526373653
+   "votes": 17139,
+   "score": 6.4994792425200565
   },
   {
    "tconst": "tt0107315",
    "title": "Kika",
    "year": 1993,
    "rating": 6.5,
-   "votes": 16152,
-   "score": 6.498796038748581
+   "votes": 16173,
+   "score": 6.499451561249731
   },
   {
    "tconst": "tt0107889",
    "title": "The Program",
    "year": 1993,
    "rating": 6.5,
-   "votes": 12377,
-   "score": 6.498479912037578
+   "votes": 12405,
+   "score": 6.499308102921996
   },
   {
    "tconst": "tt0107027",
    "title": "Godzilla vs. Mechagodzilla II",
    "year": 1993,
    "rating": 6.5,
-   "votes": 6861,
-   "score": 6.497533652563395
+   "votes": 6886,
+   "score": 6.498878373012758
   },
   {
    "tconst": "tt0107745",
    "title": "Once Upon a Forest",
    "year": 1993,
    "rating": 6.5,
-   "votes": 6551,
-   "score": 6.497444239897584
+   "votes": 6566,
+   "score": 6.498836472401513
   },
   {
    "tconst": "tt0108366",
    "title": "Totally F***ed Up",
    "year": 1993,
    "rating": 6.5,
-   "votes": 5589,
-   "score": 6.497120265563875
+   "votes": 5610,
+   "score": 6.498690305202545
   },
   {
    "tconst": "tt0107247",
    "title": "Jack the Bear",
    "year": 1993,
    "rating": 6.5,
-   "votes": 4694,
-   "score": 6.496735239821369
+   "votes": 4699,
+   "score": 6.498512199222476
   },
   {
    "tconst": "tt0106868",
    "title": "A Far Off Place",
    "year": 1993,
    "rating": 6.5,
-   "votes": 4046,
-   "score": 6.496385328376487
+   "votes": 4047,
+   "score": 6.498351781476991
   },
   {
    "tconst": "tt0107566",
    "title": "My Crazy Life",
    "year": 1993,
    "rating": 6.5,
-   "votes": 2657,
-   "score": 6.495307213949806
+   "votes": 2664,
+   "score": 6.497863040864358
   },
   {
    "tconst": "tt0107349",
    "title": "The Slingshot",
    "year": 1993,
    "rating": 6.5,
-   "votes": 2387,
-   "score": 6.495018394202016
+   "votes": 2390,
+   "score": 6.497729663460447
   },
   {
    "tconst": "tt0108260",
    "title": "Suture",
    "year": 1993,
    "rating": 6.5,
-   "votes": 2276,
-   "score": 6.494889077493976
+   "votes": 2279,
+   "score": 6.497670769476832
   },
   {
    "tconst": "tt0111787",
    "title": "Yankee Zulu",
    "year": 1993,
    "rating": 6.4,
-   "votes": 2174,
-   "score": 6.442679850350801
+   "votes": 2177,
+   "score": 6.445495145461184
   },
   {
    "tconst": "tt0108624",
    "title": "Kung Fu Cult Master",
    "year": 1993,
    "rating": 6.4,
-   "votes": 4532,
-   "score": 6.4272727641402705
+   "votes": 4543,
+   "score": 6.42904374485578
   },
   {
    "tconst": "tt0106215",
    "title": "Mutant Action",
    "year": 1993,
    "rating": 6.4,
-   "votes": 6369,
-   "score": 6.421286377746953
+   "votes": 6377,
+   "score": 6.422685116699459
   },
   {
    "tconst": "tt0103805",
    "title": "Beyond the Law",
    "year": 1993,
    "rating": 6.4,
-   "votes": 9026,
-   "score": 6.416156874239457
+   "votes": 9043,
+   "score": 6.417208478003384
   },
   {
    "tconst": "tt0108327",
    "title": "The Thing Called Love",
    "year": 1993,
    "rating": 6.4,
-   "votes": 9454,
-   "score": 6.415553142602082
+   "votes": 9472,
+   "score": 6.416564960128258
   },
   {
    "tconst": "tt0109838",
    "title": "Freaked",
    "year": 1993,
    "rating": 6.4,
-   "votes": 9599,
-   "score": 6.415358711558259
+   "votes": 9647,
+   "score": 6.41631606616222
   },
   {
    "tconst": "tt0110265",
    "title": "Killing Zoe",
    "year": 1993,
    "rating": 6.4,
-   "votes": 22519,
-   "score": 6.407265618310872
+   "votes": 22535,
+   "score": 6.4077453932175
   },
   {
    "tconst": "tt0107034",
    "title": "The Good Son",
    "year": 1993,
    "rating": 6.4,
-   "votes": 49144,
-   "score": 6.403483217882142
+   "votes": 49231,
+   "score": 6.403709340488988
   },
   {
    "tconst": "tt0108333",
    "title": "The Three Musketeers",
    "year": 1993,
    "rating": 6.4,
-   "votes": 65095,
-   "score": 6.402655126244344
+   "votes": 65219,
+   "score": 6.402827076014094
   },
   {
    "tconst": "tt0106833",
    "title": "Ethan Frome",
    "year": 1993,
    "rating": 6.3,
-   "votes": 2408,
-   "score": 6.3857862285309075
+   "votes": 2410,
+   "score": 6.388442907617089
   },
   {
    "tconst": "tt0108410",
    "title": "Twenty Bucks",
    "year": 1993,
    "rating": 6.3,
-   "votes": 4371,
-   "score": 6.359354213681407
+   "votes": 4376,
+   "score": 6.3611720863537276
   },
   {
    "tconst": "tt0106926",
    "title": "Flesh and Bone",
    "year": 1993,
    "rating": 6.3,
-   "votes": 6609,
-   "score": 6.34392446223304
+   "votes": 6618,
+   "score": 6.345257974308582
   },
   {
    "tconst": "tt0107289",
    "title": "The Jungle Creature: Hugo",
    "year": 1993,
    "rating": 6.2,
-   "votes": 2061,
-   "score": 6.34236535221971
+   "votes": 2062,
+   "score": 6.3452568248624726
   },
   {
    "tconst": "tt0106233",
    "title": "Airborne",
    "year": 1993,
    "rating": 6.3,
-   "votes": 8574,
-   "score": 6.335761839924744
+   "votes": 8598,
+   "score": 6.336802530910678
   },
   {
    "tconst": "tt0108293",
    "title": "Fight Back to School III",
    "year": 1993,
    "rating": 6.2,
-   "votes": 2438,
-   "score": 6.330271675386266
-  },
-  {
-   "tconst": "tt0106500",
-   "title": "CB4",
-   "year": 1993,
-   "rating": 6.3,
-   "votes": 11291,
-   "score": 6.328451259902509
+   "votes": 2442,
+   "score": 6.332830531875588
   },
   {
    "tconst": "tt0106538",
    "title": "The Mad Monk",
    "year": 1993,
    "rating": 6.2,
-   "votes": 2529,
-   "score": 6.32765416104311
+   "votes": 2537,
+   "score": 6.330049200482999
+  },
+  {
+   "tconst": "tt0106500",
+   "title": "CB4",
+   "year": 1993,
+   "rating": 6.3,
+   "votes": 11303,
+   "score": 6.329319192858104
   },
   {
    "tconst": "tt0103950",
    "title": "City Hunter",
    "year": 1993,
    "rating": 6.3,
-   "votes": 13968,
-   "score": 6.323681468898061
+   "votes": 13998,
+   "score": 6.324380123927451
   },
   {
    "tconst": "tt0108185",
    "title": "Sommersby",
    "year": 1993,
    "rating": 6.3,
-   "votes": 23809,
-   "score": 6.314651698840104
+   "votes": 23837,
+   "score": 6.315095917582976
   },
   {
    "tconst": "tt0107473",
    "title": "Mad Dog and Glory",
    "year": 1993,
    "rating": 6.3,
-   "votes": 24223,
-   "score": 6.314420382693218
+   "votes": 24252,
+   "score": 6.3148572764967
   },
   {
    "tconst": "tt0108473",
    "title": "The Vanishing",
    "year": 1993,
    "rating": 6.3,
-   "votes": 30817,
-   "score": 6.311522859961735
+   "votes": 30881,
+   "score": 6.311861963522744
   },
   {
    "tconst": "tt0107665",
    "title": "Needful Things",
    "year": 1993,
    "rating": 6.3,
-   "votes": 30852,
-   "score": 6.311510583689402
+   "votes": 30953,
+   "score": 6.311836045962169
   },
   {
    "tconst": "tt0107969",
    "title": "Rising Sun",
    "year": 1993,
    "rating": 6.3,
-   "votes": 50691,
-   "score": 6.307176665756281
+   "votes": 50746,
+   "score": 6.307394555465654
   },
   {
    "tconst": "tt0107148",
    "title": "House of Cards",
    "year": 1993,
    "rating": 6.1,
-   "votes": 3097,
-   "score": 6.2526673916743665
+   "votes": 3103,
+   "score": 6.254817405955588
   },
   {
    "tconst": "tt0106223",
    "title": "The Adventures of Huck Finn",
    "year": 1993,
    "rating": 6.2,
-   "votes": 9968,
-   "score": 6.248307628289124
+   "votes": 9985,
+   "score": 6.249230973933363
   },
   {
    "tconst": "tt0106315",
    "title": "Aspen Extreme",
    "year": 1993,
    "rating": 6.1,
-   "votes": 3443,
-   "score": 6.242962648422606
-  },
-  {
-   "tconst": "tt0106941",
-   "title": "For Love or Money",
-   "year": 1993,
-   "rating": 6.2,
-   "votes": 16924,
-   "score": 6.230550924506671
+   "votes": 3447,
+   "score": 6.245040062895422
   },
   {
    "tconst": "tt0104962",
    "title": "Na Deribasovskoy khoroshaya pogoda, ili Na Brayton-Bich opyat idut dozhdi",
    "year": 1993,
    "rating": 6,
-   "votes": 2253,
-   "score": 6.229989582733187
+   "votes": 2257,
+   "score": 6.232565943761184
+  },
+  {
+   "tconst": "tt0106941",
+   "title": "For Love or Money",
+   "year": 1993,
+   "rating": 6.2,
+   "votes": 16945,
+   "score": 6.231144535370355
   }
  ]
 }

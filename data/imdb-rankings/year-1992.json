@@ -1,7 +1,7 @@
 {
  "tag": "year-1992",
- "builtAt": "2026-09-15T22:46:38.707Z",
- "mean": 6.548,
+ "builtAt": "2026-10-01T06:19:54.122Z",
+ "mean": 6.57,
  "minVotes": 2000,
  "items": [
   {
@@ -9,408 +9,408 @@
    "title": "Baraka",
    "year": 1992,
    "rating": 8.5,
-   "votes": 43487,
-   "score": 8.414187664059906
+   "votes": 43541,
+   "score": 8.41522139927452
   },
   {
    "tconst": "tt0105575",
    "title": "Thevar Magan",
    "year": 1992,
-   "rating": 8.6,
-   "votes": 9092,
-   "score": 8.230062592417323
+   "rating": 8.7,
+   "votes": 9107,
+   "score": 8.31637685642936
   },
   {
    "tconst": "tt0105236",
    "title": "Reservoir Dogs",
    "year": 1992,
    "rating": 8.2,
-   "votes": 1181793,
-   "score": 8.197209524194763
+   "votes": 1183288,
+   "score": 8.19724885238386
   },
   {
    "tconst": "tt0105695",
    "title": "Unforgiven",
    "year": 1992,
    "rating": 8.2,
-   "votes": 472786,
-   "score": 8.193042453389722
+   "votes": 473350,
+   "score": 8.193139997358495
   },
   {
    "tconst": "tt0104860",
    "title": "We Are Not Angels",
    "year": 1992,
    "rating": 8.3,
-   "votes": 10306,
-   "score": 8.015314015528437
+   "votes": 10314,
+   "score": 8.018945732041653
   },
   {
    "tconst": "tt0104561",
    "title": "Jo Jeeta Wohi Sikandar",
    "year": 1992,
    "rating": 8.1,
-   "votes": 27815,
-   "score": 7.995913274361661
+   "votes": 27842,
+   "score": 7.997429721344444
   },
   {
    "tconst": "tt0103639",
    "title": "Aladdin",
    "year": 1992,
    "rating": 8,
-   "votes": 505686,
-   "score": 7.994281217672129
+   "votes": 506280,
+   "score": 7.994371405021565
   },
   {
    "tconst": "tt0105323",
    "title": "Scent of a Woman",
    "year": 1992,
    "rating": 8,
-   "votes": 376145,
-   "score": 7.9923221364161705
+   "votes": 376686,
+   "score": 7.992445186102366
   },
   {
    "tconst": "tt0105271",
    "title": "Roja",
    "year": 1992,
    "rating": 8.1,
-   "votes": 14909,
-   "score": 7.916467814482993
+   "votes": 14924,
+   "score": 7.919138368255785
   },
   {
    "tconst": "tt0290937",
    "title": "Yoddha",
    "year": 1992,
    "rating": 8.4,
-   "votes": 5452,
-   "score": 7.903040026179944
+   "votes": 5465,
+   "score": 7.909591124495769
   },
   {
    "tconst": "tt0104257",
    "title": "A Few Good Men",
    "year": 1992,
    "rating": 7.8,
-   "votes": 321703,
-   "score": 7.792266535296531
+   "votes": 322331,
+   "score": 7.792412374223743
   },
   {
    "tconst": "tt0104940",
    "title": "The Muppet Christmas Carol",
    "year": 1992,
    "rating": 7.8,
-   "votes": 82726,
-   "score": 7.770453630232666
+   "votes": 82799,
+   "score": 7.770979584008784
   },
   {
    "tconst": "tt0104652",
    "title": "Porco Rosso",
    "year": 1992,
    "rating": 7.7,
-   "votes": 118702,
-   "score": 7.680917087331552
+   "votes": 118958,
+   "score": 7.6813083693873985
   },
   {
    "tconst": "tt0104797",
    "title": "Malcolm X",
    "year": 1992,
    "rating": 7.7,
-   "votes": 112491,
-   "score": 7.679881862112245
-  },
-  {
-   "tconst": "tt0104684",
-   "title": "Hard Boiled",
-   "year": 1992,
-   "rating": 7.7,
-   "votes": 60731,
-   "score": 7.663282177473545
+   "votes": 112670,
+   "score": 7.680283402322848
   },
   {
    "tconst": "tt0104810",
    "title": "Manufacturing Consent: Noam Chomsky and the Media",
    "year": 1992,
    "rating": 8.1,
-   "votes": 5049,
-   "score": 7.659746669753574
+   "votes": 5052,
+   "score": 7.665952601299051
+  },
+  {
+   "tconst": "tt0104684",
+   "title": "Hard Boiled",
+   "year": 1992,
+   "rating": 7.7,
+   "votes": 60860,
+   "score": 7.664032735354135
   },
   {
    "tconst": "tt0104706",
    "title": "Lessons of Darkness",
    "year": 1992,
    "rating": 7.9,
-   "votes": 8528,
-   "score": 7.643223240415363
+   "votes": 8572,
+   "score": 7.64830663491874
   },
   {
    "tconst": "tt0104691",
    "title": "The Last of the Mohicans",
    "year": 1992,
    "rating": 7.6,
-   "votes": 209762,
-   "score": 7.5900674071603635
-  },
-  {
-   "tconst": "tt0104952",
-   "title": "My Cousin Vinny",
-   "year": 1992,
-   "rating": 7.6,
-   "votes": 161702,
-   "score": 7.587151374296544
+   "votes": 210101,
+   "score": 7.590283392083776
   },
   {
    "tconst": "tt0105602",
    "title": "Tito and Me",
    "year": 1992,
    "rating": 7.9,
-   "votes": 6551,
-   "score": 7.58385618934545
+   "votes": 6556,
+   "score": 7.589001606400294
   },
   {
-   "tconst": "tt0104348",
-   "title": "Glengarry Glen Ross",
+   "tconst": "tt0104952",
+   "title": "My Cousin Vinny",
    "year": 1992,
    "rating": 7.6,
-   "votes": 127312,
-   "score": 7.58373433459457
+   "votes": 162127,
+   "score": 7.587443246658751
   },
   {
    "tconst": "tt0105888",
    "title": "And Life Goes On",
    "year": 1992,
    "rating": 7.8,
-   "votes": 9395,
-   "score": 7.58031191532189
+   "votes": 9437,
+   "score": 7.584829740697814
+  },
+  {
+   "tconst": "tt0104348",
+   "title": "Glengarry Glen Ross",
+   "year": 1992,
+   "rating": 7.6,
+   "votes": 127484,
+   "score": 7.58408373037874
   },
   {
    "tconst": "tt0105151",
    "title": "The Player",
    "year": 1992,
    "rating": 7.5,
-   "votes": 73053,
-   "score": 7.474639978083394
+   "votes": 73183,
+   "score": 7.4752483639168545
   },
   {
    "tconst": "tt0103939",
    "title": "Chaplin",
    "year": 1992,
    "rating": 7.5,
-   "votes": 66135,
-   "score": 7.47206508072346
+   "votes": 66195,
+   "score": 7.472712042589059
   },
   {
    "tconst": "tt0104466",
    "title": "Husbands and Wives",
    "year": 1992,
    "rating": 7.5,
-   "votes": 33213,
-   "score": 7.445947640788713
+   "votes": 33243,
+   "score": 7.447197961137273
   },
   {
    "tconst": "tt0103969",
    "title": "The Oak",
    "year": 1992,
    "rating": 7.8,
-   "votes": 4339,
-   "score": 7.40508822765309
+   "votes": 4345,
+   "score": 7.412150944737732
   },
   {
    "tconst": "tt0200637",
    "title": "The Yellow Mercedes",
    "year": 1992,
    "rating": 7.8,
-   "votes": 4170,
-   "score": 7.394271357389455
-  },
-  {
-   "tconst": "tt0103874",
-   "title": "Dracula",
-   "year": 1992,
-   "rating": 7.4,
-   "votes": 270892,
-   "score": 7.3937581690745535
-  },
-  {
-   "tconst": "tt0106308",
-   "title": "Army of Darkness",
-   "year": 1992,
-   "rating": 7.4,
-   "votes": 212535,
-   "score": 7.392060289813285
+   "votes": 4180,
+   "score": 7.401795751514709
   },
   {
    "tconst": "tt0107227",
    "title": "The Terrorism and the Kebab",
    "year": 1992,
    "rating": 7.8,
-   "votes": 4078,
-   "score": 7.3881300222265445
+   "votes": 4089,
+   "score": 7.395844595887816
+  },
+  {
+   "tconst": "tt0103874",
+   "title": "Dracula",
+   "year": 1992,
+   "rating": 7.4,
+   "votes": 271324,
+   "score": 7.393923320836666
+  },
+  {
+   "tconst": "tt0106308",
+   "title": "Army of Darkness",
+   "year": 1992,
+   "rating": 7.4,
+   "votes": 212992,
+   "score": 7.392274585772312
   },
   {
    "tconst": "tt0104694",
    "title": "A League of Their Own",
    "year": 1992,
    "rating": 7.4,
-   "votes": 132499,
-   "score": 7.3873356253585
-  },
-  {
-   "tconst": "tt0103873",
-   "title": "Braindead",
-   "year": 1992,
-   "rating": 7.4,
-   "votes": 110692,
-   "score": 7.384884945471665
+   "votes": 132706,
+   "score": 7.387670168695982
   },
   {
    "tconst": "tt0104028",
    "title": "The Black Bomber",
    "year": 1992,
    "rating": 7.8,
-   "votes": 3931,
-   "score": 7.377921813369236
+   "votes": 3937,
+   "score": 7.3854973461952005
+  },
+  {
+   "tconst": "tt0103873",
+   "title": "Braindead",
+   "year": 1992,
+   "rating": 7.4,
+   "votes": 110836,
+   "score": 7.385280386971897
   },
   {
    "tconst": "tt0105046",
    "title": "Of Mice and Men",
    "year": 1992,
    "rating": 7.4,
-   "votes": 51830,
-   "score": 7.368356943620527
+   "votes": 51907,
+   "score": 7.369189488273525
   },
   {
    "tconst": "tt0103905",
    "title": "Man Bites Dog",
    "year": 1992,
    "rating": 7.4,
-   "votes": 45365,
-   "score": 7.364037881876764
+   "votes": 45433,
+   "score": 7.3649842460810175
   },
   {
    "tconst": "tt0105682",
    "title": "A Heart in Winter",
    "year": 1992,
    "rating": 7.5,
-   "votes": 11673,
-   "score": 7.360795310106996
+   "votes": 11688,
+   "score": 7.364048637080721
   },
   {
    "tconst": "tt0105185",
    "title": "Psy",
    "year": 1992,
    "rating": 7.6,
-   "votes": 6179,
-   "score": 7.342835832631487
+   "votes": 6194,
+   "score": 7.3484864223042345
   },
   {
    "tconst": "tt0798796",
    "title": "Tatar Ramazan: Sürgünde",
    "year": 1992,
    "rating": 8,
-   "votes": 2222,
-   "score": 7.312329293011118
+   "votes": 2224,
+   "score": 7.322703064479381
   },
   {
    "tconst": "tt0104350",
    "title": "The Best Intentions",
    "year": 1992,
    "rating": 7.7,
-   "votes": 3801,
-   "score": 7.302939885380614
+   "votes": 3806,
+   "score": 7.310592102025646
   },
   {
    "tconst": "tt0105750",
    "title": "The Bohemian Life",
    "year": 1992,
    "rating": 7.5,
-   "votes": 7343,
-   "score": 7.2962810954824935
+   "votes": 7351,
+   "score": 7.300994304818833
   },
   {
    "tconst": "tt0105197",
    "title": "The Story of Qiu Ju",
    "year": 1992,
    "rating": 7.5,
-   "votes": 7229,
-   "score": 7.293764684699636
+   "votes": 7242,
+   "score": 7.298647234836714
   },
   {
    "tconst": "tt0105017",
    "title": "Noises Off...",
    "year": 1992,
    "rating": 7.4,
-   "votes": 13953,
-   "score": 7.293227247232053
+   "votes": 13969,
+   "score": 7.295992093704109
   },
   {
    "tconst": "tt0105665",
    "title": "Twin Peaks: Fire Walk with Me",
    "year": 1992,
    "rating": 7.3,
-   "votes": 119953,
-   "score": 7.287672745033684
+   "votes": 120249,
+   "score": 7.288049781547176
   },
   {
    "tconst": "tt0105764",
    "title": "Visions of Light",
    "year": 1992,
    "rating": 7.7,
-   "votes": 3447,
-   "score": 7.277134987165953
+   "votes": 3449,
+   "score": 7.285079417206994
   },
   {
    "tconst": "tt0103935",
    "title": "Rebels of the Neon God",
    "year": 1992,
    "rating": 7.5,
-   "votes": 6392,
-   "score": 7.273195218671704
+   "votes": 6410,
+   "score": 7.278727436903793
   },
   {
    "tconst": "tt0104454",
    "title": "Howards End",
    "year": 1992,
    "rating": 7.3,
-   "votes": 39055,
-   "score": 7.263382152602435
+   "votes": 39112,
+   "score": 7.264465308045361
   },
   {
    "tconst": "tt0104774",
    "title": "A Place in the World",
    "year": 1992,
    "rating": 7.7,
-   "votes": 3072,
-   "score": 7.245870322376368
+   "votes": 3075,
+   "score": 7.254502018593282
   },
   {
    "tconst": "tt0104756",
    "title": "Lorenzo's Oil",
    "year": 1992,
    "rating": 7.3,
-   "votes": 25684,
-   "score": 7.245696224356775
+   "votes": 25703,
+   "score": 7.247265557678262
   },
   {
    "tconst": "tt0108504",
    "title": "For a Lost Soldier",
    "year": 1992,
    "rating": 7.5,
-   "votes": 5325,
-   "score": 7.240157580217467
+   "votes": 5331,
+   "score": 7.246159834178272
   },
   {
    "tconst": "tt0139859",
    "title": "Annamalai",
    "year": 1992,
    "rating": 7.7,
-   "votes": 2833,
-   "score": 7.223412844008472
+   "votes": 2842,
+   "score": 7.233064383387218
   },
   {
    "tconst": "tt0104046",
    "title": "Daens",
    "year": 1992,
    "rating": 7.5,
-   "votes": 4674,
-   "score": 7.214811848230887
+   "votes": 4677,
+   "score": 7.221296651843778
   },
   {
    "tconst": "tt0103888",
@@ -418,1191 +418,1191 @@
    "year": 1992,
    "rating": 7.5,
    "votes": 4431,
-   "score": 7.204035807042908
+   "score": 7.210635631217682
   },
   {
    "tconst": "tt0104663",
    "title": "The Stolen Children",
    "year": 1992,
    "rating": 7.6,
-   "votes": 3135,
-   "score": 7.1903903164737955
+   "votes": 3139,
+   "score": 7.19896823202197
   },
   {
    "tconst": "tt0105839",
    "title": "Once Upon a Time in China II",
    "year": 1992,
    "rating": 7.3,
-   "votes": 11527,
-   "score": 7.1888633307527865
+   "votes": 11552,
+   "score": 7.192200246779878
   },
   {
    "tconst": "tt0105265",
    "title": "A River Runs Through It",
    "year": 1992,
    "rating": 7.2,
-   "votes": 72078,
-   "score": 7.182405765208199
+   "votes": 72248,
+   "score": 7.183017694003353
   },
   {
    "tconst": "tt0104036",
    "title": "The Crying Game",
    "year": 1992,
    "rating": 7.2,
-   "votes": 63892,
-   "score": 7.180219970179885
-  },
-  {
-   "tconst": "tt0104779",
-   "title": "Bitter Moon",
-   "year": 1992,
-   "rating": 7.2,
-   "votes": 46825,
-   "score": 7.173305771123256
+   "votes": 63960,
+   "score": 7.180883834814447
   },
   {
    "tconst": "tt0106693",
    "title": "The Inheritance or Fuckoffguysgoodday",
    "year": 1992,
    "rating": 7.6,
-   "votes": 2901,
-   "score": 7.1708333554566295
+   "votes": 2905,
+   "score": 7.179836441256046
+  },
+  {
+   "tconst": "tt0104779",
+   "title": "Bitter Moon",
+   "year": 1992,
+   "rating": 7.2,
+   "votes": 46918,
+   "score": 7.174224165835907
   },
   {
    "tconst": "tt0105488",
    "title": "Strictly Ballroom",
    "year": 1992,
    "rating": 7.2,
-   "votes": 31300,
-   "score": 7.16086048874153
-  },
-  {
-   "tconst": "tt0104782",
-   "title": "Leolo",
-   "year": 1992,
-   "rating": 7.3,
-   "votes": 7741,
-   "score": 7.145668234790365
+   "votes": 31338,
+   "score": 7.162178227378995
   },
   {
    "tconst": "tt0240425",
    "title": "Comet in Moominland",
    "year": 1992,
    "rating": 7.6,
-   "votes": 2608,
-   "score": 7.143544764560101
+   "votes": 2607,
+   "score": 7.152658507566943
+  },
+  {
+   "tconst": "tt0104782",
+   "title": "Leolo",
+   "year": 1992,
+   "rating": 7.3,
+   "votes": 7747,
+   "score": 7.150117753602228
   },
   {
    "tconst": "tt0105438",
    "title": "Dream of Light",
    "year": 1992,
    "rating": 7.6,
-   "votes": 2419,
-   "score": 7.12402223921542
+   "votes": 2425,
+   "score": 7.134259377256702
   },
   {
    "tconst": "tt0105107",
    "title": "Passion Fish",
    "year": 1992,
    "rating": 7.3,
-   "votes": 6537,
-   "score": 7.12390233982581
+   "votes": 6542,
+   "score": 7.128974214980204
   },
   {
    "tconst": "tt0103776",
    "title": "Batman Returns",
    "year": 1992,
    "rating": 7.1,
-   "votes": 352984,
-   "score": 7.096891843787587
+   "votes": 353457,
+   "score": 7.097015385108074
   },
   {
    "tconst": "tt0103772",
    "title": "Basic Instinct",
    "year": 1992,
    "rating": 7.1,
-   "votes": 247079,
-   "score": 7.095570298078492
+   "votes": 247576,
+   "score": 7.095749181589419
   },
   {
    "tconst": "tt0105435",
    "title": "Sneakers",
    "year": 1992,
    "rating": 7.1,
-   "votes": 68151,
-   "score": 7.084271846090475
+   "votes": 68235,
+   "score": 7.084894963257079
   },
   {
    "tconst": "tt0104753",
    "title": "The Long Day Closes",
    "year": 1992,
    "rating": 7.3,
-   "votes": 4544,
-   "score": 7.070271130056989
+   "votes": 4559,
+   "score": 7.077267532300793
   },
   {
    "tconst": "tt0104662",
    "title": "The Dark Side of the Heart",
    "year": 1992,
    "rating": 7.3,
-   "votes": 4399,
-   "score": 7.06506552197108
+   "votes": 4408,
+   "score": 7.0720189988078825
   },
   {
    "tconst": "tt0104008",
    "title": "A Tale of Winter",
    "year": 1992,
    "rating": 7.2,
-   "votes": 7128,
-   "score": 7.0572145349575965
+   "votes": 7138,
+   "score": 7.0620155115299745
   },
   {
    "tconst": "tt0107756",
    "title": "Orlando",
    "year": 1992,
    "rating": 7.1,
-   "votes": 21306,
-   "score": 7.052658297223588
+   "votes": 21385,
+   "score": 7.054633215495441
   },
   {
    "tconst": "tt0103793",
    "title": "Benny's Video",
    "year": 1992,
    "rating": 7.1,
-   "votes": 21144,
-   "score": 7.052326921668377
+   "votes": 21200,
+   "score": 7.0542714544983145
   },
   {
    "tconst": "tt0103994",
    "title": "Like Water for Chocolate",
    "year": 1992,
    "rating": 7.1,
-   "votes": 20644,
-   "score": 7.05127425698167
+   "votes": 20669,
+   "score": 7.053200306337328
   },
   {
    "tconst": "tt0105191",
    "title": "Pure Country",
    "year": 1992,
    "rating": 7.2,
-   "votes": 5972,
-   "score": 7.036509567874177
-  },
-  {
-   "tconst": "tt0103791",
-   "title": "Belle Epoque",
-   "year": 1992,
-   "rating": 7.1,
-   "votes": 12305,
-   "score": 7.022869924857948
+   "votes": 5997,
+   "score": 7.042328091079268
   },
   {
    "tconst": "tt0105859",
    "title": "Dragon Inn",
    "year": 1992,
    "rating": 7.2,
-   "votes": 5324,
-   "score": 7.022044548756546
+   "votes": 5331,
+   "score": 7.028004057340187
+  },
+  {
+   "tconst": "tt0103791",
+   "title": "Belle Epoque",
+   "year": 1992,
+   "rating": 7.1,
+   "votes": 12328,
+   "score": 7.025956012308829
   },
   {
    "tconst": "tt0103671",
    "title": "American Me",
    "year": 1992,
    "rating": 7.1,
-   "votes": 11705,
-   "score": 7.019493197744833
+   "votes": 11743,
+   "score": 7.0228041726232195
   },
   {
    "tconst": "tt0105159",
    "title": "The Power of One",
    "year": 1992,
    "rating": 7.1,
-   "votes": 11526,
-   "score": 7.018427789079768
+   "votes": 11537,
+   "score": 7.021629441114051
   },
   {
    "tconst": "tt0102443",
    "title": "A Midnight Clear",
    "year": 1992,
    "rating": 7.1,
-   "votes": 10722,
-   "score": 7.013272620271415
+   "votes": 10740,
+   "score": 7.016726667532253
   },
   {
    "tconst": "tt0105097",
    "title": "Dearest Relatives, Poisonous Relations",
    "year": 1992,
    "rating": 7.3,
-   "votes": 3135,
-   "score": 7.007235496610115
+   "votes": 3145,
+   "score": 7.01605398335489
   },
   {
    "tconst": "tt0104605",
    "title": "Khiladi",
    "year": 1992,
    "rating": 7.1,
-   "votes": 9007,
-   "score": 6.999759632515031
+   "votes": 9014,
+   "score": 7.003676933390312
   },
   {
    "tconst": "tt0105793",
    "title": "Wayne's World",
    "year": 1992,
    "rating": 7,
-   "votes": 183735,
-   "score": 6.995136373193491
+   "votes": 183929,
+   "score": 6.995369725778985
   },
   {
    "tconst": "tt0103759",
    "title": "Bad Lieutenant",
    "year": 1992,
    "rating": 7,
-   "votes": 53227,
-   "score": 6.9836430419014786
-  },
-  {
-   "tconst": "tt0104573",
-   "title": "Juice",
-   "year": 1992,
-   "rating": 7,
-   "votes": 33853,
-   "score": 6.974804180266448
-  },
-  {
-   "tconst": "tt0104558",
-   "title": "Police Story 3: Supercop",
-   "year": 1992,
-   "rating": 7,
-   "votes": 27128,
-   "score": 6.968987032240214
+   "votes": 53374,
+   "score": 6.984452951644471
   },
   {
    "tconst": "tt0105019",
    "title": "The Northerners",
    "year": 1992,
    "rating": 7.2,
-   "votes": 3639,
-   "score": 6.968869351851913
+   "votes": 3649,
+   "score": 6.976791953329954
   },
   {
-   "tconst": "tt0104073",
-   "title": "Deep Cover",
+   "tconst": "tt0104573",
+   "title": "Juice",
    "year": 1992,
    "rating": 7,
-   "votes": 16817,
-   "score": 6.951993105972947
+   "votes": 33917,
+   "score": 6.9760307861002
+  },
+  {
+   "tconst": "tt0104558",
+   "title": "Police Story 3: Supercop",
+   "year": 1992,
+   "rating": 7,
+   "votes": 27179,
+   "score": 6.970495827285407
   },
   {
    "tconst": "tt0105851",
    "title": "Full Contact",
    "year": 1992,
    "rating": 7.1,
-   "votes": 5444,
-   "score": 6.951780531312861
+   "votes": 5457,
+   "score": 6.95773068852902
+  },
+  {
+   "tconst": "tt0104073",
+   "title": "Deep Cover",
+   "year": 1992,
+   "rating": 7,
+   "votes": 16858,
+   "score": 6.954348167587279
   },
   {
    "tconst": "tt0103295",
    "title": "Swordsman II",
    "year": 1992,
    "rating": 7.1,
-   "votes": 5265,
-   "score": 6.9481285994622075
-  },
-  {
-   "tconst": "tt0103850",
-   "title": "Bob Roberts",
-   "year": 1992,
-   "rating": 7,
-   "votes": 15037,
-   "score": 6.946977418271583
+   "votes": 5269,
+   "score": 6.954051141059416
   },
   {
    "tconst": "tt0105411",
    "title": "Simple Men",
    "year": 1992,
    "rating": 7.1,
-   "votes": 5144,
-   "score": 6.945556309503491
+   "votes": 5149,
+   "score": 6.951601307086433
   },
   {
    "tconst": "tt0104503",
    "title": "In the Soup",
    "year": 1992,
    "rating": 7.1,
-   "votes": 5058,
-   "score": 6.943674450990782
+   "votes": 5070,
+   "score": 6.949943103870001
   },
   {
-   "tconst": "tt0105130",
-   "title": "Peter's Friends",
+   "tconst": "tt0103850",
+   "title": "Bob Roberts",
    "year": 1992,
    "rating": 7,
-   "votes": 13222,
-   "score": 6.940655253914922
+   "votes": 15049,
+   "score": 6.949504237454449
   },
   {
    "tconst": "tt0104553",
    "title": "All's Well, Ends Well",
    "year": 1992,
    "rating": 7.2,
-   "votes": 2956,
-   "score": 6.937016601108342
+   "votes": 2961,
+   "score": 6.945837078081215
+  },
+  {
+   "tconst": "tt0105130",
+   "title": "Peter's Friends",
+   "year": 1992,
+   "rating": 7,
+   "votes": 13243,
+   "score": 6.943521468501011
   },
   {
    "tconst": "tt0104770",
    "title": "Royal Tramp",
    "year": 1992,
    "rating": 7.1,
-   "votes": 4700,
-   "score": 6.935321533595961
+   "votes": 4704,
+   "score": 6.941750856855744
   },
   {
    "tconst": "tt0104507",
    "title": "Indochine",
    "year": 1992,
    "rating": 7,
-   "votes": 11850,
-   "score": 6.934776481956169
+   "votes": 11868,
+   "score": 6.937921671788354
   },
   {
    "tconst": "tt0105328",
    "title": "Schtonk",
    "year": 1992,
    "rating": 7.1,
-   "votes": 4505,
-   "score": 6.930384976955102
+   "votes": 4508,
+   "score": 6.93698490232958
   },
   {
    "tconst": "tt0103186",
    "title": "Cows",
    "year": 1992,
    "rating": 7.1,
-   "votes": 4095,
-   "score": 6.918975270728948
+   "votes": 4098,
+   "score": 6.926024556307134
   },
   {
    "tconst": "tt0104658",
    "title": "L.627",
    "year": 1992,
    "rating": 7.2,
-   "votes": 2359,
-   "score": 6.900998916057111
+   "votes": 2365,
+   "score": 6.91113350386275
   },
   {
    "tconst": "tt0104431",
    "title": "Home Alone 2: Lost in New York",
    "year": 1992,
    "rating": 6.9,
-   "votes": 462378,
-   "score": 6.898485402570951
+   "votes": 463131,
+   "score": 6.898579105121699
   },
   {
    "tconst": "tt0105112",
    "title": "Patriot Games",
    "year": 1992,
    "rating": 6.9,
-   "votes": 129551,
-   "score": 6.8946534368807
+   "votes": 129733,
+   "score": 6.894983016741143
   },
   {
    "tconst": "tt0105327",
    "title": "School Ties",
    "year": 1992,
    "rating": 6.9,
-   "votes": 29793,
-   "score": 6.8778773401406905
+   "votes": 29848,
+   "score": 6.879248233620978
   },
   {
    "tconst": "tt0104040",
    "title": "The Cutting Edge",
    "year": 1992,
    "rating": 6.9,
-   "votes": 25616,
-   "score": 6.874531223750469
+   "votes": 25659,
+   "score": 6.876105345253296
   },
   {
    "tconst": "tt0104990",
    "title": "Newsies",
    "year": 1992,
    "rating": 6.9,
-   "votes": 24599,
-   "score": 6.873557437313169
+   "votes": 24625,
+   "score": 6.875177380069894
   },
   {
    "tconst": "tt0105211",
    "title": "Radio Flyer",
    "year": 1992,
    "rating": 6.9,
-   "votes": 15363,
-   "score": 6.859491693549096
+   "votes": 15391,
+   "score": 6.861997455256219
   },
   {
    "tconst": "tt0102307",
    "title": "Light Sleeper",
    "year": 1992,
    "rating": 6.9,
-   "votes": 11539,
-   "score": 6.848050393315086
-  },
-  {
-   "tconst": "tt0142237",
-   "title": "Dragon Ball Z: The Return of Cooler",
-   "year": 1992,
-   "rating": 6.9,
-   "votes": 9618,
-   "score": 6.8394606881643085
+   "votes": 11568,
+   "score": 6.851289633281318
   },
   {
    "tconst": "tt0104812",
    "title": "Map of the Human Heart",
    "year": 1992,
    "rating": 7,
-   "votes": 3599,
-   "score": 6.838659452597418
+   "votes": 3600,
+   "score": 6.846267454350162
   },
   {
-   "tconst": "tt0142241",
-   "title": "Dragon Ball Z: Super Android 13!",
+   "tconst": "tt0142237",
+   "title": "Dragon Ball Z: The Return of Cooler",
    "year": 1992,
    "rating": 6.9,
-   "votes": 9034,
-   "score": 6.836256504902388
-  },
-  {
-   "tconst": "tt0104107",
-   "title": "Diggstown",
-   "year": 1992,
-   "rating": 6.9,
-   "votes": 8953,
-   "score": 6.835785106828535
+   "votes": 9636,
+   "score": 6.843201937466562
   },
   {
    "tconst": "tt0104522",
    "title": "Into the West",
    "year": 1992,
    "rating": 7,
-   "votes": 3434,
-   "score": 6.83376044812163
+   "votes": 3436,
+   "score": 6.841629459963376
   },
   {
    "tconst": "tt0104771",
    "title": "Royal Tramp II",
    "year": 1992,
    "rating": 7,
-   "votes": 3420,
-   "score": 6.833331047065119
+   "votes": 3421,
+   "score": 6.841191245962167
+  },
+  {
+   "tconst": "tt0142241",
+   "title": "Dragon Ball Z: Super Android 13!",
+   "year": 1992,
+   "rating": 6.9,
+   "votes": 9049,
+   "score": 6.840184427944693
+  },
+  {
+   "tconst": "tt0104107",
+   "title": "Diggstown",
+   "year": 1992,
+   "rating": 6.9,
+   "votes": 8993,
+   "score": 6.839879718399064
   },
   {
    "tconst": "tt0103872",
    "title": "Brain Donors",
    "year": 1992,
    "rating": 6.9,
-   "votes": 5011,
-   "score": 6.79967968550748
-  },
-  {
-   "tconst": "tt0103919",
-   "title": "Candyman",
-   "year": 1992,
-   "rating": 6.8,
-   "votes": 110476,
-   "score": 6.795524861082301
-  },
-  {
-   "tconst": "tt0105812",
-   "title": "White Men Can't Jump",
-   "year": 1992,
-   "rating": 6.8,
-   "votes": 104628,
-   "score": 6.7952794226196955
+   "votes": 5016,
+   "score": 6.80580070472647
   },
   {
    "tconst": "tt0100963",
    "title": "King of Beggars",
    "year": 1992,
    "rating": 6.9,
-   "votes": 4687,
-   "score": 6.794818943486308
+   "votes": 4696,
+   "score": 6.8012989462904585
+  },
+  {
+   "tconst": "tt0103919",
+   "title": "Candyman",
+   "year": 1992,
+   "rating": 6.8,
+   "votes": 110674,
+   "score": 6.795909417828079
+  },
+  {
+   "tconst": "tt0105812",
+   "title": "White Men Can't Jump",
+   "year": 1992,
+   "rating": 6.8,
+   "votes": 104741,
+   "score": 6.795682050424493
   },
   {
    "tconst": "tt0104815",
    "title": "El Mariachi",
    "year": 1992,
    "rating": 6.8,
-   "votes": 75393,
-   "score": 6.793496237063985
+   "votes": 75471,
+   "score": 6.794050647911617
   },
   {
    "tconst": "tt0105275",
    "title": "Romper Stomper",
    "year": 1992,
    "rating": 6.8,
-   "votes": 43850,
-   "score": 6.789021903491667
-  },
-  {
-   "tconst": "tt0105415",
-   "title": "Singles",
-   "year": 1992,
-   "rating": 6.8,
-   "votes": 35827,
-   "score": 6.786693480188568
-  },
-  {
-   "tconst": "tt0101316",
-   "title": "The Lover",
-   "year": 1992,
-   "rating": 6.8,
-   "votes": 25596,
-   "score": 6.781760192603744
+   "votes": 43899,
+   "score": 6.789958337749425
   },
   {
    "tconst": "tt0103926",
    "title": "Careful",
    "year": 1992,
    "rating": 7,
-   "votes": 2061,
-   "score": 6.777555842179991
+   "votes": 2064,
+   "score": 6.788163815049436
+  },
+  {
+   "tconst": "tt0105415",
+   "title": "Singles",
+   "year": 1992,
+   "rating": 6.8,
+   "votes": 35882,
+   "score": 6.787833212194734
+  },
+  {
+   "tconst": "tt0101316",
+   "title": "The Lover",
+   "year": 1992,
+   "rating": 6.8,
+   "votes": 25628,
+   "score": 6.783317567118898
   },
   {
    "tconst": "tt0105585",
    "title": "Thunderheart",
    "year": 1992,
    "rating": 6.8,
-   "votes": 19587,
-   "score": 6.776682923754711
+   "votes": 19615,
+   "score": 6.778676740428448
   },
   {
    "tconst": "tt0103634",
    "title": "Aileen Wuornos: The Selling of a Serial Killer",
    "year": 1992,
    "rating": 6.9,
-   "votes": 3254,
-   "score": 6.766131380870373
+   "votes": 3264,
+   "score": 6.77444865964303
   },
   {
    "tconst": "tt0105450",
    "title": "South Central",
    "year": 1992,
    "rating": 6.8,
-   "votes": 7521,
-   "score": 6.747133103150188
+   "votes": 7532,
+   "score": 6.751646846869587
   },
   {
    "tconst": "tt0107225",
    "title": "Ciao, Professore!",
    "year": 1992,
    "rating": 6.9,
-   "votes": 2440,
-   "score": 6.74158880069661
+   "votes": 2445,
+   "score": 6.75131557803395
   },
   {
    "tconst": "tt0103601",
    "title": "588, rue Paradis",
    "year": 1992,
    "rating": 6.9,
-   "votes": 2125,
-   "score": 6.729491945477077
+   "votes": 2129,
+   "score": 6.739936484466192
   },
   {
    "tconst": "tt0105385",
    "title": "Justice, My Foot!",
    "year": 1992,
    "rating": 6.8,
-   "votes": 3505,
-   "score": 6.708565717546401
+   "votes": 3514,
+   "score": 6.716412358425989
   },
   {
    "tconst": "tt0105789",
    "title": "The Waterdance",
    "year": 1992,
    "rating": 6.8,
-   "votes": 3113,
-   "score": 6.701555696282601
-  },
-  {
-   "tconst": "tt0104714",
-   "title": "Lethal Weapon 3",
-   "year": 1992,
-   "rating": 6.7,
-   "votes": 190111,
-   "score": 6.698420987216209
-  },
-  {
-   "tconst": "tt0104070",
-   "title": "Death Becomes Her",
-   "year": 1992,
-   "rating": 6.7,
-   "votes": 151919,
-   "score": 6.698029185968548
-  },
-  {
-   "tconst": "tt0104389",
-   "title": "The Hand That Rocks the Cradle",
-   "year": 1992,
-   "rating": 6.7,
-   "votes": 56901,
-   "score": 6.694849905351233
-  },
-  {
-   "tconst": "tt0104029",
-   "title": "Cronos",
-   "year": 1992,
-   "rating": 6.7,
-   "votes": 36939,
-   "score": 6.6922097196921575
+   "votes": 3116,
+   "score": 6.7099096451057285
   },
   {
    "tconst": "tt0105032",
    "title": "Savage Nights",
    "year": 1992,
    "rating": 6.8,
-   "votes": 2608,
-   "score": 6.6907669867823225
+   "votes": 2613,
+   "score": 6.700086222493152
+  },
+  {
+   "tconst": "tt0104714",
+   "title": "Lethal Weapon 3",
+   "year": 1992,
+   "rating": 6.7,
+   "votes": 190291,
+   "score": 6.698643190499612
+  },
+  {
+   "tconst": "tt0104070",
+   "title": "Death Becomes Her",
+   "year": 1992,
+   "rating": 6.7,
+   "votes": 152270,
+   "score": 6.698308794609198
+  },
+  {
+   "tconst": "tt0104389",
+   "title": "The Hand That Rocks the Cradle",
+   "year": 1992,
+   "rating": 6.7,
+   "votes": 57019,
+   "score": 6.6955793514692035
+  },
+  {
+   "tconst": "tt0104029",
+   "title": "Cronos",
+   "year": 1992,
+   "rating": 6.7,
+   "votes": 37015,
+   "score": 6.6933127705846704
   },
   {
    "tconst": "tt0104237",
    "title": "Damage",
    "year": 1992,
    "rating": 6.7,
-   "votes": 22970,
-   "score": 6.687851592915216
+   "votes": 23015,
+   "score": 6.689570167673832
   },
   {
    "tconst": "tt0173102",
    "title": "Raju Ban Gaya Gentleman",
    "year": 1992,
    "rating": 6.7,
-   "votes": 8945,
-   "score": 6.672284538610594
+   "votes": 8951,
+   "score": 6.676175485742025
   },
   {
    "tconst": "tt0108592",
    "title": "Once Upon a Time in China III",
    "year": 1992,
    "rating": 6.7,
-   "votes": 8335,
-   "score": 6.670648696187029
+   "votes": 8348,
+   "score": 6.674787180552852
   },
   {
    "tconst": "tt0126871",
    "title": "Deewana",
    "year": 1992,
    "rating": 6.7,
-   "votes": 8168,
-   "score": 6.670166628156269
+   "votes": 8176,
+   "score": 6.674361020475718
   },
   {
    "tconst": "tt0103670",
    "title": "American Heart",
    "year": 1992,
    "rating": 6.7,
-   "votes": 3905,
-   "score": 6.648629005096179
+   "votes": 3914,
+   "score": 6.655883960832078
   },
   {
    "tconst": "tt0105417",
    "title": "Sister Act",
    "year": 1992,
    "rating": 6.6,
-   "votes": 119804,
-   "score": 6.599151540795811
+   "votes": 119969,
+   "score": 6.599500674305445
   },
   {
    "tconst": "tt0104868",
    "title": "The Mighty Ducks",
    "year": 1992,
    "rating": 6.6,
-   "votes": 77598,
-   "score": 6.598701654251274
+   "votes": 77687,
+   "score": 6.599235731604414
   },
   {
    "tconst": "tt0104231",
    "title": "Far and Away",
    "year": 1992,
    "rating": 6.6,
-   "votes": 73388,
-   "score": 6.598629148871079
+   "votes": 73496,
+   "score": 6.599193304868614
   },
   {
    "tconst": "tt0104254",
    "title": "FernGully: The Last Rainforest",
    "year": 1992,
    "rating": 6.6,
-   "votes": 38250,
-   "score": 6.597432404350134
+   "votes": 38338,
+   "score": 6.598490201407133
   },
   {
    "tconst": "tt0104427",
    "title": "Hoffa",
    "year": 1992,
    "rating": 6.6,
-   "votes": 26367,
-   "score": 6.596356832766698
+   "votes": 26401,
+   "score": 6.597855629884895
   },
   {
    "tconst": "tt0104181",
    "title": "Wuthering Heights",
    "year": 1992,
    "rating": 6.6,
-   "votes": 16685,
-   "score": 6.594469054059028
+   "votes": 16727,
+   "score": 6.596747890444861
   },
   {
    "tconst": "tt0104346",
    "title": "Gladiator",
    "year": 1992,
    "rating": 6.6,
-   "votes": 11982,
-   "score": 6.592608659354379
+   "votes": 12014,
+   "score": 6.5956541846982235
   },
   {
    "tconst": "tt0104321",
    "title": "Gas Food Lodging",
    "year": 1992,
    "rating": 6.6,
-   "votes": 4849,
-   "score": 6.584910830061752
+   "votes": 4856,
+   "score": 6.591116940542722
   },
   {
    "tconst": "tt0104745",
    "title": "The Living End",
    "year": 1992,
    "rating": 6.6,
-   "votes": 4772,
-   "score": 6.584739260941072
+   "votes": 4800,
+   "score": 6.591043785935428
   },
   {
    "tconst": "tt0105572",
    "title": "That Night",
    "year": 1992,
    "rating": 6.6,
-   "votes": 3553,
-   "score": 6.581389208552663
+   "votes": 3573,
+   "score": 6.589071908193237
   },
   {
    "tconst": "tt0105534",
    "title": "Fight Back to School II",
    "year": 1992,
    "rating": 6.6,
-   "votes": 3463,
-   "score": 6.5810826057281595
+   "votes": 3466,
+   "score": 6.5888579846983
   },
   {
    "tconst": "tt0105790",
    "title": "Waterland",
    "year": 1992,
    "rating": 6.6,
-   "votes": 2652,
-   "score": 6.5777846679047585
+   "votes": 2654,
+   "score": 6.586913997499121
   },
   {
    "tconst": "tt0104607",
    "title": "Khuda Gawah",
    "year": 1992,
    "rating": 6.6,
-   "votes": 2441,
-   "score": 6.576729177008093
+   "votes": 2444,
+   "score": 6.586295622043409
   },
   {
    "tconst": "tt0105508",
    "title": "Swoon",
    "year": 1992,
    "rating": 6.6,
-   "votes": 2093,
-   "score": 6.574750616929621
+   "votes": 2097,
+   "score": 6.585134914415647
   },
   {
    "tconst": "tt0102032",
    "title": "High Strung",
    "year": 1992,
    "rating": 6.5,
-   "votes": 2355,
-   "score": 6.522193863396772
+   "votes": 2358,
+   "score": 6.531917793566064
   },
   {
    "tconst": "tt0105824",
    "title": "Wind",
    "year": 1992,
    "rating": 6.5,
-   "votes": 3352,
-   "score": 6.518059468440384
+   "votes": 3358,
+   "score": 6.525960758559333
   },
   {
    "tconst": "tt0105810",
    "title": "Where the Day Takes You",
    "year": 1992,
    "rating": 6.5,
-   "votes": 4183,
-   "score": 6.515632261862033
+   "votes": 4187,
+   "score": 6.5224822602813814
   },
   {
    "tconst": "tt0105187",
    "title": "The Public Eye",
    "year": 1992,
    "rating": 6.5,
-   "votes": 4698,
-   "score": 6.514430318765743
+   "votes": 4706,
+   "score": 6.52074228218922
   },
   {
    "tconst": "tt0104765",
    "title": "Love Field",
    "year": 1992,
    "rating": 6.5,
-   "votes": 5034,
-   "score": 6.51374101152871
+   "votes": 5039,
+   "score": 6.5197610092855385
   },
   {
    "tconst": "tt0103976",
    "title": "City of Joy",
    "year": 1992,
    "rating": 6.5,
-   "votes": 6047,
-   "score": 6.512011218478059
+   "votes": 6054,
+   "score": 6.5172706412169
   },
   {
    "tconst": "tt0126234",
    "title": "Chamatkar",
    "year": 1992,
    "rating": 6.5,
-   "votes": 7886,
-   "score": 6.509776883986742
+   "votes": 7899,
+   "score": 6.514051696571462
   },
   {
    "tconst": "tt0104412",
    "title": "Hero",
    "year": 1992,
    "rating": 6.5,
-   "votes": 25376,
-   "score": 6.5035306208026356
+   "votes": 25406,
+   "score": 6.505075448601069
   },
   {
    "tconst": "tt0105690",
    "title": "Under Siege",
    "year": 1992,
    "rating": 6.5,
-   "votes": 104003,
-   "score": 6.500911806978038
+   "votes": 104146,
+   "score": 6.501310437928522
   },
   {
    "tconst": "tt0105316",
    "title": "Sarafina!",
    "year": 1992,
    "rating": 6.4,
-   "votes": 2472,
-   "score": 6.466335929135273
+   "votes": 2474,
+   "score": 6.475792969235786
   },
   {
    "tconst": "tt0105569",
    "title": "Tetsuo II: Body Hammer",
    "year": 1992,
    "rating": 6.4,
-   "votes": 5746,
-   "score": 6.438297737553956
+   "votes": 5757,
+   "score": 6.443715063086361
   },
   {
    "tconst": "tt0105916",
    "title": "House of Angels",
    "year": 1992,
    "rating": 6.4,
-   "votes": 5844,
-   "score": 6.437819259955756
+   "votes": 5848,
+   "score": 6.443208173338546
   },
   {
    "tconst": "tt0104802",
    "title": "The Mambo Kings",
    "year": 1992,
    "rating": 6.4,
-   "votes": 6401,
-   "score": 6.43531178134662
+   "votes": 6406,
+   "score": 6.440339964829992
   },
   {
    "tconst": "tt0105391",
    "title": "Shining Through",
    "year": 1992,
    "rating": 6.4,
-   "votes": 11657,
-   "score": 6.421721774554657
+   "votes": 11673,
+   "score": 6.424800537143342
   },
   {
    "tconst": "tt0105399",
    "title": "Twin Dragons",
    "year": 1992,
    "rating": 6.4,
-   "votes": 14161,
-   "score": 6.418356183100856
+   "votes": 14185,
+   "score": 6.420951358934872
   },
   {
    "tconst": "tt0104545",
    "title": "Jamon Jamon",
    "year": 1992,
    "rating": 6.4,
-   "votes": 17110,
-   "score": 6.4155235099473025
+   "votes": 17163,
+   "score": 6.417695441442411
   },
   {
    "tconst": "tt0105699",
    "title": "Unlawful Entry",
    "year": 1992,
    "rating": 6.4,
-   "votes": 22493,
-   "score": 6.412111798272688
-  },
-  {
-   "tconst": "tt0103594",
-   "title": "1492: Conquest of Paradise",
-   "year": 1992,
-   "rating": 6.4,
-   "votes": 35562,
-   "score": 6.4078977231002865
-  },
-  {
-   "tconst": "tt0105414",
-   "title": "Single White Female",
-   "year": 1992,
-   "rating": 6.4,
-   "votes": 47281,
-   "score": 6.406019648040685
-  },
-  {
-   "tconst": "tt0104291",
-   "title": "Forever Young",
-   "year": 1992,
-   "rating": 6.4,
-   "votes": 53167,
-   "score": 6.405377386392099
+   "votes": 22560,
+   "score": 6.413806911415346
   },
   {
    "tconst": "tt0101437",
    "title": "Beta",
    "year": 1992,
    "rating": 6.3,
-   "votes": 2859,
-   "score": 6.4022132692103195
+   "votes": 2869,
+   "score": 6.410720423980469
+  },
+  {
+   "tconst": "tt0103594",
+   "title": "1492: Conquest of Paradise",
+   "year": 1992,
+   "rating": 6.4,
+   "votes": 35634,
+   "score": 6.40901040932032
+  },
+  {
+   "tconst": "tt0105414",
+   "title": "Single White Female",
+   "year": 1992,
+   "rating": 6.4,
+   "votes": 47371,
+   "score": 6.406868358841444
+  },
+  {
+   "tconst": "tt0104291",
+   "title": "Forever Young",
+   "year": 1992,
+   "rating": 6.4,
+   "votes": 53226,
+   "score": 6.4061401829638385
   },
   {
    "tconst": "tt0103855",
    "title": "The Bodyguard",
    "year": 1992,
    "rating": 6.4,
-   "votes": 160234,
-   "score": 6.401828557978555
+   "votes": 160512,
+   "score": 6.402086601262436
   },
   {
    "tconst": "tt0103644",
    "title": "Alien³",
    "year": 1992,
    "rating": 6.4,
-   "votes": 355711,
-   "score": 6.400829312699618
+   "votes": 356095,
+   "score": 6.400946949117863
   },
   {
    "tconst": "tt0105706",
    "title": "Used People",
    "year": 1992,
    "rating": 6.2,
-   "votes": 2209,
-   "score": 6.365515389663327
+   "votes": 2215,
+   "score": 6.375349405542327
   },
   {
    "tconst": "tt0105219",
    "title": "Rapid Fire",
    "year": 1992,
    "rating": 6.3,
-   "votes": 11228,
-   "score": 6.337545681515946
+   "votes": 11249,
+   "score": 6.340689693136155
   },
   {
    "tconst": "tt0105636",
    "title": "Trespass",
    "year": 1992,
    "rating": 6.3,
-   "votes": 13833,
-   "score": 6.33136829881216
+   "votes": 13861,
+   "score": 6.333988887482562
   },
   {
    "tconst": "tt0105466",
    "title": "Stay Tuned",
    "year": 1992,
    "rating": 6.3,
-   "votes": 14311,
-   "score": 6.330449038997789
+   "votes": 14347,
+   "score": 6.33297839018541
   },
   {
    "tconst": "tt0104549",
    "title": "Jennifer 8",
    "year": 1992,
    "rating": 6.3,
-   "votes": 19862,
-   "score": 6.322717696235154
-  },
-  {
-   "tconst": "tt0101371",
-   "title": "Article 99",
-   "year": 1992,
-   "rating": 6.2,
-   "votes": 3941,
-   "score": 6.317262123395546
+   "votes": 19889,
+   "score": 6.324628705941839
   },
   {
    "tconst": "tt0930902",
    "title": "Midori",
    "year": 1992,
    "rating": 6.2,
-   "votes": 5269,
-   "score": 6.295839080353961
+   "votes": 5295,
+   "score": 6.301315660638918
   },
   {
    "tconst": "tt0104352",
    "title": "Godzilla and Mothra: The Battle for Earth",
    "year": 1992,
    "rating": 6.2,
-   "votes": 6428,
-   "score": 6.282659501078896
+   "votes": 6448,
+   "score": 6.287487895876055
   },
   {
    "tconst": "tt0104155",
    "title": "Dust Devil",
    "year": 1992,
    "rating": 6.2,
-   "votes": 6639,
-   "score": 6.280640615244003
+   "votes": 6662,
+   "score": 6.285326453978401
+  },
+  {
+   "tconst": "tt0101371",
+   "title": "Article 99",
+   "year": 1992,
+   "rating": 6.1,
+   "votes": 3947,
+   "score": 6.2579111727528005
   },
   {
    "tconst": "tt0104511",
    "title": "Innocent Blood",
    "year": 1992,
    "rating": 6.2,
-   "votes": 12303,
-   "score": 6.248706863951125
+   "votes": 12328,
+   "score": 6.251584153012347
   },
   {
    "tconst": "tt0104695",
    "title": "Leap of Faith",
    "year": 1992,
    "rating": 6.2,
-   "votes": 15905,
-   "score": 6.238908364987039
+   "votes": 15926,
+   "score": 6.241230488918939
   },
   {
    "tconst": "tt0104452",
    "title": "Housesitter",
    "year": 1992,
    "rating": 6.2,
-   "votes": 28989,
-   "score": 6.222480695572394
+   "votes": 29023,
+   "score": 6.223824186711824
   },
   {
    "tconst": "tt0103978",
    "title": "Class Act",
    "year": 1992,
    "rating": 6.1,
-   "votes": 8769,
-   "score": 6.183262538313023
+   "votes": 8779,
+   "score": 6.18712290048807
   },
   {
    "tconst": "tt0104627",
    "title": "Knight Moves",
    "year": 1992,
    "rating": 6.1,
-   "votes": 9982,
-   "score": 6.174833439750704
+   "votes": 10007,
+   "score": 6.178212521392597
   },
   {
    "tconst": "tt0109412",
    "title": "Naked Killer",
    "year": 1992,
    "rating": 5.9,
-   "votes": 2949,
-   "score": 6.16200328856192
+   "votes": 2952,
+   "score": 6.170415538037339
   },
   {
    "tconst": "tt0104926",
    "title": "Mr. Baseball",
    "year": 1992,
    "rating": 6.1,
-   "votes": 12988,
-   "score": 6.15982481152208
-  },
-  {
-   "tconst": "tt0105217",
-   "title": "Raising Cain",
-   "year": 1992,
-   "rating": 6.1,
-   "votes": 19333,
-   "score": 6.142031325884449
+   "votes": 13036,
+   "score": 6.162456620401763
   },
   {
    "tconst": "tt0104027",
    "title": "CrissCross",
    "year": 1992,
    "rating": 5.8,
-   "votes": 2449,
-   "score": 6.13640239943649
+   "votes": 2455,
+   "score": 6.1454764858273645
+  },
+  {
+   "tconst": "tt0105217",
+   "title": "Raising Cain",
+   "year": 1992,
+   "rating": 6.1,
+   "votes": 19428,
+   "score": 6.1438257300896435
   },
   {
    "tconst": "tt0105719",
    "title": "The Vagrant",
    "year": 1992,
    "rating": 5.8,
-   "votes": 2480,
-   "score": 6.134074614976104
+   "votes": 2489,
+   "score": 6.142859822758053
   },
   {
    "tconst": "tt0105622",
    "title": "Tokyo Decadence",
    "year": 1992,
    "rating": 5.9,
-   "votes": 4016,
-   "score": 6.1155342877481615
+   "votes": 4020,
+   "score": 6.122441485774237
   },
   {
    "tconst": "tt0105698",
    "title": "Universal Soldier",
    "year": 1992,
    "rating": 6.1,
-   "votes": 102717,
-   "score": 6.108562642885996
+   "votes": 102818,
+   "score": 6.108959317525242
   },
   {
    "tconst": "tt0105813",
    "title": "White Sands",
    "year": 1992,
    "rating": 6,
-   "votes": 9818,
-   "score": 6.09279525089634
+   "votes": 9831,
+   "score": 6.096280766153402
   },
   {
    "tconst": "tt0105481",
    "title": "Straight Talk",
    "year": 1992,
    "rating": 5.9,
-   "votes": 4825,
-   "score": 6.089985974372593
+   "votes": 4933,
+   "score": 6.0931483837243485
   },
   {
    "tconst": "tt0104928",
    "title": "Mr. Saturday Night",
    "year": 1992,
    "rating": 5.9,
-   "votes": 5471,
-   "score": 6.0735583288840775
+   "votes": 5472,
+   "score": 6.079215436879137
   },
   {
    "tconst": "tt0103783",
    "title": "Bebe's Kids",
    "year": 1992,
    "rating": 5.9,
-   "votes": 5918,
-   "score": 6.0637603277460155
+   "votes": 5922,
+   "score": 6.069035312340433
   },
   {
    "tconst": "tt0105459",
    "title": "Split Second",
    "year": 1992,
    "rating": 6,
-   "votes": 18996,
-   "score": 6.052231581019857
+   "votes": 19040,
+   "score": 6.054139626633122
   }
  ]
 }

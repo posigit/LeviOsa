@@ -1,7 +1,7 @@
 {
  "tag": "year-1971",
- "builtAt": "2026-09-15T22:46:38.707Z",
- "mean": 6.464,
+ "builtAt": "2026-10-01T06:19:54.122Z",
+ "mean": 6.455,
  "minVotes": 1000,
  "items": [
   {
@@ -9,1072 +9,1072 @@
    "title": "A Clockwork Orange",
    "year": 1971,
    "rating": 8.2,
-   "votes": 944750,
-   "score": 8.198164463225895
+   "votes": 946059,
+   "score": 8.198157598403373
   },
   {
    "tconst": "tt0068519",
    "title": "Gentlemen of Fortune",
    "year": 1971,
    "rating": 8.3,
-   "votes": 14499,
-   "score": 8.181543396083
+   "votes": 14537,
+   "score": 8.181260023576069
   },
   {
    "tconst": "tt0066078",
    "title": "Michael the Brave",
    "year": 1971,
    "rating": 8.4,
-   "votes": 6779,
-   "score": 8.151130106169227
+   "votes": 6785,
+   "score": 8.150178161374615
   },
   {
    "tconst": "tt0066763",
    "title": "Anand",
    "year": 1971,
    "rating": 8.1,
-   "votes": 37920,
-   "score": 8.05796611243295
+   "votes": 37986,
+   "score": 8.057808879759435
   },
   {
    "tconst": "tt0067328",
    "title": "The Last Picture Show",
    "year": 1971,
    "rating": 8,
-   "votes": 57618,
-   "score": 7.973797145857764
+   "votes": 57709,
+   "score": 7.973686095595248
   },
   {
    "tconst": "tt0067093",
    "title": "Fiddler on the Roof",
    "year": 1971,
    "rating": 8,
-   "votes": 52814,
-   "score": 7.971458005275401
+   "votes": 52878,
+   "score": 7.971326645129763
   },
   {
    "tconst": "tt0123392",
    "title": "Miscellaneous Brigade in the Mountains and at the Sea",
    "year": 1971,
    "rating": 8.6,
-   "votes": 2222,
-   "score": 7.9370704828958445
+   "votes": 2225,
+   "score": 7.93492619730275
   },
   {
    "tconst": "tt0065670",
    "title": "Twelve Chairs",
    "year": 1971,
    "rating": 8.1,
-   "votes": 8155,
-   "score": 7.921304325056298
+   "votes": 8172,
+   "score": 7.920664739021082
   },
   {
    "tconst": "tt0123390",
    "title": "The Miscellaneous Brigade on the Watch",
    "year": 1971,
    "rating": 8.6,
-   "votes": 2141,
-   "score": 7.919974879302901
+   "votes": 2143,
+   "score": 7.917574605886532
   },
   {
    "tconst": "tt0067919",
    "title": "The Emigrants",
    "year": 1971,
    "rating": 8,
-   "votes": 8408,
-   "score": 7.836739062063181
+   "votes": 8426,
+   "score": 7.83610619417583
   },
   {
    "tconst": "tt0067992",
    "title": "Willy Wonka & the Chocolate Factory",
    "year": 1971,
    "rating": 7.8,
-   "votes": 246938,
-   "score": 7.7946117218655075
+   "votes": 247332,
+   "score": 7.794584415163174
   },
   {
    "tconst": "tt0067185",
    "title": "Harold and Maude",
    "year": 1971,
    "rating": 7.8,
-   "votes": 85660,
-   "score": 7.784583903714405
+   "votes": 85766,
+   "score": 7.784500115094638
   },
   {
    "tconst": "tt0067277",
    "title": "Johnny Got His Gun",
    "year": 1971,
    "rating": 7.8,
-   "votes": 20083,
-   "score": 7.7366333584352525
+   "votes": 20117,
+   "score": 7.7363137276270955
   },
   {
    "tconst": "tt0066999",
    "title": "Dirty Harry",
    "year": 1971,
    "rating": 7.7,
-   "votes": 182758,
-   "score": 7.693273985872128
+   "votes": 183000,
+   "score": 7.693234440142942
   },
   {
    "tconst": "tt0066993",
    "title": "The Devils",
    "year": 1971,
    "rating": 7.7,
-   "votes": 21855,
-   "score": 7.645921728107215
+   "votes": 21980,
+   "score": 7.645828415417815
   },
   {
    "tconst": "tt0067116",
    "title": "The French Connection",
    "year": 1971,
    "rating": 7.6,
-   "votes": 152450,
-   "score": 7.592597204925971
+   "votes": 152740,
+   "score": 7.5925532521549455
   },
   {
    "tconst": "tt0067324",
    "title": "Land of Silence and Darkness",
    "year": 1971,
    "rating": 7.9,
-   "votes": 3629,
-   "score": 7.58979068824593
-  },
-  {
-   "tconst": "tt0067023",
-   "title": "Duel",
-   "year": 1971,
-   "rating": 7.6,
-   "votes": 86938,
-   "score": 7.587082274965207
+   "votes": 3636,
+   "score": 7.588338435354049
   },
   {
    "tconst": "tt0165473",
    "title": "Demons",
    "year": 1971,
    "rating": 7.9,
-   "votes": 3580,
-   "score": 7.586471854997907
+   "votes": 3587,
+   "score": 7.585009153324912
   },
   {
    "tconst": "tt0067633",
    "title": "Punishment Park",
    "year": 1971,
    "rating": 7.7,
-   "votes": 8653,
-   "score": 7.571961161907222
+   "votes": 8688,
+   "score": 7.5715046435075735
   },
   {
    "tconst": "tt0067411",
    "title": "McCabe & Mrs. Miller",
    "year": 1971,
    "rating": 7.6,
-   "votes": 30770,
-   "score": 7.564244290081536
+   "votes": 30818,
+   "score": 7.564018385388817
   },
   {
    "tconst": "tt0067959",
    "title": "Walkabout",
    "year": 1971,
    "rating": 7.6,
-   "votes": 30116,
-   "score": 7.5634927720751515
+   "votes": 30164,
+   "score": 7.56326328411954
   },
   {
    "tconst": "tt0067140",
    "title": "Duck, You Sucker!",
    "year": 1971,
    "rating": 7.5,
-   "votes": 40758,
-   "score": 7.475191366825289
+   "votes": 40842,
+   "score": 7.475028368297438
   },
   {
    "tconst": "tt0066765",
    "title": "Monty Python's and Now for Something Completely Different",
    "year": 1971,
    "rating": 7.5,
-   "votes": 32901,
-   "score": 7.469441641718251
+   "votes": 32928,
+   "score": 7.46920351881341
   },
   {
    "tconst": "tt0067698",
    "title": "Sacco & Vanzetti",
    "year": 1971,
    "rating": 7.7,
-   "votes": 4246,
-   "score": 7.464399751408771
+   "votes": 4257,
+   "score": 7.463198970192386
   },
   {
    "tconst": "tt0067541",
    "title": "Wake in Fright",
    "year": 1971,
    "rating": 7.5,
-   "votes": 16745,
-   "score": 7.441619672915774
+   "votes": 16800,
+   "score": 7.441299830691088
   },
   {
    "tconst": "tt0067778",
    "title": "Murmur of the Heart",
    "year": 1971,
    "rating": 7.5,
-   "votes": 11769,
-   "score": 7.418869222013503
+   "votes": 11783,
+   "score": 7.418261518133565
   },
   {
    "tconst": "tt0066730",
    "title": "10 Rillington Place",
    "year": 1971,
    "rating": 7.5,
-   "votes": 11060,
-   "score": 7.414099593357414
+   "votes": 11081,
+   "score": 7.413511877021883
   },
   {
    "tconst": "tt0067814",
    "title": "Love",
    "year": 1971,
    "rating": 7.8,
-   "votes": 2440,
-   "score": 7.411639853456515
+   "votes": 2441,
+   "score": 7.409165064313099
   },
   {
    "tconst": "tt0066919",
    "title": "The Working Class Goes to Heaven",
    "year": 1971,
    "rating": 7.6,
-   "votes": 4900,
-   "score": 7.407464592523798
+   "votes": 4914,
+   "score": 7.406414776175408
   },
   {
    "tconst": "tt0064451",
    "title": "A Touch of Zen",
    "year": 1971,
    "rating": 7.5,
-   "votes": 8375,
-   "score": 7.389497716894978
+   "votes": 8391,
+   "score": 7.388737832637778
   },
   {
    "tconst": "tt0067800",
    "title": "Straw Dogs",
    "year": 1971,
    "rating": 7.4,
-   "votes": 68821,
-   "score": 7.386594879705109
+   "votes": 68893,
+   "score": 7.386481292637336
   },
   {
    "tconst": "tt0067372",
    "title": "Macbeth",
    "year": 1971,
    "rating": 7.4,
-   "votes": 16208,
-   "score": 7.34560908274584
+   "votes": 16227,
+   "score": 7.345152202142066
   },
   {
    "tconst": "tt0067128",
    "title": "Get Carter",
    "year": 1971,
    "rating": 7.3,
-   "votes": 39141,
-   "score": 7.2791744375050556
+   "votes": 39249,
+   "score": 7.279009093053277
   },
   {
    "tconst": "tt0067729",
    "title": "Company Limited",
    "year": 1971,
    "rating": 7.8,
-   "votes": 1540,
-   "score": 7.27403192751591
+   "votes": 1543,
+   "score": 7.271150997365855
   },
   {
    "tconst": "tt0067418",
    "title": "Melody",
    "year": 1971,
    "rating": 7.5,
-   "votes": 3553,
-   "score": 7.272466746297038
+   "votes": 3558,
+   "score": 7.270762831571165
   },
   {
    "tconst": "tt0067445",
    "title": "Death in Venice",
    "year": 1971,
    "rating": 7.3,
-   "votes": 25232,
-   "score": 7.26813209423187
+   "votes": 25282,
+   "score": 7.267853929925476
   },
   {
    "tconst": "tt0067527",
    "title": "On Any Sunday",
    "year": 1971,
    "rating": 7.7,
-   "votes": 1743,
-   "score": 7.249413450926143
+   "votes": 1747,
+   "score": 7.2468281712054505
   },
   {
    "tconst": "tt0128960",
    "title": "Belorussky Station",
    "year": 1971,
    "rating": 7.7,
-   "votes": 1621,
-   "score": 7.2284399450173265
+   "votes": 1624,
+   "score": 7.225585741730706
   },
   {
    "tconst": "tt0066906",
    "title": "Le Chat",
    "year": 1971,
    "rating": 7.5,
-   "votes": 2718,
-   "score": 7.2213666207343765
+   "votes": 2726,
+   "score": 7.2195751439348825
   },
   {
    "tconst": "tt0067482",
    "title": "A New Leaf",
    "year": 1971,
    "rating": 7.3,
-   "votes": 9066,
-   "score": 7.21695222490467
+   "votes": 9085,
+   "score": 7.2162257795043505
   },
   {
    "tconst": "tt0228853",
    "title": "Throw Away Your Books, Rally in the Streets",
    "year": 1971,
    "rating": 7.5,
-   "votes": 2624,
-   "score": 7.214139375245699
+   "votes": 2630,
+   "score": 7.2121589493943175
   },
   {
    "tconst": "tt0067484",
    "title": "I Hate Mondays",
    "year": 1971,
    "rating": 7.5,
-   "votes": 2549,
-   "score": 7.208098364578871
+   "votes": 2552,
+   "score": 7.205838115512773
   },
   {
    "tconst": "tt0068569",
    "title": "Family Life",
    "year": 1971,
    "rating": 7.5,
-   "votes": 2393,
-   "score": 7.194677599731923
+   "votes": 2399,
+   "score": 7.192596936246358
   },
   {
    "tconst": "tt0067517",
    "title": "Officers",
    "year": 1971,
    "rating": 7.5,
-   "votes": 2389,
-   "score": 7.1943172310092685
-  },
-  {
-   "tconst": "tt0065457",
-   "title": "Beg",
-   "year": 1971,
-   "rating": 7.7,
-   "votes": 1429,
-   "score": 7.191165539683166
+   "votes": 2394,
+   "score": 7.192144073748194
   },
   {
    "tconst": "tt0067439",
    "title": "My Uncle Antoine",
    "year": 1971,
    "rating": 7.4,
-   "votes": 3454,
-   "score": 7.189861045327889
+   "votes": 3457,
+   "score": 7.188004708615969
+  },
+  {
+   "tconst": "tt0065457",
+   "title": "Beg",
+   "year": 1971,
+   "rating": 7.7,
+   "votes": 1430,
+   "score": 7.187710693951181
   },
   {
    "tconst": "tt0066997",
    "title": "Directed by John Ford",
    "year": 1971,
    "rating": 7.7,
-   "votes": 1417,
-   "score": 7.188639261849572
+   "votes": 1422,
+   "score": 7.186018574030293
   },
   {
    "tconst": "tt0066769",
    "title": "The Andromeda Strain",
    "year": 1971,
    "rating": 7.2,
-   "votes": 44756,
-   "score": 7.183915576009494
+   "votes": 44827,
+   "score": 7.183746197357483
   },
   {
    "tconst": "tt0067927",
    "title": "Vanishing Point",
    "year": 1971,
    "rating": 7.2,
-   "votes": 32524,
-   "score": 7.178046805151248
+   "votes": 32561,
+   "score": 7.177805696680712
   },
   {
    "tconst": "tt0067820",
    "title": "Taking Off",
    "year": 1971,
    "rating": 7.3,
-   "votes": 5340,
-   "score": 7.168145283263472
+   "votes": 5347,
+   "score": 7.166887818859519
   },
   {
    "tconst": "tt0068154",
    "title": "Trinity Is Still My Name",
    "year": 1971,
    "rating": 7.2,
-   "votes": 19574,
-   "score": 7.164228691352698
+   "votes": 19610,
+   "score": 7.1638591453809495
   },
   {
    "tconst": "tt0067242",
    "title": "In the Name of the Italian People",
    "year": 1971,
    "rating": 7.5,
-   "votes": 2023,
-   "score": 7.157307673136094
+   "votes": 2033,
+   "score": 7.155501808869558
   },
   {
    "tconst": "tt0067047",
    "title": "Emil of Lonneberga",
    "year": 1971,
    "rating": 7.3,
-   "votes": 4836,
-   "score": 7.156758241242359
+   "votes": 4839,
+   "score": 7.155306899520701
   },
   {
    "tconst": "tt0067893",
    "title": "Two-Lane Blacktop",
    "year": 1971,
    "rating": 7.2,
-   "votes": 14592,
-   "score": 7.1527989415014375
+   "votes": 14607,
+   "score": 7.152273786525365
   },
   {
    "tconst": "tt0067803",
    "title": "Summer of '42",
    "year": 1971,
    "rating": 7.2,
-   "votes": 10194,
-   "score": 7.13425416257731
+   "votes": 10210,
+   "score": 7.133553700829738
   },
   {
    "tconst": "tt0067108",
    "title": "Delusions of Grandeur",
    "year": 1971,
    "rating": 7.2,
-   "votes": 8976,
-   "score": 7.126227054519889
+   "votes": 8993,
+   "score": 7.125461521695324
   },
   {
    "tconst": "tt0067409",
    "title": "Max and the Junkmen",
    "year": 1971,
    "rating": 7.3,
-   "votes": 3532,
-   "score": 7.115543048519508
+   "votes": 3538,
+   "score": 7.113824809674167
   },
   {
    "tconst": "tt0067885",
    "title": "The Third Part of the Night",
    "year": 1971,
    "rating": 7.3,
-   "votes": 3320,
-   "score": 7.106490994419077
+   "votes": 3332,
+   "score": 7.104971603486004
   },
   {
    "tconst": "tt0066989",
    "title": "Two English Girls",
    "year": 1971,
    "rating": 7.2,
-   "votes": 6449,
-   "score": 7.101200308214581
+   "votes": 6458,
+   "score": 7.100125635063203
   },
   {
    "tconst": "tt0067483",
    "title": "Nicholas and Alexandra",
    "year": 1971,
    "rating": 7.2,
-   "votes": 6320,
-   "score": 7.099459166105247
+   "votes": 6337,
+   "score": 7.098478531593481
   },
   {
    "tconst": "tt0067433",
    "title": "Minnie and Moskowitz",
    "year": 1971,
    "rating": 7.2,
-   "votes": 5895,
-   "score": 7.093261942841249
+   "votes": 5905,
+   "score": 7.092127007429598
   },
   {
    "tconst": "tt0066817",
    "title": "Bedknobs and Broomsticks",
    "year": 1971,
    "rating": 7.1,
-   "votes": 43797,
-   "score": 7.085803538091621
+   "votes": 43851,
+   "score": 7.085622103995481
   },
   {
    "tconst": "tt0067309",
    "title": "Klute",
    "year": 1971,
    "rating": 7.1,
-   "votes": 34362,
-   "score": 7.082015754083208
+   "votes": 34441,
+   "score": 7.081804604449687
   },
   {
    "tconst": "tt0067815",
    "title": "Sinbad",
    "year": 1971,
    "rating": 7.4,
-   "votes": 1938,
-   "score": 7.081429916913007
+   "votes": 1940,
+   "score": 7.0786180225514865
   },
   {
    "tconst": "tt0067549",
    "title": "The Panic in Needle Park",
    "year": 1971,
    "rating": 7.1,
-   "votes": 22779,
-   "score": 7.073255439500837
+   "votes": 22834,
+   "score": 7.072943567437331
   },
   {
    "tconst": "tt0066819",
    "title": "The Beguiled",
    "year": 1971,
    "rating": 7.1,
-   "votes": 21363,
-   "score": 7.071562004019604
+   "votes": 21406,
+   "score": 7.071219181750485
   },
   {
    "tconst": "tt0067641",
    "title": "Four Nights of a Dreamer",
    "year": 1971,
    "rating": 7.2,
-   "votes": 4432,
-   "score": 7.064514192910607
+   "votes": 4447,
+   "score": 7.06325261360407
   },
   {
    "tconst": "tt0066831",
    "title": "Big Jake",
    "year": 1971,
    "rating": 7.1,
-   "votes": 16126,
-   "score": 7.062865882044284
+   "votes": 16162,
+   "score": 7.062424949673778
   },
   {
    "tconst": "tt0246135",
    "title": "Out 1",
    "year": 1971,
    "rating": 7.4,
-   "votes": 1737,
-   "score": 7.058034744570849
+   "votes": 1741,
+   "score": 7.055285292339063
   },
   {
    "tconst": "tt0066109",
    "title": "The Music Lovers",
    "year": 1971,
    "rating": 7.2,
-   "votes": 3557,
-   "score": 7.0384992529932875
+   "votes": 3561,
+   "score": 7.036688661763072
   },
   {
    "tconst": "tt0067217",
    "title": "The Hospital",
    "year": 1971,
    "rating": 7.1,
-   "votes": 8375,
-   "score": 7.032164383561644
+   "votes": 8387,
+   "score": 7.031302544615038
   },
   {
    "tconst": "tt0066988",
    "title": "Why?",
    "year": 1971,
    "rating": 7.5,
-   "votes": 1201,
-   "score": 7.029323532889783
+   "votes": 1203,
+   "score": 7.025709026918463
   },
   {
    "tconst": "tt0067144",
    "title": "The Go-Between",
    "year": 1971,
    "rating": 7.1,
-   "votes": 7230,
-   "score": 7.022726743121557
+   "votes": 7240,
+   "score": 7.021739925522011
   },
   {
    "tconst": "tt0067524",
    "title": "The Olsen Gang in Jutland",
    "year": 1971,
    "rating": 7.2,
-   "votes": 2808,
-   "score": 7.00673348106366
+   "votes": 2813,
+   "score": 7.004651714214889
   },
   {
    "tconst": "tt0067402",
    "title": "Mary, Queen of Scots",
    "year": 1971,
    "rating": 7.1,
-   "votes": 5321,
-   "score": 6.99938951050315
+   "votes": 5330,
+   "score": 6.998125906208747
   },
   {
    "tconst": "tt0073221",
    "title": "Just Before Nightfall",
    "year": 1971,
    "rating": 7.2,
-   "votes": 2659,
-   "score": 6.99886337684898
+   "votes": 2669,
+   "score": 6.99698473325194
   },
   {
    "tconst": "tt0067274",
    "title": "Jo",
    "year": 1971,
    "rating": 7.1,
-   "votes": 4260,
-   "score": 6.979095265378405
+   "votes": 4266,
+   "score": 6.977542154633759
   },
   {
    "tconst": "tt0066740",
    "title": "The Abominable Dr. Phibes",
    "year": 1971,
    "rating": 7,
-   "votes": 18262,
-   "score": 6.9721753242597035
+   "votes": 18283,
+   "score": 6.971743866945049
   },
   {
    "tconst": "tt0067249",
    "title": "Inn of Evil",
    "year": 1971,
    "rating": 7.2,
-   "votes": 2165,
-   "score": 6.967469540565691
+   "votes": 2169,
+   "score": 6.964953293247515
   },
   {
    "tconst": "tt0065622",
    "title": "The Decameron",
    "year": 1971,
    "rating": 7,
-   "votes": 13896,
-   "score": 6.96401994467578
+   "votes": 13918,
+   "score": 6.963476135293026
   },
   {
    "tconst": "tt0066940",
    "title": "Confessions of a Police Captain",
    "year": 1971,
    "rating": 7.2,
-   "votes": 2067,
-   "score": 6.960039483498667
-  },
-  {
-   "tconst": "tt0234542",
-   "title": "Purab Aur Pachhim",
-   "year": 1971,
-   "rating": 7.4,
-   "votes": 1098,
-   "score": 6.953880407955392
+   "votes": 2077,
+   "score": 6.9579255724086355
   },
   {
    "tconst": "tt0066806",
    "title": "Sympathy for the Underdog",
    "year": 1971,
    "rating": 7.3,
-   "votes": 1413,
-   "score": 6.9535603381228395
+   "votes": 1417,
+   "score": 6.95044972540396
+  },
+  {
+   "tconst": "tt0234542",
+   "title": "Purab Aur Pachhim",
+   "year": 1971,
+   "rating": 7.4,
+   "votes": 1100,
+   "score": 6.950065231572081
   },
   {
    "tconst": "tt0092905",
    "title": "The Long Farewell",
    "year": 1971,
    "rating": 7.3,
-   "votes": 1399,
-   "score": 6.951538597703381
+   "votes": 1401,
+   "score": 6.948120360808568
   },
   {
    "tconst": "tt0069400",
    "title": "Trafic",
    "year": 1971,
    "rating": 7,
-   "votes": 8492,
-   "score": 6.943535724387949
+   "votes": 8512,
+   "score": 6.942718354321002
   },
   {
    "tconst": "tt0067333",
    "title": "Lawman",
    "year": 1971,
    "rating": 7,
-   "votes": 7219,
-   "score": 6.934790253788832
+   "votes": 7234,
+   "score": 6.933827664112385
   },
   {
    "tconst": "tt0066639",
    "title": "The Ceremony",
    "year": 1971,
    "rating": 7.2,
-   "votes": 1483,
-   "score": 6.903600924643742
+   "votes": 1486,
+   "score": 6.90037690518961
   },
   {
    "tconst": "tt0067197",
    "title": "The Hellstrom Chronicle",
    "year": 1971,
    "rating": 7.3,
-   "votes": 1087,
-   "score": 6.899444703349502
+   "votes": 1089,
+   "score": 6.895565814409464
   },
   {
    "tconst": "tt0065969",
    "title": "The Last Valley",
    "year": 1971,
    "rating": 7,
-   "votes": 3979,
-   "score": 6.892356114860496
+   "votes": 3986,
+   "score": 6.890721417228514
   },
   {
    "tconst": "tt0066808",
    "title": "Bananas",
    "year": 1971,
    "rating": 6.9,
-   "votes": 40278,
-   "score": 6.88943846833399
+   "votes": 40319,
+   "score": 6.889233451591311
   },
   {
    "tconst": "tt0067588",
    "title": "Play Misty for Me",
    "year": 1971,
    "rating": 6.9,
-   "votes": 35637,
-   "score": 6.888100583996791
+   "votes": 35689,
+   "score": 6.887874757728512
   },
   {
    "tconst": "tt0067824",
    "title": "The Big Boss",
    "year": 1971,
    "rating": 6.9,
-   "votes": 32048,
-   "score": 6.88680831202767
+   "votes": 32104,
+   "score": 6.886561653766957
   },
   {
    "tconst": "tt0069518",
    "title": "Triple Irons",
    "year": 1971,
    "rating": 7.1,
-   "votes": 1957,
-   "score": 6.884931043588235
+   "votes": 1961,
+   "score": 6.882214449949805
   },
   {
    "tconst": "tt0066602",
    "title": "Zatoichi and the One-Armed Swordsman",
    "year": 1971,
    "rating": 7.1,
-   "votes": 1930,
-   "score": 6.882949179484783
+   "votes": 1931,
+   "score": 6.879985324565463
   },
   {
    "tconst": "tt0066892",
    "title": "Carnal Knowledge",
    "year": 1971,
    "rating": 6.9,
-   "votes": 17272,
-   "score": 6.87614060288367
+   "votes": 17325,
+   "score": 6.875723710030089
   },
   {
    "tconst": "tt0067164",
    "title": "Guddi",
    "year": 1971,
    "rating": 7.2,
-   "votes": 1250,
-   "score": 6.872907153729072
+   "votes": 1252,
+   "score": 6.869243777220857
   },
   {
    "tconst": "tt0067805",
    "title": "Sunday Bloody Sunday",
    "year": 1971,
    "rating": 6.9,
-   "votes": 7977,
-   "score": 6.851436013800871
+   "votes": 7991,
+   "score": 6.850521297553262
   },
   {
    "tconst": "tt0066968",
    "title": "Dash Akol",
    "year": 1971,
    "rating": 7.1,
-   "votes": 1510,
-   "score": 6.8466299186814386
+   "votes": 1511,
+   "score": 6.8431847814820275
   },
   {
    "tconst": "tt0066412",
    "title": "The Strange Vice of Mrs. Wardh",
    "year": 1971,
    "rating": 6.9,
-   "votes": 6409,
-   "score": 6.841158198932435
+   "votes": 6433,
+   "score": 6.8401502739541735
   },
   {
    "tconst": "tt0067306",
    "title": "King Lear",
    "year": 1971,
    "rating": 7.2,
-   "votes": 1042,
-   "score": 6.839589175264648
+   "votes": 1045,
+   "score": 6.835763807482333
   },
   {
    "tconst": "tt0067276",
    "title": "Joe Hill",
    "year": 1971,
    "rating": 7.2,
-   "votes": 1035,
-   "score": 6.838349432869982
+   "votes": 1042,
+   "score": 6.835228690647096
   },
   {
    "tconst": "tt0067763",
    "title": "Skin Game",
    "year": 1971,
    "rating": 7,
-   "votes": 2244,
-   "score": 6.834784554836748
+   "votes": 2246,
+   "score": 6.832143249014593
   },
   {
    "tconst": "tt0067774",
    "title": "Sometimes a Great Notion",
    "year": 1971,
    "rating": 6.9,
-   "votes": 5074,
-   "score": 6.828225402681991
+   "votes": 5080,
+   "score": 6.826831741167989
   },
   {
    "tconst": "tt0067755",
    "title": "Silence",
    "year": 1971,
    "rating": 7.1,
-   "votes": 1317,
-   "score": 6.825524857958745
+   "votes": 1316,
+   "score": 6.821561738472094
   },
   {
    "tconst": "tt0067204",
    "title": "The Hired Hand",
    "year": 1971,
    "rating": 6.9,
-   "votes": 4164,
-   "score": 6.815577284254534
+   "votes": 4171,
+   "score": 6.813969635718696
   },
   {
    "tconst": "tt0066963",
    "title": "Dad's Army",
    "year": 1971,
    "rating": 6.9,
-   "votes": 3976,
-   "score": 6.812387680042285
+   "votes": 3980,
+   "score": 6.810670077570556
   },
   {
    "tconst": "tt0180841",
    "title": "Young and Healthy As a Rose",
    "year": 1971,
    "rating": 7.1,
-   "votes": 1064,
-   "score": 6.791880375915897
+   "votes": 1066,
+   "score": 6.787868822023897
   },
   {
    "tconst": "tt0069752",
    "title": "The Father",
    "year": 1971,
    "rating": 7.1,
-   "votes": 1016,
-   "score": 6.784544194390085
-  },
-  {
-   "tconst": "tt0067943",
-   "title": "The Widow Couderc",
-   "year": 1971,
-   "rating": 6.9,
-   "votes": 2519,
-   "score": 6.776112843390285
+   "votes": 1017,
+   "score": 6.780286061626857
   },
   {
    "tconst": "tt0067770",
    "title": "Red Sun",
    "year": 1971,
    "rating": 6.8,
-   "votes": 12950,
-   "score": 6.775916924436588
+   "votes": 13007,
+   "score": 6.775379237973967
+  },
+  {
+   "tconst": "tt0067943",
+   "title": "The Widow Couderc",
+   "year": 1971,
+   "rating": 6.9,
+   "votes": 2529,
+   "score": 6.773940772542185
   },
   {
    "tconst": "tt0145891",
    "title": "Daisy Town",
    "year": 1971,
    "rating": 6.9,
-   "votes": 2327,
-   "score": 6.768963359149508
+   "votes": 2339,
+   "score": 6.766767590985736
   },
   {
    "tconst": "tt0067809",
    "title": "Support Your Local Gunfighter",
    "year": 1971,
    "rating": 6.8,
-   "votes": 7425,
-   "score": 6.760123572212511
+   "votes": 7443,
+   "score": 6.759153972083545
   },
   {
    "tconst": "tt0067361",
    "title": "A Lizard in a Woman's Skin",
    "year": 1971,
    "rating": 6.8,
-   "votes": 6699,
-   "score": 6.756363306389195
+   "votes": 6711,
+   "score": 6.75527648635733
   },
   {
    "tconst": "tt0066842",
    "title": "Bleak Moments",
    "year": 1971,
    "rating": 6.9,
-   "votes": 1993,
-   "score": 6.7543404931140705
+   "votes": 2000,
+   "score": 6.751712328767123
   },
   {
    "tconst": "tt0067881",
    "title": "The Trojan Women",
    "year": 1971,
    "rating": 6.9,
-   "votes": 1918,
-   "score": 6.75059667439699
+   "votes": 1922,
+   "score": 6.747753930972406
   },
   {
    "tconst": "tt0204544",
    "title": "Papaflessas",
    "year": 1971,
    "rating": 7,
-   "votes": 1061,
-   "score": 6.73995201159166
+   "votes": 1064,
+   "score": 6.736015981735161
   },
   {
    "tconst": "tt0067350",
    "title": "Little Murders",
    "year": 1971,
    "rating": 6.8,
-   "votes": 4192,
-   "score": 6.735292969162252
+   "votes": 4202,
+   "score": 6.7337056874858465
   },
   {
    "tconst": "tt0067388",
    "title": "Man in the Wilderness",
    "year": 1971,
    "rating": 6.8,
-   "votes": 3968,
-   "score": 6.7323754218781025
+   "votes": 3975,
+   "score": 6.730680801266607
   },
   {
    "tconst": "tt0066858",
    "title": "The Boy Friend",
    "year": 1971,
    "rating": 6.8,
-   "votes": 3918,
-   "score": 6.731687900750389
+   "votes": 3921,
+   "score": 6.7299201353995874
   },
   {
    "tconst": "tt0272118",
    "title": "Elephants Are My Friends",
    "year": 1971,
    "rating": 6.9,
-   "votes": 1520,
-   "score": 6.727000434877148
+   "votes": 1524,
+   "score": 6.7237468250005445
   },
   {
    "tconst": "tt0066824",
    "title": "A Girl in Australia",
    "year": 1971,
    "rating": 6.9,
-   "votes": 1379,
-   "score": 6.716746992808075
+   "votes": 1382,
+   "score": 6.713239708774715
   },
   {
    "tconst": "tt0206938",
    "title": "A Greek Woman in the Harem",
    "year": 1971,
    "rating": 6.9,
-   "votes": 1228,
-   "score": 6.704327242320652
-  },
-  {
-   "tconst": "tt0067068",
-   "title": "Evdokia",
-   "year": 1971,
-   "rating": 6.9,
-   "votes": 1031,
-   "score": 6.685347659227185
+   "votes": 1233,
+   "score": 6.700777871160489
   },
   {
    "tconst": "tt0067334",
    "title": "Le Mans",
    "year": 1971,
    "rating": 6.7,
-   "votes": 13480,
-   "score": 6.683704495572542
+   "votes": 13512,
+   "score": 6.683126859585266
+  },
+  {
+   "tconst": "tt0067068",
+   "title": "Evdokia",
+   "year": 1971,
+   "rating": 6.9,
+   "votes": 1035,
+   "score": 6.681394096462591
   },
   {
    "tconst": "tt0067921",
    "title": "Valdez Is Coming",
    "year": 1971,
    "rating": 6.7,
-   "votes": 5261,
-   "score": 6.662312904630317
+   "votes": 5276,
+   "score": 6.660984223438714
   },
   {
    "tconst": "tt0067458",
    "title": "Murphy's War",
    "year": 1971,
    "rating": 6.7,
-   "votes": 4459,
-   "score": 6.65677616704349
+   "votes": 4469,
+   "score": 6.65522709568502
   },
   {
    "tconst": "tt0066924",
    "title": "The Case of the Scorpion's Tail",
    "year": 1971,
    "rating": 6.7,
-   "votes": 3991,
-   "score": 6.652723120795515
+   "votes": 3998,
+   "score": 6.651007800380426
   },
   {
    "tconst": "tt0067848",
    "title": "They Might Be Giants",
    "year": 1971,
    "rating": 6.7,
-   "votes": 3644,
-   "score": 6.649190589123689
+   "votes": 3645,
+   "score": 6.647284604155301
   },
   {
    "tconst": "tt0185853",
    "title": "Ali Baba ve Kirk Haramiler",
    "year": 1971,
    "rating": 6.7,
-   "votes": 2518,
-   "score": 6.632928111395796
+   "votes": 2524,
+   "score": 6.6305156033772334
   },
   {
    "tconst": "tt0066141",
    "title": "The Night Visitor",
    "year": 1971,
    "rating": 6.7,
-   "votes": 2356,
-   "score": 6.629690433817167
+   "votes": 2363,
+   "score": 6.627189112786611
   },
   {
    "tconst": "tt0068286",
    "title": "Bless the Beasts & Children",
    "year": 1971,
    "rating": 6.7,
-   "votes": 1721,
-   "score": 6.61328228441397
+   "votes": 1724,
+   "score": 6.610109025808139
   },
   {
    "tconst": "tt0067162",
    "title": "The Grissom Gang",
    "year": 1971,
    "rating": 6.7,
-   "votes": 1638,
-   "score": 6.610553865007738
+   "votes": 1639,
+   "score": 6.607213712126325
   },
   {
    "tconst": "tt0476406",
    "title": "Turist Ömer: Boga Güresçisi",
    "year": 1971,
    "rating": 6.7,
-   "votes": 1591,
-   "score": 6.608931337665155
+   "votes": 1593,
+   "score": 6.605567676938438
+  },
+  {
+   "tconst": "tt0066434",
+   "title": "THX 1138",
+   "year": 1971,
+   "rating": 6.6,
+   "votes": 58063,
+   "score": 6.597547313653241
   },
   {
    "tconst": "tt0066936",
@@ -1082,119 +1082,111 @@
    "year": 1971,
    "rating": 6.7,
    "votes": 1312,
-   "score": 6.597941650471633
-  },
-  {
-   "tconst": "tt0066434",
-   "title": "THX 1138",
-   "year": 1971,
-   "rating": 6.6,
-   "votes": 58006,
-   "score": 6.597695846115486
+   "score": 6.594090391998863
   },
   {
    "tconst": "tt0067741",
    "title": "Shaft",
    "year": 1971,
    "rating": 6.6,
-   "votes": 23315,
-   "score": 6.594408434953337
+   "votes": 23351,
+   "score": 6.594051044569067
   },
   {
    "tconst": "tt0065761",
    "title": "The Cat o' Nine Tails",
    "year": 1971,
    "rating": 6.6,
-   "votes": 14511,
-   "score": 6.591234678350229
+   "votes": 14536,
+   "score": 6.590675655657915
   },
   {
    "tconst": "tt0069427",
    "title": "Twins of Evil",
    "year": 1971,
    "rating": 6.6,
-   "votes": 7669,
-   "score": 6.584316656579815
+   "votes": 7699,
+   "score": 6.583347164766222
   },
   {
    "tconst": "tt0067958",
    "title": "WR: Mysteries of the Organism",
    "year": 1971,
    "rating": 6.6,
-   "votes": 5853,
-   "score": 6.580160673557626
+   "votes": 5859,
+   "score": 6.5788798638724835
   },
   {
    "tconst": "tt0067727",
    "title": "See No Evil",
    "year": 1971,
    "rating": 6.6,
-   "votes": 4923,
-   "score": 6.5770456011970975
+   "votes": 4953,
+   "score": 6.575665544482003
   },
   {
    "tconst": "tt0068502",
    "title": "Dr Jekyll & Sister Hyde",
    "year": 1971,
    "rating": 6.6,
-   "votes": 4628,
-   "score": 6.57584241220512
+   "votes": 4643,
+   "score": 6.574328723427497
   },
   {
    "tconst": "tt0067085",
    "title": "Fata Morgana",
    "year": 1971,
    "rating": 6.6,
-   "votes": 4492,
-   "score": 6.57524419080306
+   "votes": 4504,
+   "score": 6.573680411755336
   },
   {
    "tconst": "tt0067384",
    "title": "Short Night of Glass Dolls",
    "year": 1971,
    "rating": 6.6,
-   "votes": 4407,
-   "score": 6.574855020508676
+   "votes": 4418,
+   "score": 6.573262640513357
   },
   {
    "tconst": "tt0068347",
    "title": "The Burglars",
    "year": 1971,
    "rating": 6.6,
-   "votes": 3442,
-   "score": 6.569392412402164
+   "votes": 3451,
+   "score": 6.567453827522213
   },
   {
    "tconst": "tt0066040",
    "title": "Don't Deliver Us from Evil",
    "year": 1971,
    "rating": 6.6,
-   "votes": 3227,
-   "score": 6.567835603475374
+   "votes": 3238,
+   "score": 6.565818071331139
   },
   {
    "tconst": "tt0067134",
    "title": "The Fifth Cord",
    "year": 1971,
    "rating": 6.6,
-   "votes": 3108,
-   "score": 6.566903869496205
+   "votes": 3124,
+   "score": 6.564873178055619
   },
   {
    "tconst": "tt0067329",
    "title": "The Last Run",
    "year": 1971,
    "rating": 6.6,
-   "votes": 3060,
-   "score": 6.566512585194682
+   "votes": 3103,
+   "score": 6.5646933917380865
   },
   {
    "tconst": "tt0066927",
    "title": "Cold Turkey",
    "year": 1971,
    "rating": 6.6,
-   "votes": 2851,
-   "score": 6.5646951690185436
+   "votes": 2865,
+   "score": 6.562519272005529
   },
   {
    "tconst": "tt0067962",
@@ -1202,47 +1194,39 @@
    "year": 1971,
    "rating": 6.6,
    "votes": 2820,
-   "score": 6.564408663845658
+   "score": 6.5620777451050705
   },
   {
    "tconst": "tt0068025",
    "title": "The Apple War",
    "year": 1971,
    "rating": 6.6,
-   "votes": 2353,
-   "score": 6.559451564536359
+   "votes": 2355,
+   "score": 6.55682175448625
   },
   {
    "tconst": "tt0067580",
    "title": "Pink Narcissus",
    "year": 1971,
    "rating": 6.6,
-   "votes": 2028,
-   "score": 6.5550994372161195
+   "votes": 2037,
+   "score": 6.552300621106806
   },
   {
    "tconst": "tt0067386",
    "title": "The Legend of Doom House",
    "year": 1971,
    "rating": 6.6,
-   "votes": 2006,
-   "score": 6.554770823649505
-  },
-  {
-   "tconst": "tt0067314",
-   "title": "Kotch",
-   "year": 1971,
-   "rating": 6.6,
-   "votes": 1773,
-   "score": 6.550970463718143
+   "votes": 2014,
+   "score": 6.551936624519367
   },
   {
    "tconst": "tt0066530",
    "title": "Long Live Death",
    "year": 1971,
    "rating": 6.6,
-   "votes": 1731,
-   "score": 6.5502164393593585
+   "votes": 1732,
+   "score": 6.546975470827735
   },
   {
    "tconst": "tt0067313",
@@ -1250,223 +1234,231 @@
    "year": 1971,
    "rating": 6.6,
    "votes": 1122,
-   "score": 6.535928885905001
+   "score": 6.531732792790468
   },
   {
    "tconst": "tt0066995",
    "title": "Diamonds Are Forever",
    "year": 1971,
    "rating": 6.5,
-   "votes": 124558,
-   "score": 6.499713607224473
+   "votes": 124702,
+   "score": 6.499643100239466
   },
   {
    "tconst": "tt0066735",
    "title": "Four Flies on Grey Velvet",
    "year": 1971,
    "rating": 6.5,
-   "votes": 11297,
-   "score": 6.497075798641165
+   "votes": 11320,
+   "score": 6.496358521615371
   },
   {
    "tconst": "tt0065854",
    "title": "The House That Dripped Blood",
    "year": 1971,
    "rating": 6.5,
-   "votes": 8943,
-   "score": 6.496383495513467
+   "votes": 8964,
+   "score": 6.495497489592671
   },
   {
    "tconst": "tt0067690",
    "title": "Daughters of Darkness",
    "year": 1971,
    "rating": 6.5,
-   "votes": 8351,
-   "score": 6.4961545391819495
+   "votes": 8376,
+   "score": 6.495215122259105
   },
   {
    "tconst": "tt0067589",
    "title": "Plaza Suite",
    "year": 1971,
    "rating": 6.5,
-   "votes": 3130,
-   "score": 6.491293243557001
+   "votes": 3134,
+   "score": 6.489147795428488
   },
   {
    "tconst": "tt0067446",
    "title": "Death Walks on High Heels",
    "year": 1971,
    "rating": 6.5,
-   "votes": 2686,
-   "score": 6.490244464430388
+   "votes": 2694,
+   "score": 6.487855166838487
   },
   {
    "tconst": "tt0068384",
    "title": "Cisco Pike",
    "year": 1971,
    "rating": 6.5,
-   "votes": 2548,
-   "score": 6.489865021389631
+   "votes": 2554,
+   "score": 6.487376754727453
   },
   {
    "tconst": "tt0067952",
    "title": "Villain",
    "year": 1971,
    "rating": 6.5,
-   "votes": 2449,
-   "score": 6.489574107245698
+   "votes": 2452,
+   "score": 6.487003761964476
   },
   {
    "tconst": "tt0067989",
    "title": "Wild Rovers",
    "year": 1971,
    "rating": 6.5,
-   "votes": 2380,
-   "score": 6.489361270973495
+   "votes": 2383,
+   "score": 6.486738689418082
   },
   {
    "tconst": "tt0067397",
    "title": "The Swashbuckler",
    "year": 1971,
    "rating": 6.5,
-   "votes": 1911,
-   "score": 6.487647233215531
+   "votes": 1927,
+   "score": 6.4846726977456
+  },
+  {
+   "tconst": "tt0067314",
+   "title": "Kotch",
+   "year": 1971,
+   "rating": 6.5,
+   "votes": 1775,
+   "score": 6.483833148216711
   },
   {
    "tconst": "tt0067118",
    "title": "Friends",
    "year": 1971,
    "rating": 6.5,
-   "votes": 1260,
-   "score": 6.484088980482483
+   "votes": 1262,
+   "score": 6.480166660610685
   },
   {
    "tconst": "tt0066841",
    "title": "Blanche",
    "year": 1971,
    "rating": 6.5,
-   "votes": 1175,
-   "score": 6.483467170524327
+   "votes": 1178,
+   "score": 6.479401738430381
   },
   {
    "tconst": "tt0067219",
    "title": "How to Frame a Figg",
    "year": 1971,
    "rating": 6.5,
-   "votes": 1157,
-   "score": 6.483329205327033
+   "votes": 1159,
+   "score": 6.4792204660960495
   },
   {
    "tconst": "tt0066517",
    "title": "Cuadecuc, vampir",
    "year": 1971,
    "rating": 6.5,
-   "votes": 1006,
-   "score": 6.482074324970295
+   "votes": 1014,
+   "score": 6.477724422195319
   },
   {
    "tconst": "tt0067979",
    "title": "Whity",
    "year": 1971,
    "rating": 6.4,
-   "votes": 1275,
-   "score": 6.428149932259522
+   "votes": 1276,
+   "score": 6.42422538941185
   },
   {
    "tconst": "tt0067109",
    "title": "Fools' Parade",
    "year": 1971,
    "rating": 6.4,
-   "votes": 1914,
-   "score": 6.421977040456559
+   "votes": 1919,
+   "score": 6.4188889983903294
   },
   {
    "tconst": "tt0182765",
    "title": "Battal Gazi Destani",
    "year": 1971,
    "rating": 6.4,
-   "votes": 2012,
-   "score": 6.42126198402736
+   "votes": 2019,
+   "score": 6.418263327691742
   },
   {
    "tconst": "tt0279173",
    "title": "Keloglan",
    "year": 1971,
    "rating": 6.4,
-   "votes": 2021,
-   "score": 6.4211986414731586
+   "votes": 2024,
+   "score": 6.418233130390666
   },
   {
    "tconst": "tt0068669",
    "title": "Gumshoe",
    "year": 1971,
    "rating": 6.4,
-   "votes": 2051,
-   "score": 6.420990198587483
+   "votes": 2057,
+   "score": 6.418036305626879
   },
   {
    "tconst": "tt0180396",
    "title": "Goodbye Uncle Tom",
    "year": 1971,
    "rating": 6.4,
-   "votes": 2135,
-   "score": 6.420427781783226
+   "votes": 2136,
+   "score": 6.417581947162427
   },
   {
    "tconst": "tt0274932",
    "title": "Tarkan and the Blood of the Vikings",
    "year": 1971,
    "rating": 6.4,
-   "votes": 2648,
-   "score": 6.41755512496996
+   "votes": 2652,
+   "score": 6.415097750903991
   },
   {
    "tconst": "tt0068675",
    "title": "Hannie Caulder",
    "year": 1971,
    "rating": 6.4,
-   "votes": 4986,
-   "score": 6.410698479099635
+   "votes": 5001,
+   "score": 6.4091879663891635
   },
   {
    "tconst": "tt0066849",
    "title": "The Blood on Satan's Claw",
    "year": 1971,
    "rating": 6.4,
-   "votes": 9383,
-   "score": 6.406167879792971
+   "votes": 9425,
+   "score": 6.405288919549292
   },
   {
    "tconst": "tt0066767",
    "title": "The Anderson Tapes",
    "year": 1971,
    "rating": 6.4,
-   "votes": 10190,
-   "score": 6.405723064869563
+   "votes": 10214,
+   "score": 6.404916799206472
   },
   {
    "tconst": "tt0067341",
    "title": "Let's Scare Jessica to Death",
    "year": 1971,
    "rating": 6.4,
-   "votes": 10572,
-   "score": 6.4055341424032495
+   "votes": 10598,
+   "score": 6.404754008130831
   },
   {
    "tconst": "tt0067656",
    "title": "A Bay of Blood",
    "year": 1971,
    "rating": 6.4,
-   "votes": 14910,
-   "score": 6.404025210301095
+   "votes": 14976,
+   "score": 6.403451238501589
   },
   {
    "tconst": "tt0067525",
    "title": "The Omega Man",
    "year": 1971,
    "rating": 6.4,
-   "votes": 36487,
-   "score": 6.401708354786737
+   "votes": 36519,
+   "score": 6.401469575050011
   },
   {
    "tconst": "tt0069219",
@@ -1474,135 +1466,143 @@
    "year": 1971,
    "rating": 6.3,
    "votes": 1221,
-   "score": 6.373859115664301
+   "score": 6.36985006136937
   },
   {
    "tconst": "tt0067486",
    "title": "The Night Digger",
    "year": 1971,
    "rating": 6.3,
-   "votes": 1545,
-   "score": 6.364456226283069
+   "votes": 1552,
+   "score": 6.360790355133766
   },
   {
    "tconst": "tt0067168",
    "title": "A Gunfight",
    "year": 1971,
    "rating": 6.3,
-   "votes": 1591,
-   "score": 6.363311885716099
+   "votes": 1595,
+   "score": 6.359783039037138
   },
   {
    "tconst": "tt0067084",
    "title": "The Bloodstained Butterfly",
    "year": 1971,
    "rating": 6.3,
-   "votes": 2315,
-   "score": 6.34948449348127
+   "votes": 2318,
+   "score": 6.346756174292155
   },
   {
    "tconst": "tt0067975",
    "title": "What's the Matter with Helen?",
    "year": 1971,
    "rating": 6.3,
-   "votes": 2497,
-   "score": 6.346909092333546
+   "votes": 2503,
+   "score": 6.344286893034933
   },
   {
    "tconst": "tt0066826",
    "title": "The Touch",
    "year": 1971,
    "rating": 6.3,
-   "votes": 2580,
-   "score": 6.3458215351649185
+   "votes": 2587,
+   "score": 6.34324978709266
   },
   {
    "tconst": "tt0068152",
    "title": "$",
    "year": 1971,
    "rating": 6.3,
-   "votes": 3122,
-   "score": 6.3397964812931615
+   "votes": 3136,
+   "score": 6.337508942529345
   },
   {
    "tconst": "tt0069343",
    "title": "Black Belly of the Tarantula",
    "year": 1971,
    "rating": 6.3,
-   "votes": 4084,
-   "score": 6.332266147893472
+   "votes": 4092,
+   "score": 6.330466807993199
   },
   {
    "tconst": "tt0067503",
    "title": "Lake of Dracula",
    "year": 1971,
    "rating": 6.2,
-   "votes": 1269,
-   "score": 6.316368927232443
+   "votes": 1270,
+   "score": 6.312395148150384
   },
   {
    "tconst": "tt0067216",
    "title": "The Horsemen",
    "year": 1971,
    "rating": 6.2,
-   "votes": 1382,
-   "score": 6.31084848693972
-  },
-  {
-   "tconst": "tt0066844",
-   "title": "Blindman",
-   "year": 1971,
-   "rating": 6.2,
-   "votes": 1484,
-   "score": 6.3062967374760115
+   "votes": 1386,
+   "score": 6.306930840863944
   },
   {
    "tconst": "tt0067065",
    "title": "Escape from the Planet of the Apes",
    "year": 1971,
    "rating": 6.3,
-   "votes": 45175,
-   "score": 6.303552595471368
+   "votes": 45265,
+   "score": 6.303353225684672
+  },
+  {
+   "tconst": "tt0066844",
+   "title": "Blindman",
+   "year": 1971,
+   "rating": 6.2,
+   "votes": 1485,
+   "score": 6.3026708194371714
   },
   {
    "tconst": "tt0067302",
    "title": "Kidnapped",
    "year": 1971,
    "rating": 6.2,
-   "votes": 1768,
-   "score": 6.295390569324571
+   "votes": 1772,
+   "score": 6.29204075984898
   },
   {
    "tconst": "tt0067003",
    "title": "Doc",
    "year": 1971,
    "rating": 6.2,
-   "votes": 2417,
-   "score": 6.277272781940419
+   "votes": 2421,
+   "score": 6.274579651067341
   },
   {
    "tconst": "tt0067750",
    "title": "Shoot Out",
    "year": 1971,
    "rating": 6.2,
-   "votes": 2755,
-   "score": 6.270317202633931
+   "votes": 2760,
+   "score": 6.267855581463131
   },
   {
    "tconst": "tt0066894",
    "title": "Carry on Henry VIII",
    "year": 1971,
    "rating": 6.2,
-   "votes": 3406,
-   "score": 6.259927620492604
+   "votes": 3407,
+   "score": 6.257893575289623
   },
   {
    "tconst": "tt0067176",
    "title": "Hands of the Ripper",
    "year": 1971,
    "rating": 6.2,
-   "votes": 3430,
-   "score": 6.259602956182938
+   "votes": 3436,
+   "score": 6.257515100608966
+  },
+  {
+   "tconst": "tt0067602",
+   "title": "Oasis of Fear",
+   "year": 1971,
+   "rating": 6.1,
+   "votes": 1310,
+   "score": 6.253738955108819
   }
  ]
 }

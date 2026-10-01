@@ -1,7 +1,7 @@
 {
  "tag": "year-1967",
- "builtAt": "2026-09-15T22:46:38.707Z",
- "mean": 6.489,
+ "builtAt": "2026-10-01T06:19:54.122Z",
+ "mean": 6.493,
  "minVotes": 1000,
  "items": [
   {
@@ -9,224 +9,224 @@
    "title": "Samurai Rebellion",
    "year": 1967,
    "rating": 8.3,
-   "votes": 15861,
-   "score": 8.192565462042976
+   "votes": 15906,
+   "score": 8.193113832730413
   },
   {
    "tconst": "tt0060584",
    "title": "Kidnapping, Caucasian Style",
    "year": 1967,
    "rating": 8.2,
-   "votes": 15330,
-   "score": 8.095195729057354
+   "votes": 15375,
+   "score": 8.095754653810097
   },
   {
    "tconst": "tt0061722",
    "title": "The Graduate",
    "year": 1967,
    "rating": 8,
-   "votes": 304120,
-   "score": 7.9950463629244455
+   "votes": 304463,
+   "score": 7.995066448166031
   },
   {
    "tconst": "tt0061512",
    "title": "Cool Hand Luke",
    "year": 1967,
    "rating": 8,
-   "votes": 197340,
-   "score": 7.992379480969581
+   "votes": 197482,
+   "score": 7.992407283562945
   },
   {
    "tconst": "tt0062229",
    "title": "Le Samouraï",
    "year": 1967,
    "rating": 8,
-   "votes": 67235,
-   "score": 7.9778492893017745
+   "votes": 67385,
+   "score": 7.977962747037221
   },
   {
    "tconst": "tt0061811",
    "title": "In the Heat of the Night",
    "year": 1967,
    "rating": 7.9,
-   "votes": 92447,
-   "score": 7.884895676217607
+   "votes": 92610,
+   "score": 7.884969367120397
   },
   {
    "tconst": "tt0061809",
    "title": "In Cold Blood",
    "year": 1967,
    "rating": 7.9,
-   "votes": 32093,
-   "score": 7.8573488730398156
+   "votes": 32144,
+   "score": 7.857548348302569
   },
   {
    "tconst": "tt0061589",
    "title": "Bob Dylan: Dont Look Back",
    "year": 1967,
    "rating": 7.9,
-   "votes": 11088,
-   "score": 7.783235130336418
+   "votes": 11116,
+   "score": 7.78387111721198
   },
   {
    "tconst": "tt0061735",
    "title": "Guess Who's Coming to Dinner",
    "year": 1967,
    "rating": 7.8,
-   "votes": 53252,
-   "score": 7.775826628612892
+   "votes": 53327,
+   "score": 7.775941658036342
   },
   {
    "tconst": "tt0062136",
    "title": "Playtime",
    "year": 1967,
    "rating": 7.8,
-   "votes": 30165,
-   "score": 7.757919019910367
+   "votes": 30261,
+   "score": 7.758190155661699
   },
   {
    "tconst": "tt0062455",
    "title": "War and Peace, Part III: The Year 1812",
    "year": 1967,
    "rating": 8.3,
-   "votes": 2233,
-   "score": 7.739698810858834
+   "votes": 2241,
+   "score": 7.742450618988075
   },
   {
    "tconst": "tt0061418",
    "title": "Bonnie and Clyde",
    "year": 1967,
    "rating": 7.7,
-   "votes": 127767,
-   "score": 7.690591892763726
+   "votes": 127917,
+   "score": 7.6906372507593295
   },
   {
    "tconst": "tt0061578",
    "title": "The Dirty Dozen",
    "year": 1967,
    "rating": 7.7,
-   "votes": 84823,
-   "score": 7.685884276423646
+   "votes": 84914,
+   "score": 7.685950863143845
   },
   {
    "tconst": "tt0062467",
    "title": "Wait Until Dark",
    "year": 1967,
    "rating": 7.7,
-   "votes": 36902,
-   "score": 7.668037207944345
+   "votes": 36961,
+   "score": 7.668203747428686
   },
   {
    "tconst": "tt0062228",
    "title": "Our Folks",
    "year": 1967,
    "rating": 7.9,
-   "votes": 4375,
-   "score": 7.637403954512857
+   "votes": 4383,
+   "score": 7.638618327352843
   },
   {
    "tconst": "tt0063278",
    "title": "Marketa Lazarová",
    "year": 1967,
    "rating": 7.8,
-   "votes": 6787,
-   "score": 7.631584211571415
+   "votes": 6812,
+   "score": 7.632691046612948
   },
   {
    "tconst": "tt0062873",
    "title": "The Young Girls of Rochefort",
    "year": 1967,
    "rating": 7.7,
-   "votes": 14038,
-   "score": 7.61944050109766
+   "votes": 14102,
+   "score": 7.620075649327265
   },
   {
    "tconst": "tt0061852",
    "title": "The Jungle Book",
    "year": 1967,
    "rating": 7.6,
-   "votes": 215620,
-   "score": 7.594869108371833
-  },
-  {
-   "tconst": "tt0061395",
-   "title": "Belle de Jour",
-   "year": 1967,
-   "rating": 7.6,
-   "votes": 53993,
-   "score": 7.57978917781366
+   "votes": 215905,
+   "score": 7.59489630232655
   },
   {
    "tconst": "tt0062456",
    "title": "War and Peace, Part IV: Pierre Bezukhov",
    "year": 1967,
    "rating": 8.1,
-   "votes": 2090,
-   "score": 7.5784939338209085
+   "votes": 2099,
+   "score": 7.5814399664860765
+  },
+  {
+   "tconst": "tt0061395",
+   "title": "Belle de Jour",
+   "year": 1967,
+   "rating": 7.6,
+   "votes": 54076,
+   "score": 7.579900182586614
   },
   {
    "tconst": "tt0062376",
    "title": "To Sir, with Love",
    "year": 1967,
    "rating": 7.6,
-   "votes": 22228,
-   "score": 7.55215026069858
+   "votes": 22305,
+   "score": 7.552498710840608
   },
   {
    "tconst": "tt0123313",
    "title": "Help Its Vengos Visible Agent '000'",
    "year": 1967,
    "rating": 8.2,
-   "votes": 1578,
-   "score": 7.536131208497521
+   "votes": 1583,
+   "score": 7.539133742214615
   },
   {
    "tconst": "tt0061996",
    "title": "Mouchette",
    "year": 1967,
    "rating": 7.6,
-   "votes": 14294,
-   "score": 7.527327465379011
+   "votes": 14324,
+   "score": 7.527759231019338
   },
   {
    "tconst": "tt0062374",
    "title": "Titicut Follies",
    "year": 1967,
    "rating": 7.7,
-   "votes": 5854,
-   "score": 7.523248651226527
+   "votes": 5871,
+   "score": 7.524331604735899
   },
   {
    "tconst": "tt0063462",
    "title": "The Producers",
    "year": 1967,
    "rating": 7.5,
-   "votes": 64527,
-   "score": 7.4845643208983565
+   "votes": 64626,
+   "score": 7.484655204585688
   },
   {
    "tconst": "tt0061842",
    "title": "Jewel Thief",
    "year": 1967,
    "rating": 7.9,
-   "votes": 2286,
-   "score": 7.470464472156607
+   "votes": 2290,
+   "score": 7.472335093051778
   },
   {
    "tconst": "tt0061814",
    "title": "The Incident",
    "year": 1967,
    "rating": 7.6,
-   "votes": 5679,
-   "score": 7.433589797201169
+   "votes": 5699,
+   "score": 7.434748836563719
   },
   {
    "tconst": "tt0062083",
    "title": "Oscar",
    "year": 1967,
    "rating": 7.5,
-   "votes": 8589,
-   "score": 7.394519371728711
+   "votes": 8612,
+   "score": 7.395233297559338
   },
   {
    "tconst": "tt0061855",
@@ -234,455 +234,463 @@
    "year": 1967,
    "rating": 7.9,
    "votes": 1660,
-   "score": 7.369378291543839
+   "score": 7.37104603614299
   },
   {
    "tconst": "tt0061770",
    "title": "Hombre",
    "year": 1967,
    "rating": 7.4,
-   "votes": 16038,
-   "score": 7.3465046516907275
+   "votes": 16075,
+   "score": 7.346880378104852
   },
   {
    "tconst": "tt0062277",
    "title": "I Even Met Happy Gypsies",
    "year": 1967,
    "rating": 7.6,
-   "votes": 2926,
-   "score": 7.3168991990592485
+   "votes": 2931,
+   "score": 7.318387803648015
   },
   {
    "tconst": "tt0061537",
    "title": "The Red and the White",
    "year": 1967,
    "rating": 7.5,
-   "votes": 4379,
-   "score": 7.3119624940521675
+   "votes": 4390,
+   "score": 7.313169286853498
+  },
+  {
+   "tconst": "tt0060635",
+   "title": "Dragon Inn",
+   "year": 1967,
+   "rating": 7.5,
+   "votes": 4297,
+   "score": 7.309889079883019
   },
   {
    "tconst": "tt0061029",
    "title": "Happy End",
    "year": 1967,
    "rating": 7.8,
-   "votes": 1651,
-   "score": 7.305298474351796
+   "votes": 1659,
+   "score": 7.308455229838417
   },
   {
    "tconst": "tt0063771",
    "title": "The Two of Us",
    "year": 1967,
    "rating": 7.6,
-   "votes": 2729,
-   "score": 7.301943216815931
+   "votes": 2731,
+   "score": 7.303292001109716
   },
   {
    "tconst": "tt0063501",
    "title": "The Big Gundown",
    "year": 1967,
    "rating": 7.4,
-   "votes": 8066,
-   "score": 7.299464621167727
+   "votes": 8079,
+   "score": 7.3000971975041695
   },
   {
    "tconst": "tt0061971",
    "title": "Scattered Clouds",
    "year": 1967,
    "rating": 7.8,
-   "votes": 1571,
-   "score": 7.289905194673905
+   "votes": 1574,
+   "score": 7.292223176433703
   },
   {
    "tconst": "tt0062407",
    "title": "Two for the Road",
    "year": 1967,
    "rating": 7.3,
-   "votes": 15848,
-   "score": 7.251836791043839
+   "votes": 15872,
+   "score": 7.252168234716711
   },
   {
    "tconst": "tt0061781",
    "title": "The Firemen's Ball",
    "year": 1967,
    "rating": 7.3,
-   "votes": 13486,
-   "score": 7.243983587981956
+   "votes": 13517,
+   "score": 7.244408793562054
   },
   {
    "tconst": "tt0060668",
    "title": "Marat/Sade",
    "year": 1967,
    "rating": 7.5,
-   "votes": 2882,
-   "score": 7.239450349177385
+   "votes": 2885,
+   "score": 7.240793425003952
   },
   {
    "tconst": "tt0061495",
    "title": "The Collector",
    "year": 1967,
    "rating": 7.3,
-   "votes": 11043,
-   "score": 7.232620298555726
-  },
-  {
-   "tconst": "tt0060635",
-   "title": "Dragon Inn",
-   "year": 1967,
-   "rating": 7.4,
-   "votes": 4284,
-   "score": 7.227506861375211
+   "votes": 11063,
+   "score": 7.233099764249387
   },
   {
    "tconst": "tt0062138",
    "title": "Point Blank",
    "year": 1967,
    "rating": 7.2,
-   "votes": 27034,
-   "score": 7.174621754138068
+   "votes": 27106,
+   "score": 7.174844604573413
   },
   {
    "tconst": "tt0062519",
    "title": "The Second Wife",
    "year": 1967,
    "rating": 7.8,
-   "votes": 1088,
-   "score": 7.171909126200483
+   "votes": 1089,
+   "score": 7.174333392120801
   },
   {
    "tconst": "tt0062041",
    "title": "Japan's Longest Day",
    "year": 1967,
    "rating": 7.7,
-   "votes": 1221,
-   "score": 7.154545815176322
+   "votes": 1223,
+   "score": 7.157032144012753
   },
   {
    "tconst": "tt0330536",
    "title": "A Colt Is My Passport",
    "year": 1967,
    "rating": 7.4,
-   "votes": 2672,
-   "score": 7.151782749320972
+   "votes": 2687,
+   "score": 7.153995784144386
   },
   {
    "tconst": "tt0061876",
    "title": "The Commissar",
    "year": 1967,
    "rating": 7.5,
-   "votes": 1849,
-   "score": 7.144979380662201
+   "votes": 1852,
+   "score": 7.146908294579365
   },
   {
    "tconst": "tt0061882",
    "title": "Branded to Kill",
    "year": 1967,
    "rating": 7.2,
-   "votes": 11275,
-   "score": 7.142040428147179
+   "votes": 11289,
+   "score": 7.142467446996529
   },
   {
    "tconst": "tt0062445",
    "title": "The 25th Hour",
    "year": 1967,
    "rating": 7.4,
-   "votes": 2503,
-   "score": 7.139807666430663
+   "votes": 2505,
+   "score": 7.141221813449459
   },
   {
    "tconst": "tt0062352",
    "title": "Entranced Earth",
    "year": 1967,
    "rating": 7.3,
-   "votes": 4057,
-   "score": 7.139538512063794
+   "votes": 4064,
+   "score": 7.14063634599928
   },
   {
    "tconst": "tt0062038",
    "title": "The Night of the Generals",
    "year": 1967,
    "rating": 7.2,
-   "votes": 9646,
-   "score": 7.133171731683882
+   "votes": 9663,
+   "score": 7.133694312683144
   },
   {
    "tconst": "tt0061613",
    "title": "Oedipus Rex",
    "year": 1967,
    "rating": 7.2,
-   "votes": 7739,
-   "score": 7.118588654938392
-  },
-  {
-   "tconst": "tt0061648",
-   "title": "Far from the Madding Crowd",
-   "year": 1967,
-   "rating": 7.2,
-   "votes": 6875,
-   "score": 7.109656667365918
+   "votes": 7760,
+   "score": 7.119290234719218
   },
   {
    "tconst": "tt0064680",
    "title": "Vedreba",
    "year": 1967,
    "rating": 7.7,
-   "votes": 1048,
-   "score": 7.108469851321587
+   "votes": 1052,
+   "score": 7.111784822680483
+  },
+  {
+   "tconst": "tt0061648",
+   "title": "Far from the Madding Crowd",
+   "year": 1967,
+   "rating": 7.2,
+   "votes": 6887,
+   "score": 7.110356593906473
   },
   {
    "tconst": "tt0061791",
    "title": "How to Succeed in Business Without Really Trying",
    "year": 1967,
    "rating": 7.2,
-   "votes": 5725,
-   "score": 7.094207621636671
+   "votes": 5732,
+   "score": 7.094976597762976
   },
   {
    "tconst": "tt0062425",
    "title": "Up the Down Staircase",
    "year": 1967,
    "rating": 7.3,
-   "votes": 2786,
-   "score": 7.085669903725993
+   "votes": 2793,
+   "score": 7.087235026665002
   },
   {
    "tconst": "tt0171408",
    "title": "July Rain",
    "year": 1967,
    "rating": 7.5,
-   "votes": 1428,
-   "score": 7.083421027803381
-  },
-  {
-   "tconst": "tt0061597",
-   "title": "One-Armed Swordsman",
-   "year": 1967,
-   "rating": 7.2,
-   "votes": 4173,
-   "score": 7.062467863040133
+   "votes": 1433,
+   "score": 7.086100475191267
   },
   {
    "tconst": "tt0063834",
    "title": "Zatoichi Challenged",
    "year": 1967,
    "rating": 7.4,
-   "votes": 1696,
-   "score": 7.061923685276932
+   "votes": 1697,
+   "score": 7.063693902907064
+  },
+  {
+   "tconst": "tt0061597",
+   "title": "One-Armed Swordsman",
+   "year": 1967,
+   "rating": 7.2,
+   "votes": 4186,
+   "score": 7.063668040135046
   },
   {
    "tconst": "tt0062453",
    "title": "Viy",
    "year": 1967,
    "rating": 7.1,
-   "votes": 12082,
-   "score": 7.053259918629155
+   "votes": 12130,
+   "score": 7.053768656217848
   },
   {
    "tconst": "tt0060747",
    "title": "The Elusive Avengers",
    "year": 1967,
    "rating": 7.3,
-   "votes": 2228,
-   "score": 7.0486202774184035
+   "votes": 2229,
+   "score": 7.050071990133276
   },
   {
    "tconst": "tt0061912",
    "title": "Love Affair, or The Case of the Missing Switchboard Operator",
    "year": 1967,
    "rating": 7.3,
-   "votes": 2176,
-   "score": 7.044504488509638
+   "votes": 2180,
+   "score": 7.046220898157342
   },
   {
    "tconst": "tt0186725",
    "title": "Zatoichi's Cane Sword",
    "year": 1967,
    "rating": 7.4,
-   "votes": 1553,
-   "score": 7.042987174111481
+   "votes": 1554,
+   "score": 7.044863921746418
   },
   {
    "tconst": "tt0062323",
    "title": "Wedding in Malinovka",
    "year": 1967,
    "rating": 7.3,
-   "votes": 1798,
-   "score": 7.009987939780775
+   "votes": 1808,
+   "score": 7.012600589793571
   },
   {
    "tconst": "tt0062089",
    "title": "Our Mother's House",
    "year": 1967,
    "rating": 7.2,
-   "votes": 2556,
-   "score": 6.999928643280825
+   "votes": 2560,
+   "score": 7.001399566331559
   },
   {
    "tconst": "tt0061655",
    "title": "The Fearless Vampire Killers",
    "year": 1967,
    "rating": 7,
-   "votes": 36280,
-   "score": 6.986280747197065
+   "votes": 36325,
+   "score": 6.986416140820906
   },
   {
    "tconst": "tt0061385",
    "title": "Barefoot in the Park",
    "year": 1967,
    "rating": 7,
-   "votes": 23101,
-   "score": 6.978778733476063
+   "votes": 23153,
+   "score": 6.9790080924166915
   },
   {
    "tconst": "tt0062310",
    "title": "The Stranger",
    "year": 1967,
    "rating": 7.1,
-   "votes": 3775,
-   "score": 6.971946859791959
+   "votes": 3787,
+   "score": 6.973194580351024
   },
   {
    "tconst": "tt0061636",
    "title": "Face to Face",
    "year": 1967,
    "rating": 7.1,
-   "votes": 3692,
-   "score": 6.969681640133548
+   "votes": 3699,
+   "score": 6.970819845954533
   },
   {
    "tconst": "tt0062168",
    "title": "Five Million Years to Earth",
    "year": 1967,
    "rating": 7,
-   "votes": 12754,
-   "score": 6.962814181729432
+   "votes": 12776,
+   "score": 6.963195590602523
   },
   {
    "tconst": "tt0064208",
    "title": "Death Rides a Horse",
    "year": 1967,
    "rating": 7,
-   "votes": 11069,
-   "score": 6.95762252510619
+   "votes": 11103,
+   "score": 6.958108110066955
   },
   {
    "tconst": "tt0061407",
    "title": "The Taming of the Shrew",
    "year": 1967,
    "rating": 7,
-   "votes": 9645,
-   "score": 6.951953617238761
+   "votes": 9659,
+   "score": 6.952432916421836
   },
   {
    "tconst": "tt0061709",
    "title": "Day of Anger",
    "year": 1967,
    "rating": 7,
-   "votes": 6577,
-   "score": 6.932499175862031
+   "votes": 6594,
+   "score": 6.933234455641342
   },
   {
    "tconst": "tt0063811",
    "title": "Will Penny",
    "year": 1967,
    "rating": 7,
-   "votes": 5870,
-   "score": 6.925552584498778
+   "votes": 5882,
+   "score": 6.926327006123271
   },
   {
    "tconst": "tt0061429",
    "title": "A Bullet for the General",
    "year": 1967,
    "rating": 7,
-   "votes": 5737,
-   "score": 6.924082864109635
+   "votes": 5751,
+   "score": 6.924897416107296
   },
   {
    "tconst": "tt0062113",
    "title": "Peppermint Frappé",
    "year": 1967,
    "rating": 7.1,
-   "votes": 2234,
-   "score": 6.910929578078729
+   "votes": 2239,
+   "score": 6.912591063951945
   },
   {
    "tconst": "tt0061376",
    "title": "The Last Adventure",
    "year": 1967,
    "rating": 7,
-   "votes": 4515,
-   "score": 6.9072613337274
+   "votes": 4528,
+   "score": 6.908281920430599
+  },
+  {
+   "tconst": "tt0061913",
+   "title": "Far from Vietnam",
+   "year": 1967,
+   "rating": 7.3,
+   "votes": 1003,
+   "score": 6.897095584693136
   },
   {
    "tconst": "tt0061620",
    "title": "Elvira Madigan",
    "year": 1967,
    "rating": 7,
-   "votes": 3687,
-   "score": 6.89087822818575
+   "votes": 3692,
+   "score": 6.891939994914823
   },
   {
    "tconst": "tt0061474",
    "title": "The Zoo",
    "year": 1967,
    "rating": 7.2,
-   "votes": 1257,
-   "score": 6.884779023263895
+   "votes": 1260,
+   "score": 6.887160378823165
   },
   {
    "tconst": "tt0061180",
    "title": "The Whisperers",
    "year": 1967,
    "rating": 7.1,
-   "votes": 1779,
-   "score": 6.879973463658369
+   "votes": 1782,
+   "score": 6.8818053400935835
   },
   {
    "tconst": "tt0062480",
    "title": "Weekend",
    "year": 1967,
    "rating": 6.9,
-   "votes": 16837,
-   "score": 6.876932570247609
+   "votes": 16864,
+   "score": 6.877215766689451
   },
   {
    "tconst": "tt0062177",
    "title": "Ram Aur Shyam",
    "year": 1967,
    "rating": 7.2,
-   "votes": 1134,
-   "score": 6.8666102415682335
+   "votes": 1135,
+   "score": 6.868844241751921
   },
   {
    "tconst": "tt0061473",
    "title": "The Chinese",
    "year": 1967,
    "rating": 6.9,
-   "votes": 9139,
-   "score": 6.8594187055436056
+   "votes": 9160,
+   "score": 6.85993921812405
   },
   {
    "tconst": "tt0062362",
    "title": "Thoroughly Modern Millie",
    "year": 1967,
    "rating": 6.9,
-   "votes": 7739,
-   "score": 6.852917525518551
+   "votes": 7752,
+   "score": 6.853494339138523
   },
   {
    "tconst": "tt0061883",
    "title": "Brief Encounters",
    "year": 1967,
    "rating": 7.1,
-   "votes": 1415,
-   "score": 6.846810043688038
+   "votes": 1419,
+   "score": 6.849062611054299
   },
   {
    "tconst": "tt0061320",
    "title": "We Still Kill the Old Way",
    "year": 1967,
    "rating": 7,
-   "votes": 2248,
-   "score": 6.842532714133808
+   "votes": 2254,
+   "score": 6.844186372507791
   },
   {
    "tconst": "tt0061957",
@@ -690,31 +698,23 @@
    "year": 1967,
    "rating": 7.1,
    "votes": 1230,
-   "score": 6.825805495742874
+   "score": 6.827794823381323
   },
   {
    "tconst": "tt0062144",
    "title": "Portrait of Jason",
    "year": 1967,
    "rating": 7,
-   "votes": 1668,
-   "score": 6.808300695467244
+   "votes": 1669,
+   "score": 6.810034640741982
   },
   {
    "tconst": "tt0062518",
    "title": "Zatoichi the Outlaw",
    "year": 1967,
    "rating": 7,
-   "votes": 1531,
-   "score": 6.7979242416067205
-  },
-  {
-   "tconst": "tt0062512",
-   "title": "You Only Live Twice",
-   "year": 1967,
-   "rating": 6.8,
-   "votes": 128777,
-   "score": 6.797600085188489
+   "votes": 1533,
+   "score": 6.7998351583657115
   },
   {
    "tconst": "tt0062416",
@@ -722,199 +722,207 @@
    "year": 1967,
    "rating": 7.1,
    "votes": 1015,
-   "score": 6.796549010176977
+   "score": 6.798750598580819
+  },
+  {
+   "tconst": "tt0062512",
+   "title": "You Only Live Twice",
+   "year": 1967,
+   "rating": 6.8,
+   "votes": 128929,
+   "score": 6.797637036043842
   },
   {
    "tconst": "tt0062490",
    "title": "Who's Minding the Mint?",
    "year": 1967,
    "rating": 7,
-   "votes": 1503,
-   "score": 6.795663705755736
+   "votes": 1505,
+   "score": 6.797597786882376
   },
   {
    "tconst": "tt0060380",
    "title": "This Night I'll Possess Your Corpse",
    "year": 1967,
    "rating": 6.9,
-   "votes": 2658,
-   "score": 6.787519479362113
+   "votes": 2666,
+   "score": 6.788975028952633
   },
   {
    "tconst": "tt0062207",
    "title": "Robbery",
    "year": 1967,
    "rating": 6.9,
-   "votes": 2439,
-   "score": 6.780356573279038
+   "votes": 2446,
+   "score": 6.781886957672765
   },
   {
    "tconst": "tt0062472",
    "title": "The War Wagon",
    "year": 1967,
    "rating": 6.8,
-   "votes": 12212,
-   "score": 6.776426449856691
+   "votes": 12259,
+   "score": 6.776844592815473
   },
   {
    "tconst": "tt0061359",
    "title": "Anna Karenina",
    "year": 1967,
    "rating": 7,
-   "votes": 1137,
-   "score": 6.760667410157515
+   "votes": 1138,
+   "score": 6.762854282572661
   },
   {
    "tconst": "tt0061328",
    "title": "Accident",
    "year": 1967,
    "rating": 6.8,
-   "votes": 5484,
-   "score": 6.751965801281093
+   "votes": 5490,
+   "score": 6.752693752872165
   },
   {
    "tconst": "tt0062153",
    "title": "The President's Analyst",
    "year": 1967,
    "rating": 6.8,
-   "votes": 3771,
-   "score": 6.734719399603145
+   "votes": 3776,
+   "score": 6.7357165946692525
   },
   {
    "tconst": "tt0061678",
    "title": "The Flim-Flam Man",
    "year": 1967,
    "rating": 6.8,
-   "votes": 2761,
-   "score": 6.717188581628984
+   "votes": 2765,
+   "score": 6.718454835628247
   },
   {
    "tconst": "tt0062457",
    "title": "The Thief of Paris",
    "year": 1967,
    "rating": 6.8,
-   "votes": 2606,
-   "score": 6.713629022603053
-  },
-  {
-   "tconst": "tt0062141",
-   "title": "Poor Cow",
-   "year": 1967,
-   "rating": 6.8,
-   "votes": 2315,
-   "score": 6.706047135899429
+   "votes": 2610,
+   "score": 6.714953588958546
   },
   {
    "tconst": "tt0254782",
    "title": "The Snow Queen",
    "year": 1967,
    "rating": 6.9,
-   "votes": 1116,
-   "score": 6.705551160447358
+   "votes": 1118,
+   "score": 6.707829299405265
   },
   {
-   "tconst": "tt0061391",
-   "title": "Bedazzled",
+   "tconst": "tt0062141",
+   "title": "Poor Cow",
    "year": 1967,
-   "rating": 6.7,
-   "votes": 10496,
-   "score": 6.681606320068425
+   "rating": 6.8,
+   "votes": 2317,
+   "score": 6.707441198715813
   },
   {
    "tconst": "tt0062636",
    "title": "Grand Slam",
    "year": 1967,
    "rating": 6.8,
-   "votes": 1605,
-   "score": 6.680440021307719
+   "votes": 1606,
+   "score": 6.6821882026632204
+  },
+  {
+   "tconst": "tt0061391",
+   "title": "Bedazzled",
+   "year": 1967,
+   "rating": 6.7,
+   "votes": 10515,
+   "score": 6.68202192411119
   },
   {
    "tconst": "tt0058606",
    "title": "Spider Baby or, The Maddest Story Ever Told",
    "year": 1967,
    "rating": 6.7,
-   "votes": 8997,
-   "score": 6.678848280034672
+   "votes": 9018,
+   "score": 6.679335441818761
   },
   {
    "tconst": "tt0060400",
    "title": "Fantomas vs. Scotland Yard",
    "year": 1967,
    "rating": 6.7,
-   "votes": 8954,
-   "score": 6.678756907324353
+   "votes": 8977,
+   "score": 6.6792505218142075
   },
   {
    "tconst": "tt0062185",
    "title": "Reflections in a Golden Eye",
    "year": 1967,
    "rating": 6.7,
-   "votes": 8904,
-   "score": 6.678649662308826
+   "votes": 8910,
+   "score": 6.67911023775382
   },
   {
    "tconst": "tt0062155",
    "title": "Privilege",
    "year": 1967,
    "rating": 6.8,
-   "votes": 1479,
-   "score": 6.674363152685199
+   "votes": 1481,
+   "score": 6.6762525014672915
   },
   {
    "tconst": "tt0061556",
    "title": "The Deadly Affair",
    "year": 1967,
    "rating": 6.7,
-   "votes": 4795,
-   "score": 6.663511001813047
+   "votes": 4804,
+   "score": 6.664331918700957
   },
   {
    "tconst": "tt0061780",
    "title": "The Honey Pot",
    "year": 1967,
    "rating": 6.7,
-   "votes": 3353,
-   "score": 6.651423444867129
+   "votes": 3358,
+   "score": 6.652497121647626
   },
   {
    "tconst": "tt0060261",
    "title": "The Hellbenders",
    "year": 1967,
    "rating": 6.7,
-   "votes": 2630,
-   "score": 6.641748279753887
+   "votes": 2643,
+   "score": 6.643173883101936
   },
   {
    "tconst": "tt0061669",
    "title": "Fitzwilly",
    "year": 1967,
    "rating": 6.7,
-   "votes": 2417,
-   "score": 6.6381171365252
+   "votes": 2427,
+   "score": 6.639592196130829
   },
   {
    "tconst": "tt0062133",
    "title": "The Plank",
    "year": 1967,
    "rating": 6.7,
-   "votes": 1802,
-   "score": 6.6245347093171345
+   "votes": 1804,
+   "score": 6.626170633430939
   },
   {
    "tconst": "tt0062069",
    "title": "Violated Angels",
    "year": 1967,
    "rating": 6.7,
-   "votes": 1785,
-   "score": 6.624074059427866
+   "votes": 1787,
+   "score": 6.625720292838302
   },
   {
    "tconst": "tt0261739",
    "title": "Law of the Border",
    "year": 1967,
    "rating": 6.7,
-   "votes": 1369,
-   "score": 6.610741348884174
+   "votes": 1374,
+   "score": 6.612798001744039
   },
   {
    "tconst": "tt0062793",
@@ -922,183 +930,183 @@
    "year": 1967,
    "rating": 6.7,
    "votes": 1011,
-   "score": 6.594851444806867
+   "score": 6.597057412302512
   },
   {
    "tconst": "tt0062009",
    "title": "Double Suicide: Japanese Summer",
    "year": 1967,
    "rating": 6.7,
-   "votes": 1000,
-   "score": 6.594273127753304
+   "votes": 1001,
+   "score": 6.59654295659188
   },
   {
    "tconst": "tt0061369",
    "title": "Asterix the Gaul",
    "year": 1967,
    "rating": 6.6,
-   "votes": 13305,
-   "score": 6.592208756064775
+   "votes": 13339,
+   "score": 6.592536610373132
   },
   {
    "tconst": "tt0061439",
    "title": "Camelot",
    "year": 1967,
    "rating": 6.6,
-   "votes": 8239,
-   "score": 6.587936600877433
+   "votes": 8243,
+   "score": 6.588421773898123
   },
   {
    "tconst": "tt0061787",
    "title": "Hour of the Gun",
    "year": 1967,
    "rating": 6.6,
-   "votes": 5411,
-   "score": 6.582615232492062
+   "votes": 5450,
+   "score": 6.583408132734938
   },
   {
    "tconst": "tt0062301",
    "title": "The St. Valentine's Day Massacre",
    "year": 1967,
    "rating": 6.6,
-   "votes": 5283,
-   "score": 6.5822610624712095
+   "votes": 5296,
+   "score": 6.583002296083284
   },
   {
    "tconst": "tt0061931",
    "title": "Mad Monster Party?",
    "year": 1967,
    "rating": 6.6,
-   "votes": 4027,
-   "score": 6.577828974638275
+   "votes": 4033,
+   "score": 6.578736828162199
   },
   {
    "tconst": "tt0061736",
    "title": "A Guide for the Married Man",
    "year": 1967,
    "rating": 6.6,
-   "votes": 3245,
-   "score": 6.573744700943841
+   "votes": 3254,
+   "score": 6.574843078547333
   },
   {
    "tconst": "tt0061786",
    "title": "Hotel",
    "year": 1967,
    "rating": 6.6,
-   "votes": 1892,
-   "score": 6.561461360825245
+   "votes": 1894,
+   "score": 6.563020890165982
   },
   {
    "tconst": "tt0062706",
    "title": "Bandidos",
    "year": 1967,
    "rating": 6.6,
-   "votes": 1249,
-   "score": 6.550442977103872
+   "votes": 1251,
+   "score": 6.552457777050356
   },
   {
    "tconst": "tt0063803",
    "title": "Who's That Knocking at My Door",
    "year": 1967,
    "rating": 6.5,
-   "votes": 11162,
-   "score": 6.499058235118123
+   "votes": 11199,
+   "score": 6.499424744334809
   },
   {
    "tconst": "tt0060304",
    "title": "2 or 3 Things I Know About Her",
    "year": 1967,
    "rating": 6.5,
-   "votes": 9464,
-   "score": 6.498905414325938
+   "votes": 9489,
+   "score": 6.499330961592178
   },
   {
    "tconst": "tt0061683",
    "title": "Frankenstein Created Woman",
    "year": 1967,
    "rating": 6.5,
-   "votes": 6142,
-   "score": 6.498396283324924
+   "votes": 6156,
+   "score": 6.499019348258853
   },
   {
    "tconst": "tt0061450",
    "title": "Carry on Doctor",
    "year": 1967,
    "rating": 6.5,
-   "votes": 4615,
-   "score": 6.497960152360928
+   "votes": 4619,
+   "score": 6.498751104491965
   },
   {
    "tconst": "tt0060475",
    "title": "The Exchange Student",
    "year": 1967,
    "rating": 6.5,
-   "votes": 4158,
-   "score": 6.497779421385538
+   "votes": 4165,
+   "score": 6.498641327423107
   },
   {
    "tconst": "tt0062380",
    "title": "Tony Rome",
    "year": 1967,
    "rating": 6.5,
-   "votes": 3682,
-   "score": 6.497553664140669
+   "votes": 3687,
+   "score": 6.498502764271464
   },
   {
    "tconst": "tt0060330",
    "title": "Carry on Don't Lose Your Head",
    "year": 1967,
    "rating": 6.5,
-   "votes": 3494,
-   "score": 6.497451325212864
+   "votes": 3500,
+   "score": 6.4984405458089665
   },
   {
    "tconst": "tt0061749",
    "title": "The Happiest Millionaire",
    "year": 1967,
    "rating": 6.5,
-   "votes": 2712,
-   "score": 6.4969144007291515
+   "votes": 2716,
+   "score": 6.498111532868769
   },
   {
    "tconst": "tt0061715",
    "title": "The Gnome-Mobile",
    "year": 1967,
    "rating": 6.5,
-   "votes": 2693,
-   "score": 6.496898525726133
+   "votes": 2697,
+   "score": 6.498101827465607
   },
   {
    "tconst": "tt0062864",
    "title": "David Holzman's Diary",
    "year": 1967,
    "rating": 6.5,
-   "votes": 2036,
-   "score": 6.496227356886235
+   "votes": 2038,
+   "score": 6.497690077728885
   },
   {
    "tconst": "tt0061819",
    "title": "Untamable Angelique",
    "year": 1967,
    "rating": 6.5,
-   "votes": 1751,
-   "score": 6.4958365159965865
+   "votes": 1757,
+   "score": 6.497454644954788
   },
   {
    "tconst": "tt0062990",
    "title": "The Fox",
    "year": 1967,
    "rating": 6.5,
-   "votes": 1463,
-   "score": 6.495349677428586
+   "votes": 1466,
+   "score": 6.497154280673297
   },
   {
    "tconst": "tt0063500",
    "title": "Requiescant",
    "year": 1967,
    "rating": 6.5,
-   "votes": 1285,
-   "score": 6.494987420353001
+   "votes": 1287,
+   "score": 6.496931550564211
   },
   {
    "tconst": "tt0062414",
@@ -1106,199 +1114,199 @@
    "year": 1967,
    "rating": 6.4,
    "votes": 1092,
-   "score": 6.442326125959182
+   "score": 6.444446680755426
   },
   {
    "tconst": "tt0135756",
    "title": "Ah! Afti I Gynaika Mou",
    "year": 1967,
    "rating": 6.4,
-   "votes": 1129,
-   "score": 6.441590538049136
+   "votes": 1132,
+   "score": 6.443612784305981
   },
   {
    "tconst": "tt0062829",
    "title": "Counterpoint",
    "year": 1967,
    "rating": 6.4,
-   "votes": 1205,
-   "score": 6.440157031975787
+   "votes": 1209,
+   "score": 6.442092555971186
   },
   {
    "tconst": "tt0061605",
    "title": "The Departure",
    "year": 1967,
    "rating": 6.4,
-   "votes": 1268,
-   "score": 6.439041558865348
+   "votes": 1273,
+   "score": 6.440907371817136
   },
   {
    "tconst": "tt0061333",
    "title": "The Adventures of Bullwhip Griffin",
    "year": 1967,
    "rating": 6.4,
-   "votes": 1527,
-   "score": 6.4350400694525565
+   "votes": 1530,
+   "score": 6.436751958948755
   },
   {
    "tconst": "tt0061696",
    "title": "Games",
    "year": 1967,
    "rating": 6.4,
-   "votes": 1656,
-   "score": 6.433338198609416
+   "votes": 1660,
+   "score": 6.43495581057908
   },
   {
    "tconst": "tt0062218",
    "title": "Rough Night in Jericho",
    "year": 1967,
    "rating": 6.4,
-   "votes": 1796,
-   "score": 6.431668903972321
+   "votes": 1799,
+   "score": 6.433219884294516
   },
   {
    "tconst": "tt0062377",
    "title": "Tobruk",
    "year": 1967,
    "rating": 6.4,
-   "votes": 4034,
-   "score": 6.417589641538858
+   "votes": 4037,
+   "score": 6.418459888056454
   },
   {
    "tconst": "tt0061477",
    "title": "Chuka",
    "year": 1967,
    "rating": 6.3,
-   "votes": 1244,
-   "score": 6.384022395502054
+   "votes": 1245,
+   "score": 6.385961004962295
   },
   {
    "tconst": "tt0061581",
    "title": "Divorce American Style",
    "year": 1967,
    "rating": 6.3,
-   "votes": 2128,
-   "score": 6.360276935903648
+   "votes": 2130,
+   "score": 6.361655736786053
   },
   {
    "tconst": "tt0060288",
    "title": "Deadlier Than the Male",
    "year": 1967,
    "rating": 6.3,
-   "votes": 2320,
-   "score": 6.356791040815244
+   "votes": 2323,
+   "score": 6.358074768624842
   },
   {
    "tconst": "tt0061502",
    "title": "The Comedians",
    "year": 1967,
    "rating": 6.3,
-   "votes": 2506,
-   "score": 6.3537781675717655
+   "votes": 2511,
+   "score": 6.3549650971633005
   },
   {
    "tconst": "tt0062190",
    "title": "The Reluctant Astronaut",
    "year": 1967,
    "rating": 6.3,
-   "votes": 2981,
-   "score": 6.347361531149613
+   "votes": 2983,
+   "score": 6.348451533050553
   },
   {
    "tconst": "tt0062082",
    "title": "Django Kill... If You Live, Shoot!",
    "year": 1967,
    "rating": 6.3,
-   "votes": 3291,
-   "score": 6.343939933699978
+   "votes": 3296,
+   "score": 6.34492142833807
   },
   {
    "tconst": "tt0061801",
    "title": "I'll Never Forget What's'isname",
    "year": 1967,
    "rating": 6.2,
-   "votes": 1028,
-   "score": 6.34228119107821
+   "votes": 1030,
+   "score": 6.344326333074065
+  },
+  {
+   "tconst": "tt0062022",
+   "title": "The College Girl Murders",
+   "year": 1967,
+   "rating": 6.2,
+   "votes": 1275,
+   "score": 6.32878349720455
   },
   {
    "tconst": "tt0062292",
    "title": "The Sorcerers",
    "year": 1967,
    "rating": 6.2,
-   "votes": 2749,
-   "score": 6.2769661924530835
-  },
-  {
-   "tconst": "tt0062022",
-   "title": "The College Girl Murders",
-   "year": 1967,
-   "rating": 6.1,
-   "votes": 1269,
-   "score": 6.27124118797118
+   "votes": 2753,
+   "score": 6.278066202009152
   },
   {
    "tconst": "tt0061893",
    "title": "The Last Challenge",
    "year": 1967,
    "rating": 6.1,
-   "votes": 1441,
-   "score": 6.259175032980995
+   "votes": 1443,
+   "score": 6.260860604232645
   },
   {
    "tconst": "tt0062384",
    "title": "Torture Garden",
    "year": 1967,
    "rating": 6.2,
-   "votes": 3972,
-   "score": 6.258034242861346
+   "votes": 3983,
+   "score": 6.258796398984618
   },
   {
    "tconst": "tt0062479",
    "title": "The Way West",
    "year": 1967,
    "rating": 6.2,
-   "votes": 4371,
-   "score": 6.253723004190394
+   "votes": 4387,
+   "score": 6.254386941923213
   },
   {
    "tconst": "tt0061576",
    "title": "God Forgives... I Don't!",
    "year": 1967,
    "rating": 6.2,
-   "votes": 6449,
-   "score": 6.238736240502968
+   "votes": 6474,
+   "score": 6.239200221586881
   },
   {
    "tconst": "tt0062477",
    "title": "Waterhole #3",
    "year": 1967,
    "rating": 6.1,
-   "votes": 1847,
-   "score": 6.2364756780845125
+   "votes": 1853,
+   "score": 6.237743587851508
   },
   {
    "tconst": "tt0061409",
    "title": "Creature with the Blue Hand",
    "year": 1967,
    "rating": 6,
-   "votes": 1100,
-   "score": 6.2326410740507665
+   "votes": 1106,
+   "score": 6.234084737008714
   },
   {
    "tconst": "tt0061389",
    "title": "Beach Red",
    "year": 1967,
    "rating": 6.1,
-   "votes": 2006,
-   "score": 6.229256904692818
+   "votes": 2007,
+   "score": 6.230689210555488
   },
   {
    "tconst": "tt0061584",
    "title": "Doctor Dolittle",
    "year": 1967,
    "rating": 6.2,
-   "votes": 11153,
-   "score": 6.223742800584762
+   "votes": 11176,
+   "score": 6.224062291075915
   },
   {
    "tconst": "tt0061433",
@@ -1306,303 +1314,295 @@
    "year": 1967,
    "rating": 6,
    "votes": 1619,
-   "score": 6.186539234634061
+   "score": 6.188233087491543
   },
   {
    "tconst": "tt0062395",
    "title": "The Trip",
    "year": 1967,
    "rating": 6.1,
-   "votes": 6020,
-   "score": 6.155348469445386
+   "votes": 6035,
+   "score": 6.155861045648948
   },
   {
    "tconst": "tt0061810",
    "title": "In Like Flint",
    "year": 1967,
    "rating": 6.1,
-   "votes": 6559,
-   "score": 6.151401806522901
+   "votes": 6566,
+   "score": 6.151940583682309
   },
   {
    "tconst": "tt0061568",
    "title": "Diabolically Yours",
    "year": 1967,
    "rating": 6,
-   "votes": 2317,
-   "score": 6.147285575974257
+   "votes": 2329,
+   "score": 6.148087250267453
   },
   {
    "tconst": "tt0061594",
    "title": "The Double Man",
    "year": 1967,
    "rating": 5.9,
-   "votes": 1390,
-   "score": 6.146253663391887
+   "votes": 1393,
+   "score": 6.147798769803741
   },
   {
    "tconst": "tt0062430",
    "title": "Valley of the Dolls",
    "year": 1967,
    "rating": 6.1,
-   "votes": 11008,
-   "score": 6.132357283103481
+   "votes": 11062,
+   "score": 6.132580206942492
   },
   {
    "tconst": "tt0061796",
    "title": "Hurry Sundown",
    "year": 1967,
    "rating": 5.9,
-   "votes": 1551,
-   "score": 6.130711977854414
+   "votes": 1555,
+   "score": 6.132087066982525
   },
   {
    "tconst": "tt0061680",
    "title": "Carry on Follow That Camel",
    "year": 1967,
    "rating": 6,
-   "votes": 3020,
-   "score": 6.121528919280252
+   "votes": 3026,
+   "score": 6.122449691043307
   },
   {
    "tconst": "tt0060048",
    "title": "40 Guns to Apache Pass",
    "year": 1967,
    "rating": 5.8,
-   "votes": 1343,
-   "score": 6.093873775290913
+   "votes": 1344,
+   "score": 6.095640979582061
   },
   {
    "tconst": "tt0061834",
    "title": "I Am Curious (Yellow)",
    "year": 1967,
    "rating": 6,
-   "votes": 4564,
-   "score": 6.087804862600038
+   "votes": 4569,
+   "score": 6.0885226173712255
   },
   {
    "tconst": "tt0061037",
    "title": "The Witches",
    "year": 1967,
    "rating": 5.9,
-   "votes": 2319,
-   "score": 6.077326380086355
+   "votes": 2326,
+   "score": 6.078286968172083
   },
   {
    "tconst": "tt0061523",
    "title": "A Countess from Hong Kong",
    "year": 1967,
    "rating": 6,
-   "votes": 7884,
-   "score": 6.054991699179041
+   "votes": 7894,
+   "score": 6.055428654839257
   },
   {
    "tconst": "tt0062827",
    "title": "Countdown",
    "year": 1967,
    "rating": 5.9,
-   "votes": 3002,
-   "score": 6.047063032360473
+   "votes": 3006,
+   "score": 6.048023578667087
   },
   {
    "tconst": "tt0062844",
    "title": "Custer of the West",
    "year": 1967,
    "rating": 5.8,
-   "votes": 1813,
-   "score": 6.044772931214578
+   "votes": 1816,
+   "score": 6.046087519936204
   },
   {
    "tconst": "tt0061380",
    "title": "The Ballad of Josie",
    "year": 1967,
    "rating": 5.7,
-   "votes": 1289,
-   "score": 6.044493776979733
+   "votes": 1296,
+   "score": 6.0453756342074705
   },
   {
    "tconst": "tt0062482",
    "title": "Welcome to Hard Times",
    "year": 1967,
    "rating": 5.8,
-   "votes": 1849,
-   "score": 6.041679977362797
+   "votes": 1851,
+   "score": 6.043066452522044
   },
   {
    "tconst": "tt0061420",
    "title": "The Born Losers",
    "year": 1967,
    "rating": 5.9,
-   "votes": 3317,
-   "score": 6.036332234307762
+   "votes": 3324,
+   "score": 6.037137478293328
   },
   {
    "tconst": "tt0062266",
    "title": "The Shuttered Room",
    "year": 1967,
    "rating": 5.8,
-   "votes": 1971,
-   "score": 6.031755723832585
+   "votes": 1982,
+   "score": 6.03238848294445
   },
   {
    "tconst": "tt0061590",
    "title": "Don't Make Waves",
    "year": 1967,
    "rating": 5.8,
-   "votes": 2192,
-   "score": 6.015709979795304
+   "votes": 2194,
+   "score": 6.016963824715201
   },
   {
    "tconst": "tt0062502",
    "title": "Woman Times Seven",
    "year": 1967,
    "rating": 5.8,
-   "votes": 2243,
-   "score": 6.012317685940983
+   "votes": 2246,
+   "score": 6.013488125736399
   },
   {
    "tconst": "tt0061493",
    "title": "I Am What I Am",
    "year": 1967,
    "rating": 5.5,
-   "votes": 1037,
-   "score": 5.985295167160829
+   "votes": 1044,
+   "score": 5.985803549970818
   },
   {
    "tconst": "tt0061414",
    "title": "The Bobo",
    "year": 1967,
    "rating": 5.5,
-   "votes": 1059,
-   "score": 5.980109886112972
+   "votes": 1062,
+   "score": 5.981562781833342
   },
   {
    "tconst": "tt0061405",
    "title": "Billion Dollar Brain",
    "year": 1967,
    "rating": 5.9,
-   "votes": 6761,
-   "score": 5.975833817228013
+   "votes": 6769,
+   "score": 5.97632674168366
   },
   {
    "tconst": "tt0062235",
    "title": "The Torture Chamber of Dr. Sadism",
    "year": 1967,
    "rating": 5.8,
-   "votes": 3218,
-   "score": 5.9632399847099595
+   "votes": 3229,
+   "score": 5.96386437837322
   },
   {
    "tconst": "tt0061653",
    "title": "Fathom",
    "year": 1967,
    "rating": 5.7,
-   "votes": 2009,
-   "score": 5.962062564143107
+   "votes": 2010,
+   "score": 5.963449320976862
   },
   {
    "tconst": "tt0061826",
    "title": "It!",
    "year": 1967,
    "rating": 5.6,
-   "votes": 1748,
-   "score": 5.92334288773894
+   "votes": 1752,
+   "score": 5.924484904120767
   },
   {
    "tconst": "tt0061401",
    "title": "The Big Mouth",
    "year": 1967,
    "rating": 5.5,
-   "votes": 1484,
-   "score": 5.897965481282855
+   "votes": 1488,
+   "score": 5.899108704236475
   },
   {
    "tconst": "tt0062373",
    "title": "A Time for Killing",
    "year": 1967,
    "rating": 5.4,
-   "votes": 1267,
-   "score": 5.880170381785007
+   "votes": 1270,
+   "score": 5.881490068784295
   },
   {
    "tconst": "tt0061489",
    "title": "Clambake",
    "year": 1967,
    "rating": 5.7,
-   "votes": 3666,
-   "score": 5.868998340228592
+   "votes": 3667,
+   "score": 5.8699126754104025
   },
   {
    "tconst": "tt0062363",
    "title": "Those Fantastic Flying Fools",
    "year": 1967,
    "rating": 5.3,
-   "votes": 1094,
-   "score": 5.86759611055712
+   "votes": 1095,
+   "score": 5.86944269982833
   },
   {
    "tconst": "tt0061447",
    "title": "Caprice",
    "year": 1967,
    "rating": 5.5,
-   "votes": 1973,
-   "score": 5.832507990415946
+   "votes": 1979,
+   "score": 5.8333274441558745
   },
   {
    "tconst": "tt0062898",
    "title": "Doctor Faustus",
    "year": 1967,
    "rating": 5.4,
-   "votes": 1518,
-   "score": 5.832305899724626
+   "votes": 1523,
+   "score": 5.833207473698119
   },
   {
    "tconst": "tt0062037",
    "title": "Night of the Big Heat",
    "year": 1967,
    "rating": 5.6,
-   "votes": 2876,
-   "score": 5.829243099975905
+   "votes": 2889,
+   "score": 5.829617499650386
   },
   {
    "tconst": "tt0063764",
    "title": "The Vengeance of Fu Manchu",
    "year": 1967,
    "rating": 5.2,
-   "votes": 1210,
-   "score": 5.783052604301634
+   "votes": 1213,
+   "score": 5.784266812535178
   },
   {
    "tconst": "tt0062443",
    "title": "The Viking Queen",
    "year": 1967,
    "rating": 5.1,
-   "votes": 1062,
-   "score": 5.77339779607498
+   "votes": 1064,
+   "score": 5.774894600843194
   },
   {
    "tconst": "tt0062006",
    "title": "The Mummy's Shroud",
    "year": 1967,
    "rating": 5.5,
-   "votes": 2688,
-   "score": 5.768043995527822
+   "votes": 2693,
+   "score": 5.768882333100556
   },
   {
    "tconst": "tt0061789",
    "title": "How I Won the War",
    "year": 1967,
    "rating": 5.5,
-   "votes": 2694,
-   "score": 5.767608623580566
-  },
-  {
-   "tconst": "tt0062288",
-   "title": "Something Weird",
-   "year": 1967,
-   "rating": 5,
-   "votes": 1059,
-   "score": 5.722946214427688
+   "votes": 2699,
+   "score": 5.768446189818965
   }
  ]
 }

@@ -1,7 +1,7 @@
 {
  "tag": "year-1995",
- "builtAt": "2026-09-15T22:46:38.707Z",
- "mean": 6.586,
+ "builtAt": "2026-10-01T06:19:54.122Z",
+ "mean": 6.585,
  "minVotes": 5000,
  "items": [
   {
@@ -9,1600 +9,1600 @@
    "title": "Seven",
    "year": 1995,
    "rating": 8.6,
-   "votes": 2058614,
-   "score": 8.59511920733622
+   "votes": 2063864,
+   "score": 8.595130504313323
   },
   {
    "tconst": "tt0114814",
    "title": "The Usual Suspects",
    "year": 1995,
    "rating": 8.5,
-   "votes": 1253603,
-   "score": 8.49239468516119
+   "votes": 1256181,
+   "score": 8.492408445477434
   },
   {
    "tconst": "tt0114709",
    "title": "Toy Story",
    "year": 1995,
    "rating": 8.3,
-   "votes": 1198795,
-   "score": 8.292879126369465
+   "votes": 1201251,
+   "score": 8.292891757748325
   },
   {
    "tconst": "tt0112573",
    "title": "Braveheart",
    "year": 1995,
    "rating": 8.3,
-   "votes": 1172247,
-   "score": 8.292718544135537
+   "votes": 1173568,
+   "score": 8.292724794560582
   },
   {
    "tconst": "tt0113277",
    "title": "Heat",
    "year": 1995,
    "rating": 8.3,
-   "votes": 818429,
-   "score": 8.289589786038539
+   "votes": 819959,
+   "score": 8.289606363074622
   },
   {
    "tconst": "tt0112641",
    "title": "Casino",
    "year": 1995,
    "rating": 8.2,
-   "votes": 628022,
-   "score": 8.187248354603677
+   "votes": 629017,
+   "score": 8.187264814154315
   },
   {
    "tconst": "tt0112471",
    "title": "Before Sunrise",
    "year": 1995,
    "rating": 8.1,
-   "votes": 384066,
-   "score": 8.080537821161263
+   "votes": 384870,
+   "score": 8.080572179638535
   },
   {
    "tconst": "tt0113247",
    "title": "La haine",
    "year": 1995,
    "rating": 8.1,
-   "votes": 231590,
-   "score": 8.067994961443544
+   "votes": 232254,
+   "score": 8.068075040571184
   },
   {
    "tconst": "tt0114746",
    "title": "12 Monkeys",
    "year": 1995,
    "rating": 8,
-   "votes": 684385,
-   "score": 7.989741476719001
+   "votes": 685138,
+   "score": 7.9897494061704695
   },
   {
    "tconst": "tt0112870",
    "title": "Dilwale Dulhania Le Jayenge",
    "year": 1995,
    "rating": 8,
-   "votes": 86822,
-   "score": 7.92298063566387
+   "votes": 86941,
+   "score": 7.923055825754295
   },
   {
    "tconst": "tt0114787",
    "title": "Underground",
    "year": 1995,
    "rating": 8,
-   "votes": 64561,
-   "score": 7.898332800389988
+   "votes": 64618,
+   "score": 7.898383689213647
   },
   {
    "tconst": "tt0113568",
    "title": "Ghost in the Shell",
    "year": 1995,
    "rating": 7.9,
-   "votes": 176829,
-   "score": 7.86385575418623
+   "votes": 177384,
+   "score": 7.863953393256403
   },
   {
    "tconst": "tt0139876",
    "title": "Baasha",
    "year": 1995,
    "rating": 8.3,
-   "votes": 13775,
-   "score": 7.843431580715203
+   "votes": 13814,
+   "score": 7.84425830103517
   },
   {
    "tconst": "tt0292246",
    "title": "Spadikam",
    "year": 1995,
    "rating": 8.6,
-   "votes": 7808,
-   "score": 7.813610862580256
+   "votes": 7826,
+   "score": 7.8145388800620355
   },
   {
    "tconst": "tt0113824",
    "title": "Whisper of the Heart",
    "year": 1995,
    "rating": 7.8,
-   "votes": 84797,
-   "score": 7.73238001189269
+   "votes": 85023,
+   "score": 7.732524751182205
   },
   {
    "tconst": "tt0112553",
    "title": "Bombay",
    "year": 1995,
    "rating": 8.1,
-   "votes": 15326,
-   "score": 7.727468657282688
+   "votes": 15347,
+   "score": 7.727742452237463
   },
   {
    "tconst": "tt0112384",
    "title": "Apollo 13",
    "year": 1995,
    "rating": 7.7,
-   "votes": 342772,
-   "score": 7.683977801340902
+   "votes": 343368,
+   "score": 7.683998747518934
   },
   {
    "tconst": "tt0114388",
    "title": "Sense and Sensibility",
    "year": 1995,
    "rating": 7.7,
-   "votes": 137947,
-   "score": 7.661020013906748
+   "votes": 138271,
+   "score": 7.6610924449168065
   },
   {
    "tconst": "tt0112864",
    "title": "Die Hard with a Vengeance",
    "year": 1995,
    "rating": 7.6,
-   "votes": 433366,
-   "score": 7.588429595196543
+   "votes": 433718,
+   "score": 7.588433744855865
   },
   {
    "tconst": "tt0112579",
    "title": "The Bridges of Madison County",
    "year": 1995,
    "rating": 7.6,
-   "votes": 98022,
-   "score": 7.550767097590105
+   "votes": 98196,
+   "score": 7.550828284775337
   },
   {
    "tconst": "tt0285665",
    "title": "Kuruthipunal",
    "year": 1995,
    "rating": 8.5,
-   "votes": 5069,
-   "score": 7.549352262183724
+   "votes": 5075,
+   "score": 7.549694856146468
   },
   {
    "tconst": "tt0113703",
    "title": "Love Letter",
    "year": 1995,
    "rating": 7.9,
-   "votes": 13698,
-   "score": 7.548514703600809
+   "votes": 13719,
+   "score": 7.5487887000200695
   },
   {
    "tconst": "tt0113670",
    "title": "A Little Princess",
    "year": 1995,
    "rating": 7.6,
-   "votes": 39514,
-   "score": 7.486056699643435
+   "votes": 39562,
+   "score": 7.486128891783934
   },
   {
    "tconst": "tt0113627",
    "title": "Leaving Las Vegas",
    "year": 1995,
    "rating": 7.5,
-   "votes": 146948,
-   "score": 7.469910284623213
+   "votes": 147127,
+   "score": 7.469930884561423
   },
   {
    "tconst": "tt0112817",
    "title": "Dead Man",
    "year": 1995,
    "rating": 7.5,
-   "votes": 109883,
-   "score": 7.460202361776138
+   "votes": 109979,
+   "score": 7.460216001840994
   },
   {
    "tconst": "tt0112818",
    "title": "Dead Man Walking",
    "year": 1995,
    "rating": 7.5,
-   "votes": 109503,
-   "score": 7.460070285738609
+   "votes": 109746,
+   "score": 7.460135217573384
   },
   {
    "tconst": "tt0112913",
    "title": "Fallen Angels",
    "year": 1995,
    "rating": 7.5,
-   "votes": 61156,
-   "score": 7.430889532739704
+   "votes": 61392,
+   "score": 7.43110127237733
   },
   {
    "tconst": "tt0114996",
    "title": "A Chinese Odyssey: Part 2 - Cinderella",
    "year": 1995,
    "rating": 7.8,
-   "votes": 9690,
-   "score": 7.386652683997816
+   "votes": 9707,
+   "score": 7.386977335668434
   },
   {
    "tconst": "tt0112757",
    "title": "The Cure",
    "year": 1995,
    "rating": 7.7,
-   "votes": 12229,
-   "score": 7.3765876097236
+   "votes": 12309,
+   "score": 7.377952260423806
   },
   {
    "tconst": "tt0112740",
    "title": "Crimson Tide",
    "year": 1995,
    "rating": 7.4,
-   "votes": 138222,
-   "score": 7.371568110541174
+   "votes": 138460,
+   "score": 7.371599579504222
   },
   {
    "tconst": "tt0780061",
    "title": "Redhat and Cousin",
    "year": 1995,
    "rating": 8.1,
-   "votes": 5251,
-   "score": 7.361333326302596
+   "votes": 5263,
+   "score": 7.361977557797493
   },
   {
    "tconst": "tt0113799",
    "title": "Memories",
    "year": 1995,
    "rating": 7.5,
-   "votes": 26562,
-   "score": 7.355139976171596
+   "votes": 26625,
+   "score": 7.355357333618203
   },
   {
    "tconst": "tt0112682",
    "title": "The City of Lost Children",
    "year": 1995,
    "rating": 7.4,
-   "votes": 75329,
-   "score": 7.34930757171044
+   "votes": 75386,
+   "score": 7.349315498664888
   },
   {
    "tconst": "tt0112651",
    "title": "The Celluloid Closet",
    "year": 1995,
    "rating": 7.8,
-   "votes": 8131,
-   "score": 7.33757733058624
+   "votes": 8147,
+   "score": 7.337968789509064
   },
   {
    "tconst": "tt0142236",
    "title": "Dragon Ball Z: Fusion Reborn",
    "year": 1995,
    "rating": 7.6,
-   "votes": 13884,
-   "score": 7.331409019695399
+   "votes": 13921,
+   "score": 7.3318152146121065
   },
   {
    "tconst": "tt0109642",
    "title": "Dolores Claiborne",
    "year": 1995,
    "rating": 7.4,
-   "votes": 53978,
-   "score": 7.3309560840979335
+   "votes": 54084,
+   "score": 7.331041833248861
   },
   {
    "tconst": "tt0113677",
    "title": "Living in Oblivion",
    "year": 1995,
    "rating": 7.5,
-   "votes": 21939,
-   "score": 7.330280557107833
+   "votes": 21977,
+   "score": 7.330436137290123
   },
   {
    "tconst": "tt0113862",
    "title": "Mr. Holland's Opus",
    "year": 1995,
    "rating": 7.4,
-   "votes": 44546,
-   "score": 7.317812294189802
+   "votes": 44594,
+   "score": 7.317846426496667
   },
   {
    "tconst": "tt0114478",
    "title": "Smoke",
    "year": 1995,
    "rating": 7.4,
-   "votes": 38998,
-   "score": 7.307448700575661
+   "votes": 39064,
+   "score": 7.307536212683271
   },
   {
    "tconst": "tt0112769",
    "title": "La cérémonie",
    "year": 1995,
    "rating": 7.5,
-   "votes": 15479,
-   "score": 7.2767433921543
+   "votes": 15523,
+   "score": 7.277112297211698
   },
   {
    "tconst": "tt0112461",
    "title": "The Basketball Diaries",
    "year": 1995,
    "rating": 7.3,
-   "votes": 134463,
-   "score": 7.274386955163218
+   "votes": 134677,
+   "score": 7.274410072350321
   },
   {
    "tconst": "tt0112445",
    "title": "The White Balloon",
    "year": 1995,
    "rating": 7.6,
-   "votes": 9572,
-   "score": 7.2519302722981
+   "votes": 9602,
+   "score": 7.252491143382802
   },
   {
    "tconst": "tt0114671",
    "title": "Land and Freedom",
    "year": 1995,
    "rating": 7.5,
-   "votes": 12982,
-   "score": 7.245741737733729
+   "votes": 12993,
+   "score": 7.245772004428147
   },
   {
    "tconst": "tt0114906",
    "title": "Welcome to the Dollhouse",
    "year": 1995,
    "rating": 7.3,
-   "votes": 40950,
-   "score": 7.222261761217147
+   "votes": 41034,
+   "score": 7.222354687311023
   },
   {
    "tconst": "tt0114863",
    "title": "Ulysses' Gaze",
    "year": 1995,
    "rating": 7.6,
-   "votes": 8192,
-   "score": 7.215519097023038
+   "votes": 8211,
+   "score": 7.215901572604319
   },
   {
    "tconst": "tt0113870",
    "title": "Murder in the First",
    "year": 1995,
    "rating": 7.3,
-   "votes": 33235,
-   "score": 7.206575857929329
+   "votes": 33305,
+   "score": 7.206687786860088
   },
   {
    "tconst": "tt0113189",
    "title": "GoldenEye",
    "year": 1995,
    "rating": 7.2,
-   "votes": 288778,
-   "score": 7.189542879071707
+   "votes": 289081,
+   "score": 7.18954599472824
   },
   {
    "tconst": "tt0112778",
    "title": "A Chinese Odyssey: Part One - Pandora's Box",
    "year": 1995,
    "rating": 7.5,
-   "votes": 9643,
-   "score": 7.187763977868464
+   "votes": 9666,
+   "score": 7.188100073344857
   },
   {
    "tconst": "tt0112922",
    "title": "The Day of the Beast",
    "year": 1995,
    "rating": 7.3,
-   "votes": 25105,
-   "score": 7.181346219163856
+   "votes": 25141,
+   "score": 7.181413213751225
   },
   {
    "tconst": "tt0113118",
    "title": "Friday",
    "year": 1995,
    "rating": 7.2,
-   "votes": 138955,
-   "score": 7.178659497259059
+   "votes": 139158,
+   "score": 7.178673924968963
   },
   {
    "tconst": "tt0113725",
    "title": "Maborosi",
    "year": 1995,
    "rating": 7.5,
-   "votes": 8750,
-   "score": 7.167485667485666
+   "votes": 8771,
+   "score": 7.167829182751845
   },
   {
    "tconst": "tt0114558",
    "title": "Strange Days",
    "year": 1995,
    "rating": 7.2,
-   "votes": 86647,
-   "score": 7.1664792947715465
+   "votes": 86832,
+   "score": 7.166522298062502
   },
   {
    "tconst": "tt0114234",
    "title": "Rangeela",
    "year": 1995,
    "rating": 7.4,
-   "votes": 11219,
-   "score": 7.148931988897461
+   "votes": 11235,
+   "score": 7.149040694528837
   },
   {
    "tconst": "tt0142243",
    "title": "Dragon Ball Z: Wrath of the Dragon",
    "year": 1995,
    "rating": 7.4,
-   "votes": 11091,
-   "score": 7.146934803798889
+   "votes": 11118,
+   "score": 7.147218989680833
   },
   {
    "tconst": "tt0114279",
    "title": "Richard III",
    "year": 1995,
    "rating": 7.3,
-   "votes": 16474,
-   "score": 7.133655952683613
+   "votes": 16506,
+   "score": 7.133798738755494
   },
   {
    "tconst": "tt0112379",
    "title": "Antonia's Line",
    "year": 1995,
    "rating": 7.4,
-   "votes": 10123,
-   "score": 7.130736489316135
+   "votes": 10133,
+   "score": 7.130765590145753
   },
   {
    "tconst": "tt0113497",
    "title": "Jumanji",
    "year": 1995,
    "rating": 7.1,
-   "votes": 419506,
-   "score": 7.093941023043085
+   "votes": 420159,
+   "score": 7.093945031566251
   },
   {
    "tconst": "tt0112851",
    "title": "Desperado",
    "year": 1995,
    "rating": 7.1,
-   "votes": 210670,
-   "score": 7.088074038706949
+   "votes": 211008,
+   "score": 7.088082273229119
   },
   {
    "tconst": "tt0114694",
    "title": "Tommy Boy",
    "year": 1995,
    "rating": 7.1,
-   "votes": 105796,
-   "score": 7.076785515072095
+   "votes": 105924,
+   "score": 7.076791998807072
   },
   {
    "tconst": "tt0112453",
    "title": "Balto",
    "year": 1995,
    "rating": 7.1,
-   "votes": 52478,
-   "score": 7.055251190506418
+   "votes": 52553,
+   "score": 7.055270371234786
   },
   {
    "tconst": "tt0113375",
    "title": "I.D.",
    "year": 1995,
    "rating": 7.3,
-   "votes": 8059,
-   "score": 7.026466645832599
+   "votes": 8095,
+   "score": 7.027046634263128
   },
   {
    "tconst": "tt0114055",
    "title": "Peculiarities of the National Hunt",
    "year": 1995,
    "rating": 7.4,
-   "votes": 5299,
-   "score": 7.004614809974552
+   "votes": 5314,
+   "score": 7.004971463610207
   },
   {
    "tconst": "tt0114323",
    "title": "Safe",
    "year": 1995,
    "rating": 7.1,
-   "votes": 19674,
-   "score": 6.995757798813646
+   "votes": 19740,
+   "score": 6.995944853503462
   },
   {
    "tconst": "tt0113749",
    "title": "Mallrats",
    "year": 1995,
    "rating": 7,
-   "votes": 135217,
-   "score": 6.985222390494219
+   "votes": 135314,
+   "score": 6.985216554838972
   },
   {
    "tconst": "tt0113540",
    "title": "Kids",
    "year": 1995,
    "rating": 7,
-   "votes": 92693,
-   "score": 6.978789963742826
+   "votes": 92800,
+   "score": 6.978790139833084
   },
   {
    "tconst": "tt0113198",
    "title": "A Goofy Movie",
    "year": 1995,
    "rating": 7,
-   "votes": 70820,
-   "score": 6.97267116760654
+   "votes": 70951,
+   "score": 6.972688650257083
   },
   {
    "tconst": "tt0114808",
    "title": "The Star Maker",
    "year": 1995,
    "rating": 7.3,
-   "votes": 5848,
-   "score": 6.970716070052352
+   "votes": 5858,
+   "score": 6.970811906030177
   },
   {
    "tconst": "tt0114732",
    "title": "The Three Brothers",
    "year": 1995,
    "rating": 7.2,
-   "votes": 8291,
-   "score": 6.968860727404103
+   "votes": 8307,
+   "score": 6.968969390221362
   },
   {
    "tconst": "tt0113819",
    "title": "Mighty Aphrodite",
    "year": 1995,
    "rating": 7,
-   "votes": 45288,
-   "score": 6.95879589420792
+   "votes": 45320,
+   "score": 6.958777338546813
   },
   {
    "tconst": "tt0113987",
    "title": "Nixon",
    "year": 1995,
    "rating": 7,
-   "votes": 34851,
-   "score": 6.948004515016635
+   "votes": 34877,
+   "score": 6.947981936346157
   },
   {
    "tconst": "tt0113947",
    "title": "Nelly & Monsieur Arnaud",
    "year": 1995,
    "rating": 7.2,
-   "votes": 5486,
-   "score": 6.90703108219797
+   "votes": 5499,
+   "score": 6.907179319523352
   },
   {
    "tconst": "tt0112697",
    "title": "Clueless",
    "year": 1995,
    "rating": 6.9,
-   "votes": 282328,
-   "score": 6.894528649932927
+   "votes": 282895,
+   "score": 6.894531602409475
   },
   {
    "tconst": "tt0113083",
    "title": "The Flower of My Secret",
    "year": 1995,
    "rating": 7,
-   "votes": 13867,
-   "score": 6.890174798745319
+   "votes": 13895,
+   "score": 6.890218347482174
   },
   {
    "tconst": "tt0112431",
    "title": "Babe",
    "year": 1995,
    "rating": 6.9,
-   "votes": 143920,
-   "score": 6.8894435128117655
+   "votes": 144163,
+   "score": 6.889445611013963
   },
   {
    "tconst": "tt0113161",
    "title": "Get Shorty",
    "year": 1995,
    "rating": 6.9,
-   "votes": 97072,
-   "score": 6.884598400422525
+   "votes": 97170,
+   "score": 6.884591129251989
   },
   {
    "tconst": "tt0112346",
    "title": "The American President",
    "year": 1995,
    "rating": 6.9,
-   "votes": 65961,
-   "score": 6.877845970715294
+   "votes": 66043,
+   "score": 6.877839838909895
   },
   {
    "tconst": "tt0115012",
    "title": "Shanghai Triad",
    "year": 1995,
    "rating": 7.1,
-   "votes": 6456,
-   "score": 6.875482535608233
+   "votes": 6462,
+   "score": 6.8754035661905135
   },
   {
    "tconst": "tt0114287",
    "title": "Rob Roy",
    "year": 1995,
    "rating": 6.9,
-   "votes": 49932,
-   "score": 6.8713814885299636
+   "votes": 49987,
+   "score": 6.871369154085069
   },
   {
    "tconst": "tt0114682",
    "title": "To Wong Foo, Thanks for Everything! Julie Newmar",
    "year": 1995,
    "rating": 6.9,
-   "votes": 42670,
-   "score": 6.867021773189174
+   "votes": 42776,
+   "score": 6.867047799641571
   },
   {
    "tconst": "tt0112767",
    "title": "Cyclo",
    "year": 1995,
    "rating": 7.1,
-   "votes": 5992,
-   "score": 6.86600508805749
+   "votes": 5997,
+   "score": 6.865906672335697
   },
   {
    "tconst": "tt0112819",
    "title": "Dead Presidents",
    "year": 1995,
    "rating": 6.9,
-   "votes": 27080,
-   "score": 6.850995259598751
+   "votes": 27138,
+   "score": 6.851013618634504
   },
   {
    "tconst": "tt0112688",
    "title": "Clockers",
    "year": 1995,
    "rating": 6.9,
-   "votes": 25156,
-   "score": 6.84786868045921
+   "votes": 25176,
+   "score": 6.8478285947665585
   },
   {
    "tconst": "tt0113362",
    "title": "The Horseman on the Roof",
    "year": 1995,
    "rating": 7,
-   "votes": 6709,
-   "score": 6.823035949092828
+   "votes": 6715,
+   "score": 6.822934329976583
   },
   {
    "tconst": "tt0113617",
    "title": "Last of the Dogmen",
    "year": 1995,
    "rating": 7,
-   "votes": 6638,
-   "score": 6.821956343695473
+   "votes": 6646,
+   "score": 6.8218852546518685
   },
   {
    "tconst": "tt0112442",
    "title": "Bad Boys",
    "year": 1995,
    "rating": 6.8,
-   "votes": 318968,
-   "score": 6.7966908087463205
+   "votes": 319390,
+   "score": 6.796688170645445
   },
   {
    "tconst": "tt0114924",
    "title": "While You Were Sleeping",
    "year": 1995,
    "rating": 6.8,
-   "votes": 128592,
-   "score": 6.791975027905323
+   "votes": 128892,
+   "score": 6.791976187342602
   },
   {
    "tconst": "tt0113187",
    "title": "Godzilla vs. Destoroyah",
    "year": 1995,
    "rating": 6.9,
-   "votes": 8790,
-   "score": 6.785999124577804
+   "votes": 8842,
+   "score": 6.78626467820226
   },
   {
    "tconst": "tt0114681",
    "title": "To Die For",
    "year": 1995,
    "rating": 6.8,
-   "votes": 61067,
-   "score": 6.783772956664112
+   "votes": 61267,
+   "score": 6.783787943858567
   },
   {
    "tconst": "tt0113326",
    "title": "Rumble in the Bronx",
    "year": 1995,
    "rating": 6.8,
-   "votes": 50320,
-   "score": 6.78062053376587
+   "votes": 50395,
+   "score": 6.780606113831134
   },
   {
    "tconst": "tt0114011",
    "title": "Now and Then",
    "year": 1995,
    "rating": 6.8,
-   "votes": 35295,
-   "score": 6.773394414392056
+   "votes": 35340,
+   "score": 6.7733682616677156
   },
   {
    "tconst": "tt0112857",
    "title": "Devil in a Blue Dress",
    "year": 1995,
    "rating": 6.8,
-   "votes": 27966,
-   "score": 6.767479461503607
+   "votes": 28035,
+   "score": 6.767479209192543
   },
   {
    "tconst": "tt0112313",
    "title": "Akele Hum Akele Tum",
    "year": 1995,
    "rating": 6.9,
-   "votes": 5958,
-   "score": 6.756536587691906
+   "votes": 5965,
+   "score": 6.756422770239459
   },
   {
    "tconst": "tt0113526",
    "title": "Karan Arjun",
    "year": 1995,
    "rating": 6.8,
-   "votes": 17882,
-   "score": 6.753147798615851
+   "votes": 17929,
+   "score": 6.753145609301568
   },
   {
    "tconst": "tt0114057",
    "title": "Othello",
    "year": 1995,
    "rating": 6.8,
-   "votes": 10685,
-   "score": 6.731649851955876
+   "votes": 10702,
+   "score": 6.731580414958328
   },
   {
    "tconst": "tt0113720",
    "title": "All Things Fair",
    "year": 1995,
    "rating": 6.8,
-   "votes": 8882,
-   "score": 6.722772505973773
+   "votes": 8891,
+   "score": 6.7226604042672005
   },
   {
    "tconst": "tt0113464",
    "title": "Jeffrey",
    "year": 1995,
    "rating": 6.8,
-   "votes": 7214,
-   "score": 6.712225964297357
+   "votes": 7219,
+   "score": 6.712077557547726
   },
   {
    "tconst": "tt0112637",
    "title": "Carrington",
    "year": 1995,
    "rating": 6.8,
-   "votes": 6221,
-   "score": 6.704458419742261
+   "votes": 6237,
+   "score": 6.70439402649067
   },
   {
    "tconst": "tt0114148",
    "title": "Pocahontas",
    "year": 1995,
    "rating": 6.7,
-   "votes": 220089,
-   "score": 6.697458462776625
+   "votes": 220368,
+   "score": 6.697451615471921
   },
   {
    "tconst": "tt0113101",
    "title": "Four Rooms",
    "year": 1995,
    "rating": 6.7,
-   "votes": 117597,
-   "score": 6.695333718834294
+   "votes": 117695,
+   "score": 6.695319089414204
   },
   {
    "tconst": "tt0112365",
    "title": "Angels and Insects",
    "year": 1995,
    "rating": 6.8,
-   "votes": 5126,
-   "score": 6.694126795173604
+   "votes": 5132,
+   "score": 6.693967200520693
   },
   {
    "tconst": "tt0112950",
    "title": "Empire Records",
    "year": 1995,
    "rating": 6.7,
-   "votes": 71990,
-   "score": 6.692569527574074
+   "votes": 72074,
+   "score": 6.692548403815498
   },
   {
    "tconst": "tt0114887",
    "title": "A Walk in the Clouds",
    "year": 1995,
    "rating": 6.7,
-   "votes": 39472,
-   "score": 6.687136353838998
+   "votes": 39546,
+   "score": 6.687107162835623
   },
   {
    "tconst": "tt0114660",
    "title": "Things to Do in Denver When You're Dead",
    "year": 1995,
    "rating": 6.7,
-   "votes": 32253,
-   "score": 6.684643597238556
+   "votes": 32313,
+   "score": 6.684607929560091
   },
   {
    "tconst": "tt0113228",
    "title": "Grumpier Old Men",
    "year": 1995,
    "rating": 6.7,
-   "votes": 31967,
-   "score": 6.6845247904327625
+   "votes": 31997,
+   "score": 6.6844764622989885
   },
   {
    "tconst": "tt0114608",
    "title": "Tales from the Crypt: Demon Knight",
    "year": 1995,
    "rating": 6.7,
-   "votes": 28959,
-   "score": 6.683154036571392
+   "votes": 29008,
+   "score": 6.683112081735935
   },
   {
    "tconst": "tt0113613",
    "title": "The Last Supper",
    "year": 1995,
    "rating": 6.7,
-   "votes": 16506,
-   "score": 6.673399420065466
-  },
-  {
-   "tconst": "tt0112679",
-   "title": "Circle of Friends",
-   "year": 1995,
-   "rating": 6.7,
-   "votes": 9849,
-   "score": 6.661474033802136
+   "votes": 16530,
+   "score": 6.673324462409459
   },
   {
    "tconst": "tt0110604",
    "title": "Mute Witness",
    "year": 1995,
    "rating": 6.7,
-   "votes": 8507,
-   "score": 6.657646252160207
+   "votes": 8529,
+   "score": 6.6575486492479605
   },
   {
    "tconst": "tt0112368",
    "title": "Angus",
    "year": 1995,
    "rating": 6.7,
-   "votes": 7567,
-   "score": 6.654478230916521
+   "votes": 7572,
+   "score": 6.654317187056607
   },
   {
    "tconst": "tt0113280",
    "title": "Heavy",
    "year": 1995,
    "rating": 6.7,
-   "votes": 6364,
-   "score": 6.649659268561063
+   "votes": 6375,
+   "score": 6.649509949509948
   },
   {
    "tconst": "tt0113448",
    "title": "Jack & Sarah",
    "year": 1995,
    "rating": 6.7,
-   "votes": 5834,
-   "score": 6.647196596633554
+   "votes": 5839,
+   "score": 6.647013163177014
   },
   {
    "tconst": "tt0113416",
    "title": "The Incredibly True Adventure of Two Girls in Love",
    "year": 1995,
    "rating": 6.7,
-   "votes": 5817,
-   "score": 6.6471136107911555
+   "votes": 5823,
+   "score": 6.646934830978072
   },
   {
    "tconst": "tt0114069",
    "title": "Outbreak",
    "year": 1995,
    "rating": 6.6,
-   "votes": 147113,
-   "score": 6.599526193868558
+   "votes": 147285,
+   "score": 6.599511939295897
   },
   {
    "tconst": "tt0112722",
    "title": "Copycat",
    "year": 1995,
    "rating": 6.6,
-   "votes": 87878,
-   "score": 6.59922401352234
+   "votes": 87979,
+   "score": 6.599200633214766
   },
   {
    "tconst": "tt0113117",
    "title": "French Kiss",
    "year": 1995,
    "rating": 6.6,
-   "votes": 57094,
-   "score": 6.598839306985021
+   "votes": 57147,
+   "score": 6.598804056119775
   },
   {
    "tconst": "tt0114168",
    "title": "Powder",
    "year": 1995,
    "rating": 6.6,
-   "votes": 35417,
-   "score": 6.598216788181406
+   "votes": 35484,
+   "score": 6.59816410620679
   },
   {
    "tconst": "tt0110006",
    "title": "Heavyweights",
    "year": 1995,
    "rating": 6.6,
-   "votes": 33712,
-   "score": 6.598138249843148
+   "votes": 33750,
+   "score": 6.598081952920662
   },
   {
    "tconst": "tt0113211",
    "title": "The Grass Harp",
    "year": 1995,
    "rating": 6.6,
-   "votes": 20023,
-   "score": 6.59711976693154
+   "votes": 20027,
+   "score": 6.597030234373904
   },
   {
    "tconst": "tt0112966",
    "title": "The Englishman Who Went Up a Hill But Came Down a Mountain",
    "year": 1995,
    "rating": 6.6,
-   "votes": 19819,
-   "score": 6.597096092829199
+   "votes": 19833,
+   "score": 6.597007034014242
   },
   {
    "tconst": "tt0113321",
    "title": "Home for the Holidays",
    "year": 1995,
    "rating": 6.6,
-   "votes": 16328,
-   "score": 6.596620776815825
+   "votes": 16344,
+   "score": 6.596517788403095
   },
   {
    "tconst": "tt0113537",
    "title": "Kicking and Screaming",
    "year": 1995,
    "rating": 6.6,
-   "votes": 16151,
-   "score": 6.596592498129068
+   "votes": 16165,
+   "score": 6.596488338090038
   },
   {
    "tconst": "tt0114609",
    "title": "Tales from the Hood",
    "year": 1995,
    "rating": 6.6,
-   "votes": 11355,
-   "score": 6.595593269821334
+   "votes": 11391,
+   "score": 6.5954655405817615
   },
   {
    "tconst": "tt0112541",
    "title": "Blue in the Face",
    "year": 1995,
    "rating": 6.6,
-   "votes": 10652,
-   "score": 6.595395344232553
+   "votes": 10669,
+   "score": 6.595256600655794
   },
   {
    "tconst": "tt0114272",
    "title": "Restoration",
    "year": 1995,
    "rating": 6.6,
-   "votes": 10476,
-   "score": 6.595342978025841
+   "votes": 10488,
+   "score": 6.595201167076166
+  },
+  {
+   "tconst": "tt0112679",
+   "title": "Circle of Friends",
+   "year": 1995,
+   "rating": 6.6,
+   "votes": 9860,
+   "score": 6.59499836310065
   },
   {
    "tconst": "tt0112585",
    "title": "The Brothers McMullen",
    "year": 1995,
    "rating": 6.6,
-   "votes": 9221,
-   "score": 6.594931996900916
+   "votes": 9234,
+   "score": 6.594778395087513
   },
   {
    "tconst": "tt0113089",
    "title": "Fluke",
    "year": 1995,
    "rating": 6.6,
-   "votes": 8281,
-   "score": 6.594573294776591
+   "votes": 8297,
+   "score": 6.594410444135946
   },
   {
    "tconst": "tt0101616",
    "title": "Coolie No. 1",
    "year": 1995,
    "rating": 6.6,
-   "votes": 6383,
-   "score": 6.5936684466246085
+   "votes": 6391,
+   "score": 6.593475171247095
   },
   {
    "tconst": "tt0112495",
    "title": "Beyond Rangoon",
    "year": 1995,
    "rating": 6.5,
-   "votes": 5738,
-   "score": 6.539851734766989
+   "votes": 5748,
+   "score": 6.539605105663907
   },
   {
    "tconst": "tt0113153",
    "title": "My Father Is a Hero",
    "year": 1995,
    "rating": 6.5,
-   "votes": 5889,
-   "score": 6.539299102573967
+   "votes": 5897,
+   "score": 6.539063565722278
   },
   {
    "tconst": "tt0114916",
    "title": "When Night Is Falling",
    "year": 1995,
    "rating": 6.5,
-   "votes": 7988,
-   "score": 6.532947946406523
+   "votes": 7993,
+   "score": 6.532761923780164
   },
   {
    "tconst": "tt0114095",
    "title": "Party Girl",
    "year": 1995,
    "rating": 6.5,
-   "votes": 9192,
-   "score": 6.530152757041144
+   "votes": 9250,
+   "score": 6.529871977240397
   },
   {
    "tconst": "tt0112288",
    "title": "The Addiction",
    "year": 1995,
    "rating": 6.5,
-   "votes": 13196,
-   "score": 6.523517692236091
+   "votes": 13249,
+   "score": 6.523325972693061
   },
   {
    "tconst": "tt0113097",
    "title": "Forget Paris",
    "year": 1995,
    "rating": 6.5,
-   "votes": 13963,
-   "score": 6.522566467749192
+   "votes": 13976,
+   "score": 6.522432318490496
   },
   {
    "tconst": "tt0112571",
    "title": "Boys on the Side",
    "year": 1995,
    "rating": 6.5,
-   "votes": 16441,
-   "score": 6.5199583941013906
+   "votes": 16457,
+   "score": 6.519838545727533
   },
   {
    "tconst": "tt0113305",
    "title": "Higher Learning",
    "year": 1995,
    "rating": 6.5,
-   "votes": 23591,
-   "score": 6.5149672249284
+   "votes": 23665,
+   "score": 6.514850014850015
   },
   {
    "tconst": "tt0112792",
    "title": "Dangerous Minds",
    "year": 1995,
    "rating": 6.5,
-   "votes": 61833,
-   "score": 6.5064029435747
+   "votes": 61921,
+   "score": 6.506360868422105
   },
   {
    "tconst": "tt0114214",
    "title": "The Quick and the Dead",
    "year": 1995,
    "rating": 6.5,
-   "votes": 114890,
-   "score": 6.5035693379591955
+   "votes": 115063,
+   "score": 6.503545435943428
   },
   {
    "tconst": "tt0113149",
    "title": "French Twist",
    "year": 1995,
    "rating": 6.4,
-   "votes": 5673,
-   "score": 6.486941621655385
+   "votes": 5681,
+   "score": 6.486665637644011
   },
   {
    "tconst": "tt0114086",
    "title": "Beyond the Clouds",
    "year": 1995,
    "rating": 6.4,
-   "votes": 6543,
-   "score": 6.480388800825429
+   "votes": 6552,
+   "score": 6.480131204611814
   },
   {
    "tconst": "tt0113691",
    "title": "Losing Isaiah",
    "year": 1995,
    "rating": 6.4,
-   "votes": 6830,
-   "score": 6.478438539977001
+   "votes": 6839,
+   "score": 6.478188670975223
   },
   {
    "tconst": "tt0112750",
    "title": "Crying Freeman",
    "year": 1995,
    "rating": 6.4,
-   "votes": 14550,
-   "score": 6.4474643441395365
+   "votes": 14576,
+   "score": 6.447286252333249
   },
   {
    "tconst": "tt0114702",
    "title": "Total Eclipse",
    "year": 1995,
    "rating": 6.4,
-   "votes": 16704,
-   "score": 6.4427537747847365
+   "votes": 16720,
+   "score": 6.442618585436265
   },
   {
    "tconst": "tt0113501",
    "title": "Just Cause",
    "year": 1995,
    "rating": 6.4,
-   "votes": 33218,
-   "score": 6.424279866239152
+   "votes": 33259,
+   "score": 6.424194978323419
   },
   {
    "tconst": "tt0114194",
    "title": "The Prophecy",
    "year": 1995,
    "rating": 6.4,
-   "votes": 36012,
-   "score": 6.422625766310542
+   "votes": 36094,
+   "score": 6.422525810962079
   },
   {
    "tconst": "tt0114319",
    "title": "Sabrina",
    "year": 1995,
    "rating": 6.4,
-   "votes": 47939,
-   "score": 6.417528248133284
+   "votes": 47997,
+   "score": 6.417466567459964
   },
   {
    "tconst": "tt0112508",
    "title": "Billy Madison",
    "year": 1995,
    "rating": 6.4,
-   "votes": 169244,
-   "score": 6.405325451251853
+   "votes": 169442,
+   "score": 6.405306495429287
   },
   {
    "tconst": "tt0112281",
    "title": "Ace Ventura: When Nature Calls",
    "year": 1995,
    "rating": 6.4,
-   "votes": 251567,
-   "score": 6.403616708025304
+   "votes": 251857,
+   "score": 6.403603856136589
   },
   {
    "tconst": "tt0114126",
    "title": "Thunderbolt",
    "year": 1995,
    "rating": 6.3,
-   "votes": 11044,
-   "score": 6.389000743451003
+   "votes": 11063,
+   "score": 6.388755255909585
   },
   {
    "tconst": "tt0112606",
    "title": "Bye Bye Love",
    "year": 1995,
    "rating": 6.2,
-   "votes": 5571,
-   "score": 6.382378954491336
+   "votes": 5575,
+   "score": 6.382096990607629
   },
   {
    "tconst": "tt0113347",
    "title": "How to Make an American Quilt",
    "year": 1995,
    "rating": 6.3,
-   "votes": 13228,
-   "score": 6.378337059903879
+   "votes": 13245,
+   "score": 6.378140623495515
   },
   {
    "tconst": "tt0112744",
    "title": "The Crossing Guard",
    "year": 1995,
    "rating": 6.3,
-   "votes": 15648,
-   "score": 6.36915575009337
-  },
-  {
-   "tconst": "tt0113269",
-   "title": "Haunted",
-   "year": 1995,
-   "rating": 6.2,
-   "votes": 8172,
-   "score": 6.346365618579405
+   "votes": 15688,
+   "score": 6.368913170711314
   },
   {
    "tconst": "tt0112572",
    "title": "The Brady Bunch Movie",
    "year": 1995,
    "rating": 6.3,
-   "votes": 26538,
-   "score": 6.345276426150292
+   "votes": 26565,
+   "score": 6.345166344865378
+  },
+  {
+   "tconst": "tt0113269",
+   "title": "Haunted",
+   "year": 1995,
+   "rating": 6.2,
+   "votes": 8280,
+   "score": 6.345005698469553
   },
   {
    "tconst": "tt0114367",
    "title": "Screamers",
    "year": 1995,
    "rating": 6.3,
-   "votes": 32062,
-   "score": 6.338528086124006
+   "votes": 32141,
+   "score": 6.338385495158334
   },
   {
    "tconst": "tt0113188",
    "title": "Gold Diggers: The Secret of Bear Mountain",
    "year": 1995,
    "rating": 6.1,
-   "votes": 5416,
-   "score": 6.33309599922503
+   "votes": 5419,
+   "score": 6.332812714816745
   },
   {
    "tconst": "tt0110443",
    "title": "Major Payne",
    "year": 1995,
    "rating": 6.3,
-   "votes": 44122,
-   "score": 6.329069010380845
+   "votes": 44205,
+   "score": 6.328974203346726
   },
   {
    "tconst": "tt0113972",
    "title": "Nick of Time",
    "year": 1995,
    "rating": 6.3,
-   "votes": 47944,
-   "score": 6.326970533543516
+   "votes": 48004,
+   "score": 6.32689751104965
   },
   {
    "tconst": "tt0112401",
    "title": "Assassins",
    "year": 1995,
    "rating": 6.3,
-   "votes": 93110,
-   "score": 6.314554356619386
+   "votes": 93195,
+   "score": 6.314518821484553
   },
   {
    "tconst": "tt0114898",
    "title": "Waterworld",
    "year": 1995,
    "rating": 6.3,
-   "votes": 226875,
-   "score": 6.306158179743085
+   "votes": 227102,
+   "score": 6.306142453213138
   },
   {
    "tconst": "tt0122768",
    "title": "Twin Sitters",
    "year": 1995,
    "rating": 6,
-   "votes": 5088,
-   "score": 6.290238692300547
+   "votes": 5111,
+   "score": 6.289355719085715
   },
   {
    "tconst": "tt0112887",
    "title": "The Doom Generation",
    "year": 1995,
    "rating": 6.2,
-   "votes": 19117,
-   "score": 6.279940619808762
+   "votes": 19176,
+   "score": 6.279652369112991
   },
   {
    "tconst": "tt0114885",
    "title": "Waiting to Exhale",
    "year": 1995,
    "rating": 6.1,
-   "votes": 14177,
-   "score": 6.226606243308542
+   "votes": 14212,
+   "score": 6.226258363297713
   },
   {
    "tconst": "tt0110066",
    "title": "Houseguest",
    "year": 1995,
    "rating": 6,
-   "votes": 8027,
-   "score": 6.224758419277494
+   "votes": 8034,
+   "score": 6.224464912971895
   },
   {
    "tconst": "tt0113243",
    "title": "Hackers",
    "year": 1995,
    "rating": 6.2,
-   "votes": 82972,
-   "score": 6.221915244940753
+   "votes": 83119,
+   "score": 6.2218531267453745
   },
   {
    "tconst": "tt0112642",
    "title": "Casper",
    "year": 1995,
    "rating": 6.2,
-   "votes": 161260,
-   "score": 6.2115958614695534
+   "votes": 161605,
+   "score": 6.2115583306363895
   },
   {
    "tconst": "tt0113360",
    "title": "The Hunted",
    "year": 1995,
    "rating": 5.9,
-   "votes": 6346,
-   "score": 6.20212655807579
+   "votes": 6355,
+   "score": 6.201688742904066
   },
   {
    "tconst": "tt0113690",
    "title": "Lord of Illusions",
    "year": 1995,
    "rating": 6.1,
-   "votes": 20226,
-   "score": 6.1962470438407955
+   "votes": 20285,
+   "score": 6.195933386421817
   },
   {
    "tconst": "tt0113442",
    "title": "It Takes Two",
    "year": 1995,
    "rating": 6.1,
-   "votes": 29111,
-   "score": 6.171177272080206
+   "votes": 29187,
+   "score": 6.170953159846598
   },
   {
    "tconst": "tt0113041",
    "title": "Father of the Bride Part II",
    "year": 1995,
    "rating": 6.1,
-   "votes": 45943,
-   "score": 6.147659696679188
+   "votes": 46005,
+   "score": 6.147557605640146
   },
   {
    "tconst": "tt0112435",
    "title": "The Baby-Sitters Club",
    "year": 1995,
    "rating": 5.8,
-   "votes": 7125,
-   "score": 6.123952818798179
+   "votes": 7130,
+   "score": 6.123633608876807
   },
   {
    "tconst": "tt0113552",
    "title": "Kiss of Death",
    "year": 1995,
    "rating": 6,
-   "votes": 20214,
-   "score": 6.11612310335242
+   "votes": 20251,
+   "score": 6.115863754927553
   },
   {
    "tconst": "tt0114938",
    "title": "Wild Bill",
    "year": 1995,
    "rating": 5.8,
-   "votes": 8925,
-   "score": 6.08207740954599
+   "votes": 8933,
+   "score": 6.081753798584344
   },
   {
    "tconst": "tt0113936",
    "title": "National Lampoon's Senior Trip",
    "year": 1995,
    "rating": 5.7,
-   "votes": 6759,
-   "score": 6.076556503778206
+   "votes": 6764,
+   "score": 6.076205004732715
   },
   {
    "tconst": "tt0113419",
    "title": "The Indian in the Cupboard",
    "year": 1995,
    "rating": 6,
-   "votes": 33456,
-   "score": 6.076137089867067
+   "votes": 33497,
+   "score": 6.0759974978745275
   },
   {
    "tconst": "tt0112602",
    "title": "Bushwhacked",
    "year": 1995,
    "rating": 5.7,
-   "votes": 7436,
-   "score": 6.056057247340618
+   "votes": 7451,
+   "score": 6.055447407892994
   },
   {
    "tconst": "tt0114108",
    "title": "The Pebble and the Penguin",
    "year": 1995,
    "rating": 5.6,
-   "votes": 6145,
-   "score": 6.042164910536377
+   "votes": 6152,
+   "score": 6.041685408507503
   },
   {
    "tconst": "tt0109370",
    "title": "Canadian Bacon",
    "year": 1995,
    "rating": 5.9,
-   "votes": 19738,
-   "score": 6.038569323628747
+   "votes": 19771,
+   "score": 6.03829379821871
   },
   {
    "tconst": "tt0113957",
    "title": "The Net",
    "year": 1995,
    "rating": 6,
-   "votes": 80717,
-   "score": 6.034158077486706
+   "votes": 80837,
+   "score": 6.034084085833331
   },
   {
    "tconst": "tt0113071",
    "title": "First Knight",
    "year": 1995,
    "rating": 6,
-   "votes": 83255,
-   "score": 6.033175773927006
+   "votes": 83341,
+   "score": 6.033117982314844
   },
   {
    "tconst": "tt0114496",
    "title": "Something to Talk About",
    "year": 1995,
    "rating": 5.8,
-   "votes": 15366,
-   "score": 5.992866931549049
+   "votes": 15392,
+   "score": 5.992510576484683
   },
   {
    "tconst": "tt0114576",
    "title": "Sudden Death",
    "year": 1995,
    "rating": 5.9,
-   "votes": 40056,
-   "score": 5.976081496979935
+   "votes": 40145,
+   "score": 5.975881618688131
   },
   {
    "tconst": "tt0112896",
    "title": "Dracula: Dead and Loving It",
    "year": 1995,
    "rating": 5.9,
-   "votes": 49392,
-   "score": 5.9630226490647145
+   "votes": 49464,
+   "score": 5.962897981706735
   },
   {
    "tconst": "tt0114508",
    "title": "Species",
    "year": 1995,
    "rating": 5.9,
-   "votes": 91627,
-   "score": 5.935475880736522
+   "votes": 91749,
+   "score": 5.93540786649656
   },
   {
    "tconst": "tt0113855",
    "title": "Mortal Kombat",
    "year": 1995,
    "rating": 5.9,
-   "votes": 136449,
-   "score": 5.924234373717226
+   "votes": 136646,
+   "score": 5.924184768194483
   },
   {
    "tconst": "tt0118001",
    "title": "Two Much",
    "year": 1995,
    "rating": 5.4,
-   "votes": 6400,
-   "score": 5.919993677888414
+   "votes": 6404,
+   "score": 5.919613791272857
   },
   {
    "tconst": "tt0114928",
    "title": "White Man's Burden",
    "year": 1995,
    "rating": 5.3,
-   "votes": 5392,
-   "score": 5.918545797529631
+   "votes": 5395,
+   "score": 5.918150618150618
   },
   {
    "tconst": "tt0112499",
    "title": "The Big Green",
    "year": 1995,
    "rating": 5.6,
-   "votes": 12154,
-   "score": 5.8872757332358585
+   "votes": 12173,
+   "score": 5.886826744056115
   },
   {
    "tconst": "tt0113729",
    "title": "Mad Love",
    "year": 1995,
    "rating": 5.4,
-   "votes": 7455,
-   "score": 5.875947645758966
+   "votes": 7463,
+   "score": 5.87546141985683
   },
   {
    "tconst": "tt0112760",
    "title": "Cutthroat Island",
    "year": 1995,
    "rating": 5.7,
-   "votes": 33555,
-   "score": 5.814847047799972
+   "votes": 33607,
+   "score": 5.814634021697507
   },
   {
    "tconst": "tt0112302",
    "title": "Tom and Huck",
    "year": 1995,
    "rating": 5.5,
-   "votes": 12621,
-   "score": 5.808037451218882
+   "votes": 12645,
+   "score": 5.807490828884991
   },
   {
    "tconst": "tt0114852",
    "title": "Village of the Damned",
    "year": 1995,
    "rating": 5.7,
-   "votes": 37280,
-   "score": 5.804728664331313
+   "votes": 37339,
+   "score": 5.8045295277563405
   },
   {
    "tconst": "tt0113965",
    "title": "Never Talk to Strangers",
    "year": 1995,
    "rating": 5.3,
-   "votes": 7942,
-   "score": 5.79667191530891
+   "votes": 7951,
+   "score": 5.796152858904769
   },
   {
    "tconst": "tt0113303",
    "title": "Hideaway",
    "year": 1995,
    "rating": 5.3,
-   "votes": 8082,
-   "score": 5.79135666778229
+   "votes": 8097,
+   "score": 5.790621949734723
   },
   {
    "tconst": "tt0113845",
    "title": "Money Train",
    "year": 1995,
    "rating": 5.7,
-   "votes": 45699,
-   "score": 5.787337579201323
+   "votes": 45747,
+   "score": 5.787210587338674
   },
   {
    "tconst": "tt0114048",
    "title": "Operation Dumbo Drop",
    "year": 1995,
    "rating": 5.3,
-   "votes": 10318,
-   "score": 5.719632323275096
+   "votes": 10334,
+   "score": 5.719047585475131
   },
   {
    "tconst": "tt0113755",
    "title": "Man of the House",
    "year": 1995,
    "rating": 5.3,
-   "votes": 11353,
-   "score": 5.6930733154728745
+   "votes": 11376,
+   "score": 5.692383712486301
   },
   {
    "tconst": "tt0113451",
    "title": "Jade",
    "year": 1995,
    "rating": 5.4,
-   "votes": 15735,
-   "score": 5.685889941062354
+   "votes": 15783,
+   "score": 5.6851212854580995
   },
   {
    "tconst": "tt0114781",
    "title": "Under Siege 2: Dark Territory",
    "year": 1995,
    "rating": 5.6,
-   "votes": 53839,
-   "score": 5.683752747802102
+   "votes": 53899,
+   "score": 5.683629190235414
   },
   {
    "tconst": "tt0114345",
    "title": "The Scarlet Letter",
    "year": 1995,
    "rating": 5.4,
-   "votes": 17545,
-   "score": 5.662937588286889
+   "votes": 17572,
+   "score": 5.662523288839078
   },
   {
    "tconst": "tt0113481",
    "title": "Johnny Mnemonic",
    "year": 1995,
    "rating": 5.6,
-   "votes": 82211,
-   "score": 5.656505806927198
+   "votes": 82337,
+   "score": 5.656398498639472
   }
  ]
 }

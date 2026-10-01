@@ -1,7 +1,7 @@
 {
  "tag": "year-1962",
- "builtAt": "2026-09-15T22:46:38.707Z",
- "mean": 6.798,
+ "builtAt": "2026-10-01T06:19:54.122Z",
+ "mean": 6.796,
  "minVotes": 1000,
  "items": [
   {
@@ -9,592 +9,592 @@
    "title": "Harakiri",
    "year": 1962,
    "rating": 8.6,
-   "votes": 94081,
-   "score": 8.581045784201367
+   "votes": 94493,
+   "score": 8.581110394095775
   },
   {
    "tconst": "tt0056172",
    "title": "Lawrence of Arabia",
    "year": 1962,
    "rating": 8.3,
-   "votes": 346159,
-   "score": 8.295672917042769
+   "votes": 346767,
+   "score": 8.295675768153355
   },
   {
    "tconst": "tt0056592",
    "title": "To Kill a Mockingbird",
    "year": 1962,
    "rating": 8.2,
-   "votes": 353281,
-   "score": 8.19604216485685
+   "votes": 353608,
+   "score": 8.196041191578834
   },
   {
    "tconst": "tt0056512",
    "title": "The Easy Life",
    "year": 1962,
    "rating": 8.2,
-   "votes": 14763,
-   "score": 8.111045753197377
+   "votes": 14810,
+   "score": 8.111206506223148
   },
   {
    "tconst": "tt0056217",
    "title": "The Man Who Shot Liberty Valance",
    "year": 1962,
    "rating": 8.1,
-   "votes": 89784,
-   "score": 8.085656219241828
+   "votes": 89925,
+   "score": 8.085660432921506
   },
   {
    "tconst": "tt0262455",
    "title": "Gundamma Katha",
    "year": 1962,
    "rating": 8.8,
-   "votes": 1712,
-   "score": 8.061730902525913
+   "votes": 1715,
+   "score": 8.061942859443086
   },
   {
    "tconst": "tt0056241",
    "title": "The Miracle Worker",
    "year": 1962,
    "rating": 8.1,
-   "votes": 21345,
-   "score": 8.041723616363852
+   "votes": 21409,
+   "score": 8.041816897826228
   },
   {
    "tconst": "tt0056322",
    "title": "The Given Word",
    "year": 1962,
    "rating": 8.3,
-   "votes": 4752,
-   "score": 8.038841134848797
+   "votes": 4762,
+   "score": 8.039009868689341
   },
   {
    "tconst": "tt0056687",
    "title": "What Ever Happened to Baby Jane?",
    "year": 1962,
    "rating": 8,
-   "votes": 68374,
-   "score": 7.982670945997784
+   "votes": 68471,
+   "score": 7.982671544434195
   },
   {
    "tconst": "tt0056111",
    "title": "Ivan's Childhood",
    "year": 1962,
    "rating": 8,
-   "votes": 44075,
-   "score": 7.9733292114842
+   "votes": 44152,
+   "score": 7.973338387300407
   },
   {
    "tconst": "tt0056443",
    "title": "Sanjuro",
    "year": 1962,
    "rating": 8,
-   "votes": 43780,
-   "score": 7.973153510666598
+   "votes": 43863,
+   "score": 7.973166637616477
   },
   {
    "tconst": "tt0056444",
    "title": "An Autumn Afternoon",
    "year": 1962,
    "rating": 8,
-   "votes": 12216,
-   "score": 7.909035578666032
+   "votes": 12252,
+   "score": 7.909158984559914
   },
   {
    "tconst": "tt0056218",
    "title": "The Manchurian Candidate",
    "year": 1962,
    "rating": 7.9,
-   "votes": 85269,
-   "score": 7.887223848748105
+   "votes": 85338,
+   "score": 7.887215071734207
   },
   {
    "tconst": "tt0056732",
    "title": "The Exterminating Angel",
    "year": 1962,
    "rating": 7.9,
-   "votes": 38548,
-   "score": 7.8721304290394025
+   "votes": 38613,
+   "score": 7.872134775538031
   },
   {
    "tconst": "tt0056663",
    "title": "My Life to Live",
    "year": 1962,
    "rating": 7.8,
-   "votes": 38037,
-   "score": 7.774327284567212
+   "votes": 38093,
+   "score": 7.7743221257869175
   },
   {
    "tconst": "tt0055852",
    "title": "Cleo from 5 to 7",
    "year": 1962,
    "rating": 7.8,
-   "votes": 32275,
-   "score": 7.769881719238175
+   "votes": 32355,
+   "score": 7.769904807776584
   },
   {
    "tconst": "tt0055798",
    "title": "Birdman of Alcatraz",
    "year": 1962,
    "rating": 7.8,
-   "votes": 21506,
-   "score": 7.755470283819881
+   "votes": 21585,
+   "score": 7.755553458640159
   },
   {
    "tconst": "tt0055895",
    "title": "Days of Wine and Roses",
    "year": 1962,
    "rating": 7.8,
-   "votes": 15246,
-   "score": 7.738311843386081
-  },
-  {
-   "tconst": "tt0057695",
-   "title": "Me, Grandma, Iliko and Ilarion",
-   "year": 1962,
-   "rating": 8.4,
-   "votes": 1269,
-   "score": 7.693880214918587
+   "votes": 15275,
+   "score": 7.738321036152871
   },
   {
    "tconst": "tt0056197",
    "title": "The Longest Day",
    "year": 1962,
    "rating": 7.7,
-   "votes": 63635,
-   "score": 7.686041838131822
+   "votes": 63726,
+   "score": 7.686036134835892
   },
   {
    "tconst": "tt0055824",
    "title": "Cape Fear",
    "year": 1962,
    "rating": 7.7,
-   "votes": 36093,
-   "score": 7.675677734549653
+   "votes": 36225,
+   "score": 7.6757199426027665
   },
   {
    "tconst": "tt0056436",
    "title": "Sahib Bibi Aur Ghulam",
    "year": 1962,
    "rating": 8.1,
-   "votes": 2039,
-   "score": 7.671508459246552
+   "votes": 2041,
+   "score": 7.671251188223604
   },
   {
    "tconst": "tt0056262",
    "title": "The Music Man",
    "year": 1962,
    "rating": 7.7,
-   "votes": 21034,
-   "score": 7.659054833786434
+   "votes": 21062,
+   "score": 7.659032493127912
   },
   {
    "tconst": "tt0055796",
    "title": "Billy Budd",
    "year": 1962,
    "rating": 7.8,
-   "votes": 5572,
-   "score": 7.647506726666201
+   "votes": 5583,
+   "score": 7.6475125115278715
   },
   {
    "tconst": "tt0056406",
    "title": "Requiem for a Heavyweight",
    "year": 1962,
    "rating": 7.8,
-   "votes": 5319,
-   "score": 7.641401203932627
+   "votes": 5327,
+   "score": 7.6413426368560105
   },
   {
    "tconst": "tt0134614",
    "title": "The Girls",
    "year": 1962,
    "rating": 7.8,
-   "votes": 5280,
-   "score": 7.640416275103547
+   "votes": 5299,
+   "score": 7.640637381074452
+  },
+  {
+   "tconst": "tt0057695",
+   "title": "Me, Grandma, Iliko and Ilarion",
+   "year": 1962,
+   "rating": 8.3,
+   "votes": 1272,
+   "score": 7.638105133533442
   },
   {
    "tconst": "tt0054821",
    "title": "Le Doulos",
    "year": 1962,
    "rating": 7.7,
-   "votes": 13315,
-   "score": 7.636976193339175
+   "votes": 13347,
+   "score": 7.637002499713388
   },
   {
    "tconst": "tt0056215",
    "title": "Mamma Roma",
    "year": 1962,
    "rating": 7.7,
-   "votes": 11559,
-   "score": 7.628164201580562
+   "votes": 11578,
+   "score": 7.628142380615994
   },
   {
    "tconst": "tt0055728",
    "title": "Advise & Consent",
    "year": 1962,
    "rating": 7.7,
-   "votes": 8166,
-   "score": 7.601572573385368
+   "votes": 8190,
+   "score": 7.601651236494883
   },
   {
    "tconst": "tt0055032",
    "title": "Jules and Jim",
    "year": 1962,
    "rating": 7.6,
-   "votes": 47271,
-   "score": 7.583381620593115
+   "votes": 47330,
+   "score": 7.583367988069273
   },
   {
    "tconst": "tt0057427",
    "title": "The Trial",
    "year": 1962,
    "rating": 7.6,
-   "votes": 27261,
-   "score": 7.571615095277955
+   "votes": 27324,
+   "score": 7.571620352470977
   },
   {
    "tconst": "tt0056736",
    "title": "L'Eclisse",
    "year": 1962,
    "rating": 7.6,
-   "votes": 24783,
-   "score": 7.5688870266318995
+   "votes": 24859,
+   "score": 7.568915072639622
   },
   {
    "tconst": "tt0055910",
    "title": "Sundays and Cybèle",
    "year": 1962,
    "rating": 7.7,
-   "votes": 5148,
-   "score": 7.553255401374475
+   "votes": 5161,
+   "score": 7.553298955265051
   },
   {
    "tconst": "tt0054665",
    "title": "The Fabulous Baron Munchausen",
    "year": 1962,
    "rating": 7.7,
-   "votes": 3681,
-   "score": 7.507266440429454
-  },
-  {
-   "tconst": "tt0056193",
-   "title": "Lolita",
-   "year": 1962,
-   "rating": 7.5,
-   "votes": 117174,
-   "score": 7.494058034827037
+   "votes": 3698,
+   "score": 7.507614913449974
   },
   {
    "tconst": "tt0056714",
    "title": "The Tale of Zatoichi",
    "year": 1962,
    "rating": 7.6,
-   "votes": 6571,
-   "score": 7.494044935629411
+   "votes": 6593,
+   "score": 7.49413602836665
+  },
+  {
+   "tconst": "tt0056193",
+   "title": "Lolita",
+   "year": 1962,
+   "rating": 7.5,
+   "votes": 117362,
+   "score": 7.4940536224750165
   },
   {
    "tconst": "tt0055724",
    "title": "The Expedition",
    "year": 1962,
    "rating": 7.9,
-   "votes": 1463,
-   "score": 7.452502723365925
+   "votes": 1468,
+   "score": 7.452745082410039
   },
   {
    "tconst": "tt0056195",
    "title": "Lonely Are the Brave",
    "year": 1962,
    "rating": 7.5,
-   "votes": 11135,
-   "score": 7.442135493007851
+   "votes": 11153,
+   "score": 7.442086304894921
   },
   {
    "tconst": "tt0056194",
    "title": "The Loneliness of the Long Distance Runner",
    "year": 1962,
    "rating": 7.5,
-   "votes": 10104,
-   "score": 7.436762806884931
+   "votes": 10125,
+   "score": 7.436734819180942
   },
   {
    "tconst": "tt0056210",
    "title": "Mafioso",
    "year": 1962,
    "rating": 7.6,
-   "votes": 3385,
-   "score": 7.417061392850689
+   "votes": 3397,
+   "score": 7.417187824286554
   },
   {
    "tconst": "tt0056196",
    "title": "Long Day's Journey Into Night",
    "year": 1962,
    "rating": 7.5,
-   "votes": 6564,
-   "score": 7.407167399213415
+   "votes": 6585,
+   "score": 7.407208287856029
   },
   {
    "tconst": "tt0203612",
    "title": "Pitfall",
    "year": 1962,
    "rating": 7.5,
-   "votes": 4734,
-   "score": 7.377539973430464
+   "votes": 4751,
+   "score": 7.37761691243053
   },
   {
    "tconst": "tt0056291",
    "title": "Knife in the Water",
    "year": 1962,
    "rating": 7.4,
-   "votes": 25401,
-   "score": 7.377190796092962
+   "votes": 25442,
+   "score": 7.377164165471144
   },
   {
    "tconst": "tt0055019",
    "title": "The Intruder",
    "year": 1962,
    "rating": 7.5,
-   "votes": 4703,
-   "score": 7.376874313107185
+   "votes": 4714,
+   "score": 7.376824442315012
   },
   {
    "tconst": "tt0056412",
    "title": "Ride the High Country",
    "year": 1962,
    "rating": 7.4,
-   "votes": 16496,
-   "score": 7.365581516212293
+   "votes": 16533,
+   "score": 7.365560649255004
   },
   {
    "tconst": "tt0056134",
    "title": "Kanchenjungha",
    "year": 1962,
    "rating": 7.8,
-   "votes": 1293,
-   "score": 7.362936854622885
+   "votes": 1297,
+   "score": 7.362984267909438
   },
   {
    "tconst": "tt0059616",
    "title": "The Trial of Joan of Arc",
    "year": 1962,
    "rating": 7.4,
-   "votes": 6617,
-   "score": 7.320941867881092
+   "votes": 6625,
+   "score": 7.320809818149243
   },
   {
    "tconst": "tt0275089",
    "title": "Revenge of the Snakes",
    "year": 1962,
    "rating": 7.6,
-   "votes": 1704,
-   "score": 7.303333656675397
+   "votes": 1713,
+   "score": 7.3037135508249085
   },
   {
    "tconst": "tt0055850",
    "title": "Chushingura",
    "year": 1962,
    "rating": 7.5,
-   "votes": 2410,
-   "score": 7.2940804128006675
+   "votes": 2412,
+   "score": 7.293720651637742
   },
   {
    "tconst": "tt0055950",
    "title": "Electra",
    "year": 1962,
    "rating": 7.5,
-   "votes": 2216,
-   "score": 7.281658646657424
+   "votes": 2225,
+   "score": 7.281759647562163
   },
   {
    "tconst": "tt0056636",
    "title": "A Monkey in Winter",
    "year": 1962,
    "rating": 7.4,
-   "votes": 3864,
-   "score": 7.276195355191257
+   "votes": 3873,
+   "score": 7.276087597658112
   },
   {
    "tconst": "tt0055871",
    "title": "The Counterfeit Traitor",
    "year": 1962,
    "rating": 7.4,
-   "votes": 3515,
-   "score": 7.266625516644579
+   "votes": 3522,
+   "score": 7.266469452319323
   },
   {
    "tconst": "tt0054949",
    "title": "War of the Buttons",
    "year": 1962,
    "rating": 7.4,
-   "votes": 3092,
-   "score": 7.25283827166429
-  },
-  {
-   "tconst": "tt0056389",
-   "title": "The Four Days of Naples",
-   "year": 1962,
-   "rating": 7.6,
-   "votes": 1245,
-   "score": 7.2426789343653795
+   "votes": 3100,
+   "score": 7.2527255764360925
   },
   {
    "tconst": "tt0055972",
    "title": "Experiment in Terror",
    "year": 1962,
    "rating": 7.3,
-   "votes": 7622,
-   "score": 7.241755301281637
+   "votes": 7633,
+   "score": 7.241639622771687
   },
   {
    "tconst": "tt0055399",
    "title": "Salvatore Giuliano",
    "year": 1962,
    "rating": 7.3,
-   "votes": 6022,
-   "score": 7.228483937289985
+   "votes": 6047,
+   "score": 7.228505018218813
   },
   {
    "tconst": "tt0054803",
    "title": "Nine Days of One Year",
    "year": 1962,
    "rating": 7.5,
-   "votes": 1452,
-   "score": 7.213627327752967
+   "votes": 1455,
+   "score": 7.213309516654981
   },
   {
    "tconst": "tt0055928",
    "title": "Dr. No",
    "year": 1962,
    "rating": 7.2,
-   "votes": 197875,
-   "score": 7.197977695575866
+   "votes": 198109,
+   "score": 7.197971838859057
   },
   {
    "tconst": "tt0056045",
    "title": "Gusarskaya ballada",
    "year": 1962,
    "rating": 7.4,
-   "votes": 1939,
-   "score": 7.195105208455351
+   "votes": 1945,
+   "score": 7.1949659977548315
+  },
+  {
+   "tconst": "tt0056389",
+   "title": "The Four Days of Naples",
+   "year": 1962,
+   "rating": 7.5,
+   "votes": 1252,
+   "score": 7.18746663560745
   },
   {
    "tconst": "tt0056264",
    "title": "Mutiny on the Bounty",
    "year": 1962,
    "rating": 7.2,
-   "votes": 19699,
-   "score": 7.180569796011898
+   "votes": 19733,
+   "score": 7.180522590237206
   },
   {
    "tconst": "tt0188195",
    "title": "The Seventh Juror",
    "year": 1962,
    "rating": 7.5,
-   "votes": 1152,
-   "score": 7.173705486826336
+   "votes": 1157,
+   "score": 7.1737018374538595
   },
   {
    "tconst": "tt0056141",
    "title": "A Kind of Loving",
    "year": 1962,
    "rating": 7.3,
-   "votes": 2976,
-   "score": 7.173695726270189
+   "votes": 2983,
+   "score": 7.17350611684358
   },
   {
    "tconst": "tt0055763",
    "title": "Robbery at 3 O'clock",
    "year": 1962,
    "rating": 7.4,
-   "votes": 1538,
-   "score": 7.162732154314529
+   "votes": 1541,
+   "score": 7.162367124513175
   },
   {
    "tconst": "tt0057239",
    "title": "The L-Shaped Room",
    "year": 1962,
    "rating": 7.3,
-   "votes": 2554,
-   "score": 7.158698426463218
+   "votes": 2572,
+   "score": 7.158951529503913
   },
   {
    "tconst": "tt0056135",
    "title": "The Inheritance",
    "year": 1962,
    "rating": 7.4,
-   "votes": 1328,
-   "score": 7.14132912699754
+   "votes": 1336,
+   "score": 7.141513212066771
   },
   {
    "tconst": "tt0055892",
    "title": "David and Lisa",
    "year": 1962,
    "rating": 7.2,
-   "votes": 3687,
-   "score": 7.114191211361271
+   "votes": 3696,
+   "score": 7.114006572271715
   },
   {
    "tconst": "tt0200309",
    "title": "The Tale of Zatoichi Continues",
    "year": 1962,
    "rating": 7.2,
-   "votes": 3097,
-   "score": 7.1018340755797595
+   "votes": 3101,
+   "score": 7.101530081294313
   },
   {
    "tconst": "tt0056085",
    "title": "How the West Was Won",
    "year": 1962,
    "rating": 7.1,
-   "votes": 25856,
-   "score": 7.088747922536873
+   "votes": 25915,
+   "score": 7.088711679858368
   },
   {
    "tconst": "tt0053279",
    "title": "Sign of the Lion",
    "year": 1962,
    "rating": 7.2,
-   "votes": 2599,
-   "score": 7.088250682870318
+   "votes": 2607,
+   "score": 7.088044043079561
   },
   {
    "tconst": "tt0056059",
    "title": "Hatari!",
    "year": 1962,
    "rating": 7.1,
-   "votes": 15956,
-   "score": 7.082178238243115
+   "votes": 16007,
+   "score": 7.082135289197858
   },
   {
    "tconst": "tt0056541",
    "title": "Sweet Bird of Youth",
    "year": 1962,
    "rating": 7.1,
-   "votes": 9383,
-   "score": 7.070896100130047
+   "votes": 9404,
+   "score": 7.070797276373316
   },
   {
    "tconst": "tt0056121",
    "title": "Jigsaw",
    "year": 1962,
    "rating": 7.2,
-   "votes": 2111,
-   "score": 7.070721378222525
+   "votes": 2119,
+   "score": 7.07052736883231
   },
   {
    "tconst": "tt0056048",
    "title": "Gypsy",
    "year": 1962,
    "rating": 7.1,
-   "votes": 7625,
-   "score": 7.06496396610438
+   "votes": 7637,
+   "score": 7.064822839340971
   },
   {
    "tconst": "tt0055998",
    "title": "Freud",
    "year": 1962,
    "rating": 7.1,
-   "votes": 3769,
-   "score": 7.036635396865227
+   "votes": 3774,
+   "score": 7.03635837104901
   },
   {
    "tconst": "tt0056628",
@@ -602,215 +602,215 @@
    "year": 1962,
    "rating": 7.2,
    "votes": 1418,
-   "score": 7.033670061062975
+   "score": 7.032992085768393
   },
   {
    "tconst": "tt0055884",
    "title": "Damn the Defiant!",
    "year": 1962,
    "rating": 7.1,
-   "votes": 3485,
-   "score": 7.032623011739191
+   "votes": 3495,
+   "score": 7.032408200976191
   },
   {
    "tconst": "tt0056966",
    "title": "Family Diary",
    "year": 1962,
    "rating": 7.2,
-   "votes": 1349,
-   "score": 7.028784251873255
+   "votes": 1351,
+   "score": 7.028232608842186
   },
   {
    "tconst": "tt0056514",
    "title": "The Suitor",
    "year": 1962,
    "rating": 7.2,
-   "votes": 1274,
-   "score": 7.023137294481211
+   "votes": 1278,
+   "score": 7.022728210442483
   },
   {
    "tconst": "tt0055732",
    "title": "Akitsu Springs",
    "year": 1962,
    "rating": 7.2,
-   "votes": 1257,
-   "score": 7.0218051429553725
+   "votes": 1258,
+   "score": 7.021158044015932
   },
   {
    "tconst": "tt0055747",
    "title": "Love at Twenty",
    "year": 1962,
    "rating": 7.1,
-   "votes": 2590,
-   "score": 7.015825684582248
+   "votes": 2593,
+   "score": 7.015439705924847
   },
   {
    "tconst": "tt0056370",
    "title": "Pressure Point",
    "year": 1962,
    "rating": 7.1,
-   "votes": 2422,
-   "score": 7.011693222574598
+   "votes": 2426,
+   "score": 7.011317823522468
   },
   {
    "tconst": "tt0054614",
    "title": "All Night Long",
    "year": 1962,
    "rating": 7.1,
-   "votes": 1937,
-   "score": 6.9971107278346185
+   "votes": 1942,
+   "score": 6.996728369608421
   },
   {
    "tconst": "tt0055830",
    "title": "Carnival of Souls",
    "year": 1962,
    "rating": 7,
-   "votes": 31627,
-   "score": 6.993803114219826
+   "votes": 31720,
+   "score": 6.993770625409168
   },
   {
    "tconst": "tt0056017",
    "title": "Gigot",
    "year": 1962,
    "rating": 7.1,
-   "votes": 1479,
-   "score": 6.978101737656424
+   "votes": 1480,
+   "score": 6.977489864269346
   },
   {
    "tconst": "tt0055805",
    "title": "Boccaccio '70",
    "year": 1962,
    "rating": 7,
-   "votes": 5712,
-   "score": 6.9698769677667265
+   "votes": 5718,
+   "score": 6.969659848673411
   },
   {
    "tconst": "tt0164882",
    "title": "Ninja, a Band of Assassins",
    "year": 1962,
    "rating": 7.1,
-   "votes": 1150,
-   "score": 6.959448468674546
+   "votes": 1153,
+   "score": 6.958882890565711
   },
   {
    "tconst": "tt0056356",
    "title": "The Boys",
    "year": 1962,
    "rating": 7.1,
-   "votes": 1108,
-   "score": 6.9566481060959555
+   "votes": 1112,
+   "score": 6.956143401225368
   },
   {
    "tconst": "tt0056302",
    "title": "The Third Lover",
    "year": 1962,
    "rating": 7,
-   "votes": 1313,
-   "score": 6.912587206074481
+   "votes": 1318,
+   "score": 6.912068534679888
   },
   {
    "tconst": "tt0055827",
    "title": "The Elusive Corporal",
    "year": 1962,
    "rating": 7,
-   "votes": 1164,
-   "score": 6.906568487823602
+   "votes": 1172,
+   "score": 6.906157856071812
   },
   {
    "tconst": "tt0056062",
    "title": "Hell Is for Heroes",
    "year": 1962,
    "rating": 6.9,
-   "votes": 8191,
-   "score": 6.888881972326219
+   "votes": 8204,
+   "score": 6.888719563601475
   },
   {
    "tconst": "tt0056279",
    "title": "Night of the Eagle",
    "year": 1962,
    "rating": 6.9,
-   "votes": 4996,
-   "score": 6.882957673057084
+   "votes": 5026,
+   "score": 6.882770471853299
   },
   {
    "tconst": "tt0056183",
    "title": "Light in the Piazza",
    "year": 1962,
    "rating": 6.9,
-   "votes": 2114,
-   "score": 6.867185037781077
+   "votes": 2117,
+   "score": 6.86669068443631
   },
   {
    "tconst": "tt0143088",
    "title": "Adieu Philippine",
    "year": 1962,
    "rating": 6.9,
-   "votes": 1437,
-   "score": 6.858069022425225
+   "votes": 1446,
+   "score": 6.857553092145535
   },
   {
    "tconst": "tt0056552",
    "title": "Tales of Terror",
    "year": 1962,
    "rating": 6.8,
-   "votes": 9521,
-   "score": 6.799792244810405
+   "votes": 9552,
+   "score": 6.799637496530323
   },
   {
    "tconst": "tt0056255",
    "title": "Mr. Hobbs Takes a Vacation",
    "year": 1962,
    "rating": 6.8,
-   "votes": 6454,
-   "score": 6.799706762496682
+   "votes": 6466,
+   "score": 6.799487659173316
   },
   {
    "tconst": "tt0056452",
    "title": "Treasure of Silver Lake",
    "year": 1962,
    "rating": 6.8,
-   "votes": 4095,
-   "score": 6.799570992669337
+   "votes": 4102,
+   "score": 6.799250267226181
   },
   {
    "tconst": "tt0055858",
    "title": "The Grim Reaper",
    "year": 1962,
    "rating": 6.8,
-   "votes": 2867,
-   "score": 6.799434757602863
+   "votes": 2872,
+   "score": 6.799012103147722
   },
   {
    "tconst": "tt0055738",
    "title": "All Fall Down",
    "year": 1962,
    "rating": 6.8,
-   "votes": 2552,
-   "score": 6.799384630532172
+   "votes": 2557,
+   "score": 6.79892461720213
   },
   {
    "tconst": "tt0056346",
    "title": "Phaedra",
    "year": 1962,
    "rating": 6.8,
-   "votes": 2178,
-   "score": 6.799312211343699
+   "votes": 2180,
+   "score": 6.798797126851564
   },
   {
    "tconst": "tt0056335",
    "title": "The Password Is Courage",
    "year": 1962,
    "rating": 6.8,
-   "votes": 1777,
-   "score": 6.799212894364521
+   "votes": 1779,
+   "score": 6.798623556454832
   },
   {
    "tconst": "tt0056093",
    "title": "If a Man Answers",
    "year": 1962,
    "rating": 6.8,
-   "votes": 1371,
-   "score": 6.7990781137285
+   "votes": 1372,
+   "score": 6.798387379168624
   },
   {
    "tconst": "tt0056307",
@@ -818,95 +818,95 @@
    "year": 1962,
    "rating": 6.8,
    "votes": 1176,
-   "score": 6.798995499839281
+   "score": 6.798242124718739
   },
   {
    "tconst": "tt0057093",
    "title": "Gay Purr-ee",
    "year": 1962,
    "rating": 6.7,
-   "votes": 2439,
-   "score": 6.72844263089569
+   "votes": 2467,
+   "score": 6.7277400817386726
   },
   {
    "tconst": "tt0056289",
    "title": "The Notorious Landlady",
    "year": 1962,
    "rating": 6.7,
-   "votes": 3372,
-   "score": 6.722372874576916
+   "votes": 3374,
+   "score": 6.721987851711929
   },
   {
    "tconst": "tt0056671",
    "title": "Walk on the Wild Side",
    "year": 1962,
    "rating": 6.7,
-   "votes": 3471,
-   "score": 6.721877478785569
+   "votes": 3482,
+   "score": 6.721458023959833
   },
   {
    "tconst": "tt0055904",
    "title": "The Devil and the Ten Commandments",
    "year": 1962,
    "rating": 6.6,
-   "votes": 1120,
-   "score": 6.69330858851428
+   "votes": 1123,
+   "score": 6.6924045517607045
   },
   {
    "tconst": "tt0056626",
    "title": "Two for the Seesaw",
    "year": 1962,
    "rating": 6.6,
-   "votes": 2449,
-   "score": 6.657354075862648
+   "votes": 2450,
+   "score": 6.656862279242892
   },
   {
    "tconst": "tt0056676",
    "title": "The War Lover",
    "year": 1962,
    "rating": 6.6,
-   "votes": 2539,
-   "score": 6.65589550936713
+   "votes": 2541,
+   "score": 6.655400978081891
   },
   {
    "tconst": "tt0056234",
    "title": "Merrill's Marauders",
    "year": 1962,
    "rating": 6.6,
-   "votes": 3182,
-   "score": 6.647301340901548
-  },
-  {
-   "tconst": "tt0054758",
-   "title": "Le combat dans l'île",
-   "year": 1962,
-   "rating": 6.5,
-   "votes": 1039,
-   "score": 6.646058954217889
+   "votes": 3183,
+   "score": 6.64689812655701
   },
   {
    "tconst": "tt0055992",
    "title": "Follow That Dream",
    "year": 1962,
    "rating": 6.6,
-   "votes": 3307,
-   "score": 6.645928536719357
+   "votes": 3311,
+   "score": 6.645505651446991
+  },
+  {
+   "tconst": "tt0054758",
+   "title": "Le combat dans l'île",
+   "year": 1962,
+   "rating": 6.5,
+   "votes": 1042,
+   "score": 6.645041558955914
   },
   {
    "tconst": "tt0056095",
    "title": "In Search of the Castaways",
    "year": 1962,
    "rating": 6.6,
-   "votes": 3788,
-   "score": 6.641314579709748
+   "votes": 3796,
+   "score": 6.640903849747284
   },
   {
    "tconst": "tt0056277",
    "title": "Night Creatures",
    "year": 1962,
    "rating": 6.6,
-   "votes": 4130,
-   "score": 6.638560274395765
+   "votes": 4140,
+   "score": 6.638166315834237
   },
   {
    "tconst": "tt0056012",
@@ -914,247 +914,247 @@
    "year": 1962,
    "rating": 6.5,
    "votes": 1162,
-   "score": 6.63774940224342
+   "score": 6.636991148653088
   },
   {
    "tconst": "tt0056576",
    "title": "The Damned",
    "year": 1962,
    "rating": 6.6,
-   "votes": 4632,
-   "score": 6.63512326130154
+   "votes": 4644,
+   "score": 6.634758126043227
   },
   {
    "tconst": "tt0055966",
    "title": "The Witch's Mirror",
    "year": 1962,
    "rating": 6.5,
-   "votes": 1284,
-   "score": 6.630391509479105
+   "votes": 1286,
+   "score": 6.629560307693778
   },
   {
    "tconst": "tt0056331",
    "title": "Panic in Year Zero!",
    "year": 1962,
    "rating": 6.6,
-   "votes": 5746,
-   "score": 6.629323185243148
-  },
-  {
-   "tconst": "tt0056308",
-   "title": "Only Two Can Play",
-   "year": 1962,
-   "rating": 6.5,
-   "votes": 1577,
-   "score": 6.615566242782412
+   "votes": 5756,
+   "score": 6.629037131940198
   },
   {
    "tconst": "tt0056575",
    "title": "That Touch of Mink",
    "year": 1962,
    "rating": 6.6,
-   "votes": 11842,
-   "score": 6.615403691609584
+   "votes": 11855,
+   "score": 6.615260588361569
+  },
+  {
+   "tconst": "tt0056308",
+   "title": "Only Two Can Play",
+   "year": 1962,
+   "rating": 6.5,
+   "votes": 1582,
+   "score": 6.6147075381053355
   },
   {
    "tconst": "tt0056267",
    "title": "My Geisha",
    "year": 1962,
    "rating": 6.5,
-   "votes": 1746,
-   "score": 6.608453826529598
+   "votes": 1747,
+   "score": 6.607817569489617
   },
   {
    "tconst": "tt0056496",
    "title": "Six Black Horses",
    "year": 1962,
    "rating": 6.4,
-   "votes": 1110,
-   "score": 6.588537539170746
+   "votes": 1118,
+   "score": 6.587051399144465
   },
   {
    "tconst": "tt0055809",
    "title": "Boys' Night Out",
    "year": 1962,
    "rating": 6.5,
-   "votes": 2662,
-   "score": 6.581325561892483
+   "votes": 2665,
+   "score": 6.580811695330962
   },
   {
    "tconst": "tt0054890",
    "title": "The Four Horsemen of the Apocalypse",
    "year": 1962,
    "rating": 6.5,
-   "votes": 2682,
-   "score": 6.580883815222779
+   "votes": 2684,
+   "score": 6.580394914057539
   },
   {
    "tconst": "tt0055832",
    "title": "Cartouche",
    "year": 1962,
    "rating": 6.5,
-   "votes": 3386,
-   "score": 6.567901096135493
+   "votes": 3398,
+   "score": 6.567343079442468
   },
   {
    "tconst": "tt0056424",
    "title": "Rome Adventure",
    "year": 1962,
    "rating": 6.4,
-   "votes": 1664,
-   "score": 6.549329657526379
+   "votes": 1669,
+   "score": 6.548435692539519
   },
   {
    "tconst": "tt0056368",
    "title": "The Premature Burial",
    "year": 1962,
    "rating": 6.5,
-   "votes": 5537,
-   "score": 6.5455582388940305
+   "votes": 5547,
+   "score": 6.5452382562071145
   },
   {
    "tconst": "tt0056703",
    "title": "The World's Greatest Sinner",
    "year": 1962,
    "rating": 6.3,
-   "votes": 1059,
-   "score": 6.541774748737385
+   "votes": 1063,
+   "score": 6.5405113249578175
   },
   {
    "tconst": "tt0055718",
    "title": "13 West Street",
    "year": 1962,
    "rating": 6.3,
-   "votes": 1092,
-   "score": 6.537960902318487
+   "votes": 1094,
+   "score": 6.536950746603619
   },
   {
    "tconst": "tt0055719",
    "title": "The 300 Spartans",
    "year": 1962,
    "rating": 6.5,
-   "votes": 8334,
-   "score": 6.531906386077809
+   "votes": 8345,
+   "score": 6.531693404321881
   },
   {
    "tconst": "tt0056110",
    "title": "It's Only Money",
    "year": 1962,
    "rating": 6.3,
-   "votes": 1153,
-   "score": 6.531218860961577
+   "votes": 1154,
+   "score": 6.530350447255328
   },
   {
    "tconst": "tt0059160",
    "title": "Eva",
    "year": 1962,
    "rating": 6.4,
-   "votes": 2278,
-   "score": 6.5213588186852585
+   "votes": 2286,
+   "score": 6.520564474555075
   },
   {
    "tconst": "tt0057069",
    "title": "40 Pounds of Trouble",
    "year": 1962,
    "rating": 6.3,
-   "votes": 1289,
-   "score": 6.517481086784741
+   "votes": 1293,
+   "score": 6.516386769903173
   },
   {
    "tconst": "tt0056700",
    "title": "The Wonderful World of the Brothers Grimm",
    "year": 1962,
    "rating": 6.4,
-   "votes": 2494,
-   "score": 6.513856384559324
+   "votes": 2506,
+   "score": 6.512999105358807
   },
   {
    "tconst": "tt0056675",
    "title": "War Hunt",
    "year": 1962,
    "rating": 6.3,
-   "votes": 1428,
-   "score": 6.50503056328265
+   "votes": 1435,
+   "score": 6.50376791104229
   },
   {
    "tconst": "tt0056625",
    "title": "Two Weeks in Another Town",
    "year": 1962,
    "rating": 6.4,
-   "votes": 3334,
-   "score": 6.4917891572797135
+   "votes": 3339,
+   "score": 6.49130556888407
   },
   {
    "tconst": "tt0056352",
    "title": "Planeta bur",
    "year": 1962,
    "rating": 6.3,
-   "votes": 1673,
-   "score": 6.486238012588954
+   "votes": 1678,
+   "score": 6.485278141668401
   },
   {
    "tconst": "tt0056347",
    "title": "The Phantom of the Opera",
    "year": 1962,
    "rating": 6.4,
-   "votes": 4227,
-   "score": 6.476107558379621
+   "votes": 4240,
+   "score": 6.475605889959538
   },
   {
    "tconst": "tt0056315",
    "title": "The Horrible Dr. Hichcock",
    "year": 1962,
    "rating": 6.3,
-   "votes": 2363,
-   "score": 6.4480268235653515
+   "votes": 2377,
+   "score": 6.446927706066916
   },
   {
    "tconst": "tt0056957",
    "title": "Five Miles to Midnight",
    "year": 1962,
    "rating": 6.2,
-   "votes": 1413,
-   "score": 6.447747288707118
+   "votes": 1418,
+   "score": 6.446557015462356
   },
   {
    "tconst": "tt0056606",
    "title": "Tower of London",
    "year": 1962,
    "rating": 6.3,
-   "votes": 3151,
-   "score": 6.419926332847572
+   "votes": 3163,
+   "score": 6.419186851642559
   },
   {
    "tconst": "tt0056014",
    "title": "The Gentleman from Epsom",
    "year": 1962,
    "rating": 6.1,
-   "votes": 1198,
-   "score": 6.417476891560634
+   "votes": 1203,
+   "score": 6.416012194002713
   },
   {
    "tconst": "tt0056112",
    "title": "Jack the Giant Killer",
    "year": 1962,
    "rating": 6.3,
-   "votes": 3593,
-   "score": 6.408385414250005
+   "votes": 3605,
+   "score": 6.407746984449072
   },
   {
    "tconst": "tt0056341",
    "title": "Period of Adjustment",
    "year": 1962,
    "rating": 6.2,
-   "votes": 1869,
-   "score": 6.408370236197376
+   "votes": 1872,
+   "score": 6.407581776945675
   },
   {
    "tconst": "tt0056579",
    "title": "The Three Stooges Meet Hercules",
    "year": 1962,
    "rating": 6.1,
-   "votes": 1316,
-   "score": 6.4013014713515854
+   "votes": 1321,
+   "score": 6.399946085044368
   },
   {
    "tconst": "tt0056566",
@@ -1162,311 +1162,311 @@
    "year": 1962,
    "rating": 6,
    "votes": 1046,
-   "score": 6.389938517913135
+   "score": 6.389137274383176
   },
   {
    "tconst": "tt0056630",
    "title": "The Door with Seven Locks",
    "year": 1962,
    "rating": 6,
-   "votes": 1060,
-   "score": 6.387288450315667
+   "votes": 1063,
+   "score": 6.385930617250595
   },
   {
    "tconst": "tt0056556",
    "title": "Taras Bulba",
    "year": 1962,
    "rating": 6.3,
-   "votes": 5060,
-   "score": 6.382147559018197
+   "votes": 5067,
+   "score": 6.381782571845719
   },
   {
    "tconst": "tt0055905",
    "title": "Diamond Head",
    "year": 1962,
    "rating": 6,
-   "votes": 1145,
-   "score": 6.371941355547913
+   "votes": 1147,
+   "score": 6.370831329011634
   },
   {
    "tconst": "tt0055797",
    "title": "Billy Rose's Jumbo",
    "year": 1962,
    "rating": 6.1,
-   "votes": 1878,
-   "score": 6.3424649783357445
+   "votes": 1881,
+   "score": 6.341643479135014
   },
   {
    "tconst": "tt13364334",
    "title": "King Kong vs. Godzilla",
    "year": 1962,
    "rating": 6.2,
-   "votes": 3241,
-   "score": 6.340960671457268
-  },
-  {
-   "tconst": "tt0056725",
-   "title": "Zotz!",
-   "year": 1962,
-   "rating": 5.9,
-   "votes": 1049,
-   "score": 6.3381718924598704
+   "votes": 3266,
+   "score": 6.3397503195939935
   },
   {
    "tconst": "tt0056040",
    "title": "The Awful Dr. Orlof",
    "year": 1962,
    "rating": 6.1,
-   "votes": 1991,
-   "score": 6.3333046498329235
+   "votes": 1993,
+   "score": 6.332601023517533
   },
   {
    "tconst": "tt0057318",
    "title": "A Dog's Life",
    "year": 1962,
    "rating": 6.2,
-   "votes": 5020,
-   "score": 6.299304685656192
+   "votes": 5031,
+   "score": 6.2988517432246685
+  },
+  {
+   "tconst": "tt0056725",
+   "title": "Zotz!",
+   "year": 1962,
+   "rating": 5.8,
+   "votes": 1057,
+   "score": 6.284285300626143
   },
   {
    "tconst": "tt0056350",
    "title": "The Pirates of Blood River",
    "year": 1962,
    "rating": 5.9,
-   "votes": 1319,
-   "score": 6.287155760090675
+   "votes": 1342,
+   "score": 6.282653656442347
   },
   {
    "tconst": "tt0056417",
    "title": "The Road to Hong Kong",
    "year": 1962,
    "rating": 6.1,
-   "votes": 2958,
-   "score": 6.276304751806538
+   "votes": 2960,
+   "score": 6.275801733178782
   },
   {
    "tconst": "tt0056470",
    "title": "Sergeants 3",
    "year": 1962,
    "rating": 5.9,
-   "votes": 1462,
-   "score": 6.264668646486708
-  },
-  {
-   "tconst": "tt0055819",
-   "title": "The Cabinet of Caligari",
-   "year": 1962,
-   "rating": 5.8,
-   "votes": 1167,
-   "score": 6.26045879448559
+   "votes": 1463,
+   "score": 6.263854999345504
   },
   {
    "tconst": "tt0056526",
    "title": "State Fair",
    "year": 1962,
    "rating": 5.9,
-   "votes": 1491,
-   "score": 6.260423206603884
+   "votes": 1493,
+   "score": 6.259476479497785
+  },
+  {
+   "tconst": "tt0055819",
+   "title": "The Cabinet of Caligari",
+   "year": 1962,
+   "rating": 5.8,
+   "votes": 1171,
+   "score": 6.258855303264844
   },
   {
    "tconst": "tt0057518",
    "title": "Son of Flubber",
    "year": 1962,
    "rating": 6.1,
-   "votes": 3431,
-   "score": 6.257484587598799
+   "votes": 3433,
+   "score": 6.257043731871865
   },
   {
    "tconst": "tt0056138",
    "title": "Kid Galahad",
    "year": 1962,
    "rating": 6.1,
-   "votes": 3441,
-   "score": 6.2571299724499605
+   "votes": 3447,
+   "score": 6.2565493283984654
   },
   {
    "tconst": "tt0055831",
    "title": "Carry on Cruising",
    "year": 1962,
    "rating": 6.1,
-   "votes": 3602,
-   "score": 6.251632813483328
+   "votes": 3606,
+   "score": 6.2511452156725955
   },
   {
    "tconst": "tt0056709",
    "title": "Gorath",
    "year": 1962,
    "rating": 5.7,
-   "votes": 1029,
-   "score": 6.241061709043999
+   "votes": 1031,
+   "score": 6.2397217446518844
   },
   {
    "tconst": "tt0056580",
    "title": "The Three Stooges in Orbit",
    "year": 1962,
    "rating": 5.7,
-   "votes": 1143,
-   "score": 6.212279144960464
+   "votes": 1145,
+   "score": 6.211037232348707
   },
   {
    "tconst": "tt0056016",
    "title": "Geronimo",
    "year": 1962,
    "rating": 5.8,
-   "votes": 1502,
-   "score": 6.198806637749909
+   "votes": 1505,
+   "score": 6.197674596162865
   },
   {
    "tconst": "tt0055988",
    "title": "Five Weeks in a Balloon",
    "year": 1962,
    "rating": 5.7,
-   "votes": 1521,
-   "score": 6.135467753927122
+   "votes": 1524,
+   "score": 6.134300659028518
   },
   {
    "tconst": "tt0055841",
    "title": "The Chapman Report",
    "year": 1962,
    "rating": 5.5,
-   "votes": 1165,
-   "score": 6.099452289907748
+   "votes": 1168,
+   "score": 6.097866634404049
   },
   {
    "tconst": "tt0055599",
    "title": "A Very Private Affair",
    "year": 1962,
    "rating": 5.6,
-   "votes": 1467,
-   "score": 6.085534741649887
+   "votes": 1475,
+   "score": 6.083302975106253
   },
   {
    "tconst": "tt0055872",
    "title": "The Creation of the Humanoids",
    "year": 1962,
    "rating": 5.7,
-   "votes": 1938,
-   "score": 6.073660383815614
+   "votes": 1943,
+   "score": 6.07246852306761
   },
   {
    "tconst": "tt0183884",
    "title": "This Is Not a Test",
    "year": 1962,
    "rating": 5.3,
-   "votes": 1016,
-   "score": 6.042963396651922
+   "votes": 1017,
+   "score": 6.041782282294485
   },
   {
    "tconst": "tt0056504",
    "title": "Sodom and Gomorrah",
    "year": 1962,
    "rating": 5.7,
-   "votes": 2490,
-   "score": 6.014559944885466
+   "votes": 2493,
+   "score": 6.013820459028908
   },
   {
    "tconst": "tt0056480",
    "title": "Sherlock Holmes and the Deadly Necklace",
    "year": 1962,
    "rating": 5.4,
-   "votes": 1566,
-   "score": 5.944744430105329
+   "votes": 1571,
+   "score": 5.943047399217416
   },
   {
    "tconst": "tt0056056",
    "title": "Hands of a Stranger",
    "year": 1962,
    "rating": 5.2,
-   "votes": 1147,
-   "score": 5.944207828435154
+   "votes": 1151,
+   "score": 5.942061768195248
   },
   {
    "tconst": "tt0056023",
    "title": "Girls! Girls! Girls!",
    "year": 1962,
    "rating": 5.6,
-   "votes": 3987,
-   "score": 5.840187328584374
+   "votes": 3992,
+   "score": 5.8396183620568864
   },
   {
    "tconst": "tt0054668",
    "title": "The Brainiac",
    "year": 1962,
    "rating": 5.1,
-   "votes": 1521,
-   "score": 5.773468547263099
+   "votes": 1524,
+   "score": 5.772018567110926
   },
   {
    "tconst": "tt0055893",
    "title": "The Day Mars Invaded Earth",
    "year": 1962,
    "rating": 4.9,
-   "votes": 1332,
-   "score": 5.713813982697373
+   "votes": 1337,
+   "score": 5.711371357889592
   },
   {
    "tconst": "tt0056693",
    "title": "Wild Guitar",
    "year": 1962,
    "rating": 4.7,
-   "votes": 1195,
-   "score": 5.655724012596936
+   "votes": 1199,
+   "score": 5.653240047015906
   },
   {
    "tconst": "tt0176010",
    "title": "Pathan",
    "year": 1962,
    "rating": 4.6,
-   "votes": 1502,
-   "score": 5.478422944704346
+   "votes": 1503,
+   "score": 5.477417044901308
   },
   {
    "tconst": "tt0056127",
    "title": "Journey to the Seventh Planet",
    "year": 1962,
    "rating": 4.7,
-   "votes": 2185,
-   "score": 5.358654382307779
+   "votes": 2191,
+   "score": 5.356902182196169
   },
   {
    "tconst": "tt0056211",
    "title": "The Magic Sword",
    "year": 1962,
    "rating": 4.8,
-   "votes": 2966,
-   "score": 5.303735301979394
+   "votes": 2978,
+   "score": 5.301803635844137
   },
   {
    "tconst": "tt0055408",
    "title": "Santo vs. the Vampire Women",
    "year": 1962,
    "rating": 3.9,
-   "votes": 1657,
-   "score": 4.99063387566815
+   "votes": 1663,
+   "score": 4.987560970104385
   },
   {
    "tconst": "tt0128274",
    "title": "Invasion of the Star Creatures",
    "year": 1962,
    "rating": 3.2,
-   "votes": 1081,
-   "score": 4.928887173306235
+   "votes": 1082,
+   "score": 4.927269386833803
   },
   {
    "tconst": "tt0052646",
    "title": "The Brain That Wouldn't Die",
    "year": 1962,
    "rating": 4.6,
-   "votes": 8191,
-   "score": 4.839126777026468
+   "votes": 8203,
+   "score": 4.83863684270216
   },
   {
    "tconst": "tt0055946",
    "title": "Eegah",
    "year": 1962,
    "rating": 2.3,
-   "votes": 6299,
-   "score": 2.9162233467119156
+   "votes": 6304,
+   "score": 2.9155770623477513
   }
  ]
 }

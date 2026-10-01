@@ -1,7 +1,7 @@
 {
  "tag": "year-1991",
- "builtAt": "2026-09-15T22:46:38.707Z",
- "mean": 6.43,
+ "builtAt": "2026-10-01T06:19:54.122Z",
+ "mean": 6.429,
  "minVotes": 2000,
  "items": [
   {
@@ -9,776 +9,776 @@
    "title": "The Silence of the Lambs",
    "year": 1991,
    "rating": 8.6,
-   "votes": 1748857,
-   "score": 8.597521375925014
+   "votes": 1753189,
+   "score": 8.597526685301824
   },
   {
    "tconst": "tt0103064",
    "title": "Terminator 2: Judgment Day",
    "year": 1991,
    "rating": 8.6,
-   "votes": 1300700,
-   "score": 8.596668675587582
+   "votes": 1303568,
+   "score": 8.596674907203782
   },
   {
    "tconst": "tt0353975",
    "title": "Sandesham",
    "year": 1991,
    "rating": 9,
-   "votes": 6575,
-   "score": 8.40061617352108
+   "votes": 6597,
+   "score": 8.401985023639288
   },
   {
    "tconst": "tt0101649",
    "title": "Thalapathi",
    "year": 1991,
    "rating": 8.5,
-   "votes": 16206,
-   "score": 8.272618020869123
+   "votes": 16251,
+   "score": 8.273100939577391
   },
   {
    "tconst": "tt0255306",
    "title": "Kilukkam",
    "year": 1991,
    "rating": 8.6,
-   "votes": 5509,
-   "score": 8.022064680775504
+   "votes": 5524,
+   "score": 8.023028342401243
   },
   {
    "tconst": "tt0101640",
    "title": "Raise the Red Lantern",
    "year": 1991,
    "rating": 8.1,
-   "votes": 38471,
-   "score": 8.017478779569155
+   "votes": 38523,
+   "score": 8.01754966927984
   },
   {
    "tconst": "tt0101985",
    "title": "A Brighter Summer Day",
    "year": 1991,
    "rating": 8.2,
-   "votes": 15413,
-   "score": 7.996719903976526
+   "votes": 15463,
+   "score": 7.997220709398554
   },
   {
    "tconst": "tt0101414",
    "title": "Beauty and the Beast",
    "year": 1991,
    "rating": 8,
-   "votes": 509642,
-   "score": 7.993863450787744
+   "votes": 510083,
+   "score": 7.9938659655724305
   },
   {
    "tconst": "tt0102138",
    "title": "JFK",
    "year": 1991,
    "rating": 8,
-   "votes": 183458,
-   "score": 7.983070472494814
+   "votes": 183681,
+   "score": 7.983083165473188
   },
   {
    "tconst": "tt0102015",
    "title": "Hearts of Darkness: A Filmmaker's Apocalypse",
    "year": 1991,
    "rating": 8.1,
-   "votes": 26083,
-   "score": 7.98107693935631
+   "votes": 26151,
+   "score": 7.981313816497707
   },
   {
    "tconst": "tt0353496",
    "title": "Godfather",
    "year": 1991,
    "rating": 8.6,
-   "votes": 4913,
-   "score": 7.972238346295857
-  },
-  {
-   "tconst": "tt0101507",
-   "title": "Boyz n the Hood",
-   "year": 1991,
-   "rating": 7.8,
-   "votes": 170614,
-   "score": 7.784128075868372
+   "votes": 4928,
+   "score": 7.973392789871095
   },
   {
    "tconst": "tt0252196",
    "title": "Aditya 369",
    "year": 1991,
    "rating": 8.4,
-   "votes": 3753,
-   "score": 7.715189238300585
+   "votes": 3761,
+   "score": 7.71589398511143
+  },
+  {
+   "tconst": "tt0101507",
+   "title": "Boyz n the Hood",
+   "year": 1991,
+   "rating": 7.7,
+   "votes": 170843,
+   "score": 7.685298017554816
   },
   {
    "tconst": "tt0237038",
    "title": "Bharatham",
    "year": 1991,
    "rating": 8.4,
-   "votes": 3497,
-   "score": 7.683297014361155
+   "votes": 3500,
+   "score": 7.683430045132173
   },
   {
    "tconst": "tt0101921",
    "title": "Fried Green Tomatoes",
    "year": 1991,
    "rating": 7.7,
-   "votes": 93445,
-   "score": 7.67339078723813
+   "votes": 93599,
+   "score": 7.673418814508802
   },
   {
    "tconst": "tt0155487",
    "title": "Amaram",
    "year": 1991,
    "rating": 8.3,
-   "votes": 3500,
-   "score": 7.620051579626049
+   "votes": 3503,
+   "score": 7.620164500858978
   },
   {
    "tconst": "tt0102223",
    "title": "Kit Kat",
    "year": 1991,
    "rating": 8.3,
-   "votes": 3257,
-   "score": 7.5886215879671415
+   "votes": 3270,
+   "score": 7.590107257728075
   },
   {
    "tconst": "tt0103074",
    "title": "Thelma & Louise",
    "year": 1991,
    "rating": 7.6,
-   "votes": 196723,
-   "score": 7.588226243001279
+   "votes": 197146,
+   "score": 7.588244128670557
   },
   {
    "tconst": "tt0101410",
    "title": "Barton Fink",
    "year": 1991,
    "rating": 7.6,
-   "votes": 136520,
-   "score": 7.583109180536697
+   "votes": 136635,
+   "score": 7.583112960278623
   },
   {
    "tconst": "tt0102536",
    "title": "Night on Earth",
    "year": 1991,
    "rating": 7.6,
-   "votes": 71746,
-   "score": 7.568273312287355
+   "votes": 71834,
+   "score": 7.568291914947408
   },
   {
    "tconst": "tt0140090",
    "title": "Guna",
    "year": 1991,
    "rating": 8.2,
-   "votes": 3554,
-   "score": 7.562672612161192
+   "votes": 3558,
+   "score": 7.562876079206001
   },
   {
    "tconst": "tt0101765",
    "title": "The Double Life of Véronique",
    "year": 1991,
    "rating": 7.6,
-   "votes": 57634,
-   "score": 7.5607653970544195
+   "votes": 57718,
+   "score": 7.560796832583592
   },
   {
    "tconst": "tt0101605",
    "title": "The Commitments",
    "year": 1991,
    "rating": 7.6,
-   "votes": 43762,
-   "score": 7.548872070450226
+   "votes": 43865,
+   "score": 7.548955963114072
   },
   {
    "tconst": "tt0102587",
    "title": "Only Yesterday",
    "year": 1991,
    "rating": 7.6,
-   "votes": 43132,
-   "score": 7.5481583729491994
+   "votes": 43220,
+   "score": 7.548227891380517
   },
   {
    "tconst": "tt0102629",
    "title": "Attention, Papa Arrives!",
    "year": 1991,
    "rating": 7.9,
-   "votes": 6323,
-   "score": 7.546796069679594
+   "votes": 6331,
+   "score": 7.546964979981629
   },
   {
    "tconst": "tt0101279",
    "title": "The Stranger",
    "year": 1991,
    "rating": 8,
-   "votes": 4815,
-   "score": 7.539293277761301
+   "votes": 4822,
+   "score": 7.539558083879648
   },
   {
    "tconst": "tt0101318",
    "title": "The Lovers on the Bridge",
    "year": 1991,
    "rating": 7.6,
-   "votes": 17621,
-   "score": 7.480754481827799
+   "votes": 17664,
+   "score": 7.480943106602265
   },
   {
    "tconst": "tt0101889",
    "title": "The Fisher King",
    "year": 1991,
    "rating": 7.5,
-   "votes": 97609,
-   "score": 7.478518845565594
+   "votes": 97733,
+   "score": 7.478531331136404
   },
   {
    "tconst": "tt0101700",
    "title": "Delicatessen",
    "year": 1991,
    "rating": 7.5,
-   "votes": 94879,
-   "score": 7.477913517769003
+   "votes": 94958,
+   "score": 7.477916884096485
   },
   {
    "tconst": "tt0101829",
    "title": "Europa",
    "year": 1991,
    "rating": 7.5,
-   "votes": 24890,
-   "score": 7.4204270616565
+   "votes": 24927,
+   "score": 7.420483724448581
   },
   {
    "tconst": "tt0101428",
    "title": "La belle noiseuse",
    "year": 1991,
    "rating": 7.5,
-   "votes": 10733,
-   "score": 7.33195505285033
+   "votes": 10753,
+   "score": 7.332107366755035
   },
   {
    "tconst": "tt0187115",
    "title": "Kshana Kshanam",
    "year": 1991,
    "rating": 8.1,
-   "votes": 2193,
-   "score": 7.303501952764909
+   "votes": 2196,
+   "score": 7.303733376603182
   },
   {
    "tconst": "tt0102426",
    "title": "Mediterraneo",
    "year": 1991,
    "rating": 7.4,
-   "votes": 17982,
-   "score": 7.3029268185338445
+   "votes": 18017,
+   "score": 7.303025690574359
   },
   {
    "tconst": "tt0103110",
    "title": "All the Mornings of the World",
    "year": 1991,
    "rating": 7.5,
-   "votes": 8540,
-   "score": 7.296990862233706
+   "votes": 8554,
+   "score": 7.297125757838446
   },
   {
    "tconst": "tt0102701",
    "title": "Prahaar: The Final Attack",
    "year": 1991,
    "rating": 8,
-   "votes": 2447,
-   "score": 7.293969797153871
+   "votes": 2450,
+   "score": 7.294127022073472
   },
   {
    "tconst": "tt0101540",
    "title": "Cape Fear",
    "year": 1991,
    "rating": 7.3,
-   "votes": 250009,
-   "score": 7.293096610390673
+   "votes": 250612,
+   "score": 7.293107474103476
   },
   {
    "tconst": "tt0102685",
    "title": "Point Break",
    "year": 1991,
    "rating": 7.3,
-   "votes": 229649,
-   "score": 7.29248986046969
+   "votes": 230147,
+   "score": 7.292499861071764
   },
   {
    "tconst": "tt0101891",
    "title": "The Five Heartbeats",
    "year": 1991,
    "rating": 7.6,
-   "votes": 5556,
-   "score": 7.290349879293709
+   "votes": 5573,
+   "score": 7.290857684963285
   },
   {
    "tconst": "tt0102975",
    "title": "Star Trek VI: The Undiscovered Country",
    "year": 1991,
    "rating": 7.3,
-   "votes": 85891,
-   "score": 7.2802059788595335
+   "votes": 86037,
+   "score": 7.280222693279268
   },
   {
    "tconst": "tt0103704",
    "title": "A Scene at the Sea",
    "year": 1991,
    "rating": 7.5,
-   "votes": 7557,
-   "score": 7.276110043731638
+   "votes": 7577,
+   "score": 7.2764294923490604
   },
   {
    "tconst": "tt0102571",
    "title": "The Elementary School",
    "year": 1991,
    "rating": 7.7,
-   "votes": 3519,
-   "score": 7.239823099826646
+   "votes": 3524,
+   "score": 7.23998284725325
   },
   {
    "tconst": "tt0101761",
    "title": "The Doors",
    "year": 1991,
    "rating": 7.2,
-   "votes": 108093,
-   "score": 7.186014403167715
+   "votes": 108241,
+   "score": 7.186020312299662
   },
   {
    "tconst": "tt0103105",
    "title": "Toto the Hero",
    "year": 1991,
    "rating": 7.4,
-   "votes": 6726,
-   "score": 7.1777084217216665
+   "votes": 6738,
+   "score": 7.177851367386925
   },
   {
    "tconst": "tt0101748",
    "title": "Dogfight",
    "year": 1991,
    "rating": 7.3,
-   "votes": 11443,
-   "score": 7.170585709138084
+   "votes": 11467,
+   "score": 7.170711015684781
   },
   {
    "tconst": "tt0103176",
    "title": "Close to Eden",
    "year": 1991,
    "rating": 7.5,
-   "votes": 4086,
-   "score": 7.148419929008094
+   "votes": 4091,
+   "score": 7.148475660519939
   },
   {
    "tconst": "tt0099558",
    "title": "Operation Condor",
    "year": 1991,
    "rating": 7.2,
-   "votes": 25085,
-   "score": 7.143152434481937
+   "votes": 25119,
+   "score": 7.143171401903719
   },
   {
    "tconst": "tt0101698",
    "title": "Defending Your Life",
    "year": 1991,
    "rating": 7.2,
-   "votes": 23879,
-   "score": 7.140503253137419
+   "votes": 23940,
+   "score": 7.140588482969428
   },
   {
    "tconst": "tt0102388",
    "title": "The Man in the Moon",
    "year": 1991,
    "rating": 7.2,
-   "votes": 22078,
-   "score": 7.13605298147451
+   "votes": 22118,
+   "score": 7.136100225898788
   },
   {
    "tconst": "tt0103285",
    "title": "Once Upon a Time in China",
    "year": 1991,
    "rating": 7.2,
-   "votes": 21646,
-   "score": 7.134884703034055
-  },
-  {
-   "tconst": "tt0102421",
-   "title": "Mother",
-   "year": 1991,
-   "rating": 7.5,
-   "votes": 3794,
-   "score": 7.130701361398561
+   "votes": 21668,
+   "score": 7.134885298640653
   },
   {
    "tconst": "tt0105137",
    "title": "Piano Piano Kid",
    "year": 1991,
    "rating": 7.7,
-   "votes": 2454,
-   "score": 7.129789781756458
+   "votes": 2467,
+   "score": 7.131131687536815
+  },
+  {
+   "tconst": "tt0102421",
+   "title": "Mother",
+   "year": 1991,
+   "rating": 7.5,
+   "votes": 3799,
+   "score": 7.1307751764488625
   },
   {
    "tconst": "tt0101811",
    "title": "Enchanted April",
    "year": 1991,
    "rating": 7.3,
-   "votes": 7860,
-   "score": 7.123558183361386
+   "votes": 7865,
+   "score": 7.123503826480177
   },
   {
    "tconst": "tt0102164",
    "title": "Johnny Stecchino",
    "year": 1991,
    "rating": 7.2,
-   "votes": 12532,
-   "score": 7.094046496555412
+   "votes": 12553,
+   "score": 7.0941019204443725
   },
   {
    "tconst": "tt0102439",
    "title": "The Suspended Step of the Stork",
    "year": 1991,
    "rating": 7.5,
-   "votes": 3261,
-   "score": 7.09328714844008
+   "votes": 3271,
+   "score": 7.093789650583751
   },
   {
    "tconst": "tt0103882",
    "title": "A Brief History of Time",
    "year": 1991,
    "rating": 7.3,
-   "votes": 6270,
-   "score": 7.089635270609826
+   "votes": 6273,
+   "score": 7.089540100112044
   },
   {
    "tconst": "tt0102141",
    "title": "Jacquot of Nantes",
    "year": 1991,
    "rating": 7.6,
-   "votes": 2387,
-   "score": 7.066670546602065
+   "votes": 2393,
+   "score": 7.067076086552914
   },
   {
    "tconst": "tt0101991",
    "title": "Rhapsody in August",
    "year": 1991,
    "rating": 7.2,
-   "votes": 8358,
-   "score": 7.051350037453492
+   "votes": 8374,
+   "score": 7.051442572607186
   },
   {
    "tconst": "tt0102825",
    "title": "Saajan",
    "year": 1991,
    "rating": 7.2,
-   "votes": 8216,
-   "score": 7.0492838378957785
+   "votes": 8223,
+   "score": 7.049248288000289
   },
   {
    "tconst": "tt0102721",
    "title": "Proof",
    "year": 1991,
    "rating": 7.2,
-   "votes": 7627,
-   "score": 7.040062707795083
+   "votes": 7637,
+   "score": 7.040081482642623
   },
   {
    "tconst": "tt0102816",
    "title": "Center Stage",
    "year": 1991,
    "rating": 7.4,
-   "votes": 3254,
-   "score": 7.03081151274139
+   "votes": 3271,
+   "score": 7.031733114822037
   },
   {
    "tconst": "tt0102592",
    "title": "One False Move",
    "year": 1991,
    "rating": 7.1,
-   "votes": 16991,
-   "score": 7.029455199196633
+   "votes": 17051,
+   "score": 7.029602921013435
   },
   {
    "tconst": "tt0103262",
    "title": "Wild Hearts Can't Be Broken",
    "year": 1991,
    "rating": 7.2,
-   "votes": 6460,
-   "score": 7.0180004359270995
+   "votes": 6471,
+   "score": 7.018069324545738
   },
   {
    "tconst": "tt0101272",
    "title": "The Addams Family",
    "year": 1991,
    "rating": 7,
-   "votes": 203203,
-   "score": 6.994445908139468
+   "votes": 203531,
+   "score": 6.9944478703856205
   },
   {
    "tconst": "tt0105652",
    "title": "Pushing Hands",
    "year": 1991,
    "rating": 7.2,
-   "votes": 5375,
-   "score": 6.991224906839764
+   "votes": 5388,
+   "score": 6.991400277237
   },
   {
    "tconst": "tt0102266",
    "title": "The Last Boy Scout",
    "year": 1991,
    "rating": 7,
-   "votes": 122127,
-   "score": 6.9908181434171714
+   "votes": 122319,
+   "score": 6.990820914327069
   },
   {
    "tconst": "tt0103241",
    "title": "What About Bob?",
    "year": 1991,
    "rating": 7,
-   "votes": 79840,
-   "score": 6.9860738476043895
+   "votes": 79915,
+   "score": 6.986069282161105
   },
   {
    "tconst": "tt0101733",
    "title": "Dil Hai Ki Manta Nahin",
    "year": 1991,
    "rating": 7.2,
-   "votes": 5049,
-   "score": 6.981569540068557
+   "votes": 5057,
+   "score": 6.981616161007079
   },
   {
    "tconst": "tt0101465",
    "title": "Black Robe",
    "year": 1991,
    "rating": 7.1,
-   "votes": 8381,
-   "score": 6.970945350924117
+   "votes": 8388,
+   "score": 6.970895768986036
   },
   {
    "tconst": "tt0101588",
    "title": "City of Hope",
    "year": 1991,
    "rating": 7.3,
-   "votes": 2963,
-   "score": 6.9494627620276574
+   "votes": 2967,
+   "score": 6.949459482228097
   },
   {
    "tconst": "tt0101898",
    "title": "Flirting",
    "year": 1991,
    "rating": 7.1,
-   "votes": 6798,
-   "score": 6.947724902016738
+   "votes": 6807,
+   "score": 6.9477194559131314
   },
   {
    "tconst": "tt0103030",
    "title": "High Heels",
    "year": 1991,
    "rating": 7,
-   "votes": 19114,
-   "score": 6.946020824473963
+   "votes": 19148,
+   "score": 6.946040535664221
   },
   {
    "tconst": "tt0102293",
    "title": "Riki-Oh: The Story of Ricky",
    "year": 1991,
    "rating": 7,
-   "votes": 16827,
-   "score": 6.939463732296343
+   "votes": 16854,
+   "score": 6.939475190846873
   },
   {
    "tconst": "tt0102258",
    "title": "Lamhe",
    "year": 1991,
    "rating": 7.2,
-   "votes": 3477,
-   "score": 6.9188759700462406
+   "votes": 3482,
+   "score": 6.918873631562743
   },
   {
    "tconst": "tt1125254",
    "title": "Dragon Ball Z: Cooler's Revenge",
    "year": 1991,
    "rating": 7,
-   "votes": 9756,
-   "score": 6.903052372230628
+   "votes": 9775,
+   "score": 6.903088343798467
   },
   {
    "tconst": "tt0102798",
    "title": "Robin Hood: Prince of Thieves",
    "year": 1991,
    "rating": 6.9,
-   "votes": 224331,
-   "score": 6.895848044182827
+   "votes": 224583,
+   "score": 6.895846401752236
   },
   {
    "tconst": "tt0102510",
    "title": "The Naked Gun 2½: The Smell of Fear",
    "year": 1991,
    "rating": 6.9,
-   "votes": 143191,
-   "score": 6.893527723398442
+   "votes": 143368,
+   "score": 6.893525846460204
   },
   {
    "tconst": "tt0102492",
    "title": "My Girl",
    "year": 1991,
    "rating": 6.9,
-   "votes": 99353,
-   "score": 6.890728283207634
+   "votes": 99480,
+   "score": 6.890725909028645
   },
   {
    "tconst": "tt0102494",
    "title": "My Own Private Idaho",
    "year": 1991,
    "rating": 6.9,
-   "votes": 68000,
-   "score": 6.886575481256332
+   "votes": 68106,
+   "score": 6.886575546290289
   },
   {
    "tconst": "tt0102511",
    "title": "Naked Lunch",
    "year": 1991,
    "rating": 6.9,
-   "votes": 61423,
-   "score": 6.885183351275456
+   "votes": 61518,
+   "score": 6.88518318033041
   },
   {
    "tconst": "tt0102288",
    "title": "Let Him Have It",
    "year": 1991,
    "rating": 7.1,
-   "votes": 4060,
-   "score": 6.878924700980736
+   "votes": 4063,
+   "score": 6.878800139902186
   },
   {
    "tconst": "tt0103190",
    "title": "Van Gogh",
    "year": 1991,
    "rating": 7.1,
-   "votes": 3665,
-   "score": 6.863509918436586
+   "votes": 3672,
+   "score": 6.863551701027319
   },
   {
    "tconst": "tt0101746",
    "title": "The Doctor",
    "year": 1991,
    "rating": 7,
-   "votes": 6284,
-   "score": 6.8624195663861975
+   "votes": 6289,
+   "score": 6.862331433010851
   },
   {
    "tconst": "tt0101252",
    "title": "29th Street",
    "year": 1991,
    "rating": 7.1,
-   "votes": 3556,
-   "score": 6.85887035420145
+   "votes": 3559,
+   "score": 6.858745322580851
   },
   {
    "tconst": "tt0103045",
    "title": "Fight Back to School",
    "year": 1991,
    "rating": 7,
-   "votes": 5516,
-   "score": 6.8483613209078325
+   "votes": 5523,
+   "score": 6.848313870560542
   },
   {
    "tconst": "tt0100491",
    "title": "Riff-Raff",
    "year": 1991,
    "rating": 7,
-   "votes": 5288,
-   "score": 6.843617410530085
+   "votes": 5298,
+   "score": 6.843637331902843
   },
   {
    "tconst": "tt0102116",
    "title": "The Indian Runner",
    "year": 1991,
    "rating": 6.9,
-   "votes": 10479,
-   "score": 6.8246961846256315
+   "votes": 10495,
+   "score": 6.824679091494754
   },
   {
    "tconst": "tt0102048",
    "title": "Homicide",
    "year": 1991,
    "rating": 6.9,
-   "votes": 9002,
-   "score": 6.814586774035927
+   "votes": 9007,
+   "score": 6.814496706480145
   },
   {
    "tconst": "tt0102057",
    "title": "Hook",
    "year": 1991,
    "rating": 6.8,
-   "votes": 294714,
-   "score": 6.797506971993041
+   "votes": 295064,
+   "score": 6.797505134409511
   },
   {
    "tconst": "tt0103328",
    "title": "Tricky Brains",
    "year": 1991,
    "rating": 7,
-   "votes": 3438,
-   "score": 6.790416272148448
+   "votes": 3444,
+   "score": 6.790386709813915
   },
   {
    "tconst": "tt0101587",
    "title": "City Slickers",
    "year": 1991,
    "rating": 6.8,
-   "votes": 67983,
-   "score": 6.7894300571273485
+   "votes": 68119,
+   "score": 6.789430329129436
   },
   {
    "tconst": "tt0101912",
    "title": "Frankie and Johnny",
    "year": 1991,
    "rating": 6.8,
-   "votes": 39368,
-   "score": 6.782118634885498
+   "votes": 39497,
+   "score": 6.782140040201146
   },
   {
    "tconst": "tt0101516",
    "title": "Bugsy",
    "year": 1991,
    "rating": 6.8,
-   "votes": 34038,
-   "score": 6.779473991007916
+   "votes": 34140,
+   "score": 6.77949267427302
   },
   {
    "tconst": "tt0101669",
    "title": "Dead Again",
    "year": 1991,
    "rating": 6.8,
-   "votes": 33062,
-   "score": 6.778902620727376
+   "votes": 33168,
+   "score": 6.778925877167509
   },
   {
    "tconst": "tt0102713",
    "title": "The Prince of Tides",
    "year": 1991,
    "rating": 6.8,
-   "votes": 21708,
-   "score": 6.768798873289323
+   "votes": 21755,
+   "score": 6.768800894473877
   },
   {
    "tconst": "tt0101969",
    "title": "Grand Canyon",
    "year": 1991,
    "rating": 6.8,
-   "votes": 17576,
-   "score": 6.7622131021630185
+   "votes": 17599,
+   "score": 6.762185073127554
   },
   {
    "tconst": "tt0101458",
    "title": "Until the End of the World",
    "year": 1991,
    "rating": 6.8,
-   "votes": 12761,
-   "score": 6.749887113877329
+   "votes": 12796,
+   "score": 6.749909789688223
   },
   {
    "tconst": "tt0102181",
    "title": "Kafka",
    "year": 1991,
    "rating": 6.8,
-   "votes": 11209,
-   "score": 6.743999067903949
+   "votes": 11224,
+   "score": 6.743955327300888
   },
   {
    "tconst": "tt0101772",
@@ -786,47 +786,39 @@
    "year": 1991,
    "rating": 7,
    "votes": 2445,
-   "score": 6.7435958803021965
+   "score": 6.743276771254658
   },
   {
    "tconst": "tt0102071",
    "title": "Hum",
    "year": 1991,
    "rating": 6.9,
-   "votes": 3785,
-   "score": 6.7375598423411
+   "votes": 3791,
+   "score": 6.737483206393879
   },
   {
    "tconst": "tt0103838",
    "title": "The Inner Circle",
    "year": 1991,
    "rating": 7,
-   "votes": 2319,
-   "score": 6.736115695286702
+   "votes": 2322,
+   "score": 6.735970672889161
   },
   {
    "tconst": "tt0101317",
    "title": "Lovers: A True Story",
    "year": 1991,
    "rating": 6.9,
-   "votes": 3718,
-   "score": 6.735656468685426
-  },
-  {
-   "tconst": "tt0102817",
-   "title": "Rubin and Ed",
-   "year": 1991,
-   "rating": 7,
-   "votes": 2202,
-   "score": 6.728768131352513
+   "votes": 3726,
+   "score": 6.735638359802122
   },
   {
    "tconst": "tt0102456",
    "title": "Mississippi Masala",
    "year": 1991,
    "rating": 6.8,
-   "votes": 7654,
-   "score": 6.723377220628056
+   "votes": 7680,
+   "score": 6.723436492585429
   },
   {
    "tconst": "tt0102014",
@@ -834,775 +826,783 @@
    "year": 1991,
    "rating": 7,
    "votes": 2087,
-   "score": 6.721136209430698
+   "score": 6.720789148085871
   },
   {
    "tconst": "tt0102722",
    "title": "Prospero's Books",
    "year": 1991,
    "rating": 6.8,
-   "votes": 7106,
-   "score": 6.718766054024078
+   "votes": 7122,
+   "score": 6.71875304190166
   },
   {
    "tconst": "tt0102103",
    "title": "Impromptu",
    "year": 1991,
    "rating": 6.8,
-   "votes": 6026,
-   "score": 6.7078349972518385
+   "votes": 6055,
+   "score": 6.7079907198295405
   },
   {
    "tconst": "tt0102059",
    "title": "Hot Shots!",
    "year": 1991,
    "rating": 6.7,
-   "votes": 126182,
-   "score": 6.695789453183312
+   "votes": 126304,
+   "score": 6.6957824015480965
   },
   {
    "tconst": "tt0101393",
    "title": "Backdraft",
    "year": 1991,
    "rating": 6.7,
-   "votes": 94976,
-   "score": 6.694434537286991
+   "votes": 95131,
+   "score": 6.694428815190072
   },
   {
    "tconst": "tt0102958",
    "title": "Love in the Time of Hysteria",
    "year": 1991,
    "rating": 6.8,
-   "votes": 4675,
-   "score": 6.689181076845433
+   "votes": 4686,
+   "score": 6.689151248613065
   },
   {
    "tconst": "tt0102526",
    "title": "New Jack City",
    "year": 1991,
    "rating": 6.7,
-   "votes": 42821,
-   "score": 6.687958405389065
+   "votes": 42902,
+   "score": 6.687948537887554
   },
   {
    "tconst": "tt0102768",
    "title": "Regarding Henry",
    "year": 1991,
    "rating": 6.7,
-   "votes": 36538,
-   "score": 6.685995217394345
+   "votes": 36608,
+   "score": 6.685983869877409
   },
   {
    "tconst": "tt0102250",
    "title": "L.A. Story",
    "year": 1991,
    "rating": 6.7,
-   "votes": 34980,
-   "score": 6.685405183557146
+   "votes": 35010,
+   "score": 6.685378688144474
   },
   {
    "tconst": "tt0103247",
    "title": "White Fang",
    "year": 1991,
    "rating": 6.7,
-   "votes": 24481,
-   "score": 6.679618733731478
+   "votes": 24525,
+   "score": 6.679599066851158
+  },
+  {
+   "tconst": "tt0102817",
+   "title": "Rubin and Ed",
+   "year": 1991,
+   "rating": 6.9,
+   "votes": 2211,
+   "score": 6.676505639569449
   },
   {
    "tconst": "tt0105378",
    "title": "Shadows and Fog",
    "year": 1991,
    "rating": 6.7,
-   "votes": 19191,
-   "score": 6.674530871027477
+   "votes": 19213,
+   "score": 6.674490418527646
   },
   {
    "tconst": "tt0102812",
    "title": "Roujin Z",
    "year": 1991,
    "rating": 6.8,
-   "votes": 3762,
-   "score": 6.671621604988418
+   "votes": 3770,
+   "score": 6.671553769190114
   },
   {
    "tconst": "tt0101373",
    "title": "At Play in the Fields of the Lord",
    "year": 1991,
    "rating": 6.8,
-   "votes": 3758,
-   "score": 6.671532422359024
+   "votes": 3761,
+   "score": 6.671353106791694
   },
   {
    "tconst": "tt0101592",
    "title": "Clearcut",
    "year": 1991,
    "rating": 6.9,
-   "votes": 2099,
-   "score": 6.670744983640708
+   "votes": 2114,
+   "score": 6.671236083672085
   },
   {
    "tconst": "tt0102820",
    "title": "Rush",
    "year": 1991,
    "rating": 6.7,
-   "votes": 11325,
-   "score": 6.659495961571727
+   "votes": 11391,
+   "score": 6.659589668301617
   },
   {
    "tconst": "tt0101020",
    "title": "Once a Thief",
    "year": 1991,
    "rating": 6.7,
-   "votes": 8293,
-   "score": 6.647564722427209
+   "votes": 8319,
+   "score": 6.647559380582125
   },
   {
    "tconst": "tt0104057",
    "title": "Daughters of the Dust",
    "year": 1991,
    "rating": 6.7,
-   "votes": 3916,
-   "score": 6.608770062194601
+   "votes": 3926,
+   "score": 6.6086846520801465
   },
   {
    "tconst": "tt0102050",
    "title": "Voyager",
    "year": 1991,
    "rating": 6.7,
-   "votes": 3841,
-   "score": 6.607598645427711
+   "votes": 3847,
+   "score": 6.607450871938935
   },
   {
    "tconst": "tt0107875",
    "title": "The Princess and the Goblin",
    "year": 1991,
    "rating": 6.7,
-   "votes": 3592,
-   "score": 6.6034842074290525
+   "votes": 3602,
+   "score": 6.603403293150116
   },
   {
    "tconst": "tt0102631",
    "title": "Paradise",
    "year": 1991,
    "rating": 6.7,
-   "votes": 3458,
-   "score": 6.601114636852925
+   "votes": 3460,
+   "score": 6.600891071103837
   },
   {
    "tconst": "tt0101798",
    "title": "Edward II",
    "year": 1991,
    "rating": 6.7,
-   "votes": 3382,
-   "score": 6.599718262345459
+   "votes": 3389,
+   "score": 6.599585312344954
   },
   {
    "tconst": "tt0101862",
    "title": "Father of the Bride",
    "year": 1991,
    "rating": 6.6,
-   "votes": 94520,
-   "score": 6.596480353169739
+   "votes": 94661,
+   "score": 6.596470812925863
   },
   {
    "tconst": "tt0102803",
    "title": "The Rocketeer",
    "year": 1991,
    "rating": 6.6,
-   "votes": 66441,
-   "score": 6.5950363625304025
+   "votes": 66523,
+   "score": 6.59502160220987
   },
   {
    "tconst": "tt0102603",
    "title": "Oscar",
    "year": 1991,
    "rating": 6.6,
-   "votes": 37445,
-   "score": 6.591387595080321
+   "votes": 37532,
+   "score": 6.591370668021526
   },
   {
    "tconst": "tt0103112",
    "title": "Toy Soldiers",
    "year": 1991,
    "rating": 6.6,
-   "votes": 26684,
-   "score": 6.58815659210512
+   "votes": 26776,
+   "score": 6.588145164311473
   },
   {
    "tconst": "tt0102175",
    "title": "Jungle Fever",
    "year": 1991,
    "rating": 6.6,
-   "votes": 21222,
-   "score": 6.585370927910743
+   "votes": 21258,
+   "score": 6.585332584410824
   },
   {
    "tconst": "tt0102951",
    "title": "Soapdish",
    "year": 1991,
    "rating": 6.6,
-   "votes": 19056,
-   "score": 6.583866056608247
+   "votes": 19079,
+   "score": 6.583816369288247
   },
   {
    "tconst": "tt0102555",
    "title": "Not Without My Daughter",
    "year": 1991,
    "rating": 6.6,
-   "votes": 18133,
-   "score": 6.583126393877875
+   "votes": 18209,
+   "score": 6.583119661944032
   },
   {
    "tconst": "tt0102316",
    "title": "Little Man Tate",
    "year": 1991,
    "rating": 6.6,
-   "votes": 18123,
-   "score": 6.583118008644002
+   "votes": 18199,
+   "score": 6.58311130492732
   },
   {
    "tconst": "tt0101984",
    "title": "Guilty by Suspicion",
    "year": 1991,
    "rating": 6.6,
-   "votes": 10595,
-   "score": 6.5730276846322555
+   "votes": 10614,
+   "score": 6.572955862393131
   },
   {
    "tconst": "tt0102368",
    "title": "Madame Bovary",
    "year": 1991,
    "rating": 6.6,
-   "votes": 5006,
-   "score": 6.5515106605685505
+   "votes": 5017,
+   "score": 6.551384530173428
   },
   {
    "tconst": "tt0101273",
    "title": "The Adjuster",
    "year": 1991,
    "rating": 6.6,
-   "votes": 4097,
-   "score": 6.544281398711376
+   "votes": 4107,
+   "score": 6.5441403714142705
   },
   {
    "tconst": "tt0102932",
    "title": "A Chinese Ghost Story III",
    "year": 1991,
    "rating": 6.6,
-   "votes": 3468,
-   "score": 6.537871925373676
+   "votes": 3476,
+   "score": 6.537703661107916
   },
   {
    "tconst": "tt0253884",
    "title": "Varyemez",
    "year": 1991,
    "rating": 6.6,
-   "votes": 3153,
-   "score": 6.534074071015576
+   "votes": 3160,
+   "score": 6.533888613997471
   },
   {
    "tconst": "tt0101783",
    "title": "God of Gamblers Part III: Back to Shanghai",
    "year": 1991,
    "rating": 6.6,
-   "votes": 2996,
-   "score": 6.53200233946022
+   "votes": 3003,
+   "score": 6.531813961268629
   },
   {
    "tconst": "tt0101376",
    "title": "Atlantis",
    "year": 1991,
    "rating": 6.6,
-   "votes": 2075,
-   "score": 6.516634033851107
+   "votes": 2078,
+   "score": 6.516347535121861
   },
   {
    "tconst": "tt0101329",
    "title": "An American Tail: Fievel Goes West",
    "year": 1991,
    "rating": 6.5,
-   "votes": 30521,
-   "score": 6.495703812550145
+   "votes": 30555,
+   "score": 6.495664728865825
   },
   {
    "tconst": "tt0101786",
    "title": "Dutch",
    "year": 1991,
    "rating": 6.5,
-   "votes": 15502,
-   "score": 6.492017123068408
+   "votes": 15526,
+   "score": 6.4919471213184385
   },
   {
    "tconst": "tt0102900",
    "title": "Shattered",
    "year": 1991,
    "rating": 6.5,
-   "votes": 13039,
-   "score": 6.490709733888109
+   "votes": 13078,
+   "score": 6.490639690159633
   },
   {
    "tconst": "tt0102370",
    "title": "Madonna: Truth or Dare",
    "year": 1991,
    "rating": 6.5,
-   "votes": 10594,
-   "score": 6.488906121005499
+   "votes": 10610,
+   "score": 6.488807711992621
   },
   {
    "tconst": "tt0101962",
    "title": "Godzilla vs. King Ghidorah",
    "year": 1991,
    "rating": 6.5,
-   "votes": 8390,
-   "score": 6.486552809234193
+   "votes": 8421,
+   "score": 6.486456697843485
   },
   {
    "tconst": "tt0142244",
    "title": "Dragon Ball Z: Lord Slug",
    "year": 1991,
    "rating": 6.5,
-   "votes": 7743,
-   "score": 6.485659826331034
+   "votes": 7757,
+   "score": 6.485535025953362
   },
   {
    "tconst": "tt0102753",
    "title": "Rambling Rose",
    "year": 1991,
    "rating": 6.5,
-   "votes": 6184,
-   "score": 6.4829281143625686
+   "votes": 6191,
+   "score": 6.482769533418014
   },
   {
    "tconst": "tt0102590",
    "title": "Once Around",
    "year": 1991,
    "rating": 6.5,
-   "votes": 5502,
-   "score": 6.481376124759166
+   "votes": 5512,
+   "score": 6.481212093746931
   },
   {
    "tconst": "tt0102279",
    "title": "Late for Dinner",
    "year": 1991,
    "rating": 6.5,
-   "votes": 2020,
-   "score": 6.465244698493349
+   "votes": 2022,
+   "score": 6.46490931084708
   },
   {
    "tconst": "tt0156985",
    "title": "Sadak",
    "year": 1991,
    "rating": 6.4,
-   "votes": 3143,
-   "score": 6.411721502613895
+   "votes": 3144,
+   "score": 6.411443477493576
   },
   {
    "tconst": "tt0104362",
-   "title": "Grand Tour: Disaster in Time",
+   "title": "The Grand Tour",
    "year": 1991,
    "rating": 6.4,
-   "votes": 3675,
-   "score": 6.410622676289562
+   "votes": 3691,
+   "score": 6.410343568481277
   },
   {
    "tconst": "tt0105691",
    "title": "Under Suspicion",
    "year": 1991,
    "rating": 6.4,
-   "votes": 5743,
-   "score": 6.407785572509785
+   "votes": 5756,
+   "score": 6.407589640049891
   },
   {
    "tconst": "tt0101902",
    "title": "For the Boys",
    "year": 1991,
    "rating": 6.4,
-   "votes": 6476,
-   "score": 6.407112280314212
+   "votes": 6478,
+   "score": 6.406943294199923
   },
   {
    "tconst": "tt0101590",
    "title": "Class Action",
    "year": 1991,
    "rating": 6.4,
-   "votes": 9027,
-   "score": 6.405466916472591
+   "votes": 9045,
+   "score": 6.405329583361427
   },
   {
    "tconst": "tt0102598",
    "title": "Only the Lonely",
    "year": 1991,
    "rating": 6.4,
-   "votes": 13575,
-   "score": 6.403870541762007
+   "votes": 13594,
+   "score": 6.403774865219121
   },
   {
    "tconst": "tt0102004",
    "title": "The Hard Way",
    "year": 1991,
    "rating": 6.4,
-   "votes": 24191,
-   "score": 6.402301694778484
+   "votes": 24231,
+   "score": 6.402244109954899
   },
   {
    "tconst": "tt0101757",
    "title": "Don't Tell Mom the Babysitter's Dead",
    "year": 1991,
    "rating": 6.4,
-   "votes": 40822,
-   "score": 6.401407773759826
+   "votes": 40897,
+   "score": 6.401372246269598
   },
   {
    "tconst": "tt0105121",
    "title": "The People Under the Stairs",
    "year": 1991,
    "rating": 6.4,
-   "votes": 44176,
-   "score": 6.401305519922541
+   "votes": 44255,
+   "score": 6.401272624542795
   },
   {
    "tconst": "tt0101444",
    "title": "Big Girls Don't Cry... They Get Even",
    "year": 1991,
    "rating": 6.3,
-   "votes": 2399,
-   "score": 6.3591688310850785
+   "votes": 2404,
+   "score": 6.358779574983412
   },
   {
    "tconst": "tt0104922",
    "title": "Motorama",
    "year": 1991,
    "rating": 6.3,
-   "votes": 2416,
-   "score": 6.358941052523384
+   "votes": 2422,
+   "score": 6.358540309413602
   },
   {
    "tconst": "tt0103243",
    "title": "Where Angels Fear to Tread",
    "year": 1991,
    "rating": 6.3,
-   "votes": 2757,
-   "score": 6.354715931877919
+   "votes": 2768,
+   "score": 6.35429220810129
   },
   {
    "tconst": "tt0102687",
    "title": "Poison",
    "year": 1991,
    "rating": 6.3,
-   "votes": 5527,
-   "score": 6.334580003712404
+   "votes": 5534,
+   "score": 6.334359602897126
   },
   {
    "tconst": "tt0103125",
    "title": "True Colors",
    "year": 1991,
    "rating": 6.3,
-   "votes": 5955,
-   "score": 6.332719508226683
+   "votes": 5966,
+   "score": 6.332496265155279
   },
   {
    "tconst": "tt0102757",
    "title": "The Rapture",
    "year": 1991,
    "rating": 6.3,
-   "votes": 6487,
-   "score": 6.330668515134118
+   "votes": 6494,
+   "score": 6.330476247730981
   },
   {
    "tconst": "tt0102178",
    "title": "K2",
    "year": 1991,
    "rating": 6.3,
-   "votes": 7844,
-   "score": 6.326440845991798
+   "votes": 7859,
+   "score": 6.3262567449261535
   },
   {
    "tconst": "tt0103103",
    "title": "The Jackpot!",
    "year": 1991,
    "rating": 6.2,
-   "votes": 2077,
-   "score": 6.31289764237019
+   "votes": 2082,
+   "score": 6.312411868747416
   },
   {
    "tconst": "tt0100991",
    "title": "Hiruko the Goblin",
    "year": 1991,
    "rating": 6.2,
-   "votes": 2095,
-   "score": 6.3124013889971335
+   "votes": 2098,
+   "score": 6.311972974189105
   },
   {
    "tconst": "tt0102313",
    "title": "The Linguini Incident",
    "year": 1991,
    "rating": 6.2,
-   "votes": 2219,
-   "score": 6.309097816530757
+   "votes": 2225,
+   "score": 6.308607159343657
   },
   {
    "tconst": "tt0101745",
    "title": "Doc Hollywood",
    "year": 1991,
    "rating": 6.3,
-   "votes": 43212,
-   "score": 6.305756960274778
+   "votes": 43298,
+   "score": 6.305714716946156
   },
   {
    "tconst": "tt0102945",
    "title": "Sleeping with the Enemy",
    "year": 1991,
    "rating": 6.3,
-   "votes": 72570,
-   "score": 6.303490461149836
+   "votes": 72690,
+   "score": 6.3034658622068145
   },
   {
    "tconst": "tt0101452",
    "title": "Bill & Ted's Bogus Journey",
    "year": 1991,
    "rating": 6.3,
-   "votes": 85706,
-   "score": 6.3029676839434385
+   "votes": 85790,
+   "score": 6.3029486871879135
   },
   {
    "tconst": "tt0102969",
    "title": "The Efficiency Expert",
    "year": 1991,
    "rating": 6.2,
-   "votes": 2576,
-   "score": 6.300586470267321
+   "votes": 2583,
+   "score": 6.300123335855761
   },
   {
    "tconst": "tt0102818",
    "title": "Run",
    "year": 1991,
    "rating": 6.2,
-   "votes": 3491,
-   "score": 6.283825111626893
+   "votes": 3503,
+   "score": 6.283384562643459
   },
   {
    "tconst": "tt0101595",
    "title": "Close My Eyes",
    "year": 1991,
    "rating": 6.2,
-   "votes": 3987,
-   "score": 6.2768805224558655
+   "votes": 3988,
+   "score": 6.276630802977113
   },
   {
    "tconst": "tt0105242",
    "title": "The Resurrected",
    "year": 1991,
    "rating": 6.2,
-   "votes": 5776,
-   "score": 6.259192861103815
+   "votes": 5797,
+   "score": 6.258851513175189
   },
   {
    "tconst": "tt0101694",
    "title": "Deceived",
    "year": 1991,
    "rating": 6.2,
-   "votes": 8825,
-   "score": 6.242520433066352
+   "votes": 8862,
+   "score": 6.24224500536061
   },
   {
    "tconst": "tt0102609",
    "title": "Other People's Money",
    "year": 1991,
    "rating": 6.2,
-   "votes": 10211,
-   "score": 6.23769418458302
+   "votes": 10233,
+   "score": 6.2375104429189046
   },
   {
    "tconst": "tt0102465",
    "title": "My Father the Hero",
    "year": 1991,
    "rating": 6.1,
-   "votes": 3124,
-   "score": 6.228860985156764
+   "votes": 3127,
+   "score": 6.228508923001161
   },
   {
    "tconst": "tt0102517",
    "title": "Necessary Roughness",
    "year": 1991,
    "rating": 6.2,
-   "votes": 14079,
-   "score": 6.228626387707149
+   "votes": 14110,
+   "score": 6.228483255631717
   },
   {
    "tconst": "tt0100303",
    "title": "Operation Corned Beef",
    "year": 1991,
    "rating": 6.1,
-   "votes": 3479,
-   "score": 6.220511715266155
+   "votes": 3491,
+   "score": 6.2199900288156895
   },
   {
    "tconst": "tt0102789",
    "title": "Ricochet",
    "year": 1991,
    "rating": 6.2,
-   "votes": 23111,
-   "score": 6.218329962484301
+   "votes": 23152,
+   "score": 6.218243688304189
+  },
+  {
+   "tconst": "tt0107719",
+   "title": "The Nutcracker",
+   "year": 1991,
+   "rating": 6,
+   "votes": 2873,
+   "score": 6.176249794423754
   },
   {
    "tconst": "tt0102500",
    "title": "Mystery Date",
    "year": 1991,
    "rating": 6,
-   "votes": 3585,
-   "score": 6.154034680025651
+   "votes": 3590,
+   "score": 6.1536431571067896
   },
   {
    "tconst": "tt0102984",
    "title": "Stone Cold",
    "year": 1991,
    "rating": 6.1,
-   "votes": 11352,
-   "score": 6.149452043734517
+   "votes": 11382,
+   "score": 6.149235185191073
   },
   {
    "tconst": "tt0100581",
    "title": "The Sect",
    "year": 1991,
    "rating": 6,
-   "votes": 4194,
-   "score": 6.138889843064783
+   "votes": 4207,
+   "score": 6.1383704282627605
   },
   {
    "tconst": "tt0102749",
    "title": "A Rage in Harlem",
    "year": 1991,
    "rating": 5.9,
-   "votes": 2552,
-   "score": 6.132926996472597
+   "votes": 2553,
+   "score": 6.132564297875456
   },
   {
    "tconst": "tt0102915",
    "title": "Showdown in Little Tokyo",
    "year": 1991,
    "rating": 6.1,
-   "votes": 22663,
-   "score": 6.126772237276214
+   "votes": 22701,
+   "score": 6.126673626502042
   },
   {
    "tconst": "tt0102005",
    "title": "Harley Davidson and the Marlboro Man",
    "year": 1991,
    "rating": 6.1,
-   "votes": 25546,
-   "score": 6.123970220284007
+   "votes": 25583,
+   "score": 6.123886642070367
   },
   {
    "tconst": "tt0102614",
    "title": "Out for Justice",
    "year": 1991,
    "rating": 6.1,
-   "votes": 28244,
-   "score": 6.121831890224284
-  },
-  {
-   "tconst": "tt0107719",
-   "title": "The Nutcracker",
-   "year": 1991,
-   "rating": 5.9,
-   "votes": 2866,
-   "score": 6.117896360037662
+   "votes": 28275,
+   "score": 6.121762683673888
   },
   {
    "tconst": "tt0102655",
    "title": "The Perfect Weapon",
    "year": 1991,
    "rating": 6,
-   "votes": 5470,
-   "score": 6.115165152335108
+   "votes": 5475,
+   "score": 6.114898360966816
   },
   {
    "tconst": "tt0103060",
    "title": "Teenage Mutant Ninja Turtles II: The Secret of the Ooze",
    "year": 1991,
    "rating": 6.1,
-   "votes": 65220,
-   "score": 6.109822726687641
+   "votes": 65279,
+   "score": 6.109793029745195
   },
   {
    "tconst": "tt0100369",
    "title": "The Pit and the Pendulum",
    "year": 1991,
    "rating": 6,
-   "votes": 6140,
-   "score": 6.105685956749786
+   "votes": 6159,
+   "score": 6.10526599438987
   },
   {
    "tconst": "tt0104418",
    "title": "Highway to Hell",
    "year": 1991,
    "rating": 6,
-   "votes": 6328,
-   "score": 6.103300154652168
+   "votes": 6363,
+   "score": 6.102698224109405
   },
   {
    "tconst": "tt0102813",
    "title": "Rover Dangerfield",
    "year": 1991,
    "rating": 5.9,
-   "votes": 3634,
-   "score": 6.088193767828055
+   "votes": 3640,
+   "score": 6.087742065288467
   },
   {
    "tconst": "tt0102741",
    "title": "Queens Logic",
    "year": 1991,
    "rating": 5.7,
-   "votes": 2011,
-   "score": 6.06406973022769
+   "votes": 2013,
+   "score": 6.063534823879131
   },
   {
    "tconst": "tt0102802",
    "title": "Rock-A-Doodle",
    "year": 1991,
    "rating": 6,
-   "votes": 11658,
-   "score": 6.062987530234533
+   "votes": 11668,
+   "score": 6.0628376681465435
+  },
+  {
+   "tconst": "tt0101660",
+   "title": "The Dark Backward",
+   "year": 1991,
+   "rating": 5.8,
+   "votes": 2802,
+   "score": 6.062154362396283
   },
   {
    "tconst": "tt0102593",
    "title": "One Good Cop",
    "year": 1991,
    "rating": 5.9,
-   "votes": 5010,
-   "score": 6.051253022531137
+   "votes": 5026,
+   "score": 6.050706696303295
   },
   {
    "tconst": "tt0101787",
    "title": "Dying Young",
    "year": 1991,
    "rating": 6,
-   "votes": 18309,
-   "score": 6.042359726620871
+   "votes": 18339,
+   "score": 6.042227506181569
   },
   {
    "tconst": "tt0101301",
    "title": "All I Want for Christmas",
    "year": 1991,
    "rating": 5.9,
-   "votes": 6167,
-   "score": 6.029825356672372
+   "votes": 6170,
+   "score": 6.029604069550422
   },
   {
    "tconst": "tt0101775",
    "title": "Drop Dead Fred",
    "year": 1991,
    "rating": 6,
-   "votes": 34143,
-   "score": 6.023802221396765
-  },
-  {
-   "tconst": "tt0102690",
-   "title": "Popcorn",
-   "year": 1991,
-   "rating": 5.9,
-   "votes": 7209,
-   "score": 6.015135594303753
+   "votes": 34194,
+   "score": 6.023729492408326
   }
  ]
 }

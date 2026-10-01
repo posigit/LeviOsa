@@ -1,7 +1,7 @@
 {
  "tag": "year-1979",
- "builtAt": "2026-09-15T22:46:38.707Z",
- "mean": 6.388,
+ "builtAt": "2026-10-01T06:19:54.122Z",
+ "mean": 6.394,
  "minVotes": 1000,
  "items": [
   {
@@ -9,376 +9,376 @@
    "title": "Gol Maal",
    "year": 1979,
    "rating": 8.5,
-   "votes": 22309,
-   "score": 8.409412332725216
+   "votes": 22340,
+   "score": 8.409771685785993
   },
   {
    "tconst": "tt0078748",
    "title": "Alien",
    "year": 1979,
    "rating": 8.4,
-   "votes": 1076705,
-   "score": 8.398133526394972
+   "votes": 1078452,
+   "score": 8.398141715561458
   },
   {
    "tconst": "tt0078788",
    "title": "Apocalypse Now",
    "year": 1979,
    "rating": 8.4,
-   "votes": 777996,
-   "score": 8.397417819941941
+   "votes": 779131,
+   "score": 8.397428728183145
   },
   {
    "tconst": "tt0079606",
    "title": "National Class Category Up to 785 Ccm",
    "year": 1979,
    "rating": 8.4,
-   "votes": 4640,
-   "score": 8.04334965664753
+   "votes": 4650,
+   "score": 8.044968344468153
   },
   {
    "tconst": "tt0079470",
    "title": "Monty Python's Life of Brian",
    "year": 1979,
    "rating": 8,
-   "votes": 435899,
-   "score": 7.9963114863240525
+   "votes": 436152,
+   "score": 7.996326383377509
   },
   {
    "tconst": "tt0079944",
    "title": "Stalker",
    "year": 1979,
    "rating": 8,
-   "votes": 158025,
-   "score": 7.989866323304462
+   "votes": 158312,
+   "score": 7.989919598939471
   },
   {
    "tconst": "tt0079615",
    "title": "Uncle Marin: The Billionaire",
    "year": 1979,
    "rating": 8.3,
-   "votes": 4215,
-   "score": 7.933459647841241
+   "votes": 4221,
+   "score": 7.934949462985073
   },
   {
    "tconst": "tt0252611",
    "title": "Fearless Coward",
    "year": 1979,
    "rating": 8.1,
-   "votes": 8524,
-   "score": 7.920295260761451
+   "votes": 8549,
+   "score": 7.921349999606771
   },
   {
    "tconst": "tt0078841",
    "title": "Being There",
    "year": 1979,
    "rating": 7.9,
-   "votes": 82611,
-   "score": 7.881922140190789
+   "votes": 82754,
+   "score": 7.882019618719644
   },
   {
    "tconst": "tt0079417",
    "title": "Kramer vs. Kramer",
    "year": 1979,
    "rating": 7.8,
-   "votes": 168151,
-   "score": 7.7916553379140066
+   "votes": 168438,
+   "score": 7.79170239938057
   },
   {
    "tconst": "tt0079522",
    "title": "Manhattan",
    "year": 1979,
    "rating": 7.8,
-   "votes": 153534,
-   "score": 7.790866036364114
+   "votes": 153659,
+   "score": 7.790909492148824
   },
   {
    "tconst": "tt0079807",
    "title": "Richard Pryor: Live in Concert",
    "year": 1979,
    "rating": 8,
-   "votes": 6257,
-   "score": 7.777937448462459
+   "votes": 6259,
+   "score": 7.778767205709473
   },
   {
    "tconst": "tt0078754",
    "title": "All That Jazz",
    "year": 1979,
    "rating": 7.8,
-   "votes": 41272,
-   "score": 7.76660891520373
+   "votes": 41440,
+   "score": 7.766872552927546
   },
   {
    "tconst": "tt0079400",
    "title": "The Kids Are Alright",
    "year": 1979,
    "rating": 8,
-   "votes": 4172,
-   "score": 7.688416872291583
+   "votes": 4177,
+   "score": 7.689795469624312
   },
   {
    "tconst": "tt0078763",
    "title": "Camera Buff",
    "year": 1979,
    "rating": 7.8,
-   "votes": 9243,
-   "score": 7.6621977998137325
+   "votes": 9256,
+   "score": 7.662916453417029
   },
   {
    "tconst": "tt0078902",
    "title": "Breaking Away",
    "year": 1979,
    "rating": 7.7,
-   "votes": 27849,
-   "score": 7.654538877031858
+   "votes": 27891,
+   "score": 7.654798073664638
   },
   {
    "tconst": "tt0079095",
    "title": "The Marriage of Maria Braun",
    "year": 1979,
    "rating": 7.7,
-   "votes": 16416,
-   "score": 7.624695226429265
-  },
-  {
-   "tconst": "tt0079588",
-   "title": "The Muppet Movie",
-   "year": 1979,
-   "rating": 7.6,
-   "votes": 43129,
-   "score": 7.572546218212333
+   "votes": 16442,
+   "score": 7.625127344699292
   },
   {
    "tconst": "tt0079322",
    "title": "I... For Icarus",
    "year": 1979,
    "rating": 7.8,
-   "votes": 5202,
-   "score": 7.572410845451801
+   "votes": 5218,
+   "score": 7.5738937192417275
+  },
+  {
+   "tconst": "tt0079588",
+   "title": "The Muppet Movie",
+   "year": 1979,
+   "rating": 7.6,
+   "votes": 43193,
+   "score": 7.572712220176161
   },
   {
    "tconst": "tt0079833",
    "title": "Lupin III: The Castle of Cagliostro",
    "year": 1979,
    "rating": 7.6,
-   "votes": 36287,
-   "score": 7.567508570372839
+   "votes": 36337,
+   "score": 7.567701506447895
   },
   {
    "tconst": "tt0079679",
    "title": "Autumn Marathon",
    "year": 1979,
    "rating": 7.8,
-   "votes": 4185,
-   "score": 7.527770889776677
+   "votes": 4199,
+   "score": 7.529577062174469
   },
   {
    "tconst": "tt0079116",
    "title": "Escape from Alcatraz",
    "year": 1979,
    "rating": 7.5,
-   "votes": 166859,
-   "score": 7.493378323852114
+   "votes": 167089,
+   "score": 7.493420575684578
   },
   {
    "tconst": "tt0080120",
    "title": "The Warriors",
    "year": 1979,
    "rating": 7.5,
-   "votes": 120937,
-   "score": 7.490884572061737
+   "votes": 121128,
+   "score": 7.49094451023717
   },
   {
    "tconst": "tt0077775",
    "title": "The Elephant God",
    "year": 1979,
    "rating": 7.9,
-   "votes": 2663,
-   "score": 7.487357920691256
+   "votes": 2665,
+   "score": 7.489105360503428
   },
   {
    "tconst": "tt0079010",
    "title": "Christ Stopped at Eboli",
    "year": 1979,
    "rating": 7.7,
-   "votes": 4975,
-   "score": 7.480500763764363
+   "votes": 4985,
+   "score": 7.48179969026651
   },
   {
    "tconst": "tt0079261",
    "title": "Hair",
    "year": 1979,
    "rating": 7.5,
-   "votes": 44714,
-   "score": 7.475685611923963
+   "votes": 44826,
+   "score": 7.475866781875902
   },
   {
    "tconst": "tt0079907",
    "title": "Siberiade",
    "year": 1979,
    "rating": 7.9,
-   "votes": 2535,
-   "score": 7.472416425316002
+   "votes": 2542,
+   "score": 7.4748365743210226
   },
   {
    "tconst": "tt0079182",
    "title": "Vengeance Is Mine",
    "year": 1979,
    "rating": 7.6,
-   "votes": 8189,
-   "score": 7.4681567160182905
+   "votes": 8222,
+   "score": 7.469233479315231
   },
   {
    "tconst": "tt0252269",
    "title": "King of the Guards",
    "year": 1979,
    "rating": 7.6,
-   "votes": 7273,
-   "score": 7.453558813428268
+   "votes": 7290,
+   "score": 7.4545321044927695
   },
   {
    "tconst": "tt0079871",
    "title": "Scum",
    "year": 1979,
    "rating": 7.5,
-   "votes": 14782,
-   "score": 7.429571161037389
+   "votes": 14830,
+   "score": 7.430137153900509
   },
   {
    "tconst": "tt0078718",
    "title": "And Justice for All",
    "year": 1979,
    "rating": 7.4,
-   "votes": 46640,
-   "score": 7.378767675556089
+   "votes": 46790,
+   "score": 7.378951059766585
   },
   {
    "tconst": "tt0078966",
    "title": "The China Syndrome",
    "year": 1979,
    "rating": 7.4,
-   "votes": 36212,
-   "score": 7.372817694923468
+   "votes": 36308,
+   "score": 7.373037180932912
   },
   {
    "tconst": "tt0078875",
    "title": "The Tin Drum",
    "year": 1979,
    "rating": 7.4,
-   "votes": 28162,
-   "score": 7.365314178159663
+   "votes": 28193,
+   "score": 7.365542121270342
   },
   {
    "tconst": "tt0078872",
    "title": "The Black Stallion",
    "year": 1979,
    "rating": 7.4,
-   "votes": 15565,
-   "score": 7.338937039752012
+   "votes": 15594,
+   "score": 7.339379965423952
   },
   {
    "tconst": "tt2256041",
    "title": "We Are the Bus People",
    "year": 1979,
    "rating": 7.9,
-   "votes": 1648,
-   "score": 7.329188845729634
+   "votes": 1656,
+   "score": 7.333008714700702
   },
   {
    "tconst": "tt0079386",
    "title": "Kaala Patthar",
    "year": 1979,
    "rating": 7.6,
-   "votes": 3211,
-   "score": 7.312299231415831
-  },
-  {
-   "tconst": "tt0253637",
-   "title": "Nightingale",
-   "year": 1979,
-   "rating": 7.5,
-   "votes": 4906,
-   "score": 7.311800213933639
+   "votes": 3215,
+   "score": 7.313895882857666
   },
   {
    "tconst": "tt0086643",
    "title": "Ziggy Stardust and the Spiders from Mars",
    "year": 1979,
    "rating": 7.6,
-   "votes": 3202,
-   "score": 7.311683023201348
+   "votes": 3205,
+   "score": 7.3132154925671955
+  },
+  {
+   "tconst": "tt0253637",
+   "title": "Nightingale",
+   "year": 1979,
+   "rating": 7.5,
+   "votes": 4920,
+   "score": 7.313187693622476
   },
   {
    "tconst": "tt0078907",
    "title": "French Fried Vacation 2",
    "year": 1979,
    "rating": 7.4,
-   "votes": 10335,
-   "score": 7.310762422892993
+   "votes": 10356,
+   "score": 7.311418734258988
   },
   {
    "tconst": "tt0079817",
    "title": "Rocky II",
    "year": 1979,
    "rating": 7.3,
-   "votes": 254376,
-   "score": 7.296430722007909
+   "votes": 254775,
+   "score": 7.296458102419099
   },
   {
    "tconst": "tt0079641",
    "title": "Nosferatu the Vampyre",
    "year": 1979,
    "rating": 7.3,
-   "votes": 49881,
-   "score": 7.282085494850574
+   "votes": 49969,
+   "score": 7.282225885268399
   },
   {
    "tconst": "tt0079477",
    "title": "A Little Romance",
    "year": 1979,
    "rating": 7.4,
-   "votes": 7221,
-   "score": 7.276960474819616
+   "votes": 7233,
+   "score": 7.277817459764978
   },
   {
    "tconst": "tt0469802",
    "title": "What Will Happen Now",
    "year": 1979,
    "rating": 7.5,
-   "votes": 3597,
-   "score": 7.258210150857531
+   "votes": 3603,
+   "score": 7.259737376981329
   },
   {
    "tconst": "tt0080009",
    "title": "Tess",
    "year": 1979,
    "rating": 7.3,
-   "votes": 20141,
-   "score": 7.256884350952749
+   "votes": 20179,
+   "score": 7.257225135570379
   },
   {
    "tconst": "tt0079638",
    "title": "Norma Rae",
    "year": 1979,
    "rating": 7.3,
-   "votes": 14211,
-   "score": 7.240075738839791
+   "votes": 14228,
+   "score": 7.240509006188932
   },
   {
    "tconst": "tt0080117",
    "title": "The Wanderers",
    "year": 1979,
    "rating": 7.3,
-   "votes": 13632,
-   "score": 7.237704487663482
+   "votes": 13660,
+   "score": 7.238204034532405
   },
   {
    "tconst": "tt0079336",
    "title": "The In-Laws",
    "year": 1979,
    "rating": 7.3,
-   "votes": 11218,
-   "score": 7.225396305736788
+   "votes": 11246,
+   "score": 7.226022468254537
   },
   {
    "tconst": "tt0079834",
@@ -386,31 +386,39 @@
    "year": 1979,
    "rating": 8,
    "votes": 1062,
-   "score": 7.218473357658617
+   "score": 7.221179023397218
   },
   {
    "tconst": "tt0354770",
    "title": "Prince Nezha's Triumph Against Dragon King",
    "year": 1979,
    "rating": 7.7,
-   "votes": 1638,
-   "score": 7.2028400543942634
+   "votes": 1641,
+   "score": 7.205517283697487
+  },
+  {
+   "tconst": "tt0078820",
+   "title": "Baby Snakes",
+   "year": 1979,
+   "rating": 8,
+   "votes": 1001,
+   "score": 7.197436854695184
   },
   {
    "tconst": "tt0079766",
    "title": "Quadrophenia",
    "year": 1979,
    "rating": 7.2,
-   "votes": 22820,
-   "score": 7.165931656737703
+   "votes": 22860,
+   "score": 7.166222596238268
   },
   {
    "tconst": "tt0078915",
    "title": "The Bugs Bunny/Road-Runner Movie",
    "year": 1979,
    "rating": 7.3,
-   "votes": 4840,
-   "score": 7.143919873885627
+   "votes": 4858,
+   "score": 7.145351851526982
   },
   {
    "tconst": "tt0078784",
@@ -418,551 +426,551 @@
    "year": 1979,
    "rating": 7.7,
    "votes": 1348,
-   "score": 7.141436142884185
+   "score": 7.143812242864167
   },
   {
    "tconst": "tt0080772",
    "title": "Galaxy Express 999",
    "year": 1979,
    "rating": 7.4,
-   "votes": 2685,
-   "score": 7.125506665805174
+   "votes": 2688,
+   "score": 7.127242718613087
   },
   {
    "tconst": "tt0079688",
    "title": "Over the Edge",
    "year": 1979,
    "rating": 7.2,
-   "votes": 9454,
-   "score": 7.1223734516445445
+   "votes": 9479,
+   "score": 7.123091053177313
   },
   {
    "tconst": "tt0079980",
    "title": "Serie Noire",
    "year": 1979,
    "rating": 7.3,
-   "votes": 3971,
-   "score": 7.116634895089934
+   "votes": 3983,
+   "score": 7.118196095975328
   },
   {
    "tconst": "tt0079239",
    "title": "The Great Santini",
    "year": 1979,
    "rating": 7.2,
-   "votes": 8012,
-   "score": 7.1099525148127025
+   "votes": 8029,
+   "score": 7.110739965250311
   },
   {
    "tconst": "tt0078913",
    "title": "Buffet Froid",
    "year": 1979,
    "rating": 7.2,
-   "votes": 7245,
-   "score": 7.101575750575145
-  },
-  {
-   "tconst": "tt0079367",
-   "title": "The Jerk",
-   "year": 1979,
-   "rating": 7.1,
-   "votes": 69400,
-   "score": 7.089893353174603
+   "votes": 7260,
+   "score": 7.102429920852913
   },
   {
    "tconst": "tt0194426",
    "title": "The Man Who Stole the Sun",
    "year": 1979,
    "rating": 7.5,
-   "votes": 1689,
-   "score": 7.086646360540003
+   "votes": 1699,
+   "score": 7.090244959705469
+  },
+  {
+   "tconst": "tt0079367",
+   "title": "The Jerk",
+   "year": 1979,
+   "rating": 7.1,
+   "votes": 69468,
+   "score": 7.0899822777181845
   },
   {
    "tconst": "tt0079020",
    "title": "Que Viva Mexico",
    "year": 1979,
    "rating": 7.4,
-   "votes": 2152,
-   "score": 7.079090121666265
+   "votes": 2156,
+   "score": 7.0812646217506545
   },
   {
    "tconst": "tt0079764",
    "title": "Five Evenings",
    "year": 1979,
    "rating": 7.5,
-   "votes": 1574,
-   "score": 7.068178734845403
-  },
-  {
-   "tconst": "tt0079271",
-   "title": "Hardcore",
-   "year": 1979,
-   "rating": 7.1,
-   "votes": 17216,
-   "score": 7.060940495360785
+   "votes": 1575,
+   "score": 7.0705130665029365
   },
   {
    "tconst": "tt0078831",
    "title": "The Battle of Chile: Part III",
    "year": 1979,
    "rating": 7.6,
-   "votes": 1219,
-   "score": 7.054029771740454
+   "votes": 1241,
+   "score": 7.0618791371017675
+  },
+  {
+   "tconst": "tt0079271",
+   "title": "Hardcore",
+   "year": 1979,
+   "rating": 7.1,
+   "votes": 17269,
+   "score": 7.0613591957000965
   },
   {
    "tconst": "tt0252389",
    "title": "Dokunmayin Sabanima",
    "year": 1979,
    "rating": 7.2,
-   "votes": 4486,
-   "score": 7.052076570086049
+   "votes": 4500,
+   "score": 7.053467481135467
   },
   {
    "tconst": "tt0079063",
    "title": "Don Giovanni",
    "year": 1979,
    "rating": 7.5,
-   "votes": 1418,
-   "score": 7.040319298383816
-  },
-  {
-   "tconst": "tt0079738",
-   "title": "Porridge",
-   "year": 1979,
-   "rating": 7.2,
-   "votes": 3712,
-   "score": 7.0277784515051085
+   "votes": 1421,
+   "score": 7.043193368957069
   },
   {
    "tconst": "tt0395824",
    "title": "Yusuf and Kenan",
    "year": 1979,
    "rating": 7.4,
-   "votes": 1711,
-   "score": 7.02688751880932
+   "votes": 1714,
+   "score": 7.029355617628984
+  },
+  {
+   "tconst": "tt0079738",
+   "title": "Porridge",
+   "year": 1979,
+   "rating": 7.2,
+   "votes": 3715,
+   "score": 7.029071292946991
   },
   {
    "tconst": "tt0077751",
    "title": "Alexandria... Why?",
    "year": 1979,
    "rating": 7.3,
-   "votes": 2314,
-   "score": 7.024952342634903
+   "votes": 2322,
+   "score": 7.027294143962992
   },
   {
    "tconst": "tt0079368",
    "title": "The Jesus Film",
    "year": 1979,
    "rating": 7.2,
-   "votes": 3107,
-   "score": 7.002408586192372
+   "votes": 3113,
+   "score": 7.004053281362768
   },
   {
    "tconst": "tt0079886",
    "title": "Legend of the Mountain",
    "year": 1979,
    "rating": 7.4,
-   "votes": 1524,
-   "score": 6.999244082207634
-  },
-  {
-   "tconst": "tt0079472",
-   "title": "The Magnificent Butcher",
-   "year": 1979,
-   "rating": 7.2,
-   "votes": 2914,
-   "score": 6.992665320258577
+   "votes": 1528,
+   "score": 7.002085105318459
   },
   {
    "tconst": "tt0141966",
    "title": "Vlad Tepes",
    "year": 1979,
    "rating": 7.4,
-   "votes": 1481,
-   "score": 6.992298292419212
+   "votes": 1483,
+   "score": 6.9948735989710284
+  },
+  {
+   "tconst": "tt0079472",
+   "title": "The Magnificent Butcher",
+   "year": 1979,
+   "rating": 7.2,
+   "votes": 2922,
+   "score": 6.994510746110419
   },
   {
    "tconst": "tt0079596",
    "title": "My Brilliant Career",
    "year": 1979,
    "rating": 7.1,
-   "votes": 5598,
-   "score": 6.992163089344054
+   "votes": 5625,
+   "score": 6.993444701320009
   },
   {
    "tconst": "tt0157339",
    "title": "Baton Baton Mein",
    "year": 1979,
    "rating": 7.4,
-   "votes": 1468,
-   "score": 6.990150755061615
+   "votes": 1469,
+   "score": 6.992576405931577
   },
   {
    "tconst": "tt0079002",
    "title": "Hothead",
    "year": 1979,
    "rating": 7.2,
-   "votes": 2673,
-   "score": 6.9790612751135495
-  },
-  {
-   "tconst": "tt0080025",
-   "title": "Time After Time",
-   "year": 1979,
-   "rating": 7,
-   "votes": 21552,
-   "score": 6.972884536337888
-  },
-  {
-   "tconst": "tt0079219",
-   "title": "Going in Style",
-   "year": 1979,
-   "rating": 7.1,
-   "votes": 4577,
-   "score": 6.97242102626718
+   "votes": 2677,
+   "score": 6.980818913855062
   },
   {
    "tconst": "tt0192213",
    "title": "Raining in the Mountain",
    "year": 1979,
    "rating": 7.3,
-   "votes": 1778,
-   "score": 6.971883392185769
+   "votes": 1784,
+   "score": 6.974594520921357
+  },
+  {
+   "tconst": "tt0079219",
+   "title": "Going in Style",
+   "year": 1979,
+   "rating": 7.1,
+   "votes": 4589,
+   "score": 6.973693173420121
+  },
+  {
+   "tconst": "tt0080025",
+   "title": "Time After Time",
+   "year": 1979,
+   "rating": 7,
+   "votes": 21610,
+   "score": 6.973200846804293
   },
   {
    "tconst": "tt0253860",
    "title": "Our Hope Is Şaban",
    "year": 1979,
    "rating": 7.1,
-   "votes": 4055,
-   "score": 6.959246699009311
+   "votes": 4065,
+   "score": 6.960626090077998
   },
   {
    "tconst": "tt0079696",
    "title": "The Maids of Wilko",
    "year": 1979,
    "rating": 7.3,
-   "votes": 1664,
-   "score": 6.957842366175701
+   "votes": 1668,
+   "score": 6.960446456613591
   },
   {
    "tconst": "tt0079826",
    "title": "The Rose",
    "year": 1979,
    "rating": 7,
-   "votes": 9944,
-   "score": 6.944123909310313
+   "votes": 9970,
+   "score": 6.944764917615776
   },
   {
    "tconst": "tt0078771",
    "title": "Love on the Run",
    "year": 1979,
    "rating": 7,
-   "votes": 8322,
-   "score": 6.934401637362376
+   "votes": 8335,
+   "score": 6.935090642340125
   },
   {
    "tconst": "tt0077383",
    "title": "Family Nest",
    "year": 1979,
    "rating": 7.2,
-   "votes": 1837,
-   "score": 6.91395560926756
+   "votes": 1840,
+   "score": 6.916222234593332
   },
   {
    "tconst": "tt0080166",
    "title": "Knockabout",
    "year": 1979,
    "rating": 7.2,
-   "votes": 1748,
-   "score": 6.904691435040782
+   "votes": 1751,
+   "score": 6.907041492637246
   },
   {
    "tconst": "tt0079781",
    "title": "Real Life",
    "year": 1979,
    "rating": 7,
-   "votes": 4757,
-   "score": 6.893780104827526
+   "votes": 4772,
+   "score": 6.895022721109678
   },
   {
    "tconst": "tt0094097",
    "title": "The Wretches Are Still Singing",
    "year": 1979,
    "rating": 7.3,
-   "votes": 1200,
-   "score": 6.885678210678211
+   "votes": 1202,
+   "score": 6.888588168140355
   },
   {
    "tconst": "tt0082508",
    "title": "Heartland",
    "year": 1979,
    "rating": 7.2,
-   "votes": 1514,
-   "score": 6.877204480307107
+   "votes": 1517,
+   "score": 6.879805779199469
   },
   {
    "tconst": "tt0079843",
    "title": "Saint Jack",
    "year": 1979,
    "rating": 7,
-   "votes": 3362,
-   "score": 6.8598101933727795
+   "votes": 3372,
+   "score": 6.861406941044159
   },
   {
    "tconst": "tt0080149",
    "title": "Woyzeck",
    "year": 1979,
    "rating": 6.9,
-   "votes": 11605,
-   "score": 6.859420235104489
+   "votes": 11634,
+   "score": 6.859954974374313
   },
   {
    "tconst": "tt0079432",
    "title": "Dirty Ho",
    "year": 1979,
    "rating": 7.1,
-   "votes": 1881,
-   "score": 6.853034385106584
+   "votes": 1885,
+   "score": 6.8553106226152725
   },
   {
    "tconst": "tt0080140",
    "title": "Wise Blood",
    "year": 1979,
    "rating": 6.9,
-   "votes": 7180,
-   "score": 6.837468467419568
+   "votes": 7206,
+   "score": 6.838346471636005
   },
   {
    "tconst": "tt0079640",
    "title": "North Dallas Forty",
    "year": 1979,
    "rating": 6.9,
-   "votes": 6523,
-   "score": 6.832007452278622
+   "votes": 6534,
+   "score": 6.832847245320555
   },
   {
    "tconst": "tt0081420",
    "title": "Return of the Secaucus Seven",
    "year": 1979,
    "rating": 7,
-   "votes": 2399,
-   "score": 6.820091810383074
+   "votes": 2403,
+   "score": 6.821942740595081
   },
   {
    "tconst": "tt0079278",
    "title": "Chilly Scenes of Winter",
    "year": 1979,
    "rating": 7,
-   "votes": 2323,
-   "score": 6.815977148207062
-  },
-  {
-   "tconst": "tt0079517",
-   "title": "Mama Turns 100",
-   "year": 1979,
-   "rating": 7.1,
-   "votes": 1497,
-   "score": 6.815054891266346
+   "votes": 2344,
+   "score": 6.818801180097208
   },
   {
    "tconst": "tt0077655",
    "title": "Last Hurrah for Chivalry",
    "year": 1979,
    "rating": 7,
-   "votes": 2152,
-   "score": 6.805993674965757
-  },
-  {
-   "tconst": "tt0079501",
-   "title": "Mad Max",
-   "year": 1979,
-   "rating": 6.8,
-   "votes": 247067,
-   "score": 6.798341141963631
+   "votes": 2159,
+   "score": 6.808189663262128
   },
   {
    "tconst": "tt0079542",
    "title": "Meetings with Remarkable Men",
    "year": 1979,
    "rating": 7.1,
-   "votes": 1354,
-   "score": 6.797745141670376
+   "votes": 1358,
+   "score": 6.800623895778228
   },
   {
    "tconst": "tt0079372",
    "title": "The Kid with the Golden Arm",
    "year": 1979,
    "rating": 7,
-   "votes": 2018,
-   "score": 6.797379742707776
+   "votes": 2021,
+   "score": 6.799427721365463
   },
   {
-   "tconst": "tt0078908",
-   "title": "The Brood",
+   "tconst": "tt0079501",
+   "title": "Mad Max",
    "year": 1979,
    "rating": 6.8,
-   "votes": 38548,
-   "score": 6.789594721945283
-  },
-  {
-   "tconst": "tt0080057",
-   "title": "Zombie",
-   "year": 1979,
-   "rating": 6.8,
-   "votes": 33713,
-   "score": 6.788145422852881
+   "votes": 247330,
+   "score": 6.79836536522468
   },
   {
    "tconst": "tt0079655",
    "title": "Operation Ogre",
    "year": 1979,
    "rating": 7.1,
-   "votes": 1273,
-   "score": 6.786974071047984
+   "votes": 1278,
+   "score": 6.790110248571142
+  },
+  {
+   "tconst": "tt0078908",
+   "title": "The Brood",
+   "year": 1979,
+   "rating": 6.8,
+   "votes": 38648,
+   "score": 6.789761681452912
+  },
+  {
+   "tconst": "tt0080057",
+   "title": "Zombie",
+   "year": 1979,
+   "rating": 6.8,
+   "votes": 33770,
+   "score": 6.788325313380645
   },
   {
    "tconst": "tt1134817",
    "title": "Handsome Poor Bilo",
    "year": 1979,
    "rating": 6.9,
-   "votes": 2994,
-   "score": 6.771930912241379
+   "votes": 2996,
+   "score": 6.773391177739005
   },
   {
    "tconst": "tt0078950",
    "title": "The Champ",
    "year": 1979,
    "rating": 6.8,
-   "votes": 9993,
-   "score": 6.762566366186852
+   "votes": 10013,
+   "score": 6.763140937641429
+  },
+  {
+   "tconst": "tt0079517",
+   "title": "Mama Turns 100",
+   "year": 1979,
+   "rating": 7,
+   "votes": 1504,
+   "score": 6.75801563348445
   },
   {
    "tconst": "tt0079592",
    "title": "Murder by Decree",
    "year": 1979,
    "rating": 6.8,
-   "votes": 7896,
-   "score": 6.753742363252256
+   "votes": 7920,
+   "score": 6.754492280969178
   },
   {
    "tconst": "tt0079668",
    "title": "The Onion Field",
    "year": 1979,
    "rating": 6.8,
-   "votes": 6295,
-   "score": 6.743590413090071
+   "votes": 6308,
+   "score": 6.74445417983649
   },
   {
    "tconst": "tt0079041",
    "title": "Demon Pond",
    "year": 1979,
    "rating": 7,
-   "votes": 1298,
-   "score": 6.733895588986974
+   "votes": 1310,
+   "score": 6.7376931369026245
   },
   {
    "tconst": "tt0077734",
    "title": "Traffic Jam",
    "year": 1979,
    "rating": 6.9,
-   "votes": 1310,
-   "score": 6.678567992853709
+   "votes": 1312,
+   "score": 6.681172641109457
   },
   {
    "tconst": "tt0080180",
    "title": "Zulu Dawn",
    "year": 1979,
    "rating": 6.7,
-   "votes": 8431,
-   "score": 6.666969787243353
+   "votes": 8458,
+   "score": 6.6676539592139
   },
   {
    "tconst": "tt0077937",
    "title": "Mission Galactica: The Cylon Attack",
    "year": 1979,
    "rating": 6.8,
-   "votes": 2056,
-   "score": 6.665344261613896
+   "votes": 2057,
+   "score": 6.667213328833844
   },
   {
    "tconst": "tt0079662",
    "title": "The Olsen Gang Never Surrenders",
    "year": 1979,
    "rating": 6.8,
-   "votes": 1987,
-   "score": 6.662233700532998
+   "votes": 1990,
+   "score": 6.664237841553533
   },
   {
    "tconst": "tt0176048",
    "title": "The Prince and the Evening Star",
    "year": 1979,
    "rating": 6.9,
-   "votes": 1017,
-   "score": 6.646401617993092
+   "votes": 1021,
+   "score": 6.649664100071778
   },
   {
    "tconst": "tt0079083",
    "title": "The Third Generation",
    "year": 1979,
    "rating": 6.7,
-   "votes": 3127,
-   "score": 6.624519521078766
+   "votes": 3135,
+   "score": 6.626014787483691
   },
   {
    "tconst": "tt0079714",
    "title": "Phantasm",
    "year": 1979,
    "rating": 6.6,
-   "votes": 45514,
-   "score": 6.595452811271704
+   "votes": 45620,
+   "score": 6.595582821669779
   },
   {
    "tconst": "tt0079813",
    "title": "Rock 'n' Roll High School",
    "year": 1979,
    "rating": 6.6,
-   "votes": 12381,
-   "score": 6.584193413309324
+   "votes": 12405,
+   "score": 6.584637907217088
   },
   {
    "tconst": "tt0079351",
    "title": "I'm for the Hippopotamus",
    "year": 1979,
    "rating": 6.6,
-   "votes": 10396,
-   "score": 6.581440160011589
+   "votes": 10421,
+   "score": 6.581969279944405
   },
   {
    "tconst": "tt0079639",
    "title": "The North Avenue Irregulars",
    "year": 1979,
    "rating": 6.7,
-   "votes": 1525,
-   "score": 6.576630520194877
+   "votes": 1526,
+   "score": 6.578888023058219
   },
   {
    "tconst": "tt0079652",
    "title": "The Odd Angry Shot",
    "year": 1979,
    "rating": 6.7,
-   "votes": 1459,
-   "score": 6.573319261281849
+   "votes": 1464,
+   "score": 6.575840562599457
   },
   {
    "tconst": "tt0080012",
    "title": "That Sinking Feeling",
    "year": 1979,
    "rating": 6.7,
-   "votes": 1423,
-   "score": 6.571437087697923
+   "votes": 1425,
+   "score": 6.573843771647448
   },
   {
    "tconst": "tt0079315",
    "title": "The Fearless Hyena",
    "year": 1979,
    "rating": 6.6,
-   "votes": 6210,
-   "score": 6.570664641261034
+   "votes": 6221,
+   "score": 6.571481947963587
   },
   {
    "tconst": "tt0079147",
@@ -970,351 +978,351 @@
    "year": 1979,
    "rating": 6.7,
    "votes": 1345,
-   "score": 6.567160794666126
-  },
-  {
-   "tconst": "tt0079087",
-   "title": "You're Out of Your Mind, Maggie",
-   "year": 1979,
-   "rating": 6.6,
-   "votes": 2148,
-   "score": 6.532811964260503
+   "score": 6.569539934432862
   },
   {
    "tconst": "tt0204526",
    "title": "Dead Mountaineer's Hotel",
    "year": 1979,
    "rating": 6.6,
-   "votes": 2106,
-   "score": 6.531903433191264
+   "votes": 2117,
+   "score": 6.533933636908907
   },
   {
    "tconst": "tt0078832",
    "title": "Partizanska eskadrila",
    "year": 1979,
    "rating": 6.6,
-   "votes": 1047,
-   "score": 6.496674188320501
+   "votes": 1049,
+   "score": 6.499497875180607
   },
   {
    "tconst": "tt0079073",
    "title": "Dracula",
    "year": 1979,
    "rating": 6.5,
-   "votes": 12671,
-   "score": 6.491843468911716
+   "votes": 12699,
+   "score": 6.492267402456023
   },
   {
    "tconst": "tt0079100",
    "title": "The Electric Horseman",
    "year": 1979,
    "rating": 6.5,
-   "votes": 10120,
-   "score": 6.489972307867991
+   "votes": 10144,
+   "score": 6.490494539325652
   },
   {
    "tconst": "tt0077278",
    "title": "Buck Rogers in the 25th Century",
    "year": 1979,
    "rating": 6.5,
-   "votes": 7796,
-   "score": 6.48732288125194
+   "votes": 7810,
+   "score": 6.487976293557896
   },
   {
    "tconst": "tt0079794",
    "title": "Repmånad eller Hur man gör pojkar av män",
    "year": 1979,
    "rating": 6.5,
-   "votes": 4524,
-   "score": 6.47981391446272
+   "votes": 4530,
+   "score": 6.480844691906883
   },
   {
    "tconst": "tt0077563",
    "title": "Cop or Hood",
    "year": 1979,
    "rating": 6.5,
-   "votes": 3549,
-   "score": 6.475487373816678
+   "votes": 3554,
+   "score": 6.4767393821354995
+  },
+  {
+   "tconst": "tt0079087",
+   "title": "You're Out of Your Mind, Maggie",
+   "year": 1979,
+   "rating": 6.5,
+   "votes": 2149,
+   "score": 6.466361113447146
   },
   {
    "tconst": "tt0079584",
    "title": "Mr. Natwarlal",
    "year": 1979,
    "rating": 6.5,
-   "votes": 1630,
-   "score": 6.457601545054018
+   "votes": 1633,
+   "score": 6.459768760442485
   },
   {
    "tconst": "tt0079773",
    "title": "Radio On",
    "year": 1979,
    "rating": 6.5,
-   "votes": 1373,
-   "score": 6.453009719128557
+   "votes": 1374,
+   "score": 6.455379589825215
   },
   {
    "tconst": "tt0079963",
    "title": "Suhaag",
    "year": 1979,
    "rating": 6.5,
-   "votes": 1354,
-   "score": 6.452630443284651
+   "votes": 1356,
+   "score": 6.455038686861232
   },
   {
    "tconst": "tt0079945",
    "title": "Star Trek: The Motion Picture",
    "year": 1979,
    "rating": 6.4,
-   "votes": 102251,
-   "score": 6.399888544067293
+   "votes": 102424,
+   "score": 6.3999426742946035
   },
   {
    "tconst": "tt0080130",
    "title": "When a Stranger Calls",
    "year": 1979,
    "rating": 6.4,
-   "votes": 16166,
-   "score": 6.399329608731916
+   "votes": 16197,
+   "score": 6.399655239067575
   },
   {
    "tconst": "tt0079180",
    "title": "The Frisco Kid",
    "year": 1979,
    "rating": 6.4,
-   "votes": 11233,
-   "score": 6.399059271110282
+   "votes": 11247,
+   "score": 6.3995158933816505
   },
   {
    "tconst": "tt0080024",
    "title": "Tim",
    "year": 1979,
    "rating": 6.4,
-   "votes": 4088,
-   "score": 6.397738220025957
+   "votes": 4097,
+   "score": 6.398836795417906
   },
   {
    "tconst": "tt0080157",
    "title": "Yanks",
    "year": 1979,
    "rating": 6.4,
-   "votes": 3995,
-   "score": 6.397696108807221
+   "votes": 4001,
+   "score": 6.398814466355742
   },
   {
    "tconst": "tt0079948",
    "title": "Starting Over",
    "year": 1979,
    "rating": 6.4,
-   "votes": 3768,
-   "score": 6.397586422712263
+   "votes": 3775,
+   "score": 6.398758355234569
   },
   {
    "tconst": "tt0079523",
    "title": "Velvet Hands",
    "year": 1979,
    "rating": 6.4,
-   "votes": 1690,
-   "score": 6.395721956688501
+   "votes": 1694,
+   "score": 6.397799237655924
   },
   {
    "tconst": "tt0079808",
    "title": "The Riddle of the Sands",
    "year": 1979,
    "rating": 6.4,
-   "votes": 1591,
-   "score": 6.395558496137425
+   "votes": 1594,
+   "score": 6.397714397164634
   },
   {
    "tconst": "tt0079920",
    "title": "The Brontë Sisters",
    "year": 1979,
    "rating": 6.4,
-   "votes": 1357,
-   "score": 6.395117549211739
+   "votes": 1360,
+   "score": 6.397487773832654
   },
   {
    "tconst": "tt0080010",
    "title": "Pilot Pirx's Inquest",
    "year": 1979,
    "rating": 6.4,
-   "votes": 1178,
-   "score": 6.394716282595072
+   "votes": 1182,
+   "score": 6.3972828351260596
   },
   {
    "tconst": "tt0078978",
    "title": "Womanlight",
    "year": 1979,
    "rating": 6.4,
-   "votes": 1070,
-   "score": 6.394440610382641
+   "votes": 1073,
+   "score": 6.397139964421159
   },
   {
    "tconst": "tt0079051",
    "title": "The Butterfly Murders",
    "year": 1979,
    "rating": 6.4,
-   "votes": 1026,
-   "score": 6.394319873391938
+   "votes": 1029,
+   "score": 6.3970779429497595
   },
   {
    "tconst": "tt0083050",
    "title": "G.I. Samurai",
    "year": 1979,
    "rating": 6.3,
-   "votes": 1400,
-   "score": 6.3368716931216955
+   "votes": 1406,
+   "score": 6.339098564524132
   },
   {
    "tconst": "tt0081613",
    "title": "The Tempest",
    "year": 1979,
    "rating": 6.3,
-   "votes": 1409,
-   "score": 6.336733940843532
+   "votes": 1411,
+   "score": 6.33901748081504
   },
   {
    "tconst": "tt0079429",
    "title": "The Lady in Red",
    "year": 1979,
    "rating": 6.3,
-   "votes": 1725,
-   "score": 6.332474151740208
+   "votes": 1731,
+   "score": 6.334445677863442
   },
   {
    "tconst": "tt0079495",
    "title": "Luna",
    "year": 1979,
    "rating": 6.3,
-   "votes": 6015,
-   "score": 6.312614691873423
+   "votes": 6026,
+   "score": 6.313389004589391
   },
   {
    "tconst": "tt0079200",
    "title": "The Gendarme and the Extra-Terrestrials",
    "year": 1979,
    "rating": 6.3,
-   "votes": 10594,
-   "score": 6.307632574046236
+   "votes": 10613,
+   "score": 6.308100503422462
   },
   {
    "tconst": "tt0079574",
    "title": "Moonraker",
    "year": 1979,
    "rating": 6.3,
-   "votes": 118873,
-   "score": 6.300738215140124
+   "votes": 119014,
+   "score": 6.300783834771319
   },
   {
    "tconst": "tt0079308",
    "title": "Hot Stuff",
    "year": 1979,
    "rating": 6.2,
-   "votes": 1770,
-   "score": 6.2680476763509265
+   "votes": 1782,
+   "score": 6.269759578089526
   },
   {
    "tconst": "tt0078736",
    "title": "Agatha",
    "year": 1979,
    "rating": 6.2,
-   "votes": 4021,
-   "score": 6.237540741583762
+   "votes": 4024,
+   "score": 6.238628810956422
   },
   {
    "tconst": "tt0080139",
    "title": "Winter Kills",
    "year": 1979,
    "rating": 6.2,
-   "votes": 4436,
-   "score": 6.234674772533493
+   "votes": 4448,
+   "score": 6.235622457093441
   },
   {
    "tconst": "tt0078916",
    "title": "Beyond the Darkness",
    "year": 1979,
    "rating": 6.2,
-   "votes": 6302,
-   "score": 6.225813758352789
+   "votes": 6315,
+   "score": 6.22653057364936
   },
   {
    "tconst": "tt0079123",
    "title": "The Europeans",
    "year": 1979,
    "rating": 6.1,
-   "votes": 1321,
-   "score": 6.224296451310671
+   "votes": 1327,
+   "score": 6.226373505047298
   },
   {
    "tconst": "tt0078721",
    "title": "10",
    "year": 1979,
    "rating": 6.2,
-   "votes": 19348,
-   "score": 6.209263419672305
+   "votes": 19371,
+   "score": 6.209526834531691
   },
   {
    "tconst": "tt0079540",
    "title": "Meatballs",
    "year": 1979,
    "rating": 6.2,
-   "votes": 26441,
-   "score": 6.206868993968589
-  },
-  {
-   "tconst": "tt0078767",
-   "title": "The Amityville Horror",
-   "year": 1979,
-   "rating": 6.2,
-   "votes": 49577,
-   "score": 6.203726833609982
+   "votes": 26498,
+   "score": 6.207057645874065
   },
   {
    "tconst": "tt0080903",
    "title": "The Human Factor",
    "year": 1979,
    "rating": 6.1,
-   "votes": 1813,
-   "score": 6.202556723601872
+   "votes": 1822,
+   "score": 6.20420664289336
+  },
+  {
+   "tconst": "tt0078767",
+   "title": "The Amityville Horror",
+   "year": 1979,
+   "rating": 6.2,
+   "votes": 49635,
+   "score": 6.2038327470375245
   },
   {
    "tconst": "tt0079875",
    "title": "The Seduction of Joe Tynan",
    "year": 1979,
    "rating": 6.1,
-   "votes": 2157,
-   "score": 6.191381711590772
+   "votes": 2164,
+   "score": 6.192942840153307
   },
   {
    "tconst": "tt0079484",
    "title": "Dragon Fist",
    "year": 1979,
    "rating": 6.1,
-   "votes": 3300,
-   "score": 6.167091177556294
+   "votes": 3312,
+   "score": 6.168198317774828
   },
   {
    "tconst": "tt0078952",
    "title": "Chapter Two",
    "year": 1979,
    "rating": 6,
-   "votes": 1443,
-   "score": 6.159022539292701
+   "votes": 1444,
+   "score": 6.161240239871138
   },
   {
    "tconst": "tt0079859",
    "title": "The Sheriff and the Satellite Kid",
    "year": 1979,
    "rating": 6.1,
-   "votes": 4734,
-   "score": 6.1503125328727
+   "votes": 4747,
+   "score": 6.151169505175755
   },
   {
    "tconst": "tt0079489",
    "title": "Love at First Bite",
    "year": 1979,
    "rating": 6.1,
-   "votes": 7014,
-   "score": 6.1359985105430574
+   "votes": 7034,
+   "score": 6.136603329131822
   },
   {
    "tconst": "tt0079094",
@@ -1322,287 +1330,279 @@
    "year": 1979,
    "rating": 5.9,
    "votes": 1094,
-   "score": 6.13328178772305
+   "score": 6.135946106134223
   },
   {
    "tconst": "tt0079384",
    "title": "Just You and Me, Kid",
    "year": 1979,
    "rating": 5.9,
-   "votes": 1183,
-   "score": 6.123770986482853
+   "votes": 1185,
+   "score": 6.1261195177322945
   },
   {
    "tconst": "tt0079710",
    "title": "A Perfect Couple",
    "year": 1979,
    "rating": 5.9,
-   "votes": 1186,
-   "score": 6.123463889978073
+   "votes": 1187,
+   "score": 6.125912732622342
   },
   {
    "tconst": "tt0225458",
    "title": "Star of David: Beautiful Girl Hunter",
    "year": 1979,
    "rating": 5.9,
-   "votes": 1217,
-   "score": 6.120339225751947
+   "votes": 1222,
+   "score": 6.122354251235402
   },
   {
    "tconst": "tt0079700",
    "title": "The Passage",
    "year": 1979,
    "rating": 6,
-   "votes": 2575,
-   "score": 6.10866910866911
+   "votes": 2580,
+   "score": 6.110075739174597
   },
   {
    "tconst": "tt0079428",
    "title": "The Lady Vanishes",
    "year": 1979,
    "rating": 6,
-   "votes": 3412,
-   "score": 6.088053504871275
-  },
-  {
-   "tconst": "tt0078790",
-   "title": "The Apple Dumpling Gang Rides Again",
-   "year": 1979,
-   "rating": 6,
-   "votes": 3637,
-   "score": 6.08378090651112
+   "votes": 3428,
+   "score": 6.0889952904799145
   },
   {
    "tconst": "tt0078928",
    "title": "California Dreaming",
    "year": 1979,
    "rating": 5.8,
-   "votes": 1075,
-   "score": 6.083610633008225
+   "votes": 1079,
+   "score": 6.085748507092382
+  },
+  {
+   "tconst": "tt0078790",
+   "title": "The Apple Dumpling Gang Rides Again",
+   "year": 1979,
+   "rating": 6,
+   "votes": 3648,
+   "score": 6.084782948847906
   },
   {
    "tconst": "tt0079882",
    "title": "Seven",
    "year": 1979,
    "rating": 5.8,
-   "votes": 1089,
-   "score": 6.081709939440913
+   "votes": 1093,
+   "score": 6.083837145840928
   },
   {
    "tconst": "tt0079437",
    "title": "Last Embrace",
    "year": 1979,
    "rating": 6,
-   "votes": 4042,
-   "score": 6.077051182763203
+   "votes": 4055,
+   "score": 6.077956705488638
   },
   {
    "tconst": "tt0079135",
    "title": "Fascination",
    "year": 1979,
    "rating": 6,
-   "votes": 4273,
-   "score": 6.0736757184699535
+   "votes": 4289,
+   "score": 6.074507685052952
   },
   {
    "tconst": "tt0079268",
    "title": "Hanover Street",
    "year": 1979,
    "rating": 6,
-   "votes": 6459,
-   "score": 6.052083665838861
+   "votes": 6471,
+   "score": 6.052746773690947
   },
   {
    "tconst": "tt0080040",
    "title": "Tourist Trap",
    "year": 1979,
    "rating": 6,
-   "votes": 15292,
-   "score": 6.023845572274249
+   "votes": 15334,
+   "score": 6.0241258201447945
   },
   {
    "tconst": "tt0122029",
    "title": "The Crippled Masters",
    "year": 1979,
    "rating": 5.7,
-   "votes": 1145,
-   "score": 6.020975320975323
+   "votes": 1149,
+   "score": 6.02297400942069
   },
   {
    "tconst": "tt0078836",
    "title": "Bear Island",
    "year": 1979,
    "rating": 5.9,
-   "votes": 3117,
-   "score": 6.018652432230281
+   "votes": 3123,
+   "score": 6.019832924143842
   },
   {
    "tconst": "tt0078792",
    "title": "Arabian Adventure",
    "year": 1979,
    "rating": 5.7,
-   "votes": 1326,
-   "score": 5.99599830760622
+   "votes": 1331,
+   "score": 5.997756819495951
   },
   {
    "tconst": "tt0080016",
    "title": "Thirst",
    "year": 1979,
    "rating": 5.8,
-   "votes": 2155,
-   "score": 5.986526803008579
+   "votes": 2159,
+   "score": 5.988056709795841
   },
   {
    "tconst": "tt0079709",
    "title": "Penitentiary",
    "year": 1979,
    "rating": 5.7,
-   "votes": 1414,
-   "score": 5.98520797990558
+   "votes": 1415,
+   "score": 5.987400060556962
   },
   {
    "tconst": "tt0079512",
    "title": "Malabimba",
    "year": 1979,
    "rating": 5.6,
-   "votes": 1168,
-   "score": 5.963695601241728
+   "votes": 1177,
+   "score": 5.964754775491531
   },
   {
    "tconst": "tt0078919",
    "title": "Butch and Sundance: The Early Days",
    "year": 1979,
    "rating": 5.7,
-   "votes": 1874,
-   "score": 5.939558825153815
+   "votes": 1882,
+   "score": 5.940829682944159
   },
   {
    "tconst": "tt0079858",
    "title": "Scavenger Hunt",
    "year": 1979,
    "rating": 5.8,
-   "votes": 3441,
-   "score": 5.932513412180154
+   "votes": 3444,
+   "score": 5.933679375842724
   },
   {
    "tconst": "tt0079218",
    "title": "Going Steady",
    "year": 1979,
    "rating": 5.7,
-   "votes": 2034,
-   "score": 5.926925531803581
+   "votes": 2038,
+   "score": 5.928463181779152
   },
   {
    "tconst": "tt0078869",
    "title": "The Black Hole",
    "year": 1979,
    "rating": 5.9,
-   "votes": 30588,
-   "score": 5.915464482192354
+   "votes": 30645,
+   "score": 5.915612929254071
   },
   {
    "tconst": "tt0081515",
    "title": "The Silent Scream",
    "year": 1979,
    "rating": 5.7,
-   "votes": 2593,
-   "score": 5.891620390618443
+   "votes": 2616,
+   "score": 5.891944454160692
   },
   {
    "tconst": "tt0079449",
    "title": "Laura",
    "year": 1979,
    "rating": 5.6,
-   "votes": 1721,
-   "score": 5.889780251191498
+   "votes": 1727,
+   "score": 5.891188539143771
   },
   {
    "tconst": "tt0077450",
    "title": "Dominique",
    "year": 1979,
    "rating": 5.5,
-   "votes": 1413,
-   "score": 5.868210552628292
+   "votes": 1419,
+   "score": 5.8696036156449205
   },
   {
    "tconst": "tt0079128",
    "title": "The Evictors",
    "year": 1979,
    "rating": 5.5,
-   "votes": 1520,
-   "score": 5.852576215671455
+   "votes": 1524,
+   "score": 5.85422787093703
   },
   {
    "tconst": "tt0165325",
    "title": "Images in a Convent",
    "year": 1979,
    "rating": 5.4,
-   "votes": 1246,
-   "score": 5.84011222773467
+   "votes": 1251,
+   "score": 5.84161312583077
   },
   {
    "tconst": "tt0080116",
    "title": "Wanda Nevada",
    "year": 1979,
    "rating": 5.5,
-   "votes": 1707,
-   "score": 5.828220193384583
+   "votes": 1711,
+   "score": 5.829793856969776
   },
   {
    "tconst": "tt0079154",
    "title": "The Fish That Saved Pittsburgh",
    "year": 1979,
    "rating": 5.4,
-   "votes": 1375,
-   "score": 5.816207184628238
+   "votes": 1376,
+   "score": 5.818380112056003
   },
   {
    "tconst": "tt0079488",
    "title": "Love and Bullets",
    "year": 1979,
    "rating": 5.6,
-   "votes": 2726,
-   "score": 5.8116189112968515
+   "votes": 2736,
+   "score": 5.812545810022768
   },
   {
    "tconst": "tt0077485",
    "title": "Effects",
    "year": 1979,
    "rating": 5.3,
-   "votes": 1163,
-   "score": 5.8032325767415935
+   "votes": 1164,
+   "score": 5.805578163699197
   },
   {
    "tconst": "tt0079117",
    "title": "Escape to Athena",
    "year": 1979,
    "rating": 5.7,
-   "votes": 6659,
-   "score": 5.789893205835235
+   "votes": 6676,
+   "score": 5.790420941407643
   },
   {
    "tconst": "tt0079013",
    "title": "Cuba",
    "year": 1979,
    "rating": 5.6,
-   "votes": 3189,
-   "score": 5.7882291867968645
+   "votes": 3192,
+   "score": 5.789425368856169
   },
   {
    "tconst": "tt0079510",
    "title": "The Main Event",
    "year": 1979,
    "rating": 5.6,
-   "votes": 3632,
-   "score": 5.770227129424021
-  },
-  {
-   "tconst": "tt0079320",
-   "title": "Immoral Women",
-   "year": 1979,
-   "rating": 5.1,
-   "votes": 1030,
-   "score": 5.73472515442959
+   "votes": 3635,
+   "score": 5.771320635651578
   }
  ]
 }

@@ -1,6 +1,6 @@
 {
  "tag": "year-1965",
- "builtAt": "2026-09-15T22:46:38.707Z",
+ "builtAt": "2026-10-01T06:19:54.122Z",
  "mean": 6.638,
  "minVotes": 1000,
  "items": [
@@ -9,296 +9,296 @@
    "title": "Operation 'Y' & Other Shurik's Adventures",
    "year": 1965,
    "rating": 8.4,
-   "votes": 16798,
-   "score": 8.30097544530901
+   "votes": 16838,
+   "score": 8.30119749835238
   },
   {
    "tconst": "tt0059246",
    "title": "Guide",
    "year": 1965,
    "rating": 8.4,
-   "votes": 13075,
-   "score": 8.274782307325736
+   "votes": 13102,
+   "score": 8.275022051879859
   },
   {
    "tconst": "tt0058888",
    "title": "Red Beard",
    "year": 1965,
    "rating": 8.3,
-   "votes": 23782,
-   "score": 8.232917479445153
+   "votes": 23836,
+   "score": 8.233063334498702
   },
   {
    "tconst": "tt0059578",
    "title": "For a Few Dollars More",
    "year": 1965,
    "rating": 8.2,
-   "votes": 304038,
-   "score": 8.194877887265225
+   "votes": 304504,
+   "score": 8.194885700271058
   },
   {
    "tconst": "tt0063794",
    "title": "War and Peace",
    "year": 1965,
    "rating": 8.3,
-   "votes": 9874,
-   "score": 8.147117985617966
+   "votes": 9901,
+   "score": 8.1474966494459
   },
   {
    "tconst": "tt0059742",
    "title": "The Sound of Music",
    "year": 1965,
    "rating": 8.1,
-   "votes": 295199,
-   "score": 8.095062646989387
+   "votes": 295724,
+   "score": 8.09507138275168
   },
   {
    "tconst": "tt0059527",
    "title": "The Shop on Main Street",
    "year": 1965,
    "rating": 8.2,
-   "votes": 10577,
-   "score": 8.065039386335815
+   "votes": 10602,
+   "score": 8.065330199587118
   },
   {
    "tconst": "tt0059812",
    "title": "The Corporal and Others",
    "year": 1965,
    "rating": 8.3,
-   "votes": 3038,
-   "score": 7.8883013807849816
+   "votes": 3042,
+   "score": 7.8887088014868265
   },
   {
    "tconst": "tt0059113",
    "title": "Doctor Zhivago",
    "year": 1965,
    "rating": 7.9,
-   "votes": 88039,
-   "score": 7.885821504909194
+   "votes": 88143,
+   "score": 7.885838046460291
   },
   {
    "tconst": "tt0059573",
    "title": "A Patch of Blue",
    "year": 1965,
    "rating": 8,
-   "votes": 10384,
-   "score": 7.880319832713436
+   "votes": 10410,
+   "score": 7.880592548256771
   },
   {
    "tconst": "tt0059274",
    "title": "The Hill",
    "year": 1965,
    "rating": 7.8,
-   "votes": 16651,
-   "score": 7.734143163311413
+   "votes": 16685,
+   "score": 7.734269775267727
   },
   {
    "tconst": "tt0059719",
    "title": "Simon of the Desert",
    "year": 1965,
    "rating": 7.8,
-   "votes": 11984,
-   "score": 7.710471424492432
+   "votes": 12010,
+   "score": 7.710650344013048
   },
   {
    "tconst": "tt0059884",
    "title": "War and Peace, Part I: Andrei Bolkonsky",
    "year": 1965,
    "rating": 8.1,
-   "votes": 2653,
-   "score": 7.699660820040994
+   "votes": 2667,
+   "score": 7.701189248870945
   },
   {
    "tconst": "tt0058642",
    "title": "Shadows of Forgotten Ancestors",
    "year": 1965,
    "rating": 7.8,
-   "votes": 9797,
-   "score": 7.692336850570506
+   "votes": 9820,
+   "score": 7.692565709390919
   },
   {
    "tconst": "tt0167400",
    "title": "Time to Love",
    "year": 1965,
    "rating": 7.8,
-   "votes": 8935,
-   "score": 7.682995568757902
+   "votes": 8963,
+   "score": 7.683324397832957
   },
   {
    "tconst": "tt0059529",
    "title": "Triumph Over Violence",
    "year": 1965,
    "rating": 8.1,
-   "votes": 2379,
-   "score": 7.667197684406555
+   "votes": 2382,
+   "score": 7.667581601303889
   },
   {
    "tconst": "tt0181600",
    "title": "A Matter of Earnestness",
    "year": 1965,
    "rating": 8.2,
-   "votes": 1651,
-   "score": 7.610622774654752
+   "votes": 1655,
+   "score": 7.611510725276742
   },
   {
    "tconst": "tt0059643",
    "title": "The Saragossa Manuscript",
    "year": 1965,
    "rating": 7.7,
-   "votes": 6607,
-   "score": 7.560334031235671
+   "votes": 6624,
+   "score": 7.560645458500755
   },
   {
    "tconst": "tt0058985",
    "title": "Happiness",
    "year": 1965,
    "rating": 7.6,
-   "votes": 12147,
-   "score": 7.526794019594565
+   "votes": 12202,
+   "score": 7.527098998304026
   },
   {
    "tconst": "tt0059012",
    "title": "Chimes at Midnight",
    "year": 1965,
    "rating": 7.6,
-   "votes": 11326,
-   "score": 7.521917976278577
-  },
-  {
-   "tconst": "tt0195324",
-   "title": "São Paulo Sociedade Anônima",
-   "year": 1965,
-   "rating": 8.1,
-   "votes": 1495,
-   "score": 7.513852094432767
+   "votes": 11361,
+   "score": 7.522139064445413
   },
   {
    "tconst": "tt0180749",
    "title": "And the Woman Shall Fear Her Husband",
    "year": 1965,
    "rating": 7.9,
-   "votes": 2267,
-   "score": 7.513578504931054
+   "votes": 2269,
+   "score": 7.5138149206515
   },
   {
    "tconst": "tt0061162",
    "title": "War and Peace, Part II: Natasha Rostova",
    "year": 1965,
    "rating": 7.9,
-   "votes": 2256,
-   "score": 7.512273026907171
+   "votes": 2267,
+   "score": 7.513578504931054
   },
   {
    "tconst": "tt0059646",
    "title": "Repulsion",
    "year": 1965,
    "rating": 7.5,
-   "votes": 61817,
-   "score": 7.486270611070407
-  },
-  {
-   "tconst": "tt0059817",
-   "title": "Tokyo Olympiad",
-   "year": 1965,
-   "rating": 7.8,
-   "votes": 2487,
-   "score": 7.466636356641741
+   "votes": 61901,
+   "score": 7.486288945733928
   },
   {
    "tconst": "tt0059183",
    "title": "The Flight of the Phoenix",
    "year": 1965,
    "rating": 7.5,
-   "votes": 24444,
-   "score": 7.4661044244462245
+   "votes": 24485,
+   "score": 7.46615895529173
   },
   {
    "tconst": "tt0059749",
    "title": "The Spy Who Came in from the Cold",
    "year": 1965,
    "rating": 7.5,
-   "votes": 20975,
-   "score": 7.460753628014095
+   "votes": 21022,
+   "score": 7.460837388775305
+  },
+  {
+   "tconst": "tt0195324",
+   "title": "Sao Paulo Incorporated",
+   "year": 1965,
+   "rating": 8,
+   "votes": 1504,
+   "score": 7.455894958310605
   },
   {
    "tconst": "tt0059043",
    "title": "The Collector",
    "year": 1965,
    "rating": 7.5,
-   "votes": 13367,
-   "score": 7.439970834245824
+   "votes": 13400,
+   "score": 7.440108401084011
   },
   {
    "tconst": "tt0058439",
    "title": "Forest of the Hanged",
    "year": 1965,
    "rating": 8,
-   "votes": 1414,
-   "score": 7.435609351951016
+   "votes": 1416,
+   "score": 7.4360765627523815
   },
   {
    "tconst": "tt0279901",
    "title": "A Fugitive from the Past",
    "year": 1965,
    "rating": 7.9,
-   "votes": 1574,
-   "score": 7.409541948566337
+   "votes": 1579,
+   "score": 7.410492817219757
   },
   {
    "tconst": "tt0060545",
    "title": "I Knew Her Well",
    "year": 1965,
    "rating": 7.6,
-   "votes": 3876,
-   "score": 7.402617099181656
+   "votes": 3899,
+   "score": 7.403543779467187
+  },
+  {
+   "tconst": "tt0059817",
+   "title": "Tokyo Olympiad",
+   "year": 1965,
+   "rating": 7.7,
+   "votes": 2490,
+   "score": 7.395576210776434
   },
   {
    "tconst": "tt0059592",
    "title": "Pierrot le Fou",
    "year": 1965,
    "rating": 7.4,
-   "votes": 40576,
-   "score": 7.381661558966947
+   "votes": 40642,
+   "score": 7.381690624264199
   },
   {
    "tconst": "tt0059619",
    "title": "Fists in the Pocket",
    "year": 1965,
    "rating": 7.5,
-   "votes": 5784,
-   "score": 7.372871606074551
+   "votes": 5793,
+   "score": 7.373040037628405
   },
   {
    "tconst": "tt0059358",
    "title": "King Rat",
    "year": 1965,
    "rating": 7.5,
-   "votes": 5610,
-   "score": 7.369525109774546
+   "votes": 5620,
+   "score": 7.369722201753739
   },
   {
    "tconst": "tt0059229",
    "title": "Juliet of the Spirits",
    "year": 1965,
    "rating": 7.4,
-   "votes": 15885,
-   "score": 7.354845186592227
+   "votes": 15917,
+   "score": 7.354930600910905
   },
   {
    "tconst": "tt0059348",
    "title": "The Coward",
    "year": 1965,
    "rating": 7.6,
-   "votes": 2758,
-   "score": 7.34389594880515
+   "votes": 2766,
+   "score": 7.344439982902218
   },
   {
    "tconst": "tt0059415",
    "title": "Loves of a Blonde",
    "year": 1965,
    "rating": 7.4,
-   "votes": 10355,
-   "score": 7.332854335148371
+   "votes": 10374,
+   "score": 7.332966500405289
   },
   {
    "tconst": "tt0411821",
@@ -313,216 +313,216 @@
    "title": "I Am Twenty",
    "year": 1965,
    "rating": 7.7,
-   "votes": 1813,
-   "score": 7.322311047141753
+   "votes": 1821,
+   "score": 7.32338212534908
   },
   {
    "tconst": "tt0200768",
    "title": "Sword of the Beast",
    "year": 1965,
    "rating": 7.5,
-   "votes": 3427,
-   "score": 7.305186576826237
+   "votes": 3430,
+   "score": 7.305318504652314
   },
   {
    "tconst": "tt0059309",
    "title": "In Harm's Way",
    "year": 1965,
    "rating": 7.3,
-   "votes": 11599,
-   "score": 7.2474213013421505
+   "votes": 11621,
+   "score": 7.2475129526669635
   },
   {
    "tconst": "tt0058997",
    "title": "Bunny Lake Is Missing",
    "year": 1965,
    "rating": 7.3,
-   "votes": 11393,
-   "score": 7.2465473231348145
+   "votes": 11422,
+   "score": 7.2466721120278335
   },
   {
    "tconst": "tt0059893",
    "title": "Waqt",
    "year": 1965,
    "rating": 7.6,
-   "votes": 1719,
-   "score": 7.24603198808744
+   "votes": 1718,
+   "score": 7.245901757030815
   },
   {
    "tconst": "tt0059711",
    "title": "Shenandoah",
    "year": 1965,
    "rating": 7.3,
-   "votes": 10633,
-   "score": 7.243055185731088
+   "votes": 10659,
+   "score": 7.243182174767111
   },
   {
    "tconst": "tt0057967",
    "title": "The Sucker",
    "year": 1965,
    "rating": 7.3,
-   "votes": 9115,
-   "score": 7.234509241286184
+   "votes": 9133,
+   "score": 7.234625577381797
   },
   {
    "tconst": "tt0196750",
    "title": "Mia trelli... trelli oikogeneia",
    "year": 1965,
    "rating": 7.6,
-   "votes": 1566,
-   "score": 7.224926334999903
+   "votes": 1568,
+   "score": 7.225218448446165
   },
   {
    "tconst": "tt0059829",
    "title": "Three",
    "year": 1965,
    "rating": 7.7,
-   "votes": 1198,
-   "score": 7.21663374686522
+   "votes": 1202,
+   "score": 7.217511796371367
   },
   {
    "tconst": "tt0058962",
    "title": "The Bedford Incident",
    "year": 1965,
    "rating": 7.3,
-   "votes": 6761,
-   "score": 7.21464514567836
+   "votes": 6769,
+   "score": 7.21473303843606
   },
   {
    "tconst": "tt0060736",
    "title": "The Naked Prey",
    "year": 1965,
    "rating": 7.3,
-   "votes": 6384,
-   "score": 7.210287239383769
+   "votes": 6389,
+   "score": 7.210347946354006
   },
   {
    "tconst": "tt0059934",
    "title": "Yoyo",
    "year": 1965,
    "rating": 7.5,
-   "votes": 1952,
-   "score": 7.207845858946394
+   "votes": 1954,
+   "score": 7.208043661343857
   },
   {
    "tconst": "tt0059673",
    "title": "Samurai Assassin",
    "year": 1965,
    "rating": 7.4,
-   "votes": 2760,
-   "score": 7.197223663725998
+   "votes": 2762,
+   "score": 7.197331466137627
   },
   {
    "tconst": "tt0059243",
    "title": "The Great Race",
    "year": 1965,
    "rating": 7.2,
-   "votes": 21803,
-   "score": 7.175334867149487
+   "votes": 21849,
+   "score": 7.175384523419395
   },
   {
    "tconst": "tt0059037",
    "title": "The Cincinnati Kid",
    "year": 1965,
    "rating": 7.2,
-   "votes": 19935,
-   "score": 7.173134032749451
+   "votes": 19974,
+   "score": 7.173183988538655
   },
   {
    "tconst": "tt0059798",
    "title": "A Thousand Clowns",
    "year": 1965,
    "rating": 7.3,
-   "votes": 3993,
-   "score": 7.167326452154967
+   "votes": 3999,
+   "score": 7.167485692260403
   },
   {
    "tconst": "tt0058886",
    "title": "The Agony and the Ecstasy",
    "year": 1965,
    "rating": 7.2,
-   "votes": 8915,
-   "score": 7.143273925931393
+   "votes": 8929,
+   "score": 7.143353910324278
   },
   {
    "tconst": "tt0059448",
    "title": "Mirage",
    "year": 1965,
    "rating": 7.2,
-   "votes": 6804,
-   "score": 7.127929392056606
+   "votes": 6826,
+   "score": 7.1281319927945
   },
   {
    "tconst": "tt0057892",
    "title": "Blood on the Land",
    "year": 1965,
    "rating": 7.5,
-   "votes": 1160,
-   "score": 7.100722673893404
+   "votes": 1164,
+   "score": 7.101460709616337
   },
   {
    "tconst": "tt0056537",
    "title": "Subarnarekha",
    "year": 1965,
    "rating": 7.4,
-   "votes": 1488,
-   "score": 7.093553446788485
+   "votes": 1491,
+   "score": 7.093922511284525
   },
   {
    "tconst": "tt0122130",
    "title": "Brick and Mirror",
    "year": 1965,
    "rating": 7.5,
-   "votes": 1067,
-   "score": 7.082758091731859
+   "votes": 1085,
+   "score": 7.086360180148562
   },
   {
    "tconst": "tt0059260",
    "title": "Help!",
    "year": 1965,
    "rating": 7.1,
-   "votes": 21427,
-   "score": 7.079380254853959
+   "votes": 21457,
+   "score": 7.079407800490259
   },
   {
    "tconst": "tt0059740",
    "title": "The Sons of Katie Elder",
    "year": 1965,
    "rating": 7.1,
-   "votes": 19854,
-   "score": 7.07782492450416
+   "votes": 19893,
+   "score": 7.077866317695388
   },
   {
    "tconst": "tt0059319",
    "title": "The Ipcress File",
    "year": 1965,
    "rating": 7.1,
-   "votes": 19822,
-   "score": 7.077790845048974
+   "votes": 19853,
+   "score": 7.0778238611043855
   },
   {
    "tconst": "tt0059885",
    "title": "Von Ryan's Express",
    "year": 1965,
    "rating": 7.1,
-   "votes": 16366,
-   "score": 7.0733710109184464
+   "votes": 16392,
+   "score": 7.073410819664773
   },
   {
    "tconst": "tt0058863",
    "title": "The 317th Platoon",
    "year": 1965,
    "rating": 7.3,
-   "votes": 1902,
-   "score": 7.071730177673932
+   "votes": 1907,
+   "score": 7.072122798627366
   },
   {
    "tconst": "tt0059715",
    "title": "Story of a Prostitute",
    "year": 1965,
    "rating": 7.3,
-   "votes": 1803,
-   "score": 7.063667847167233
+   "votes": 1808,
+   "score": 7.06408866652769
   },
   {
    "tconst": "tt0059942",
@@ -530,7 +530,7 @@
    "year": 1965,
    "rating": 7.3,
    "votes": 1765,
-   "score": 7.060419882679838
+   "score": 7.060419882679839
   },
   {
    "tconst": "tt0123335",
@@ -538,47 +538,47 @@
    "year": 1965,
    "rating": 7.3,
    "votes": 1693,
-   "score": 7.0540144729334395
-  },
-  {
-   "tconst": "tt0059496",
-   "title": "The Nanny",
-   "year": 1965,
-   "rating": 7.1,
-   "votes": 7474,
-   "score": 7.04542848425888
+   "score": 7.05401447293344
   },
   {
    "tconst": "tt0059050",
    "title": "The Sleeping Car Murder",
    "year": 1965,
    "rating": 7.2,
-   "votes": 2638,
-   "score": 7.045398838815215
+   "votes": 2647,
+   "score": 7.045780360737525
+  },
+  {
+   "tconst": "tt0059496",
+   "title": "The Nanny",
+   "year": 1965,
+   "rating": 7.1,
+   "votes": 7493,
+   "score": 7.045550568186712
   },
   {
    "tconst": "tt0193715",
    "title": "Love at Sea",
    "year": 1965,
    "rating": 7.4,
-   "votes": 1039,
-   "score": 7.026072082201939
+   "votes": 1045,
+   "score": 7.027169181227263
   },
   {
    "tconst": "tt0059856",
    "title": "Sandra",
    "year": 1965,
    "rating": 7.1,
-   "votes": 2599,
-   "score": 6.97150902350924
+   "votes": 2610,
+   "score": 6.971900547260319
   },
   {
    "tconst": "tt0059797",
    "title": "Those Magnificent Men in Their Flying Machines or How I Flew from London to Paris in 25 Hours 11 Minutes",
    "year": 1965,
    "rating": 7,
-   "votes": 9990,
-   "score": 6.9670210168889675
+   "votes": 10011,
+   "score": 6.967083913868835
   },
   {
    "tconst": "tt0059633",
@@ -586,375 +586,375 @@
    "year": 1965,
    "rating": 7.2,
    "votes": 1408,
-   "score": 6.966428976582123
+   "score": 6.966428976582124
   },
   {
    "tconst": "tt0059084",
    "title": "Darling",
    "year": 1965,
    "rating": 7,
-   "votes": 8888,
-   "score": 6.9633455679216985
+   "votes": 8930,
+   "score": 6.963500601773389
   },
   {
    "tconst": "tt0059712",
    "title": "Ship of Fools",
    "year": 1965,
    "rating": 7,
-   "votes": 7828,
-   "score": 6.958944378750538
+   "votes": 7843,
+   "score": 6.95901401963245
   },
   {
    "tconst": "tt0059470",
    "title": "Morituri",
    "year": 1965,
    "rating": 7,
-   "votes": 4973,
-   "score": 6.9393204379055335
+   "votes": 4978,
+   "score": 6.93937119029939
   },
   {
    "tconst": "tt0060543",
    "title": "Intimate Lighting",
    "year": 1965,
    "rating": 7.1,
-   "votes": 1850,
-   "score": 6.937740693196404
+   "votes": 1855,
+   "score": 6.938024860108495
   },
   {
    "tconst": "tt0059459",
    "title": "The Moment of Truth",
    "year": 1965,
    "rating": 7.2,
-   "votes": 1144,
-   "score": 6.937668365489623
+   "votes": 1146,
+   "score": 6.937912849771553
   },
   {
    "tconst": "tt0059051",
    "title": "I complessi",
    "year": 1965,
    "rating": 7.2,
-   "votes": 1088,
-   "score": 6.930632651154095
+   "votes": 1089,
+   "score": 6.930761596749523
   },
   {
    "tconst": "tt0059063",
    "title": "Man Is Not a Bird",
    "year": 1965,
    "rating": 7.1,
-   "votes": 1569,
-   "score": 6.919992594632056
+   "votes": 1572,
+   "score": 6.920202556613434
   },
   {
    "tconst": "tt0059729",
    "title": "The Slender Thread",
    "year": 1965,
    "rating": 7,
-   "votes": 2723,
-   "score": 6.90264866387584
+   "votes": 2727,
+   "score": 6.902753146125503
   },
   {
    "tconst": "tt0059800",
    "title": "Thunderball",
    "year": 1965,
    "rating": 6.9,
-   "votes": 139275,
-   "score": 6.898129110501586
+   "votes": 139435,
+   "score": 6.898131242038023
   },
   {
    "tconst": "tt0058898",
    "title": "Alphaville",
    "year": 1965,
    "rating": 6.9,
-   "votes": 30394,
-   "score": 6.891640471924882
+   "votes": 30435,
+   "score": 6.891651375079044
   },
   {
    "tconst": "tt0059303",
    "title": "Samurai Spy",
    "year": 1965,
    "rating": 7,
-   "votes": 2038,
-   "score": 6.880698148653638
+   "votes": 2040,
+   "score": 6.880776636713735
   },
   {
    "tconst": "tt0059417",
    "title": "The Holy Man",
    "year": 1965,
    "rating": 7,
-   "votes": 1922,
-   "score": 6.875962003973221
+   "votes": 1926,
+   "score": 6.876131570611673
   },
   {
    "tconst": "tt0247394",
    "title": "Gumnaam",
    "year": 1965,
    "rating": 7,
-   "votes": 1906,
-   "score": 6.875279069377066
+   "votes": 1909,
+   "score": 6.875407691856223
   },
   {
    "tconst": "tt0059116",
    "title": "The Possessed",
    "year": 1965,
    "rating": 7,
-   "votes": 1875,
-   "score": 6.873934252386
+   "votes": 1884,
+   "score": 6.8743276614458235
   },
   {
    "tconst": "tt0059555",
    "title": "Othello",
    "year": 1965,
    "rating": 7,
-   "votes": 1807,
-   "score": 6.8708802905627895
+   "votes": 1808,
+   "score": 6.870926273365297
   },
   {
    "tconst": "tt0059649",
    "title": "Return from the Ashes",
    "year": 1965,
    "rating": 7,
-   "votes": 1487,
-   "score": 6.854266576441396
+   "votes": 1489,
+   "score": 6.854383678428989
   },
   {
    "tconst": "tt0059410",
    "title": "The Loved One",
    "year": 1965,
    "rating": 6.9,
-   "votes": 4315,
-   "score": 6.8506229493151
+   "votes": 4319,
+   "score": 6.850660081896927
   },
   {
    "tconst": "tt0059320",
    "title": "Tattooed Life",
    "year": 1965,
    "rating": 7,
-   "votes": 1284,
-   "score": 6.841313912263464
+   "votes": 1286,
+   "score": 6.841452745236112
   },
   {
    "tconst": "tt0059049",
    "title": "Don Camillo in Moscow",
    "year": 1965,
    "rating": 6.9,
-   "votes": 2195,
-   "score": 6.817859460284742
+   "votes": 2197,
+   "score": 6.81791084629645
   },
   {
    "tconst": "tt0059159",
    "title": "The Pleasures of the Flesh",
    "year": 1965,
    "rating": 6.9,
-   "votes": 1847,
-   "score": 6.8078190992658065
+   "votes": 1846,
+   "score": 6.8077867096309745
   },
   {
    "tconst": "tt0058947",
    "title": "Battle of the Bulge",
    "year": 1965,
    "rating": 6.8,
-   "votes": 19306,
-   "score": 6.792000442017618
+   "votes": 19342,
+   "score": 6.792014599135275
   },
   {
    "tconst": "tt0059168",
    "title": "Fantomas Unleashed",
    "year": 1965,
    "rating": 6.8,
-   "votes": 9407,
-   "score": 6.784391368848828
+   "votes": 9430,
+   "score": 6.784425788649065
   },
   {
    "tconst": "tt0059793",
    "title": "That Darn Cat!",
    "year": 1965,
    "rating": 6.8,
-   "votes": 8898,
-   "score": 6.783588702324686
+   "votes": 8911,
+   "score": 6.7836102285954745
   },
   {
    "tconst": "tt0059241",
    "title": "The Wise Guys",
    "year": 1965,
    "rating": 6.9,
-   "votes": 1232,
-   "score": 6.782419791939853
+   "votes": 1235,
+   "score": 6.782577617722485
   },
   {
    "tconst": "tt0060050",
    "title": "7 Women",
    "year": 1965,
    "rating": 6.8,
-   "votes": 3103,
-   "score": 6.76040969427486
+   "votes": 3110,
+   "score": 6.760477123019404
   },
   {
    "tconst": "tt0202154",
    "title": "Zatoichi and the Doomed Man",
    "year": 1965,
    "rating": 6.8,
-   "votes": 1527,
-   "score": 6.73571862905016
+   "votes": 1526,
+   "score": 6.735693181159839
   },
   {
    "tconst": "tt0059709",
    "title": "Shakespeare-Wallah",
    "year": 1965,
    "rating": 6.8,
-   "votes": 1021,
-   "score": 6.719624431276473
+   "votes": 1023,
+   "score": 6.719703893034974
   },
   {
    "tconst": "tt0059017",
    "title": "Cat Ballou",
    "year": 1965,
    "rating": 6.7,
-   "votes": 17637,
-   "score": 6.696649727724943
+   "votes": 17662,
+   "score": 6.696654215818763
   },
   {
    "tconst": "tt0059418",
    "title": "Major Dundee",
    "year": 1965,
    "rating": 6.7,
-   "votes": 9714,
-   "score": 6.694172202315639
+   "votes": 9737,
+   "score": 6.694184686188857
   },
   {
    "tconst": "tt0059399",
    "title": "Lord Jim",
    "year": 1965,
    "rating": 6.7,
-   "votes": 4608,
-   "score": 6.68886607981629
+   "votes": 4614,
+   "score": 6.688877979267858
   },
   {
    "tconst": "tt0058926",
    "title": "Att angöra en brygga",
    "year": 1965,
    "rating": 6.7,
-   "votes": 3005,
-   "score": 6.684409731737765
+   "votes": 3016,
+   "score": 6.684452434165776
   },
   {
    "tconst": "tt0060903",
    "title": "The Return of Ringo",
    "year": 1965,
    "rating": 6.7,
-   "votes": 2349,
-   "score": 6.681355919859586
+   "votes": 2352,
+   "score": 6.6813726060888285
   },
   {
    "tconst": "tt0059675",
    "title": "Sands of the Kalahari",
    "year": 1965,
    "rating": 6.7,
-   "votes": 1770,
-   "score": 6.6774588359601985
+   "votes": 1772,
+   "score": 6.677475099426318
   },
   {
    "tconst": "tt0059565",
    "title": "Six in Paris",
    "year": 1965,
    "rating": 6.7,
-   "votes": 1598,
-   "score": 6.675966503313992
+   "votes": 1602,
+   "score": 6.676003449504132
   },
   {
    "tconst": "tt0129222",
    "title": "The Man Who Had His Hair Cut Short",
    "year": 1965,
    "rating": 6.7,
-   "votes": 1231,
-   "score": 6.6720129877228835
+   "votes": 1236,
+   "score": 6.672075570487367
   },
   {
    "tconst": "tt0059143",
    "title": "The Early Bird",
    "year": 1965,
    "rating": 6.6,
-   "votes": 1455,
-   "score": 6.615299786399084
+   "votes": 1459,
+   "score": 6.615274898580623
   },
   {
    "tconst": "tt0059909",
    "title": "Who Killed Teddy Bear",
    "year": 1965,
    "rating": 6.6,
-   "votes": 1850,
-   "score": 6.613179289687632
+   "votes": 1861,
+   "score": 6.613128617829343
   },
   {
    "tconst": "tt0059915",
    "title": "The Desperado Trail",
    "year": 1965,
    "rating": 6.6,
-   "votes": 3280,
-   "score": 6.608775928880783
+   "votes": 3289,
+   "score": 6.6087575135485555
   },
   {
    "tconst": "tt0059896",
    "title": "The War Lord",
    "year": 1965,
    "rating": 6.6,
-   "votes": 4072,
-   "score": 6.607405555128106
+   "votes": 4080,
+   "score": 6.607393892836566
   },
   {
    "tconst": "tt0059095",
    "title": "The 10th Victim",
    "year": 1965,
    "rating": 6.6,
-   "votes": 5835,
-   "score": 6.605495387799524
+   "votes": 5853,
+   "score": 6.605480953685941
   },
   {
    "tconst": "tt0061075",
    "title": "Ten Little Indians",
    "year": 1965,
    "rating": 6.6,
-   "votes": 6075,
-   "score": 6.605308971817632
+   "votes": 6085,
+   "score": 6.6053014785617155
   },
   {
    "tconst": "tt0059549",
    "title": "Operation Crossbow",
    "year": 1965,
    "rating": 6.6,
-   "votes": 6310,
-   "score": 6.6051383003570106
+   "votes": 6323,
+   "score": 6.605129178698586
   },
   {
    "tconst": "tt0059125",
    "title": "Dr. Terror's House of Horrors",
    "year": 1965,
    "rating": 6.6,
-   "votes": 8785,
-   "score": 6.603838628064359
+   "votes": 8805,
+   "score": 6.603830798124401
   },
   {
    "tconst": "tt0059245",
    "title": "The Greatest Story Ever Told",
    "year": 1965,
    "rating": 6.6,
-   "votes": 13597,
-   "score": 6.6025731983016875
+   "votes": 13624,
+   "score": 6.602568447456903
   },
   {
    "tconst": "tt0059170",
    "title": "Faster, Pussycat! Kill! Kill!",
    "year": 1965,
    "rating": 6.6,
-   "votes": 17563,
-   "score": 6.602023432398306
+   "votes": 17589,
+   "score": 6.602020602270684
   },
   {
    "tconst": "tt0058990",
    "title": "Brainstorm",
    "year": 1965,
    "rating": 6.5,
-   "votes": 1125,
-   "score": 6.56473457675753
+   "votes": 1129,
+   "score": 6.564612952376586
   },
   {
    "tconst": "tt0059794",
@@ -969,88 +969,96 @@
    "title": "Young Cassidy",
    "year": 1965,
    "rating": 6.5,
-   "votes": 1474,
-   "score": 6.555602657885914
+   "votes": 1478,
+   "score": 6.555512903797318
   },
   {
    "tconst": "tt0058343",
    "title": "Merveilleuse Angélique",
    "year": 1965,
    "rating": 6.5,
-   "votes": 1994,
-   "score": 6.5459455496358565
+   "votes": 2001,
+   "score": 6.5458383790768915
+  },
+  {
+   "tconst": "tt0059518",
+   "title": "None But the Brave",
+   "year": 1965,
+   "rating": 6.5,
+   "votes": 2350,
+   "score": 6.541062977793956
   },
   {
    "tconst": "tt0059540",
    "title": "Once a Thief",
    "year": 1965,
    "rating": 6.5,
-   "votes": 2441,
-   "score": 6.539977034469559
+   "votes": 2443,
+   "score": 6.5399538122595855
   },
   {
    "tconst": "tt0059269",
    "title": "A High Wind in Jamaica",
    "year": 1965,
    "rating": 6.5,
-   "votes": 2483,
-   "score": 6.539494968593096
+   "votes": 2490,
+   "score": 6.539415752323711
   },
   {
    "tconst": "tt0059601",
    "title": "A Pistol for Ringo",
    "year": 1965,
    "rating": 6.5,
-   "votes": 2644,
-   "score": 6.537749993306738
+   "votes": 2648,
+   "score": 6.537708600770218
   },
   {
    "tconst": "tt0059764",
    "title": "A Study in Terror",
    "year": 1965,
    "rating": 6.5,
-   "votes": 2893,
-   "score": 6.535335467662407
+   "votes": 2899,
+   "score": 6.535281091461849
+  },
+  {
+   "tconst": "tt0059250",
+   "title": "The Hallelujah Trail",
+   "year": 1965,
+   "rating": 6.5,
+   "votes": 5020,
+   "score": 6.522850660400292
   },
   {
    "tconst": "tt0058969",
    "title": "The Big Job",
    "year": 1965,
    "rating": 6.4,
-   "votes": 1058,
-   "score": 6.515432932754981
+   "votes": 1059,
+   "score": 6.515376870135869
   },
   {
    "tconst": "tt0059263",
    "title": "The Heroes of Telemark",
    "year": 1965,
    "rating": 6.5,
-   "votes": 9215,
-   "score": 6.513466566383726
+   "votes": 9234,
+   "score": 6.513441564941347
   },
   {
    "tconst": "tt0059114",
    "title": "Blood for a Silver Dollar",
    "year": 1965,
    "rating": 6.4,
-   "votes": 1401,
-   "score": 6.498942513789984
+   "votes": 1405,
+   "score": 6.4987779524364875
   },
   {
    "tconst": "tt0059015",
    "title": "Casanova 70",
    "year": 1965,
    "rating": 6.4,
-   "votes": 1528,
-   "score": 6.493971904908921
-  },
-  {
-   "tconst": "tt0059518",
-   "title": "None But the Brave",
-   "year": 1965,
-   "rating": 6.4,
-   "votes": 2347,
-   "score": 6.4709772858111005
+   "votes": 1532,
+   "score": 6.493823450082841
   },
   {
    "tconst": "tt0059813",
@@ -1058,7 +1066,7 @@
    "year": 1965,
    "rating": 6.3,
    "votes": 1168,
-   "score": 6.455701557015568
+   "score": 6.455701557015569
   },
   {
    "tconst": "tt0059224",
@@ -1066,119 +1074,111 @@
    "year": 1965,
    "rating": 6.4,
    "votes": 3295,
-   "score": 6.455311053692609
+   "score": 6.4553110536926095
   },
   {
    "tconst": "tt0058981",
    "title": "Boeing, Boeing",
    "year": 1965,
    "rating": 6.4,
-   "votes": 3891,
-   "score": 6.448571043878502
-  },
-  {
-   "tconst": "tt0059250",
-   "title": "The Hallelujah Trail",
-   "year": 1965,
-   "rating": 6.4,
-   "votes": 5012,
-   "score": 6.439514467000958
+   "votes": 3902,
+   "score": 6.448462051327979
   },
   {
    "tconst": "tt0058374",
    "title": "Frosty",
    "year": 1965,
    "rating": 6.4,
-   "votes": 6138,
-   "score": 6.433281167779455
+   "votes": 6151,
+   "score": 6.4332206650272346
   },
   {
    "tconst": "tt0058212",
    "title": "How to Murder Your Wife",
    "year": 1965,
    "rating": 6.4,
-   "votes": 8208,
-   "score": 6.425799410904622
+   "votes": 8217,
+   "score": 6.4257742189009175
   },
   {
    "tconst": "tt0060450",
    "title": "The Gendarme in New York",
    "year": 1965,
    "rating": 6.4,
-   "votes": 9376,
-   "score": 6.422895236662467
+   "votes": 9389,
+   "score": 6.422866587314443
   },
   {
    "tconst": "tt0059501",
    "title": "Again the Ringer",
    "year": 1965,
    "rating": 6.2,
-   "votes": 1064,
-   "score": 6.411996596710151
+   "votes": 1066,
+   "score": 6.411791372511981
   },
   {
    "tconst": "tt0059094",
    "title": "Dear Brigitte",
    "year": 1965,
    "rating": 6.3,
-   "votes": 2073,
-   "score": 6.409847372473072
+   "votes": 2082,
+   "score": 6.4095265981861616
   },
   {
    "tconst": "tt0059447",
    "title": "Mickey One",
    "year": 1965,
    "rating": 6.3,
-   "votes": 2136,
-   "score": 6.407640617222498
+   "votes": 2142,
+   "score": 6.407435065439131
   },
   {
    "tconst": "tt0058930",
    "title": "Baby the Rain Must Fall",
    "year": 1965,
    "rating": 6.3,
-   "votes": 2291,
-   "score": 6.402570943667503
+   "votes": 2294,
+   "score": 6.402477527507514
   },
   {
    "tconst": "tt0058621",
    "title": "Strange Bedfellows",
    "year": 1965,
    "rating": 6.2,
-   "votes": 1354,
-   "score": 6.385879768738212
+   "votes": 1356,
+   "score": 6.38572197606526
   },
   {
    "tconst": "tt0059106",
    "title": "Die! Die! My Darling!",
    "year": 1965,
    "rating": 6.3,
-   "votes": 3656,
-   "score": 6.3725002095381775
+   "votes": 3663,
+   "score": 6.372391373710005
   },
   {
    "tconst": "tt0059477",
    "title": "Mudhoney",
    "year": 1965,
    "rating": 6.2,
-   "votes": 1609,
-   "score": 6.367712140900633
+   "votes": 1611,
+   "score": 6.36758367507076
   },
   {
    "tconst": "tt0059674",
    "title": "The Sandpiper",
    "year": 1965,
    "rating": 6.3,
-   "votes": 4266,
-   "score": 6.36410197030189
+   "votes": 4268,
+   "score": 6.3640776339426255
   },
   {
    "tconst": "tt0059956",
    "title": "Viva Maria!",
    "year": 1965,
    "rating": 6.3,
-   "votes": 4462,
-   "score": 6.361801716515883
+   "votes": 4469,
+   "score": 6.361722613934861
   },
   {
    "tconst": "tt0058920",
@@ -1193,24 +1193,24 @@
    "title": "The Glory Guys",
    "year": 1965,
    "rating": 6.1,
-   "votes": 1199,
-   "score": 6.344457014829356
+   "votes": 1202,
+   "score": 6.344123967125228
   },
   {
    "tconst": "tt0059166",
    "title": "The Family Jewels",
    "year": 1965,
    "rating": 6.2,
-   "votes": 2723,
-   "score": 6.31752913661288
+   "votes": 2724,
+   "score": 6.317497576694349
   },
   {
    "tconst": "tt0059831",
    "title": "Up to His Ears",
    "year": 1965,
    "rating": 6.2,
-   "votes": 2750,
-   "score": 6.316682926829268
+   "votes": 2757,
+   "score": 6.316465524516836
   },
   {
    "tconst": "tt0180843",
@@ -1225,56 +1225,56 @@
    "title": "Two on a Guillotine",
    "year": 1965,
    "rating": 6.1,
-   "votes": 1682,
-   "score": 6.300432876811987
+   "votes": 1683,
+   "score": 6.300358172049852
   },
   {
    "tconst": "tt0059014",
    "title": "Carry on Cowboy",
    "year": 1965,
    "rating": 6.2,
-   "votes": 3758,
-   "score": 6.291963214714114
+   "votes": 3762,
+   "score": 6.291885967158706
   },
   {
    "tconst": "tt0059297",
    "title": "I Saw What You Did",
    "year": 1965,
    "rating": 6.2,
-   "votes": 3802,
-   "score": 6.291120569681331
+   "votes": 3806,
+   "score": 6.291044730672025
   },
   {
    "tconst": "tt0059362",
    "title": "The Knack... and How to Get It",
    "year": 1965,
    "rating": 6.2,
-   "votes": 4127,
-   "score": 6.285344446188756
+   "votes": 4129,
+   "score": 6.285311167013015
   },
   {
    "tconst": "tt0059727",
    "title": "The Skull",
    "year": 1965,
    "rating": 6.2,
-   "votes": 4298,
-   "score": 6.282589840620943
+   "votes": 4313,
+   "score": 6.282356667722521
   },
   {
    "tconst": "tt0059314",
    "title": "Inside Daisy Clover",
    "year": 1965,
    "rating": 6.2,
-   "votes": 4728,
-   "score": 6.2763898351274
+   "votes": 4735,
+   "score": 6.276296595572755
   },
   {
    "tconst": "tt0059661",
    "title": "The Rounders",
    "year": 1965,
    "rating": 6.1,
-   "votes": 2141,
-   "score": 6.271143258710522
+   "votes": 2143,
+   "score": 6.271034354314271
   },
   {
    "tconst": "tt0059462",
@@ -1289,32 +1289,32 @@
    "title": "Planet of the Vampires",
    "year": 1965,
    "rating": 6.2,
-   "votes": 8348,
-   "score": 6.246807977707505
+   "votes": 8369,
+   "score": 6.246703060690549
   },
   {
    "tconst": "tt0059346",
    "title": "Invasion of Astro-Monster",
    "year": 1965,
    "rating": 6.2,
-   "votes": 8762,
-   "score": 6.244822882156295
+   "votes": 8784,
+   "score": 6.244722094808846
   },
   {
    "tconst": "tt0059678",
    "title": "The Satan Bug",
    "year": 1965,
    "rating": 6.1,
-   "votes": 3610,
-   "score": 6.216607586900162
+   "votes": 3615,
+   "score": 6.216481251486403
   },
   {
    "tconst": "tt0058917",
    "title": "Arizona Raiders",
    "year": 1965,
    "rating": 5.9,
-   "votes": 1405,
-   "score": 6.206678160336695
+   "votes": 1412,
+   "score": 6.205788132508189
   },
   {
    "tconst": "tt0059390",
@@ -1329,16 +1329,16 @@
    "title": "Motorpsycho!",
    "year": 1965,
    "rating": 5.9,
-   "votes": 1882,
-   "score": 6.155919838865286
+   "votes": 1885,
+   "score": 6.155653717715686
   },
   {
    "tconst": "tt0059112",
    "title": "Do Not Disturb",
    "year": 1965,
    "rating": 5.9,
-   "votes": 2038,
-   "score": 6.142778464651005
+   "votes": 2042,
+   "score": 6.14245922932602
   },
   {
    "tconst": "tt0059905",
@@ -1346,47 +1346,47 @@
    "year": 1965,
    "rating": 5.6,
    "votes": 1000,
-   "score": 6.118780487804876
+   "score": 6.118780487804877
   },
   {
    "tconst": "tt0059958",
    "title": "The Oil Prince",
    "year": 1965,
    "rating": 5.8,
-   "votes": 1883,
-   "score": 6.090517161154962
+   "votes": 1888,
+   "score": 6.090014188230524
   },
   {
    "tconst": "tt0059538",
    "title": "Flaming Frontier",
    "year": 1965,
    "rating": 5.8,
-   "votes": 1949,
-   "score": 6.084015251139285
+   "votes": 1951,
+   "score": 6.083822763676636
   },
   {
    "tconst": "tt0059431",
    "title": "Marriage on the Rocks",
    "year": 1965,
    "rating": 5.7,
-   "votes": 1478,
-   "score": 6.07835390460442
+   "votes": 1479,
+   "score": 6.078201281004338
   },
   {
    "tconst": "tt0059065",
    "title": "Crack in the World",
    "year": 1965,
    "rating": 5.9,
-   "votes": 3508,
-   "score": 6.063611574003938
+   "votes": 3521,
+   "score": 6.063141113826533
   },
   {
    "tconst": "tt0059162",
    "title": "The Face of Fu Manchu",
    "year": 1965,
    "rating": 5.8,
-   "votes": 2229,
-   "score": 6.059387109200914
+   "votes": 2235,
+   "score": 6.0589060202812215
   },
   {
    "tconst": "tt0056585",
@@ -1394,215 +1394,215 @@
    "year": 1965,
    "rating": 5.8,
    "votes": 2315,
-   "score": 6.052657911194495
+   "score": 6.052657911194496
   },
   {
    "tconst": "tt0059641",
    "title": "Red Line 7000",
    "year": 1965,
    "rating": 5.6,
-   "votes": 1305,
-   "score": 6.050134913496638
+   "votes": 1308,
+   "score": 6.049549816122076
   },
   {
    "tconst": "tt0059903",
    "title": "What's New Pussycat",
    "year": 1965,
    "rating": 6,
-   "votes": 12115,
-   "score": 6.048613112894377
+   "votes": 12127,
+   "score": 6.048568673391465
   },
   {
    "tconst": "tt0059219",
    "title": "Genghis Khan",
    "year": 1965,
    "rating": 5.8,
-   "votes": 2698,
-   "score": 6.026490258412588
+   "votes": 2699,
+   "score": 6.02642902828055
   },
   {
    "tconst": "tt0059252",
    "title": "Harlow",
    "year": 1965,
    "rating": 5.5,
-   "votes": 1280,
-   "score": 5.998930252460417
+   "votes": 1281,
+   "score": 5.998711519337901
   },
   {
    "tconst": "tt0059710",
    "title": "She",
    "year": 1965,
    "rating": 5.8,
-   "votes": 4064,
-   "score": 5.9653951373636955
+   "votes": 4067,
+   "score": 5.965297212474788
   },
   {
    "tconst": "tt0060049",
    "title": "Terror-Creatures from the Grave",
    "year": 1965,
    "rating": 5.5,
-   "votes": 1456,
-   "score": 5.963176293000713
+   "votes": 1462,
+   "score": 5.96204751243288
   },
   {
    "tconst": "tt0059377",
    "title": "Lady L",
    "year": 1965,
    "rating": 5.5,
-   "votes": 1474,
-   "score": 5.959806376560126
+   "votes": 1475,
+   "score": 5.95962059620596
   },
   {
    "tconst": "tt0059298",
    "title": "I'll Take Sweden",
    "year": 1965,
    "rating": 5.3,
-   "votes": 1099,
-   "score": 5.937237244216176
+   "votes": 1103,
+   "score": 5.936025190494414
   },
   {
    "tconst": "tt0060097",
    "title": "Nightmare Castle",
    "year": 1965,
    "rating": 5.7,
-   "votes": 3056,
-   "score": 5.931154086688794
+   "votes": 3064,
+   "score": 5.930699058959092
   },
   {
    "tconst": "tt0058953",
    "title": "Beach Blanket Bingo",
    "year": 1965,
    "rating": 5.7,
-   "votes": 3428,
-   "score": 5.911734637671579
+   "votes": 3433,
+   "score": 5.911495821251918
   },
   {
    "tconst": "tt0059205",
    "title": "Frankenstein vs. Baragon",
    "year": 1965,
    "rating": 5.5,
-   "votes": 2716,
-   "score": 5.806125127989707
+   "votes": 2727,
+   "score": 5.805221619428428
   },
   {
    "tconst": "tt0059465",
    "title": "Die, Monster, Die!",
    "year": 1965,
    "rating": 5.6,
-   "votes": 4184,
-   "score": 5.800146793134597
+   "votes": 4191,
+   "score": 5.799876897632394
   },
   {
    "tconst": "tt0059126",
    "title": "Dr. Who and the Daleks",
    "year": 1965,
    "rating": 5.6,
-   "votes": 5924,
-   "score": 5.749849938707358
+   "votes": 5939,
+   "score": 5.749526008878765
   },
   {
    "tconst": "tt0059100",
    "title": "Devils of Darkness",
    "year": 1965,
    "rating": 4.9,
-   "votes": 1189,
-   "score": 5.693769289908521
+   "votes": 1194,
+   "score": 5.6919603352824755
   },
   {
    "tconst": "tt0060094",
    "title": "The Alphabet Murders",
    "year": 1965,
    "rating": 5.2,
-   "votes": 2160,
-   "score": 5.654924359370175
+   "votes": 2189,
+   "score": 5.650787386519208
   },
   {
    "tconst": "tt0059895",
    "title": "City in the Sea",
    "year": 1965,
    "rating": 5.3,
-   "votes": 2969,
-   "score": 5.637002009475876
+   "votes": 2973,
+   "score": 5.6366627172438335
   },
   {
    "tconst": "tt0058933",
    "title": "Bad Girls Go to Hell",
    "year": 1965,
    "rating": 4.8,
-   "votes": 1308,
-   "score": 5.596170266728662
+   "votes": 1314,
+   "score": 5.594105866728501
   },
   {
    "tconst": "tt0059044",
    "title": "Color Me Blood Red",
    "year": 1965,
    "rating": 5.1,
-   "votes": 2190,
-   "score": 5.581994036241301
+   "votes": 2192,
+   "score": 5.58169203496546
   },
   {
    "tconst": "tt0059080",
    "title": "Gamera: The Giant Monster",
    "year": 1965,
    "rating": 5.3,
-   "votes": 4335,
-   "score": 5.550714334697236
+   "votes": 4345,
+   "score": 5.55024527139565
   },
   {
    "tconst": "tt0059076",
    "title": "Curse of the Fly",
    "year": 1965,
    "rating": 5.1,
-   "votes": 2812,
-   "score": 5.503347580170449
+   "votes": 2815,
+   "score": 5.503030399897707
   },
   {
    "tconst": "tt0059124",
    "title": "Dr. Goldfoot and the Bikini Machine",
    "year": 1965,
    "rating": 5.1,
-   "votes": 2900,
-   "score": 5.4942464040025
+   "votes": 2907,
+   "score": 5.493540050066484
   },
   {
    "tconst": "tt0059287",
    "title": "How to Stuff a Wild Bikini",
    "year": 1965,
    "rating": 4.8,
-   "votes": 1803,
-   "score": 5.455569381237871
+   "votes": 1807,
+   "score": 5.454635189030906
   },
   {
    "tconst": "tt0059255",
    "title": "Harum Scarum",
    "year": 1965,
    "rating": 4.6,
-   "votes": 2172,
-   "score": 5.2423584412388875
+   "votes": 2174,
+   "score": 5.24195367851599
   },
   {
    "tconst": "tt0059880",
    "title": "Vinyl",
    "year": 1965,
    "rating": 4.1,
-   "votes": 1301,
-   "score": 5.202807899004672
+   "votes": 1303,
+   "score": 5.201850184806666
   },
   {
    "tconst": "tt0058983",
    "title": "Bloody Pit of Horror",
    "year": 1965,
    "rating": 4.5,
-   "votes": 2670,
-   "score": 5.082441682727453
+   "votes": 2675,
+   "score": 5.081649245063878
   },
   {
    "tconst": "tt0058954",
    "title": "The Beach Girls and the Monster",
    "year": 1965,
    "rating": 3.4,
-   "votes": 1240,
-   "score": 4.845339721254353
+   "votes": 1243,
+   "score": 4.8434065874319
   }
  ]
 }

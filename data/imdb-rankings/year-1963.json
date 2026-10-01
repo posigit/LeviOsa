@@ -1,6 +1,6 @@
 {
  "tag": "year-1963",
- "builtAt": "2026-09-15T22:46:38.707Z",
+ "builtAt": "2026-10-01T06:19:54.122Z",
  "mean": 6.735,
  "minVotes": 1000,
  "items": [
@@ -9,584 +9,584 @@
    "title": "High and Low",
    "year": 1963,
    "rating": 8.4,
-   "votes": 73544,
-   "score": 8.377662281912121
+   "votes": 73837,
+   "score": 8.377749738002022
   },
   {
    "tconst": "tt0197042",
    "title": "World Gone Mad",
    "year": 1963,
    "rating": 8.8,
-   "votes": 2756,
-   "score": 8.250174958162178
+   "votes": 2761,
+   "score": 8.250905914080603
   },
   {
    "tconst": "tt0057115",
    "title": "The Great Escape",
    "year": 1963,
    "rating": 8.2,
-   "votes": 280064,
-   "score": 8.194787155746937
+   "votes": 280445,
+   "score": 8.194794212520588
   },
   {
    "tconst": "tt0057277",
    "title": "The Big City",
    "year": 1963,
    "rating": 8.3,
-   "votes": 5734,
-   "score": 8.06757605329034
+   "votes": 5751,
+   "score": 8.068161330596526
   },
   {
    "tconst": "tt0056801",
    "title": "8½",
    "year": 1963,
    "rating": 8,
-   "votes": 133779,
-   "score": 7.990613204897329
+   "votes": 133933,
+   "score": 7.990623918113857
   },
   {
    "tconst": "tt0057358",
    "title": "Winter Light",
    "year": 1963,
    "rating": 8,
-   "votes": 29910,
-   "score": 7.959070111383279
+   "votes": 29962,
+   "score": 7.959138852233614
   },
   {
    "tconst": "tt0057091",
    "title": "The Leopard",
    "year": 1963,
    "rating": 7.9,
-   "votes": 35041,
-   "score": 7.867671738932248
+   "votes": 35104,
+   "score": 7.867728150422589
   },
   {
    "tconst": "tt0056923",
    "title": "Charade",
    "year": 1963,
    "rating": 7.8,
-   "votes": 94734,
-   "score": 7.788873933428636
+   "votes": 94907,
+   "score": 7.788894002970139
   },
   {
    "tconst": "tt0057643",
    "title": "The Executioner",
    "year": 1963,
    "rating": 7.9,
-   "votes": 8302,
-   "score": 7.774742758853702
+   "votes": 8320,
+   "score": 7.7749846719803815
   },
   {
    "tconst": "tt0057163",
    "title": "Hud",
    "year": 1963,
    "rating": 7.8,
-   "votes": 26369,
-   "score": 7.761082141943701
+   "votes": 26421,
+   "score": 7.761155944088732
   },
   {
    "tconst": "tt0056945",
    "title": "The Organizer",
    "year": 1963,
    "rating": 8,
-   "votes": 3841,
-   "score": 7.738660843391271
+   "votes": 3855,
+   "score": 7.73941444755039
   },
   {
    "tconst": "tt0057058",
    "title": "The Fire Within",
    "year": 1963,
    "rating": 7.8,
-   "votes": 11793,
-   "score": 7.716740181572511
+   "votes": 11826,
+   "score": 7.716954400659375
   },
   {
    "tconst": "tt0057229",
    "title": "The Red Lanterns",
    "year": 1963,
    "rating": 8.1,
-   "votes": 2265,
-   "score": 7.681885801793918
+   "votes": 2271,
+   "score": 7.682652749268463
   },
   {
    "tconst": "tt0062322",
    "title": "Dry Summer",
    "year": 1963,
    "rating": 7.8,
-   "votes": 6831,
-   "score": 7.663983800645784
+   "votes": 6849,
+   "score": 7.664295724660102
   },
   {
    "tconst": "tt0057611",
    "title": "The Silence",
    "year": 1963,
    "rating": 7.7,
-   "votes": 22888,
-   "score": 7.659597167735145
+   "votes": 22926,
+   "score": 7.659661336740665
   },
   {
    "tconst": "tt0057490",
    "title": "The Servant",
    "year": 1963,
    "rating": 7.7,
-   "votes": 16095,
-   "score": 7.643542389169766
+   "votes": 16135,
+   "score": 7.643674184001001
   },
   {
    "tconst": "tt0056869",
    "title": "The Birds",
    "year": 1963,
    "rating": 7.6,
-   "votes": 222182,
-   "score": 7.596123599317405
+   "votes": 222448,
+   "score": 7.596128213914902
   },
   {
    "tconst": "tt0122670",
    "title": "Jack of All Trades, Master of None",
    "year": 1963,
    "rating": 8.2,
-   "votes": 1399,
-   "score": 7.589269338414815
+   "votes": 1401,
+   "score": 7.589778068661868
   },
   {
    "tconst": "tt0057591",
    "title": "Crooks in Clover",
    "year": 1963,
    "rating": 7.7,
-   "votes": 7244,
-   "score": 7.582927843626534
+   "votes": 7260,
+   "score": 7.583154617779315
   },
   {
    "tconst": "tt0056825",
    "title": "America America",
    "year": 1963,
    "rating": 7.7,
-   "votes": 6492,
-   "score": 7.571176874380291
+   "votes": 6502,
+   "score": 7.571348592756218
   },
   {
    "tconst": "tt0057251",
    "title": "Lilies of the Field",
    "year": 1963,
    "rating": 7.5,
-   "votes": 15600,
-   "score": 7.453907056798624
+   "votes": 15632,
+   "score": 7.453995739710026
   },
   {
    "tconst": "tt0057286",
    "title": "Hands Over the City",
    "year": 1963,
    "rating": 7.6,
-   "votes": 3730,
-   "score": 7.417094533373604
+   "votes": 3737,
+   "score": 7.41736481799813
   },
   {
    "tconst": "tt0057578",
    "title": "This Sporting Life",
    "year": 1963,
    "rating": 7.5,
-   "votes": 7737,
-   "score": 7.412424990598277
+   "votes": 7755,
+   "score": 7.412605042016807
   },
   {
    "tconst": "tt0057193",
    "title": "It's a Mad, Mad, Mad, Mad World",
    "year": 1963,
    "rating": 7.4,
-   "votes": 51684,
-   "score": 7.387374860353374
+   "votes": 51764,
+   "score": 7.387394002404237
   },
   {
    "tconst": "tt0057129",
    "title": "The Haunting",
    "year": 1963,
    "rating": 7.4,
-   "votes": 44958,
-   "score": 7.385527158337116
+   "votes": 45029,
+   "score": 7.38554948277949
   },
   {
    "tconst": "tt0057345",
    "title": "Contempt",
    "year": 1963,
    "rating": 7.4,
-   "votes": 39733,
-   "score": 7.383670663659862
+   "votes": 39801,
+   "score": 7.383697878553398
   },
   {
    "tconst": "tt0057654",
    "title": "Barren Lives",
    "year": 1963,
    "rating": 7.5,
-   "votes": 3465,
-   "score": 7.328635418333066
+   "votes": 3480,
+   "score": 7.32920918367347
   },
   {
    "tconst": "tt0057357",
    "title": "Saladin",
    "year": 1963,
    "rating": 7.5,
-   "votes": 3107,
-   "score": 7.313697867751922
+   "votes": 3112,
+   "score": 7.313924402445804
   },
   {
    "tconst": "tt0057076",
    "title": "From Russia with Love",
    "year": 1963,
    "rating": 7.3,
-   "votes": 160704,
-   "score": 7.296505078061501
+   "votes": 160895,
+   "score": 7.296509201290077
   },
   {
    "tconst": "tt0055981",
    "title": "The Fiances",
    "year": 1963,
    "rating": 7.5,
-   "votes": 2660,
-   "score": 7.2909445745511325
+   "votes": 2666,
+   "score": 7.29128672745694
   },
   {
    "tconst": "tt0057197",
    "title": "Jason and the Argonauts",
    "year": 1963,
    "rating": 7.3,
-   "votes": 35696,
-   "score": 7.284599333520196
+   "votes": 35780,
+   "score": 7.28463450633108
   },
   {
    "tconst": "tt0057187",
    "title": "Irma la Douce",
    "year": 1963,
    "rating": 7.3,
-   "votes": 24523,
-   "score": 7.277857506674652
+   "votes": 24584,
+   "score": 7.277910301081032
   },
   {
    "tconst": "tt0057202",
    "title": "The Lovely Month of May",
    "year": 1963,
    "rating": 7.8,
-   "votes": 1005,
-   "score": 7.268756679729248
+   "votes": 1007,
+   "score": 7.269286070182931
   },
   {
    "tconst": "tt0057495",
    "title": "Shock Corridor",
    "year": 1963,
    "rating": 7.3,
-   "votes": 14163,
-   "score": 7.262728822980752
+   "votes": 14188,
+   "score": 7.2627901726927275
   },
   {
    "tconst": "tt0057323",
    "title": "The Monsters",
    "year": 1963,
    "rating": 7.4,
-   "votes": 3085,
-   "score": 7.23717433117678
+   "votes": 3092,
+   "score": 7.237452869710935
   },
   {
    "tconst": "tt0057997",
    "title": "Dead Ringer",
    "year": 1963,
    "rating": 7.3,
-   "votes": 7464,
-   "score": 7.233229813664596
+   "votes": 7479,
+   "score": 7.23334793523495
   },
   {
    "tconst": "tt0057344",
    "title": "Any Number Can Win",
    "year": 1963,
    "rating": 7.3,
-   "votes": 5307,
-   "score": 7.210394346417813
+   "votes": 5322,
+   "score": 7.21060695078411
   },
   {
    "tconst": "tt0054159",
    "title": "Passenger",
    "year": 1963,
    "rating": 7.4,
-   "votes": 2501,
-   "score": 7.210013465540458
+   "votes": 2502,
+   "score": 7.210067716406952
   },
   {
    "tconst": "tt0131207",
    "title": "Three Plus Two",
    "year": 1963,
    "rating": 7.4,
-   "votes": 2373,
-   "score": 7.20280377790013
+   "votes": 2375,
+   "score": 7.202920634920636
   },
   {
    "tconst": "tt0057697",
    "title": "Youth of the Beast",
    "year": 1963,
    "rating": 7.3,
-   "votes": 4305,
-   "score": 7.193469772451864
+   "votes": 4309,
+   "score": 7.193550036326453
   },
   {
    "tconst": "tt0056982",
    "title": "Business People",
    "year": 1963,
    "rating": 7.5,
-   "votes": 1479,
-   "score": 7.191350198812885
+   "votes": 1481,
+   "score": 7.191599009615939
   },
   {
    "tconst": "tt0057710",
    "title": "An Actor's Revenge",
    "year": 1963,
    "rating": 7.3,
-   "votes": 3216,
-   "score": 7.165952832746001
+   "votes": 3220,
+   "score": 7.166079891672309
   },
   {
    "tconst": "tt0057171",
    "title": "Yesterday, Today and Tomorrow",
    "year": 1963,
    "rating": 7.2,
-   "votes": 11614,
-   "score": 7.163124872590545
+   "votes": 11653,
+   "score": 7.163238531799347
   },
   {
    "tconst": "tt0057363",
    "title": "The Insect Woman",
    "year": 1963,
    "rating": 7.3,
-   "votes": 2747,
-   "score": 7.149174577757444
+   "votes": 2760,
+   "score": 7.149696048632219
   },
   {
    "tconst": "tt0056868",
    "title": "Billy Liar",
    "year": 1963,
    "rating": 7.2,
-   "votes": 7778,
-   "score": 7.147010383100608
+   "votes": 7792,
+   "score": 7.147094761471468
   },
   {
    "tconst": "tt0057334",
    "title": "Murder at the Gallop",
    "year": 1963,
    "rating": 7.2,
-   "votes": 7649,
-   "score": 7.146220041953653
+   "votes": 7676,
+   "score": 7.146387406968319
   },
   {
    "tconst": "tt0057503",
    "title": "New Tale of Zatoichi",
    "year": 1963,
    "rating": 7.3,
-   "votes": 2647,
-   "score": 7.145038975283011
+   "votes": 2648,
+   "score": 7.145081453634085
   },
   {
    "tconst": "tt0057263",
    "title": "Love with the Proper Stranger",
    "year": 1963,
    "rating": 7.2,
-   "votes": 6206,
-   "score": 7.135450616549701
+   "votes": 6215,
+   "score": 7.135531135531136
   },
   {
    "tconst": "tt0056846",
    "title": "Bay of Angels",
    "year": 1963,
    "rating": 7.2,
-   "votes": 4978,
-   "score": 7.122190890407686
+   "votes": 4991,
+   "score": 7.122359730071297
   },
   {
    "tconst": "tt0057237",
    "title": "Raven's End",
    "year": 1963,
    "rating": 7.3,
-   "votes": 2028,
-   "score": 7.113361011511605
+   "votes": 2033,
+   "score": 7.113668692006971
   },
   {
    "tconst": "tt0057212",
    "title": "13 Assassins",
    "year": 1963,
    "rating": 7.4,
-   "votes": 1317,
-   "score": 7.112929280473518
+   "votes": 1322,
+   "score": 7.113547434477669
   },
   {
    "tconst": "tt0056930",
    "title": "A Child Is Waiting",
    "year": 1963,
    "rating": 7.2,
-   "votes": 3965,
-   "score": 7.106315638037693
+   "votes": 3974,
+   "score": 7.106485151358493
   },
   {
    "tconst": "tt0057546",
    "title": "The Sword in the Stone",
    "year": 1963,
    "rating": 7.1,
-   "votes": 115749,
-   "score": 7.096872411265681
+   "votes": 115909,
+   "score": 7.0968766916392845
   },
   {
    "tconst": "tt0057642",
    "title": "The Green Years",
    "year": 1963,
    "rating": 7.4,
-   "votes": 1134,
-   "score": 7.088311688311689
+   "votes": 1139,
+   "score": 7.089040272490483
   },
   {
    "tconst": "tt0176155",
    "title": "The Sun in a Net",
    "year": 1963,
    "rating": 7.4,
-   "votes": 1106,
-   "score": 7.084167684167683
+   "votes": 1108,
+   "score": 7.084467335321226
   },
   {
    "tconst": "tt0057298",
    "title": "McLintock!",
    "year": 1963,
    "rating": 7.1,
-   "votes": 18556,
-   "score": 7.0813283464336845
+   "votes": 18596,
+   "score": 7.081366459627329
   },
   {
    "tconst": "tt0057579",
    "title": "The Three Lives of Thomasina",
    "year": 1963,
    "rating": 7.2,
-   "votes": 2900,
-   "score": 7.080732600732601
+   "votes": 2906,
+   "score": 7.080915807183088
   },
   {
    "tconst": "tt0056844",
    "title": "When the Cat Comes",
    "year": 1963,
    "rating": 7.2,
-   "votes": 2459,
-   "score": 7.065526783133028
+   "votes": 2463,
+   "score": 7.065682108823895
   },
   {
    "tconst": "tt0054177",
    "title": "The Little Soldier",
    "year": 1963,
    "rating": 7.1,
-   "votes": 8869,
-   "score": 7.0630010277492286
+   "votes": 8882,
+   "score": 7.063049700754618
   },
   {
    "tconst": "tt0057715",
    "title": "Zatoichi the Fugitive",
    "year": 1963,
    "rating": 7.2,
-   "votes": 2251,
-   "score": 7.056923144526959
+   "votes": 2253,
+   "score": 7.057011110623161
   },
   {
    "tconst": "tt0057714",
    "title": "Zatoichi on the Road",
    "year": 1963,
    "rating": 7.2,
-   "votes": 2182,
-   "score": 7.053820598006645
+   "votes": 2183,
+   "score": 7.053866523046542
   },
   {
    "tconst": "tt0057232",
    "title": "Koroleva benzokolonki",
    "year": 1963,
    "rating": 7.2,
-   "votes": 2023,
-   "score": 7.0461320353480446
+   "votes": 2027,
+   "score": 7.046335362688188
   },
   {
    "tconst": "tt0167886",
    "title": "Il demonio",
    "year": 1963,
    "rating": 7.2,
-   "votes": 1725,
-   "score": 7.029305373525557
+   "votes": 1731,
+   "score": 7.029680389182403
   },
   {
    "tconst": "tt0145033",
    "title": "Kingdom of Crooked Mirrors",
    "year": 1963,
    "rating": 7.2,
-   "votes": 1703,
-   "score": 7.027916072089212
+   "votes": 1711,
+   "score": 7.028423881540813
   },
   {
    "tconst": "tt0057176",
    "title": "L'Immortelle",
    "year": 1963,
    "rating": 7.2,
-   "votes": 1645,
-   "score": 7.024142587091548
+   "votes": 1647,
+   "score": 7.02427546008959
   },
   {
    "tconst": "tt0057413",
    "title": "The Pink Panther",
    "year": 1963,
    "rating": 7,
-   "votes": 62405,
-   "score": 6.995818265796974
+   "votes": 62488,
+   "score": 6.995823732718894
   },
   {
    "tconst": "tt0056937",
    "title": "Cleopatra",
    "year": 1963,
    "rating": 7,
-   "votes": 41805,
-   "score": 6.9938057970530805
+   "votes": 41888,
+   "score": 6.993817784528473
   },
   {
    "tconst": "tt0057603",
    "title": "Black Sabbath",
    "year": 1963,
    "rating": 7,
-   "votes": 16216,
-   "score": 6.984599044078598
-  },
-  {
-   "tconst": "tt0056856",
-   "title": "The Basilisks",
-   "year": 1963,
-   "rating": 7.2,
-   "votes": 1084,
-   "score": 6.976802851658897
+   "votes": 16256,
+   "score": 6.984634744022783
   },
   {
    "tconst": "tt0057549",
    "title": "Symphony for a Massacre",
    "year": 1963,
    "rating": 7.2,
-   "votes": 1065,
-   "score": 6.974749221722588
+   "votes": 1098,
+   "score": 6.97829225112352
+  },
+  {
+   "tconst": "tt0056856",
+   "title": "The Basilisks",
+   "year": 1963,
+   "rating": 7.2,
+   "votes": 1085,
+   "score": 6.976909900650908
   },
   {
    "tconst": "tt0057180",
    "title": "The Incredible Journey",
    "year": 1963,
    "rating": 7,
-   "votes": 5780,
-   "score": 6.960893383902234
+   "votes": 5794,
+   "score": 6.960973968627782
   },
   {
    "tconst": "tt0056883",
    "title": "The Boom",
    "year": 1963,
    "rating": 7.1,
-   "votes": 1563,
-   "score": 6.957533024914999
+   "votes": 1570,
+   "score": 6.95792106725959
   },
   {
    "tconst": "tt0057336",
    "title": "Muriel",
    "year": 1963,
    "rating": 7,
-   "votes": 4236,
-   "score": 6.94936156280694
+   "votes": 4254,
+   "score": 6.949535048126598
   },
   {
    "tconst": "tt0057523",
@@ -601,400 +601,400 @@
    "title": "Judex",
    "year": 1963,
    "rating": 7,
-   "votes": 3215,
-   "score": 6.937095407558041
+   "votes": 3221,
+   "score": 6.937184824178427
   },
   {
    "tconst": "tt0057242",
    "title": "Ladybug Ladybug",
    "year": 1963,
    "rating": 7.1,
-   "votes": 1164,
-   "score": 6.931264853445999
+   "votes": 1173,
+   "score": 6.931963710472685
   },
   {
    "tconst": "tt0058164",
    "title": "The Guest",
    "year": 1963,
    "rating": 7.1,
-   "votes": 1158,
-   "score": 6.930795710313782
+   "votes": 1160,
+   "score": 6.930952380952382
   },
   {
    "tconst": "tt0179813",
    "title": "My Friend, Lefterakis",
    "year": 1963,
    "rating": 7.1,
-   "votes": 1102,
-   "score": 6.9262878890852235
+   "votes": 1103,
+   "score": 6.926370491135113
+  },
+  {
+   "tconst": "tt0057168",
+   "title": "I Could Go on Singing",
+   "year": 1963,
+   "rating": 7,
+   "votes": 1862,
+   "score": 6.907357492263153
   },
   {
    "tconst": "tt0057329",
    "title": "Move Over, Darling",
    "year": 1963,
    "rating": 6.9,
-   "votes": 7103,
-   "score": 6.879619541263377
+   "votes": 7113,
+   "score": 6.879644662006304
   },
   {
    "tconst": "tt0057581",
    "title": "The Thrill of It All",
    "year": 1963,
    "rating": 6.9,
-   "votes": 6482,
-   "score": 6.877927979531829
+   "votes": 6494,
+   "score": 6.877963323039385
   },
   {
    "tconst": "tt0057443",
    "title": "The Evil Eye",
    "year": 1963,
    "rating": 6.9,
-   "votes": 6457,
-   "score": 6.877853981877047
+   "votes": 6476,
+   "score": 6.877910265229687
   },
   {
    "tconst": "tt0122111",
    "title": "Voyage to the End of the Universe",
    "year": 1963,
    "rating": 6.9,
-   "votes": 3404,
-   "score": 6.862501621902167
+   "votes": 3415,
+   "score": 6.862595049344765
   },
   {
    "tconst": "tt0056903",
    "title": "Captain Newman, M.D.",
    "year": 1963,
    "rating": 6.9,
-   "votes": 3325,
-   "score": 6.861816680429397
+   "votes": 3330,
+   "score": 6.861860772022435
   },
   {
    "tconst": "tt0057542",
    "title": "Summer Magic",
    "year": 1963,
    "rating": 6.9,
-   "votes": 3016,
-   "score": 6.858878770631759
+   "votes": 3022,
+   "score": 6.858940115081339
   },
   {
    "tconst": "tt0057652",
    "title": "The Victors",
    "year": 1963,
    "rating": 6.9,
-   "votes": 1990,
-   "score": 6.844768275203058
-  },
-  {
-   "tconst": "tt0057168",
-   "title": "I Could Go on Singing",
-   "year": 1963,
-   "rating": 6.9,
-   "votes": 1858,
-   "score": 6.84221733479956
+   "votes": 1996,
+   "score": 6.844878886133893
   },
   {
    "tconst": "tt0057530",
    "title": "A Stitch in Time",
    "year": 1963,
    "rating": 6.9,
-   "votes": 1428,
-   "score": 6.831983996234408
+   "votes": 1429,
+   "score": 6.832011997882727
   },
   {
    "tconst": "tt0057261",
    "title": "Lord of the Flies",
    "year": 1963,
    "rating": 6.8,
-   "votes": 22275,
-   "score": 6.797201166180758
+   "votes": 22298,
+   "score": 6.797203929215261
   },
   {
    "tconst": "tt0057254",
    "title": "The List of Adrian Messenger",
    "year": 1963,
    "rating": 6.8,
-   "votes": 6187,
-   "score": 6.790936015424675
+   "votes": 6191,
+   "score": 6.790941057273973
   },
   {
    "tconst": "tt0057426",
    "title": "The Prize",
    "year": 1963,
    "rating": 6.8,
-   "votes": 5926,
-   "score": 6.7905944474237865
+   "votes": 5934,
+   "score": 6.790605298941036
   },
   {
    "tconst": "tt0057687",
    "title": "Apache Gold",
    "year": 1963,
    "rating": 6.8,
-   "votes": 5214,
-   "score": 6.789516759391236
+   "votes": 5226,
+   "score": 6.789536964801982
   },
   {
    "tconst": "tt0056910",
    "title": "Suzanne's Career",
    "year": 1963,
    "rating": 6.8,
-   "votes": 4668,
-   "score": 6.788506905938099
+   "votes": 4674,
+   "score": 6.788519059368548
   },
   {
    "tconst": "tt0056956",
    "title": "The Courtship of Eddie's Father",
    "year": 1963,
    "rating": 6.8,
-   "votes": 3830,
-   "score": 6.786512866015971
+   "votes": 3839,
+   "score": 6.786537950580108
   },
   {
    "tconst": "tt0056907",
    "title": "The Cardinal",
    "year": 1963,
    "rating": 6.8,
-   "votes": 3304,
-   "score": 6.78486457780138
+   "votes": 3320,
+   "score": 6.784920634920635
   },
   {
    "tconst": "tt0056171",
    "title": "Ro.Go.Pa.G.",
    "year": 1963,
    "rating": 6.8,
-   "votes": 2493,
-   "score": 6.781350456014069
+   "votes": 2496,
+   "score": 6.78136645962733
   },
   {
    "tconst": "tt0058413",
    "title": "The Empty Canvas",
    "year": 1963,
    "rating": 6.8,
-   "votes": 1145,
-   "score": 6.769630369630369
+   "votes": 1147,
+   "score": 6.769658659924147
   },
   {
    "tconst": "tt0056989",
    "title": "Detective Bureau 2-3: Go to Hell Bastards!",
    "year": 1963,
    "rating": 6.8,
-   "votes": 1089,
-   "score": 6.768816248375845
+   "votes": 1090,
+   "score": 6.768831168831169
   },
   {
    "tconst": "tt0057598",
    "title": "Toys in the Attic",
    "year": 1963,
    "rating": 6.7,
-   "votes": 1737,
-   "score": 6.712735528994207
-  },
-  {
-   "tconst": "tt0057134",
-   "title": "Heavens Above!",
-   "year": 1963,
-   "rating": 6.7,
-   "votes": 1987,
-   "score": 6.711669615954852
+   "votes": 1740,
+   "score": 6.712721584984359
   },
   {
    "tconst": "tt0057517",
    "title": "Soldier in the Rain",
    "year": 1963,
    "rating": 6.7,
-   "votes": 2203,
-   "score": 6.710882654654119
+   "votes": 2204,
+   "score": 6.71087925807027
   },
   {
    "tconst": "tt0056704",
    "title": "The Wrong Arm of the Law",
    "year": 1963,
    "rating": 6.7,
-   "votes": 2706,
-   "score": 6.7094055971012265
+   "votes": 2712,
+   "score": 6.70939039408867
   },
   {
    "tconst": "tt0057683",
    "title": "Who's Minding the Store?",
    "year": 1963,
    "rating": 6.7,
-   "votes": 3046,
-   "score": 6.708615210790199
+   "votes": 3051,
+   "score": 6.708604577353035
   },
   {
    "tconst": "tt0057393",
    "title": "PT 109",
    "year": 1963,
    "rating": 6.7,
-   "votes": 3306,
-   "score": 6.708095016919912
+   "votes": 3308,
+   "score": 6.708091258787638
   },
   {
    "tconst": "tt0057401",
    "title": "Paranoiac",
    "year": 1963,
    "rating": 6.7,
-   "votes": 3708,
-   "score": 6.707403811142129
+   "votes": 3711,
+   "score": 6.7073990963398735
   },
   {
    "tconst": "tt0057543",
    "title": "Sunday in New York",
    "year": 1963,
    "rating": 6.7,
-   "votes": 3757,
-   "score": 6.707327547373795
+   "votes": 3761,
+   "score": 6.707321391064303
   },
   {
    "tconst": "tt0056905",
    "title": "The Carabineers",
    "year": 1963,
    "rating": 6.7,
-   "votes": 3990,
-   "score": 6.7069853993701685
+   "votes": 3998,
+   "score": 6.706974218258732
   },
   {
    "tconst": "tt0056800",
    "title": "55 Days at Peking",
    "year": 1963,
    "rating": 6.7,
-   "votes": 8322,
-   "score": 6.703739234376437
+   "votes": 8351,
+   "score": 6.703727637991353
   },
   {
    "tconst": "tt0057128",
    "title": "The Haunted Palace",
    "year": 1963,
    "rating": 6.7,
-   "votes": 9952,
-   "score": 6.703182719398936
+   "votes": 9997,
+   "score": 6.703169695631276
   },
   {
    "tconst": "tt0057007",
    "title": "Donovan's Reef",
    "year": 1963,
    "rating": 6.7,
-   "votes": 10887,
-   "score": 6.702932375103655
+   "votes": 10910,
+   "score": 6.702926712246612
   },
   {
    "tconst": "tt0057183",
    "title": "The Indian Scarf",
    "year": 1963,
    "rating": 6.6,
-   "votes": 1285,
-   "score": 6.659018443263519
+   "votes": 1287,
+   "score": 6.658966831157474
+  },
+  {
+   "tconst": "tt0057134",
+   "title": "Heavens Above!",
+   "year": 1963,
+   "rating": 6.6,
+   "votes": 1997,
+   "score": 6.644997378330711
   },
   {
    "tconst": "tt0056632",
    "title": "The Ugly American",
    "year": 1963,
    "rating": 6.6,
-   "votes": 2778,
-   "score": 6.635695379263405
+   "votes": 2780,
+   "score": 6.63567649281935
   },
   {
    "tconst": "tt0057465",
    "title": "The Sadist",
    "year": 1963,
    "rating": 6.6,
-   "votes": 3396,
-   "score": 6.6306772390484845
+   "votes": 3402,
+   "score": 6.630635425455962
   },
   {
    "tconst": "tt0057608",
    "title": "Twice-Told Tales",
    "year": 1963,
    "rating": 6.6,
-   "votes": 4052,
-   "score": 6.62669381291709
+   "votes": 4067,
+   "score": 6.626614790380332
   },
   {
    "tconst": "tt0057078",
    "title": "The Whip and the Body",
    "year": 1963,
    "rating": 6.6,
-   "votes": 5384,
-   "score": 6.621124239169352
+   "votes": 5403,
+   "score": 6.621061555967069
   },
   {
    "tconst": "tt0057693",
    "title": "X: The Man with the X-Ray Eyes",
    "year": 1963,
    "rating": 6.6,
-   "votes": 9276,
-   "score": 6.613123505533003
+   "votes": 9298,
+   "score": 6.613095469300558
   },
   {
    "tconst": "tt0056969",
    "title": "My Wife's Husband",
    "year": 1963,
    "rating": 6.5,
-   "votes": 1078,
-   "score": 6.613020761721435
+   "votes": 1080,
+   "score": 6.612912087912089
   },
   {
    "tconst": "tt0056891",
    "title": "Bye Bye Birdie",
    "year": 1963,
    "rating": 6.6,
-   "votes": 10581,
-   "score": 6.6116446889609835
+   "votes": 10618,
+   "score": 6.611607603964292
   },
   {
    "tconst": "tt0057372",
    "title": "The Nutty Professor",
    "year": 1963,
    "rating": 6.6,
-   "votes": 19611,
-   "score": 6.606542969426866
+   "votes": 19669,
+   "score": 6.60652460897272
   },
   {
    "tconst": "tt0057681",
    "title": "The Wheeler Dealers",
    "year": 1963,
    "rating": 6.5,
-   "votes": 1710,
-   "score": 6.586663152345809
+   "votes": 1712,
+   "score": 6.586599241466498
   },
   {
    "tconst": "tt0056845",
    "title": "Magnet of Doom",
    "year": 1963,
    "rating": 6.5,
-   "votes": 2026,
-   "score": 6.577613067698989
+   "votes": 2031,
+   "score": 6.577485035584672
   },
   {
    "tconst": "tt0057463",
    "title": "The Running Man",
    "year": 1963,
    "rating": 6.5,
-   "votes": 2269,
-   "score": 6.571843726784076
+   "votes": 2271,
+   "score": 6.57179979910032
   },
   {
    "tconst": "tt0057422",
    "title": "Squeak-squeak",
    "year": 1963,
    "rating": 6.5,
-   "votes": 2378,
-   "score": 6.569525501141841
+   "votes": 2381,
+   "score": 6.569463810368868
   },
   {
    "tconst": "tt0057311",
    "title": "The Mind Benders",
    "year": 1963,
    "rating": 6.4,
-   "votes": 1112,
-   "score": 6.558549783549783
+   "votes": 1118,
+   "score": 6.558100634021314
   },
   {
    "tconst": "tt0057623",
    "title": "Unearthly Stranger",
    "year": 1963,
    "rating": 6.4,
-   "votes": 1216,
-   "score": 6.551108818978855
+   "votes": 1219,
+   "score": 6.550904525848194
   },
   {
    "tconst": "tt0057200",
@@ -1002,103 +1002,103 @@
    "year": 1963,
    "rating": 6.4,
    "votes": 1293,
-   "score": 6.54603451498349
+   "score": 6.546034514983491
   },
   {
    "tconst": "tt0056165",
    "title": "Bluebeard",
    "year": 1963,
    "rating": 6.4,
-   "votes": 1395,
-   "score": 6.539815090963316
+   "votes": 1399,
+   "score": 6.539581968677425
   },
   {
    "tconst": "tt0178683",
    "title": "Throbs at the Desk",
    "year": 1963,
    "rating": 6.4,
-   "votes": 1610,
-   "score": 6.528297755883963
+   "votes": 1615,
+   "score": 6.528052444687244
   },
   {
    "tconst": "tt0056943",
    "title": "The Comedy of Terrors",
    "year": 1963,
    "rating": 6.5,
-   "votes": 7984,
-   "score": 6.526141712250349
+   "votes": 8009,
+   "score": 6.526069168926313
   },
   {
    "tconst": "tt0057449",
    "title": "The Raven",
    "year": 1963,
    "rating": 6.5,
-   "votes": 15397,
-   "score": 6.51432317758475
+   "votes": 15439,
+   "score": 6.514286583299297
   },
   {
    "tconst": "tt0056912",
    "title": "Carry on Cabby",
    "year": 1963,
    "rating": 6.4,
-   "votes": 3407,
-   "score": 6.475983014036111
+   "votes": 3416,
+   "score": 6.475828157349897
   },
   {
    "tconst": "tt0057295",
    "title": "Attack of the Mushroom People",
    "year": 1963,
    "rating": 6.4,
-   "votes": 4018,
-   "score": 6.466731196264876
+   "votes": 4031,
+   "score": 6.466558764233184
   },
   {
    "tconst": "tt0057718",
    "title": "Der Zinker",
    "year": 1963,
    "rating": 6.2,
-   "votes": 1199,
-   "score": 6.44322744104463
+   "votes": 1201,
+   "score": 6.443006425650679
   },
   {
    "tconst": "tt0057328",
    "title": "The Mouse on the Moon",
    "year": 1963,
    "rating": 6.3,
-   "votes": 2173,
-   "score": 6.437049209850974
+   "votes": 2184,
+   "score": 6.436575735821968
   },
   {
    "tconst": "tt0058165",
    "title": "Gunfight at Comanche Creek",
    "year": 1963,
    "rating": 6.1,
-   "votes": 1056,
-   "score": 6.408782657031683
+   "votes": 1058,
+   "score": 6.408482576704152
   },
   {
    "tconst": "tt0057556",
    "title": "Take Her, She's Mine",
    "year": 1963,
    "rating": 6.2,
-   "votes": 1638,
-   "score": 6.402751001841222
+   "votes": 1648,
+   "score": 6.4019853258523955
   },
   {
    "tconst": "tt0056993",
    "title": "Diary of a Madman",
    "year": 1963,
    "rating": 6.3,
-   "votes": 3506,
-   "score": 6.396506245640732
+   "votes": 3518,
+   "score": 6.396249920951116
   },
   {
    "tconst": "tt0057522",
    "title": "The Ghost",
    "year": 1963,
    "rating": 6.2,
-   "votes": 1788,
-   "score": 6.391842590694814
+   "votes": 1801,
+   "score": 6.390952210945071
   },
   {
    "tconst": "tt0056906",
@@ -1113,136 +1113,128 @@
    "title": "A Gathering of Eagles",
    "year": 1963,
    "rating": 6.1,
-   "votes": 1272,
-   "score": 6.379426559356137
+   "votes": 1273,
+   "score": 6.379303626421972
   },
   {
    "tconst": "tt0057634",
    "title": "The V.I.P.s",
    "year": 1963,
    "rating": 6.3,
-   "votes": 4640,
-   "score": 6.37710233029382
+   "votes": 4646,
+   "score": 6.377020393704772
   },
   {
    "tconst": "tt0057590",
    "title": "Tom Jones",
    "year": 1963,
    "rating": 6.3,
-   "votes": 15514,
-   "score": 6.326332635512725
+   "votes": 15550,
+   "score": 6.326275356063875
   },
   {
    "tconst": "tt0057473",
    "title": "Savage Sam",
    "year": 1963,
    "rating": 6,
-   "votes": 1285,
-   "score": 6.321600500156299
+   "votes": 1288,
+   "score": 6.321178821178822
   },
   {
    "tconst": "tt0056940",
    "title": "Come Blow Your Horn",
    "year": 1963,
    "rating": 6,
-   "votes": 1312,
-   "score": 6.317844784972813
+   "votes": 1313,
+   "score": 6.3177073682910265
   },
   {
    "tconst": "tt0057541",
    "title": "Summer Holiday",
    "year": 1963,
    "rating": 6.1,
-   "votes": 2112,
-   "score": 6.3040029379361
+   "votes": 2115,
+   "score": 6.303806466406787
   },
   {
    "tconst": "tt0057063",
    "title": "Flipper",
    "year": 1963,
    "rating": 6.1,
-   "votes": 2209,
-   "score": 6.297836442149311
+   "votes": 2212,
+   "score": 6.297651663405088
   },
   {
    "tconst": "tt0057226",
    "title": "The Kiss of the Vampire",
    "year": 1963,
    "rating": 6.2,
-   "votes": 4583,
-   "score": 6.29580102863284
+   "votes": 4601,
+   "score": 6.29549315173311
   },
   {
    "tconst": "tt0057225",
    "title": "Kings of the Sun",
    "year": 1963,
    "rating": 6.1,
-   "votes": 2506,
-   "score": 6.281077336810364
+   "votes": 2509,
+   "score": 6.280922525750112
   },
   {
    "tconst": "tt0057396",
    "title": "Palm Springs Weekend",
    "year": 1963,
    "rating": 5.9,
-   "votes": 1382,
-   "score": 6.250485786254048
+   "votes": 1386,
+   "score": 6.249898215782542
   },
   {
    "tconst": "tt0057191",
    "title": "It Happened at the World's Fair",
    "year": 1963,
    "rating": 6.1,
-   "votes": 3481,
-   "score": 6.241677559218286
+   "votes": 3486,
+   "score": 6.241519648430035
   },
   {
    "tconst": "tt0057622",
    "title": "Under the Yum Yum Tree",
    "year": 1963,
    "rating": 6,
-   "votes": 2280,
-   "score": 6.224041811846689
+   "votes": 2285,
+   "score": 6.223700804522723
   },
   {
    "tconst": "tt0056219",
    "title": "Maniac",
    "year": 1963,
    "rating": 5.9,
-   "votes": 1808,
-   "score": 6.1973137973137975
+   "votes": 1811,
+   "score": 6.196996493367893
   },
   {
    "tconst": "tt0058365",
    "title": "Mondo Cane 2",
    "year": 1963,
    "rating": 5.7,
-   "votes": 1139,
-   "score": 6.183804180858878
+   "votes": 1146,
+   "score": 6.182226068432966
   },
   {
    "tconst": "tt0057646",
    "title": "Horror Castle",
    "year": 1963,
    "rating": 5.8,
-   "votes": 1451,
-   "score": 6.1814186629364105
+   "votes": 1456,
+   "score": 6.180642159143789
   },
   {
    "tconst": "tt0055894",
    "title": "The Day of the Triffids",
    "year": 1963,
    "rating": 6.1,
-   "votes": 9856,
-   "score": 6.158479839983156
-  },
-  {
-   "tconst": "tt0056908",
-   "title": "The Caretakers",
-   "year": 1963,
-   "rating": 5.6,
-   "votes": 1041,
-   "score": 6.156029957303842
+   "votes": 9874,
+   "score": 6.158383036863817
   },
   {
    "tconst": "tt0056964",
@@ -1250,159 +1242,167 @@
    "year": 1963,
    "rating": 5.7,
    "votes": 1271,
-   "score": 6.155683462288481
+   "score": 6.155683462288483
+  },
+  {
+   "tconst": "tt0056908",
+   "title": "The Caretakers",
+   "year": 1963,
+   "rating": 5.6,
+   "votes": 1045,
+   "score": 6.154942368145302
   },
   {
    "tconst": "tt0057215",
    "title": "Atragon",
    "year": 1963,
    "rating": 5.8,
-   "votes": 1854,
-   "score": 6.127560316347983
+   "votes": 1862,
+   "score": 6.126644704003195
   },
   {
    "tconst": "tt0057083",
    "title": "Fun in Acapulco",
    "year": 1963,
    "rating": 5.9,
-   "votes": 4154,
-   "score": 6.061982371528355
+   "votes": 4159,
+   "score": 6.061825381441587
   },
   {
    "tconst": "tt0056904",
    "title": "Captain Sindbad",
    "year": 1963,
    "rating": 5.5,
-   "votes": 1199,
-   "score": 6.061553953095563
+   "votes": 1200,
+   "score": 6.061298701298702
   },
   {
    "tconst": "tt0056860",
    "title": "Beach Party",
    "year": 1963,
    "rating": 5.8,
-   "votes": 2619,
-   "score": 6.058319188410373
+   "votes": 2624,
+   "score": 6.057962787764113
   },
   {
    "tconst": "tt0057360",
    "title": "A New Kind of Love",
    "year": 1963,
    "rating": 5.7,
-   "votes": 1937,
-   "score": 6.052351768082104
+   "votes": 1947,
+   "score": 6.0511561394153865
   },
   {
    "tconst": "tt0057155",
    "title": "The Blancheville Monster",
    "year": 1963,
    "rating": 5.4,
-   "votes": 1054,
-   "score": 6.049881763805814
+   "votes": 1056,
+   "score": 6.049249583101723
   },
   {
    "tconst": "tt0057480",
    "title": "Scum of the Earth",
    "year": 1963,
    "rating": 5.3,
-   "votes": 1007,
-   "score": 6.014926329276104
+   "votes": 1012,
+   "score": 6.013149673388242
   },
   {
    "tconst": "tt0056796",
    "title": "13 Frightened Girls",
    "year": 1963,
    "rating": 5.3,
-   "votes": 1015,
-   "score": 6.012087912087912
+   "votes": 1018,
+   "score": 6.011029307659635
   },
   {
    "tconst": "tt0057379",
    "title": "The Old Dark House",
    "year": 1963,
    "rating": 5.5,
-   "votes": 2962,
-   "score": 5.811675200115381
+   "votes": 2969,
+   "score": 5.8111255084044195
   },
   {
    "tconst": "tt0056983",
    "title": "Dementia 13",
    "year": 1963,
    "rating": 5.7,
-   "votes": 10322,
-   "score": 5.791402326696444
+   "votes": 10346,
+   "score": 5.791208984916019
   },
   {
    "tconst": "tt0056142",
    "title": "King Kong vs. Godzilla",
    "year": 1963,
    "rating": 5.7,
-   "votes": 12255,
-   "score": 5.778072964380018
+   "votes": 12283,
+   "score": 5.7779083898861066
   },
   {
    "tconst": "tt0057071",
    "title": "4 for Texas",
    "year": 1963,
    "rating": 5.5,
-   "votes": 3943,
-   "score": 5.749819369382387
+   "votes": 3947,
+   "score": 5.749617372722286
   },
   {
    "tconst": "tt0054880",
    "title": "Flaming Creatures",
    "year": 1963,
    "rating": 4.5,
-   "votes": 1842,
-   "score": 5.28636774907007
+   "votes": 1846,
+   "score": 5.285262523842988
   },
   {
    "tconst": "tt0057569",
    "title": "The Terror",
    "year": 1963,
    "rating": 5.1,
-   "votes": 9533,
-   "score": 5.255212868399995
+   "votes": 9557,
+   "score": 5.254860011637504
   },
   {
    "tconst": "tt0056875",
    "title": "Blood Feast",
    "year": 1963,
    "rating": 5,
-   "votes": 7995,
-   "score": 5.19286905423648
+   "votes": 8008,
+   "score": 5.192590713017001
   },
   {
    "tconst": "tt0056961",
    "title": "The Crawling Hand",
    "year": 1963,
    "rating": 3.3,
-   "votes": 2165,
-   "score": 4.38526292033401
+   "votes": 2170,
+   "score": 4.383551149166291
   },
   {
    "tconst": "tt0056499",
    "title": "The Slime People",
    "year": 1963,
    "rating": 3,
-   "votes": 1888,
-   "score": 4.293233082706767
+   "votes": 1894,
+   "score": 4.290551880738474
   },
   {
    "tconst": "tt0057859",
    "title": "Monstrosity",
    "year": 1963,
    "rating": 3.1,
-   "votes": 3128,
-   "score": 3.9805370985603545
+   "votes": 3130,
+   "score": 3.9801106883431343
   },
   {
    "tconst": "tt0057507",
    "title": "The Skydivers",
    "year": 1963,
    "rating": 1.9,
-   "votes": 5001,
-   "score": 2.70567524460209
+   "votes": 5004,
+   "score": 2.7052726753592844
   }
  ]
 }

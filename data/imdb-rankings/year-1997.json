@@ -1,7 +1,7 @@
 {
  "tag": "year-1997",
- "builtAt": "2026-09-15T22:46:38.707Z",
- "mean": 6.514,
+ "builtAt": "2026-10-01T06:19:54.122Z",
+ "mean": 6.513,
  "minVotes": 5000,
  "items": [
   {
@@ -9,1600 +9,1600 @@
    "title": "Life Is Beautiful",
    "year": 1997,
    "rating": 8.6,
-   "votes": 822668,
-   "score": 8.587400765114642
+   "votes": 824199,
+   "score": 8.587416583499737
   },
   {
    "tconst": "tt0119217",
    "title": "Good Will Hunting",
    "year": 1997,
    "rating": 8.4,
-   "votes": 1241902,
-   "score": 8.392438873673237
+   "votes": 1245173,
+   "score": 8.392453719302368
   },
   {
    "tconst": "tt0119698",
    "title": "Princess Mononoke",
    "year": 1997,
    "rating": 8.3,
-   "votes": 490908,
-   "score": 8.281996693864397
+   "votes": 491875,
+   "score": 8.282019307917283
   },
   {
    "tconst": "tt0119488",
    "title": "L.A. Confidential",
    "year": 1997,
    "rating": 8.2,
-   "votes": 663787,
-   "score": 8.187398105018346
+   "votes": 664515,
+   "score": 8.1874025878754
   },
   {
    "tconst": "tt0118849",
    "title": "Children of Heaven",
    "year": 1997,
    "rating": 8.2,
-   "votes": 91345,
-   "score": 8.112522875716492
+   "votes": 91496,
+   "score": 8.112595792793474
   },
   {
    "tconst": "tt0169858",
    "title": "Neon Genesis Evangelion: The End of Evangelion",
    "year": 1997,
    "rating": 8.1,
-   "votes": 79038,
-   "score": 8.005661920332532
+   "votes": 79297,
+   "score": 8.005878543974271
   },
   {
    "tconst": "tt0120338",
    "title": "Titanic",
    "year": 1997,
    "rating": 8,
-   "votes": 1412792,
-   "score": 7.994760879212822
+   "votes": 1415095,
+   "score": 7.994765028833563
   },
   {
    "tconst": "tt0156887",
    "title": "Perfect Blue",
    "year": 1997,
    "rating": 8,
-   "votes": 126965,
-   "score": 7.943712472707956
+   "votes": 127597,
+   "score": 7.943934203800985
   },
   {
    "tconst": "tt0118749",
    "title": "Boogie Nights",
    "year": 1997,
    "rating": 7.9,
-   "votes": 309672,
-   "score": 7.877983476321075
+   "votes": 310243,
+   "score": 7.878003773664757
   },
   {
    "tconst": "tt0128332",
    "title": "Innocence",
    "year": 1997,
    "rating": 8,
-   "votes": 23272,
-   "score": 7.73726713571397
+   "votes": 23317,
+   "score": 7.7374666674223675
   },
   {
    "tconst": "tt0119385",
    "title": "Iruvar",
    "year": 1997,
    "rating": 8.4,
-   "votes": 9058,
-   "score": 7.729351007320057
+   "votes": 9072,
+   "score": 7.729579563771971
   },
   {
    "tconst": "tt4330758",
    "title": "Black Hawk Down",
    "year": 1997,
    "rating": 7.9,
-   "votes": 34976,
-   "score": 7.7266964293802625
+   "votes": 34987,
+   "score": 7.726589732197944
   },
   {
    "tconst": "tt0118751",
    "title": "Border",
    "year": 1997,
    "rating": 8,
-   "votes": 20624,
-   "score": 7.710116159104954
+   "votes": 20673,
+   "score": 7.710428996276211
   },
   {
    "tconst": "tt0119174",
    "title": "The Game",
    "year": 1997,
    "rating": 7.7,
-   "votes": 477408,
-   "score": 7.687711680695397
+   "votes": 478183,
+   "score": 7.68771861514457
   },
   {
    "tconst": "tt0119008",
    "title": "Donnie Brasco",
    "year": 1997,
    "rating": 7.7,
-   "votes": 360697,
-   "score": 7.683789903829961
+   "votes": 361268,
+   "score": 7.683798321506108
   },
   {
    "tconst": "tt0119177",
    "title": "Gattaca",
    "year": 1997,
    "rating": 7.7,
-   "votes": 350838,
-   "score": 7.683340779964213
+   "votes": 351360,
+   "score": 7.683347860650463
   },
   {
    "tconst": "tt0119822",
    "title": "As Good as It Gets",
    "year": 1997,
    "rating": 7.7,
-   "votes": 340313,
-   "score": 7.6828330137032355
+   "votes": 340613,
+   "score": 7.682830054486953
   },
   {
    "tconst": "tt0119472",
    "title": "Knockin' on Heaven's Door",
    "year": 1997,
    "rating": 7.8,
-   "votes": 37429,
-   "score": 7.648500234766441
+   "votes": 37495,
+   "score": 7.64859027230025
   },
   {
    "tconst": "tt0125659",
    "title": "Open Your Eyes",
    "year": 1997,
    "rating": 7.7,
-   "votes": 76449,
-   "score": 7.627218461379579
-  },
-  {
-   "tconst": "tt0118767",
-   "title": "Brother",
-   "year": 1997,
-   "rating": 7.8,
-   "votes": 29414,
-   "score": 7.613216030130335
+   "votes": 76569,
+   "score": 7.6272498574384775
   },
   {
    "tconst": "tt0119116",
    "title": "The Fifth Element",
    "year": 1997,
    "rating": 7.6,
-   "votes": 551719,
-   "score": 7.590250047979151
+   "votes": 552546,
+   "score": 7.590253438499064
   },
   {
    "tconst": "tt0120265",
    "title": "Taste of Cherry",
    "year": 1997,
    "rating": 7.7,
-   "votes": 45131,
-   "score": 7.581750143841243
+   "votes": 45292,
+   "score": 7.582005957635393
   },
   {
    "tconst": "tt0116922",
    "title": "Lost Highway",
    "year": 1997,
    "rating": 7.6,
-   "votes": 173310,
-   "score": 7.569558726156162
+   "votes": 173681,
+   "score": 7.569587385460116
   },
   {
    "tconst": "tt0119250",
    "title": "Fireworks",
    "year": 1997,
    "rating": 7.7,
-   "votes": 35975,
-   "score": 7.555326820278349
+   "votes": 36016,
+   "score": 7.555320938692198
+  },
+  {
+   "tconst": "tt0118767",
+   "title": "Brother",
+   "year": 1997,
+   "rating": 7.7,
+   "votes": 29529,
+   "score": 7.528139929375283
   },
   {
    "tconst": "tt0118971",
    "title": "The Devil's Advocate",
    "year": 1997,
    "rating": 7.5,
-   "votes": 452224,
-   "score": 7.489221949112263
+   "votes": 453054,
+   "score": 7.489228002858614
   },
   {
    "tconst": "tt0119396",
    "title": "Jackie Brown",
    "year": 1997,
    "rating": 7.5,
-   "votes": 408329,
-   "score": 7.488077334183919
+   "votes": 408726,
+   "score": 7.48807385472849
   },
   {
    "tconst": "tt0118884",
    "title": "Contact",
    "year": 1997,
    "rating": 7.5,
-   "votes": 317215,
-   "score": 7.4847059151836675
+   "votes": 317587,
+   "score": 7.484704416549331
   },
   {
    "tconst": "tt0118845",
    "title": "Happy Together",
    "year": 1997,
    "rating": 7.6,
-   "votes": 38896,
-   "score": 7.476344461019349
+   "votes": 38979,
+   "score": 7.4764374729166
   },
   {
    "tconst": "tt0118826",
    "title": "The Castle",
    "year": 1997,
    "rating": 7.7,
-   "votes": 19111,
-   "score": 7.45413779855275
+   "votes": 19129,
+   "score": 7.4540653827924555
   },
   {
    "tconst": "tt0119167",
    "title": "Funny Games",
    "year": 1997,
    "rating": 7.5,
-   "votes": 99443,
-   "score": 7.452816526343607
+   "votes": 99732,
+   "score": 7.452887786172318
   },
   {
    "tconst": "tt0145046",
    "title": "Little Dieter Needs to Fly",
    "year": 1997,
    "rating": 8,
-   "votes": 7559,
-   "score": 7.408552946962764
+   "votes": 7575,
+   "score": 7.408814602099339
   },
   {
    "tconst": "tt0316078",
    "title": "Kadhalukku Mariyadhai",
    "year": 1997,
    "rating": 8.2,
-   "votes": 5647,
-   "score": 7.408417062168249
+   "votes": 5656,
+   "score": 7.4085063458520235
   },
   {
    "tconst": "tt0123948",
    "title": "Cure",
    "year": 1997,
    "rating": 7.5,
-   "votes": 41046,
-   "score": 7.3929769461170425
+   "votes": 41513,
+   "score": 7.393918767256448
   },
   {
    "tconst": "tt0135007",
    "title": "Three Men and a Leg",
    "year": 1997,
    "rating": 7.7,
-   "votes": 13601,
-   "score": 7.381308341535689
+   "votes": 13628,
+   "score": 7.381438888844706
   },
   {
    "tconst": "tt0149601",
    "title": "Cholera Street",
    "year": 1997,
    "rating": 7.6,
-   "votes": 12907,
-   "score": 7.2968792349866165
+   "votes": 12925,
+   "score": 7.296839253634543
   },
   {
    "tconst": "tt0120255",
    "title": "The Sweet Hereafter",
    "year": 1997,
    "rating": 7.4,
-   "votes": 37170,
-   "score": 7.29499683331528
+   "votes": 37193,
+   "score": 7.294907771938454
   },
   {
    "tconst": "tt0119654",
    "title": "Men in Black",
    "year": 1997,
    "rating": 7.3,
-   "votes": 671914,
-   "score": 7.294197219234504
+   "votes": 673036,
+   "score": 7.294197717556884
   },
   {
    "tconst": "tt0119094",
    "title": "Face/Off",
    "year": 1997,
    "rating": 7.3,
-   "votes": 431320,
-   "score": 7.290997470803322
+   "votes": 431788,
+   "score": 7.2909929842884855
   },
   {
    "tconst": "tt0120201",
    "title": "Starship Troopers",
    "year": 1997,
    "rating": 7.3,
-   "votes": 350002,
-   "score": 7.288935319972578
+   "votes": 350433,
+   "score": 7.288931369966771
   },
   {
    "tconst": "tt0119282",
    "title": "Hercules",
    "year": 1997,
    "rating": 7.3,
-   "votes": 283910,
-   "score": 7.286404127447666
+   "votes": 284419,
+   "score": 7.28640671006879
   },
   {
    "tconst": "tt0119448",
    "title": "Character",
    "year": 1997,
    "rating": 7.6,
-   "votes": 12053,
-   "score": 7.281699200193827
+   "votes": 12064,
+   "score": 7.281542640728972
   },
   {
    "tconst": "tt0119229",
    "title": "Grosse Pointe Blank",
    "year": 1997,
    "rating": 7.3,
-   "votes": 105862,
-   "score": 7.264568711198655
+   "votes": 106062,
+   "score": 7.264576935598127
   },
   {
    "tconst": "tt0118607",
    "title": "Amistad",
    "year": 1997,
    "rating": 7.3,
-   "votes": 88715,
-   "score": 7.258085860971086
+   "votes": 88807,
+   "score": 7.258061164107147
   },
   {
    "tconst": "tt0119349",
    "title": "The Ice Storm",
    "year": 1997,
    "rating": 7.3,
-   "votes": 64132,
-   "score": 7.243181398786456
+   "votes": 64182,
+   "score": 7.24313323727847
   },
   {
    "tconst": "tt0118954",
    "title": "Deconstructing Harry",
    "year": 1997,
    "rating": 7.3,
-   "votes": 50831,
-   "score": 7.229645115812099
+   "votes": 50868,
+   "score": 7.229581220401647
   },
   {
    "tconst": "tt0122082",
    "title": "The Crazy Stranger",
    "year": 1997,
    "rating": 7.6,
-   "votes": 9043,
-   "score": 7.213474076828694
+   "votes": 9076,
+   "score": 7.213941717916963
   },
   {
    "tconst": "tt0118819",
    "title": "Live Flesh",
    "year": 1997,
    "rating": 7.3,
-   "votes": 35882,
-   "score": 7.203918997625002
+   "votes": 35918,
+   "score": 7.203852671719027
   },
   {
    "tconst": "tt0118842",
    "title": "Chasing Amy",
    "year": 1997,
    "rating": 7.2,
-   "votes": 149150,
-   "score": 7.177762026992575
+   "votes": 149231,
+   "score": 7.177733682731741
   },
   {
    "tconst": "tt0118617",
    "title": "Anastasia",
    "year": 1997,
    "rating": 7.2,
-   "votes": 148561,
-   "score": 7.177676730816453
+   "votes": 148757,
+   "score": 7.177665040430023
   },
   {
    "tconst": "tt0119164",
    "title": "The Full Monty",
    "year": 1997,
    "rating": 7.2,
-   "votes": 120871,
-   "score": 7.172765898903682
+   "votes": 120971,
+   "score": 7.172738516177526
   },
   {
    "tconst": "tt0233422",
    "title": "Chachi 420",
    "year": 1997,
    "rating": 7.4,
-   "votes": 14188,
-   "score": 7.169231627105762
+   "votes": 14192,
+   "score": 7.168958087817798
   },
   {
    "tconst": "tt0119978",
    "title": "The Rainmaker",
    "year": 1997,
    "rating": 7.2,
-   "votes": 93357,
-   "score": 7.165147538669392
+   "votes": 93707,
+   "score": 7.165208583194699
   },
   {
    "tconst": "tt0119590",
    "title": "Ma vie en rose",
    "year": 1997,
    "rating": 7.5,
-   "votes": 9293,
-   "score": 7.15521699159766
+   "votes": 9296,
+   "score": 7.154857556057581
   },
   {
    "tconst": "tt0127626",
    "title": "Kiler",
    "year": 1997,
    "rating": 7.5,
-   "votes": 8823,
-   "score": 7.1434939203432934
+   "votes": 8845,
+   "score": 7.14361456275906
   },
   {
    "tconst": "tt0124207",
    "title": "The Thief",
    "year": 1997,
    "rating": 7.6,
-   "votes": 6021,
-   "score": 7.10748720269534
+   "votes": 6026,
+   "score": 7.107150700290147
   },
   {
    "tconst": "tt0119506",
    "title": "Lawn Dogs",
    "year": 1997,
    "rating": 7.4,
-   "votes": 9357,
-   "score": 7.091580167228903
+   "votes": 9372,
+   "score": 7.091472559240131
   },
   {
    "tconst": "tt0123755",
    "title": "Cube",
    "year": 1997,
    "rating": 7.1,
-   "votes": 263802,
-   "score": 7.089107285142615
+   "votes": 264104,
+   "score": 7.089096570922019
   },
   {
    "tconst": "tt0120102",
    "title": "Seven Years in Tibet",
    "year": 1997,
    "rating": 7.1,
-   "votes": 170091,
-   "score": 7.083277361263031
+   "votes": 170425,
+   "score": 7.0832740123779345
   },
   {
    "tconst": "tt0120885",
    "title": "Wag the Dog",
    "year": 1997,
    "rating": 7.1,
-   "votes": 94182,
-   "score": 7.070478680213197
+   "votes": 94294,
+   "score": 7.070449811885906
   },
   {
    "tconst": "tt0119626",
    "title": "Martín (Hache)",
    "year": 1997,
    "rating": 7.6,
-   "votes": 5187,
-   "score": 7.067165648464254
+   "votes": 5195,
+   "score": 7.0669782855712775
   },
   {
    "tconst": "tt0119792",
    "title": "Nil by Mouth",
    "year": 1997,
    "rating": 7.3,
-   "votes": 11199,
-   "score": 7.057516912210961
+   "votes": 11223,
+   "score": 7.057495137853614
   },
   {
    "tconst": "tt0119375",
    "title": "Insomnia",
    "year": 1997,
    "rating": 7.2,
-   "votes": 17739,
-   "score": 7.049246513079087
+   "votes": 17783,
+   "score": 7.049266717350619
   },
   {
    "tconst": "tt0169880",
    "title": "Neon Genesis Evangelion: Death & Rebirth",
    "year": 1997,
    "rating": 7.2,
-   "votes": 17253,
-   "score": 7.045954094320107
+   "votes": 17270,
+   "score": 7.045794504777691
   },
   {
    "tconst": "tt0119280",
    "title": "Mrs. Brown",
    "year": 1997,
    "rating": 7.2,
-   "votes": 16491,
-   "score": 7.040492134423961
+   "votes": 16505,
+   "score": 7.040308933801404
   },
   {
    "tconst": "tt0118632",
    "title": "The Apostle",
    "year": 1997,
    "rating": 7.2,
-   "votes": 16114,
-   "score": 7.037644049488745
-  },
-  {
-   "tconst": "tt0119572",
-   "title": "Love Jones",
-   "year": 1997,
-   "rating": 7.4,
-   "votes": 6507,
-   "score": 7.015192183966747
+   "votes": 16130,
+   "score": 7.037474851935597
   },
   {
    "tconst": "tt0119815",
    "title": "Four Days in September",
    "year": 1997,
    "rating": 7.4,
-   "votes": 6479,
-   "score": 7.014253546555044
+   "votes": 6497,
+   "score": 7.014320572444913
   },
   {
    "tconst": "tt0119080",
    "title": "Eve's Bayou",
    "year": 1997,
    "rating": 7.2,
-   "votes": 13173,
-   "score": 7.011369419518261
+   "votes": 13221,
+   "score": 7.011527557290993
   },
   {
    "tconst": "tt0120176",
    "title": "The Spanish Prisoner",
    "year": 1997,
    "rating": 7.1,
-   "votes": 26515,
-   "score": 7.007092383338263
+   "votes": 26546,
+   "score": 7.006988005496709
   },
   {
    "tconst": "tt0118655",
    "title": "Austin Powers: International Man of Mystery",
    "year": 1997,
    "rating": 7,
-   "votes": 276117,
-   "score": 6.991363085337797
+   "votes": 276413,
+   "score": 6.99135023478446
   },
   {
    "tconst": "tt0118887",
    "title": "Cop Land",
    "year": 1997,
    "rating": 7,
-   "votes": 117162,
-   "score": 6.980124887124519
+   "votes": 117429,
+   "score": 6.980117812131106
   },
   {
    "tconst": "tt0120408",
    "title": "The Eel",
    "year": 1997,
    "rating": 7.3,
-   "votes": 7114,
-   "score": 6.975748428339553
+   "votes": 7128,
+   "score": 6.9756137550625965
   },
   {
    "tconst": "tt0119051",
    "title": "The Edge",
    "year": 1997,
    "rating": 7,
-   "votes": 85698,
-   "score": 6.973230021179137
+   "votes": 85879,
+   "score": 6.97321541413747
   },
   {
    "tconst": "tt0118771",
    "title": "Breakdown",
    "year": 1997,
    "rating": 7,
-   "votes": 71844,
-   "score": 6.968403733029324
+   "votes": 72116,
+   "score": 6.968435131767715
   },
   {
    "tconst": "tt0120036",
    "title": "Rosewood",
    "year": 1997,
    "rating": 7.2,
-   "votes": 9478,
-   "score": 6.963228102010316
+   "votes": 9492,
+   "score": 6.963030887482692
   },
   {
-   "tconst": "tt0119361",
-   "title": "In the Company of Men",
+   "tconst": "tt0119572",
+   "title": "Love Jones",
    "year": 1997,
-   "rating": 7.1,
-   "votes": 14900,
-   "score": 6.952865148789214
+   "rating": 7.3,
+   "votes": 6522,
+   "score": 6.958552648967121
   },
   {
    "tconst": "tt0119239",
    "title": "Gupt: The Hidden Truth",
    "year": 1997,
    "rating": 7.3,
-   "votes": 6314,
-   "score": 6.952820970559072
+   "votes": 6327,
+   "score": 6.952674461145861
+  },
+  {
+   "tconst": "tt0119361",
+   "title": "In the Company of Men",
+   "year": 1997,
+   "rating": 7.1,
+   "votes": 14913,
+   "score": 6.952651213850206
   },
   {
    "tconst": "tt0119485",
    "title": "Kundun",
    "year": 1997,
    "rating": 7,
-   "votes": 32498,
-   "score": 6.935250318974488
+   "votes": 32535,
+   "score": 6.93514969019313
   },
   {
    "tconst": "tt0120520",
    "title": "The Wings of the Dove",
    "year": 1997,
    "rating": 7.1,
-   "votes": 12404,
-   "score": 6.931763758958018
+   "votes": 12414,
+   "score": 6.931505893040035
   },
   {
    "tconst": "tt0118983",
    "title": "Dil To Pagal Hai",
    "year": 1997,
    "rating": 7,
-   "votes": 27291,
-   "score": 6.9248092800131715
+   "votes": 27332,
+   "score": 6.924713708443621
   },
   {
    "tconst": "tt0118760",
    "title": "The Boxer",
    "year": 1997,
    "rating": 7,
-   "votes": 23962,
-   "score": 6.9161665789968
+   "votes": 23992,
+   "score": 6.916040411886009
   },
   {
    "tconst": "tt0118804",
    "title": "The Butcher Boy",
    "year": 1997,
    "rating": 7.1,
-   "votes": 10818,
-   "score": 6.914895464717749
+   "votes": 10829,
+   "score": 6.9146341285867186
   },
   {
    "tconst": "tt0118698",
    "title": "Bent",
    "year": 1997,
    "rating": 7.1,
-   "votes": 9430,
-   "score": 6.897090537831279
+   "votes": 9440,
+   "score": 6.896803574889139
   },
   {
    "tconst": "tt0119528",
    "title": "Liar Liar",
    "year": 1997,
    "rating": 6.9,
-   "votes": 366733,
-   "score": 6.8948135260009344
+   "votes": 367255,
+   "score": 6.894804216522005
   },
   {
    "tconst": "tt0118880",
    "title": "Con Air",
    "year": 1997,
    "rating": 6.9,
-   "votes": 342810,
-   "score": 6.8944567909516845
+   "votes": 343141,
+   "score": 6.894444330375909
   },
   {
    "tconst": "tt0122529",
    "title": "Henry Fool",
    "year": 1997,
    "rating": 7.1,
-   "votes": 8264,
-   "score": 6.879253351998292
+   "votes": 8271,
+   "score": 6.878904650847651
   },
   {
    "tconst": "tt0124295",
    "title": "The Big One",
    "year": 1997,
    "rating": 7.1,
-   "votes": 8129,
-   "score": 6.876983506809761
+   "votes": 8131,
+   "score": 6.876547378067106
   },
   {
    "tconst": "tt0119125",
    "title": "Firelight",
    "year": 1997,
    "rating": 7.2,
-   "votes": 5292,
-   "score": 6.866927366974869
+   "votes": 5307,
+   "score": 6.866813196992256
   },
   {
    "tconst": "tt0119951",
    "title": "Private Parts",
    "year": 1997,
    "rating": 6.9,
-   "votes": 40716,
-   "score": 6.857826941571997
+   "votes": 40748,
+   "score": 6.857721509604774
   },
   {
    "tconst": "tt0118818",
    "title": "Career Girls",
    "year": 1997,
    "rating": 7.1,
-   "votes": 6790,
-   "score": 6.851655340195535
+   "votes": 6803,
+   "score": 6.85140588167408
   },
   {
    "tconst": "tt0120094",
    "title": "Selena",
    "year": 1997,
    "rating": 6.9,
-   "votes": 34165,
-   "score": 6.8507727935888
+   "votes": 34233,
+   "score": 6.850700777952213
   },
   {
    "tconst": "tt0120241",
    "title": "Suicide Kings",
    "year": 1997,
    "rating": 6.9,
-   "votes": 30778,
-   "score": 6.846112596034026
+   "votes": 30809,
+   "score": 6.8459868642352255
   },
   {
    "tconst": "tt0120169",
    "title": "Soul Food",
    "year": 1997,
    "rating": 7,
-   "votes": 9897,
-   "score": 6.837015268906851
+   "votes": 9911,
+   "score": 6.836754317041055
   },
   {
    "tconst": "tt0118564",
    "title": "Affliction",
    "year": 1997,
    "rating": 6.9,
-   "votes": 21923,
-   "score": 6.828388978230708
+   "votes": 21956,
+   "score": 6.82824764881285
   },
   {
    "tconst": "tt0120514",
    "title": "Wilde",
    "year": 1997,
    "rating": 6.9,
-   "votes": 17837,
-   "score": 6.815576321798194
+   "votes": 17848,
+   "score": 6.815346797155076
   },
   {
    "tconst": "tt0119225",
    "title": "Gridlock'd",
    "year": 1997,
    "rating": 6.9,
-   "votes": 17637,
-   "score": 6.814830430750778
+   "votes": 17662,
+   "score": 6.814651999885234
   },
   {
    "tconst": "tt0120402",
    "title": "Ulee's Gold",
    "year": 1997,
    "rating": 7,
-   "votes": 8045,
-   "score": 6.813876309766604
+   "votes": 8079,
+   "score": 6.81388818880642
   },
   {
    "tconst": "tt0119861",
    "title": "Pardes",
    "year": 1997,
    "rating": 6.9,
-   "votes": 17341,
-   "score": 6.813702003531864
+   "votes": 17367,
+   "score": 6.813526338865255
   },
   {
    "tconst": "tt0119558",
    "title": "Lolita",
    "year": 1997,
    "rating": 6.8,
-   "votes": 75746,
-   "score": 6.782315117292563
+   "votes": 75897,
+   "score": 6.782271822458177
   },
   {
    "tconst": "tt0118829",
    "title": "Cats Don't Dance",
    "year": 1997,
    "rating": 6.9,
-   "votes": 9369,
-   "score": 6.765823401830702
+   "votes": 9378,
+   "score": 6.7654780651967705
   },
   {
    "tconst": "tt0143334",
    "title": "The Small Town",
    "year": 1997,
    "rating": 6.9,
-   "votes": 7326,
-   "score": 6.74358400623928
+   "votes": 7346,
+   "score": 6.743337406560762
   },
   {
    "tconst": "tt0133024",
    "title": "Ishq",
    "year": 1997,
    "rating": 6.8,
-   "votes": 13068,
-   "score": 6.7209661534705205
+   "votes": 13099,
+   "score": 6.720760463086313
   },
   {
    "tconst": "tt0120370",
    "title": "Trekkies",
    "year": 1997,
    "rating": 6.9,
-   "votes": 5140,
-   "score": 6.709863556302304
+   "votes": 5144,
+   "score": 6.709330009995975
   },
   {
    "tconst": "tt0118647",
    "title": "The Assignment",
    "year": 1997,
    "rating": 6.8,
-   "votes": 10690,
-   "score": 6.708987664812323
+   "votes": 10705,
+   "score": 6.7086815422731085
   },
   {
    "tconst": "tt0118883",
    "title": "Conspiracy Theory",
    "year": 1997,
    "rating": 6.7,
-   "votes": 115396,
-   "score": 6.6922922394506905
+   "votes": 115548,
+   "score": 6.692250751745356
   },
   {
    "tconst": "tt0119937",
    "title": "Prefontaine",
    "year": 1997,
    "rating": 6.8,
-   "votes": 7985,
-   "score": 6.6900282218641
+   "votes": 7995,
+   "score": 6.689637831581313
   },
   {
    "tconst": "tt0119248",
    "title": "Steam: The Turkish Bath",
    "year": 1997,
    "rating": 6.8,
-   "votes": 7944,
-   "score": 6.689679887276371
+   "votes": 7955,
+   "score": 6.689297076140424
   },
   {
    "tconst": "tt0118548",
    "title": "Absolute Power",
    "year": 1997,
    "rating": 6.7,
-   "votes": 65597,
-   "score": 6.686855198675657
+   "votes": 65682,
+   "score": 6.686783673656648
   },
   {
    "tconst": "tt0120399",
    "title": "U Turn",
    "year": 1997,
    "rating": 6.7,
-   "votes": 58049,
-   "score": 6.685281550237202
+   "votes": 58107,
+   "score": 6.685197262132556
   },
   {
    "tconst": "tt0119807",
    "title": "Nothing to Lose",
    "year": 1997,
    "rating": 6.7,
-   "votes": 52944,
-   "score": 6.683984820877146
+   "votes": 53006,
+   "score": 6.683895521521897
   },
   {
    "tconst": "tt0120394",
    "title": "Twin Town",
    "year": 1997,
    "rating": 6.8,
-   "votes": 6781,
-   "score": 6.678789276029654
+   "votes": 6792,
+   "score": 6.678378868843213
   },
   {
    "tconst": "tt0119859",
    "title": "Paradise Road",
    "year": 1997,
    "rating": 6.8,
-   "votes": 6302,
-   "score": 6.673652137754853
+   "votes": 6306,
+   "score": 6.673150859844258
   },
   {
    "tconst": "tt0120540",
    "title": "Yes Boss",
    "year": 1997,
    "rating": 6.7,
-   "votes": 15283,
-   "score": 6.654248210861576
-  },
-  {
-   "tconst": "tt0119114",
-   "title": "Fever Pitch",
-   "year": 1997,
-   "rating": 6.7,
-   "votes": 12681,
-   "score": 6.647515211860491
+   "votes": 15302,
+   "score": 6.653986977706589
   },
   {
    "tconst": "tt0120490",
    "title": "Welcome to Sarajevo",
    "year": 1997,
    "rating": 6.7,
-   "votes": 8184,
-   "score": 6.629612899037117
+   "votes": 8190,
+   "score": 6.629176923532917
   },
   {
    "tconst": "tt0115487",
    "title": "Airbag",
    "year": 1997,
    "rating": 6.7,
-   "votes": 5445,
-   "score": 6.611155237999554
+   "votes": 5456,
+   "score": 6.61065834175585
   },
   {
    "tconst": "tt0119567",
    "title": "The Lost World: Jurassic Park",
    "year": 1997,
    "rating": 6.6,
-   "votes": 483265,
-   "score": 6.599123460540701
+   "votes": 483986,
+   "score": 6.599112129225375
   },
   {
    "tconst": "tt0118571",
    "title": "Air Force One",
    "year": 1997,
    "rating": 6.6,
-   "votes": 226029,
-   "score": 6.59814748997271
+   "votes": 226330,
+   "score": 6.598123216277175
   },
   {
    "tconst": "tt0119081",
    "title": "Event Horizon",
    "year": 1997,
    "rating": 6.6,
-   "votes": 217606,
-   "score": 6.598077394413921
+   "votes": 217980,
+   "score": 6.598052935785268
   },
   {
    "tconst": "tt0119468",
    "title": "Kiss the Girls",
    "year": 1997,
    "rating": 6.6,
-   "votes": 101496,
-   "score": 6.595981224279835
+   "votes": 101666,
+   "score": 6.595929758511608
   },
   {
    "tconst": "tt0119668",
    "title": "Midnight in the Garden of Good and Evil",
    "year": 1997,
    "rating": 6.6,
-   "votes": 44093,
-   "score": 6.59128218811043
+   "votes": 44159,
+   "score": 6.591168323631464
   },
   {
    "tconst": "tt0119237",
    "title": "Gummo",
    "year": 1997,
    "rating": 6.6,
-   "votes": 42404,
-   "score": 6.590971573304053
+   "votes": 42470,
+   "score": 6.590854089349045
   },
   {
    "tconst": "tt0120483",
    "title": "The Man Who Knew Too Little",
    "year": 1997,
    "rating": 6.6,
-   "votes": 37548,
-   "score": 6.589941159652753
+   "votes": 37619,
+   "score": 6.589813079175935
   },
   {
    "tconst": "tt0118531",
    "title": "One Eight Seven",
    "year": 1997,
    "rating": 6.6,
-   "votes": 27278,
-   "score": 6.586740704532664
+   "votes": 27325,
+   "score": 6.586569021543671
   },
   {
    "tconst": "tt0119809",
    "title": "Nowhere",
    "year": 1997,
    "rating": 6.6,
-   "votes": 12675,
-   "score": 6.575785938382198
+   "votes": 12716,
+   "score": 6.575493543768298
+  },
+  {
+   "tconst": "tt0119114",
+   "title": "Fever Pitch",
+   "year": 1997,
+   "rating": 6.6,
+   "votes": 12707,
+   "score": 6.5754810877844445
   },
   {
    "tconst": "tt0119324",
    "title": "The House of Yes",
    "year": 1997,
    "rating": 6.6,
-   "votes": 9408,
-   "score": 6.570295423438739
+   "votes": 9415,
+   "score": 6.56988162479356
   },
   {
    "tconst": "tt0118866",
    "title": "Clockwatchers",
    "year": 1997,
    "rating": 6.6,
-   "votes": 7874,
-   "score": 6.566755978010358
+   "votes": 7902,
+   "score": 6.566349683878404
   },
   {
    "tconst": "tt0116147",
    "title": "Drive",
    "year": 1997,
    "rating": 6.6,
-   "votes": 7652,
-   "score": 6.566172657358942
+   "votes": 7672,
+   "score": 6.565738922143243
   },
   {
    "tconst": "tt0119632",
    "title": "The MatchMaker",
    "year": 1997,
    "rating": 6.6,
-   "votes": 6232,
-   "score": 6.561896052431031
+   "votes": 6236,
+   "score": 6.561360236863578
   },
   {
    "tconst": "tt0119092",
    "title": "Face",
    "year": 1997,
    "rating": 6.6,
-   "votes": 5162,
-   "score": 6.557883926481534
+   "votes": 5169,
+   "score": 6.557305892555726
   },
   {
    "tconst": "tt0119095",
    "title": "FairyTale: A True Story",
    "year": 1997,
    "rating": 6.5,
-   "votes": 6699,
-   "score": 6.506155779203809
+   "votes": 6701,
+   "score": 6.505627178993178
   },
   {
    "tconst": "tt0119843",
    "title": "Oscar and Lucinda",
    "year": 1997,
    "rating": 6.5,
-   "votes": 7462,
-   "score": 6.505778884681861
+   "votes": 7468,
+   "score": 6.505281009095217
   },
   {
    "tconst": "tt0120122",
    "title": "Shooting Fish",
    "year": 1997,
    "rating": 6.5,
-   "votes": 8042,
-   "score": 6.5055218878166965
+   "votes": 8044,
+   "score": 6.505047809061574
   },
   {
    "tconst": "tt0119210",
    "title": "Switchback",
    "year": 1997,
    "rating": 6.5,
-   "votes": 16329,
-   "score": 6.503376457447857
+   "votes": 16347,
+   "score": 6.5030844437812885
   },
   {
    "tconst": "tt0118996",
    "title": "Dobermann",
    "year": 1997,
    "rating": 6.5,
-   "votes": 19954,
-   "score": 6.502885968618472
+   "votes": 19980,
+   "score": 6.5026358535387985
   },
   {
    "tconst": "tt0119715",
    "title": "Mousehunt",
    "year": 1997,
    "rating": 6.5,
-   "votes": 64261,
-   "score": 6.501039783729738
+   "votes": 64341,
+   "score": 6.500949562616621
   },
   {
    "tconst": "tt0118689",
    "title": "Bean",
    "year": 1997,
    "rating": 6.5,
-   "votes": 117400,
-   "score": 6.500588369778639
+   "votes": 117510,
+   "score": 6.500537455076313
   },
   {
    "tconst": "tt0120347",
    "title": "Tomorrow Never Dies",
    "year": 1997,
    "rating": 6.5,
-   "votes": 217716,
-   "score": 6.500323355577979
+   "votes": 217916,
+   "score": 6.500295374138236
   },
   {
    "tconst": "tt0120471",
    "title": "Would I Lie to You?",
    "year": 1997,
    "rating": 6.4,
-   "votes": 5386,
-   "score": 6.455075723175944
+   "votes": 5396,
+   "score": 6.454428974740205
   },
   {
    "tconst": "tt0119527",
    "title": "Deceiver",
    "year": 1997,
    "rating": 6.4,
-   "votes": 7714,
-   "score": 6.444991069758169
+   "votes": 7733,
+   "score": 6.444439144066534
   },
   {
    "tconst": "tt0120512",
    "title": "Wild America",
    "year": 1997,
    "rating": 6.4,
-   "votes": 8810,
-   "score": 6.441420453360272
+   "votes": 8820,
+   "score": 6.440943822098349
   },
   {
    "tconst": "tt0118900",
    "title": "Gang Related",
    "year": 1997,
    "rating": 6.4,
-   "votes": 11227,
-   "score": 6.435250906569628
+   "votes": 11245,
+   "score": 6.4348318634286965
   },
   {
    "tconst": "tt0119381",
    "title": "Inventing the Abbotts",
    "year": 1997,
    "rating": 6.4,
-   "votes": 15445,
-   "score": 6.4279783057424975
+   "votes": 15473,
+   "score": 6.42763852983926
   },
   {
    "tconst": "tt0119115",
    "title": "Fierce Creatures",
    "year": 1997,
    "rating": 6.4,
-   "votes": 26747,
-   "score": 6.4180179689704655
+   "votes": 26768,
+   "score": 6.417811748344221
   },
   {
    "tconst": "tt0119360",
    "title": "In & Out",
    "year": 1997,
    "rating": 6.4,
-   "votes": 46929,
-   "score": 6.411015356754518
+   "votes": 46989,
+   "score": 6.410883910469507
   },
   {
    "tconst": "tt0120032",
    "title": "Romy and Michele's High School Reunion",
    "year": 1997,
    "rating": 6.4,
-   "votes": 58784,
-   "score": 6.408968024283603
+   "votes": 58873,
+   "score": 6.408858885936143
   },
   {
    "tconst": "tt0119395",
    "title": "The Jackal",
    "year": 1997,
    "rating": 6.4,
-   "votes": 132095,
-   "score": 6.404172409357784
-  },
-  {
-   "tconst": "tt0118976",
-   "title": "Didier",
-   "year": 1997,
-   "rating": 6.3,
-   "votes": 5372,
-   "score": 6.403356774094229
+   "votes": 132223,
+   "score": 6.404123533382882
   },
   {
    "tconst": "tt0119738",
    "title": "My Best Friend's Wedding",
    "year": 1997,
    "rating": 6.4,
-   "votes": 168734,
-   "score": 6.403292484262755
+   "votes": 168973,
+   "score": 6.403252479530727
+  },
+  {
+   "tconst": "tt0118976",
+   "title": "Didier",
+   "year": 1997,
+   "rating": 6.3,
+   "votes": 5385,
+   "score": 6.402632991949848
   },
   {
    "tconst": "tt0120082",
    "title": "Scream 2",
    "year": 1997,
    "rating": 6.4,
-   "votes": 240275,
-   "score": 6.402332143352993
+   "votes": 240703,
+   "score": 6.402302957722939
   },
   {
    "tconst": "tt0120383",
    "title": "Truth or Consequences, N.M.",
    "year": 1997,
    "rating": 6.3,
-   "votes": 5553,
-   "score": 6.401584048223761
+   "votes": 5560,
+   "score": 6.400932161117346
   },
   {
    "tconst": "tt0118623",
    "title": "Anna Karenina",
    "year": 1997,
    "rating": 6.3,
-   "votes": 6474,
-   "score": 6.393430055857186
+   "votes": 6485,
+   "score": 6.392803101558483
   },
   {
    "tconst": "tt0162480",
    "title": "Mr. & Mrs. Khiladi",
    "year": 1997,
    "rating": 6.3,
-   "votes": 7209,
-   "score": 6.387805427218064
+   "votes": 7220,
+   "score": 6.38722124561368
   },
   {
    "tconst": "tt0119879",
    "title": "Perdita Durango",
    "year": 1997,
    "rating": 6.3,
-   "votes": 11059,
-   "score": 6.366754870222639
+   "votes": 11095,
+   "score": 6.366222033016413
   },
   {
    "tconst": "tt0119311",
    "title": "Hoodlum",
    "year": 1997,
    "rating": 6.3,
-   "votes": 14301,
-   "score": 6.355542016522737
+   "votes": 14366,
+   "score": 6.355036849189258
   },
   {
    "tconst": "tt0120152",
    "title": "Smilla's Sense of Snow",
    "year": 1997,
    "rating": 6.3,
-   "votes": 16089,
-   "score": 6.350832967940886
+   "votes": 16101,
+   "score": 6.350511521795136
   },
   {
    "tconst": "tt0119994",
    "title": "Red Corner",
    "year": 1997,
    "rating": 6.3,
-   "votes": 19939,
-   "score": 6.342985543161528
+   "votes": 19962,
+   "score": 6.342698646799101
   },
   {
    "tconst": "tt0119592",
    "title": "Mad City",
    "year": 1997,
    "rating": 6.3,
-   "votes": 22011,
-   "score": 6.339688144122963
+   "votes": 22037,
+   "score": 6.3394216673965
   },
   {
    "tconst": "tt0117786",
    "title": "Mr. Nice Guy",
    "year": 1997,
    "rating": 6.3,
-   "votes": 31364,
-   "score": 6.329480157873318
+   "votes": 31413,
+   "score": 6.329270964254502
   },
   {
    "tconst": "tt0117468",
    "title": "Retroactive",
    "year": 1997,
    "rating": 6.2,
-   "votes": 7300,
-   "score": 6.3278062163337685
+   "votes": 7310,
+   "score": 6.327200944061671
   },
   {
    "tconst": "tt0119535",
    "title": "A Life Less Ordinary",
    "year": 1997,
    "rating": 6.3,
-   "votes": 38611,
-   "score": 6.324581331794852
+   "votes": 38644,
+   "score": 6.324421309261277
   },
   {
    "tconst": "tt0119428",
    "title": "Judwaa",
    "year": 1997,
    "rating": 6.2,
-   "votes": 7838,
-   "score": 6.322450261793531
+   "votes": 7852,
+   "score": 6.321836571848675
   },
   {
    "tconst": "tt0136352",
    "title": "Koyla",
    "year": 1997,
    "rating": 6.2,
-   "votes": 10855,
-   "score": 6.299149571801031
+   "votes": 10874,
+   "score": 6.298642032342142
   },
   {
    "tconst": "tt0120323",
    "title": "A Thousand Acres",
    "year": 1997,
    "rating": 6.1,
-   "votes": 6115,
-   "score": 6.286416235798951
+   "votes": 6118,
+   "score": 6.285810723277493
   },
   {
    "tconst": "tt0118859",
    "title": "City of Industry",
    "year": 1997,
    "rating": 6.1,
-   "votes": 7301,
-   "score": 6.268442928290817
+   "votes": 7316,
+   "score": 6.267736572052547
   },
   {
    "tconst": "tt0119794",
    "title": "Nirvana",
    "year": 1997,
    "rating": 6.1,
-   "votes": 7577,
-   "score": 6.26474647856447
+   "votes": 7597,
+   "score": 6.263994889370419
   },
   {
    "tconst": "tt0119791",
    "title": "Nightwatch",
    "year": 1997,
    "rating": 6.2,
-   "votes": 22982,
-   "score": 6.25617956046406
+   "votes": 23032,
+   "score": 6.255859147452881
   },
   {
    "tconst": "tt0119695",
    "title": "Money Talks",
    "year": 1997,
    "rating": 6.2,
-   "votes": 33891,
-   "score": 6.240421086135747
+   "votes": 33927,
+   "score": 6.240225129637506
   },
   {
    "tconst": "tt0119848",
    "title": "Out to Sea",
    "year": 1997,
    "rating": 6.1,
-   "votes": 10346,
-   "score": 6.235019970083758
+   "votes": 10362,
+   "score": 6.234477517341437
   },
   {
    "tconst": "tt0119141",
    "title": "Fools Rush In",
    "year": 1997,
    "rating": 6.2,
-   "votes": 42230,
-   "score": 6.23328427823217
+   "votes": 42276,
+   "score": 6.2331213220534565
   },
   {
    "tconst": "tt0118768",
    "title": "The Brave",
    "year": 1997,
    "rating": 6.1,
-   "votes": 11376,
-   "score": 6.226527629513028
+   "votes": 11387,
+   "score": 6.226066004845253
   },
   {
    "tconst": "tt0119227",
    "title": "Snow White: A Tale of Terror",
    "year": 1997,
    "rating": 6.1,
-   "votes": 12339,
-   "score": 6.2195003437859935
+   "votes": 12353,
+   "score": 6.219048211917199
   },
   {
    "tconst": "tt0120053",
    "title": "The Saint",
    "year": 1997,
    "rating": 6.2,
-   "votes": 78870,
-   "score": 6.21874348945875
+   "votes": 78966,
+   "score": 6.218648543712922
   },
   {
    "tconst": "tt0118972",
    "title": "The Devil's Own",
    "year": 1997,
    "rating": 6.2,
-   "votes": 78873,
-   "score": 6.218742819034795
+   "votes": 78991,
+   "score": 6.2186429929563785
   },
   {
    "tconst": "tt0118583",
    "title": "Alien: Resurrection",
    "year": 1997,
    "rating": 6.2,
-   "votes": 294532,
-   "score": 6.205248242127404
+   "votes": 294876,
+   "score": 6.205221637014629
   },
   {
    "tconst": "tt0118556",
    "title": "Addicted to Love",
    "year": 1997,
    "rating": 6.1,
-   "votes": 26879,
-   "score": 6.164996281593066
+   "votes": 26904,
+   "score": 6.164751868775049
   },
   {
    "tconst": "tt0119731",
    "title": "Murder at 1600",
    "year": 1997,
    "rating": 6.1,
-   "votes": 34930,
-   "score": 6.151891221159663
+   "votes": 34974,
+   "score": 6.151679682328493
   },
   {
    "tconst": "tt0124819",
    "title": "Orgazmo",
    "year": 1997,
    "rating": 6.1,
-   "votes": 39479,
-   "score": 6.146584151192817
+   "votes": 39502,
+   "score": 6.146421365812754
   },
   {
    "tconst": "tt0119832",
    "title": "One Night Stand",
    "year": 1997,
    "rating": 5.9,
-   "votes": 7476,
-   "score": 6.1462340863181595
+   "votes": 7482,
+   "score": 6.145621184217207
   },
   {
    "tconst": "tt0119784",
    "title": "The Night Flier",
    "year": 1997,
    "rating": 6,
-   "votes": 13568,
-   "score": 6.1385187667441485
+   "votes": 13595,
+   "score": 6.1379856747189665
   },
   {
    "tconst": "tt0117496",
    "title": "Robinson Crusoe",
    "year": 1997,
    "rating": 6,
-   "votes": 14735,
-   "score": 6.130327664601234
+   "votes": 14774,
+   "score": 6.129758451572731
   },
   {
    "tconst": "tt0119925",
    "title": "The Postman",
    "year": 1997,
    "rating": 6.1,
-   "votes": 84064,
-   "score": 6.123264354407003
+   "votes": 84149,
+   "score": 6.123172930951544
   },
   {
    "tconst": "tt0119173",
    "title": "G.I. Jane",
    "year": 1997,
    "rating": 6.1,
-   "votes": 92773,
-   "score": 6.121192112964779
+   "votes": 92908,
+   "score": 6.12109984497078
   },
   {
    "tconst": "tt0118928",
    "title": "Dante's Peak",
    "year": 1997,
    "rating": 6.1,
-   "votes": 109605,
-   "score": 6.118079634055279
+   "votes": 109769,
+   "score": 6.118000014127501
   },
   {
    "tconst": "tt0120112",
    "title": "She's So Lovely",
    "year": 1997,
    "rating": 5.9,
-   "votes": 9121,
-   "score": 6.117549497975027
+   "votes": 9136,
+   "score": 6.116881976612845
   },
   {
    "tconst": "tt0115813",
    "title": "Campfire Tales",
    "year": 1997,
    "rating": 5.8,
-   "votes": 6532,
-   "score": 6.1097482189477414
+   "votes": 6573,
+   "score": 6.108117482191236
   },
   {
    "tconst": "tt0120373",
    "title": "Trial and Error",
    "year": 1997,
    "rating": 5.8,
-   "votes": 6866,
-   "score": 6.101029534881624
+   "votes": 6877,
+   "score": 6.100231002896285
   },
   {
    "tconst": "tt0120029",
    "title": "RocketMan",
    "year": 1997,
    "rating": 5.9,
-   "votes": 11290,
-   "score": 6.0885829626092915
+   "votes": 11296,
+   "score": 6.088134733762836
   },
   {
    "tconst": "tt0119142",
    "title": "For Richer or Poorer",
    "year": 1997,
    "rating": 5.9,
-   "votes": 13179,
-   "score": 6.068987098350039
+   "votes": 13204,
+   "score": 6.0684159317402315
   },
   {
    "tconst": "tt0120142",
    "title": "The Sixth Man",
    "year": 1997,
    "rating": 5.7,
-   "votes": 6892,
-   "score": 6.04241645315383
+   "votes": 6905,
+   "score": 6.041524033716856
   },
   {
    "tconst": "tt0120434",
    "title": "Vegas Vacation",
    "year": 1997,
    "rating": 6,
-   "votes": 56820,
-   "score": 6.04160492495803
+   "votes": 56892,
+   "score": 6.041456789591534
   },
   {
    "tconst": "tt0119675",
    "title": "Mimic",
    "year": 1997,
    "rating": 6,
-   "votes": 60708,
-   "score": 6.039143125051826
+   "votes": 60817,
+   "score": 6.038984511925478
   },
   {
    "tconst": "tt0120376",
    "title": "Trojan War",
    "year": 1997,
    "rating": 5.7,
-   "votes": 7065,
-   "score": 6.037506544625392
+   "votes": 7079,
+   "score": 6.036604323321399
   },
   {
    "tconst": "tt0119874",
    "title": "The Peacemaker",
    "year": 1997,
    "rating": 6,
-   "votes": 66837,
-   "score": 6.035803506005336
+   "votes": 66895,
+   "score": 6.035688763076697
   },
   {
    "tconst": "tt0119062",
    "title": "The End of Violence",
    "year": 1997,
    "rating": 5.6,
-   "votes": 5566,
-   "score": 6.032710246157993
+   "votes": 5572,
+   "score": 6.0318807814414654
   },
   {
    "tconst": "tt0118755",
    "title": "The Borrowers",
    "year": 1997,
    "rating": 5.9,
-   "votes": 24021,
-   "score": 6.0058549485167765
+   "votes": 24052,
+   "score": 6.005529520218889
   },
   {
    "tconst": "tt0119709",
    "title": "Most Wanted",
    "year": 1997,
    "rating": 5.6,
-   "votes": 6725,
-   "score": 5.9899374380303065
+   "votes": 6731,
+   "score": 5.989211799624854
   },
   {
    "tconst": "tt0120524",
    "title": "Wishmaster",
    "year": 1997,
    "rating": 5.9,
-   "votes": 29292,
-   "score": 5.9895840563660725
+   "votes": 29384,
+   "score": 5.989164833102582
   },
   {
    "tconst": "tt0119906",
    "title": "Playing God",
    "year": 1997,
    "rating": 5.6,
-   "votes": 8273,
-   "score": 5.944459915686382
+   "votes": 8282,
+   "score": 5.943761754359221
   },
   {
    "tconst": "tt0119345",
    "title": "I Know What You Did Last Summer",
    "year": 1997,
    "rating": 5.9,
-   "votes": 183024,
-   "score": 5.916338427333241
+   "votes": 183264,
+   "score": 5.916284810805036
   }
  ]
 }

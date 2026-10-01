@@ -1,6 +1,6 @@
 {
  "tag": "year-2013",
- "builtAt": "2026-09-15T22:46:38.707Z",
+ "builtAt": "2026-10-01T06:19:54.122Z",
  "mean": 6.486,
  "minVotes": 10000,
  "items": [
@@ -9,1600 +9,1600 @@
    "title": "The Wolf of Wall Street",
    "year": 2013,
    "rating": 8.2,
-   "votes": 1825346,
-   "score": 8.190662882036811
+   "votes": 1829264,
+   "score": 8.19068134118636
   },
   {
    "tconst": "tt1392214",
    "title": "Prisoners",
    "year": 2013,
    "rating": 8.2,
-   "votes": 958556,
-   "score": 8.182306813333184
-  },
-  {
-   "tconst": "tt2024544",
-   "title": "12 Years a Slave",
-   "year": 2013,
-   "rating": 8.1,
-   "votes": 794660,
-   "score": 8.079945763297214
+   "votes": 961283,
+   "score": 8.18235377981061
   },
   {
    "tconst": "tt3417422",
    "title": "Drishyam",
    "year": 2013,
    "rating": 8.4,
-   "votes": 49720,
-   "score": 8.079557231994924
+   "votes": 49829,
+   "score": 8.080097048518102
+  },
+  {
+   "tconst": "tt2024544",
+   "title": "12 Years a Slave",
+   "year": 2013,
+   "rating": 8.1,
+   "votes": 795694,
+   "score": 8.079968233989318
   },
   {
    "tconst": "tt1979320",
    "title": "Rush",
    "year": 2013,
    "rating": 8.1,
-   "votes": 566795,
-   "score": 8.072023262848562
+   "votes": 567623,
+   "score": 8.072058810531765
   },
   {
    "tconst": "tt2356180",
    "title": "Bhaag Milkha Bhaag",
    "year": 2013,
    "rating": 8.2,
-   "votes": 79988,
-   "score": 8.009565251975117
-  },
-  {
-   "tconst": "tt1798709",
-   "title": "Her",
-   "year": 2013,
-   "rating": 8,
-   "votes": 733947,
-   "score": 7.979653332690012
+   "votes": 80118,
+   "score": 8.009810762730968
   },
   {
    "tconst": "tt2545118",
    "title": "Blackfish",
    "year": 2013,
    "rating": 8.1,
-   "votes": 77055,
-   "score": 7.914636240247392
+   "votes": 77117,
+   "score": 7.914737953737955
   },
   {
    "tconst": "tt3322420",
    "title": "Queen",
    "year": 2013,
    "rating": 8.1,
-   "votes": 71815,
-   "score": 7.902764259545766
+   "votes": 71861,
+   "score": 7.902842944940685
+  },
+  {
+   "tconst": "tt1798709",
+   "title": "Her",
+   "year": 2013,
+   "rating": 7.9,
+   "votes": 734996,
+   "score": 7.881020738790261
   },
   {
    "tconst": "tt0790636",
    "title": "Dallas Buyers Club",
    "year": 2013,
    "rating": 7.9,
-   "votes": 552610,
-   "score": 7.8748727500306375
+   "votes": 553131,
+   "score": 7.874891324249224
   },
   {
    "tconst": "tt2991224",
    "title": "Tangerines",
    "year": 2013,
    "rating": 8.1,
-   "votes": 52074,
-   "score": 7.840038629615246
+   "votes": 52117,
+   "score": 7.840176220934518
   },
   {
    "tconst": "tt2209418",
    "title": "Before Midnight",
    "year": 2013,
    "rating": 7.9,
-   "votes": 188289,
-   "score": 7.82870586817593
+   "votes": 188580,
+   "score": 7.828797090924511
   },
   {
    "tconst": "tt2576852",
    "title": "The Tale of The Princess Kaguya",
    "year": 2013,
    "rating": 8,
-   "votes": 63129,
-   "score": 7.793011772275524
+   "votes": 63274,
+   "score": 7.793385461634269
   },
   {
    "tconst": "tt2377938",
    "title": "Special 26",
    "year": 2013,
    "rating": 8,
-   "votes": 63001,
-   "score": 7.792648838984903
+   "votes": 63072,
+   "score": 7.792814297073974
   },
   {
    "tconst": "tt1170358",
    "title": "The Hobbit: The Desolation of Smaug",
    "year": 2013,
    "rating": 7.8,
-   "votes": 761539,
-   "score": 7.782973197589151
+   "votes": 762439,
+   "score": 7.78298962936334
   },
   {
    "tconst": "tt1535109",
    "title": "Captain Phillips",
    "year": 2013,
    "rating": 7.8,
-   "votes": 522903,
-   "score": 7.775348530398097
+   "votes": 523355,
+   "score": 7.775364487659794
   },
   {
    "tconst": "tt2194499",
    "title": "About Time",
    "year": 2013,
    "rating": 7.8,
-   "votes": 442220,
-   "score": 7.770950329252878
+   "votes": 443454,
+   "score": 7.771023579714346
   },
   {
    "tconst": "tt2370248",
    "title": "Short Term 12",
    "year": 2013,
    "rating": 7.9,
-   "votes": 96155,
-   "score": 7.766828297251536
+   "votes": 96228,
+   "score": 7.766895040062785
   },
   {
    "tconst": "tt2013293",
    "title": "The Wind Rises",
    "year": 2013,
    "rating": 7.8,
-   "votes": 115243,
-   "score": 7.695109170929607
+   "votes": 115499,
+   "score": 7.695302164286485
   },
   {
    "tconst": "tt1454468",
    "title": "Gravity",
    "year": 2013,
    "rating": 7.7,
-   "votes": 906554,
-   "score": 7.686758181072514
+   "votes": 907365,
+   "score": 7.686767018924626
   },
   {
    "tconst": "tt1408101",
    "title": "Star Trek Into Darkness",
    "year": 2013,
    "rating": 7.7,
-   "votes": 512582,
-   "score": 7.676775238899803
+   "votes": 512873,
+   "score": 7.676783131498069
   },
   {
    "tconst": "tt2659414",
    "title": "Miracle in Cell No. 7",
    "year": 2013,
    "rating": 8.1,
-   "votes": 26475,
-   "score": 7.657591717470509
+   "votes": 26507,
+   "score": 7.657907423666405
   },
   {
    "tconst": "tt2199711",
    "title": "Vishwaroopam",
    "year": 2013,
    "rating": 7.9,
-   "votes": 43676,
-   "score": 7.63662638599629
+   "votes": 43692,
+   "score": 7.6366558577775
   },
   {
    "tconst": "tt2350496",
    "title": "The Lunchbox",
    "year": 2013,
    "rating": 7.8,
-   "votes": 69908,
-   "score": 7.6356004141604945
+   "votes": 70129,
+   "score": 7.636020995092781
   },
   {
    "tconst": "tt1924396",
    "title": "The Best Offer",
    "year": 2013,
    "rating": 7.7,
-   "votes": 138613,
-   "score": 7.618332567774937
+   "votes": 138775,
+   "score": 7.618403806525219
   },
   {
    "tconst": "tt1935156",
    "title": "Jodorowsky's Dune",
    "year": 2013,
    "rating": 8,
-   "votes": 29511,
-   "score": 7.616895494792256
+   "votes": 29534,
+   "score": 7.617051811498696
   },
   {
    "tconst": "tt1821549",
    "title": "Nebraska",
    "year": 2013,
    "rating": 7.7,
-   "votes": 129431,
-   "score": 7.612954492865552
+   "votes": 129508,
+   "score": 7.61298367345091
   },
   {
    "tconst": "tt2358891",
    "title": "The Great Beauty",
    "year": 2013,
    "rating": 7.7,
-   "votes": 107256,
-   "score": 7.596492784119677
+   "votes": 107361,
+   "score": 7.596562966537346
   },
   {
    "tconst": "tt2358592",
    "title": "Lucia",
    "year": 2013,
    "rating": 8.3,
-   "votes": 14006,
-   "score": 7.5444871238330755
+   "votes": 14024,
+   "score": 7.5449436528383895
   },
   {
    "tconst": "tt2278871",
    "title": "Blue Is the Warmest Colour",
    "year": 2013,
    "rating": 7.6,
-   "votes": 174712,
-   "score": 7.539706991937377
+   "votes": 174899,
+   "score": 7.539753737531244
   },
   {
    "tconst": "tt2213054",
    "title": "Kai Po Che",
    "year": 2013,
    "rating": 7.8,
-   "votes": 40282,
-   "score": 7.538736683002602
+   "votes": 40319,
+   "score": 7.538876494282268
   },
   {
    "tconst": "tt2404461",
    "title": "The Past",
    "year": 2013,
    "rating": 7.7,
-   "votes": 52692,
-   "score": 7.5064052493896645
+   "votes": 52739,
+   "score": 7.5065083331865265
   },
   {
    "tconst": "tt2431286",
    "title": "Philomena",
    "year": 2013,
    "rating": 7.6,
-   "votes": 107757,
-   "score": 7.505425222235084
+   "votes": 107814,
+   "score": 7.5054486420611255
   },
   {
    "tconst": "tt2882328",
    "title": "Ugly",
    "year": 2013,
    "rating": 7.9,
-   "votes": 25651,
-   "score": 7.503465762383574
+   "votes": 25690,
+   "score": 7.503825338071994
   },
   {
    "tconst": "tt1951264",
    "title": "The Hunger Games: Catching Fire",
    "year": 2013,
    "rating": 7.5,
-   "votes": 782906,
-   "score": 7.487215581537706
+   "votes": 784097,
+   "score": 7.487231441896632
   },
   {
    "tconst": "tt1457767",
    "title": "The Conjuring",
    "year": 2013,
    "rating": 7.5,
-   "votes": 632770,
-   "score": 7.484229441160504
+   "votes": 633994,
+   "score": 7.484255328956154
   },
   {
    "tconst": "tt2331143",
    "title": "Like Father, Like Son",
    "year": 2013,
    "rating": 7.8,
-   "votes": 31360,
-   "score": 7.482378092232515
+   "votes": 31409,
+   "score": 7.482690388944177
   },
   {
    "tconst": "tt2877108",
    "title": "Soodhu Kavvum",
    "year": 2013,
    "rating": 8.2,
-   "votes": 13672,
-   "score": 7.47607121893954
+   "votes": 13699,
+   "score": 7.476784940959089
   },
   {
    "tconst": "tt1091191",
    "title": "Lone Survivor",
    "year": 2013,
    "rating": 7.5,
-   "votes": 326481,
-   "score": 7.4698739539371815
+   "votes": 326764,
+   "score": 7.4698914560813785
   },
   {
    "tconst": "tt2140373",
    "title": "Saving Mr. Banks",
    "year": 2013,
    "rating": 7.5,
-   "votes": 176664,
-   "score": 7.4456947129319895
+   "votes": 176788,
+   "score": 7.445716675138604
   },
   {
    "tconst": "tt3153634",
    "title": "Hope",
    "year": 2013,
    "rating": 8.2,
-   "votes": 12500,
-   "score": 7.438362573099413
+   "votes": 12571,
+   "score": 7.440641810987082
   },
   {
    "tconst": "tt0816442",
    "title": "The Book Thief",
    "year": 2013,
    "rating": 7.5,
-   "votes": 148474,
-   "score": 7.436034667483226
+   "votes": 148572,
+   "score": 7.436057603585686
   },
   {
    "tconst": "tt0453562",
    "title": "42",
    "year": 2013,
    "rating": 7.5,
-   "votes": 109887,
-   "score": 7.415446694760372
+   "votes": 110010,
+   "score": 7.415511426679355
   },
   {
    "tconst": "tt2334649",
    "title": "Fruitvale Station",
    "year": 2013,
    "rating": 7.5,
-   "votes": 93101,
-   "score": 7.401680467645676
+   "votes": 93208,
+   "score": 7.401756901749762
   },
   {
    "tconst": "tt2294629",
    "title": "Frozen",
    "year": 2013,
    "rating": 7.4,
-   "votes": 721588,
-   "score": 7.38751094590772
+   "votes": 722380,
+   "score": 7.387520858455706
   },
   {
    "tconst": "tt2359810",
    "title": "Raanjhanaa",
    "year": 2013,
    "rating": 7.6,
-   "votes": 38551,
-   "score": 7.370615597922531
+   "votes": 38605,
+   "score": 7.370816301116951
   },
   {
    "tconst": "tt1980929",
    "title": "Begin Again",
    "year": 2013,
    "rating": 7.4,
-   "votes": 178238,
-   "score": 7.351461224060695
+   "votes": 178482,
+   "score": 7.35151009813027
   },
   {
    "tconst": "tt2042568",
    "title": "Inside Llewyn Davis",
    "year": 2013,
    "rating": 7.4,
-   "votes": 173239,
-   "score": 7.3501370226574965
+   "votes": 173445,
+   "score": 7.350178671077377
   },
   {
    "tconst": "tt1727388",
    "title": "The Way Way Back",
    "year": 2013,
    "rating": 7.4,
-   "votes": 165024,
-   "score": 7.347796633003114
+   "votes": 165122,
+   "score": 7.347810819404698
   },
   {
    "tconst": "tt3614516",
    "title": "Ankhon Dekhi",
    "year": 2013,
    "rating": 7.9,
-   "votes": 13927,
-   "score": 7.309167797665266
+   "votes": 13946,
+   "score": 7.309526698228909
   },
   {
    "tconst": "tt2358913",
    "title": "Berserk: The Golden Age Arc III - The Advent",
    "year": 2013,
    "rating": 7.9,
-   "votes": 13548,
-   "score": 7.2996584803268565
+   "votes": 13576,
+   "score": 7.300259853910308
   },
   {
    "tconst": "tt2855648",
    "title": "Madras Cafe",
    "year": 2013,
    "rating": 7.6,
-   "votes": 26805,
-   "score": 7.2974095338877
+   "votes": 26826,
+   "score": 7.297510626073683
   },
   {
    "tconst": "tt2608224",
    "title": "The Butterfly's Dream",
    "year": 2013,
    "rating": 7.6,
-   "votes": 26384,
-   "score": 7.293908253483311
+   "votes": 26416,
+   "score": 7.294104962538155
   },
   {
    "tconst": "tt1690953",
    "title": "Despicable Me 2",
    "year": 2013,
    "rating": 7.3,
-   "votes": 465571,
-   "score": 7.282890373666049
+   "votes": 466133,
+   "score": 7.282905041901715
   },
   {
    "tconst": "tt0359950",
    "title": "The Secret Life of Walter Mitty",
    "year": 2013,
    "rating": 7.3,
-   "votes": 377511,
-   "score": 7.279002293856785
+   "votes": 378288,
+   "score": 7.279037534808671
   },
   {
    "tconst": "tt2718492",
    "title": "Ida",
    "year": 2013,
    "rating": 7.4,
-   "votes": 63586,
-   "score": 7.275834505133271
+   "votes": 63643,
+   "score": 7.275894875491078
   },
   {
    "tconst": "tt2378281",
    "title": "Instructions Not Included",
    "year": 2013,
    "rating": 7.5,
-   "votes": 34780,
-   "score": 7.273630145036552
+   "votes": 34821,
+   "score": 7.27377850373239
   },
   {
    "tconst": "tt2591814",
    "title": "The Garden of Words",
    "year": 2013,
    "rating": 7.4,
-   "votes": 61519,
-   "score": 7.272245947157215
+   "votes": 61632,
+   "score": 7.272410742626054
   },
   {
    "tconst": "tt2334873",
    "title": "Blue Jasmine",
    "year": 2013,
    "rating": 7.3,
-   "votes": 221025,
-   "score": 7.264779387056539
+   "votes": 221168,
+   "score": 7.264789790610246
   },
   {
    "tconst": "tt2306745",
    "title": "Sound City",
    "year": 2013,
    "rating": 7.8,
-   "votes": 13825,
-   "score": 7.248611034406582
+   "votes": 13837,
+   "score": 7.248778215202812
   },
   {
    "tconst": "tt2625030",
    "title": "New World",
    "year": 2013,
    "rating": 7.5,
-   "votes": 29224,
-   "score": 7.241565314469122
+   "votes": 29289,
+   "score": 7.241925890600154
   },
   {
    "tconst": "tt2714900",
    "title": "Finding Vivian Maier",
    "year": 2013,
    "rating": 7.7,
-   "votes": 15908,
-   "score": 7.23154075554797
+   "votes": 15925,
+   "score": 7.231746434553113
   },
   {
    "tconst": "tt2621000",
    "title": "Jolly LLB",
    "year": 2013,
    "rating": 7.5,
-   "votes": 25634,
-   "score": 7.215528930087467
+   "votes": 25677,
+   "score": 7.215798029985409
   },
   {
    "tconst": "tt2617828",
    "title": "Free Fall",
    "year": 2013,
    "rating": 7.5,
-   "votes": 24785,
-   "score": 7.20858582419827
+   "votes": 24811,
+   "score": 7.208727882444901
   },
   {
    "tconst": "tt2967286",
    "title": "Steins;Gate: The Movie - Load Region of Déjà Vu",
    "year": 2013,
    "rating": 7.8,
-   "votes": 11838,
-   "score": 7.198441152794982
+   "votes": 11893,
+   "score": 7.199832198227263
   },
   {
    "tconst": "tt1670345",
    "title": "Now You See Me",
    "year": 2013,
    "rating": 7.2,
-   "votes": 778493,
-   "score": 7.190948756545381
+   "votes": 779360,
+   "score": 7.190955364239117
   },
   {
    "tconst": "tt1343092",
    "title": "The Great Gatsby",
    "year": 2013,
    "rating": 7.2,
-   "votes": 649767,
-   "score": 7.189182784065795
+   "votes": 650596,
+   "score": 7.189192375242643
   },
   {
    "tconst": "tt1800241",
    "title": "American Hustle",
    "year": 2013,
    "rating": 7.2,
-   "votes": 521887,
-   "score": 7.186582033203926
+   "votes": 522234,
+   "score": 7.186585836898412
   },
   {
    "tconst": "tt1453405",
    "title": "Monsters University",
    "year": 2013,
    "rating": 7.2,
-   "votes": 431096,
-   "score": 7.183820206700439
+   "votes": 431766,
+   "score": 7.183838788670449
   },
   {
    "tconst": "tt2178470",
    "title": "Yeh Jawaani Hai Deewani",
    "year": 2013,
    "rating": 7.3,
-   "votes": 59025,
-   "score": 7.182117463161707
+   "votes": 59153,
+   "score": 7.182297605538291
   },
   {
    "tconst": "tt1821700",
    "title": "To Strike",
    "year": 2013,
    "rating": 7.4,
-   "votes": 30033,
-   "score": 7.171767239395919
+   "votes": 30035,
+   "score": 7.171712909099274
   },
   {
    "tconst": "tt2567712",
    "title": "Starred Up",
    "year": 2013,
    "rating": 7.3,
-   "votes": 51908,
-   "score": 7.168565579484667
+   "votes": 51951,
+   "score": 7.1686143293213895
   },
   {
    "tconst": "tt1327773",
    "title": "The Butler",
    "year": 2013,
    "rating": 7.2,
-   "votes": 124450,
-   "score": 7.146918243917716
+   "votes": 124510,
+   "score": 7.146922357562929
   },
   {
    "tconst": "tt1714915",
    "title": "Only Lovers Left Alive",
    "year": 2013,
    "rating": 7.2,
-   "votes": 116731,
-   "score": 7.143685111730648
+   "votes": 116861,
+   "score": 7.14372207625503
   },
   {
    "tconst": "tt1322269",
    "title": "August: Osage County",
    "year": 2013,
    "rating": 7.2,
-   "votes": 100514,
-   "score": 7.135421375524701
+   "votes": 100586,
+   "score": 7.135439624507528
   },
   {
    "tconst": "tt2404181",
    "title": "Belle",
    "year": 2013,
    "rating": 7.3,
-   "votes": 35154,
-   "score": 7.119797977914178
+   "votes": 35178,
+   "score": 7.119835457873068
   },
   {
    "tconst": "tt2852406",
    "title": "Omar",
    "year": 2013,
    "rating": 7.5,
-   "votes": 16359,
-   "score": 7.115431461540151
+   "votes": 16377,
+   "score": 7.115594128058136
   },
   {
    "tconst": "tt1300854",
    "title": "Iron Man 3",
    "year": 2013,
    "rating": 7.1,
-   "votes": 984053,
-   "score": 7.093826443755752
+   "votes": 985953,
+   "score": 7.093835578903612
   },
   {
    "tconst": "tt0770828",
    "title": "Man of Steel",
    "year": 2013,
    "rating": 7.1,
-   "votes": 876767,
-   "score": 7.093079532610862
+   "votes": 877832,
+   "score": 7.093084870015711
   },
   {
    "tconst": "tt1706620",
    "title": "Snowpiercer",
    "year": 2013,
    "rating": 7.1,
-   "votes": 425494,
-   "score": 7.085908319964767
+   "votes": 426130,
+   "score": 7.085922835658609
   },
   {
    "tconst": "tt2905772",
    "title": "Thou Gild'st the Even",
    "year": 2013,
    "rating": 7.6,
-   "votes": 11419,
-   "score": 7.080048456731724
+   "votes": 11444,
+   "score": 7.0805319117603736
   },
   {
    "tconst": "tt2224317",
    "title": "Robber",
    "year": 2013,
    "rating": 7.4,
-   "votes": 18425,
-   "score": 7.078563162523723
+   "votes": 18448,
+   "score": 7.078730536972351
   },
   {
    "tconst": "tt0481499",
    "title": "The Croods",
    "year": 2013,
    "rating": 7.1,
-   "votes": 255045,
-   "score": 7.076846037068185
+   "votes": 255452,
+   "score": 7.076871623931217
   },
   {
    "tconst": "tt2101473",
    "title": "The Physician",
    "year": 2013,
    "rating": 7.2,
-   "votes": 45907,
-   "score": 7.07234439148473
+   "votes": 45963,
+   "score": 7.07242510794256
   },
   {
    "tconst": "tt2866360",
    "title": "Coherence",
    "year": 2013,
    "rating": 7.1,
-   "votes": 178952,
-   "score": 7.067521687490668
+   "votes": 179618,
+   "score": 7.0676218835542475
   },
   {
    "tconst": "tt2692904",
    "title": "Locke",
    "year": 2013,
    "rating": 7.1,
-   "votes": 170730,
-   "score": 7.066044142614601
+   "votes": 170942,
+   "score": 7.066069383093971
   },
   {
    "tconst": "tt2438644",
    "title": "Department Q: The Keeper of Lost Causes",
    "year": 2013,
    "rating": 7.2,
-   "votes": 36637,
-   "score": 7.046970386061213
+   "votes": 36685,
+   "score": 7.047071357305118
   },
   {
    "tconst": "tt3283714",
    "title": "Behzat Ç.: Ankara Is on Fire",
    "year": 2013,
    "rating": 7.4,
-   "votes": 15856,
-   "score": 7.046625846795205
+   "votes": 15863,
+   "score": 7.046619739233247
   },
   {
    "tconst": "tt2179116",
    "title": "The Kings of Summer",
    "year": 2013,
    "rating": 7.1,
-   "votes": 88055,
-   "score": 7.037414286826136
+   "votes": 88149,
+   "score": 7.0374474148059525
   },
   {
    "tconst": "tt2359024",
    "title": "Blue Ruin",
    "year": 2013,
    "rating": 7.1,
-   "votes": 87716,
-   "score": 7.037197162130427
+   "votes": 87885,
+   "score": 7.037278707828466
   },
   {
    "tconst": "tt2396566",
    "title": "20 Feet from Stardom",
    "year": 2013,
    "rating": 7.4,
-   "votes": 14555,
-   "score": 7.027902988993558
+   "votes": 14568,
+   "score": 7.027992767656686
   },
   {
    "tconst": "tt2608732",
    "title": "TPB AFK: The Pirate Bay Away from Keyboard",
    "year": 2013,
    "rating": 7.4,
-   "votes": 14231,
-   "score": 7.022927567774207
+   "votes": 14234,
+   "score": 7.022865656341894
   },
   {
    "tconst": "tt0816711",
    "title": "World War Z",
    "year": 2013,
    "rating": 7,
-   "votes": 794633,
-   "score": 6.993615919176491
+   "votes": 796103,
+   "score": 6.993624296542488
   },
   {
    "tconst": "tt1483013",
    "title": "Oblivion",
    "year": 2013,
    "rating": 7,
-   "votes": 590933,
-   "score": 6.9914518888041375
+   "votes": 591515,
+   "score": 6.991455784670023
   },
   {
    "tconst": "tt1723121",
    "title": "We're the Millers",
    "year": 2013,
    "rating": 7,
-   "votes": 530416,
-   "score": 6.9904946520731
+   "votes": 531154,
+   "score": 6.99050275211084
   },
   {
    "tconst": "tt1905041",
    "title": "Fast & Furious 6",
    "year": 2013,
    "rating": 7,
-   "votes": 444611,
-   "score": 6.988700576745254
+   "votes": 445117,
+   "score": 6.9887073572637135
   },
   {
    "tconst": "tt2058107",
    "title": "The Railway Man",
    "year": 2013,
    "rating": 7.1,
-   "votes": 44727,
-   "score": 6.9878644525506015
+   "votes": 44743,
+   "score": 6.987849155431553
   },
   {
    "tconst": "tt2053463",
    "title": "Side Effects",
    "year": 2013,
    "rating": 7,
-   "votes": 206876,
-   "score": 6.976314381926708
+   "votes": 207035,
+   "score": 6.976319608891605
   },
   {
    "tconst": "tt2203308",
    "title": "Aashiqui 2",
    "year": 2013,
    "rating": 7.1,
-   "votes": 39025,
-   "score": 6.974822190611663
+   "votes": 39091,
+   "score": 6.974936878771861
   },
   {
    "tconst": "tt1714206",
    "title": "The Spectacular Now",
    "year": 2013,
    "rating": 7,
-   "votes": 169604,
-   "score": 6.971399066249843
+   "votes": 169720,
+   "score": 6.971402884018414
   },
   {
    "tconst": "tt1450321",
    "title": "Filth",
    "year": 2013,
    "rating": 7,
-   "votes": 123190,
-   "score": 6.961432223851166
+   "votes": 123281,
+   "score": 6.961438812102171
   },
   {
    "tconst": "tt2167266",
    "title": "Tracks",
    "year": 2013,
    "rating": 7.1,
-   "votes": 33350,
-   "score": 6.958435014872821
+   "votes": 33381,
+   "score": 6.95847551499019
   },
   {
    "tconst": "tt2263944",
    "title": "Dragon Ball Z: Battle of Gods",
    "year": 2013,
    "rating": 7.1,
-   "votes": 32490,
-   "score": 6.955569731577707
+   "votes": 32544,
+   "score": 6.955691197719759
   },
   {
    "tconst": "tt2304426",
    "title": "The Selfish Giant",
    "year": 2013,
    "rating": 7.3,
-   "votes": 13303,
-   "score": 6.950824267035867
+   "votes": 13314,
+   "score": 6.950876139477972
   },
   {
    "tconst": "tt2304771",
    "title": "Mandela: Long Walk to Freedom",
    "year": 2013,
    "rating": 7.1,
-   "votes": 30214,
-   "score": 6.947395382074322
+   "votes": 30234,
+   "score": 6.947405833767197
   },
   {
    "tconst": "tt2301592",
    "title": "The Dance of Reality",
    "year": 2013,
    "rating": 7.4,
-   "votes": 10053,
-   "score": 6.944365326621295
+   "votes": 10066,
+   "score": 6.944529368872194
   },
   {
    "tconst": "tt2390361",
    "title": "Enough Said",
    "year": 2013,
    "rating": 7,
-   "votes": 70715,
-   "score": 6.936358271631504
+   "votes": 70778,
+   "score": 6.9363753288740675
   },
   {
    "tconst": "tt2229842",
    "title": "Table No. 21",
    "year": 2013,
    "rating": 7.2,
-   "votes": 16274,
-   "score": 6.928368649415271
+   "votes": 16307,
+   "score": 6.9286093555247446
   },
   {
    "tconst": "tt2222394",
    "title": "We Are the Nobles",
    "year": 2013,
    "rating": 7.3,
-   "votes": 11566,
-   "score": 6.922700449538014
+   "votes": 11581,
+   "score": 6.922840754172163
   },
   {
    "tconst": "tt2981768",
    "title": "Patema Inverted",
    "year": 2013,
    "rating": 7.3,
-   "votes": 11464,
-   "score": 6.920907468073835
+   "votes": 11482,
+   "score": 6.921102612223697
   },
   {
    "tconst": "tt1291580",
    "title": "Behind the Candelabra",
    "year": 2013,
    "rating": 7,
-   "votes": 47689,
-   "score": 6.910956298336544
+   "votes": 47742,
+   "score": 6.910992454639421
   },
   {
    "tconst": "tt2406252",
    "title": "Venus in Fur",
    "year": 2013,
    "rating": 7.1,
-   "votes": 22196,
-   "score": 6.909391163335098
+   "votes": 22216,
+   "score": 6.909427809653261
   },
   {
    "tconst": "tt3042926",
    "title": "Attarintiki Daredi",
    "year": 2013,
    "rating": 7.3,
-   "votes": 10753,
-   "score": 6.907919717377576
+   "votes": 10778,
+   "score": 6.90826481450522
   },
   {
    "tconst": "tt2113681",
    "title": "The 100 Year-Old Man Who Climbed Out the Window and Disappeared",
    "year": 2013,
    "rating": 7,
-   "votes": 44471,
-   "score": 6.905695836219948
+   "votes": 44497,
+   "score": 6.905692539328577
   },
   {
    "tconst": "tt2465578",
    "title": "Human Capital",
    "year": 2013,
    "rating": 7.2,
-   "votes": 14222,
-   "score": 6.9053570264526805
+   "votes": 14238,
+   "score": 6.905442953865395
   },
   {
    "tconst": "tt1663662",
    "title": "Pacific Rim",
    "year": 2013,
    "rating": 6.9,
-   "votes": 564193,
-   "score": 6.892795380463951
+   "votes": 564889,
+   "score": 6.892799525327132
   },
   {
    "tconst": "tt1213663",
    "title": "The World's End",
    "year": 2013,
    "rating": 6.9,
-   "votes": 315118,
-   "score": 6.88727587489692
+   "votes": 315413,
+   "score": 6.88727932293974
   },
   {
    "tconst": "tt2172935",
    "title": "Metallica Through the Never",
    "year": 2013,
    "rating": 7.1,
-   "votes": 18821,
-   "score": 6.88707046579705
+   "votes": 18840,
+   "score": 6.8871194977735595
   },
   {
    "tconst": "tt1937390",
    "title": "Nymphomaniac: Vol. I",
    "year": 2013,
    "rating": 6.9,
-   "votes": 139997,
-   "score": 6.872420501041599
+   "votes": 140138,
+   "score": 6.8724288742076585
   },
   {
    "tconst": "tt1924429",
    "title": "Trance",
    "year": 2013,
    "rating": 6.9,
-   "votes": 121485,
-   "score": 6.868537535800562
+   "votes": 121564,
+   "score": 6.868536425737965
   },
   {
    "tconst": "tt2017038",
    "title": "All Is Lost",
    "year": 2013,
    "rating": 6.9,
-   "votes": 88381,
-   "score": 6.857950802438854
+   "votes": 88463,
+   "score": 6.857959094439429
   },
   {
    "tconst": "tt2385104",
    "title": "D-Day",
    "year": 2013,
    "rating": 7.2,
-   "votes": 10853,
-   "score": 6.8577546585496965
+   "votes": 10865,
+   "score": 6.857825368597625
   },
   {
    "tconst": "tt2852400",
    "title": "A Touch of Sin",
    "year": 2013,
    "rating": 7.1,
-   "votes": 14107,
-   "score": 6.845433189311685
+   "votes": 14126,
+   "score": 6.845524592381225
   },
   {
    "tconst": "tt1967545",
    "title": "Labor Day",
    "year": 2013,
    "rating": 6.9,
-   "votes": 57618,
-   "score": 6.838820401294579
+   "votes": 57790,
+   "score": 6.83893680949682
   },
   {
    "tconst": "tt1981107",
    "title": "The Young and Prodigious T.S. Spivet",
    "year": 2013,
    "rating": 7,
-   "votes": 21703,
-   "score": 6.837969841804776
+   "votes": 21734,
+   "score": 6.838045198077438
   },
   {
    "tconst": "tt2319580",
    "title": "The Grand Seduction",
    "year": 2013,
    "rating": 7,
-   "votes": 21299,
-   "score": 6.835878395307736
+   "votes": 21321,
+   "score": 6.835909655368266
   },
   {
    "tconst": "tt2364975",
    "title": "We Are the Best!",
    "year": 2013,
    "rating": 7.1,
-   "votes": 11833,
-   "score": 6.818918971040938
+   "votes": 11837,
+   "score": 6.818849948060148
   },
   {
    "tconst": "tt2987732",
    "title": "Suck Me Shakespeer",
    "year": 2013,
    "rating": 6.9,
-   "votes": 35175,
-   "score": 6.808426295400926
+   "votes": 35236,
+   "score": 6.808491606591862
   },
   {
    "tconst": "tt2261749",
    "title": "The Gilded Cage",
    "year": 2013,
    "rating": 7.1,
-   "votes": 11004,
-   "score": 6.807825075925386
+   "votes": 11019,
+   "score": 6.807908383642868
   },
   {
    "tconst": "tt0469021",
    "title": "Alan Partridge",
    "year": 2013,
    "rating": 6.9,
-   "votes": 34337,
-   "score": 6.806695488976178
+   "votes": 34367,
+   "score": 6.806699265575528
   },
   {
    "tconst": "tt1588173",
    "title": "Warm Bodies",
    "year": 2013,
    "rating": 6.8,
-   "votes": 257046,
-   "score": 6.7882535514283555
+   "votes": 257323,
+   "score": 6.7882558789022625
   },
   {
    "tconst": "tt2316411",
    "title": "Enemy",
    "year": 2013,
    "rating": 6.8,
-   "votes": 244451,
-   "score": 6.7876721172042425
+   "votes": 244927,
+   "score": 6.787684812969162
   },
   {
    "tconst": "tt3347976",
    "title": "Dügün Dernek",
    "year": 2013,
    "rating": 6.9,
-   "votes": 25600,
-   "score": 6.783796570076877
+   "votes": 25635,
+   "score": 6.783836854659449
   },
   {
    "tconst": "tt3078242",
    "title": "Miss Violence",
    "year": 2013,
    "rating": 7,
-   "votes": 12102,
-   "score": 6.7675847386995205
+   "votes": 12142,
+   "score": 6.767885751774431
   },
   {
    "tconst": "tt1486834",
    "title": "What If",
    "year": 2013,
    "rating": 6.8,
-   "votes": 84931,
-   "score": 6.766956609482012
+   "votes": 84979,
+   "score": 6.766945601825556
   },
   {
    "tconst": "tt2427892",
    "title": "Tom at the Farm",
    "year": 2013,
    "rating": 6.9,
-   "votes": 20307,
-   "score": 6.763502091752295
+   "votes": 20324,
+   "score": 6.763491832073257
   },
   {
    "tconst": "tt1767354",
    "title": "Odd Thomas",
    "year": 2013,
    "rating": 6.8,
-   "votes": 62941,
-   "score": 6.75699480257656
+   "votes": 63001,
+   "score": 6.756994100297112
   },
   {
    "tconst": "tt2555958",
    "title": "Arrambam",
    "year": 2013,
    "rating": 7,
-   "votes": 11049,
-   "score": 6.755957902738221
+   "votes": 11059,
+   "score": 6.75594882548029
   },
   {
    "tconst": "tt2852458",
    "title": "Stranger by the Lake",
    "year": 2013,
    "rating": 6.9,
-   "votes": 17893,
-   "score": 6.751688878741506
+   "votes": 17928,
+   "score": 6.751780518325317
   },
   {
    "tconst": "tt1869716",
    "title": "The East",
    "year": 2013,
    "rating": 6.8,
-   "votes": 54311,
-   "score": 6.751223863642873
+   "votes": 54339,
+   "score": 6.751204188995624
   },
   {
    "tconst": "tt2382396",
    "title": "Joe",
    "year": 2013,
    "rating": 6.8,
-   "votes": 53872,
-   "score": 6.75088861934395
+   "votes": 53917,
+   "score": 6.7508820238088365
   },
   {
    "tconst": "tt1937118",
    "title": "Chinese Puzzle",
    "year": 2013,
    "rating": 6.9,
-   "votes": 15970,
-   "score": 6.740706888515087
+   "votes": 15984,
+   "score": 6.740691437645838
   },
   {
    "tconst": "tt2806788",
    "title": "Fukrey",
    "year": 2013,
    "rating": 6.9,
-   "votes": 14434,
-   "score": 6.730693210065352
+   "votes": 14461,
+   "score": 6.7307725079019445
   },
   {
    "tconst": "tt1654523",
    "title": "Night Train to Lisbon",
    "year": 2013,
    "rating": 6.8,
-   "votes": 22043,
-   "score": 6.702105230307299
+   "votes": 22055,
+   "score": 6.702059782117905
   },
   {
    "tconst": "tt1981115",
    "title": "Thor: The Dark World",
    "year": 2013,
    "rating": 6.7,
-   "votes": 792180,
-   "score": 6.697336206206509
+   "votes": 793820,
+   "score": 6.6973383671913975
   },
   {
    "tconst": "tt1430132",
    "title": "The Wolverine",
    "year": 2013,
    "rating": 6.7,
-   "votes": 530357,
-   "score": 6.696045499354569
+   "votes": 531264,
+   "score": 6.696047264026038
   },
   {
    "tconst": "tt1211956",
    "title": "Escape Plan",
    "year": 2013,
    "rating": 6.7,
-   "votes": 272519,
-   "score": 6.692436465847384
+   "votes": 272741,
+   "score": 6.692433097130552
   },
   {
    "tconst": "tt1272878",
    "title": "2 Guns",
    "year": 2013,
    "rating": 6.7,
-   "votes": 239291,
-   "score": 6.691428322300993
+   "votes": 239507,
+   "score": 6.691425195749175
   },
   {
    "tconst": "tt1321870",
    "title": "Gangster Squad",
    "year": 2013,
    "rating": 6.7,
-   "votes": 230154,
-   "score": 6.69110220064932
+   "votes": 230313,
+   "score": 6.691097137132779
   },
   {
    "tconst": "tt2309224",
    "title": "Big Bad Wolves",
    "year": 2013,
    "rating": 6.8,
-   "votes": 18531,
-   "score": 6.690054954075805
+   "votes": 18553,
+   "score": 6.690047501691222
   },
   {
    "tconst": "tt1911644",
    "title": "The Call",
    "year": 2013,
    "rating": 6.7,
-   "votes": 135833,
-   "score": 6.685347334929247
+   "votes": 135940,
+   "score": 6.685340046017469
   },
   {
    "tconst": "tt1206543",
    "title": "Out of the Furnace",
    "year": 2013,
    "rating": 6.7,
-   "votes": 133577,
-   "score": 6.685117100195274
+   "votes": 133705,
+   "score": 6.685112044228033
   },
   {
    "tconst": "tt1702439",
    "title": "Safe Haven",
    "year": 2013,
    "rating": 6.7,
-   "votes": 122351,
-   "score": 6.683854733962999
+   "votes": 122457,
+   "score": 6.683847786948138
   },
   {
    "tconst": "tt1682180",
    "title": "Stoker",
    "year": 2013,
    "rating": 6.7,
-   "votes": 121612,
-   "score": 6.68376407846349
+   "votes": 121746,
+   "score": 6.683760617519997
   },
   {
    "tconst": "tt1196956",
    "title": "One Chance",
    "year": 2013,
    "rating": 6.8,
-   "votes": 14095,
-   "score": 6.669813566911675
+   "votes": 14112,
+   "score": 6.669796214158488
   },
   {
    "tconst": "tt2170299",
    "title": "Bad Words",
    "year": 2013,
    "rating": 6.7,
-   "votes": 58600,
-   "score": 6.6688506981740066
+   "votes": 58638,
+   "score": 6.668829603365329
   },
   {
    "tconst": "tt2752200",
    "title": "Young & Beautiful",
    "year": 2013,
    "rating": 6.7,
-   "votes": 41312,
-   "score": 6.6583558991022915
+   "votes": 41355,
+   "score": 6.6583395251833215
   },
   {
    "tconst": "tt1531924",
    "title": "The Disappearance of Eleanor Rigby: Him",
    "year": 2013,
    "rating": 6.8,
-   "votes": 10808,
-   "score": 6.649248264837409
+   "votes": 10814,
+   "score": 6.649165288545664
   },
   {
    "tconst": "tt3720788",
    "title": "The Disappearance of Eleanor Rigby: Her",
    "year": 2013,
    "rating": 6.8,
-   "votes": 10172,
-   "score": 6.644495235709737
+   "votes": 10176,
+   "score": 6.644395634208438
   },
   {
    "tconst": "tt2389182",
    "title": "Cheap Thrills",
    "year": 2013,
    "rating": 6.7,
-   "votes": 21652,
-   "score": 6.632489507605738
+   "votes": 21680,
+   "score": 6.632466108452951
   },
   {
    "tconst": "tt2249221",
    "title": "Zulu",
    "year": 2013,
    "rating": 6.7,
-   "votes": 21038,
-   "score": 6.631154001376919
+   "votes": 21072,
+   "score": 6.631144641986014
   },
   {
    "tconst": "tt1954315",
    "title": "Borgman",
    "year": 2013,
    "rating": 6.7,
-   "votes": 20012,
-   "score": 6.6288004096606965
+   "votes": 20042,
+   "score": 6.628783913048048
   },
   {
    "tconst": "tt2436516",
    "title": "Go Goa Gone",
    "year": 2013,
    "rating": 6.7,
-   "votes": 17445,
-   "score": 6.622140932582869
+   "votes": 17515,
+   "score": 6.622243369645265
   },
   {
    "tconst": "tt2414766",
    "title": "Frequencies",
    "year": 2013,
    "rating": 6.7,
-   "votes": 15355,
-   "score": 6.615723048500762
+   "votes": 15369,
+   "score": 6.615665825053784
   },
   {
    "tconst": "tt2017561",
    "title": "Journey to the West: Conquering the Demons",
    "year": 2013,
    "rating": 6.7,
-   "votes": 15307,
-   "score": 6.615563199697192
+   "votes": 15327,
+   "score": 6.615525972905969
   },
   {
    "tconst": "tt1838603",
    "title": "Last Love",
    "year": 2013,
    "rating": 6.7,
-   "votes": 14146,
-   "score": 6.611503267403993
+   "votes": 14158,
+   "score": 6.611438294386515
   },
   {
    "tconst": "tt1535108",
    "title": "Elysium",
    "year": 2013,
    "rating": 6.6,
-   "votes": 495231,
-   "score": 6.597749856787759
+   "votes": 495663,
+   "score": 6.59774657492399
   },
   {
    "tconst": "tt1245492",
    "title": "This Is the End",
    "year": 2013,
    "rating": 6.6,
-   "votes": 459134,
-   "score": 6.59757672199145
+   "votes": 459524,
+   "score": 6.597573130054671
   },
   {
    "tconst": "tt1731141",
    "title": "Ender's Game",
    "year": 2013,
    "rating": 6.6,
-   "votes": 266558,
-   "score": 6.595889317592464
+   "votes": 266750,
+   "score": 6.595882660580991
   },
   {
    "tconst": "tt2226417",
    "title": "Insidious: Chapter 2",
    "year": 2013,
    "rating": 6.6,
-   "votes": 206144,
-   "score": 6.5947403485395695
+   "votes": 206580,
+   "score": 6.59473878620274
   },
   {
    "tconst": "tt2404463",
    "title": "The Heat",
    "year": 2013,
    "rating": 6.6,
-   "votes": 190869,
-   "score": 6.594340380520324
+   "votes": 191166,
+   "score": 6.594335654711976
   },
   {
    "tconst": "tt1821694",
    "title": "RED 2",
    "year": 2013,
    "rating": 6.6,
-   "votes": 190010,
-   "score": 6.59431607367
+   "votes": 190166,
+   "score": 6.594307356473075
   },
   {
    "tconst": "tt2388715",
    "title": "Oculus",
    "year": 2013,
    "rating": 6.6,
-   "votes": 151496,
-   "score": 6.592960555646807
+   "votes": 151898,
+   "score": 6.592961780354232
   },
   {
    "tconst": "tt1204975",
    "title": "Last Vegas",
    "year": 2013,
    "rating": 6.6,
-   "votes": 140897,
-   "score": 6.592466105321754
+   "votes": 140985,
+   "score": 6.592453066965523
   },
   {
    "tconst": "tt0848537",
    "title": "Epic",
    "year": 2013,
    "rating": 6.6,
-   "votes": 115279,
-   "score": 6.59092551740305
+   "votes": 115393,
+   "score": 6.590912780743658
   },
   {
    "tconst": "tt2382009",
    "title": "Nymphomaniac: Vol. II",
    "year": 2013,
    "rating": 6.6,
-   "votes": 104608,
-   "score": 6.590080604274892
+   "votes": 104719,
+   "score": 6.590067262753244
   },
   {
    "tconst": "tt1462900",
    "title": "The Grandmaster",
    "year": 2013,
    "rating": 6.6,
-   "votes": 39029,
-   "score": 6.576812863707945
+   "votes": 39067,
+   "score": 6.576777188656112
   },
   {
    "tconst": "tt1951181",
    "title": "The Immigrant",
    "year": 2013,
    "rating": 6.6,
-   "votes": 35412,
-   "score": 6.574966041899428
+   "votes": 35452,
+   "score": 6.57493017503717
   },
   {
    "tconst": "tt2294677",
    "title": "In a World...",
    "year": 2013,
    "rating": 6.6,
-   "votes": 33988,
-   "score": 6.574155630961554
+   "votes": 34002,
+   "score": 6.574104047902129
   },
   {
    "tconst": "tt2268458",
    "title": "These Final Hours",
    "year": 2013,
    "rating": 6.6,
-   "votes": 20548,
-   "score": 6.5627850561325385
+   "votes": 20593,
+   "score": 6.562753777523925
   },
   {
    "tconst": "tt2083355",
    "title": "The Best Man Holiday",
    "year": 2013,
    "rating": 6.6,
-   "votes": 17962,
-   "score": 6.559343319316816
+   "votes": 17982,
+   "score": 6.559278333063734
   },
   {
    "tconst": "tt2351310",
    "title": "Flu",
    "year": 2013,
    "rating": 6.6,
-   "votes": 16000,
-   "score": 6.556275303643723
+   "votes": 16021,
+   "score": 6.556209458352463
   },
   {
    "tconst": "tt1786751",
    "title": "CBGB",
    "year": 2013,
    "rating": 6.6,
-   "votes": 12104,
-   "score": 6.548568489627977
+   "votes": 12125,
+   "score": 6.548498364555455
   },
   {
    "tconst": "tt2380331",
    "title": "Words and Pictures",
    "year": 2013,
    "rating": 6.6,
-   "votes": 12068,
-   "score": 6.548484588306
+   "votes": 12080,
+   "score": 6.548393401983217
   },
   {
    "tconst": "tt2302755",
    "title": "Olympus Has Fallen",
    "year": 2013,
    "rating": 6.5,
-   "votes": 308980,
-   "score": 6.499571000986697
+   "votes": 309237,
+   "score": 6.4995631030105825
   },
   {
    "tconst": "tt1650554",
    "title": "Kick-Ass 2",
    "year": 2013,
    "rating": 6.5,
-   "votes": 302059,
-   "score": 6.499561486432811
+   "votes": 302331,
+   "score": 6.499553442712346
   },
   {
    "tconst": "tt2229499",
    "title": "Don Jon",
    "year": 2013,
    "rating": 6.5,
-   "votes": 256327,
-   "score": 6.499486187636765
+   "votes": 256489,
+   "score": 6.499476624985607
   },
   {
    "tconst": "tt1288558",
    "title": "Evil Dead",
    "year": 2013,
    "rating": 6.5,
-   "votes": 218484,
-   "score": 6.499401086705138
+   "votes": 219021,
+   "score": 6.499391000457554
   },
   {
    "tconst": "tt2312718",
    "title": "Homefront",
    "year": 2013,
    "rating": 6.5,
-   "votes": 144911,
-   "score": 6.499116640488647
+   "votes": 145166,
+   "score": 6.49910113243745
   },
   {
    "tconst": "tt3063516",
    "title": "Jackass Presents: Bad Grandpa",
    "year": 2013,
    "rating": 6.5,
-   "votes": 101420,
-   "score": 6.498771835350357
+   "votes": 101477,
+   "score": 6.498748856856477
   },
   {
    "tconst": "tt2084989",
    "title": "Upstream Color",
    "year": 2013,
    "rating": 6.5,
-   "votes": 36323,
-   "score": 6.4970459144428645
+   "votes": 36353,
+   "score": 6.496991053778385
   },
   {
    "tconst": "tt1747958",
    "title": "Blood Ties",
    "year": 2013,
    "rating": 6.5,
-   "votes": 22416,
-   "score": 6.495778562892918
+   "votes": 22433,
+   "score": 6.495699636659866
   },
   {
    "tconst": "tt1667355",
    "title": "3096 Tage",
    "year": 2013,
    "rating": 6.5,
-   "votes": 18972,
-   "score": 6.495276746332211
+   "votes": 19017,
+   "score": 6.495193380287054
   },
   {
    "tconst": "tt2027140",
    "title": "Mood Indigo",
    "year": 2013,
    "rating": 6.5,
-   "votes": 17405,
-   "score": 6.495006673772553
+   "votes": 17413,
+   "score": 6.494912133505616
   },
   {
    "tconst": "tt2645092",
    "title": "Hükümet Kadin",
    "year": 2013,
    "rating": 6.5,
-   "votes": 10627,
-   "score": 6.4933658745691
+   "votes": 10651,
+   "score": 6.493246153493267
   },
   {
    "tconst": "tt1634003",
    "title": "Underdogs",
    "year": 2013,
    "rating": 6.4,
-   "votes": 11569,
-   "score": 6.440018447528249
+   "votes": 11591,
+   "score": 6.4398557878648255
   },
   {
    "tconst": "tt2012011",
    "title": "Scenic Route",
    "year": 2013,
    "rating": 6.4,
-   "votes": 11995,
-   "score": 6.4392433687081985
+   "votes": 12005,
+   "score": 6.4391059448211525
   },
   {
    "tconst": "tt2668134",
    "title": "Harlock: Space Pirate",
    "year": 2013,
    "rating": 6.4,
-   "votes": 13433,
-   "score": 6.436835142522802
+   "votes": 13443,
+   "score": 6.436707175523161
   },
   {
    "tconst": "tt2404738",
    "title": "Witching and Bitching",
    "year": 2013,
    "rating": 6.4,
-   "votes": 16334,
-   "score": 6.4327773180958765
+   "votes": 16347,
+   "score": 6.432661263741202
   },
   {
    "tconst": "tt2345112",
    "title": "Parkland",
    "year": 2013,
    "rating": 6.4,
-   "votes": 18844,
-   "score": 6.429925041420637
+   "votes": 18862,
+   "score": 6.429815200463913
   }
  ]
 }

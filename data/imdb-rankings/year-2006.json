@@ -1,7 +1,7 @@
 {
  "tag": "year-2006",
- "builtAt": "2026-09-15T22:46:38.707Z",
- "mean": 6.482,
+ "builtAt": "2026-10-01T06:19:54.122Z",
+ "mean": 6.479,
  "minVotes": 10000,
  "items": [
   {
@@ -9,1600 +9,1600 @@
    "title": "The Prestige",
    "year": 2006,
    "rating": 8.5,
-   "votes": 1625725,
-   "score": 8.487663227887653
+   "votes": 1630012,
+   "score": 8.487676994715153
   },
   {
    "tconst": "tt0407887",
    "title": "The Departed",
    "year": 2006,
    "rating": 8.5,
-   "votes": 1578011,
-   "score": 8.48729255240457
+   "votes": 1581626,
+   "score": 8.487302370944423
   },
   {
    "tconst": "tt0405094",
    "title": "The Lives of Others",
    "year": 2006,
    "rating": 8.4,
-   "votes": 447127,
-   "score": 8.358043242767398
+   "votes": 447661,
+   "score": 8.358025970001355
   },
   {
    "tconst": "tt0457430",
    "title": "Pan's Labyrinth",
    "year": 2006,
    "rating": 8.2,
-   "votes": 753083,
-   "score": 8.177486634398267
+   "votes": 753863,
+   "score": 8.17746994350661
   },
   {
    "tconst": "tt0405508",
    "title": "Rang De Basanti",
    "year": 2006,
    "rating": 8.1,
-   "votes": 127420,
-   "score": 7.982261922838979
+   "votes": 127510,
+   "score": 7.982118561972148
   },
   {
    "tconst": "tt0381061",
    "title": "Casino Royale",
    "year": 2006,
    "rating": 8,
-   "votes": 754319,
-   "score": 7.980139749811967
-  },
-  {
-   "tconst": "tt0450259",
-   "title": "Blood Diamond",
-   "year": 2006,
-   "rating": 8,
-   "votes": 631379,
-   "score": 7.976332922400847
+   "votes": 755220,
+   "score": 7.9801235245508355
   },
   {
    "tconst": "tt0454921",
    "title": "The Pursuit of Happyness",
    "year": 2006,
    "rating": 8,
-   "votes": 631098,
-   "score": 7.976322548871674
+   "votes": 632497,
+   "score": 7.976326929863937
+  },
+  {
+   "tconst": "tt0450259",
+   "title": "Blood Diamond",
+   "year": 2006,
+   "rating": 8,
+   "votes": 632100,
+   "score": 7.976312293189208
   },
   {
    "tconst": "tt0206634",
    "title": "Children of Men",
    "year": 2006,
    "rating": 7.9,
-   "votes": 571810,
-   "score": 7.875628527245205
+   "votes": 572750,
+   "score": 7.87561582746768
   },
   {
    "tconst": "tt0472043",
    "title": "Apocalypto",
    "year": 2006,
    "rating": 7.9,
-   "votes": 364358,
-   "score": 7.862122977034104
+   "votes": 364948,
+   "score": 7.862101740659479
   },
   {
    "tconst": "tt0449059",
    "title": "Little Miss Sunshine",
    "year": 2006,
    "rating": 7.8,
-   "votes": 566034,
-   "score": 7.7771201585957295
+   "votes": 566766,
+   "score": 7.77709664483827
   },
   {
    "tconst": "tt0456144",
    "title": "Lage Raho Munna Bhai",
    "year": 2006,
    "rating": 8,
-   "votes": 53990,
-   "score": 7.7627822071656905
+   "votes": 54063,
+   "score": 7.762579389925387
   },
   {
    "tconst": "tt0466460",
    "title": "Khosla Ka Ghosla!",
    "year": 2006,
    "rating": 8.2,
-   "votes": 27522,
-   "score": 7.742146832165996
+   "votes": 27562,
+   "score": 7.7418274707627415
   },
   {
    "tconst": "tt0498380",
    "title": "Letters from Iwo Jima",
    "year": 2006,
    "rating": 7.8,
-   "votes": 178230,
-   "score": 7.72998158336361
+   "votes": 178363,
+   "score": 7.729870109611707
   },
   {
    "tconst": "tt0460791",
    "title": "The Fall",
    "year": 2006,
    "rating": 7.8,
-   "votes": 131563,
-   "score": 7.70689963787524
+   "votes": 131972,
+   "score": 7.706954353371017
   },
   {
    "tconst": "tt0907657",
    "title": "Once",
    "year": 2006,
    "rating": 7.8,
-   "votes": 126540,
-   "score": 7.703474684609144
+   "votes": 126653,
+   "score": 7.703332700027004
   },
   {
    "tconst": "tt0425210",
    "title": "Lucky Number Slevin",
    "year": 2006,
    "rating": 7.7,
-   "votes": 341312,
-   "score": 7.66533119687495
+   "votes": 341717,
+   "score": 7.665284940610748
   },
   {
    "tconst": "tt0480025",
    "title": "This Is England",
    "year": 2006,
    "rating": 7.7,
-   "votes": 136115,
-   "score": 7.616643968357339
+   "votes": 136267,
+   "score": 7.616523367928447
   },
   {
    "tconst": "tt0851578",
    "title": "Paprika",
    "year": 2006,
    "rating": 7.7,
-   "votes": 115801,
-   "score": 7.6031838652835235
+   "votes": 116129,
+   "score": 7.603195327456731
   },
   {
    "tconst": "tt0416449",
    "title": "300",
    "year": 2006,
    "rating": 7.6,
-   "votes": 921711,
-   "score": 7.588001036197417
+   "votes": 922572,
+   "score": 7.587979612787849
   },
   {
    "tconst": "tt0454848",
    "title": "Inside Man",
    "year": 2006,
    "rating": 7.6,
-   "votes": 429296,
-   "score": 7.574551176055626
+   "votes": 429992,
+   "score": 7.574522544629879
   },
   {
    "tconst": "tt0389557",
    "title": "Black Book",
    "year": 2006,
    "rating": 7.7,
-   "votes": 84408,
-   "score": 7.570990100802183
+   "votes": 84486,
+   "score": 7.570775812890694
   },
   {
    "tconst": "tt0488414",
    "title": "Omkara",
    "year": 2006,
    "rating": 8,
-   "votes": 24238,
-   "score": 7.556645640415109
+   "votes": 24279,
+   "score": 7.556291707949185
   },
   {
    "tconst": "tt0455590",
    "title": "The Last King of Scotland",
    "year": 2006,
    "rating": 7.6,
-   "votes": 207285,
-   "score": 7.548548834187967
+   "votes": 207465,
+   "score": 7.548452042658773
   },
   {
    "tconst": "tt0475276",
    "title": "United 93",
    "year": 2006,
    "rating": 7.6,
-   "votes": 116802,
-   "score": 7.511834461889658
+   "votes": 117329,
+   "score": 7.511961324260696
   },
   {
    "tconst": "tt0441909",
    "title": "Volver",
    "year": 2006,
    "rating": 7.6,
-   "votes": 113721,
-   "score": 7.50963889264177
+   "votes": 113832,
+   "score": 7.509475123205554
   },
   {
    "tconst": "tt0443543",
    "title": "The Illusionist",
    "year": 2006,
    "rating": 7.5,
-   "votes": 406925,
-   "score": 7.475584178057282
+   "votes": 407233,
+   "score": 7.47552955652307
   },
   {
    "tconst": "tt0808506",
    "title": "The Girl Who Leapt Through Time",
    "year": 2006,
    "rating": 7.6,
-   "votes": 76695,
-   "score": 7.471047158850365
+   "votes": 76801,
+   "score": 7.47085544471596
   },
   {
    "tconst": "tt0396171",
    "title": "Perfume: The Story of a Murderer",
    "year": 2006,
    "rating": 7.5,
-   "votes": 280997,
-   "score": 7.465018310967235
+   "votes": 281274,
+   "score": 7.4649475183393985
   },
   {
    "tconst": "tt0420223",
    "title": "Stranger Than Fiction",
    "year": 2006,
    "rating": 7.5,
-   "votes": 246861,
-   "score": 7.460369357109613
+   "votes": 247052,
+   "score": 7.460280890468816
   },
   {
    "tconst": "tt0816258",
    "title": "Pokiri",
    "year": 2006,
    "rating": 8,
-   "votes": 17185,
-   "score": 7.4416197695984
+   "votes": 17229,
+   "score": 7.441408919049179
   },
   {
    "tconst": "tt0404203",
    "title": "Little Children",
    "year": 2006,
    "rating": 7.5,
-   "votes": 122643,
-   "score": 7.4232559082389
+   "votes": 122746,
+   "score": 7.423087124710275
   },
   {
    "tconst": "tt0383574",
    "title": "Pirates of the Caribbean: Dead Man's Chest",
    "year": 2006,
    "rating": 7.4,
-   "votes": 836875,
-   "score": 7.389160659408453
+   "votes": 838019,
+   "score": 7.389139539865016
   },
   {
    "tconst": "tt0446059",
    "title": "Fearless",
    "year": 2006,
    "rating": 7.5,
-   "votes": 81786,
-   "score": 7.389094561660085
+   "votes": 81838,
+   "score": 7.388827320464188
   },
   {
    "tconst": "tt0843326",
    "title": "Bommarillu",
    "year": 2006,
    "rating": 8.2,
-   "votes": 11063,
-   "score": 7.3843722848849875
+   "votes": 11092,
+   "score": 7.384056678209278
   },
   {
    "tconst": "tt0443453",
    "title": "Borat",
    "year": 2006,
    "rating": 7.4,
-   "votes": 483182,
-   "score": 7.381387060834605
+   "votes": 483816,
+   "score": 7.381349578500474
   },
   {
    "tconst": "tt0457655",
    "title": "After the Wedding",
    "year": 2006,
    "rating": 7.6,
-   "votes": 39510,
-   "score": 7.374195787447636
+   "votes": 39553,
+   "score": 7.373780062898111
   },
   {
    "tconst": "tt0449467",
    "title": "Babel",
    "year": 2006,
    "rating": 7.4,
-   "votes": 331010,
-   "score": 7.373081239366977
+   "votes": 331302,
+   "score": 7.373015462718619
   },
   {
    "tconst": "tt0362225",
    "title": "Tell No One",
    "year": 2006,
    "rating": 7.5,
-   "votes": 62001,
-   "score": 7.358619094686636
+   "votes": 62090,
+   "score": 7.358373192631296
   },
   {
    "tconst": "tt0460989",
    "title": "The Wind That Shakes the Barley",
    "year": 2006,
    "rating": 7.5,
-   "votes": 59723,
-   "score": 7.353999877178729
+   "votes": 59810,
+   "score": 7.353747650147402
   },
   {
    "tconst": "tt0446755",
    "title": "The Painted Veil",
    "year": 2006,
    "rating": 7.4,
-   "votes": 100652,
-   "score": 7.3170411148152095
+   "votes": 100769,
+   "score": 7.316855107988609
   },
   {
    "tconst": "tt0465551",
    "title": "Notes on a Scandal",
    "year": 2006,
    "rating": 7.4,
-   "votes": 89939,
-   "score": 7.308148304831272
+   "votes": 90011,
+   "score": 7.307911364317827
   },
   {
    "tconst": "tt0875595",
    "title": "Destiny",
    "year": 2006,
    "rating": 7.7,
-   "votes": 20997,
-   "score": 7.307072730797577
+   "votes": 21042,
+   "score": 7.306665918973975
   },
   {
    "tconst": "tt0497116",
    "title": "An Inconvenient Truth",
    "year": 2006,
    "rating": 7.4,
-   "votes": 87223,
-   "score": 7.305582356402626
+   "votes": 87269,
+   "score": 7.305315398089732
   },
   {
    "tconst": "tt0317219",
    "title": "Cars",
    "year": 2006,
    "rating": 7.3,
-   "votes": 549118,
-   "score": 7.285370589815625
+   "votes": 550718,
+   "score": 7.285358278950899
   },
   {
    "tconst": "tt0758742",
    "title": "Death Note",
    "year": 2006,
    "rating": 7.5,
-   "votes": 33596,
-   "score": 7.266502280863668
+   "votes": 33632,
+   "score": 7.266000262577698
   },
   {
    "tconst": "tt0424345",
    "title": "Clerks II",
    "year": 2006,
    "rating": 7.3,
-   "votes": 145147,
-   "score": 7.247278603108874
-  },
-  {
-   "tconst": "tt0851577",
-   "title": "The Island",
-   "year": 2006,
-   "rating": 7.8,
-   "votes": 13423,
-   "score": 7.237323717565321
+   "votes": 145226,
+   "score": 7.247110171342366
   },
   {
    "tconst": "tt0436697",
    "title": "The Queen",
    "year": 2006,
    "rating": 7.3,
-   "votes": 120217,
-   "score": 7.237185109751665
+   "votes": 120296,
+   "score": 7.236990571136413
+  },
+  {
+   "tconst": "tt0851577",
+   "title": "The Island",
+   "year": 2006,
+   "rating": 7.8,
+   "votes": 13439,
+   "score": 7.236414670284146
   },
   {
    "tconst": "tt0814075",
    "title": "Deliver Us from Evil",
    "year": 2006,
    "rating": 7.9,
-   "votes": 11379,
-   "score": 7.236752581343023
+   "votes": 11382,
+   "score": 7.23542809170284
   },
   {
    "tconst": "tt0404390",
    "title": "Running Scared",
    "year": 2006,
    "rating": 7.3,
-   "votes": 107404,
-   "score": 7.2303297454646565
+   "votes": 107462,
+   "score": 7.230106106287907
   },
   {
    "tconst": "tt0380268",
    "title": "Cocaine Cowboys",
    "year": 2006,
    "rating": 7.7,
-   "votes": 14755,
-   "score": 7.207995695274995
+   "votes": 14761,
+   "score": 7.206890814457822
   },
   {
    "tconst": "tt0827503",
    "title": "The Magician",
    "year": 2006,
    "rating": 7.4,
-   "votes": 36872,
-   "score": 7.204156712675638
+   "votes": 36909,
+   "score": 7.203665042034367
   },
   {
    "tconst": "tt0397313",
    "title": "Eight Below",
    "year": 2006,
    "rating": 7.3,
-   "votes": 72206,
-   "score": 7.200499153790873
+   "votes": 72267,
+   "score": 7.200204498240973
   },
   {
    "tconst": "tt0491747",
    "title": "Away from Her",
    "year": 2006,
    "rating": 7.5,
-   "votes": 23900,
-   "score": 7.199717800487684
+   "votes": 23912,
+   "score": 7.198930274144555
   },
   {
    "tconst": "tt0433416",
    "title": "The Namesake",
    "year": 2006,
    "rating": 7.5,
-   "votes": 23133,
-   "score": 7.19276652994092
+   "votes": 23160,
+   "score": 7.192102637418278
   },
   {
    "tconst": "tt0419058",
    "title": "Phir Hera Pheri",
    "year": 2006,
    "rating": 7.4,
-   "votes": 32849,
-   "score": 7.185769409706936
+   "votes": 32942,
+   "score": 7.185527536136885
   },
   {
    "tconst": "tt0495034",
    "title": "Golmaal: Fun Unlimited",
    "year": 2006,
    "rating": 7.5,
-   "votes": 22019,
-   "score": 7.182077311487944
+   "votes": 22083,
+   "score": 7.181766775450866
   },
   {
    "tconst": "tt0839995",
    "title": "Superman II: The Richard Donner Cut",
    "year": 2006,
    "rating": 7.5,
-   "votes": 21883,
-   "score": 7.180721181712276
+   "votes": 21929,
+   "score": 7.180231872491782
   },
   {
    "tconst": "tt0486358",
    "title": "Jesus Camp",
    "year": 2006,
    "rating": 7.4,
-   "votes": 29589,
-   "score": 7.168128354758456
+   "votes": 29598,
+   "score": 7.167415613333757
   },
   {
    "tconst": "tt0493459",
    "title": "This Film Is Not Yet Rated",
    "year": 2006,
    "rating": 7.4,
-   "votes": 28929,
-   "score": 7.164197216381939
+   "votes": 28936,
+   "score": 7.163461153092001
   },
   {
    "tconst": "tt0845439",
    "title": "Fireworks Wednesday",
    "year": 2006,
    "rating": 7.6,
-   "votes": 14931,
-   "score": 7.151579697426197
+   "votes": 14956,
+   "score": 7.150814371565559
   },
   {
    "tconst": "tt0454776",
    "title": "Amazing Grace",
    "year": 2006,
    "rating": 7.4,
-   "votes": 26706,
-   "score": 7.149916456070738
+   "votes": 26732,
+   "score": 7.149268307110697
   },
   {
    "tconst": "tt0462504",
    "title": "Rescue Dawn",
    "year": 2006,
    "rating": 7.2,
-   "votes": 117449,
-   "score": 7.1436671408683665
+   "votes": 117568,
+   "score": 7.143482091565205
   },
   {
    "tconst": "tt0437800",
    "title": "Akeelah and the Bee",
    "year": 2006,
    "rating": 7.4,
-   "votes": 23025,
-   "score": 7.122041890583876
+   "votes": 23052,
+   "score": 7.121351913856653
   },
   {
    "tconst": "tt0401711",
    "title": "Paris, Je T'aime",
    "year": 2006,
    "rating": 7.2,
-   "votes": 76676,
-   "score": 7.117167767738849
-  },
-  {
-   "tconst": "tt0489037",
-   "title": "Who Killed the Electric Car?",
-   "year": 2006,
-   "rating": 7.6,
-   "votes": 12958,
-   "score": 7.113042662101773
+   "votes": 76708,
+   "score": 7.116848773547886
   },
   {
    "tconst": "tt0354899",
    "title": "The Science of Sleep",
    "year": 2006,
    "rating": 7.2,
-   "votes": 72400,
-   "score": 7.112869337821997
+   "votes": 72433,
+   "score": 7.112536526109569
+  },
+  {
+   "tconst": "tt0489037",
+   "title": "Who Killed the Electric Car?",
+   "year": 2006,
+   "rating": 7.6,
+   "votes": 12964,
+   "score": 7.111850002473005
   },
   {
    "tconst": "tt0831888",
    "title": "Tekkonkinkreet",
    "year": 2006,
    "rating": 7.5,
-   "votes": 15788,
-   "score": 7.105259556248352
+   "votes": 15822,
+   "score": 7.104605509131364
   },
   {
    "tconst": "tt0477139",
    "title": "Wristcutters: A Love Story",
    "year": 2006,
    "rating": 7.2,
-   "votes": 60060,
-   "score": 7.097522601149479
+   "votes": 60103,
+   "score": 7.097153095542132
   },
   {
    "tconst": "tt0485510",
    "title": "Killing the Shadows",
    "year": 2006,
    "rating": 7.5,
-   "votes": 14522,
-   "score": 7.084880247799221
+   "votes": 14545,
+   "score": 7.084034363690776
   },
   {
    "tconst": "tt0385726",
    "title": "Glory Road",
    "year": 2006,
    "rating": 7.2,
-   "votes": 51698,
-   "score": 7.083633722916991
+   "votes": 51759,
+   "score": 7.083257880742727
   },
   {
    "tconst": "tt0453467",
    "title": "Deja Vu",
    "year": 2006,
    "rating": 7.1,
-   "votes": 348250,
-   "score": 7.082750686494159
+   "votes": 348560,
+   "score": 7.082681067204345
   },
   {
    "tconst": "tt0424880",
    "title": "Candy",
    "year": 2006,
    "rating": 7.2,
-   "votes": 50133,
-   "score": 7.0806052157140424
+   "votes": 50174,
+   "score": 7.080182860650615
   },
   {
    "tconst": "tt0414993",
    "title": "The Fountain",
    "year": 2006,
    "rating": 7.1,
-   "votes": 259581,
-   "score": 7.0770771435543764
+   "votes": 259749,
+   "score": 7.076979056296001
   },
   {
    "tconst": "tt0479143",
    "title": "Rocky Balboa",
    "year": 2006,
    "rating": 7.1,
-   "votes": 245790,
-   "score": 7.075841250387163
+   "votes": 246062,
+   "score": 7.075748543152791
   },
   {
    "tconst": "tt0461936",
    "title": "Don",
    "year": 2006,
    "rating": 7.2,
-   "votes": 45009,
-   "score": 7.0694837833178665
+   "votes": 45072,
+   "score": 7.0690827182014475
   },
   {
    "tconst": "tt0468492",
    "title": "The Host",
    "year": 2006,
    "rating": 7.1,
-   "votes": 144584,
-   "score": 7.060024539645322
+   "votes": 144794,
+   "score": 7.059882963530822
   },
   {
    "tconst": "tt0494271",
    "title": "The Unknown Woman",
    "year": 2006,
    "rating": 7.4,
-   "votes": 16921,
-   "score": 7.059018366202315
+   "votes": 16939,
+   "score": 7.058121068220428
   },
   {
    "tconst": "tt0418689",
    "title": "Flags of Our Fathers",
    "year": 2006,
    "rating": 7.1,
-   "votes": 135149,
-   "score": 7.057426047968173
+   "votes": 135255,
+   "score": 7.057248448981378
   },
   {
    "tconst": "tt0482629",
    "title": "The Ultimate Gift",
    "year": 2006,
    "rating": 7.3,
-   "votes": 23515,
-   "score": 7.05594311312942
+   "votes": 23545,
+   "score": 7.055257816568493
   },
   {
    "tconst": "tt0468489",
    "title": "Half Nelson",
    "year": 2006,
    "rating": 7.1,
-   "votes": 96559,
-   "score": 7.042008027820573
+   "votes": 96620,
+   "score": 7.04175692606256
   },
   {
    "tconst": "tt0460740",
    "title": "Cashback",
    "year": 2006,
    "rating": 7.1,
-   "votes": 95331,
-   "score": 7.041331929218677
+   "votes": 95391,
+   "score": 7.041077733931646
   },
   {
    "tconst": "tt0499262",
    "title": "Takva: A Man's Fear of God",
    "year": 2006,
    "rating": 7.4,
-   "votes": 14956,
-   "score": 7.03216995658489
+   "votes": 14991,
+   "score": 7.031472268288189
   },
   {
    "tconst": "tt0438315",
    "title": "Peaceful Warrior",
    "year": 2006,
    "rating": 7.2,
-   "votes": 31836,
-   "score": 7.028387834318112
+   "votes": 31868,
+   "score": 7.027795057246348
   },
   {
    "tconst": "tt0758794",
    "title": "We Are Marshall",
    "year": 2006,
    "rating": 7.1,
-   "votes": 68303,
-   "score": 7.021081356225591
+   "votes": 68358,
+   "score": 7.020749935638864
   },
   {
    "tconst": "tt0448124",
    "title": "Snow Cake",
    "year": 2006,
    "rating": 7.4,
-   "votes": 13907,
-   "score": 7.016030176790585
+   "votes": 13913,
+   "score": 7.014859007936691
   },
   {
    "tconst": "tt0827517",
    "title": "Reprise",
    "year": 2006,
    "rating": 7.3,
-   "votes": 18438,
-   "score": 7.012371947272399
+   "votes": 18502,
+   "score": 7.011954370107015
   },
   {
    "tconst": "tt0458352",
    "title": "The Devil Wears Prada",
    "year": 2006,
    "rating": 7,
-   "votes": 572341,
-   "score": 6.991105612410139
+   "votes": 573908,
+   "score": 6.991077572934076
   },
   {
    "tconst": "tt0457939",
    "title": "The Holiday",
    "year": 2006,
    "rating": 7,
-   "votes": 371027,
-   "score": 6.9864063004367996
+   "votes": 371540,
+   "score": 6.986345136700714
   },
   {
    "tconst": "tt0468094",
    "title": "The Road to Guantanamo",
    "year": 2006,
    "rating": 7.4,
-   "votes": 11723,
-   "score": 6.977426388460733
+   "votes": 11726,
+   "score": 6.976089637153185
   },
   {
    "tconst": "tt0439662",
    "title": "Fanaa",
    "year": 2006,
    "rating": 7.1,
-   "votes": 37393,
-   "score": 6.969610141508925
+   "votes": 37425,
+   "score": 6.969059008050397
   },
   {
    "tconst": "tt0405296",
    "title": "A Scanner Darkly",
    "year": 2006,
    "rating": 7,
-   "votes": 122567,
-   "score": 6.960928688410633
+   "votes": 122650,
+   "score": 6.960724639704411
   },
   {
    "tconst": "tt0808185",
    "title": "The Bothersome Man",
    "year": 2006,
    "rating": 7.2,
-   "votes": 19230,
-   "score": 6.954376785375727
+   "votes": 19271,
+   "score": 6.9536853355467905
   },
   {
    "tconst": "tt0493430",
    "title": "Jackass Number Two",
    "year": 2006,
    "rating": 7,
-   "votes": 84535,
-   "score": 6.945210064383906
+   "votes": 84614,
+   "score": 6.9449354583548955
   },
   {
    "tconst": "tt0445990",
    "title": "Invincible",
    "year": 2006,
    "rating": 7,
-   "votes": 80032,
-   "score": 6.942469715618141
+   "votes": 80132,
+   "score": 6.942197260204923
   },
   {
    "tconst": "tt0485241",
    "title": "Don't Worry, I'm Fine",
    "year": 2006,
    "rating": 7.3,
-   "votes": 11829,
-   "score": 6.925288993381853
+   "votes": 11842,
+   "score": 6.924124322717246
   },
   {
    "tconst": "tt0476884",
    "title": "Taxi No. 9 2 11: Nau Do Gyarah",
    "year": 2006,
    "rating": 7.3,
-   "votes": 11503,
-   "score": 6.919608121496186
+   "votes": 11519,
+   "score": 6.918482432119992
   },
   {
    "tconst": "tt0473444",
    "title": "Curse of the Golden Flower",
    "year": 2006,
    "rating": 7,
-   "votes": 47759,
-   "score": 6.9103245110984
+   "votes": 47797,
+   "score": 6.9098590490300555
   },
   {
    "tconst": "tt0419749",
    "title": "Find Me Guilty",
    "year": 2006,
    "rating": 7,
-   "votes": 38255,
-   "score": 6.892662593234535
+   "votes": 38292,
+   "score": 6.892117192429183
   },
   {
    "tconst": "tt0317919",
    "title": "Mission: Impossible III",
    "year": 2006,
    "rating": 6.9,
-   "votes": 428835,
-   "score": 6.890475767512921
-  },
-  {
-   "tconst": "tt0799954",
-   "title": "The Bridge",
-   "year": 2006,
-   "rating": 7.2,
-   "votes": 12904,
-   "score": 6.8865365628943636
+   "votes": 429276,
+   "score": 6.890416329270869
   },
   {
    "tconst": "tt0479884",
    "title": "Crank",
    "year": 2006,
    "rating": 6.9,
-   "votes": 279938,
-   "score": 6.885584619596371
+   "votes": 280220,
+   "score": 6.8854941887423
+  },
+  {
+   "tconst": "tt0799954",
+   "title": "The Bridge",
+   "year": 2006,
+   "rating": 7.2,
+   "votes": 12914,
+   "score": 6.885350591637868
   },
   {
    "tconst": "tt0810827",
    "title": "Death Note: The Last Name",
    "year": 2006,
    "rating": 7.1,
-   "votes": 18642,
-   "score": 6.884248077527145
+   "votes": 18665,
+   "score": 6.883363804527825
   },
   {
    "tconst": "tt0482088",
    "title": "Priceless",
    "year": 2006,
    "rating": 7,
-   "votes": 34469,
-   "score": 6.883524105253828
+   "votes": 34492,
+   "score": 6.882903071491282
   },
   {
    "tconst": "tt0482546",
    "title": "Miss Potter",
    "year": 2006,
    "rating": 7,
-   "votes": 34166,
-   "score": 6.882725024601108
+   "votes": 34199,
+   "score": 6.8821268231586705
   },
   {
    "tconst": "tt0426883",
    "title": "Alpha Dog",
    "year": 2006,
    "rating": 6.9,
-   "votes": 112299,
-   "score": 6.865825014403491
+   "votes": 112371,
+   "score": 6.86559743286228
   },
   {
    "tconst": "tt0401445",
    "title": "A Good Year",
    "year": 2006,
    "rating": 6.9,
-   "votes": 108085,
-   "score": 6.864605440458419
+   "votes": 108219,
+   "score": 6.86438917142583
   },
   {
    "tconst": "tt0464160",
    "title": "Chup Chup Ke",
    "year": 2006,
    "rating": 7.1,
-   "votes": 16226,
-   "score": 6.864372509590959
+   "votes": 16287,
+   "score": 6.8637662516373155
   },
   {
    "tconst": "tt0406816",
    "title": "The Guardian",
    "year": 2006,
    "rating": 6.9,
-   "votes": 104110,
-   "score": 6.863372477754206
+   "votes": 104231,
+   "score": 6.8631459363639475
   },
   {
    "tconst": "tt0456554",
    "title": "Grandma's Boy",
    "year": 2006,
    "rating": 6.9,
-   "votes": 93830,
-   "score": 6.859746060257464
+   "votes": 93916,
+   "score": 6.859487696377749
   },
   {
    "tconst": "tt0421206",
    "title": "Gridiron Gang",
    "year": 2006,
    "rating": 6.9,
-   "votes": 83433,
-   "score": 6.8552666984527155
+   "votes": 83481,
+   "score": 6.854965431015823
   },
   {
    "tconst": "tt0464913",
    "title": "OSS 117: Cairo, Nest of Spies",
    "year": 2006,
    "rating": 7,
-   "votes": 25612,
-   "score": 6.854555583413807
+   "votes": 25654,
+   "score": 6.853876800829923
   },
   {
    "tconst": "tt0796212",
    "title": "Exiled",
    "year": 2006,
    "rating": 7.2,
-   "votes": 10423,
-   "score": 6.8484568102890115
+   "votes": 10431,
+   "score": 6.847110932249528
   },
   {
    "tconst": "tt0462200",
    "title": "Black Snake Moan",
    "year": 2006,
    "rating": 6.9,
-   "votes": 69306,
-   "score": 6.8472982301027985
+   "votes": 69354,
+   "score": 6.846948149517229
   },
   {
    "tconst": "tt0425601",
    "title": "Trailer Park Boys: The Movie",
    "year": 2006,
    "rating": 7.1,
-   "votes": 14255,
-   "score": 6.845225043765513
+   "votes": 14264,
+   "score": 6.844070369963324
   },
   {
    "tconst": "tt0497986",
    "title": "Time",
    "year": 2006,
    "rating": 7.1,
-   "votes": 13398,
-   "score": 6.8358933856112705
+   "votes": 13416,
+   "score": 6.834801992517514
   },
   {
    "tconst": "tt0308055",
    "title": "Bobby",
    "year": 2006,
    "rating": 6.9,
-   "votes": 44043,
-   "score": 6.822662202996364
+   "votes": 44069,
+   "score": 6.822138812568941
   },
   {
    "tconst": "tt0420609",
    "title": "Infamous",
    "year": 2006,
    "rating": 7,
-   "votes": 18992,
-   "score": 6.821344972286578
+   "votes": 19006,
+   "score": 6.820386246183206
   },
   {
    "tconst": "tt0455957",
    "title": "Goya's Ghosts",
    "year": 2006,
    "rating": 6.9,
-   "votes": 33374,
-   "score": 6.803638895110724
+   "votes": 33389,
+   "score": 6.802973644398122
   },
   {
    "tconst": "tt0444182",
    "title": "Days of Glory",
    "year": 2006,
    "rating": 7,
-   "votes": 15692,
-   "score": 6.798397689418204
+   "votes": 15702,
+   "score": 6.797296842922345
   },
   {
    "tconst": "tt0498097",
    "title": "Climates",
    "year": 2006,
    "rating": 7,
-   "votes": 15376,
-   "score": 6.795887194062598
+   "votes": 15397,
+   "score": 6.794862521431276
   },
   {
    "tconst": "tt0473488",
    "title": "A Guide to Recognizing Your Saints",
    "year": 2006,
    "rating": 6.9,
-   "votes": 28789,
-   "score": 6.792248664222654
+   "votes": 28826,
+   "score": 6.791570686055481
   },
   {
    "tconst": "tt0438097",
    "title": "Ice Age: The Meltdown",
    "year": 2006,
    "rating": 6.8,
-   "votes": 321941,
-   "score": 6.790421290038086
+   "votes": 322325,
+   "score": 6.790341152356248
   },
   {
    "tconst": "tt0497137",
    "title": "I'm a Cyborg, But That's OK",
    "year": 2006,
    "rating": 6.9,
-   "votes": 27578,
-   "score": 6.788776237067767
+   "votes": 27616,
+   "score": 6.788082822649673
   },
   {
    "tconst": "tt0489327",
    "title": "Venus",
    "year": 2006,
    "rating": 7,
-   "votes": 13887,
-   "score": 6.783163789363775
+   "votes": 13895,
+   "score": 6.781967920351124
   },
   {
    "tconst": "tt0410297",
    "title": "The Lake House",
    "year": 2006,
    "rating": 6.8,
-   "votes": 166802,
-   "score": 6.782016229661047
+   "votes": 167009,
+   "score": 6.781866026342107
   },
   {
    "tconst": "tt0365830",
    "title": "Tenacious D in the Pick of Destiny",
    "year": 2006,
    "rating": 6.8,
-   "votes": 120489,
-   "score": 6.775633451375461
+   "votes": 120580,
+   "score": 6.775418314112345
   },
   {
    "tconst": "tt0425326",
    "title": "Outsourced",
    "year": 2006,
    "rating": 7,
-   "votes": 12667,
-   "score": 6.771493070831275
+   "votes": 12675,
+   "score": 6.770236977146201
   },
   {
    "tconst": "tt0460829",
    "title": "Inland Empire",
    "year": 2006,
    "rating": 6.8,
-   "votes": 69927,
-   "score": 6.760219117901742
+   "votes": 70043,
+   "score": 6.759898097982211
   },
   {
    "tconst": "tt0482463",
    "title": "Bella",
    "year": 2006,
    "rating": 7,
-   "votes": 11321,
-   "score": 6.757067371911847
+   "votes": 11326,
+   "score": 6.755703059963899
   },
   {
    "tconst": "tt0375154",
    "title": "Tristan + Isolde",
    "year": 2006,
    "rating": 6.8,
-   "votes": 56505,
-   "score": 6.7521905636648745
+   "votes": 56545,
+   "score": 6.751763820824857
   },
   {
    "tconst": "tt0464049",
    "title": "The History Boys",
    "year": 2006,
    "rating": 6.8,
-   "votes": 22500,
-   "score": 6.702167182662539
+   "votes": 22511,
+   "score": 6.701267984890963
   },
   {
    "tconst": "tt0382625",
    "title": "The Da Vinci Code",
    "year": 2006,
    "rating": 6.7,
-   "votes": 490291,
-   "score": 6.695643402412862
+   "votes": 490759,
+   "score": 6.695586945929659
   },
   {
    "tconst": "tt0410730",
    "title": "Taxidermia",
    "year": 2006,
    "rating": 6.8,
-   "votes": 19778,
-   "score": 6.693224307761854
+   "votes": 19806,
+   "score": 6.692307705052343
   },
   {
    "tconst": "tt0401855",
    "title": "Underworld: Evolution",
    "year": 2006,
    "rating": 6.7,
-   "votes": 219315,
-   "score": 6.690495316209287
+   "votes": 219522,
+   "score": 6.690371831270162
   },
   {
    "tconst": "tt0327084",
    "title": "Over the Hedge",
    "year": 2006,
    "rating": 6.7,
-   "votes": 205506,
-   "score": 6.689886283614065
+   "votes": 205772,
+   "score": 6.689758279372626
   },
   {
    "tconst": "tt0385880",
    "title": "Monster House",
    "year": 2006,
    "rating": 6.7,
-   "votes": 158181,
-   "score": 6.687040351981095
+   "votes": 158557,
+   "score": 6.686889440704273
   },
   {
    "tconst": "tt0805184",
    "title": "Bhagam Bhag",
    "year": 2006,
    "rating": 6.8,
-   "votes": 18049,
-   "score": 6.686642427057381
+   "votes": 18090,
+   "score": 6.685728852146319
   },
   {
    "tconst": "tt0343737",
    "title": "The Good Shepherd",
    "year": 2006,
    "rating": 6.7,
-   "votes": 113306,
-   "score": 6.6823239212733565
+   "votes": 113462,
+   "score": 6.682100755348125
   },
   {
    "tconst": "tt0472160",
    "title": "Penelope",
    "year": 2006,
    "rating": 6.7,
-   "votes": 69774,
-   "score": 6.672678233967615
+   "votes": 69848,
+   "score": 6.672323958731466
   },
   {
    "tconst": "tt0471030",
    "title": "Red Road",
    "year": 2006,
    "rating": 6.8,
-   "votes": 14380,
-   "score": 6.66958299575605
+   "votes": 14399,
+   "score": 6.668442290945944
   },
   {
    "tconst": "tt0762121",
    "title": "The Nativity Story",
    "year": 2006,
    "rating": 6.8,
-   "votes": 12277,
-   "score": 6.657271330813508
+   "votes": 12286,
+   "score": 6.655968924741546
   },
   {
    "tconst": "tt0488085",
    "title": "Big Nothing",
    "year": 2006,
    "rating": 6.7,
-   "votes": 33270,
-   "score": 6.649628690467588
+   "votes": 33295,
+   "score": 6.648957696195637
   },
   {
    "tconst": "tt0457572",
    "title": "Fido",
    "year": 2006,
    "rating": 6.7,
-   "votes": 31227,
-   "score": 6.647132545092597
+   "votes": 31256,
+   "score": 6.646435026584984
   },
   {
    "tconst": "tt0468526",
    "title": "Old Joy",
    "year": 2006,
    "rating": 6.8,
-   "votes": 10154,
-   "score": 6.642236451152749
-  },
-  {
-   "tconst": "tt0437857",
-   "title": "Behind the Mask: The Rise of Leslie Vernon",
-   "year": 2006,
-   "rating": 6.7,
-   "votes": 27348,
-   "score": 6.641641679247416
+   "votes": 10184,
+   "score": 6.6409692556871835
   },
   {
    "tconst": "tt0477095",
    "title": "Starter for 10",
    "year": 2006,
    "rating": 6.7,
-   "votes": 27218,
-   "score": 6.641437837512292
+   "votes": 27244,
+   "score": 6.6406648978839575
   },
   {
    "tconst": "tt0420087",
    "title": "A Prairie Home Companion",
    "year": 2006,
    "rating": 6.7,
-   "votes": 24670,
-   "score": 6.637133932406475
+   "votes": 24685,
+   "score": 6.636287255493444
   },
   {
    "tconst": "tt0435680",
    "title": "Kidulthood",
    "year": 2006,
    "rating": 6.7,
-   "votes": 20427,
-   "score": 6.628367352566224
+   "votes": 20448,
+   "score": 6.627421290619749
   },
   {
    "tconst": "tt0424908",
    "title": "Copying Beethoven",
    "year": 2006,
    "rating": 6.7,
-   "votes": 14507,
-   "score": 6.611063509876056
+   "votes": 14517,
+   "score": 6.60986350111311
   },
   {
    "tconst": "tt0479647",
    "title": "Bon Cop Bad Cop",
    "year": 2006,
    "rating": 6.7,
-   "votes": 13795,
-   "score": 6.608402329755516
+   "votes": 13806,
+   "score": 6.607171446559276
   },
   {
    "tconst": "tt0826631",
    "title": "Exam",
    "year": 2006,
    "rating": 6.7,
-   "votes": 12716,
-   "score": 6.604051480741878
+   "votes": 12730,
+   "score": 6.602777098846904
   },
   {
    "tconst": "tt0494290",
    "title": "Vivah",
    "year": 2006,
    "rating": 6.7,
-   "votes": 12330,
-   "score": 6.602392899083409
+   "votes": 12369,
+   "score": 6.601208076212173
   },
   {
    "tconst": "tt0376994",
    "title": "X-Men: The Last Stand",
    "year": 2006,
    "rating": 6.6,
-   "votes": 580039,
-   "score": 6.598000866784284
+   "votes": 581109,
+   "score": 6.597953209064301
   },
   {
    "tconst": "tt0437232",
    "title": "Catch a Fire",
    "year": 2006,
    "rating": 6.7,
-   "votes": 11124,
-   "score": 6.596820367190517
+   "votes": 11136,
+   "score": 6.595444902384089
   },
   {
    "tconst": "tt0415306",
    "title": "Talladega Nights: The Ballad of Ricky Bobby",
    "year": 2006,
    "rating": 6.6,
-   "votes": 216735,
-   "score": 6.594797598238174
+   "votes": 217033,
+   "score": 6.594670922098506
   },
   {
    "tconst": "tt0475394",
    "title": "Smokin' Aces",
    "year": 2006,
    "rating": 6.6,
-   "votes": 158679,
-   "score": 6.593007033694368
+   "votes": 158796,
+   "score": 6.592832315083237
   },
   {
    "tconst": "tt0424095",
    "title": "Flushed Away",
    "year": 2006,
    "rating": 6.6,
-   "votes": 151425,
-   "score": 6.592692788827829
+   "votes": 151674,
+   "score": 6.592516567022464
   },
   {
    "tconst": "tt0450232",
    "title": "16 Blocks",
    "year": 2006,
    "rating": 6.6,
-   "votes": 139258,
-   "score": 6.592097130046848
+   "votes": 139333,
+   "score": 6.591898130063616
   },
   {
    "tconst": "tt0457513",
    "title": "Scoop",
    "year": 2006,
    "rating": 6.6,
-   "votes": 91093,
-   "score": 6.588331867058377
+   "votes": 91136,
+   "score": 6.5880371327399745
   },
   {
    "tconst": "tt0443489",
    "title": "Dreamgirls",
    "year": 2006,
    "rating": 6.6,
-   "votes": 81450,
-   "score": 6.587101513794779
+   "votes": 81512,
+   "score": 6.586779039435156
   },
   {
    "tconst": "tt0408985",
    "title": "Last Holiday",
    "year": 2006,
    "rating": 6.6,
-   "votes": 43330,
-   "score": 6.577881744544017
+   "votes": 43401,
+   "score": 6.577343560172845
   },
   {
    "tconst": "tt0479537",
    "title": "Seraphim Falls",
    "year": 2006,
    "rating": 6.6,
-   "votes": 37005,
-   "score": 6.574905508701893
+   "votes": 37050,
+   "score": 6.574285301950905
   },
   {
    "tconst": "tt0441048",
    "title": "Dhoom 2",
    "year": 2006,
    "rating": 6.6,
-   "votes": 33402,
-   "score": 6.572822299353314
+   "votes": 33490,
+   "score": 6.572180350811453
   },
   {
    "tconst": "tt0446046",
    "title": "Take the Lead",
    "year": 2006,
    "rating": 6.6,
-   "votes": 27661,
-   "score": 6.568679361581808
+   "votes": 27692,
+   "score": 6.567900972535023
+  },
+  {
+   "tconst": "tt0437857",
+   "title": "Behind the Mask: The Rise of Leslie Vernon",
+   "year": 2006,
+   "rating": 6.6,
+   "votes": 27396,
+   "score": 6.567646899582579
   },
   {
    "tconst": "tt0462338",
    "title": "The Hoax",
    "year": 2006,
    "rating": 6.6,
-   "votes": 17798,
-   "score": 6.557566495306586
+   "votes": 17809,
+   "score": 6.556493345923625
   },
   {
    "tconst": "tt0485976",
    "title": "Rob-B-Hood",
    "year": 2006,
    "rating": 6.6,
-   "votes": 17249,
-   "score": 6.5567115650678005
+   "votes": 17267,
+   "score": 6.555628542076139
   },
   {
    "tconst": "tt0386741",
    "title": "Renaissance",
    "year": 2006,
    "rating": 6.6,
-   "votes": 16800,
-   "score": 6.555986322258676
+   "votes": 16807,
+   "score": 6.554867141298545
   },
   {
    "tconst": "tt0437777",
    "title": "Something New",
    "year": 2006,
    "rating": 6.6,
-   "votes": 15892,
-   "score": 6.554442817724876
+   "votes": 15912,
+   "score": 6.553308253195048
   },
   {
    "tconst": "tt0469754",
    "title": "The Boss of It All",
    "year": 2006,
    "rating": 6.6,
-   "votes": 13535,
-   "score": 6.549880324475568
+   "votes": 13554,
+   "score": 6.548633924462516
   },
   {
    "tconst": "tt0423169",
    "title": "Sherrybaby",
    "year": 2006,
    "rating": 6.6,
-   "votes": 12420,
-   "score": 6.547387753636597
+   "votes": 12434,
+   "score": 6.546069513095753
   },
   {
    "tconst": "tt0449851",
    "title": "The Valet",
    "year": 2006,
    "rating": 6.6,
-   "votes": 11586,
-   "score": 6.545355018833154
+   "votes": 11596,
+   "score": 6.5439768224111
   },
   {
    "tconst": "tt0446687",
    "title": "Driving Lessons",
    "year": 2006,
    "rating": 6.6,
-   "votes": 11247,
-   "score": 6.5444831475753045
+   "votes": 11257,
+   "score": 6.5430833822642
   },
   {
    "tconst": "tt0477347",
    "title": "Night at the Museum",
    "year": 2006,
    "rating": 6.5,
-   "votes": 416509,
-   "score": 6.499578985288781
+   "votes": 417189,
+   "score": 6.499508703306476
   },
   {
    "tconst": "tt0389860",
    "title": "Click",
    "year": 2006,
    "rating": 6.5,
-   "votes": 392621,
-   "score": 6.499554005967231
+   "votes": 393199,
+   "score": 6.49947947156811
   },
   {
    "tconst": "tt0384537",
    "title": "Silent Hill",
    "year": 2006,
    "rating": 6.5,
-   "votes": 263239,
-   "score": 6.499342822351613
+   "votes": 263643,
+   "score": 6.499233027911513
   },
   {
    "tconst": "tt0387808",
    "title": "Idiocracy",
    "year": 2006,
    "rating": 6.5,
-   "votes": 221467,
-   "score": 6.499224223913268
+   "votes": 222183,
+   "score": 6.499096072739133
   },
   {
    "tconst": "tt0462590",
    "title": "Step Up",
    "year": 2006,
    "rating": 6.5,
-   "votes": 135556,
-   "score": 6.4987663403537645
+   "votes": 135756,
+   "score": 6.4985600829934285
   },
   {
    "tconst": "tt0422720",
    "title": "Marie Antoinette",
    "year": 2006,
    "rating": 6.5,
-   "votes": 133672,
-   "score": 6.498750163125261
+   "votes": 133867,
+   "score": 6.498541176620003
   },
   {
    "tconst": "tt0439815",
    "title": "Slither",
    "year": 2006,
    "rating": 6.5,
-   "votes": 96094,
-   "score": 6.498307476733204
+   "votes": 96208,
+   "score": 6.498023910221359
   },
   {
    "tconst": "tt0454824",
    "title": "Flyboys",
    "year": 2006,
    "rating": 6.5,
-   "votes": 46622,
-   "score": 6.49682867854425
+   "votes": 46652,
+   "score": 6.496295337442458
   },
   {
    "tconst": "tt0427969",
    "title": "Hollywoodland",
    "year": 2006,
    "rating": 6.5,
-   "votes": 37258,
-   "score": 6.496200292787094
+   "votes": 37290,
+   "score": 6.495561925497782
   },
   {
    "tconst": "tt0432637",
    "title": "Krrish",
    "year": 2006,
    "rating": 6.5,
-   "votes": 28919,
-   "score": 6.495386146523099
+   "votes": 29002,
+   "score": 6.49461882613174
   },
   {
    "tconst": "tt0443456",
    "title": "Breaking and Entering",
    "year": 2006,
    "rating": 6.5,
-   "votes": 23858,
-   "score": 6.494696480493015
+   "votes": 23869,
+   "score": 6.493803284915117
   },
   {
    "tconst": "tt0381971",
    "title": "Curious George",
    "year": 2006,
    "rating": 6.5,
-   "votes": 19785,
-   "score": 6.493971241783868
+   "votes": 19823,
+   "score": 6.492962594534088
   },
   {
    "tconst": "tt0805526",
    "title": "Facing the Giants",
    "year": 2006,
    "rating": 6.5,
-   "votes": 19419,
-   "score": 6.493896238367467
+   "votes": 19451,
+   "score": 6.492873704009714
   },
   {
    "tconst": "tt0783238",
    "title": "The Dead Girl",
    "year": 2006,
    "rating": 6.5,
-   "votes": 17278,
-   "score": 6.493417165354223
+   "votes": 17345,
+   "score": 6.492324865854457
   },
   {
    "tconst": "tt0499603",
    "title": "10 Items or Less",
    "year": 2006,
    "rating": 6.5,
-   "votes": 17258,
-   "score": 6.493412335333938
+   "votes": 17269,
+   "score": 6.492303474890539
   },
   {
    "tconst": "tt0432402",
    "title": "Factory Girl",
    "year": 2006,
    "rating": 6.4,
-   "votes": 23067,
-   "score": 6.424811244943069
+   "votes": 23088,
+   "score": 6.4238794565035695
   },
   {
    "tconst": "tt0441774",
    "title": "Lonely Hearts",
    "year": 2006,
    "rating": 6.4,
-   "votes": 23357,
-   "score": 6.424595540262389
+   "votes": 23377,
+   "score": 6.423672692476559
   },
   {
    "tconst": "tt0430634",
    "title": "Stick It",
    "year": 2006,
    "rating": 6.4,
-   "votes": 31812,
-   "score": 6.419621961076546
+   "votes": 31855,
+   "score": 6.418877636048026
   },
   {
    "tconst": "tt0450340",
    "title": "Unknown",
    "year": 2006,
    "rating": 6.4,
-   "votes": 32569,
-   "score": 6.419273025829418
+   "votes": 32596,
+   "score": 6.418549240698425
   },
   {
    "tconst": "tt0409904",
    "title": "Day Watch",
    "year": 2006,
    "rating": 6.4,
-   "votes": 36562,
-   "score": 6.417620236169677
+   "votes": 36588,
+   "score": 6.416959806319012
   },
   {
    "tconst": "tt0434139",
    "title": "The Last Kiss",
    "year": 2006,
    "rating": 6.4,
-   "votes": 42886,
-   "score": 6.4155132442713105
+   "votes": 42906,
+   "score": 6.414934477314295
   },
   {
    "tconst": "tt0464196",
    "title": "Severance",
    "year": 2006,
    "rating": 6.4,
-   "votes": 43603,
-   "score": 6.415305737300757
+   "votes": 43651,
+   "score": 6.414727096546012
   },
   {
    "tconst": "tt0384793",
    "title": "Accepted",
    "year": 2006,
    "rating": 6.4,
-   "votes": 149472,
-   "score": 6.405144686443593
+   "votes": 149579,
+   "score": 6.404951299712307
   },
   {
    "tconst": "tt0454945",
    "title": "She's the Man",
    "year": 2006,
    "rating": 6.4,
-   "votes": 196592,
-   "score": 6.40397127399189
+   "votes": 196901,
+   "score": 6.403818847935922
   },
   {
    "tconst": "tt0454841",
    "title": "The Hills Have Eyes",
    "year": 2006,
    "rating": 6.4,
-   "votes": 197536,
-   "score": 6.403953210221516
+   "votes": 197830,
+   "score": 6.403801777687486
   },
   {
    "tconst": "tt0366548",
    "title": "Happy Feet",
    "year": 2006,
    "rating": 6.4,
-   "votes": 215972,
-   "score": 6.403630686264372
+   "votes": 216178,
+   "score": 6.4034933700748535
   }
  ]
 }

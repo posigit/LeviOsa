@@ -1,6 +1,6 @@
 {
  "tag": "year-1964",
- "builtAt": "2026-09-15T22:46:38.707Z",
+ "builtAt": "2026-10-01T06:19:54.122Z",
  "mean": 6.661,
  "minVotes": 1000,
  "items": [
@@ -9,456 +9,464 @@
    "title": "Woman in the Dunes",
    "year": 1964,
    "rating": 8.4,
-   "votes": 26457,
-   "score": 8.336675176551722
+   "votes": 26645,
+   "score": 8.33708914787801
   },
   {
    "tconst": "tt0057012",
    "title": "Dr. Strangelove or: How I Learned to Stop Worrying and Love the Bomb",
    "year": 1964,
    "rating": 8.3,
-   "votes": 554514,
-   "score": 8.29705010192827
+   "votes": 555100,
+   "score": 8.29705238175344
   },
   {
    "tconst": "tt0058604",
    "title": "I Am Cuba",
    "year": 1964,
    "rating": 8.2,
-   "votes": 12723,
-   "score": 8.087873666296046
+   "votes": 12779,
+   "score": 8.088295920827894
   },
   {
    "tconst": "tt0169828",
    "title": "Father of a Soldier",
    "year": 1964,
    "rating": 8.3,
-   "votes": 4936,
-   "score": 8.023937048952266
+   "votes": 4940,
+   "score": 8.024045369206661
   },
   {
    "tconst": "tt0058083",
    "title": "Fail Safe",
    "year": 1964,
    "rating": 8,
-   "votes": 28380,
-   "score": 7.954434660400976
+   "votes": 28457,
+   "score": 7.9545381231316
   },
   {
    "tconst": "tt0057935",
    "title": "Charulata",
    "year": 1964,
    "rating": 8.1,
-   "votes": 8106,
-   "score": 7.942004208497765
+   "votes": 8132,
+   "score": 7.94240358005777
   },
   {
    "tconst": "tt0146645",
    "title": "Dosti",
    "year": 1964,
    "rating": 8.5,
-   "votes": 2052,
-   "score": 7.897539424174524
+   "votes": 2053,
+   "score": 7.897585814964808
   },
   {
    "tconst": "tt0058461",
    "title": "A Fistful of Dollars",
    "year": 1964,
    "rating": 7.9,
-   "votes": 256819,
-   "score": 7.895195429051315
+   "votes": 257194,
+   "score": 7.895200622373439
   },
   {
    "tconst": "tt0172776",
    "title": "Mars na Drinu",
    "year": 1964,
    "rating": 8.4,
-   "votes": 2171,
-   "score": 7.851684113081251
+   "votes": 2173,
+   "score": 7.851884491991036
   },
   {
    "tconst": "tt0058279",
    "title": "Kwaidan",
    "year": 1964,
    "rating": 7.9,
-   "votes": 23304,
-   "score": 7.84903268279216
+   "votes": 23381,
+   "score": 7.849174746445493
   },
   {
    "tconst": "tt0058126",
    "title": "Hamlet",
    "year": 1964,
    "rating": 8.2,
-   "votes": 3268,
-   "score": 7.8394775826102725
+   "votes": 3270,
+   "score": 7.839538522971324
   },
   {
    "tconst": "tt0058331",
    "title": "Mary Poppins",
    "year": 1964,
    "rating": 7.8,
-   "votes": 200431,
-   "score": 7.794346899546647
+   "votes": 200665,
+   "score": 7.794351173942368
   },
   {
    "tconst": "tt0058450",
    "title": "The Umbrellas of Cherbourg",
    "year": 1964,
    "rating": 7.8,
-   "votes": 35673,
-   "score": 7.768949644768104
+   "votes": 35759,
+   "score": 7.769009752525574
   },
   {
    "tconst": "tt0058430",
    "title": "Onibaba",
    "year": 1964,
    "rating": 7.8,
-   "votes": 26178,
-   "score": 7.758101785362449
+   "votes": 26246,
+   "score": 7.758189440398134
   },
   {
    "tconst": "tt0059825",
    "title": "The Train",
    "year": 1964,
    "rating": 7.8,
-   "votes": 22234,
-   "score": 7.7509895120332555
+   "votes": 22284,
+   "score": 7.751074965344767
   },
   {
    "tconst": "tt0058576",
    "title": "Seven Days in May",
    "year": 1964,
    "rating": 7.8,
-   "votes": 17904,
-   "score": 7.739763559171639
+   "votes": 17935,
+   "score": 7.739837839613813
   },
   {
    "tconst": "tt0058150",
    "title": "Goldfinger",
    "year": 1964,
    "rating": 7.7,
-   "votes": 219846,
-   "score": 7.695296678783318
+   "votes": 220074,
+   "score": 7.6952994449509555
   },
   {
    "tconst": "tt0058385",
    "title": "My Fair Lady",
    "year": 1964,
    "rating": 7.7,
-   "votes": 108631,
-   "score": 7.6905254017803415
+   "votes": 108752,
+   "score": 7.690531648563011
   },
   {
    "tconst": "tt0058777",
    "title": "Zulu",
    "year": 1964,
    "rating": 7.7,
-   "votes": 46817,
-   "score": 7.678277397632237
+   "votes": 46893,
+   "score": 7.678302246530549
   },
   {
    "tconst": "tt0058564",
    "title": "Seduced and Abandoned",
    "year": 1964,
    "rating": 7.9,
-   "votes": 4395,
-   "score": 7.670396723369906
+   "votes": 4402,
+   "score": 7.670608939853306
   },
   {
    "tconst": "tt0057877",
    "title": "Becket",
    "year": 1964,
    "rating": 7.7,
-   "votes": 17250,
-   "score": 7.643084401237296
+   "votes": 17273,
+   "score": 7.643130821052239
   },
   {
    "tconst": "tt0058349",
    "title": "Yearning",
    "year": 1964,
    "rating": 8,
-   "votes": 2491,
-   "score": 7.616525443305828
+   "votes": 2502,
+   "score": 7.617598370384797
   },
   {
    "tconst": "tt0058022",
    "title": "Welcome, or No Trespassing",
    "year": 1964,
    "rating": 7.8,
-   "votes": 4062,
-   "score": 7.57504747581601
+   "votes": 4074,
+   "score": 7.575488666355451
   },
   {
    "tconst": "tt0057869",
    "title": "Band of Outsiders",
    "year": 1964,
    "rating": 7.6,
-   "votes": 29251,
-   "score": 7.568969300934866
+   "votes": 29286,
+   "score": 7.568989945621327
   },
   {
    "tconst": "tt0057831",
    "title": "Zorba the Greek",
    "year": 1964,
    "rating": 7.6,
-   "votes": 25880,
-   "score": 7.565077764976959
+   "votes": 25924,
+   "score": 7.565117719992852
   },
   {
    "tconst": "tt0058414",
    "title": "Nothing But a Man",
    "year": 1964,
    "rating": 7.9,
-   "votes": 2522,
-   "score": 7.548293674781558
+   "votes": 2530,
+   "score": 7.548960196342085
   },
   {
    "tconst": "tt0058715",
    "title": "The Gospel According to St. Matthew",
    "year": 1964,
    "rating": 7.6,
-   "votes": 15333,
-   "score": 7.542526806011182
+   "votes": 15357,
+   "score": 7.542582961000646
   },
   {
    "tconst": "tt0056327",
    "title": "Pale Flower",
    "year": 1964,
    "rating": 7.7,
-   "votes": 5335,
-   "score": 7.536036357155588
+   "votes": 5350,
+   "score": 7.536351101273631
   },
   {
    "tconst": "tt0059575",
    "title": "The Pawnbroker",
    "year": 1964,
    "rating": 7.6,
-   "votes": 11816,
-   "score": 7.526754862873021
+   "votes": 11846,
+   "score": 7.526890043055236
   },
   {
    "tconst": "tt0058631",
    "title": "The T.A.M.I. Show",
    "year": 1964,
    "rating": 8.3,
-   "votes": 1110,
-   "score": 7.523360342455282
+   "votes": 1112,
+   "score": 7.523877600893731
   },
   {
    "tconst": "tt0057694",
    "title": "Walking the Streets of Moscow",
    "year": 1964,
    "rating": 7.7,
-   "votes": 3839,
-   "score": 7.4853462125605805
+   "votes": 3851,
+   "score": 7.485782208428686
   },
   {
    "tconst": "tt0058182",
    "title": "A Hard Day's Night",
    "year": 1964,
    "rating": 7.5,
-   "votes": 50367,
-   "score": 7.483672208277312
+   "votes": 50432,
+   "score": 7.483683883440028
   },
   {
    "tconst": "tt0058213",
    "title": "Hush...Hush, Sweet Charlotte",
    "year": 1964,
    "rating": 7.5,
-   "votes": 17661,
-   "score": 7.455055480551988
+   "votes": 17687,
+   "score": 7.455093353298419
   },
   {
    "tconst": "tt0058404",
    "title": "The Night of the Iguana",
    "year": 1964,
    "rating": 7.5,
-   "votes": 14232,
-   "score": 7.4449376524803474
+   "votes": 14251,
+   "score": 7.444976033905157
   },
   {
    "tconst": "tt0058652",
    "title": "Three Outlaw Samurai",
    "year": 1964,
    "rating": 7.6,
-   "votes": 4508,
-   "score": 7.429573406423501
+   "votes": 4513,
+   "score": 7.4296443847428915
   },
   {
    "tconst": "tt0057883",
    "title": "The Best Man",
    "year": 1964,
    "rating": 7.6,
-   "votes": 4318,
-   "score": 7.423484453287071
+   "votes": 4322,
+   "score": 7.423530532335129
   },
   {
    "tconst": "tt0058458",
    "title": "The Soft Skin",
    "year": 1964,
    "rating": 7.5,
-   "votes": 9222,
-   "score": 7.417950530481378
+   "votes": 9236,
+   "score": 7.418017730860449
   },
   {
    "tconst": "tt0058557",
    "title": "Seance on a Wet Afternoon",
    "year": 1964,
    "rating": 7.5,
-   "votes": 8328,
-   "score": 7.41008686991645
+   "votes": 8355,
+   "score": 7.410297113103962
   },
   {
    "tconst": "tt0057842",
    "title": "This Special Friendship",
    "year": 1964,
    "rating": 7.6,
-   "votes": 3416,
-   "score": 7.387429873772791
+   "votes": 3423,
+   "score": 7.387662105604241
   },
   {
    "tconst": "tt0058003",
    "title": "Red Desert",
    "year": 1964,
    "rating": 7.4,
-   "votes": 19524,
-   "score": 7.364007519127883
+   "votes": 19564,
+   "score": 7.364055120262963
   },
   {
    "tconst": "tt0058335",
    "title": "Marriage Italian Style",
    "year": 1964,
    "rating": 7.4,
-   "votes": 12822,
-   "score": 7.346555514584044
+   "votes": 12858,
+   "score": 7.346661097783777
   },
   {
    "tconst": "tt0177698",
    "title": "Miss Director",
    "year": 1964,
    "rating": 7.7,
-   "votes": 1720,
-   "score": 7.318121442125237
+   "votes": 1723,
+   "score": 7.318372931725142
   },
   {
    "tconst": "tt0058263",
    "title": "King & Country",
    "year": 1964,
    "rating": 7.5,
-   "votes": 3061,
-   "score": 7.293472130652708
+   "votes": 3074,
+   "score": 7.294018039540392
   },
   {
    "tconst": "tt0057960",
    "title": "Love Meetings",
    "year": 1964,
    "rating": 7.5,
-   "votes": 3055,
-   "score": 7.293166540710394
+   "votes": 3062,
+   "score": 7.293409525624707
   },
   {
    "tconst": "tt0057829",
    "title": "Intentions of Murder",
    "year": 1964,
    "rating": 7.6,
-   "votes": 2023,
-   "score": 7.289477447099121
+   "votes": 2026,
+   "score": 7.28963301159536
   },
   {
    "tconst": "tt0057809",
    "title": "36 Hours",
    "year": 1964,
    "rating": 7.4,
-   "votes": 5445,
-   "score": 7.285382517080007
+   "votes": 5454,
+   "score": 7.2854709471781165
   },
   {
    "tconst": "tt0058586",
    "title": "A Shot in the Dark",
    "year": 1964,
    "rating": 7.3,
-   "votes": 34396,
-   "score": 7.2819553147977345
+   "votes": 34458,
+   "score": 7.281973870299723
   },
   {
    "tconst": "tt0061633",
    "title": "Strange Voyage",
    "year": 1964,
    "rating": 7.6,
-   "votes": 1869,
-   "score": 7.272809453670493
+   "votes": 1876,
+   "score": 7.273445581741154
   },
   {
    "tconst": "tt0058092",
    "title": "Father Goose",
    "year": 1964,
    "rating": 7.3,
-   "votes": 13738,
-   "score": 7.256662391272944
+   "votes": 13765,
+   "score": 7.2567104296029505
   },
   {
    "tconst": "tt0058249",
    "title": "Diary of a Chambermaid",
    "year": 1964,
    "rating": 7.3,
-   "votes": 10651,
-   "score": 7.245179840578546
+   "votes": 10667,
+   "score": 7.245215521821167
   },
   {
    "tconst": "tt0058275",
    "title": "Lemonade Joe",
    "year": 1964,
    "rating": 7.4,
-   "votes": 3360,
-   "score": 7.230571174903819
+   "votes": 3364,
+   "score": 7.230620873759753
   },
   {
    "tconst": "tt0058138",
    "title": "Gertrud",
    "year": 1964,
    "rating": 7.3,
-   "votes": 7431,
-   "score": 7.224242714100421
+   "votes": 7440,
+   "score": 7.224268897285256
   },
   {
    "tconst": "tt0057840",
    "title": "The Americanization of Emily",
    "year": 1964,
    "rating": 7.3,
-   "votes": 6303,
-   "score": 7.212541465504676
+   "votes": 6325,
+   "score": 7.212741227725263
   },
   {
    "tconst": "tt0181052",
    "title": "I Will Treat You Like a Queen",
    "year": 1964,
    "rating": 7.7,
-   "votes": 1124,
-   "score": 7.210965311949456
+   "votes": 1126,
+   "score": 7.211208604462633
   },
   {
    "tconst": "tt0405410",
    "title": "Ömer the Tourist",
    "year": 1964,
    "rating": 7.4,
-   "votes": 2415,
-   "score": 7.1836867708874514
+   "votes": 2421,
+   "score": 7.183931450770991
   },
   {
    "tconst": "tt0058724",
    "title": "The Visit",
    "year": 1964,
    "rating": 7.4,
-   "votes": 2185,
-   "score": 7.168066035347142
+   "votes": 2194,
+   "score": 7.16857529526849
   },
   {
    "tconst": "tt0058277",
    "title": "The Peach Thief",
    "year": 1964,
    "rating": 7.6,
-   "votes": 1140,
-   "score": 7.161350618028338
+   "votes": 1145,
+   "score": 7.1621582718356915
+  },
+  {
+   "tconst": "tt0232960",
+   "title": "Woh Kaun Thi?",
+   "year": 1964,
+   "rating": 7.5,
+   "votes": 1479,
+   "score": 7.161488298946171
   },
   {
    "tconst": "tt0123334",
@@ -466,55 +474,47 @@
    "year": 1964,
    "rating": 7.4,
    "votes": 2095,
-   "score": 7.161321590494555
-  },
-  {
-   "tconst": "tt0232960",
-   "title": "Woh Kaun Thi?",
-   "year": 1964,
-   "rating": 7.5,
-   "votes": 1475,
-   "score": 7.161127403062887
+   "score": 7.161172695666417
   },
   {
    "tconst": "tt0058390",
    "title": "The Naked Kiss",
    "year": 1964,
    "rating": 7.2,
-   "votes": 9784,
-   "score": 7.150045467598353
+   "votes": 9808,
+   "score": 7.150113757687597
   },
   {
    "tconst": "tt0058001",
    "title": "Diamonds of the Night",
    "year": 1964,
    "rating": 7.3,
-   "votes": 3250,
-   "score": 7.149715370018975
+   "votes": 3254,
+   "score": 7.149748352864965
   },
   {
    "tconst": "tt0180735",
    "title": "I hartopaihtra",
    "year": 1964,
    "rating": 7.4,
-   "votes": 1572,
-   "score": 7.112787839261527
+   "votes": 1576,
+   "score": 7.113054927440823
   },
   {
    "tconst": "tt0058547",
    "title": "Sangam",
    "year": 1964,
    "rating": 7.3,
-   "votes": 2142,
-   "score": 7.0967187532083535
+   "votes": 2147,
+   "score": 7.096895294911841
   },
   {
    "tconst": "tt0058329",
    "title": "Marnie",
    "year": 1964,
    "rating": 7.1,
-   "votes": 58109,
-   "score": 7.092577954669858
+   "votes": 58173,
+   "score": 7.092578194329973
   },
   {
    "tconst": "tt0130377",
@@ -522,183 +522,183 @@
    "year": 1964,
    "rating": 7.3,
    "votes": 2036,
-   "score": 7.089621318373073
+   "score": 7.08946953000249
   },
   {
    "tconst": "tt0058409",
    "title": "Gate of Flesh",
    "year": 1964,
    "rating": 7.2,
-   "votes": 3749,
-   "score": 7.08656355497592
+   "votes": 3757,
+   "score": 7.086657450722631
   },
   {
    "tconst": "tt0184543",
    "title": "Birds of Exile",
    "year": 1964,
    "rating": 7.4,
-   "votes": 1332,
-   "score": 7.083229126321031
+   "votes": 1337,
+   "score": 7.083709667559932
   },
   {
    "tconst": "tt0058135",
    "title": "The Gendarme of Saint-Tropez",
    "year": 1964,
    "rating": 7.1,
-   "votes": 15532,
-   "score": 7.073463000398054
+   "votes": 15570,
+   "score": 7.073496046655857
   },
   {
    "tconst": "tt0058567",
    "title": "Blood and Black Lace",
    "year": 1964,
    "rating": 7.1,
-   "votes": 15497,
-   "score": 7.073406699556322
+   "votes": 15543,
+   "score": 7.073452789281723
   },
   {
    "tconst": "tt0057933",
    "title": "The Chalk Garden",
    "year": 1964,
    "rating": 7.2,
-   "votes": 2925,
-   "score": 7.062749126772139
+   "votes": 2931,
+   "score": 7.062841387201109
   },
   {
    "tconst": "tt0058383",
    "title": "Murder Most Foul",
    "year": 1964,
    "rating": 7.1,
-   "votes": 7074,
-   "score": 7.0456638992544764
+   "votes": 7108,
+   "score": 7.045834915279669
   },
   {
    "tconst": "tt0058006",
    "title": "Black God, White Devil",
    "year": 1964,
    "rating": 7.1,
-   "votes": 6440,
-   "score": 7.0410336455081515
+   "votes": 6454,
+   "score": 7.041082572187759
   },
   {
    "tconst": "tt0057812",
    "title": "7 Faces of Dr. Lao",
    "year": 1964,
    "rating": 7.1,
-   "votes": 6001,
-   "score": 7.037336140919961
+   "votes": 6016,
+   "score": 7.03740443173996
   },
   {
    "tconst": "tt0057999",
    "title": "Dear Heart",
    "year": 1964,
    "rating": 7.2,
-   "votes": 2141,
-   "score": 7.028491029156525
+   "votes": 2143,
+   "score": 7.028453545366706
   },
   {
    "tconst": "tt0058701",
    "title": "A Married Woman",
    "year": 1964,
    "rating": 7.1,
-   "votes": 4814,
-   "score": 7.024542539143557
+   "votes": 4823,
+   "score": 7.0245800262901525
   },
   {
    "tconst": "tt0191664",
    "title": "Zatoichi's Flashing Sword",
    "year": 1964,
    "rating": 7.2,
-   "votes": 1878,
-   "score": 7.012818041202447
+   "votes": 1879,
+   "score": 7.012722991694185
   },
   {
    "tconst": "tt0058500",
    "title": "The Pumpkin Eater",
    "year": 1964,
    "rating": 7.1,
-   "votes": 3327,
-   "score": 6.998611121465368
+   "votes": 3362,
+   "score": 6.999319003458862
   },
   {
    "tconst": "tt0057006",
    "title": "The Ape Woman",
    "year": 1964,
    "rating": 7.3,
-   "votes": 1112,
-   "score": 6.997580645161291
+   "votes": 1119,
+   "score": 6.998362195888419
   },
   {
    "tconst": "tt0058262",
    "title": "The Killers",
    "year": 1964,
    "rating": 7,
-   "votes": 10623,
-   "score": 6.970858670100718
+   "votes": 10647,
+   "score": 6.970879152836573
   },
   {
    "tconst": "tt0058541",
    "title": "Sallah Shabati",
    "year": 1964,
    "rating": 7.2,
-   "votes": 1276,
-   "score": 6.9633085775837635
+   "votes": 1279,
+   "score": 6.963417943434647
   },
   {
    "tconst": "tt0058571",
    "title": "Send Me No Flowers",
    "year": 1964,
    "rating": 7,
-   "votes": 8224,
-   "score": 6.963279523263297
+   "votes": 8240,
+   "score": 6.963293235182636
   },
   {
    "tconst": "tt0058166",
    "title": "Guns at Batasi",
    "year": 1964,
    "rating": 7.1,
-   "votes": 2139,
-   "score": 6.96023903236083
+   "votes": 2145,
+   "score": 6.960359139296521
   },
   {
    "tconst": "tt0058203",
    "title": "That Man from Rio",
    "year": 1964,
    "rating": 7,
-   "votes": 7156,
-   "score": 6.9584711037985105
+   "votes": 7172,
+   "score": 6.958496022159515
   },
   {
    "tconst": "tt0058324",
    "title": "Man's Favorite Sport?",
    "year": 1964,
    "rating": 7,
-   "votes": 6949,
-   "score": 6.957389649337105
+   "votes": 6966,
+   "score": 6.957422733252266
   },
   {
    "tconst": "tt0058382",
    "title": "Murder Ahoy",
    "year": 1964,
    "rating": 7,
-   "votes": 6556,
-   "score": 6.955173414846565
+   "votes": 6580,
+   "score": 6.955254550539256
   },
   {
    "tconst": "tt0058429",
    "title": "One Potato, Two Potato",
    "year": 1964,
    "rating": 7.2,
-   "votes": 1100,
-   "score": 6.94347158218126
+   "votes": 1103,
+   "score": 6.943618398995511
   },
   {
    "tconst": "tt0058438",
    "title": "The Little Priest",
    "year": 1964,
    "rating": 7.2,
-   "votes": 1088,
-   "score": 6.941997280929428
+   "votes": 1099,
+   "score": 6.943129820432377
   },
   {
    "tconst": "tt0164984",
@@ -706,119 +706,119 @@
    "year": 1964,
    "rating": 7.1,
    "votes": 1696,
-   "score": 6.937273858523978
+   "score": 6.9371029277030996
   },
   {
    "tconst": "tt0058123",
    "title": "Joy House",
    "year": 1964,
    "rating": 7,
-   "votes": 3639,
-   "score": 6.926986489023636
+   "votes": 3660,
+   "score": 6.927216629417932
   },
   {
    "tconst": "tt0056919",
    "title": "Black Peter",
    "year": 1964,
    "rating": 7,
-   "votes": 3419,
-   "score": 6.923351509975253
+   "votes": 3427,
+   "score": 6.923385925703085
   },
   {
    "tconst": "tt1446089",
    "title": "Cruel Gun Story",
    "year": 1964,
    "rating": 7.1,
-   "votes": 1447,
-   "score": 6.92071529324914
+   "votes": 1449,
+   "score": 6.920673537397942
   },
   {
    "tconst": "tt0056917",
    "title": "Greed in the Sun",
    "year": 1964,
    "rating": 7,
-   "votes": 3136,
-   "score": 6.918106944531104
+   "votes": 3141,
+   "score": 6.918094540711799
   },
   {
    "tconst": "tt0057244",
    "title": "The Leather Boys",
    "year": 1964,
    "rating": 7.1,
-   "votes": 1302,
-   "score": 6.909422381659707
+   "votes": 1305,
+   "score": 6.909470495916512
   },
   {
    "tconst": "tt0164347",
    "title": "Assassination",
    "year": 1964,
    "rating": 7.1,
-   "votes": 1086,
-   "score": 6.889688553490243
+   "votes": 1090,
+   "score": 6.88987057085529
   },
   {
    "tconst": "tt0058333",
    "title": "The Masque of the Red Death",
    "year": 1964,
    "rating": 6.9,
-   "votes": 18613,
-   "score": 6.887829007422661
+   "votes": 18651,
+   "score": 6.88782909231528
   },
   {
    "tconst": "tt0058089",
    "title": "Fantomas",
    "year": 1964,
    "rating": 6.9,
-   "votes": 13872,
-   "score": 6.883949053427962
+   "votes": 13909,
+   "score": 6.883957977938666
   },
   {
    "tconst": "tt0058672",
    "title": "Topkapi",
    "year": 1964,
    "rating": 6.9,
-   "votes": 11735,
-   "score": 6.881255620147677
+   "votes": 11746,
+   "score": 6.881235642012205
   },
   {
    "tconst": "tt0058265",
    "title": "Kiss Me, Stupid",
    "year": 1964,
    "rating": 6.9,
-   "votes": 9545,
-   "score": 6.8773627617430675
+   "votes": 9562,
+   "score": 6.877355566472975
   },
   {
    "tconst": "tt0058743",
    "title": "What a Way to Go!",
    "year": 1964,
    "rating": 6.9,
-   "votes": 6936,
-   "score": 6.869920655567118
+   "votes": 6950,
+   "score": 6.869915659507869
   },
   {
    "tconst": "tt0059440",
    "title": "At Midnight I'll Take Your Soul",
    "year": 1964,
    "rating": 6.9,
-   "votes": 4566,
-   "score": 6.85711288583914
+   "votes": 4577,
+   "score": 6.857114845452315
   },
   {
    "tconst": "tt0058232",
    "title": "Have I the Right to Kill?",
    "year": 1964,
    "rating": 7,
-   "votes": 1261,
-   "score": 6.850194746829122
+   "votes": 1264,
+   "score": 6.850189705427367
   },
   {
    "tconst": "tt0058740",
    "title": "Weekend at Dunkirk",
    "year": 1964,
    "rating": 6.9,
-   "votes": 2329,
-   "score": 6.828293878816656
+   "votes": 2335,
+   "score": 6.828284705573481
   },
   {
    "tconst": "tt0058142",
@@ -826,167 +826,167 @@
    "year": 1964,
    "rating": 6.9,
    "votes": 1664,
-   "score": 6.810394265232976
+   "score": 6.810221281189024
   },
   {
    "tconst": "tt0058620",
    "title": "Strait-Jacket",
    "year": 1964,
    "rating": 6.8,
-   "votes": 7898,
-   "score": 6.7844111398719535
+   "votes": 7912,
+   "score": 6.78438391978092
   },
   {
    "tconst": "tt0058754",
    "title": "Woman of Straw",
    "year": 1964,
    "rating": 6.8,
-   "votes": 3661,
-   "score": 6.770240360991342
+   "votes": 3666,
+   "score": 6.770173487588418
   },
   {
    "tconst": "tt0058294",
    "title": "Lilith",
    "year": 1964,
    "rating": 6.8,
-   "votes": 3616,
-   "score": 6.769950243193381
+   "votes": 3619,
+   "score": 6.769869992008564
   },
   {
    "tconst": "tt0057993",
    "title": "Castle of Blood",
    "year": 1964,
    "rating": 6.8,
-   "votes": 3536,
-   "score": 6.769420265119189
+   "votes": 3551,
+   "score": 6.769419796327743
   },
   {
    "tconst": "tt0056371",
    "title": "Before the Revolution",
    "year": 1964,
    "rating": 6.8,
-   "votes": 3466,
-   "score": 6.768940958929836
+   "votes": 3475,
+   "score": 6.768900445382695
   },
   {
    "tconst": "tt0057870",
    "title": "The Great Spy Chase",
    "year": 1964,
    "rating": 6.8,
-   "votes": 2174,
-   "score": 6.756298148261072
+   "votes": 2177,
+   "score": 6.7561943635780795
   },
   {
    "tconst": "tt0058091",
    "title": "Fate Is the Hunter",
    "year": 1964,
    "rating": 6.8,
-   "votes": 2142,
-   "score": 6.75585306256545
+   "votes": 2150,
+   "score": 6.755818886694463
   },
   {
    "tconst": "tt0058326",
    "title": "Swastika",
    "year": 1964,
    "rating": 6.8,
-   "votes": 1319,
-   "score": 6.740185563855388
+   "votes": 1332,
+   "score": 6.740321394977512
   },
   {
    "tconst": "tt0058700",
    "title": "The Last Man on Earth",
    "year": 1964,
    "rating": 6.7,
-   "votes": 24114,
-   "score": 6.698458641497995
+   "votes": 24156,
+   "score": 6.6984428960521365
   },
   {
    "tconst": "tt0058085",
    "title": "The Fall of the Roman Empire",
    "year": 1964,
    "rating": 6.7,
-   "votes": 11467,
-   "score": 6.696895028682174
+   "votes": 11517,
+   "score": 6.696870615410047
   },
   {
    "tconst": "tt0057940",
    "title": "Cheyenne Autumn",
    "year": 1964,
    "rating": 6.7,
-   "votes": 7080,
-   "score": 6.695209198339189
+   "votes": 7115,
+   "score": 6.695173073701486
   },
   {
    "tconst": "tt0057918",
    "title": "Carry on Cleo",
    "year": 1964,
    "rating": 6.7,
-   "votes": 5613,
-   "score": 6.694146427125457
+   "votes": 5623,
+   "score": 6.694085685201201
   },
   {
    "tconst": "tt0058283",
    "title": "Lady in a Cage",
    "year": 1964,
    "rating": 6.7,
-   "votes": 4152,
-   "score": 6.692486475656182
+   "votes": 4173,
+   "score": 6.692427893502331
   },
   {
    "tconst": "tt0058153",
    "title": "Good Neighbor Sam",
    "year": 1964,
    "rating": 6.7,
-   "votes": 3603,
-   "score": 6.691590337297555
+   "votes": 3610,
+   "score": 6.691503143836781
   },
   {
    "tconst": "tt0057846",
    "title": "Angélique",
    "year": 1964,
    "rating": 6.7,
-   "votes": 3323,
-   "score": 6.691045644825502
+   "votes": 3331,
+   "score": 6.690955782287592
   },
   {
    "tconst": "tt0058405",
    "title": "Nightmare",
    "year": 1964,
    "rating": 6.7,
-   "votes": 3088,
-   "score": 6.6905309008269676
+   "votes": 3099,
+   "score": 6.690443887066983
   },
   {
    "tconst": "tt0057051",
    "title": "Let's Rob the Bank",
    "year": 1964,
    "rating": 6.7,
-   "votes": 2976,
-   "score": 6.690264165638996
+   "votes": 2979,
+   "score": 6.69015569064779
   },
   {
    "tconst": "tt0057878",
    "title": "Bedtime Story",
    "year": 1964,
    "rating": 6.7,
-   "votes": 2723,
-   "score": 6.6896025577707885
+   "votes": 2736,
+   "score": 6.689515388942066
   },
   {
    "tconst": "tt0057879",
    "title": "Behold a Pale Horse",
    "year": 1964,
    "rating": 6.7,
-   "votes": 2492,
-   "score": 6.688914754461811
+   "votes": 2497,
+   "score": 6.688798825589807
   },
   {
    "tconst": "tt0055024",
    "title": "It Happened Here",
    "year": 1964,
    "rating": 6.7,
-   "votes": 1348,
-   "score": 6.683513766005386
+   "votes": 1349,
+   "score": 6.683324603272695
   },
   {
    "tconst": "tt0058600",
@@ -994,103 +994,103 @@
    "year": 1964,
    "rating": 6.7,
    "votes": 1196,
-   "score": 6.682372642340914
+   "score": 6.682162792844972
   },
   {
    "tconst": "tt0058323",
    "title": "The Winston Affair",
    "year": 1964,
    "rating": 6.6,
-   "votes": 1149,
-   "score": 6.628520392080338
+   "votes": 1152,
+   "score": 6.628266493070427
   },
   {
    "tconst": "tt0058622",
    "title": "The Strangler",
    "year": 1964,
    "rating": 6.6,
-   "votes": 1476,
-   "score": 6.624753765177967
+   "votes": 1479,
+   "score": 6.624537915727132
   },
   {
    "tconst": "tt0058191",
    "title": "The Mysterious Magician",
    "year": 1964,
    "rating": 6.6,
-   "votes": 1828,
-   "score": 6.621672674179861
+   "votes": 1827,
+   "score": 6.62151733041654
   },
   {
    "tconst": "tt0058692",
    "title": "The Black Tulip",
    "year": 1964,
    "rating": 6.6,
-   "votes": 3331,
-   "score": 6.614151540655886
+   "votes": 3338,
+   "score": 6.6140224742018345
   },
   {
    "tconst": "tt0058756",
    "title": "The World of Henry Orient",
    "year": 1964,
    "rating": 6.6,
-   "votes": 4291,
-   "score": 6.611583882551624
+   "votes": 4298,
+   "score": 6.611481595524266
   },
   {
    "tconst": "tt0058708",
    "title": "The Unsinkable Molly Brown",
    "year": 1964,
    "rating": 6.6,
-   "votes": 4695,
-   "score": 6.610762128635758
+   "votes": 4709,
+   "score": 6.610655017181215
   },
   {
    "tconst": "tt0058765",
    "title": "Your Cheatin' Heart",
    "year": 1964,
    "rating": 6.5,
-   "votes": 1029,
-   "score": 6.579492519753892
+   "votes": 1031,
+   "score": 6.5791873427314425
   },
   {
    "tconst": "tt0058401",
    "title": "Night Must Fall",
    "year": 1964,
    "rating": 6.5,
-   "votes": 1169,
-   "score": 6.574361605615788
+   "votes": 1178,
+   "score": 6.573842742464444
   },
   {
    "tconst": "tt0058425",
    "title": "Of Human Bondage",
    "year": 1964,
    "rating": 6.5,
-   "votes": 1220,
-   "score": 6.57265329845975
+   "votes": 1221,
+   "score": 6.572413099093904
   },
   {
    "tconst": "tt0154587",
    "title": "Hey There, It's Yogi Bear",
    "year": 1964,
    "rating": 6.5,
-   "votes": 1424,
-   "score": 6.566538911955712
+   "votes": 1426,
+   "score": 6.5662941026741795
   },
   {
    "tconst": "tt0058649",
    "title": "The Third Secret",
    "year": 1964,
    "rating": 6.5,
-   "votes": 1629,
-   "score": 6.561350446017743
+   "votes": 1632,
+   "score": 6.561105430504392
   },
   {
    "tconst": "tt0058525",
    "title": "Rio Conchos",
    "year": 1964,
    "rating": 6.5,
-   "votes": 2688,
-   "score": 6.54373381848716
+   "votes": 2694,
+   "score": 6.543538032779523
   },
   {
    "tconst": "tt0057917",
@@ -1098,223 +1098,223 @@
    "year": 1964,
    "rating": 6.5,
    "votes": 2747,
-   "score": 6.543045188839244
+   "score": 6.542922202585418
   },
   {
    "tconst": "tt0058371",
    "title": "The Moon-Spinners",
    "year": 1964,
    "rating": 6.5,
-   "votes": 3402,
-   "score": 6.536640236842491
+   "votes": 3412,
+   "score": 6.536452740953663
   },
   {
    "tconst": "tt0058751",
    "title": "Last of the Renegades",
    "year": 1964,
    "rating": 6.5,
-   "votes": 4027,
-   "score": 6.532084806560701
+   "votes": 4037,
+   "score": 6.531929619433702
   },
   {
    "tconst": "tt0179774",
    "title": "Ace of Spades",
    "year": 1964,
    "rating": 6.4,
-   "votes": 1086,
-   "score": 6.525259023288901
+   "votes": 1089,
+   "score": 6.524858541449286
   },
   {
    "tconst": "tt0058230",
    "title": "The Incredible Mr. Limpet",
    "year": 1964,
    "rating": 6.5,
-   "votes": 6622,
-   "score": 6.52116115489119
+   "votes": 6630,
+   "score": 6.521078570522615
   },
   {
    "tconst": "tt0058100",
    "title": "First Men in the Moon",
    "year": 1964,
    "rating": 6.5,
-   "votes": 7410,
-   "score": 6.519178397453109
+   "votes": 7423,
+   "score": 6.519094086796576
   },
   {
    "tconst": "tt0058666",
    "title": "Tjorven, Batsman, and Moses",
    "year": 1964,
    "rating": 6.4,
-   "votes": 1197,
-   "score": 6.518930506409033
+   "votes": 1198,
+   "score": 6.518666739348298
   },
   {
    "tconst": "tt0057905",
    "title": "Bullet for a Badman",
    "year": 1964,
    "rating": 6.4,
-   "votes": 1250,
-   "score": 6.516129032258065
+   "votes": 1252,
+   "score": 6.515821266912771
   },
   {
    "tconst": "tt0058544",
    "title": "Ghidorah: The Three-Headed Monster",
    "year": 1964,
    "rating": 6.5,
-   "votes": 9300,
-   "score": 6.5156592546194805
+   "votes": 9332,
+   "score": 6.515566153028219
   },
   {
    "tconst": "tt0058336",
    "title": "McHale's Navy",
    "year": 1964,
    "rating": 6.4,
-   "votes": 1301,
-   "score": 6.513555116288851
+   "votes": 1303,
+   "score": 6.513256401688041
   },
   {
    "tconst": "tt0058379",
    "title": "Mothra vs. Godzilla",
    "year": 1964,
    "rating": 6.5,
-   "votes": 12090,
-   "score": 6.512321644200202
+   "votes": 12136,
+   "score": 6.51224341451641
   },
   {
    "tconst": "tt0057813",
    "title": "The 7th Dawn",
    "year": 1964,
    "rating": 6.4,
-   "votes": 1341,
-   "score": 6.511614832371058
+   "votes": 1342,
+   "score": 6.511370406954551
   },
   {
    "tconst": "tt0057897",
    "title": "The Brass Bottle",
    "year": 1964,
    "rating": 6.3,
-   "votes": 1128,
-   "score": 6.469779286926995
+   "votes": 1129,
+   "score": 6.469483087406086
   },
   {
    "tconst": "tt0058019",
    "title": "A Distant Trumpet",
    "year": 1964,
    "rating": 6.3,
-   "votes": 1290,
-   "score": 6.457768699816876
+   "votes": 1295,
+   "score": 6.457224179994579
   },
   {
    "tconst": "tt0057851",
    "title": "Apache Rifles",
    "year": 1964,
    "rating": 6.4,
-   "votes": 3619,
-   "score": 6.456568591162729
+   "votes": 3621,
+   "score": 6.45644438283652
   },
   {
    "tconst": "tt0058018",
    "title": "The Disorderly Orderly",
    "year": 1964,
    "rating": 6.4,
-   "votes": 3653,
-   "score": 6.456155238035815
+   "votes": 3659,
+   "score": 6.455984007960412
   },
   {
    "tconst": "tt0059927",
    "title": "The Yellow Rolls-Royce",
    "year": 1964,
    "rating": 6.4,
-   "votes": 4416,
-   "score": 6.448244151141183
+   "votes": 4420,
+   "score": 6.448123522709882
   },
   {
    "tconst": "tt0057811",
    "title": "633 Squadron",
    "year": 1964,
    "rating": 6.4,
-   "votes": 5140,
-   "score": 6.442555427130399
+   "votes": 5144,
+   "score": 6.442452716973888
   },
   {
    "tconst": "tt0058580",
    "title": "Sex and the Single Girl",
    "year": 1964,
    "rating": 6.4,
-   "votes": 5229,
-   "score": 6.441947394859632
+   "votes": 5237,
+   "score": 6.4418197038780765
   },
   {
    "tconst": "tt0058529",
    "title": "Robin and the 7 Hoods",
    "year": 1964,
    "rating": 6.4,
-   "votes": 6173,
-   "score": 6.436426923543935
+   "votes": 6179,
+   "score": 6.436332287656716
   },
   {
    "tconst": "tt0058530",
    "title": "Robinson Crusoe on Mars",
    "year": 1964,
    "rating": 6.4,
-   "votes": 7714,
-   "score": 6.429985118496746
+   "votes": 7717,
+   "score": 6.429921933358674
   },
   {
    "tconst": "tt0059821",
    "title": "The Tomb of Ligeia",
    "year": 1964,
    "rating": 6.4,
-   "votes": 7765,
-   "score": 6.42981064718547
+   "votes": 7782,
+   "score": 6.429700466076927
   },
   {
    "tconst": "tt0058155",
    "title": "The Gorgon",
    "year": 1964,
    "rating": 6.4,
-   "votes": 8147,
-   "score": 6.4285656852061495
+   "votes": 8163,
+   "score": 6.428465512723733
   },
   {
    "tconst": "tt0058725",
    "title": "Viva Las Vegas",
    "year": 1964,
    "rating": 6.4,
-   "votes": 10222,
-   "score": 6.423283757136041
-  },
-  {
-   "tconst": "tt0178033",
-   "title": "The Woman Driver",
-   "year": 1964,
-   "rating": 6.2,
-   "votes": 1320,
-   "score": 6.398832035595106
+   "votes": 10233,
+   "score": 6.4232199317268375
   },
   {
    "tconst": "tt0058238",
    "title": "Invitation to a Gunfighter",
    "year": 1964,
    "rating": 6.3,
-   "votes": 2656,
-   "score": 6.39882120420696
+   "votes": 2658,
+   "score": 6.398641195485937
+  },
+  {
+   "tconst": "tt0178033",
+   "title": "The Woman Driver",
+   "year": 1964,
+   "rating": 6.2,
+   "votes": 1322,
+   "score": 6.398462313991198
   },
   {
    "tconst": "tt0058403",
    "title": "The Night Walker",
    "year": 1964,
    "rating": 6.3,
-   "votes": 2962,
-   "score": 6.391188874957255
+   "votes": 2970,
+   "score": 6.390889041079989
   },
   {
    "tconst": "tt5896468",
    "title": "Dog Star Man",
    "year": 1964,
    "rating": 6.2,
-   "votes": 1581,
-   "score": 6.378725425254029
+   "votes": 1588,
+   "score": 6.378063946324405
   },
   {
    "tconst": "tt0058011",
@@ -1322,151 +1322,151 @@
    "year": 1964,
    "rating": 6.1,
    "votes": 1030,
-   "score": 6.376497695852535
+   "score": 6.376270686250029
   },
   {
    "tconst": "tt0059282",
    "title": "Agent 8 3/4",
    "year": 1964,
    "rating": 6.1,
-   "votes": 1102,
-   "score": 6.367026794757681
+   "votes": 1105,
+   "score": 6.366427312630669
   },
   {
    "tconst": "tt0058307",
    "title": "The Long Hair of Death",
    "year": 1964,
    "rating": 6.2,
-   "votes": 2236,
-   "score": 6.342549543442721
+   "votes": 2243,
+   "score": 6.342099751183335
   },
   {
    "tconst": "tt0058154",
    "title": "Goodbye Charlie",
    "year": 1964,
    "rating": 6.2,
-   "votes": 2323,
-   "score": 6.338817430809704
+   "votes": 2321,
+   "score": 6.33876226831905
   },
   {
    "tconst": "tt0058437",
    "title": "The Outrage",
    "year": 1964,
    "rating": 6.2,
-   "votes": 2748,
-   "score": 6.323076393431336
+   "votes": 2754,
+   "score": 6.322756924104305
   },
   {
    "tconst": "tt0058456",
    "title": "The Patsy",
    "year": 1964,
    "rating": 6.2,
-   "votes": 2813,
-   "score": 6.320978316963191
+   "votes": 2814,
+   "score": 6.320825771653791
   },
   {
    "tconst": "tt0058202",
    "title": "Minnesota Clay",
    "year": 1964,
    "rating": 6,
-   "votes": 1112,
-   "score": 6.313110948191595
+   "votes": 1115,
+   "score": 6.312448932901919
   },
   {
    "tconst": "tt0057920",
    "title": "Carry on Spying",
    "year": 1964,
    "rating": 6.2,
-   "votes": 3486,
-   "score": 6.302828872621633
+   "votes": 3488,
+   "score": 6.302680368335018
   },
   {
    "tconst": "tt0058745",
    "title": "Where Love Has Gone",
    "year": 1964,
    "rating": 6.1,
-   "votes": 1872,
-   "score": 6.295435349087969
+   "votes": 1871,
+   "score": 6.295342909469717
   },
   {
    "tconst": "tt0058753",
    "title": "Witchcraft",
    "year": 1964,
    "rating": 6.1,
-   "votes": 1902,
-   "score": 6.293414997443365
-  },
-  {
-   "tconst": "tt0057820",
-   "title": "Advance to the Rear",
-   "year": 1964,
-   "rating": 5.9,
-   "votes": 1007,
-   "score": 6.279317549865793
+   "votes": 1909,
+   "score": 6.292791162972691
   },
   {
    "tconst": "tt0057380",
    "title": "Old Shatterhand",
    "year": 1964,
    "rating": 6.1,
-   "votes": 2143,
-   "score": 6.278584257900301
+   "votes": 2148,
+   "score": 6.278154222708881
+  },
+  {
+   "tconst": "tt0057820",
+   "title": "Advance to the Rear",
+   "year": 1964,
+   "rating": 5.9,
+   "votes": 1015,
+   "score": 6.2775828749814195
   },
   {
    "tconst": "tt0057890",
    "title": "The Black Torment",
    "year": 1964,
    "rating": 5.9,
-   "votes": 1033,
-   "score": 6.274466464624027
+   "votes": 1040,
+   "score": 6.2729556338664505
   },
   {
    "tconst": "tt0056931",
    "title": "Children of the Damned",
    "year": 1964,
    "rating": 6.2,
-   "votes": 5563,
-   "score": 6.2702865035167825
+   "votes": 5575,
+   "score": 6.270088135830807
   },
   {
    "tconst": "tt0058507",
    "title": "The Quick Gun",
    "year": 1964,
    "rating": 5.9,
-   "votes": 1136,
-   "score": 6.256409327050864
+   "votes": 1137,
+   "score": 6.256026903644155
   },
   {
    "tconst": "tt0058453",
    "title": "Paris When It Sizzles",
    "year": 1964,
    "rating": 6.2,
-   "votes": 10277,
-   "score": 6.240905411242409
+   "votes": 10289,
+   "score": 6.240821108431886
   },
   {
    "tconst": "tt0057952",
    "title": "Circus World",
    "year": 1964,
    "rating": 6.1,
-   "votes": 3377,
-   "score": 6.22823630856309
+   "votes": 3404,
+   "score": 6.22734547981098
   },
   {
    "tconst": "tt0058553",
    "title": "The Yellow One",
    "year": 1964,
    "rating": 5.8,
-   "votes": 1153,
-   "score": 6.200041951965
+   "votes": 1155,
+   "score": 6.199456841339934
   },
   {
    "tconst": "tt0058167",
    "title": "Guns of Diablo",
    "year": 1964,
    "rating": 5.7,
-   "votes": 1048,
-   "score": 6.169380040322581
+   "votes": 1050,
+   "score": 6.168697313701248
   },
   {
    "tconst": "tt0058060",
@@ -1474,135 +1474,135 @@
    "year": 1964,
    "rating": 5.9,
    "votes": 1945,
-   "score": 6.158502656224329
+   "score": 6.158346177618866
   },
   {
    "tconst": "tt0057259",
    "title": "The Long Ships",
    "year": 1964,
    "rating": 6,
-   "votes": 3484,
-   "score": 6.1474777704238734
+   "votes": 3497,
+   "score": 6.146948964440195
   },
   {
    "tconst": "tt0058709",
    "title": "Amongst Vultures",
    "year": 1964,
    "rating": 5.9,
-   "votes": 2098,
-   "score": 6.1457360628084725
+   "votes": 2106,
+   "score": 6.1449547627455114
   },
   {
    "tconst": "tt0058561",
    "title": "The Secret Invasion",
    "year": 1964,
    "rating": 5.8,
-   "votes": 1503,
-   "score": 6.144103205186035
+   "votes": 1506,
+   "score": 6.1435073795241655
   },
   {
    "tconst": "tt0058534",
    "title": "Roustabout",
    "year": 1964,
    "rating": 6,
-   "votes": 3676,
-   "score": 6.141422224675074
+   "votes": 3680,
+   "score": 6.141202883138368
   },
   {
    "tconst": "tt0057280",
    "title": "Crypt of the Vampire",
    "year": 1964,
    "rating": 5.8,
-   "votes": 1544,
-   "score": 6.138557516737675
+   "votes": 1551,
+   "score": 6.13744786087321
   },
   {
    "tconst": "tt0058101",
    "title": "The Flesh Eaters",
    "year": 1964,
    "rating": 5.8,
-   "votes": 1624,
-   "score": 6.128235641227381
+   "votes": 1629,
+   "score": 6.127436094746123
   },
   {
    "tconst": "tt0058301",
    "title": "Russ Meyer's Lorna",
    "year": 1964,
    "rating": 5.7,
-   "votes": 1329,
-   "score": 6.112748099004142
+   "votes": 1337,
+   "score": 6.111137994474779
   },
   {
    "tconst": "tt0058073",
    "title": "The Evil of Frankenstein",
    "year": 1964,
    "rating": 6,
-   "votes": 5294,
-   "score": 6.105066781471345
+   "votes": 5309,
+   "score": 6.104743936136877
   },
   {
    "tconst": "tt0057919",
    "title": "Carry on Jack",
    "year": 1964,
    "rating": 5.9,
-   "votes": 2886,
-   "score": 6.095905898759817
-  },
-  {
-   "tconst": "tt0058050",
-   "title": "The Earth Dies Screaming",
-   "year": 1964,
-   "rating": 5.9,
-   "votes": 2910,
-   "score": 6.094703407309629
+   "votes": 2891,
+   "score": 6.0955357216878845
   },
   {
    "tconst": "tt0058698",
    "title": "Dogora",
    "year": 1964,
    "rating": 5.6,
-   "votes": 1193,
-   "score": 6.08394451554065
+   "votes": 1196,
+   "score": 6.0830735396573585
   },
   {
    "tconst": "tt0057924",
    "title": "The Castle of the Living Dead",
    "year": 1964,
    "rating": 5.7,
-   "votes": 1521,
-   "score": 6.081313099000653
+   "votes": 1526,
+   "score": 6.080375887999826
+  },
+  {
+   "tconst": "tt0058050",
+   "title": "The Earth Dies Screaming",
+   "year": 1964,
+   "rating": 5.8,
+   "votes": 2929,
+   "score": 6.01909633318594
   },
   {
    "tconst": "tt0057985",
    "title": "The Curse of the Living Corpse",
    "year": 1964,
    "rating": 5.3,
-   "votes": 1013,
-   "score": 5.976249539284971
+   "votes": 1017,
+   "score": 5.974679966825761
   },
   {
    "tconst": "tt0057887",
    "title": "Bikini Beach",
    "year": 1964,
    "rating": 5.5,
-   "votes": 1971,
-   "score": 5.8908752347965825
+   "votes": 1976,
+   "score": 5.89006367375254
   },
   {
    "tconst": "tt0058694",
    "title": "Two Thousand Maniacs!",
    "year": 1964,
    "rating": 5.7,
-   "votes": 5671,
-   "score": 5.844099883462846
+   "votes": 5682,
+   "score": 5.843793698456683
   },
   {
    "tconst": "tt0058267",
    "title": "Kitten with a Whip",
    "year": 1964,
    "rating": 5.3,
-   "votes": 1666,
-   "score": 5.810611523848705
+   "votes": 1668,
+   "score": 5.810056031891889
   }
  ]
 }
