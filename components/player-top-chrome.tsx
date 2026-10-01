@@ -122,6 +122,12 @@ type PlayerTopChromeProps = {
   onPickSleep?: (opt: number | "episode" | null) => void;
   /** True for iframe embeds we drive (sleep timer applies to them too). */
   isDrivenEmbed?: boolean;
+  /**
+   * iframe embed whose playback clock we track (driven or passive): the
+   * subtitle overlay follows it, so the CC menu belongs there too. A source
+   * without a clock can't sync external subs — keep CC hidden for it.
+   */
+  clockEmbed?: boolean;
   /** Dialogue boost on/off (native mode only). */
   audioBoost?: boolean;
   onToggleBoost?: () => void;
@@ -197,6 +203,7 @@ export function PlayerTopChrome({
   sleepAfterEpisode = false,
   onPickSleep,
   isDrivenEmbed = false,
+  clockEmbed = false,
   audioBoost = false,
   onToggleBoost,
   castReady = false,
@@ -438,14 +445,7 @@ export function PlayerTopChrome({
               )}
             </div>
           )}
-          {(mode === "native" ||
-            (mode === "iframe" &&
-              (activeSource === "cinesrc" ||
-                activeSource === "vidfast" ||
-                activeSource === "mapple" ||
-                activeSource === "vidlink" ||
-                activeSource === "vidnest" ||
-                activeSource === "2embed"))) && (
+          {(mode === "native" || (mode === "iframe" && clockEmbed)) && (
             <div ref={subMenuRef} className="relative">
               <button
                 type="button"

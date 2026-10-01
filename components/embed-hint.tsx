@@ -12,7 +12,8 @@ export function EmbedHint() {
   if (!visible) return null;
   return (
     <p className="pointer-events-none absolute bottom-4 left-1/2 z-20 -translate-x-1/2 rounded-full bg-black/70 px-3 py-1.5 text-[10px] font-semibold text-white/70 backdrop-blur">
-      Embed controls only — switch source for CC / speed / audio
+      CC button: subtitles &amp; sync — playback controls live inside this
+      player
     </p>
   );
 }

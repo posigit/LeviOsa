@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import type { ReactNode } from "react";
-import { SkipForward } from "lucide-react";
+import { SkipForward, Captions } from "lucide-react";
 import {
   isVixEmbedBlockedHost,
   parseVixPlayerEventData,
@@ -3207,6 +3207,20 @@ export function VixPlayer({
       // Passive clock embeds have no command channel — sync only the clock
       // so our subtitle overlay can follow it. Transport stays hidden; their
       // player owns control.
+      //
+      // Their frame also swallows every tap, so once the chrome auto-hides
+      // there is no tap surface left to bring it back — use their play/pause
+      // announcements instead (pause holds it open, play re-arms the timer).
+      // Without this, CC and the subtitle controls bury themselves forever.
+      if (passiveClockEmbed) {
+        if (d.event === "play") bumpChrome();
+        else if (d.event === "pause") {
+          setChromeVisible(true);
+          if (chromeHideTimerRef.current) {
+            clearTimeout(chromeHideTimerRef.current);
+          }
+        }
+      }
       if (
         passiveClockEmbed &&
         (d.event === "timeupdate" || d.event === "seeked")
@@ -3855,6 +3869,7 @@ export function VixPlayer({
           sleepAfterEpisode={sleepAfterEpisode}
           onPickSleep={pickSleep}
           isDrivenEmbed={isDrivenEmbed}
+          clockEmbed={clockEmbed}
           audioBoost={audioBoost}
           onToggleBoost={toggleBoost}
           castReady={castReady}
@@ -3913,6 +3928,24 @@ export function VixPlayer({
           }}
         />
       )}
+
+      {/* Passive embeds have no tap surface of their own on our side — when
+          the chrome auto-hides, this pill is the way back to CC, source
+          switch, lock and close (it summons the top chrome for its usual
+          auto-hide window; menus keep it open from there). */}
+      {mode === "iframe" &&
+        !locked &&
+        !isDrivenEmbed &&
+        !chromeVisible && (
+          <button
+            type="button"
+            aria-label="Show player controls"
+            onClick={() => bumpChrome()}
+            className="absolute right-3 top-3 z-20 flex h-10 w-10 items-center justify-center rounded-full bg-black/55 text-white ring-1 ring-white/25 backdrop-blur transition hover:bg-black/80 active:scale-95"
+          >
+            <Captions className="h-5 w-5" />
+          </button>
+        )}
 
       {mode === "iframe" && !locked && !isDrivenEmbed && <EmbedHint />}
 

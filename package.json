@@ -11,6 +11,7 @@
     "test:player": "tsx scripts/test-player-progress.ts",
     "test:offline": "tsx scripts/test-offline-download.ts",
     "test:subdl": "tsx scripts/test-subdl.ts",
+    "test:chrome": "tsx scripts/test-cc-gate.tsx",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate",
     "db:push": "drizzle-kit push",
