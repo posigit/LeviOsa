@@ -206,8 +206,6 @@ export function VixPlayer({
   const remoteDurationRef = useRef(0);
   const iframePausedRef = useRef(true);
   const iframeMutedRef = useRef(false);
-  /** VidAPI posts "playing" every ~5s — true while its last status was playing. */
-  const vidapiPlayingRef = useRef(false);
   /** Parsed VDRK cues rendered over the CineSrc iframe (no <video> track). */
   const [iframeCues, setIframeCues] = useState<VttCue[]>([]);
   /** Resume override for CineSrc quality switches (reload keeps position). */
@@ -594,7 +592,6 @@ export function VixPlayer({
     iframePausedRef.current = true;
     bookmarkClearedRef.current = false;
     lastTapRef.current = null;
-    vidapiPlayingRef.current = false;
     gestureDirtyVolume.current = null;
     if (singleTapTimerRef.current) {
       clearTimeout(singleTapTimerRef.current);
@@ -1406,7 +1403,6 @@ export function VixPlayer({
     setOpenSubItems([]);
     openSubListKeyRef.current = null;
     setCineSrcT(null);
-    vidapiPlayingRef.current = false;
     gestureDirtyVolume.current = null;
     // Source switch (same mount): drop transient gesture state too.
     setBrightness(1);
@@ -3022,54 +3018,6 @@ export function VixPlayer({
         typeof data === "object" &&
         data !== null &&
         (data as { type?: unknown }).type === "PLAYER_EVENT";
-      // VidAPI (vaplayer.ru) posts PLAYER_EVENT in its own shape
-      // ({player_status: playing|paused|completed|seeked, player_progress,
-      // player_duration}). Normalize to the vix-style events below. Its
-      // "playing" fires on start AND every ~5s as a progress tick, so only
-      // the paused→playing transition becomes "play" (each "play" bumps the
-      // chrome — mapping every tick would pin it visible forever); repeats
-      // become "timeupdate" (clock + progress saves, no chrome bump).
-      if (
-        isPlayerEvent &&
-        (e.origin === "https://vaplayer.ru" ||
-          e.origin.endsWith(".vaplayer.ru"))
-      ) {
-        const body = (data as { data?: unknown }).data as
-          | {
-              player_status?: unknown;
-              player_progress?: unknown;
-              player_duration?: unknown;
-            }
-          | null
-          | undefined;
-        const status =
-          body && typeof body.player_status === "string"
-            ? body.player_status
-            : null;
-        const asNum = (v: unknown) =>
-          typeof v === "number" && Number.isFinite(v) ? v : undefined;
-        const mapped =
-          status === "playing"
-            ? "play"
-            : status === "paused"
-              ? "pause"
-              : status === "completed"
-                ? "ended"
-                : status === "seeked"
-                  ? "seeked"
-                  : null;
-        if (!mapped) return;
-        const ev = mapped === "play" && vidapiPlayingRef.current ? "timeupdate" : mapped;
-        vidapiPlayingRef.current = status === "playing";
-        data = {
-          type: "PLAYER_EVENT",
-          data: {
-            event: ev,
-            currentTime: asNum(body?.player_progress),
-            duration: asNum(body?.player_duration),
-          },
-        };
-      }
       // Nested player frames post from inner windows, so trust any registered
       // embed player origin instead of requiring the exact embed frame/source.
       if (!isEmbedPlayerOrigin(e.origin)) {

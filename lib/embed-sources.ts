@@ -4,27 +4,27 @@
  * Picker order (native vidsrc-sh / vix / goated are interleaved by
  * lib/player-source-picker.ts):
  *   vidy, vidstuck, cinesrc, vidsrc-sh, vix, mapple, vidzee, vidfast,
- *   vidlink, vidnest, 2embed, vidapi, goated.
+ *   vidlink, vidnest, 2embed, goated.
  * This array lists the embed keys in that same relative order; XPass and
- * YTHD were dropped from the picker on 2026-09-30 (user request — both had
- * undocumented/undiscoverable event shapes).
+ * YTHD were dropped from the picker on 2026-09-30 (user request - both had
+ * undocumented/undiscoverable event shapes). VidAPI followed on 2026-10-01
+ * (user request - its embed hands off to a player host that 404s and never
+ * loads, and that host's origin was never registered here anyway).
  * Native vix + goated are appended in vix-player (goated parked: backend down).
  *
  * NOTE the order above is the user's ranking, not a safety ranking: CineSrc +
  * VidFast are the driven pair (tap-catcher owns all taps, their ads never see
  * a gesture) and get host transport + subs. Everything else is a raw embed
- * that can still pop a scam tab on tap — no sandbox is possible (sources wall
+ * that can still pop a scam tab on tap - no sandbox is possible (sources wall
  * on it), so only ranking used to defend; the tap-catcher now covers driven
  * embeds first regardless of position.
  *
  * Mapple + VidFast + VidLink post PLAYER_EVENT (progress saves); VidFast also
  * accepts {command} control messages. CineSrc posts cinesrc:* events, not
- * PLAYER_EVENT — vix-player adapts those. VidAPI posts PLAYER_EVENT in its own
- * shape ({player_status, player_progress}) — adapted in vix-player. CineSrc
- * embeds use controls=false and VidNest embeds hide their transport chrome by
- * query param, so lock mode cannot leak embed chrome (host chrome +
- * postMessage instead). VidAPI/Mapple/VidLink/2Embed keep their own chrome;
- * the host only syncs progress for those.
+ * PLAYER_EVENT - vix-player adapts those. CineSrc embeds use controls=false
+ * and VidNest embeds hide their transport chrome by query param, so lock mode
+ * cannot leak embed chrome (host chrome + postMessage instead). Mapple/VidLink/
+ * 2Embed keep their own chrome; the host only syncs progress for those.
  *
  * VidStuck posts {type:"VIDEO_PROGRESS"|"VIDEO_ENDED", payload:{...}} instead
  * of PLAYER_EVENT — vix-player folds those into the same 5-event pipeline.
@@ -167,20 +167,6 @@ export const EMBED_SOURCES: EmbedSourceDef[] = [
     movieUrl: (tmdbId) => `https://www.2embed.cc/embed/${tmdbId}`,
     tvUrl: (tmdbId, season, episode) =>
       `https://www.2embed.cc/embedtv/${tmdbId}&s=${season}&e=${episode}`,
-  },
-  {
-    key: "vidapi",
-    name: "VidAPI",
-    base: "https://vaplayer.ru",
-    host: "vaplayer.ru",
-    // Documented params (vidapi.to/api): autoplay, showTitle, resumeAt,
-    // sub_url, ds_lang. No inbound command channel, so like Mapple the
-    // embed keeps its chrome and the host only syncs progress via its
-    // PLAYER_EVENT variant (adapted in vix-player).
-    movieUrl: (tmdbId) =>
-      `https://vaplayer.ru/embed/movie/${tmdbId}?autoplay=1&showTitle=false`,
-    tvUrl: (tmdbId, season, episode) =>
-      `https://vaplayer.ru/embed/tv/${tmdbId}/${season}/${episode}?autoplay=1&showTitle=false`,
   },
 ];
 

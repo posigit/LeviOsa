@@ -34,7 +34,7 @@ then committed separately.
 | 2131–2519 | fullscreen, orientation, transport actions, volume, speed, sleep |
 | 2519–2833 | audio graph / boost, ambilight, gestures |
 | 2833–3071 | lockscreen IPC, Cast SDK + remote |
-| 3071–3485 | postMessage normalizers (CineSrc, VidAPI, PLAYER_EVENT bus) |
+| 3071–3485 | postMessage normalizers (CineSrc, PLAYER_EVENT bus) |
 | 3485–3628 | keyboard shortcuts, sub delay, hide-time flush |
 | 3628–3760 | derived state: error copy, `showResume`, `showTransport` |
 | 3761–4171 | render JSX (shell, video, chrome, overlays) |

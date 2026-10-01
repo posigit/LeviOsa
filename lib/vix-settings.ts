@@ -210,7 +210,6 @@ function clampSettings(merged: VixSettings): VixSettings {
     "cinesrc",
     "2embed",
     "mapple",
-    "vidapi",
     "vidstuck",
     "vidzee",
     "vidy",

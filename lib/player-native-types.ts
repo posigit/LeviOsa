@@ -19,7 +19,6 @@ export type StreamSource =
   | "cinesrc"
   | "2embed"
   | "mapple"
-  | "vidapi"
   | "vidstuck"
   | "vidzee"
   | "vidy";
