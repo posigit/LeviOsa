@@ -352,6 +352,56 @@ async function fetchPiece(
   }
 }
 
+/**
+ * Size of one segment without downloading it: a 1-byte Range probe reads
+ * the total from Content-Range (206) or Content-Length (200, when the
+ * server ignores Range — the body is cancelled unread). Returns 0 when
+ * neither is available; a user abort still propagates.
+ */
+async function probeSegmentBytes(url: string, signal: AbortSignal): Promise<number> {
+  try {
+    const res = await fetchPiece(url, signal, null, { start: 0, length: 1 });
+    let total = 0;
+    const cr = res.headers.get("content-range");
+    const m = cr ? /\/(\d+)\s*$/.exec(cr) : null;
+    if (m) total = Number(m[1]);
+    if (!total && res.status === 200) {
+      const n = Number(res.headers.get("content-length") || 0);
+      if (Number.isFinite(n) && n > 0) total = n;
+    }
+    await res.body?.cancel();
+    return total;
+  } catch (err) {
+    if (signal.aborted) throw err;
+    return 0;
+  }
+}
+
+/**
+ * Total bytes for one rendition from real segment sizes: byterange
+ * playlists carry exact lengths in the playlist itself (no requests);
+ * otherwise sample ~5 segments spread across the stream and extrapolate.
+ * Non-fatal — 0 keeps the bandwidth/quality-guess seed for reportProgress.
+ */
+async function scanPartBytes(list: MediaParts, signal: AbortSignal): Promise<number> {
+  const segs = list.segments;
+  if (segs.length === 0) return 0;
+  if (segs.every((s) => s.byteRange)) {
+    return segs.reduce((n, s) => n + (s.byteRange?.length ?? 0), 0);
+  }
+  const n = segs.length;
+  const picks = new Set<number>();
+  for (let k = 0; k < 5; k++) picks.add(Math.floor((k * (n - 1)) / 4));
+  // The tail segment is a short remainder — including it skews the mean low.
+  if (n > 8) picks.delete(n - 1);
+  const sizes = (
+    await Promise.all([...picks].map((i) => probeSegmentBytes(segs[i]!.url, signal)))
+  ).filter((b) => b > 0);
+  if (sizes.length === 0) return 0;
+  const avg = sizes.reduce((a, b) => a + b, 0) / sizes.length;
+  return Math.round(avg * n);
+}
+
 async function readErrorDetail(res: Response): Promise<string> {
   try {
     const data = (await res.clone().json()) as { error?: unknown };
@@ -1208,7 +1258,8 @@ async function runDownload(
       subEntry,
     };
   };
-  // Refined per attempt (bandwidth differs per mirror) — see downloadAttempt.
+  // Always re-armed per attempt (seed and bandwidth differ per mirror) —
+  // every estimate converges on measured bytes in reportProgress.
   let refineEstimate = false;
 
   // 5. Fetch everything into the cache (resume skips what's already there).
@@ -1289,23 +1340,18 @@ async function runDownload(
     // counts every piece, so the final totals stay exact either way.
     rec.bytesDone = Math.max(rec.bytesDone, measuredBytes);
     rec.doneSegments = Math.max(rec.doneSegments, doneSeg);
-    // Fallback estimates (bandwidth unknown) converge on measured reality:
-    // total ≈ measured / fraction-complete, adopted once past warmup and
-    // only when it disagrees by >20% (avoids jitter on uniform segments).
+    // Every seed (advertised bandwidth, quality guess, byte pre-scan)
+    // converges on measured reality: total ≈ measured / fraction-complete,
+    // adopted once past warmup and only when it disagrees by >10% (avoids
+    // jitter on uniform segments). A zero estimate is adopted into as well
+    // — previously it could never correct itself.
     let estimatePatch: number | null = null;
-    if (
-      refineEstimate &&
-      doneSeg >= 6 &&
-      rec.totalSegments > 0 &&
-      rec.estimateBytes > 0
-    ) {
+    if (refineEstimate && doneSeg >= 6 && rec.totalSegments > 0) {
       const frac = doneSeg / rec.totalSegments;
-      if (frac >= 0.08 && frac < 1) {
+      if (frac >= 0.03 && frac < 1) {
         const refined = Math.round(measuredBytes / frac);
-        if (
-          refined > 0 &&
-          Math.abs(refined - rec.estimateBytes) / rec.estimateBytes > 0.2
-        ) {
+        const est = rec.estimateBytes;
+        if (refined > 0 && (est <= 0 || Math.abs(refined - est) / est > 0.1)) {
           rec.estimateBytes = refined;
           estimatePatch = refined;
         }
@@ -1684,20 +1730,33 @@ async function runDownload(
       m.parts.segments.length +
       (m.audioParts?.segments.length ?? 0) +
       (m.subParts?.segments.length ?? 0);
-    // Single-variant playlists hide bandwidth (0): estimateBytes() returns 0
-    // for those, and the refinement block in reportProgress requires
-    // estimateBytes > 0 — so the guess never refined itself and enforceQuota
-    // lived on full-bitrate math (over-eviction). Seed the hidden-bandwidth
-    // case with the same quality × duration fallback quota already uses.
+    // Seed from advertised BANDWIDTH × duration, or the quality × duration
+    // guess when the playlist hides bandwidth — then immediately reseed from
+    // a byte pre-scan of the real segments. Advertised bandwidth is a peak,
+    // not bytes on the wire: a master claiming 2.89 Mbps × 3480s projected
+    // 1258 MB while its segments sample to ~293 MB (4.3x) — the wrong
+    // totals users reported. reportProgress keeps refining from measured
+    // bytes for every attempt (refineEstimate below is always armed).
     rec.estimateBytes =
       estimateBytes(m.bandwidth, m.parts.durationSec) ||
       (m.parts.durationSec > 0
         ? Math.round((fallbackBitrateBps(rec.quality) * m.parts.durationSec) / 8)
         : 0);
-    // A zero estimate can never refine itself; real (bandwidth-known)
-    // estimates stay untouched and only drift-prone guesses are refined
-    // from measured bytes once enough segments land (see reportProgress).
-    refineEstimate = m.bandwidth <= 0;
+    refineEstimate = true;
+    // Bounded: a hung probe must never stall the start — after 10s the
+    // bandwidth/guess seed stands and reportProgress refines it anyway.
+    const scan = (async () => {
+      const [v, a] = await Promise.all([
+        scanPartBytes(m.parts, signal),
+        m.audioParts ? scanPartBytes(m.audioParts, signal) : Promise.resolve(0),
+      ]);
+      return v + a;
+    })();
+    const scanned = await Promise.race([
+      scan,
+      new Promise<number>((resolve) => setTimeout(() => resolve(0), 10_000)),
+    ]);
+    if (scanned > 0) rec.estimateBytes = scanned;
     await upsertRecord(rec);
 
     // 4. Quota: device headroom + the 950MB-style self cap (LRU-evict to fit).
