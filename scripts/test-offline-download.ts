@@ -38,6 +38,13 @@ import {
   type DownloadRecord,
 } from "../lib/offline/store";
 import { parseVttTime } from "../lib/player-subs";
+import {
+  DOWNLOAD_SOURCES,
+  downloadCandidates,
+  mirrorIdentity,
+  pinnedDownloadSource,
+  pinnedResolveGivesWay,
+} from "../lib/offline/candidates";
 
 const base = "https://cdn.example.com/pl/master.m3u8";
 
@@ -554,5 +561,54 @@ assert.equal(isPlaybackInUse("e:10:1:1"), true);
 assert.equal(isPlaybackInUse("e:10:1:2"), false);
 setPlaybackInUse(null);
 assert.equal(isPlaybackInUse("e:10:1:1"), false);
+
+/* Source cascade: fixed order, never the player's preferredSource. */
+assert.deepEqual(DOWNLOAD_SOURCES, ["vidsrc-sh", "vidsrc-pm", "vix"]);
+assert.deepEqual(downloadCandidates(null), ["vidsrc-sh", "vidsrc-pm", "vix"]);
+assert.deepEqual(downloadCandidates("vidsrc-pm"), [
+  "vidsrc-pm",
+  "vidsrc-sh",
+  "vix",
+]);
+
+/* Pinning only applies when the record owns bytes, only to live cascade
+ * sources, and goated backend names / embeds / junk never pin. */
+assert.equal(pinnedDownloadSource("vidsrc-sh", true), "vidsrc-sh");
+assert.equal(pinnedDownloadSource("vix", true), "vix");
+assert.equal(pinnedDownloadSource("vidsrc-sh", false), null);
+assert.equal(pinnedDownloadSource("", true), null);
+assert.equal(pinnedDownloadSource(undefined, true), null);
+assert.equal(pinnedDownloadSource("goated", true), null);
+assert.equal(pinnedDownloadSource("valenox", true), null);
+assert.equal(pinnedDownloadSource("orbit", true), null);
+assert.equal(pinnedDownloadSource("vidy", true), null);
+
+/* A pinned source gives way ONLY on a permanent-for-title verdict —
+ * transient failures must stop the cascade so the retry re-pins. */
+assert.equal(pinnedResolveGivesWay("not_found"), true);
+assert.equal(pinnedResolveGivesWay("no_streams"), true);
+assert.equal(pinnedResolveGivesWay("upstream_unreachable"), false);
+assert.equal(pinnedResolveGivesWay("blocked"), false);
+assert.equal(pinnedResolveGivesWay("resolution_failed"), false);
+assert.equal(pinnedResolveGivesWay("sign_failed"), false);
+assert.equal(pinnedResolveGivesWay(undefined), false);
+
+/* Mirror identity survives re-signing: same target, new exp/sig (and a
+ * rotated query on the target) still matches; a different mirror doesn't. */
+const mirrorA = `/api/vidsrc-sh/media?url=${encodeURIComponent(
+  "https://edge1.example/hls/master.m3u8?tok=aaa"
+)}&exp=111&sig=dead`;
+const mirrorA2 = `/api/vidsrc-sh/media?url=${encodeURIComponent(
+  "https://edge1.example/hls/master.m3u8?tok=zzz"
+)}&exp=222&sig=beef`;
+const mirrorB = `/api/vidsrc-sh/media?url=${encodeURIComponent(
+  "https://edge2.example/chunks/master.m3u8?tok=aaa"
+)}&exp=111&sig=dead`;
+assert.equal(mirrorIdentity(mirrorA), mirrorIdentity(mirrorA2));
+assert.notEqual(mirrorIdentity(mirrorA), mirrorIdentity(mirrorB));
+assert.equal(
+  mirrorIdentity("https://plain.example/master.m3u8?v=2#frag"),
+  "https://plain.example/master.m3u8"
+);
 
 console.log("offline download checks ok");

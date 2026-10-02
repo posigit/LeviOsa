@@ -69,6 +69,12 @@ import {
   type SubEntry,
   type VariantInfo,
 } from "@/lib/offline/hls";
+import {
+  downloadCandidates,
+  mirrorIdentity,
+  pinnedDownloadSource,
+  pinnedResolveGivesWay,
+} from "@/lib/offline/candidates";
 import { formatBytes } from "@/lib/utils";
 
 export type DownloadRequest = {
@@ -611,6 +617,7 @@ async function startDownloadInner(req: DownloadRequest, key: string): Promise<vo
     autoAttempts: existing?.autoAttempts ?? 0,
     interruptedOffline: existing?.interruptedOffline,
     rendition: sameQuality ? existing?.rendition : undefined,
+    usedPlaylistUrl: sameQuality ? existing?.usedPlaylistUrl : undefined,
   };
   // Player downloads carry no poster, and rows from before thumbnails
   // existed have none either. Resolve it here — we are provably online —
@@ -977,23 +984,22 @@ async function runDownload(
   rec.state = "active";
   await upsertRecord(rec);
 
-  // 1. Resolve a native playlist by walking a bounded candidate list: the
-  //    saved native preference first (user intent), then the fixed fallback
-  //    order vidsrc-sh → vidsrc-pm → vix; first hit wins. goated is parked
-  //    (backend NXDOMAIN since 2026-09-23 — see lib/goated.ts), so it is
-  //    never a candidate and never the default, and an embed preference
-  //    (Vidy etc.) falls straight into the fallback list. Downloads are
-  //    unattended, so failing over silently is safe — if every candidate
-  //    fails, the error names each one with its real reason.
-  const preferred = loadVixSettings().preferredSource;
-  const nativePreferred: StreamSource[] =
-    preferred === "vix" || preferred === "vidsrc-sh" || preferred === "vidsrc-pm"
-      ? [preferred]
-      : [];
-  const fallbacks: StreamSource[] = ["vidsrc-sh", "vidsrc-pm", "vix"];
-  const candidates: StreamSource[] = [...nativePreferred, ...fallbacks].filter(
-    (s, i, a) => a.indexOf(s) === i
-  );
+  // 1. Resolve a native playlist from a FIXED cascade — vidsrc-sh →
+  //    vidsrc-pm → vix, first hit wins. Downloads no longer consult the
+  //    player's preferredSource: the player rewrites that on every
+  //    hand-picked source switch, which silently reordered downloads
+  //    between runs — and resolving a different source than the previous
+  //    run is a different cut of the video, which the rendition guard
+  //    below wipes. goated is parked (backend NXDOMAIN since 2026-09-23 —
+  //    see lib/goated.ts), so it is never a candidate, and an embed
+  //    preference can never download anyway. A run that already owns bytes
+  //    pins its last working source FIRST, and that pin only gives way on a
+  //    permanent-for-title verdict (see pinnedResolveGivesWay) — a
+  //    transient blip stops the cascade so the auto-retry re-pins instead
+  //    of flipping to another cut mid-title.
+  const hasProgress = rec.doneSegments > 0 || rec.bytesDone > 0;
+  const pinned = pinnedDownloadSource(rec.usedSource, hasProgress);
+  const candidates = downloadCandidates(pinned);
   const failures: Array<{
     source: string;
     code?: string;
@@ -1001,7 +1007,8 @@ async function runDownload(
     error?: string;
   }> = [];
   let resolved: StreamResolveResult | null = null;
-  let source: StreamSource = candidates[0];
+  let source: StreamSource = candidates[0]!;
+  let pinnedTransient: { source: string; code?: string } | null = null;
   for (const candidate of candidates) {
     const r = await resolveStreamPlaylist({
       source: candidate,
@@ -1023,8 +1030,23 @@ async function runDownload(
       detail: r.detail,
       error: r.errorMessage ?? r.detail ?? r.code,
     });
+    if (candidate === pinned && !pinnedResolveGivesWay(r.code)) {
+      pinnedTransient = { source: candidate, code: r.code };
+      break;
+    }
   }
   if (!resolved?.playlistUrl) {
+    // A transient failure on the source that owns the bytes must surface
+    // as a RETRYABLE error (no hard-error pattern matches this copy), so
+    // scheduleAutoResume re-runs against the same source instead of
+    // flipping to another cut and wiping everything downloaded so far.
+    if (pinnedTransient) {
+      throw new Error(
+        `${pinnedTransient.source} is temporarily failing for this title${
+          pinnedTransient.code ? ` (${pinnedTransient.code})` : ""
+        } — the download will retry in a few seconds.`
+      );
+    }
     // Headline the most systemic failure — connectivity/config beats "this
     // title isn't on that source" — and list every candidate in the trail.
     const rank = (c?: string) =>
@@ -1076,12 +1098,26 @@ async function runDownload(
   // (alternate hosts for the same title). A dead first mirror (403 farm)
   // must not fail the title — walk them in order. Single-candidate sources
   // behave exactly as before (one iteration).
-  const mirrorCandidates =
+  let mirrorCandidates: string[] =
     resolved.usedSource === "vidsrc-sh" &&
     Array.isArray(resolved.playlistUrls) &&
     resolved.playlistUrls.length > 1
-      ? resolved.playlistUrls
+      ? [...resolved.playlistUrls]
       : [resolved.playlistUrl];
+  // Resume: the mirror whose parse produced the bytes on disk goes first.
+  // Signed URLs re-sign (and rotate order) on every resolve, so match by
+  // mirror identity, never the exact URL. A miss simply keeps resolver
+  // order — the rendition guard below only wipes if the cut really differs.
+  if (hasProgress && rec.usedPlaylistUrl) {
+    const want = mirrorIdentity(rec.usedPlaylistUrl);
+    const pinnedMirror = mirrorCandidates.filter(
+      (u) => mirrorIdentity(u) === want
+    );
+    if (pinnedMirror.length > 0) {
+      const rest = mirrorCandidates.filter((u) => mirrorIdentity(u) !== want);
+      mirrorCandidates = [...pinnedMirror, ...rest];
+    }
+  }
   type MirrorParse = {
     mediaUrl: string;
     mediaText: string;
@@ -1704,6 +1740,13 @@ async function runDownload(
     }
   };
 
+  /**
+   * The mirror candidate whose parse the current attempt is running
+   * against. Recorded with the rendition so a later resume can pin the
+   * mirror that produced the bytes on disk.
+   */
+  let activeMirrorUrl: string | null = null;
+
   const downloadAttempt = async (m: MirrorParse): Promise<void> => {
     // Local recount only. Persisted progress never takes the lower number.
     doneSeg = 0;
@@ -1712,6 +1755,16 @@ async function runDownload(
     lastProgressAt = Date.now();
     const rendition = `${m.pickedVariant?.height ?? 0}:${m.parts.segments.length}:${m.audioParts?.segments.length ?? 0}`;
     if (rec.rendition && rec.rendition !== rendition) {
+      // This destroys everything downloaded so far — say so, loudly. A
+      // silent wipe here is what made the "downloads keep restarting"
+      // report impossible to diagnose (the old code logged nothing).
+      console.warn("[downloads] rendition change — wiping progress", {
+        key: rec.key,
+        from: rec.rendition,
+        to: rendition,
+        source: rec.usedSource,
+        mirror: activeMirrorUrl ?? m.mediaUrl,
+      });
       // Persist the reset BEFORE deleting: a crash between the two used to
       // leave the stored row claiming files that were already gone (a
       // "done"/progress row pointing at nothing). Reset first, delete after.
@@ -1725,6 +1778,7 @@ async function runDownload(
       await deleteRecordFiles({ ...rec, fileUrls: staleUrls });
     }
     rec.rendition = rendition;
+    if (activeMirrorUrl) rec.usedPlaylistUrl = activeMirrorUrl;
     rec.durationSec = m.parts.durationSec;
     rec.totalSegments =
       m.parts.segments.length +
@@ -2024,6 +2078,7 @@ async function runDownload(
       continue;
     }
     try {
+      activeMirrorUrl = mirrorCandidates[mi] ?? null;
       await downloadAttempt(m);
       downloaded = true;
     } catch (e) {

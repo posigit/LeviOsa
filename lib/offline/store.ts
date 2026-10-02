@@ -113,6 +113,13 @@ export type DownloadRecord = {
    */
   rendition?: string;
   /**
+   * The mirror (master playlist URL) whose parse produced `rendition`.
+   * Signed URLs re-sign on every resolve, so resumes match it by mirror
+   * identity (mirrorIdentity) and try that mirror first — flipping mirrors
+   * mid-title is a different cut and wipes the bytes on disk.
+   */
+  usedPlaylistUrl?: string;
+  /**
    * Segment indexes a finished run skipped (gap budget, quota). Absent or
    * empty = complete. Keeps `state: "done"` honest: the row can badge
    * "Partial" and a repair run fetches exactly these holes.
