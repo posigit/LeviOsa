@@ -1,4 +1,5 @@
-import { requireAuth } from "@/lib/auth";
+import { optionalAuth } from "@/lib/auth";
+import { siteUrl } from "@/lib/site";
 import { db, withDbRetry } from "@/lib/db";
 import { userShows, watchedEpisodes, seasonRewatches } from "@/lib/schema";
 import { eq, and } from "drizzle-orm";
@@ -23,6 +24,8 @@ import {
   pickMovieLogo,
   pickTrailerKey,
   pickTvRating,
+  posterUrl,
+  backdropUrl,
 } from "@/lib/tmdb";
 import { genresFromTmdbData } from "@/lib/profile-insights";
 import {
@@ -33,8 +36,9 @@ import {
 import { getShowWatchOptions } from "@/lib/motn";
 import { getCommunityReviews } from "@/lib/reviews";
 import { getMovieTheme } from "@/lib/movie-theme";
-import { getShowPlaybackPositions } from "@/lib/playback";
+import { getShowPlaybackPositions, type PlaybackSummary } from "@/lib/playback";
 import { notFound } from "next/navigation";
+import type { Metadata } from "next";
 
 /** TMDB details keeps `created_by`; the stored row type does not declare it. */
 function creatorsFromTmdbData(tmdbData: unknown): string[] {
@@ -56,6 +60,45 @@ function tmdbField<T>(tmdbData: unknown, key: string): T | null {
   return (value ?? null) as T | null;
 }
 
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}): Promise<Metadata> {
+  const { id } = await params;
+  const tmdbId = Number(id);
+  if (!Number.isFinite(tmdbId)) return {};
+
+  const show = await ensureShow(tmdbId).catch(() => null);
+  if (!show) return {};
+
+  const title = show.title;
+  const year = (show.firstAirDate ?? "").slice(0, 4);
+  const description =
+    show.overview?.trim() ||
+    `${title}${year ? ` (${year})` : ""} — seasons, episodes and watch progress.`;
+  const canonical = `${siteUrl()}/show/${tmdbId}`;
+  const images = [
+    show.backdropPath ? backdropUrl(show.backdropPath, "w1280") : null,
+    show.posterPath ? posterUrl(show.posterPath, "w500") : null,
+  ].filter((url): url is string => !!url);
+
+  return {
+    title,
+    description,
+    alternates: { canonical },
+    robots: { index: true, follow: true },
+    openGraph: {
+      type: "video.tv_show",
+      title,
+      description,
+      url: canonical,
+      images: images.map((url) => ({ url })),
+    },
+    twitter: { card: "summary_large_image", title, description, images },
+  };
+}
+
 export default async function ShowDetailPage({
   params,
 }: {
@@ -65,7 +108,9 @@ export default async function ShowDetailPage({
   const tmdbId = Number(id);
   if (!Number.isFinite(tmdbId)) notFound();
 
-  const userId = await requireAuth();
+  // Public render: signed-out visitors get the catalog page only — every
+  // user row below is skipped, so no progress/ratings leak into the HTML.
+  const userId = await optionalAuth();
 
   const show = await ensureShow(tmdbId);
   if (!show) notFound();
@@ -79,42 +124,59 @@ export default async function ShowDetailPage({
     playbackPositions,
     externalIds,
   ] = await Promise.all([
-      withDbRetry(() =>
-        db.query.userShows.findFirst({
-          where: and(eq(userShows.userId, userId), eq(userShows.tmdbId, tmdbId)),
-        })
-      ),
+      userId
+        ? withDbRetry(() =>
+            db.query.userShows.findFirst({
+              where: and(
+                eq(userShows.userId, userId),
+                eq(userShows.tmdbId, tmdbId)
+              ),
+            })
+          )
+        : Promise.resolve(null),
       ensureEpisodes(tmdbId, show.numberOfSeasons),
-      db
-        .select({
-          seasonNumber: watchedEpisodes.seasonNumber,
-          episodeNumber: watchedEpisodes.episodeNumber,
-          rating: watchedEpisodes.rating,
-        })
-        .from(watchedEpisodes)
-        .where(
-          and(
-            eq(watchedEpisodes.userId, userId),
-            eq(watchedEpisodes.showTmdbId, tmdbId)
+      userId
+        ? db
+            .select({
+              seasonNumber: watchedEpisodes.seasonNumber,
+              episodeNumber: watchedEpisodes.episodeNumber,
+              rating: watchedEpisodes.rating,
+            })
+            .from(watchedEpisodes)
+            .where(
+              and(
+                eq(watchedEpisodes.userId, userId),
+                eq(watchedEpisodes.showTmdbId, tmdbId)
+              )
+            )
+        : Promise.resolve([]),
+      userId
+        ? db
+            .select({
+              seasonNumber: seasonRewatches.seasonNumber,
+              count: seasonRewatches.count,
+            })
+            .from(seasonRewatches)
+            .where(
+              and(
+                eq(seasonRewatches.userId, userId),
+                eq(seasonRewatches.showTmdbId, tmdbId)
+              )
+            )
+        : Promise.resolve([]),
+      userId
+        ? db
+            .select({ tmdbId: userShows.tmdbId })
+            .from(userShows)
+            .where(eq(userShows.userId, userId))
+        : Promise.resolve([]),
+      userId
+        ? getShowPlaybackPositions(
+            userId,
+            tmdbId,
+            (show.episodeRuntime ?? 0) * 60
           )
-        ),
-      db
-        .select({
-          seasonNumber: seasonRewatches.seasonNumber,
-          count: seasonRewatches.count,
-        })
-        .from(seasonRewatches)
-        .where(
-          and(
-            eq(seasonRewatches.userId, userId),
-            eq(seasonRewatches.showTmdbId, tmdbId)
-          )
-        ),
-      db
-        .select({ tmdbId: userShows.tmdbId })
-        .from(userShows)
-        .where(eq(userShows.userId, userId)),
-      getShowPlaybackPositions(userId, tmdbId, (show.episodeRuntime ?? 0) * 60),
+        : Promise.resolve({} as Record<string, PlaybackSummary>),
       // Fanart keys off TheTVDB, so resolve that mapping alongside the rest.
       getTvExternalIds(tmdbId).catch(() => null),
     ]);
@@ -262,8 +324,43 @@ export default async function ShowDetailPage({
   );
   const showType = tmdbField<string>(show.tmdbData, "type");
 
+  /** Structured data scrapers read (name/description/rating/date/genre). */
+  const voteCount = tmdbField<number>(show.tmdbData, "vote_count");
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "TVSeries",
+    name: show.title,
+    description: show.overview || undefined,
+    url: `${siteUrl()}/show/${tmdbId}`,
+    datePublished: show.firstAirDate || undefined,
+    image: show.posterPath ? posterUrl(show.posterPath, "w500") : undefined,
+    genre: genresFromTmdbData(show.tmdbData),
+    ...(show.voteAverage != null && show.voteAverage > 0
+      ? {
+          aggregateRating: {
+            "@type": "AggregateRating",
+            ratingValue: show.voteAverage,
+            bestRating: 10,
+            worstRating: 0,
+            ...(voteCount != null && voteCount > 0
+              ? { ratingCount: voteCount }
+              : {}),
+          },
+        }
+      : {}),
+  };
+
   return (
-    <ShowDetailClient
+    <>
+      <script
+        type="application/ld+json"
+        // `\u003c` keeps a literal "<" out of the JSON so "</script>" can't
+        // break out of this element.
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
+        }}
+      />
+      <ShowDetailClient
       show={{
         tmdbId: show.tmdbId,
         title: show.title,
@@ -304,6 +401,7 @@ export default async function ShowDetailPage({
       videos={videos}
       theme={theme}
       logoSrc={logoSrc}
-    />
+      />
+    </>
   );
 }

@@ -5,6 +5,7 @@ import { Providers } from "@/components/providers";
 import { OfflinePlayerHost } from "@/components/offline-player-host";
 import { DownloadDoneNotifier } from "@/components/download-row";
 import { AppSplash } from "@/components/app-splash";
+import { siteUrl } from "@/lib/site";
 
 const geistSans = Geist({
   variable: "--font-sans",
@@ -12,8 +13,22 @@ const geistSans = Geist({
 });
 
 export const metadata: Metadata = {
-  title: "LeviOsa",
-  description: "Personal TV and movie tracker",
+  // Absolute base so OG/twitter images and canonicals resolve in scrapers.
+  metadataBase: new URL(siteUrl()),
+  applicationName: "LeviOsa",
+  title: {
+    default: "LeviOsa",
+    template: "%s · LeviOsa",
+  },
+  description: "Personal TV and movie tracker — seasons, episodes, watch history and continue-watching in one place.",
+  openGraph: {
+    siteName: "LeviOsa",
+    type: "website",
+    locale: "en_US",
+  },
+  twitter: {
+    card: "summary",
+  },
   manifest: "/manifest.json?v=14",
   appleWebApp: {
     capable: true,

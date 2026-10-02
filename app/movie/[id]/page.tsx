@@ -1,4 +1,5 @@
-import { requireAuth } from "@/lib/auth";
+import { optionalAuth } from "@/lib/auth";
+import { siteUrl } from "@/lib/site";
 import { db, withDbRetry } from "@/lib/db";
 import { userMovies, watchHistory } from "@/lib/schema";
 import { eq, and } from "drizzle-orm";
@@ -53,6 +54,7 @@ import { MovieVixButton } from "@/components/movie-vix-button";
 import { DownloadButton } from "@/components/download-button";
 import { getPlaybackPosition } from "@/lib/playback";
 import { formatPlaybackTime } from "@/lib/playback-format";
+import type { Metadata } from "next";
 
 function formatRuntime(minutes: number) {
   const h = Math.floor(minutes / 60);
@@ -113,6 +115,45 @@ function formatMoneyFull(n: number): string {
   }).format(n);
 }
 
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}): Promise<Metadata> {
+  const { id } = await params;
+  const tmdbId = Number(id);
+  if (!Number.isFinite(tmdbId)) return {};
+
+  const movie = await ensureMovie(tmdbId).catch(() => null);
+  if (!movie) return {};
+
+  const title = movie.title;
+  const year = (movie.releaseDate ?? "").slice(0, 4);
+  const description =
+    movie.overview?.trim() ||
+    `${title}${year ? ` (${year})` : ""} — runtime, cast, ratings and where to watch.`;
+  const canonical = `${siteUrl()}/movie/${tmdbId}`;
+  const images = [
+    movie.backdropPath ? backdropUrl(movie.backdropPath, "w1280") : null,
+    movie.posterPath ? posterUrl(movie.posterPath, "w500") : null,
+  ].filter((url): url is string => !!url);
+
+  return {
+    title,
+    description,
+    alternates: { canonical },
+    robots: { index: true, follow: true },
+    openGraph: {
+      type: "video.movie",
+      title,
+      description,
+      url: canonical,
+      images: images.map((url) => ({ url })),
+    },
+    twitter: { card: "summary_large_image", title, description, images },
+  };
+}
+
 export default async function MovieDetailPage({
   params,
 }: {
@@ -122,12 +163,15 @@ export default async function MovieDetailPage({
   const tmdbId = Number(id);
   if (!Number.isFinite(tmdbId)) notFound();
 
-  const userId = await requireAuth();
+  // Public render: signed-out visitors get the catalog page only — every
+  // user row below is skipped, so no progress/ratings leak into the HTML.
+  const userId = await optionalAuth();
 
   const movie = await ensureMovie(tmdbId);
   if (!movie) notFound();
 
   const loadUserMovie = async () => {
+    if (!userId) return null;
     try {
       return await withDbRetry(() =>
         db.query.userMovies.findFirst({
@@ -157,25 +201,26 @@ export default async function MovieDetailPage({
     }
   };
 
-  const [userMovie, ownedMovies, playback, movieHistoryRows] =
-    await Promise.all([
-      loadUserMovie(),
-      db
-        .select({ tmdbId: userMovies.tmdbId })
-        .from(userMovies)
-        .where(eq(userMovies.userId, userId)),
-      getPlaybackPosition(userId, "movie", tmdbId),
-      db
-        .select({ watchedAt: watchHistory.watchedAt })
-        .from(watchHistory)
-        .where(
-          and(
-            eq(watchHistory.userId, userId),
-            eq(watchHistory.mediaType, "movie"),
-            eq(watchHistory.tmdbId, tmdbId)
-          )
-        ),
-    ]);
+  const [userMovie, ownedMovies, playback, movieHistoryRows] = userId
+    ? await Promise.all([
+        loadUserMovie(),
+        db
+          .select({ tmdbId: userMovies.tmdbId })
+          .from(userMovies)
+          .where(eq(userMovies.userId, userId)),
+        getPlaybackPosition(userId, "movie", tmdbId),
+        db
+          .select({ watchedAt: watchHistory.watchedAt })
+          .from(watchHistory)
+          .where(
+            and(
+              eq(watchHistory.userId, userId),
+              eq(watchHistory.mediaType, "movie"),
+              eq(watchHistory.tmdbId, tmdbId)
+            )
+          ),
+      ])
+    : ([null, [], null, []] as const);
   /**
    * `watchHistory` gets a row on the first mark-watched *and* on every
    * rewatch, so the row count is the total times watched. Anything that adds
@@ -353,7 +398,42 @@ export default async function MovieDetailPage({
   );
   const progressStarted = inProgress || isWatched;
 
+  /** Structured data scrapers read (name/description/rating/date/genre). */
+  const voteCount = tmdbField<number>(movie.tmdbData, "vote_count");
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Movie",
+    name: movie.title,
+    description: movie.overview || undefined,
+    url: `${siteUrl()}/movie/${tmdbId}`,
+    datePublished: movie.releaseDate || undefined,
+    image: movie.posterPath ? posterUrl(movie.posterPath, "w500") : undefined,
+    genre: genresFromTmdbData(movie.tmdbData),
+    ...(movie.voteAverage != null && movie.voteAverage > 0
+      ? {
+          aggregateRating: {
+            "@type": "AggregateRating",
+            ratingValue: movie.voteAverage,
+            bestRating: 10,
+            worstRating: 0,
+            ...(voteCount != null && voteCount > 0
+              ? { ratingCount: voteCount }
+              : {}),
+          },
+        }
+      : {}),
+  };
+
   return (
+    <>
+      <script
+        type="application/ld+json"
+        // `\u003c` keeps a literal "<" out of the JSON so "</script>" can't
+        // break out of this element.
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
+        }}
+      />
     <div
       className="min-h-dvh bg-black pb-safe-page"
       style={
@@ -1007,5 +1087,6 @@ export default async function MovieDetailPage({
 
       </div>
     </div>
+    </>
   );
 }

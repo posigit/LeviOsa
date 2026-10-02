@@ -14,6 +14,16 @@ export async function requireAuth(): Promise<string> {
   return session.user.id;
 }
 
+/**
+ * Session user id, or null when signed out — for pages that render publicly
+ * (detail pages are crawlable/shareable; user rows are only read when a
+ * session exists, so nothing personal renders for anonymous visitors).
+ */
+export async function optionalAuth(): Promise<string | null> {
+  const session = await auth();
+  return session?.user?.id ?? null;
+}
+
 export const {
   handlers: { GET, POST },
   auth,
