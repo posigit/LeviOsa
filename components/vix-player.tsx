@@ -279,6 +279,28 @@ export function VixPlayer({
   // Non-streamable mounts (no type/tmdbId) go straight to iframe fallback.
   const [streamFailed, setStreamFailed] = useState(() => !streamable);
   const [iframeError, setIframeError] = useState(false);
+  // ---------- automatic failover ("finding the best server") ----------
+  /** True while an automatic switch is probing the next source (pill copy). */
+  const [failingOver, setFailingOver] = useState(false);
+  /** Automatic switches spent this mount — capped so a dead stack ends here. */
+  const autoFailoversRef = useRef(0);
+  /** Sources probed this mount — failover never revisits one. */
+  const triedSourcesRef = useRef<Set<StreamSource>>(new Set());
+  /** Set once the viewer picks a source by hand — then we never auto-jump. */
+  const manualPickRef = useRef(false);
+  /**
+   * Failures for the current streak, deduped per source. The final error card
+   * lists every server that was tried, not just the last one's status.
+   */
+  const [failHistory, setFailHistory] = useState<
+    Array<{ source: string; ok?: boolean; error?: string }>
+  >([]);
+  const recordFailure = useCallback((label: string, error: string) => {
+    setFailHistory((prev) => [
+      ...prev.filter((a) => a.source !== label),
+      { source: label, ok: false, error },
+    ]);
+  }, []);
   // Do not seed from RSC props — a dismissed Continue Watching delete must
   // win over a stale show-page bookmark. Lookup always re-reads /api/playback.
   const [resumePosition, setResumePosition] = useState<number | null>(null);
@@ -542,8 +564,9 @@ export function VixPlayer({
     typeof window !== "undefined" &&
     isVixEmbedBlockedHost(window.location.hostname);
   // mode: native -> error (NO fallback frame: a failed picked source goes
-  // straight to the error card with its real status; switching source —
-  // embed included — is always a manual action via the picker/Try button).
+  // straight to the error card with its real status). Source switching is
+  // automatic while the failover budget lasts (next untried server, capped)
+  // and manual from then on — the picker and the Try button always work.
   // Offline shares the error path with download-specific copy below.
   const mode = isEmbedActive
     ? iframeError
@@ -614,6 +637,12 @@ export function VixPlayer({
     setSegments(initialSegments ?? EMPTY_SEGMENTS);
     setStreamError(null);
     setBuffering(false);
+    // Fresh title/episode: failover starts over — budget, tried set, copy.
+    setFailingOver(false);
+    setFailHistory([]);
+    triedSourcesRef.current.clear();
+    autoFailoversRef.current = 0;
+    manualPickRef.current = false;
     // Stale rendition belongs to the old episode (pill shows Auto · 720p).
     setEffectiveQuality(null);
     // Episode advance (same mount — the shell, and therefore fullscreen,
@@ -1371,7 +1400,8 @@ export function VixPlayer({
 
   // ---------- source switching ----------
   const disabledSources = disabledSourcesFor(type);
-  const switchSource = useCallback((next: StreamSource) => {
+  const switchSource = useCallback(
+    (next: StreamSource, opts?: { auto?: boolean }) => {
     if (next === activeSource) return;
     // Offline there is no source to switch to: resolution can only fail,
     // re-attach a dead stream and clobber the persisted preference.
@@ -1398,7 +1428,18 @@ export function VixPlayer({
       lastSavedPosRef.current = 0;
       lastSavedAtRef.current = 0;
     }
-    saveVixSettings({ preferredSource: next });
+    if (opts?.auto) {
+      // Automatic probe: pill switches to the failover copy, and the saved
+      // preference stays put — we don't silently rewrite the user's choice.
+      setFailingOver(true);
+    } else {
+      // A hand pick takes the wheel: no more automatic jumps this mount, and
+      // the persisted preference follows the explicit choice.
+      manualPickRef.current = true;
+      setFailingOver(false);
+      saveVixSettings({ preferredSource: next });
+    }
+    triedSourcesRef.current.add(next);
     setActiveSource(next);
     // Casting follows the old media — end it so the receiver never plays stale.
     endCastForNewMedia();
@@ -1689,6 +1730,8 @@ export function VixPlayer({
       setStreamFailed(false);
       return;
     }
+    // Every attempt marks this source as tried — failover never revisits one.
+    triedSourcesRef.current.add(activeSource);
     // Embed sources have no native resolver — mode is already "iframe".
     if (isEmbedActive) return;
     let cancelled = false;
@@ -1717,6 +1760,9 @@ export function VixPlayer({
         setPlaylistUrl(next);
         setThumbnailsUrl(result.thumbnailsUrl ?? null);
         setStreamError(null);
+        // A working stream ends the failure streak (and the probing copy).
+        setFailingOver(false);
+        setFailHistory([]);
         return;
       }
       if (result.failed) {
@@ -1725,6 +1771,11 @@ export function VixPlayer({
           result.errorMessage ?? "no playlist",
           result.code ? `(code: ${result.code})` : "",
           result.detail ?? ""
+        );
+        recordFailure(
+          sourceLabel(activeSource),
+          result.errorMessage ??
+            (result.code ? `code ${result.code}` : "no playlist")
         );
         setStreamError({
           code: result.code,
@@ -1740,7 +1791,44 @@ export function VixPlayer({
       cancelled = true;
       controller.abort();
     };
-  }, [streamable, type, tmdbId, season, episode, activeSource, isEmbedActive, offlineOverride, initialPlaylistUrl, retryNonce, mirrorStep]);
+  }, [streamable, type, tmdbId, season, episode, activeSource, isEmbedActive, offlineOverride, initialPlaylistUrl, retryNonce, mirrorStep, recordFailure]);
+
+  // ---------- automatic failover ("finding the best server") ----------
+  // A dead source advances to the next untried server instead of parking on
+  // the error card. Capped (4 switches per title) so a fully-down stack still
+  // lands on the card — with the full attempt list — instead of looping, and
+  // disabled the moment the viewer picks a source by hand: never fight an
+  // explicit choice. Uses the raw error inputs (not `mode`/`hasError`, which
+  // are derived further down) so the effect sits next to the resolver.
+  useEffect(() => {
+    if (!streamable || offlineOverride) return;
+    const errored = isEmbedActive ? iframeError : streamFailed;
+    if (!errored) return;
+    if (manualPickRef.current) return;
+    if (autoFailoversRef.current >= 4) return;
+    const blocked = new Set(disabledSources);
+    const start = ALL_SOURCES.indexOf(activeSource);
+    let candidate: StreamSource | null = null;
+    for (let i = 1; i < ALL_SOURCES.length; i++) {
+      const s = ALL_SOURCES[(start + i) % ALL_SOURCES.length];
+      if (s && !blocked.has(s) && !triedSourcesRef.current.has(s)) {
+        candidate = s;
+        break;
+      }
+    }
+    if (!candidate) return;
+    autoFailoversRef.current += 1;
+    switchSource(candidate, { auto: true });
+  }, [
+    streamable,
+    offlineOverride,
+    isEmbedActive,
+    iframeError,
+    streamFailed,
+    activeSource,
+    disabledSources,
+    switchSource,
+  ]);
 
   // ---------- Driven-embed subtitles (VDRK / OpenSubs / SubDL overlay) ----------
   // CineSrc hides its CC menu (controls=false) with no subtitle postMessage
@@ -3696,7 +3784,12 @@ export function VixPlayer({
                 sendVidfastCommand(iframeRef.current, "getStatus");
               }
             }}
-            onError={() => setIframeError(true)}
+            onError={() => {
+              // Frame never arrived (blocked/network) — counts as a failed
+              // server so the error card lists it alongside resolve failures.
+              recordFailure(sourceLabel(activeSource), "embed failed to load");
+              setIframeError(true);
+            }}
             style={
               embedZoom !== 1
                 ? { transform: `scale(${embedZoom})` }
@@ -3936,7 +4029,9 @@ export function VixPlayer({
           label={
             offlineOverride
               ? "Starting…"
-              : `Loading ${sourceLabel(activeSource)}…`
+              : failingOver
+                ? `Finding the best server… trying ${sourceLabel(activeSource)}`
+                : `Loading ${sourceLabel(activeSource)}…`
           }
         />
       )}
@@ -3956,7 +4051,11 @@ export function VixPlayer({
           tryNextLabel={sourceLabel(
             nextPlayableSource(activeSource, disabledSources)
           )}
-          attempts={streamError?.attempts}
+          // Every server tried this streak (auto-failover), else the failing
+          // resolve's own attempt list — the card shows the full trail.
+          attempts={
+            failHistory.length > 0 ? failHistory : streamError?.attempts
+          }
           onRetry={retryStream}
           onClose={() => {
             void flushPosition().then(() => {
