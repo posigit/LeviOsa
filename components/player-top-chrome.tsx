@@ -295,21 +295,44 @@ export function PlayerTopChrome({
       window.removeEventListener("scroll", onScroll);
     };
   }, [moreOpen]);
+  // Vidy-only layout: the controls stack under the title, left-aligned, at
+  // every width (the desktop side-by-side row is off) so the right half of
+  // the bar stays clear for Vidy's own in-frame chrome.
+  const stackControls = activeSource === "vidy";
+  // Desktop dropdowns open toward the screen center: left-anchored from a
+  // left-packed cluster, right-anchored from the default right-packed one.
+  // (Mobile menus are fixed bottom sheets — unaffected either way.)
+  const menuAnchor = stackControls ? "sm:left-0" : "sm:right-0";
   return (
     <div className="pointer-events-none absolute inset-x-0 top-0 z-30 bg-gradient-to-b from-black/90 via-black/50 to-transparent pt-[max(0.5rem,env(safe-area-inset-top))]">
       {/*
         Mobile: title on its own row, controls in a horizontal scroller so
         buttons never clamp over the title (portrait screenshot bug).
-        Desktop: classic side-by-side.
+        Desktop: classic side-by-side — except Vidy, which keeps the stacked
+        layout at every width so its own in-frame chrome owns the right side.
       */}
-      <div className="flex flex-col gap-2 px-3 pb-8 pt-2 sm:flex-row sm:items-start sm:justify-between sm:gap-3 sm:px-4 sm:pt-3">
-        <div className="min-w-0 sm:max-w-[40%]">
+      <div
+        className={cn(
+          "flex flex-col gap-2 px-3 pb-8 pt-2 sm:px-4 sm:pt-3",
+          !stackControls &&
+            "sm:flex-row sm:items-start sm:justify-between sm:gap-3"
+        )}
+      >
+        <div className={cn("min-w-0", !stackControls && "sm:max-w-[40%]")}>
           <p className="truncate text-sm font-bold text-white">{title}</p>
           <p className="mt-0.5 text-[10px] font-semibold uppercase tracking-wider text-white/50">
             {sourceLabel(activeSource)}
           </p>
         </div>
-        <div className="pointer-events-auto flex max-w-full shrink-0 items-center gap-1.5 overflow-x-auto pb-0.5 [-ms-overflow-style:none] [scrollbar-width:none] sm:flex-wrap sm:justify-end sm:gap-2 sm:overflow-visible sm:pb-0 [&::-webkit-scrollbar]:hidden">
+        <div
+          className={cn(
+            "pointer-events-auto flex max-w-full shrink-0 items-center gap-1.5 overflow-x-auto pb-0.5 [-ms-overflow-style:none] [scrollbar-width:none] sm:flex-wrap sm:gap-2 sm:overflow-visible sm:pb-0 [&::-webkit-scrollbar]:hidden",
+            // justify-end only packs right in the side-by-side row; stacked
+            // (Vidy) the row is full width and starts at the left. Wrapping +
+            // overflow-visible stay on so dropdowns never clip.
+            !stackControls && "sm:justify-end"
+          )}
+        >
           {downloadSlot}
           {(mode === "native" || mode === "iframe") && (
             <button
@@ -352,7 +375,7 @@ export function PlayerTopChrome({
                 <div
                   role="menu"
                   aria-label="Audio tracks"
-                  className="fixed inset-x-4 bottom-4 top-auto z-50 max-h-[50vh] w-auto overflow-y-auto rounded-xl border border-white/10 bg-card shadow-xl [scrollbar-width:thin] [scrollbar-color:rgba(255,255,255,0.25)_transparent] sm:absolute sm:inset-x-auto sm:bottom-auto sm:right-0 sm:top-full sm:z-30 sm:mt-2 sm:w-56 [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-white/20"
+                  className={`fixed inset-x-4 bottom-4 top-auto z-50 max-h-[50vh] w-auto overflow-y-auto rounded-xl border border-white/10 bg-card shadow-xl [scrollbar-width:thin] [scrollbar-color:rgba(255,255,255,0.25)_transparent] sm:absolute sm:inset-x-auto sm:bottom-auto ${menuAnchor} sm:top-full sm:z-30 sm:mt-2 sm:w-56 [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-white/20`}
                 >
                   {audioTracks.map((t) => (
                     <button
@@ -411,7 +434,7 @@ export function PlayerTopChrome({
                 <div
                   role="menu"
                   aria-label="Video quality"
-                  className="fixed inset-x-4 bottom-4 top-auto z-50 max-h-[50vh] w-auto overflow-y-auto rounded-xl border border-white/10 bg-card shadow-xl [scrollbar-width:thin] [scrollbar-color:rgba(255,255,255,0.25)_transparent] sm:absolute sm:inset-x-auto sm:bottom-auto sm:right-0 sm:top-full sm:z-30 sm:mt-2 sm:w-44 [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-white/20"
+                  className={`fixed inset-x-4 bottom-4 top-auto z-50 max-h-[50vh] w-auto overflow-y-auto rounded-xl border border-white/10 bg-card shadow-xl [scrollbar-width:thin] [scrollbar-color:rgba(255,255,255,0.25)_transparent] sm:absolute sm:inset-x-auto sm:bottom-auto ${menuAnchor} sm:top-full sm:z-30 sm:mt-2 sm:w-44 [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-white/20`}
                 >
                   <button
                     type="button"
@@ -481,7 +504,7 @@ export function PlayerTopChrome({
                   aria-label="Subtitles"
                   // overflow-y-auto + max height: was overflow-hidden which
                   // clipped Look (colors/bg) at the bottom of the panel.
-                  className="fixed inset-x-4 bottom-4 top-auto z-50 max-h-[min(70vh,28rem)] w-auto overflow-y-auto overscroll-contain rounded-xl border border-white/10 bg-card py-1 shadow-xl [scrollbar-width:thin] [scrollbar-color:rgba(255,255,255,0.25)_transparent] sm:absolute sm:inset-x-auto sm:bottom-auto sm:right-0 sm:top-full sm:z-40 sm:mt-2 sm:w-60 sm:max-w-[calc(100vw-1.5rem)] [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-white/20"
+                  className={`fixed inset-x-4 bottom-4 top-auto z-50 max-h-[min(70vh,28rem)] w-auto overflow-y-auto overscroll-contain rounded-xl border border-white/10 bg-card py-1 shadow-xl [scrollbar-width:thin] [scrollbar-color:rgba(255,255,255,0.25)_transparent] sm:absolute sm:inset-x-auto sm:bottom-auto ${menuAnchor} sm:top-full sm:z-40 sm:mt-2 sm:w-60 sm:max-w-[calc(100vw-1.5rem)] [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-white/20`}
                   onMouseDown={(e) => e.stopPropagation()}
                   onTouchStart={(e) => e.stopPropagation()}
                 >
@@ -801,7 +824,7 @@ export function PlayerTopChrome({
                 <div
                   role="menu"
                   aria-label="Stream sources"
-                  className="fixed inset-x-4 bottom-4 top-auto z-50 max-h-[min(70vh,28rem)] w-auto overflow-y-auto overscroll-contain rounded-xl border border-white/15 bg-white/[0.06] shadow-2xl backdrop-blur-2xl [scrollbar-width:thin] [scrollbar-color:rgba(255,255,255,0.25)_transparent] sm:absolute sm:inset-x-auto sm:bottom-auto sm:right-0 sm:top-full sm:z-30 sm:mt-2 sm:w-48 sm:max-w-[calc(100vw-1.5rem)] [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-white/20"
+                  className={`fixed inset-x-4 bottom-4 top-auto z-50 max-h-[min(70vh,28rem)] w-auto overflow-y-auto overscroll-contain rounded-xl border border-white/15 bg-white/[0.06] shadow-2xl backdrop-blur-2xl [scrollbar-width:thin] [scrollbar-color:rgba(255,255,255,0.25)_transparent] sm:absolute sm:inset-x-auto sm:bottom-auto ${menuAnchor} sm:top-full sm:z-30 sm:mt-2 sm:w-48 sm:max-w-[calc(100vw-1.5rem)] [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-white/20`}
                 >
                   {sourceOptions.map((key) => {
                     const disabled = disabledSources.includes(key) || !online;
