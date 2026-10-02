@@ -1,8 +1,9 @@
 /**
  * Offline download engine (page context).
  *
- * Flow per item: resolve native playlist (vix/goated cascade — iframe
- * sources can never download, the browser never touches their bytes) →
+ * Flow per item: resolve native playlist (vidsrc-sh → vidsrc-pm → vix
+ * cascade — iframe sources can never download, the browser never touches
+ * their bytes) →
  * pick variant at/below the quality setting → fetch segments + init + keys
  * through the same same-origin paths the player uses → store bytes in the
  * `tvtime-downloads` cache under `/api/dl?u=` keys → store the rewritten
@@ -11,7 +12,11 @@
  * skips bytes already in the cache.
  */
 
-import { resolveStreamPlaylist } from "@/lib/player-stream";
+import {
+  resolveStreamPlaylist,
+  type StreamResolveResult,
+} from "@/lib/player-stream";
+import type { StreamSource } from "@/lib/player-native-types";
 import { fetchExternalVtt, type SubFileId } from "@/lib/player-subs";
 import { fetchSegments } from "@/lib/introdb";
 import { loadVixSettings, matchLang } from "@/lib/vix-settings";
@@ -419,25 +424,28 @@ async function fetchPieceRetry(
  * sources block direct requests, so without the standalone resolver
  * (VIX_RESOLVER_URL) there is no native path at all — while iframe
  * playback keeps working, which made the old message look like a lie.
+ * Downloads now walk a candidate list, so every message carries the trail
+ * of sources that were tried (`attempts`).
  */
 function diagnoseResolveFailure(r: {
   code?: string;
   detail?: string;
   attempts?: Array<{ source: string; ok: boolean; error?: string }>;
 }): string {
-  if (r.code === "resolver_unconfigured") {
-    return "Downloads need the stream resolver — VIX_RESOLVER_URL isn't set on this deployment, and the sources block it directly. Streaming still works via embeds, but offline needs native. Set the env var and redeploy.";
-  }
-  if (r.code === "resolution_failed") {
-    return `Stream resolver failed${r.detail ? ` (${r.detail})` : ""} If it names the resolver, revive/redeploy that service (its /health should return ok), check VIX_RESOLVER_URL, then retry.`;
-  }
-  if (r.code === "upstream_unreachable") {
-    return "Sources are unreachable from this deployment right now. Retry in a bit — embed streaming is unaffected.";
-  }
   const tried = (r.attempts ?? [])
     .filter((a) => !a.ok)
-    .map((a) => a.source)
+    .map((a) => (a.error ? `${a.source} (${a.error})` : a.source))
     .join(", ");
+  const trail = tried ? ` Tried: ${tried}.` : "";
+  if (r.code === "resolver_unconfigured") {
+    return `Downloads need the stream resolver — VIX_RESOLVER_URL isn't set on this deployment, and the sources block it directly. Streaming still works via embeds, but offline needs native. Set the env var and redeploy.${trail}`;
+  }
+  if (r.code === "resolution_failed") {
+    return `Stream resolver failed${r.detail ? ` (${r.detail})` : ""} If it names the resolver, revive/redeploy that service (its /health should return ok), check VIX_RESOLVER_URL, then retry.${trail}`;
+  }
+  if (r.code === "upstream_unreachable") {
+    return `Sources are unreachable from this deployment right now.${trail} Retry in a bit — embed streaming is unaffected.`;
+  }
   return `No downloadable stream${tried ? ` (tried: ${tried})` : ""} — the title may only exist on embed sources right now.`;
 }
 
@@ -919,27 +927,78 @@ async function runDownload(
   rec.state = "active";
   await upsertRecord(rec);
 
-  // 1. Resolve a native playlist from the picked source (no cross-source
-  //    fallback — the failure names the source + status, same as the player).
+  // 1. Resolve a native playlist by walking a bounded candidate list: the
+  //    saved native preference first (user intent), then the fixed fallback
+  //    order vidsrc-sh → vidsrc-pm → vix; first hit wins. goated is parked
+  //    (backend NXDOMAIN since 2026-09-23 — see lib/goated.ts), so it is
+  //    never a candidate and never the default, and an embed preference
+  //    (Vidy etc.) falls straight into the fallback list. Downloads are
+  //    unattended, so failing over silently is safe — if every candidate
+  //    fails, the error names each one with its real reason.
   const preferred = loadVixSettings().preferredSource;
-  const source =
-    preferred === "vix" ||
-    preferred === "goated" ||
-    preferred === "vidsrc-sh" ||
-    preferred === "vidsrc-pm"
-      ? preferred
-      : "goated";
-  const resolved = await resolveStreamPlaylist({
-    source,
-    type: req.type,
-    tmdbId: req.tmdbId,
-    season: req.season,
-    episode: req.episode,
-    signal,
-  });
-  throwIfAborted();
-  if (!resolved.playlistUrl) {
-    throw new Error(diagnoseResolveFailure(resolved));
+  const nativePreferred: StreamSource[] =
+    preferred === "vix" || preferred === "vidsrc-sh" || preferred === "vidsrc-pm"
+      ? [preferred]
+      : [];
+  const fallbacks: StreamSource[] = ["vidsrc-sh", "vidsrc-pm", "vix"];
+  const candidates: StreamSource[] = [...nativePreferred, ...fallbacks].filter(
+    (s, i, a) => a.indexOf(s) === i
+  );
+  const failures: Array<{
+    source: string;
+    code?: string;
+    detail?: string;
+    error?: string;
+  }> = [];
+  let resolved: StreamResolveResult | null = null;
+  let source: StreamSource = candidates[0];
+  for (const candidate of candidates) {
+    const r = await resolveStreamPlaylist({
+      source: candidate,
+      type: req.type,
+      tmdbId: req.tmdbId,
+      season: req.season,
+      episode: req.episode,
+      signal,
+    });
+    throwIfAborted();
+    if (r.playlistUrl) {
+      resolved = r;
+      source = candidate;
+      break;
+    }
+    failures.push({
+      source: candidate,
+      code: r.code,
+      detail: r.detail,
+      error: r.errorMessage ?? r.detail ?? r.code,
+    });
+  }
+  if (!resolved?.playlistUrl) {
+    // Headline the most systemic failure — connectivity/config beats "this
+    // title isn't on that source" — and list every candidate in the trail.
+    const rank = (c?: string) =>
+      c === "upstream_unreachable" || c === "blocked"
+        ? 0
+        : c === "resolution_failed"
+          ? 1
+          : c === "resolver_unconfigured"
+            ? 2
+            : c === "not_found" || c === "no_streams"
+              ? 4
+              : 3;
+    const worst = [...failures].sort((a, b) => rank(a.code) - rank(b.code))[0];
+    throw new Error(
+      diagnoseResolveFailure({
+        code: worst?.code,
+        detail: worst?.detail,
+        attempts: failures.map((f) => ({
+          source: f.source,
+          ok: false,
+          error: f.error,
+        })),
+      })
+    );
   }
   rec.usedSource = resolved.usedSource ?? source;
   await upsertRecord(rec);
