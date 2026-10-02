@@ -78,12 +78,15 @@ export const EMBED_SOURCES: EmbedSourceDef[] = [
     base: "https://vidstuck.xyz",
     host: "vidstuck.xyz",
     // Same /embed/{movie|tv}/ path shape as CineSrc but TV ids are path
-    // segments, not query params. Own `server` param defaults to andromeda;
-    // autoplay + resume progress both confirmed against the live player.
-    movieUrl: (tmdbId) =>
-      `https://vidstuck.xyz/embed/movie/${tmdbId}?autoplay=true`,
+    // segments, not query params. Own `server` param defaults to andromeda.
+    // Never send `autoplay=true`: their page binds it straight to `muted`
+    // (video renders `muted:p, autoPlay:z||p`, p = autoplay flag), so the
+    // embed always loaded silent. Their settings store defaults autoplay on
+    // and is not persisted, so dropping the flag keeps autoplay unmuted.
+    // Resume `progress` is appended later via URL.searchParams.
+    movieUrl: (tmdbId) => `https://vidstuck.xyz/embed/movie/${tmdbId}`,
     tvUrl: (tmdbId, season, episode) =>
-      `https://vidstuck.xyz/embed/tv/${tmdbId}/${season}/${episode}?autoplay=true`,
+      `https://vidstuck.xyz/embed/tv/${tmdbId}/${season}/${episode}`,
   },
   {
     key: "cinesrc",
