@@ -31,6 +31,7 @@ import {
   flushManifest,
   getAllSync,
   getManifest,
+  getManifestStrict,
   getRecordSync,
   isPlaybackInUse,
   removeRecord,
@@ -79,6 +80,7 @@ import {
 } from "@/lib/offline/candidates";
 import {
   encodeRendition,
+  isShrunkParse,
   pieceInfo,
   planRenditionWipe,
 } from "@/lib/offline/rendition";
@@ -512,7 +514,10 @@ function diagnoseResolveFailure(r: {
   return `No downloadable stream${tried ? ` (tried: ${tried})` : ""} — the title may only exist on embed sources right now.`;
 }
 
-export async function startDownload(req: DownloadRequest): Promise<void> {
+export async function startDownload(
+  req: DownloadRequest,
+  opts?: { auto?: boolean }
+): Promise<void> {
   const settings = loadVixSettings();
   if (!settings.downloadMode) {
     throw new Error("Download mode is off — enable it in Download settings.");
@@ -527,7 +532,9 @@ export async function startDownload(req: DownloadRequest): Promise<void> {
   if (startingKeys.has(key)) return;
   startingKeys.add(key);
   try {
-    return await runExclusive(key, () => startDownloadInner(req, key));
+    return await runExclusive(key, () =>
+      startDownloadInner(req, key, opts?.auto ?? false)
+    );
   } finally {
     startingKeys.delete(key);
     pumpQueue();
@@ -550,19 +557,53 @@ async function runExclusive(key: string, fn: () => Promise<void>): Promise<void>
   });
 }
 
-async function startDownloadInner(req: DownloadRequest, key: string): Promise<void> {
+/**
+ * Consume a delete/cancel intent for `key` and remove whatever row remains.
+ * Every path that starts (or finishes) a run shares this so the intent can
+ * never be half-consumed: whichever check sees it first does the full
+ * cleanup — files, record, iOS queue slot, auto-resume timer.
+ */
+async function consumeCancel(key: string, fallback: DownloadRecord | null): Promise<void> {
+  cancelIntents.delete(key);
+  pauseIntents.delete(key);
+  clearAutoResume(key);
+  dequeueIos(key);
+  systemPauseKeys.delete(key);
+  const live = getRecordSync(key) ?? fallback;
+  if (live) {
+    await deleteRecordFiles(live);
+    await removeRecord(key);
+  }
+}
+
+async function startDownloadInner(
+  req: DownloadRequest,
+  key: string,
+  auto: boolean
+): Promise<void> {
   const settings = loadVixSettings();
   if (!settings.downloadMode) {
     throw new Error("Download mode is off — enable it in Download settings.");
   }
-  // Intents a previous run never consumed are stale: honoring them here
-  // would pause/cancel THIS attempt before it starts — worst case the catch
-  // path deletes a healthy re-download. Requests aimed at a run that is
-  // mid-attach land during the await window below and are re-checked after
-  // the controller registers (see the pre-run re-read).
+  // Read the row BEFORE touching intents: the cancel decision below needs
+  // to know whether one exists, and a failed manifest read must abort the
+  // start (getManifestStrict) instead of handing back `{}` — that throwaway
+  // object used to look like "no record" and silently rebuild the row at 0%.
+  const existing = getRecordSync(key) ?? (await getManifestStrict())[key];
+  // A delete/cancel aimed at a start that never materialised is consumed
+  // here. Auto continuations honour it — this is the resurrection fix (a
+  // stale queued/active row re-upserted by continueAutomatic would run
+  // again). A manual tap is the user's latest word and clears it instead,
+  // so the first download after a delete doesn't no-op.
+  if (cancelIntents.has(key)) {
+    if (auto) {
+      await consumeCancel(key, existing);
+      return;
+    }
+    cancelIntents.delete(key);
+  }
+  // A pause from a run that never materialised must not pause THIS attempt.
   pauseIntents.delete(key);
-  cancelIntents.delete(key);
-  const existing = getRecordSync(key) ?? (await getManifest())[key];
   // A live loop in this instance owns the key — hands off.
   if (activeControllers.has(key)) return;
   // NOTE: no early return for `queued`/`active` rows without a controller.
@@ -575,7 +616,11 @@ async function startDownloadInner(req: DownloadRequest, key: string): Promise<vo
   // Quality switch orphans prior bytes (segment URLs differ): drop the old
   // files and restart counters instead of leaking unreferenced cache entries.
   const sameQuality = (existing?.quality ?? settings.downloadQuality) === settings.downloadQuality;
-  if (existing && existing.fileUrls.length > 0 && !sameQuality) {
+  if (
+    existing &&
+    !sameQuality &&
+    (existing.fileUrls.length > 0 || existing.doneSegments > 0 || existing.bytesDone > 0)
+  ) {
     // Logged like the rendition wipe — a silent restart is undiagnosable.
     console.warn("[downloads] quality change — wiping progress", {
       key,
@@ -644,11 +689,22 @@ async function startDownloadInner(req: DownloadRequest, key: string): Promise<vo
       req.tmdbId
     );
   }
+  // A delete landed while we resolved the poster (no controller yet, so it
+  // couldn't abort us): honour it now, before anything is upserted under it.
+  if (cancelIntents.has(key)) {
+    await consumeCancel(key, existing);
+    return;
+  }
   // iPhone can't run two titles at once without getting the tab killed.
   if (isIosSafari() && otherSlotTaken(key)) {
     if (!iosQueue.some((r) => requestKey(r) === key)) iosQueue.push(req);
     rec.state = "queued";
     await upsertRecord(rec);
+    // Same window after the queued upsert: don't leave a row the delete
+    // already revoked sitting in the manifest (or in the iOS queue).
+    if (cancelIntents.has(key)) {
+      await consumeCancel(key, rec);
+    }
     return;
   }
   await upsertRecord(rec);
@@ -666,12 +722,7 @@ async function startDownloadInner(req: DownloadRequest, key: string): Promise<vo
     // resurrected by the first checkpoint.
     const pre = getRecordSync(key) ?? (await getManifest())[key];
     if (cancelIntents.has(key) || !pre) {
-      cancelIntents.delete(key);
-      pauseIntents.delete(key);
-      if (pre) {
-        await deleteRecordFiles(pre);
-        await removeRecord(key);
-      }
+      await consumeCancel(key, pre);
       return;
     }
     if (pauseIntents.has(key) || pre.state === "paused") {
@@ -682,6 +733,13 @@ async function startDownloadInner(req: DownloadRequest, key: string): Promise<vo
       return;
     }
     await runDownload(req, rec, controller.signal);
+    // A delete landing during the final commit must still win: the row
+    // (possibly re-upserted after the delete's removeRecord) goes away now,
+    // not as a resurrected "done" row.
+    if (cancelIntents.has(key)) {
+      await consumeCancel(key, rec);
+      return;
+    }
   } catch (err) {
     // Stop straggler workers still burning data after the first failure.
     // (Pause/cancel paths already aborted; this is a no-op for them.)
@@ -691,13 +749,7 @@ async function startDownloadInner(req: DownloadRequest, key: string): Promise<vo
     // its own controller under this key after ours died.
     const ownedHere = activeControllers.get(key) === controller;
     if (cancelIntents.has(key)) {
-      cancelIntents.delete(key);
-      pauseIntents.delete(key);
-      systemPauseKeys.delete(key);
-      clearAutoResume(key);
-      dequeueIos(key);
-      await deleteRecordFiles(rec);
-      await removeRecord(key);
+      await consumeCancel(key, rec);
       return;
     }
     const live = getRecordSync(key) ?? (await getManifest())[key];
@@ -839,6 +891,10 @@ async function continueAutomatic(rec: DownloadRecord): Promise<void> {
   if (isDownloadQueued(rec.key)) return;
   if (!eligibleToContinue(rec)) return;
   if (rec.state === "error" && (rec.autoAttempts ?? 0) >= AUTO_ATTEMPT_CAP) return;
+  // Deleted while we were deciding: don't re-upsert the row — that write
+  // was the resurrection (startDownload's entry check consumes the intent
+  // and cleans up, but skipping here avoids flashing the row back first).
+  if (cancelIntents.has(rec.key)) return;
   continueLocks.add(rec.key);
   try {
     const nextAttempts =
@@ -850,7 +906,7 @@ async function continueAutomatic(rec: DownloadRecord): Promise<void> {
       retryable: true,
       autoAttempts: nextAttempts,
     });
-    await startDownload(reqFromRecord(rec));
+    await startDownload(reqFromRecord(rec), { auto: true });
   } finally {
     continueLocks.delete(rec.key);
   }
@@ -884,7 +940,9 @@ function scheduleAutoResume(req: DownloadRequest): void {
     autoResumeTimers.delete(key);
     const rec = getRecordSync(key);
     if (!rec || rec.state === "done") return;
-    void continueAutomatic(rec);
+    void continueAutomatic(rec).catch(() => {
+      /* next pass */
+    });
   }, delay);
   autoResumeTimers.set(key, timer);
 }
@@ -895,7 +953,9 @@ function pumpQueue(): void {
   if (isIosSafari() && iosQueue.length > 0) {
     const next = iosQueue.shift();
     if (next) {
-      void startDownload(next);
+      void startDownload(next, { auto: true }).catch(() => {
+        /* next queue pass */
+      });
       return;
     }
   }
@@ -931,7 +991,7 @@ export function initDownloadAutoRetry(): void {
         ) {
           const next = iosQueue.shift();
           if (next) {
-            await startDownload(next);
+            await startDownload(next, { auto: true });
             return;
           }
         }
@@ -976,10 +1036,15 @@ export function cancelDownload(key: string) {
 }
 
 export async function deleteDownload(key: string): Promise<void> {
+  // Set the intent BEFORE anything async: a start mid-attach (poster await,
+  // no controller yet) must see it instead of re-upserting the row after our
+  // removeRecord. The intent stays set until that start consumes it —
+  // clearing it here would reopen the race; a leftover without a start is
+  // swept by the next start's entry check (auto honours, manual clears).
+  cancelIntents.add(key);
   clearAutoResume(key);
   dequeueIos(key);
   systemPauseKeys.delete(key);
-  cancelIntents.delete(key);
   pauseIntents.delete(key);
   activeControllers.get(key)?.abort();
   activeControllers.delete(key);
@@ -1823,11 +1888,37 @@ async function runDownload(
       `${m.audioParts?.segments.length ?? 0}`,
       `${m.subParts?.segments.length ?? 0}`
     );
+    const sourceChanged = prevSource !== "" && prevSource !== rec.usedSource;
     const plan = planRenditionWipe({
       stored: rec.rendition,
       next: rendition,
-      sourceChanged: prevSource !== "" && prevSource !== rec.usedSource,
+      sourceChanged,
     });
+    // A parse shorter than what we already stored (same source) is a
+    // truncated playlist — reverify below only compares two fetches of the
+    // SAME url, so a consistently short answer would pass it and wipe the
+    // row. Keep every stored byte and retry instead (escape hatch for a
+    // genuine re-cut: delete + redownload, which starts with nothing stored).
+    if (
+      isShrunkParse({
+        storedDurationSec: rec.durationSec,
+        nextDurationSec: m.parts.durationSec,
+        sourceChanged,
+      })
+    ) {
+      console.warn("[downloads] parse shrink — keeping stored bytes", {
+        key: rec.key,
+        storedDurationSec: rec.durationSec,
+        nextDurationSec: m.parts.durationSec,
+        source: rec.usedSource,
+        previousSource: prevSource,
+        mirror: activeMirrorUrl ?? m.mediaUrl,
+      });
+      throw new PieceDownloadError(
+        "Playlist shrank since the last attempt — kept stored bytes; will retry.",
+        "dead"
+      );
+    }
     // Verify BEFORE destroying. A dying mirror hands back a truncated parse
     // (900 of 1000 segments); wiping against it and then switching mirrors
     // used to destroy the title twice over. Re-fetch only the playlists whose

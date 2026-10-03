@@ -50,6 +50,7 @@ import {
 } from "../lib/offline/candidates";
 import {
   encodeRendition,
+  isShrunkParse,
   pieceInfo,
   planRenditionWipe,
 } from "../lib/offline/rendition";
@@ -695,6 +696,46 @@ assert.deepEqual(
     sourceChanged: true,
   }),
   { groups: ["video", "audio", "subs"], hadStored: true }
+);
+
+/* Shrink guard: a materially shorter parse at the same source is a
+ * truncated playlist — keep stored bytes; re-segmentation (same duration)
+ * and rounding slack must NOT trip it, and a source change bypasses it. */
+assert.equal(
+  isShrunkParse({ storedDurationSec: 3480, nextDurationSec: 3100, sourceChanged: false }),
+  true
+);
+assert.equal(
+  isShrunkParse({ storedDurationSec: 3480, nextDurationSec: 3410, sourceChanged: false }),
+  true
+);
+assert.equal(
+  isShrunkParse({ storedDurationSec: 3480, nextDurationSec: 3411, sourceChanged: false }),
+  false
+);
+assert.equal(
+  isShrunkParse({ storedDurationSec: 3480, nextDurationSec: 3480, sourceChanged: false }),
+  false
+);
+/* Same total duration with a different segment cut (re-segmentation). */
+assert.equal(
+  isShrunkParse({ storedDurationSec: 3480, nextDurationSec: 3479, sourceChanged: false }),
+  false
+);
+/* A different source may legitimately be a different length. */
+assert.equal(
+  isShrunkParse({ storedDurationSec: 3480, nextDurationSec: 1000, sourceChanged: true }),
+  false
+);
+/* Nothing stored yet (fresh start) can't shrink. */
+assert.equal(
+  isShrunkParse({ storedDurationSec: 0, nextDurationSec: 100, sourceChanged: false }),
+  false
+);
+/* A durationless parse against a stored one is garbage, not a re-cut. */
+assert.equal(
+  isShrunkParse({ storedDurationSec: 100, nextDurationSec: 0, sourceChanged: false }),
+  true
 );
 
 /* Piece URLs classify into wipe groups; record-level and legacy pieces are

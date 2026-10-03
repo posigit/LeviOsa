@@ -262,6 +262,20 @@ export async function getManifest(): Promise<Record<string, DownloadRecord>> {
   return { ...m };
 }
 
+/**
+ * Manifest read for the start path. On a failed read load() hands back a
+ * throwaway `{}` (writes stay paused) — harmless for callers that only
+ * read-and-display, but a start would mistake it for "no record" and
+ * rebuild the row from 0%. Same data as getManifest(); rethrows instead.
+ */
+export async function getManifestStrict(): Promise<Record<string, DownloadRecord>> {
+  const m = await load();
+  if (!cache) {
+    throw new Error("Couldn't read saved downloads — storage may be busy; try again.");
+  }
+  return { ...m };
+}
+
 export function getRecordSync(key: string): DownloadRecord | null {
   return cache?.[key] ?? null;
 }

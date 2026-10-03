@@ -93,6 +93,27 @@ function parseStored(stored: string): {
   return { video: stored, audio: "", subs: null };
 }
 
+/**
+ * A parse materially shorter than the stored one (same source) is a
+ * truncated playlist, not a re-cut: total duration of the same title never
+ * shrinks, and re-segmentation keeps it — so the 2% slack can't false-fire
+ * on either. Wiping progress against the short parse is what restarts the
+ * row; the caller must keep the stored bytes and retry instead. Returns
+ * true when the attempt must abort before any wipe.
+ */
+export function isShrunkParse(opts: {
+  storedDurationSec: number;
+  nextDurationSec: number;
+  sourceChanged: boolean;
+}): boolean {
+  const { storedDurationSec, nextDurationSec, sourceChanged } = opts;
+  // A different source serves a different copy — its length may legitimately
+  // differ, and the wipe (full) is correct there.
+  if (sourceChanged) return false;
+  if (!(storedDurationSec > 0)) return false;
+  return nextDurationSec < storedDurationSec * 0.98;
+}
+
 export type PieceInfo = {
   group: MediaGroup;
   role: string;
