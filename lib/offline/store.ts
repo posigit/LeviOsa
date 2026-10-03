@@ -107,9 +107,10 @@ export type DownloadRecord = {
   /** Automatic continuations since the last manual start. Stops at 5. */
   autoAttempts?: number;
   /**
-   * Height and segment counts of the bytes on disk. A new signature with the
-   * same counts is the same file. A different cut is the only time those
-   * bytes are discarded.
+   * Signature of the bytes on disk: `height:videoCount|audioCount|
+   * subCount` (encodeRendition). Compared per group on every attempt —
+   * only the groups whose signature changed are discarded; an identical
+   * signature keeps everything.
    */
   rendition?: string;
   /**

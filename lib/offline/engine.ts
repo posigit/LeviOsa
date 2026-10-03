@@ -75,6 +75,11 @@ import {
   pinnedDownloadSource,
   pinnedResolveGivesWay,
 } from "@/lib/offline/candidates";
+import {
+  encodeRendition,
+  pieceInfo,
+  planRenditionWipe,
+} from "@/lib/offline/rendition";
 import { formatBytes } from "@/lib/utils";
 
 export type DownloadRequest = {
@@ -983,6 +988,10 @@ async function runDownload(
 
   rec.state = "active";
   await upsertRecord(rec);
+  // Source this run started on: the cascade below may resolve another one,
+  // and a source change means every stored piece belongs to a different
+  // copy of the title (the rendition guard distrusts all of them).
+  const prevSource = rec.usedSource;
 
   // 1. Resolve a native playlist from a FIXED cascade — vidsrc-sh →
   //    vidsrc-pm → vix, first hit wins. Downloads no longer consult the
@@ -1753,29 +1762,68 @@ async function runDownload(
     measuredBytes = 0;
     touched = new Set();
     lastProgressAt = Date.now();
-    const rendition = `${m.pickedVariant?.height ?? 0}:${m.parts.segments.length}:${m.audioParts?.segments.length ?? 0}`;
-    if (rec.rendition && rec.rendition !== rendition) {
-      // This destroys everything downloaded so far — say so, loudly. A
-      // silent wipe here is what made the "downloads keep restarting"
-      // report impossible to diagnose (the old code logged nothing).
+    const rendition = encodeRendition(
+      `${m.pickedVariant?.height ?? 0}:${m.parts.segments.length}`,
+      `${m.audioParts?.segments.length ?? 0}`,
+      `${m.subParts?.segments.length ?? 0}`
+    );
+    const plan = planRenditionWipe({
+      stored: rec.rendition,
+      next: rendition,
+      sourceChanged: prevSource !== "" && prevSource !== rec.usedSource,
+    });
+    if (plan.groups.length > 0) {
+      // This destroys stored bytes — say so, loudly. A silent wipe here is
+      // what made the "downloads keep restarting" report impossible to
+      // diagnose (the old code logged nothing).
       console.warn("[downloads] rendition change — wiping progress", {
         key: rec.key,
         from: rec.rendition,
         to: rendition,
+        groups: plan.groups,
         source: rec.usedSource,
+        previousSource: prevSource,
         mirror: activeMirrorUrl ?? m.mediaUrl,
       });
       // Persist the reset BEFORE deleting: a crash between the two used to
       // leave the stored row claiming files that were already gone (a
       // "done"/progress row pointing at nothing). Reset first, delete after.
-      const staleUrls = rec.fileUrls;
-      fileUrls.clear();
-      touched.clear();
-      rec.bytesDone = 0;
-      rec.doneSegments = 0;
-      rec.fileUrls = [];
-      await upsertRecord(rec);
-      await deleteRecordFiles({ ...rec, fileUrls: staleUrls });
+      if (plan.groups.length === 3) {
+        const staleUrls = rec.fileUrls;
+        fileUrls.clear();
+        touched.clear();
+        rec.bytesDone = 0;
+        rec.doneSegments = 0;
+        rec.fileUrls = [];
+        await upsertRecord(rec);
+        await deleteRecordFiles({ ...rec, fileUrls: staleUrls });
+      } else {
+        // Partial wipe: drop only the groups whose cut changed. An
+        // audio-track flap keeps paid-for video (and vice versa); the kept
+        // positions re-verify as cache hits on this attempt's walk.
+        const doomed = rec.fileUrls.filter((u) => {
+          const info = pieceInfo(u);
+          return info != null && plan.groups.includes(info.group);
+        });
+        if (doomed.length > 0) {
+          let bytesDrop = 0;
+          let segsDrop = 0;
+          for (const u of doomed) {
+            const info = pieceInfo(u);
+            if (!info?.isSegment) continue;
+            segsDrop += 1;
+            const hit = await cache.match(u);
+            if (hit) bytesDrop += await storedSize(hit);
+          }
+          const doomedSet = new Set(doomed);
+          rec.fileUrls = rec.fileUrls.filter((u) => !doomedSet.has(u));
+          for (const u of doomed) fileUrls.delete(u);
+          rec.bytesDone = Math.max(0, rec.bytesDone - bytesDrop);
+          rec.doneSegments = Math.max(0, rec.doneSegments - segsDrop);
+          await upsertRecord(rec);
+          await Promise.all(doomed.map((u) => cache.delete(u).catch(() => false)));
+        }
+      }
     }
     rec.rendition = rendition;
     if (activeMirrorUrl) rec.usedPlaylistUrl = activeMirrorUrl;

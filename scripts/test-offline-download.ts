@@ -7,6 +7,7 @@ import {
   buildOfflineMaster,
   canonicalMediaKey,
   classifyPieceStatus,
+  dlPlaylistUrl,
   gapBudget,
   indexRetryAction,
   isHardDownloadError,
@@ -45,6 +46,11 @@ import {
   pinnedDownloadSource,
   pinnedResolveGivesWay,
 } from "../lib/offline/candidates";
+import {
+  encodeRendition,
+  pieceInfo,
+  planRenditionWipe,
+} from "../lib/offline/rendition";
 
 const base = "https://cdn.example.com/pl/master.m3u8";
 
@@ -609,6 +615,101 @@ assert.notEqual(mirrorIdentity(mirrorA), mirrorIdentity(mirrorB));
 assert.equal(
   mirrorIdentity("https://plain.example/master.m3u8?v=2#frag"),
   "https://plain.example/master.m3u8"
+);
+
+/* Rendition guard: only the groups whose cut changed are dropped. */
+const nextSig = encodeRendition("720:1000", "150", "4");
+assert.equal(nextSig, "720:1000|150|4");
+assert.deepEqual(
+  planRenditionWipe({ stored: nextSig, next: nextSig, sourceChanged: false }),
+  { groups: [], hadStored: true }
+);
+assert.deepEqual(
+  planRenditionWipe({ stored: null, next: nextSig, sourceChanged: false }),
+  { groups: [], hadStored: false }
+);
+/* Legacy signature tracked no subs: video/audio survive, subs drop. */
+assert.deepEqual(
+  planRenditionWipe({
+    stored: "720:1000:150",
+    next: nextSig,
+    sourceChanged: false,
+  }),
+  { groups: ["subs"], hadStored: true }
+);
+/* An audio-track flap keeps paid-for video. */
+assert.deepEqual(
+  planRenditionWipe({
+    stored: encodeRendition("720:1000", "148", "4"),
+    next: nextSig,
+    sourceChanged: false,
+  }),
+  { groups: ["audio"], hadStored: true }
+);
+/* Variant drift keeps a matching audio rendition; height/count drift drops
+ * video; a subs-only change touches nothing else. */
+assert.deepEqual(
+  planRenditionWipe({
+    stored: encodeRendition("480:1000", "150", "4"),
+    next: nextSig,
+    sourceChanged: false,
+  }),
+  { groups: ["video"], hadStored: true }
+);
+assert.deepEqual(
+  planRenditionWipe({
+    stored: encodeRendition("720:999", "150", "4"),
+    next: nextSig,
+    sourceChanged: false,
+  }),
+  { groups: ["video"], hadStored: true }
+);
+assert.deepEqual(
+  planRenditionWipe({
+    stored: encodeRendition("720:1000", "150", "3"),
+    next: nextSig,
+    sourceChanged: false,
+  }),
+  { groups: ["subs"], hadStored: true }
+);
+/* A source change serves another copy: counts can coincide, so every
+ * stored piece is distrusted. */
+assert.deepEqual(
+  planRenditionWipe({
+    stored: nextSig,
+    next: nextSig,
+    sourceChanged: true,
+  }),
+  { groups: ["video", "audio", "subs"], hadStored: true }
+);
+
+/* Piece URLs classify into wipe groups; record-level and legacy pieces are
+ * kept (playlists rewrite every attempt, legacy is content-addressed). */
+assert.deepEqual(pieceInfo(segmentIndexUrl("e:1:1:1", "v", 4)), {
+  group: "video",
+  role: "v",
+  isSegment: true,
+});
+assert.deepEqual(pieceInfo(segmentIndexUrl("e:1:1:1", "vi", 0)), {
+  group: "video",
+  role: "vi",
+  isSegment: false,
+});
+assert.deepEqual(pieceInfo(segmentIndexUrl("e:1:1:1", "ak", 7)), {
+  group: "audio",
+  role: "ak",
+  isSegment: false,
+});
+assert.deepEqual(pieceInfo(segmentIndexUrl("e:1:1:1", "s", 9)), {
+  group: "subs",
+  role: "s",
+  isSegment: true,
+});
+assert.equal(pieceInfo(dlPlaylistUrl("e:1:1:1")), null);
+assert.equal(pieceInfo(segmentIndexUrl("e:1:1:1", "vp", 0)), null);
+assert.equal(
+  pieceInfo(offlinePieceUrl("https://cdn.example.com/a.ts")),
+  null
 );
 
 console.log("offline download checks ok");
