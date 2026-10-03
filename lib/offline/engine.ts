@@ -70,8 +70,10 @@ import {
   type VariantInfo,
 } from "@/lib/offline/hls";
 import {
+  PINNED_CONFIRM_DELAYS_MS,
   downloadCandidates,
   mirrorIdentity,
+  needsGiveWayConfirm,
   pinnedDownloadSource,
   pinnedResolveGivesWay,
 } from "@/lib/offline/candidates";
@@ -574,6 +576,13 @@ async function startDownloadInner(req: DownloadRequest, key: string): Promise<vo
   // files and restart counters instead of leaking unreferenced cache entries.
   const sameQuality = (existing?.quality ?? settings.downloadQuality) === settings.downloadQuality;
   if (existing && existing.fileUrls.length > 0 && !sameQuality) {
+    // Logged like the rendition wipe — a silent restart is undiagnosable.
+    console.warn("[downloads] quality change — wiping progress", {
+      key,
+      from: existing.quality,
+      to: settings.downloadQuality,
+      bytes: existing.bytesDone,
+    });
     await deleteRecordFiles(existing);
   }
   const rec: DownloadRecord = {
@@ -588,7 +597,9 @@ async function startDownloadInner(req: DownloadRequest, key: string): Promise<vo
     quality: settings.downloadQuality,
     usedSource: existing?.usedSource ?? "",
     durationSec: existing?.durationSec ?? 0,
-    estimateBytes: existing?.estimateBytes ?? 0,
+    // A quality switch buys a fresh estimate — the old one described the old
+    // variant and (with estimates now surviving attempts) would never reseed.
+    estimateBytes: sameQuality ? (existing?.estimateBytes ?? 0) : 0,
     sizeBytes: 0,
     // Resume seeds the bar where the last run left off (capped at known
     // totals) instead of visibly restarting at 0%. Verification still runs
@@ -977,6 +988,22 @@ export async function deleteDownload(key: string): Promise<void> {
   await removeRecord(key);
 }
 
+/** Sleep that rejects with the run's abort error if the signal fires. */
+function abortableDelay(ms: number, signal: AbortSignal): Promise<void> {
+  return new Promise<void>((resolve, reject) => {
+    const onAbort = () => {
+      clearTimeout(timer);
+      reject(abortError());
+    };
+    const timer = setTimeout(() => {
+      signal.removeEventListener("abort", onAbort);
+      resolve();
+    }, ms);
+    signal.addEventListener("abort", onAbort, { once: true });
+    if (signal.aborted) onAbort();
+  });
+}
+
 async function runDownload(
   req: DownloadRequest,
   rec: DownloadRecord,
@@ -1019,15 +1046,38 @@ async function runDownload(
   let source: StreamSource = candidates[0]!;
   let pinnedTransient: { source: string; code?: string } | null = null;
   for (const candidate of candidates) {
-    const r = await resolveStreamPlaylist({
-      source: candidate,
-      type: req.type,
-      tmdbId: req.tmdbId,
-      season: req.season,
-      episode: req.episode,
-      signal,
-    });
+    const doResolve = () =>
+      resolveStreamPlaylist({
+        source: candidate,
+        type: req.type,
+        tmdbId: req.tmdbId,
+        season: req.season,
+        episode: req.episode,
+        signal,
+      });
+    let r = await doResolve();
     throwIfAborted();
+    if (
+      !r.playlistUrl &&
+      needsGiveWayConfirm(hasProgress, candidate, pinned, r.code)
+    ) {
+      // Case 3: the pinned source owns stored bytes and just reported a
+      // "permanent" verdict. Re-check it — not_found/no_streams also come
+      // from transient upstream 404s/empty responses, and giving way flips
+      // usedSource, which wipes the whole title as a different cut. A check
+      // that turns transient aborts the give-way entirely (handled below).
+      for (const delayMs of PINNED_CONFIRM_DELAYS_MS) {
+        await abortableDelay(delayMs, signal);
+        r = await doResolve();
+        throwIfAborted();
+        if (r.playlistUrl || !pinnedResolveGivesWay(r.code)) break;
+      }
+      if (r.playlistUrl) {
+        resolved = r;
+        source = candidate;
+        break;
+      }
+    }
     if (r.playlistUrl) {
       resolved = r;
       source = candidate;
@@ -1362,6 +1412,8 @@ async function runDownload(
   // skips the later await); the awaited copy still surfaces user aborts.
   void subsPromise.catch(() => {});
   let doneSeg = 0;
+  /** Positions that FAILED into gaps this attempt — counted in doneSeg but carrying no bytes. */
+  let gapSegs = 0;
   let measuredBytes = 0;
 
   // withEndlist: every stored media playlist terminates, so offline playback
@@ -1388,11 +1440,13 @@ async function runDownload(
     // Every seed (advertised bandwidth, quality guess, byte pre-scan)
     // converges on measured reality: total ≈ measured / fraction-complete,
     // adopted once past warmup and only when it disagrees by >10% (avoids
-    // jitter on uniform segments). A zero estimate is adopted into as well
-    // — previously it could never correct itself.
+    // jitter on uniform segments). Gaps count as progress but carry no
+    // bytes — folding them into the fraction used to drag the estimate
+    // DOWN on dead-segment runs, so the extrapolation excludes them.
     let estimatePatch: number | null = null;
-    if (refineEstimate && doneSeg >= 6 && rec.totalSegments > 0) {
-      const frac = doneSeg / rec.totalSegments;
+    const measuredSegs = doneSeg - gapSegs;
+    if (refineEstimate && measuredSegs >= 6 && rec.totalSegments > 0) {
+      const frac = measuredSegs / rec.totalSegments;
       if (frac >= 0.03 && frac < 1) {
         const refined = Math.round(measuredBytes / frac);
         const est = rec.estimateBytes;
@@ -1543,6 +1597,7 @@ async function runDownload(
       }
       gaps.add(index);
       doneSeg++;
+      gapSegs++;
       await reportProgress();
     };
 
@@ -1759,6 +1814,7 @@ async function runDownload(
   const downloadAttempt = async (m: MirrorParse): Promise<void> => {
     // Local recount only. Persisted progress never takes the lower number.
     doneSeg = 0;
+    gapSegs = 0;
     measuredBytes = 0;
     touched = new Set();
     lastProgressAt = Date.now();
@@ -1772,6 +1828,98 @@ async function runDownload(
       next: rendition,
       sourceChanged: prevSource !== "" && prevSource !== rec.usedSource,
     });
+    // Verify BEFORE destroying. A dying mirror hands back a truncated parse
+    // (900 of 1000 segments); wiping against it and then switching mirrors
+    // used to destroy the title twice over. Re-fetch only the playlists whose
+    // group would be wiped — if the second parse disagrees with the first,
+    // the mirror is untrustworthy: keep every stored byte and move on.
+    if (plan.groups.length > 0) {
+      const reverify = async (url: string): Promise<number | null> => {
+        try {
+          const res = await fetchPieceRetry(url, signal, null, null, 2);
+          const parts = parseMediaPlaylist(await res.text(), url);
+          return parts.segments.length;
+        } catch (err) {
+          // An expired signed URL must propagate so the mirror loop refreshes
+          // and retries instead of misreading a 403 as instability; a dead
+          // network stops the run rather than burning through mirrors.
+          if (
+            signal.aborted ||
+            err instanceof AuthRefresh ||
+            (err instanceof PieceDownloadError && err.reason === "network")
+          ) {
+            throw err;
+          }
+          return null;
+        }
+      };
+      let unstable = false;
+      if (plan.groups.includes("video")) {
+        const n = await reverify(m.mediaUrl);
+        if (n == null || n !== m.parts.segments.length) unstable = true;
+      }
+      if (!unstable && plan.groups.includes("audio") && m.audioUrl && m.audioParts) {
+        const n = await reverify(m.audioUrl);
+        if (n == null || n !== m.audioParts.segments.length) unstable = true;
+      }
+      if (!unstable && plan.groups.includes("subs") && m.subUrl && m.subParts) {
+        const n = await reverify(m.subUrl);
+        if (n == null || n !== m.subParts.segments.length) unstable = true;
+      }
+      if (unstable) {
+        throw new PieceDownloadError(
+          "Playlist changed during verification — kept stored bytes; will retry.",
+          "dead"
+        );
+      }
+    }
+    rec.durationSec = m.parts.durationSec;
+    rec.totalSegments =
+      m.parts.segments.length +
+      (m.audioParts?.segments.length ?? 0) +
+      (m.subParts?.segments.length ?? 0);
+    // Estimate policy: seed ONLY when we have none. Re-seeding every attempt
+    // from the advertised bandwidth (a peak that varies per mirror — 430MB ↔
+    // 580MB on the same episode) made the displayed total flap and re-trip
+    // quota. Measured bytes are the sole ongoing authority (refineEstimate
+    // below, armed every attempt). A wipe just changed the file's shape —
+    // drop the old number so this attempt seeds fresh from the real parse.
+    if (plan.groups.length > 0) rec.estimateBytes = 0;
+    const needSeed = !(rec.estimateBytes > 0);
+    if (needSeed) {
+      // Advertised bandwidth is a peak, not bytes on the wire: a master
+      // claiming 2.89 Mbps × 3480s projected 1258 MB while its segments
+      // sample to ~293 MB — hence the byte pre-scan below and the
+      // measured-bytes refinement that keeps correcting in flight.
+      rec.estimateBytes =
+        estimateBytes(m.bandwidth, m.parts.durationSec) ||
+        (m.parts.durationSec > 0
+          ? Math.round((fallbackBitrateBps(rec.quality) * m.parts.durationSec) / 8)
+          : 0);
+    }
+    refineEstimate = true;
+    if (needSeed) {
+      // Bounded: a hung probe must never stall the start — after 10s the
+      // bandwidth/guess seed stands and reportProgress refines it anyway.
+      const scan = (async () => {
+        const [v, a] = await Promise.all([
+          scanPartBytes(m.parts, signal),
+          m.audioParts ? scanPartBytes(m.audioParts, signal) : Promise.resolve(0),
+        ]);
+        return v + a;
+      })();
+      const scanned = await Promise.race([
+        scan,
+        new Promise<number>((resolve) => setTimeout(() => resolve(0), 10_000)),
+      ]);
+      if (scanned > 0) rec.estimateBytes = scanned;
+    }
+    await upsertRecord(rec);
+
+    // 4. Quota BEFORE the wipe: a refusal ("needs ~X — free space") must not
+    // have already destroyed bytes for an attempt that can't run anyway.
+    await enforceQuota(rec, signal);
+
     if (plan.groups.length > 0) {
       // This destroys stored bytes — say so, loudly. A silent wipe here is
       // what made the "downloads keep restarting" report impossible to
@@ -1827,42 +1975,9 @@ async function runDownload(
     }
     rec.rendition = rendition;
     if (activeMirrorUrl) rec.usedPlaylistUrl = activeMirrorUrl;
-    rec.durationSec = m.parts.durationSec;
-    rec.totalSegments =
-      m.parts.segments.length +
-      (m.audioParts?.segments.length ?? 0) +
-      (m.subParts?.segments.length ?? 0);
-    // Seed from advertised BANDWIDTH × duration, or the quality × duration
-    // guess when the playlist hides bandwidth — then immediately reseed from
-    // a byte pre-scan of the real segments. Advertised bandwidth is a peak,
-    // not bytes on the wire: a master claiming 2.89 Mbps × 3480s projected
-    // 1258 MB while its segments sample to ~293 MB (4.3x) — the wrong
-    // totals users reported. reportProgress keeps refining from measured
-    // bytes for every attempt (refineEstimate below is always armed).
-    rec.estimateBytes =
-      estimateBytes(m.bandwidth, m.parts.durationSec) ||
-      (m.parts.durationSec > 0
-        ? Math.round((fallbackBitrateBps(rec.quality) * m.parts.durationSec) / 8)
-        : 0);
-    refineEstimate = true;
-    // Bounded: a hung probe must never stall the start — after 10s the
-    // bandwidth/guess seed stands and reportProgress refines it anyway.
-    const scan = (async () => {
-      const [v, a] = await Promise.all([
-        scanPartBytes(m.parts, signal),
-        m.audioParts ? scanPartBytes(m.audioParts, signal) : Promise.resolve(0),
-      ]);
-      return v + a;
-    })();
-    const scanned = await Promise.race([
-      scan,
-      new Promise<number>((resolve) => setTimeout(() => resolve(0), 10_000)),
-    ]);
-    if (scanned > 0) rec.estimateBytes = scanned;
-    await upsertRecord(rec);
-
-    // 4. Quota: device headroom + the 950MB-style self cap (LRU-evict to fit).
-    await enforceQuota(rec, signal);
+    // Wipes persisted their counter reset above; this persists the new
+    // signature so the next attempt compares against what's actually stored.
+    if (plan.groups.length > 0) await upsertRecord(rec);
 
     const videoGaps = await storeParts(m.parts, "Video", "v", () => reloadMedia(m.mediaUrl));
     throwIfAborted();

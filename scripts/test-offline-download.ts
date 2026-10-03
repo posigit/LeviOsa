@@ -41,8 +41,10 @@ import {
 import { parseVttTime } from "../lib/player-subs";
 import {
   DOWNLOAD_SOURCES,
+  PINNED_CONFIRM_DELAYS_MS,
   downloadCandidates,
   mirrorIdentity,
+  needsGiveWayConfirm,
   pinnedDownloadSource,
   pinnedResolveGivesWay,
 } from "../lib/offline/candidates";
@@ -598,6 +600,18 @@ assert.equal(pinnedResolveGivesWay("blocked"), false);
 assert.equal(pinnedResolveGivesWay("resolution_failed"), false);
 assert.equal(pinnedResolveGivesWay("sign_failed"), false);
 assert.equal(pinnedResolveGivesWay(undefined), false);
+
+/* Case 3 — confirm before giving way: a run that owns bytes re-checks a
+ * "permanent" verdict on its pinned source (transient 404s map to
+ * not_found/no_streams), while a run with nothing stored cascades at once. */
+assert.equal(needsGiveWayConfirm(true, "vidsrc-sh", "vidsrc-sh", "not_found"), true);
+assert.equal(needsGiveWayConfirm(true, "vidsrc-sh", "vidsrc-sh", "no_streams"), true);
+assert.equal(needsGiveWayConfirm(false, "vidsrc-sh", "vidsrc-sh", "not_found"), false);
+assert.equal(needsGiveWayConfirm(true, "vidsrc-sh", "vidsrc-sh", "blocked"), false);
+assert.equal(needsGiveWayConfirm(true, "vidsrc-pm", "vidsrc-sh", "not_found"), false);
+assert.equal(needsGiveWayConfirm(true, "vidsrc-sh", null, "not_found"), false);
+assert.ok(PINNED_CONFIRM_DELAYS_MS.length > 0);
+assert.ok(PINNED_CONFIRM_DELAYS_MS.every((ms) => ms > 0));
 
 /* Mirror identity survives re-signing: same target, new exp/sig (and a
  * rotated query on the target) still matches; a different mirror doesn't. */

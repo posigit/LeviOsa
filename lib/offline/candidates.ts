@@ -58,6 +58,26 @@ export function pinnedResolveGivesWay(code: string | undefined): boolean {
 }
 
 /**
+ * Case-3 guard: a pinned source that already owns bytes must not give way on
+ * the FIRST "permanent" verdict. `not_found`/`no_streams` are also produced by
+ * transient upstream 404s and empty resolver responses (see the route mappers),
+ * and giving way flips `usedSource` — which the rendition guard correctly
+ * treats as a different cut and wipes entirely. The engine re-resolves the
+ * pinned source with these backoffs before the verdict counts (anything that
+ * turns transient in between aborts the give-way and re-pins instead).
+ */
+export const PINNED_CONFIRM_DELAYS_MS = [1000, 3000];
+
+export function needsGiveWayConfirm(
+  hasProgress: boolean,
+  candidate: StreamSource | null,
+  pinned: StreamSource | null,
+  code: string | undefined
+): boolean {
+  return hasProgress && candidate != null && candidate === pinned && pinnedResolveGivesWay(code);
+}
+
+/**
  * Stable identity of a mirror. Signed proxy URLs re-sign (and the resolver
  * rotates their order) on every resolve, so a resume matches by the wrapped
  * target's origin+path — never by the exact URL. Plain URLs drop query/hash.
