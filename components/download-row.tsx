@@ -172,7 +172,7 @@ export function DownloadRow({
             : r.state === "done" && r.sizeBytes > 0
             ? `${formatBytes(r.sizeBytes)} · ${qualityLabel(r)}`
             : runningHere
-              ? `${Math.round(progress * 100)}%${r.estimateBytes > 0 ? ` · ~${formatBytes(r.estimateBytes)}` : ""}`
+              ? `${Math.round(progress * 100)}%`
               : stale
                 ? `${Math.round(progress * 100)}% · tap to retry`
               : r.state === "paused"

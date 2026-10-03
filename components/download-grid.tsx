@@ -29,9 +29,7 @@ function metaLabel(r: DownloadRecord, progress: number, stale = false): string {
       // Orphaned row (crash / other tab): the state never moves again —
       // say so instead of showing a frozen percent as if it were live.
       if (stale) return `${Math.round(progress * 100)}% · tap to retry`;
-      return r.estimateBytes > 0
-        ? `${Math.round(progress * 100)}% · ~${formatBytes(r.estimateBytes)}`
-        : `${Math.round(progress * 100)}%`;
+      return `${Math.round(progress * 100)}%`;
     case "paused":
       return `Paused · ${Math.round(progress * 100)}%`;
     case "error":

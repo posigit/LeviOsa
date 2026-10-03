@@ -233,11 +233,6 @@ export function DownloadButton({
                   ? "Download failed — tap to retry"
                   : "Download for offline"}
         </span>
-        {rec && rec.state !== "done" && rec.estimateBytes > 0 && (
-          <span className="shrink-0 text-xs font-semibold text-foreground/50">
-            ~{formatBytes(rec.estimateBytes)}
-          </span>
-        )}
         {rec?.state === "done" && rec.sizeBytes > 0 && (
           <span className="shrink-0 text-xs font-semibold text-foreground/50">
             {formatBytes(rec.sizeBytes)}
