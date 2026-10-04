@@ -20,7 +20,7 @@ import {
   upsertRecord,
   type DownloadRecord,
 } from "@/lib/downloads";
-import { cachePosterThumb } from "@/lib/offline/store";
+import { cachePosterThumb, cacheStillThumb } from "@/lib/offline/store";
 import { orderLibraryGroups } from "@/lib/offline/library";
 
 type Filter = "all" | "movies" | "shows";
@@ -96,18 +96,19 @@ export default function LibraryPage() {
   }, []);
 
   /**
-   * Poster backfill for rows saved before thumbnails existed (or from the
-   * player, which never knew a poster). Runs once per visit, only online,
-   * only for titles still missing one — then the tiny image is cached next
-   * to the download so it survives going offline and SW updates.
+   * Artwork backfill for rows saved before thumbnails existed (or from the
+   * player, which never knew artwork). Episodes resolve their still (16:9
+   * tile) on top of the series poster. Runs once per visit, only online,
+   * only for titles still missing art — then the tiny images are cached
+   * next to the download so they survive going offline and SW updates.
    */
   useEffect(() => {
     if (!ready || !online) return;
-    // Active rows are owned by the engine (it looks the poster up itself);
+    // Active rows are owned by the engine (it looks the art up itself);
     // writing a snapshot over one could clobber live progress counts.
     const missing = getAllSync().filter(
       (r) =>
-        !r.posterPath &&
+        (!r.posterPath || (r.type !== "movie" && !r.stillPath)) &&
         r.state !== "active" &&
         r.state !== "queued"
     );
@@ -121,17 +122,37 @@ export default function LibraryPage() {
           if (!rec) break;
           try {
             const type = rec.type === "movie" ? "movie" : "tv";
-            const res = await fetch(
-              `/api/meta/poster?type=${type}&id=${rec.tmdbId}`,
-              { cache: "no-store" }
-            );
+            const q = new URLSearchParams({ type, id: String(rec.tmdbId) });
+            if (type === "tv") {
+              if (rec.season != null) q.set("season", String(rec.season));
+              if (rec.episode != null) q.set("episode", String(rec.episode));
+            }
+            const res = await fetch(`/api/meta/poster?${q.toString()}`, {
+              cache: "no-store",
+            });
             if (!res.ok) continue;
-            const data = (await res.json()) as { posterPath?: string | null };
-            const posterPath =
-              typeof data.posterPath === "string" ? data.posterPath : null;
-            if (!posterPath || cancelled) continue;
-            await upsertRecord({ ...rec, posterPath });
-            await cachePosterThumb(posterPath);
+            const data = (await res.json()) as {
+              posterPath?: string | null;
+              stillPath?: string | null;
+            };
+            const patch: {
+              posterPath?: string | null;
+              stillPath?: string | null;
+            } = {};
+            if (!rec.posterPath && typeof data.posterPath === "string") {
+              patch.posterPath = data.posterPath;
+            }
+            if (
+              type === "tv" &&
+              !rec.stillPath &&
+              typeof data.stillPath === "string"
+            ) {
+              patch.stillPath = data.stillPath;
+            }
+            if (Object.keys(patch).length === 0 || cancelled) continue;
+            await upsertRecord({ ...rec, ...patch });
+            await cachePosterThumb(patch.posterPath);
+            await cacheStillThumb(patch.stillPath);
           } catch {
             /* one flaky title must not stall the rest */
           }

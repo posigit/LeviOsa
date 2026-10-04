@@ -14,7 +14,7 @@ import {
   resumeDownload,
 } from "@/lib/downloader";
 import { formatPlayerClock } from "@/lib/player-progress";
-import { posterThumbUrl } from "@/lib/offline/store";
+import { posterThumbUrl, stillThumbUrl } from "@/lib/offline/store";
 import { cn } from "@/lib/utils";
 
 /** Short second line under a poster tile. */
@@ -53,7 +53,10 @@ function episodeCode(r: DownloadRecord): string | null {
 
 function Poster({ r }: { r: DownloadRecord }) {
   const [broken, setBroken] = useState(false);
-  const src = posterThumbUrl(r.posterPath);
+  // Episodes show their still (16:9 tile); without one the series poster
+  // crops down as the fallback so the row keeps its shape.
+  const still = r.type !== "movie" ? stillThumbUrl(r.stillPath) : null;
+  const src = still ?? posterThumbUrl(r.posterPath);
   const initial = cardTitle(r).trim().charAt(0).toUpperCase() || "?";
   return (
     <div className="absolute inset-0 grid place-items-center bg-gradient-to-br from-[#2c2c2e] to-[#151517]">
@@ -97,6 +100,9 @@ export function DownloadCard({
   const progress = r.totalSegments > 0 ? r.doneSegments / r.totalSegments : 0;
   const resumeAt = useResumeAt(r.state, r.key);
   const code = episodeCode(r);
+  // Episodes are 16:9 still tiles (series poster crops in when the still is
+  // missing); movies stay 2:3 posters — uniform per section, never mixed.
+  const episode = r.type !== "movie";
 
   const tryResume = () => {
     if (!online) {
@@ -180,7 +186,12 @@ export function DownloadCard({
         aria-label={`${cardTitle(r)} — ${metaLabel(r, progress, stale)}`}
         className="block w-full text-left transition active:scale-[0.97]"
       >
-        <div className="relative aspect-[2/3] overflow-hidden rounded-xl ring-1 ring-white/10">
+        <div
+          className={cn(
+            "relative overflow-hidden rounded-xl ring-1 ring-white/10",
+            episode ? "aspect-video" : "aspect-[2/3]"
+          )}
+        >
           <Poster r={r} />
           <div
             aria-hidden
@@ -270,7 +281,8 @@ export function DownloadingRow({ record: r }: { record: DownloadRecord }) {
   const stale = busy && !runningHere;
   const progress = r.totalSegments > 0 ? r.doneSegments / r.totalSegments : 0;
   const [broken, setBroken] = useState(false);
-  const src = posterThumbUrl(r.posterPath);
+  const still = r.type !== "movie" ? stillThumbUrl(r.stillPath) : null;
+  const src = still ?? posterThumbUrl(r.posterPath);
 
   const action = () => {
     if (busy && runningHere) {
@@ -296,13 +308,18 @@ export function DownloadingRow({ record: r }: { record: DownloadRecord }) {
 
   return (
     <div className="flex items-center gap-3 rounded-2xl bg-white/[0.05] p-2.5 ring-1 ring-white/[0.08]">
-      <div className="relative h-16 w-11 shrink-0 overflow-hidden rounded-lg bg-[#2c2c2e] ring-1 ring-white/10">
+      <div
+        className={cn(
+          "relative shrink-0 overflow-hidden rounded-lg bg-[#2c2c2e] ring-1 ring-white/10",
+          still ? "aspect-video w-24" : "h-16 w-11"
+        )}
+      >
         {src && !broken && (
           <Image
             src={src}
             alt=""
             fill
-            sizes="44px"
+            sizes={still ? "96px" : "44px"}
             className="object-cover"
             unoptimized
             onError={() => setBroken(true)}

@@ -17,9 +17,20 @@ const MANIFEST_IDB_KEY = "tvtime-download-manifest-v1";
  */
 export const POSTER_SIZE = "w154";
 
+/**
+ * Episode-still size. w300 (300×169) matches a 3-column 16:9 tile at phone
+ * pixel ratios — tens of kilobytes per episode, cached next to the bytes.
+ */
+export const STILL_SIZE = "w300";
+
 export function posterThumbUrl(path: string | null | undefined): string | null {
   if (!path) return null;
   return `https://image.tmdb.org/t/p/${POSTER_SIZE}${path}`;
+}
+
+export function stillThumbUrl(path: string | null | undefined): string | null {
+  if (!path) return null;
+  return `https://image.tmdb.org/t/p/${STILL_SIZE}${path}`;
 }
 
 /**
@@ -32,6 +43,27 @@ export async function cachePosterThumb(
   path: string | null | undefined
 ): Promise<boolean> {
   const url = posterThumbUrl(path);
+  if (!url || typeof caches === "undefined") return false;
+  try {
+    const cache = await caches.open(DL_CACHE);
+    if (await cache.match(url)) return true;
+    const res = await fetch(url, { mode: "no-cors", credentials: "omit" });
+    await cache.put(url, res);
+    return true;
+  } catch {
+    // Offline or blocked — the row falls back to its placeholder.
+    return false;
+  }
+}
+
+/**
+ * Cache the episode still next to the download's bytes — same contract as
+ * the poster (DL_CACHE survives SW updates, opaque no-cors is fine).
+ */
+export async function cacheStillThumb(
+  path: string | null | undefined
+): Promise<boolean> {
+  const url = stillThumbUrl(path);
   if (!url || typeof caches === "undefined") return false;
   try {
     const cache = await caches.open(DL_CACHE);
@@ -64,6 +96,12 @@ export type DownloadRecord = {
   subtitle?: string;
   /** TMDB poster path — drives the Library thumbnail (see posterThumbUrl). */
   posterPath?: string | null;
+  /**
+   * TMDB episode still path (episodes only) — drives the 16:9 Library tile
+   * (see stillThumbUrl). Absent on movies and on rows saved before stills
+   * existed (the Library backfills it while online).
+   */
+  stillPath?: string | null;
   quality: 480 | 720 | 1080 | "best";
   usedSource: string;
   durationSec: number;
@@ -387,10 +425,13 @@ export async function deleteRecordFiles(rec: DownloadRecord): Promise<void> {
   try {
     const c = await caches.open(DL_CACHE);
     await Promise.all(rec.fileUrls.map((u) => c.delete(u).catch(() => false)));
-    // Poster thumb is not in fileUrls (it isn't media) — drop it explicitly
-    // so deleting the last download doesn't leak a few kilobytes forever.
+    // Poster/still thumbs are not in fileUrls (they aren't media) — drop
+    // them explicitly so deleting the last download doesn't leak a few
+    // kilobytes forever.
     const poster = posterThumbUrl(rec.posterPath);
     if (poster) await c.delete(poster).catch(() => false);
+    const still = stillThumbUrl(rec.stillPath);
+    if (still) await c.delete(still).catch(() => false);
   } catch {
     /* cache unavailable — nothing to do */
   }

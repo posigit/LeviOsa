@@ -36,6 +36,8 @@ import {
   missingCount,
   serverPositionKey,
   setPlaybackInUse,
+  stillThumbUrl,
+  cacheStillThumb,
   type DownloadRecord,
 } from "../lib/offline/store";
 import { parseVttTime } from "../lib/player-subs";
@@ -767,4 +769,17 @@ assert.equal(
   null
 );
 
-console.log("offline download checks ok");
+// Episode-still thumbs: w300 16:9 cut, null-safe, and the cacher degrades
+// gracefully where Cache Storage doesn't exist (node).
+assert.equal(
+  stillThumbUrl("/abc123.jpg"),
+  "https://image.tmdb.org/t/p/w300/abc123.jpg"
+);
+assert.equal(stillThumbUrl(null), null);
+assert.equal(stillThumbUrl(undefined), null);
+assert.equal(stillThumbUrl(""), null);
+void (async () => {
+  assert.equal(await cacheStillThumb("/abc123.jpg"), false);
+  assert.equal(await cacheStillThumb(null), false);
+  console.log("offline download checks ok");
+})();

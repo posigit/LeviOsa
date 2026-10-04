@@ -23,6 +23,7 @@ import { loadVixSettings, matchLang } from "@/lib/vix-settings";
 import {
   DL_CACHE,
   cachePosterThumb,
+  cacheStillThumb,
   checkpointRecord,
   commitRecord,
   deleteRecordFiles,
@@ -639,6 +640,7 @@ async function startDownloadInner(
     title: req.title,
     subtitle: req.subtitle,
     posterPath: req.poster ?? existing?.posterPath ?? null,
+    stillPath: existing?.stillPath ?? null,
     quality: settings.downloadQuality,
     usedSource: existing?.usedSource ?? "",
     durationSec: existing?.durationSec ?? 0,
@@ -680,14 +682,20 @@ async function startDownloadInner(
     rendition: sameQuality ? existing?.rendition : undefined,
     usedPlaylistUrl: sameQuality ? existing?.usedPlaylistUrl : undefined,
   };
-  // Player downloads carry no poster, and rows from before thumbnails
+  // Player downloads carry no artwork, and rows from before thumbnails
   // existed have none either. Resolve it here — we are provably online —
-  // then cachePosterThumb (below) stores the tiny image offline.
-  if (!rec.posterPath) {
-    rec.posterPath = await lookupPosterPath(
+  // then cache the tiny images below so the Library opens with art even
+  // after the connection is gone. Episodes resolve their still (16:9 tile);
+  // the series poster stays as the fallback wherever the still is missing.
+  if (!rec.posterPath || (req.type !== "movie" && !rec.stillPath)) {
+    const art = await lookupArtwork(
       req.type === "movie" ? "movie" : "tv",
-      req.tmdbId
+      req.tmdbId,
+      req.season,
+      req.episode
     );
+    if (!rec.posterPath) rec.posterPath = art.posterPath;
+    if (!rec.stillPath) rec.stillPath = art.stillPath;
   }
   // A delete landed while we resolved the poster (no controller yet, so it
   // couldn't abort us): honour it now, before anything is upserted under it.
@@ -708,9 +716,10 @@ async function startDownloadInner(
     return;
   }
   await upsertRecord(rec);
-  // Kick the thumbnail fetch immediately — we are online right now and the
-  // Library must open with posters even after the connection is gone.
+  // Kick the thumbnail fetches immediately — we are online right now and
+  // the Library must open with art even after the connection is gone.
   void cachePosterThumb(rec.posterPath);
+  void cacheStillThumb(rec.stillPath);
 
   const controller = new AbortController();
   activeControllers.set(key, controller);
@@ -846,20 +855,31 @@ export async function repairDownload(key: string): Promise<void> {
   return startDownload(reqFromRecord(rec));
 }
 
-/** Poster path from our own API — never a browser-side TMDB key. */
-async function lookupPosterPath(
+/** Poster (+ episode still) paths from our own API — never a browser TMDB key. */
+async function lookupArtwork(
   type: "movie" | "tv",
-  tmdbId: number
-): Promise<string | null> {
+  tmdbId: number,
+  season?: number,
+  episode?: number
+): Promise<{ posterPath: string | null; stillPath: string | null }> {
   try {
-    const res = await fetch(`/api/meta/poster?type=${type}&id=${tmdbId}`, {
+    const q = new URLSearchParams({ type, id: String(tmdbId) });
+    if (season != null) q.set("season", String(season));
+    if (episode != null) q.set("episode", String(episode));
+    const res = await fetch(`/api/meta/poster?${q.toString()}`, {
       cache: "no-store",
     });
-    if (!res.ok) return null;
-    const data = (await res.json()) as { posterPath?: string | null };
-    return data.posterPath ?? null;
+    if (!res.ok) return { posterPath: null, stillPath: null };
+    const data = (await res.json()) as {
+      posterPath?: string | null;
+      stillPath?: string | null;
+    };
+    return {
+      posterPath: data.posterPath ?? null,
+      stillPath: data.stillPath ?? null,
+    };
   } catch {
-    return null;
+    return { posterPath: null, stillPath: null };
   }
 }
 
