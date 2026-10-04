@@ -430,6 +430,10 @@ export function VixPlayer({
   /** CineSrc dead-stream watchdog: pending timer + "media event seen" flag. */
   const cineSrcWatchRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const cineSrcAliveRef = useRef(false);
+  /** Sub-servers that never started this mount — the rotation skips them. */
+  const cineSrcDeadRef = useRef<Set<string>>(new Set());
+  /** Latest `sourceused` id — read by the rotation without re-arming effects. */
+  const liveCineSrcServerRef = useRef<string | null>(null);
   const setHlsQualityRef = useRef<((next: "auto" | number) => void) | null>(
     null
   );
@@ -658,6 +662,11 @@ export function VixPlayer({
     triedSourcesRef.current.clear();
     autoFailoversRef.current = 0;
     manualPickRef.current = false;
+    // Fresh title/episode: CineSrc's dead-server set and live server are
+    // per-title facts — the rotation must start over for the new one.
+    cineSrcDeadRef.current.clear();
+    liveCineSrcServerRef.current = null;
+    setLiveCineSrcServer(null);
     // Stale rendition belongs to the old episode (pill shows Auto · 720p).
     setEffectiveQuality(null);
     // Episode advance (same mount — the shell, and therefore fullscreen,
@@ -3001,27 +3010,46 @@ export function VixPlayer({
 
   /**
    * The frame loaded its player but its server never started playing — no
-   * error event of its own, just a frozen 0:00. A picked sub-server is the
-   * likeliest culprit, so drop it first (Auto lets CineSrc's own rotation
-   * land on a healthy one) and reload at the same spot; a dead Auto start
-   * lands on the error card with the failure in its trail.
+   * error event of its own, just a frozen 0:00. Rotate FORWARD: pin the next
+   * server the picker offers that hasn't already failed, keeping the current
+   * spot. Dropping to Auto is not an option — it reloads the embed from the
+   * beginning instead of moving on. Every server dead → error card.
    */
   const failCineSrcStream = useCallback(
     (reason: string) => {
       disarmCineSrcWatch();
       cineSrcAliveRef.current = true;
       const label = sourceLabel("cinesrc");
-      if (cineSrcServer !== "auto") {
-        recordFailure(`${label} · ${cineSrcServer}`, reason);
+      const deadId = (
+        cineSrcServer !== "auto" ? cineSrcServer : liveCineSrcServerRef.current ?? ""
+      ).trim();
+      if (deadId) cineSrcDeadRef.current.add(deadId.toLowerCase());
+      recordFailure(deadId ? `${label} · ${deadId}` : label, reason);
+      const options = buildCineSrcServerOptions(knownServersRef.current)
+        .map((o) => o.id)
+        .filter((id) => id !== "auto");
+      const startIdx = deadId
+        ? options.findIndex((id) => id.toLowerCase() === deadId.toLowerCase())
+        : -1;
+      let next: string | null = null;
+      for (let i = 0; i < options.length; i++) {
+        const cand =
+          options[(((startIdx + 1 + i) % options.length) + options.length) % options.length];
+        if (cand && !cineSrcDeadRef.current.has(cand.toLowerCase())) {
+          next = cand;
+          break;
+        }
+      }
+      if (next) {
         setLiveCineSrcServer(null);
-        setCineSrcServer("auto");
-        saveVixSettings({ cineSrcServer: "auto" });
+        liveCineSrcServerRef.current = null;
+        setCineSrcServer(next);
+        saveVixSettings({ cineSrcServer: next });
         setCineSrcT(Math.floor(remotePositionRef.current));
         return;
       }
-      recordFailure(label, reason);
       setStreamError({
-        detail: `${label} never started this stream. Retry, or switch to another source.`,
+        detail: `${label} never started on any server. Retry, or switch to another source.`,
       });
       setIframeError(true);
     },
@@ -3090,6 +3118,7 @@ export function VixPlayer({
             if (typeof sid === "string" && sid.trim()) {
               const id = sid.trim();
               setLiveCineSrcServer(id);
+              liveCineSrcServerRef.current = id;
               if (!knownServersRef.current.includes(id)) {
                 const next = [...knownServersRef.current, id].slice(0, CINESRC_MAX_KNOWN_SERVERS);
                 knownServersRef.current = next;
@@ -3696,6 +3725,8 @@ export function VixPlayer({
   /** Sub-server switch: same position-preserving reload as quality switches. */
   const handleCineSrcServer = useCallback(
     (next: string) => {
+      // A hand pick gets a fresh chance — the rotation forgets past failures.
+      cineSrcDeadRef.current.clear();
       setCineSrcServer(next);
       saveVixSettings({ cineSrcServer: next });
       setCineSrcT(Math.floor(remotePositionRef.current));
