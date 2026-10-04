@@ -52,6 +52,8 @@ import {
   type VixSettings,
 } from "@/lib/vix-settings";
 import {
+  CINESRC_WATCH_GRACE_MS,
+  CINESRC_WATCH_HEADSTART_MS,
   NEXT_FAB_RATIO,
   RESUME_MIN_SECONDS,
 } from "@/lib/player-constants";
@@ -425,6 +427,9 @@ export function VixPlayer({
   }, [cineSrcKnownServers]);
   /** Server id the embed reports it is actually using (sourceused event). */
   const [liveCineSrcServer, setLiveCineSrcServer] = useState<string | null>(null);
+  /** CineSrc dead-stream watchdog: pending timer + "media event seen" flag. */
+  const cineSrcWatchRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const cineSrcAliveRef = useRef(false);
   const setHlsQualityRef = useRef<((next: "auto" | number) => void) | null>(
     null
   );
@@ -2983,6 +2988,46 @@ export function VixPlayer({
     bumpChrome();
   }, [enterFullscreen, exitFullscreen, bumpChrome]);
 
+  // ---------- CineSrc dead-stream watchdog ----------
+  // Both sides of the postMessage bridge below touch these: the arm effect
+  // (further down, next to the frame's src) sets the timer, the bridge clears
+  // it the moment any real media event arrives.
+  const disarmCineSrcWatch = useCallback(() => {
+    if (cineSrcWatchRef.current) {
+      clearTimeout(cineSrcWatchRef.current);
+      cineSrcWatchRef.current = null;
+    }
+  }, []);
+
+  /**
+   * The frame loaded its player but its server never started playing — no
+   * error event of its own, just a frozen 0:00. A picked sub-server is the
+   * likeliest culprit, so drop it first (Auto lets CineSrc's own rotation
+   * land on a healthy one) and reload at the same spot; a dead Auto start
+   * lands on the error card with the failure in its trail.
+   */
+  const failCineSrcStream = useCallback(
+    (reason: string) => {
+      disarmCineSrcWatch();
+      cineSrcAliveRef.current = true;
+      const label = sourceLabel("cinesrc");
+      if (cineSrcServer !== "auto") {
+        recordFailure(`${label} · ${cineSrcServer}`, reason);
+        setLiveCineSrcServer(null);
+        setCineSrcServer("auto");
+        saveVixSettings({ cineSrcServer: "auto" });
+        setCineSrcT(Math.floor(remotePositionRef.current));
+        return;
+      }
+      recordFailure(label, reason);
+      setStreamError({
+        detail: `${label} never started this stream. Retry, or switch to another source.`,
+      });
+      setIframeError(true);
+    },
+    [cineSrcServer, disarmCineSrcWatch, recordFailure]
+  );
+
   // ---------- iframe fallback: postMessage bridge ----------
   useEffect(() => {
     const handler = (e: MessageEvent) => {
@@ -3030,6 +3075,12 @@ export function VixPlayer({
           };
           if (ev === "ready" || ev === "loadedmetadata") {
             setMediaReady(true);
+            // `loadedmetadata` means the frame's media element has a real
+            // stream; `ready` alone does not (a dead manifest still gets it).
+            if (ev === "loadedmetadata") {
+              cineSrcAliveRef.current = true;
+              disarmCineSrcWatch();
+            }
           }
           // CineSrc reports the server it actually uses (e.g. Nebula).
           // Learn it: the id doubles as the valid `lastserver` value, so
@@ -3071,6 +3122,13 @@ export function VixPlayer({
               ev as "play"
             )
           ) {
+            // A lone `play` proves nothing — a dead HLS manifest posts it
+            // (our own watchdog nudge can post it too) and then never ticks.
+            // Progress or a real media state is what retires the watchdog.
+            if (ev !== "play") {
+              cineSrcAliveRef.current = true;
+              disarmCineSrcWatch();
+            }
             if (ev === "play") iframePausedRef.current = false;
             if (ev === "pause" || ev === "ended") iframePausedRef.current = true;
             if (ev === "play" || ev === "timeupdate") setMediaReady(true);
@@ -3408,7 +3466,7 @@ export function VixPlayer({
     };
     window.addEventListener("message", handler);
     return () => window.removeEventListener("message", handler);
-  }, [activeSource, bumpChrome, clearPosition, emit, savePosition]);
+  }, [activeSource, bumpChrome, clearPosition, disarmCineSrcWatch, emit, savePosition]);
 
   useEffect(() => {
     const onKeyDown = (e: KeyboardEvent) => {
@@ -3645,6 +3703,36 @@ export function VixPlayer({
     },
     [bumpChrome]
   );
+  // ---------- CineSrc start watchdog ----------
+  // Arm on every frame load (src / retry / server / quality changes all
+  // re-key the frame). Silence through the head start means one `play` nudge
+  // — an autoplay-blocked start looks identical to a dead stream from out
+  // here — and silence after that condemns the server (failCineSrcStream).
+  // `cinesrc:ready` is deliberately not "alive": a dead upstream manifest
+  // still reaches it (the exact failure this watches for).
+  useEffect(() => {
+    if (!cinesrcFrame) return;
+    cineSrcAliveRef.current = false;
+    // The resume prompt owns the embed's pause while it is up — never fight
+    // it, and never judge a frame the viewer hasn't started yet.
+    if (showResume) return;
+    cineSrcWatchRef.current = setTimeout(() => {
+      if (cineSrcAliveRef.current) return;
+      sendCineSrcCommand(iframeRef.current, "play");
+      cineSrcWatchRef.current = setTimeout(() => {
+        cineSrcWatchRef.current = null;
+        if (!cineSrcAliveRef.current) failCineSrcStream("stream did not start");
+      }, CINESRC_WATCH_GRACE_MS);
+    }, CINESRC_WATCH_HEADSTART_MS);
+    return () => disarmCineSrcWatch();
+  }, [
+    cinesrcFrame,
+    iframeSrc,
+    retryNonce,
+    showResume,
+    failCineSrcStream,
+    disarmCineSrcWatch,
+  ]);
   // Intro/recap skip (IntroDB times, TV only). Native + driven embeds only —
   // interactive iframes have no seek API, so the button would be dead there.
   // Rendered inside the shell (fullscreen-safe) and ABOVE the lock overlay
