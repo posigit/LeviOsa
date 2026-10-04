@@ -82,13 +82,23 @@ assert.match(pauseCard, /rgb\(var\(--theme, 245 197 24\) \/ 0\.95\)/, "accent mu
 assert.match(pauseCard, /z-\[4\]/, "pause card stays under the error card (z-6)");
 assert.match(pauseCard, /pointer-events-none/, "pause card must never eat taps");
 assert.match(pauseCard, /pause-title/, "title uses the handwritten display face");
-assert.match(pauseCard, /pause-body/, "copy uses the rounded body face");
+assert.match(pauseCard, /pause-body/, "copy uses the card's body face");
 assert.match(
   pauseCard,
-  /linear-gradient\(100deg, rgba\(0,0,0,0\.88\)/,
-  "card sits on a left-to-right scrim for legibility"
+  /bg-black\/70 backdrop-blur-\[2px\]/,
+  "card sits on VidStuck's full-frame dim + hair of blur"
 );
-assert.match(pauseCard, /uppercase/, "display title is set in caps");
+assert.match(
+  pauseCard,
+  />Fight Club</,
+  "title keeps its casing — Permanent Marker is small-caps by design"
+);
+assert.match(
+  pauseCard,
+  /text-shadow/,
+  "title carries a shadow so it reads on bright frames"
+);
+assert.match(pauseCard, /select-none/, "long-press must not half-select the card");
 assert.doesNotMatch(
   pauseCard,
   /rounded-2xl/,

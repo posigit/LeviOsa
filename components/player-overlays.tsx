@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import { ChevronLeft, ChevronRight, LoaderCircle, Lock, Pause } from "lucide-react";
+import { ChevronLeft, ChevronRight, LoaderCircle, Lock } from "lucide-react";
 
 type UnlockButtonProps = {
   onUnlock: () => void;
@@ -234,13 +234,13 @@ export function splitPauseTitle(
  * the chrome has auto-hided, so it never fights the controls for the same
  * pixels — tap anywhere to bring the controls straight back.
  *
- * Left-anchored cinematic stack (VidStuck-style): a soft left-to-right scrim
- * keeps the copy readable over bright frames while the right of the frame
- * stays visible, then eyebrow → handwritten title → episode → tagline → meta →
- * chips → description → tip. Vertically centred on the left edge because the
- * corners are taken (chrome top, transport/subtitles/Up Next bottom).
- * `pointer-events-none`, so taps keep falling through to the video
- * (tap-to-show-chrome) and to the Up Next buttons.
+ * Mirrors VidStuck's card: a full-frame dim (bg-black/70 + 2px blur) behind a
+ * left-anchored, vertically centred stack — eyebrow → handwritten title →
+ * episode → tagline → meta → chips → short rule → description → tip. Faces
+ * match theirs exactly: Permanent Marker 400 on the title (.pause-title),
+ * Lexend 400 on everything else (.pause-body on the wrapper). `select-none`
+ * so a long-press can't half-select the copy, `pointer-events-none` so taps
+ * keep falling through to the video (tap-to-show-chrome) and Up Next.
  */
 export function PausedInfoLayer({
   title,
@@ -276,47 +276,43 @@ export function PausedInfoLayer({
 
   return (
     <div
-      className={`pointer-events-none absolute inset-0 z-[4] ${
+      className={`pointer-events-none absolute inset-0 z-[4] flex select-none items-center ${
         shown ? "opacity-100" : "opacity-0"
       } transition-opacity duration-500 motion-reduce:transition-none`}
     >
+      {/* Uniform dim + a hair of blur — the same backdrop VidStuck uses, so
+          the copy reads over any frame without guessing where the action is. */}
       <div
         aria-hidden="true"
-        className="absolute inset-0"
-        style={{
-          background:
-            "linear-gradient(100deg, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.72) 34%, rgba(0,0,0,0.32) 56%, rgba(0,0,0,0) 78%)",
-        }}
+        className="absolute inset-0 bg-black/70 backdrop-blur-[2px]"
       />
 
-      <div className="relative flex h-full max-w-[min(34rem,90vw)] flex-col justify-center px-5 pt-[env(safe-area-inset-top)] pb-[env(safe-area-inset-bottom)] sm:px-9">
+      <div className="pause-body relative w-full max-w-3xl px-6 pb-[env(safe-area-inset-bottom)] pt-[env(safe-area-inset-top)] md:px-16">
         <p
           role="status"
-          style={{ color: accent }}
-          className="flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.45em]"
+          className="mb-3 flex items-center gap-3 text-sm font-medium uppercase tracking-widest text-white/60 md:mb-5"
         >
-          <Pause className="h-3 w-3 fill-current" aria-hidden="true" />
           Paused
         </p>
 
-        <h2 className="pause-title mt-2 line-clamp-3 uppercase leading-[0.95] tracking-[0.02em] text-3xl text-white sm:text-5xl lg:text-6xl">
+        <h2 className="pause-title text-4xl leading-tight text-white [text-shadow:0_2px_20px_rgba(0,0,0,0.75)] md:text-6xl">
           {title}
         </h2>
 
         {subtitle && (
-          <p className="pause-body mt-2 text-[11px] font-semibold uppercase tracking-[0.24em] text-white/60 sm:text-sm">
+          <p className="mt-1.5 text-xs font-medium uppercase tracking-[0.18em] text-white/45 md:text-sm">
             {subtitle}
           </p>
         )}
 
         {tagline && (
-          <p className="pause-body mt-2.5 text-sm italic text-white/75 sm:text-base">
+          <p className="mt-2 text-sm italic text-white/60 md:text-base">
             {tagline}
           </p>
         )}
 
         {meta.length > 0 && (
-          <p className="pause-body mt-3 flex flex-wrap items-center gap-x-1.5 gap-y-1 text-xs font-semibold tabular-nums text-white/65 sm:text-sm">
+          <p className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm tabular-nums text-white/70 md:mt-4">
             {meta.map((entry, i) => (
               <span key={entry} className="flex items-center gap-1.5">
                 {i > 0 && (
@@ -331,11 +327,11 @@ export function PausedInfoLayer({
         )}
 
         {genres.length > 0 && (
-          <div className="pause-body mt-3 flex flex-wrap gap-1.5">
+          <div className="mt-4 flex flex-wrap gap-2">
             {genres.map((genre) => (
               <span
                 key={genre}
-                className="rounded-full bg-white/[0.08] px-2.5 py-1 text-[11px] font-semibold text-white/70 ring-1 ring-white/10"
+                className="rounded-full border border-white/15 bg-white/5 px-3 py-1 text-xs text-white/70"
               >
                 {genre}
               </span>
@@ -345,14 +341,8 @@ export function PausedInfoLayer({
 
         {overview && (
           <>
-            <div
-              aria-hidden="true"
-              className="my-3.5 h-px w-full max-w-[16rem]"
-              style={{
-                background: `linear-gradient(90deg, ${accent}, transparent)`,
-              }}
-            />
-            <p className="pause-body line-clamp-3 max-w-[46ch] text-[13px] leading-[1.75] text-white/70 sm:text-sm">
+            <div aria-hidden="true" className="mt-6 h-px w-16 bg-white/40" />
+            <p className="mt-3 line-clamp-3 max-w-2xl text-sm leading-6 text-white/65 md:mt-5 md:text-base">
               {overview}
             </p>
           </>
@@ -360,7 +350,7 @@ export function PausedInfoLayer({
 
         <TipLine
           accent={accent}
-          className="pause-body mt-4 max-w-[46ch] border-t border-white/10 pt-3 text-[11px] leading-relaxed"
+          className="mt-4 max-w-2xl border-t border-white/10 pt-3 text-[11px] leading-relaxed md:text-xs"
         />
       </div>
     </div>

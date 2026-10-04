@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Geist, Lexend_Deca, Permanent_Marker } from "next/font/google";
+import { Geist, Lexend, Permanent_Marker } from "next/font/google";
 import "./globals.css";
 import { Providers } from "@/components/providers";
 import { OfflinePlayerHost } from "@/components/offline-player-host";
@@ -12,16 +12,16 @@ const geistSans = Geist({
   subsets: ["latin"],
 });
 
-// Pause-card pair (VidStuck-style): handwritten display title + a rounded,
-// friendly body face for the meta/tagline/description copy. Scoped to the
-// player via .pause-title / .pause-body so nothing else in the app moves.
+// Pause-card pair (VidStuck's exact fonts): Permanent Marker for the title,
+// Lexend for every other line in the card (their overlay wrapper sets it).
+// Scoped to the player via .pause-title / .pause-body so nothing else moves.
 const pauseTitleFont = Permanent_Marker({
   weight: "400",
   variable: "--font-marker",
   subsets: ["latin"],
 });
 
-const pauseBodyFont = Lexend_Deca({
+const pauseBodyFont = Lexend({
   variable: "--font-pause",
   subsets: ["latin"],
 });
