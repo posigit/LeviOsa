@@ -376,6 +376,7 @@ export default async function ShowDetailPage({
         rtScore: show.rtScore ?? null,
         firstAirDate: show.firstAirDate,
         genres: genresFromTmdbData(show.tmdbData),
+        tagline: tmdbField<string>(show.tmdbData, "tagline"),
         rated,
         regionOfOrigin,
         originalAudio,

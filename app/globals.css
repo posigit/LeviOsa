@@ -425,6 +425,23 @@ html[data-theme="light"] .top-ten-rank-gold {
       animation: none;
     }
   }
+
+  /**
+   * Pause-card faces (VidStuck-style): a handwritten display title over a
+   * rounded, friendly body copy face. next/font publishes the families as
+   * --font-marker / --font-pause (each already carries its own fallback), so
+   * these stay valid offline and on first paint. Scoped to the player —
+   * no other surface uses these classes, so the rest of the app is untouched.
+   */
+  .pause-title {
+    font-family: var(--font-marker), var(--font-sans);
+    font-weight: 400;
+    font-style: normal;
+  }
+
+  .pause-body {
+    font-family: var(--font-pause), var(--font-sans);
+  }
 }
 
 /* Plain-CSS keyframes (outside @layer so minify/purge can never drop them). */

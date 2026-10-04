@@ -106,6 +106,7 @@ export async function getTvDetails(tmdbId: number) {
     production_countries?: TmdbCountry[];
     type?: string;
     tagline?: string;
+    genres?: TmdbGenre[];
   }>(`/tv/${tmdbId}`);
 }
 

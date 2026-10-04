@@ -38,6 +38,7 @@ import {
   PausedInfoLayer,
   TapCue,
   UnlockButton,
+  splitPauseTitle,
   type PausedInfo,
 } from "@/components/player-overlays";
 import { ResumeOverlay } from "@/components/resume-overlay";
@@ -3799,6 +3800,43 @@ export function VixPlayer({
     resumePosition != null &&
     resumeKey === playbackKey;
 
+  // Catalogue facts for the pause card. Detail pages hand them over already
+  // (pausedDetails); home/continue-watching/history/offline don't, and those
+  // players used to pause into a bare title. One TMDB read through our own
+  // route, once per mount, only when the host skipped the description — an
+  // offline/blocked fetch just leaves the title-only card in place.
+  const [metaFallback, setMetaFallback] = useState<PausedInfo | null>(null);
+  const needsMetaFallback = !pausedDetails?.overview && Boolean(tmdbId);
+  useEffect(() => {
+    if (!needsMetaFallback || !tmdbId) return;
+    let cancelled = false;
+    const query = new URLSearchParams({
+      type: type ?? "movie",
+      tmdbId: String(tmdbId),
+    });
+    if (type === "tv" && season != null && episode != null) {
+      query.set("season", String(season));
+      query.set("episode", String(episode));
+    }
+    void (async () => {
+      try {
+        const response = await fetch(`/api/meta/details?${query.toString()}`);
+        if (!response.ok) return;
+        const data = (await response.json()) as PausedInfo;
+        if (!cancelled) setMetaFallback(data);
+      } catch {
+        // Offline or route unavailable — the title-only card still renders.
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, [needsMetaFallback, tmdbId, type, season, episode]);
+  const pauseInfo: PausedInfo | null = pausedDetails?.overview
+    ? pausedDetails
+    : metaFallback ?? pausedDetails ?? null;
+  const pauseSplit = splitPauseTitle(title, type);
+
   // Pause card. Only once the chrome has stepped aside (it steps aside ~3.2s
   // after a pause), never over the resume prompt / error card / loading state,
   // and never in the tail window where Up Next, the Next FAB and the
@@ -4125,7 +4163,11 @@ export function VixPlayer({
       )}
 
       {showPausedInfo && (
-        <PausedInfoLayer title={title} info={pausedDetails} />
+        <PausedInfoLayer
+          title={pauseSplit.title}
+          subtitle={pauseSplit.subtitle}
+          info={pauseInfo}
+        />
       )}
 
       {showTransport && (

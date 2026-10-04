@@ -200,6 +200,8 @@ export type PausedInfo = {
   /** TMDB vote average, 0–10. */
   rating?: number | null;
   genres?: string[];
+  /** One-line hook printed italic under the title. */
+  tagline?: string | null;
 };
 
 function runtimeLabel(minutes?: number | null): string | null {
@@ -213,20 +215,41 @@ function runtimeLabel(minutes?: number | null): string | null {
 }
 
 /**
+ * Hosts pack a TV title as "Show — S3E23 Episode"; the pause card wants them
+ * stacked (big show name, episode line beneath). Movies never split — a movie
+ * title may legitimately contain an em dash.
+ */
+export function splitPauseTitle(
+  title: string,
+  type?: "movie" | "tv"
+): { title: string; subtitle: string | null } {
+  if (type !== "tv") return { title, subtitle: null };
+  const dash = title.indexOf(" \u2014 ");
+  if (dash <= 0) return { title, subtitle: null };
+  return { title: title.slice(0, dash), subtitle: title.slice(dash + 3) };
+}
+
+/**
  * Pause card. Renders under the chrome (z-4, transport is z-30) and only once
  * the chrome has auto-hided, so it never fights the controls for the same
  * pixels — tap anywhere to bring the controls straight back.
  *
- * Top-left on purpose: the bottom corners are spoken for (transport,
- * subtitles, Up Next / Next FAB / end-of-line card), so a bottom card would
- * collide with all three. `pointer-events-none`, so taps keep falling through
- * to the video (tap-to-show-chrome) and to the Up Next buttons.
+ * Left-anchored cinematic stack (VidStuck-style): a soft left-to-right scrim
+ * keeps the copy readable over bright frames while the right of the frame
+ * stays visible, then eyebrow → handwritten title → episode → tagline → meta →
+ * chips → description → tip. Vertically centred on the left edge because the
+ * corners are taken (chrome top, transport/subtitles/Up Next bottom).
+ * `pointer-events-none`, so taps keep falling through to the video
+ * (tap-to-show-chrome) and to the Up Next buttons.
  */
 export function PausedInfoLayer({
   title,
+  subtitle,
   info,
 }: {
   title: string;
+  /** Episode line under the title, e.g. "S3 E23 Deus Ex Machina". */
+  subtitle?: string | null;
   info?: PausedInfo | null;
 }) {
   // Let the chrome leave first, then fade in (VidStuck-style, ~1 beat).
@@ -245,6 +268,7 @@ export function PausedInfoLayer({
   ].filter((entry): entry is string => Boolean(entry));
   const genres = (info?.genres ?? []).filter(Boolean).slice(0, 4);
   const overview = info?.overview?.trim() || null;
+  const tagline = info?.tagline?.trim() || null;
   // Per-title accent: detail pages publish their colour as --theme (an RGB
   // triplet). Hosts without one (home, continue-watching, history) fall back to
   // the app's default gold, so the card can never land on an invisible colour.
@@ -252,29 +276,47 @@ export function PausedInfoLayer({
 
   return (
     <div
-      className={`pointer-events-none absolute inset-x-0 top-0 z-[4] flex justify-start pt-[env(safe-area-inset-top)] ${
+      className={`pointer-events-none absolute inset-0 z-[4] ${
         shown ? "opacity-100" : "opacity-0"
       } transition-opacity duration-500 motion-reduce:transition-none`}
     >
       <div
-        className="mx-4 mt-14 max-w-[min(32rem,calc(100vw-2rem))] rounded-2xl border border-white/10 bg-black/55 px-5 py-4 shadow-[0_18px_60px_-24px_rgba(0,0,0,0.9)] backdrop-blur-xl sm:mx-8 sm:px-6 sm:py-5"
-        style={{ borderLeft: `3px solid ${accent}` }}
-      >
+        aria-hidden="true"
+        className="absolute inset-0"
+        style={{
+          background:
+            "linear-gradient(100deg, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.72) 34%, rgba(0,0,0,0.32) 56%, rgba(0,0,0,0) 78%)",
+        }}
+      />
+
+      <div className="relative flex h-full max-w-[min(34rem,90vw)] flex-col justify-center px-5 pt-[env(safe-area-inset-top)] pb-[env(safe-area-inset-bottom)] sm:px-9">
         <p
           role="status"
           style={{ color: accent }}
-          className="flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.4em]"
+          className="flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.45em]"
         >
           <Pause className="h-3 w-3 fill-current" aria-hidden="true" />
           Paused
         </p>
 
-        <h2 className="mt-2 line-clamp-2 text-xl font-black leading-tight tracking-tight text-white sm:text-3xl">
+        <h2 className="pause-title mt-2 line-clamp-3 uppercase leading-[0.95] tracking-[0.02em] text-3xl text-white sm:text-5xl lg:text-6xl">
           {title}
         </h2>
 
+        {subtitle && (
+          <p className="pause-body mt-2 text-[11px] font-semibold uppercase tracking-[0.24em] text-white/60 sm:text-sm">
+            {subtitle}
+          </p>
+        )}
+
+        {tagline && (
+          <p className="pause-body mt-2.5 text-sm italic text-white/75 sm:text-base">
+            {tagline}
+          </p>
+        )}
+
         {meta.length > 0 && (
-          <p className="mt-2 flex flex-wrap items-center gap-x-1.5 gap-y-1 text-xs font-semibold tabular-nums text-white/65">
+          <p className="pause-body mt-3 flex flex-wrap items-center gap-x-1.5 gap-y-1 text-xs font-semibold tabular-nums text-white/65 sm:text-sm">
             {meta.map((entry, i) => (
               <span key={entry} className="flex items-center gap-1.5">
                 {i > 0 && (
@@ -289,7 +331,7 @@ export function PausedInfoLayer({
         )}
 
         {genres.length > 0 && (
-          <div className="mt-3 flex flex-wrap gap-1.5">
+          <div className="pause-body mt-3 flex flex-wrap gap-1.5">
             {genres.map((genre) => (
               <span
                 key={genre}
@@ -305,12 +347,12 @@ export function PausedInfoLayer({
           <>
             <div
               aria-hidden="true"
-              className="my-3 h-px w-full max-w-xs"
+              className="my-3.5 h-px w-full max-w-[16rem]"
               style={{
-                background: `linear-gradient(90deg, rgb(var(--theme, 245 197 24) / 0.7), transparent)`,
+                background: `linear-gradient(90deg, ${accent}, transparent)`,
               }}
             />
-            <p className="line-clamp-3 text-[13px] leading-relaxed text-white/70">
+            <p className="pause-body line-clamp-3 max-w-[46ch] text-[13px] leading-[1.75] text-white/70 sm:text-sm">
               {overview}
             </p>
           </>
@@ -318,7 +360,7 @@ export function PausedInfoLayer({
 
         <TipLine
           accent={accent}
-          className="mt-3 border-t border-white/10 pt-3 text-[11px] leading-relaxed"
+          className="pause-body mt-4 max-w-[46ch] border-t border-white/10 pt-3 text-[11px] leading-relaxed"
         />
       </div>
     </div>

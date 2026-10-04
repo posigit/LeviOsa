@@ -82,6 +82,7 @@ export type DetailShow = {
   rtScore: number | null;
   firstAirDate: string | null;
   genres: string[];
+  tagline: string | null;
   rated: string | null;
   regionOfOrigin: string | null;
   originalAudio: string | null;
@@ -1893,6 +1894,7 @@ export function ShowDetailClient({
             runtime: playerEp.runtime ?? show.episodeRuntime,
             rating: show.voteAverage,
             genres: show.genres,
+            tagline: show.tagline,
           }}
           initialPosition={playbackFor(playerEp)?.positionSeconds}
           autoResume={Boolean(playbackFor(playerEp))}

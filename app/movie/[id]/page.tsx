@@ -630,6 +630,7 @@ export default async function MovieDetailPage({
             runtime: movie.runtime ?? null,
             rating: movie.voteAverage ?? null,
             genres,
+            tagline,
           }}
           className="h-12 flex-1 rounded-full px-4"
         />

@@ -19,6 +19,7 @@ import {
   TapCue,
   TipLine,
   PLAYER_TIPS,
+  splitPauseTitle,
 } from "../components/player-overlays";
 import { PlayerSettingsPanel } from "../components/player-settings-panel";
 import { PlayerErrorOverlay } from "../components/player-error-overlay";
@@ -63,12 +64,15 @@ const pauseInfo = {
   rating: 8.7,
   genres: ["Drama", "Crime"],
   overview:  "An insomniac office worker and a devil-may-care soap maker form an underground fight club.",
+  tagline: "Mischief. Mayhem. Soap.",
 };
 const pauseCard = html(
-  <PausedInfoLayer title="Fight Club" info={pauseInfo} />
+  <PausedInfoLayer title="Fight Club" subtitle="S3 E23" info={pauseInfo} />
 );
 assert.match(pauseCard, /Paused/, "pause card needs its eyebrow");
 assert.match(pauseCard, /Fight Club/, "pause card needs the title");
+assert.match(pauseCard, /S3 E23/, "pause card stacks the episode line");
+assert.match(pauseCard, /Mischief\. Mayhem\. Soap\./, "pause card prints the tagline");
 assert.match(pauseCard, /1999/, "pause card needs the year");
 assert.match(pauseCard, /2h 19m/, "pause card needs the runtime");
 assert.match(pauseCard, /★ 8\.7/, "pause card needs the rating");
@@ -76,11 +80,52 @@ assert.match(pauseCard, /Drama/, "pause card needs genre chips");
 assert.match(pauseCard, /line-clamp-3/, "overview must clamp, not flood");
 assert.match(pauseCard, /rgb\(var\(--theme, 245 197 24\) \/ 0\.95\)/, "accent must be theme-tinted with a gold fallback");
 assert.match(pauseCard, /z-\[4\]/, "pause card stays under the error card (z-6)");
+assert.match(pauseCard, /pointer-events-none/, "pause card must never eat taps");
+assert.match(pauseCard, /pause-title/, "title uses the handwritten display face");
+assert.match(pauseCard, /pause-body/, "copy uses the rounded body face");
+assert.match(
+  pauseCard,
+  /linear-gradient\(100deg, rgba\(0,0,0,0\.88\)/,
+  "card sits on a left-to-right scrim for legibility"
+);
+assert.match(pauseCard, /uppercase/, "display title is set in caps");
+assert.doesNotMatch(
+  pauseCard,
+  /rounded-2xl/,
+  "the card is a full-bleed left column now, not a boxed panel"
+);
 
 // No metadata (host without it) still renders a usable card — just slimmer.
 const barePauseCard = html(<PausedInfoLayer title="Some Show" info={null} />);
 assert.match(barePauseCard, /Some Show/, "bare pause card keeps the title");
 assert.doesNotMatch(barePauseCard, /1999/, "bare pause card hides absent meta");
+assert.doesNotMatch(
+  barePauseCard,
+  /Mischief/,
+  "bare pause card doesn't render an absent tagline"
+);
+
+// TV titles split into show + episode; movie titles never do.
+assert.deepEqual(
+  splitPauseTitle("Person of Interest — S3E23 Deus Ex Machina", "tv"),
+  { title: "Person of Interest", subtitle: "S3E23 Deus Ex Machina" },
+  "tv titles split on the em dash"
+);
+assert.deepEqual(
+  splitPauseTitle("Everything Everywhere All at Once", "movie"),
+  { title: "Everything Everywhere All at Once", subtitle: null },
+  "movie titles pass through whole"
+);
+assert.deepEqual(
+  splitPauseTitle("Movie — with a dash", "movie"),
+  { title: "Movie — with a dash", subtitle: null },
+  "a movie em dash must not be treated as an episode split"
+);
+assert.deepEqual(
+  splitPauseTitle("Some Show", "tv"),
+  { title: "Some Show", subtitle: null },
+  "a tv title with no dash stays intact"
+);
 
 // ---------- Tip line ----------
 const tip = html(<TipLine />);

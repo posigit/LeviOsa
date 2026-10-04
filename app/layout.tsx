@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Geist } from "next/font/google";
+import { Geist, Lexend_Deca, Permanent_Marker } from "next/font/google";
 import "./globals.css";
 import { Providers } from "@/components/providers";
 import { OfflinePlayerHost } from "@/components/offline-player-host";
@@ -9,6 +9,20 @@ import { siteUrl } from "@/lib/site";
 
 const geistSans = Geist({
   variable: "--font-sans",
+  subsets: ["latin"],
+});
+
+// Pause-card pair (VidStuck-style): handwritten display title + a rounded,
+// friendly body face for the meta/tagline/description copy. Scoped to the
+// player via .pause-title / .pause-body so nothing else in the app moves.
+const pauseTitleFont = Permanent_Marker({
+  weight: "400",
+  variable: "--font-marker",
+  subsets: ["latin"],
+});
+
+const pauseBodyFont = Lexend_Deca({
+  variable: "--font-pause",
   subsets: ["latin"],
 });
 
@@ -60,7 +74,7 @@ export default function RootLayout({
       data-theme="amoled"
       data-accent="yellow"
       suppressHydrationWarning
-      className={`${geistSans.variable} h-full antialiased`}
+      className={`${geistSans.variable} ${pauseTitleFont.variable} ${pauseBodyFont.variable} h-full antialiased`}
     >
       <head>
         <link rel="preconnect" href="https://image.tmdb.org" crossOrigin="" />
