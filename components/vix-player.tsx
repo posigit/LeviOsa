@@ -1042,6 +1042,10 @@ export function VixPlayer({
       // and a hidden chrome would be unrecoverable.
       const canHide = playing || mode === "native" || isDrivenEmbed;
       if (!canHide) return;
+      // 3.2s after an interaction while playing, but 1.8s after a pause —
+      // the pause card is the point of pausing, so it shouldn't sit waiting
+      // behind the controls. (ignorePointer is only passed by pause handlers.)
+      const delayMs = opts?.ignorePointer || !playing ? 1800 : 3200;
       chromeHideTimerRef.current = setTimeout(() => {
         if (
           !subMenuOpen &&
@@ -1055,7 +1059,7 @@ export function VixPlayer({
         ) {
           setChromeVisible(false);
         }
-      }, 3200);
+      }, delayMs);
     },
     [
       locked,
@@ -3837,7 +3841,7 @@ export function VixPlayer({
     : metaFallback ?? pausedDetails ?? null;
   const pauseSplit = splitPauseTitle(title, type);
 
-  // Pause card. Only once the chrome has stepped aside (it steps aside ~3.2s
+  // Pause card. Only once the chrome has stepped aside (it steps aside ~1.8s
   // after a pause), never over the resume prompt / error card / loading state,
   // and never in the tail window where Up Next, the Next FAB and the
   // end-of-line card own the bottom-right corner — pausing in the last 4% (or
