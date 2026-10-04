@@ -14,6 +14,8 @@ import type { ComponentProps } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 import { PlayerTopChrome } from "../components/player-top-chrome";
 import { DEFAULT_VIX_SETTINGS } from "../lib/vix-settings";
+import { isSubProviderLocked } from "../lib/player-subs";
+import type { SubSource } from "../lib/player-subs";
 
 type Props = ComponentProps<typeof PlayerTopChrome>;
 
@@ -109,6 +111,61 @@ assert.equal(
   hasCC(render({ mode: "native", activeSource: "vidy", clockEmbed: false })),
   true,
   "native mode must render CC"
+);
+
+// Offline CC: network file providers lock only when nothing stored can
+// play. Picking one offline otherwise dies in a fetch → revert-to-Auto
+// loop (the row flips back to Auto by itself).
+const providers: SubSource[] = ["vdrk", "opensub", "subdl"];
+const local: SubSource[] = ["auto", "stream", "off"];
+for (const key of providers) {
+  assert.equal(
+    isSubProviderLocked(false, false, key),
+    true,
+    `offline with no stored track must lock ${key}`
+  );
+  assert.equal(
+    isSubProviderLocked(true, false, key),
+    false,
+    `online download viewing must keep ${key} (fetches work)`
+  );
+  assert.equal(
+    isSubProviderLocked(false, true, key),
+    false,
+    `stored track playing must keep ${key} (spares switch locally)`
+  );
+}
+for (const key of local) {
+  assert.equal(
+    isSubProviderLocked(false, false, key),
+    false,
+    `offline must never lock ${key} (needs no network)`
+  );
+}
+
+// Saved spares render whenever they exist — even on Auto — so the offline
+// switcher is discoverable without first picking a network provider.
+const offlineMenu = (patch: Partial<Props>): string =>
+  render({
+    mode: "native",
+    subMenuOpen: true,
+    subSource: "auto",
+    ...patch,
+  });
+assert.equal(
+  offlineMenu({
+    savedSubAlts: [{ label: "English (OpenSubs)" }],
+    savedSubAltIndex: null,
+  }).includes("Saved files"),
+  true,
+  "stored spares must show on Auto, not just on opensub/subdl"
+);
+assert.equal(
+  offlineMenu({ savedSubAlts: [], savedSubAltIndex: null }).includes(
+    "Saved files"
+  ),
+  false,
+  "no spares means no Saved files section"
 );
 
 console.log("cc-gate: all assertions passed");

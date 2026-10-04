@@ -489,6 +489,15 @@ export function VixPlayer({
   const subMenuRef = useRef<HTMLDivElement>(null);
   const audioMenuRef = useRef<HTMLDivElement>(null);
   const qualityMenuRef = useRef<HTMLDivElement>(null);
+  /** Last time CC/audio/quality opened — a window scroll inside this grace
+   *  window is a layout-shift echo (chrome show/hide, mobile URL bar), not
+   *  the user scrolling away. Genuine page scrolls still dismiss after it. */
+  const menuOpenedAtRef = useRef(0);
+  useEffect(() => {
+    if (subMenuOpen || audioMenuOpen || qualityMenuOpen) {
+      menuOpenedAtRef.current = performance.now();
+    }
+  }, [subMenuOpen, audioMenuOpen, qualityMenuOpen]);
   // ProfileMenu-style outside dismiss for CC + audio + quality menus.
   useEffect(() => {
     if (!subMenuOpen && !audioMenuOpen && !qualityMenuOpen) return;
@@ -513,6 +522,7 @@ export function VixPlayer({
       }
     };
     const onScroll = () => {
+      if (performance.now() - menuOpenedAtRef.current < 600) return;
       setSubMenuOpen(false);
       setAudioMenuOpen(false);
       setQualityMenuOpen(false);
@@ -1552,6 +1562,11 @@ export function VixPlayer({
 
   /** Load top-3 file list once per episode (no download quota). */
   const ensureOpenSubList = useCallback(async () => {
+    // No network: the list APIs are unreachable — the menu's Saved files
+    // section (stored spares) is the offline picker; skip the doomed fetch
+    // so Top-3 settles on the offline empty state immediately. Read live
+    // (not a hook) so mid-session reconnects just work on the next open.
+    if (typeof navigator !== "undefined" && !navigator.onLine) return;
     // Whichever provider the menu is showing — the key must include it so
     // switching OpenSubs ↔ SubDL refetches instead of showing stale rows.
     const provider: SubSource =
@@ -1985,9 +2000,13 @@ export function VixPlayer({
       savePosition,
       revertExternalSub,
       onPendingSeekSettled,
-      // Offline with a stored track: engine must not fetch or wipe it.
-      // Stable per mount (host remounts per open), listed for correctness.
-      offlineStoredSubs: offlineOverride && initialSubVtt != null,
+      // Offline with stored subtitles (injected default and/or spare files):
+      // the engine must not fetch, wipe, or revert — a saved-alt pick
+      // would otherwise die in a fetch → revert loop the moment anything
+      // re-ran the cascade. Stable per mount (host remounts per open).
+      offlineStoredSubs:
+        offlineOverride &&
+        (initialSubVtt != null || (initialSubAlts?.length ?? 0) > 0),
       // Offline downloads recover from holes instead of unmounting.
       offlineKey: offlineKey,
     });
@@ -2004,6 +2023,7 @@ export function VixPlayer({
     onPendingSeekSettled,
     offlineOverride,
     initialSubVtt,
+    initialSubAlts,
     offlineKey,
   ]);
 
@@ -3915,6 +3935,7 @@ export function VixPlayer({
           savedSubAlts={(initialSubAlts ?? []).map((a) => ({ label: a.label }))}
           savedSubAltIndex={savedSubAltIndex}
           onSavedSubAltPick={handleSavedSubAltPick}
+          hasStoredSubTrack={initialSubVtt != null}
           hasExternalSubs={hasExternalSubs}
           subDelay={subDelay}
           onAdjustSubDelay={adjustSubDelay}

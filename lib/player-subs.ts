@@ -27,6 +27,25 @@ export type SubSource =
   | "subdl";
 
 /**
+ * CC-menu row lock: with no connection and no stored track playing, the
+ * network file providers (VDRK/OpenSubs/SubDL) can never load — picking
+ * one just dies in a fetch → revert-to-Auto loop. Auto/Stream/Off need no
+ * network, and stored-spare switching (Saved files) is local, so they stay
+ * enabled. Pure (node-testable) — the chrome feeds it useOnline().
+ */
+export function isSubProviderLocked(
+  online: boolean,
+  hasStoredSubTrack: boolean,
+  key: SubSource
+): boolean {
+  return (
+    !online &&
+    !hasStoredSubTrack &&
+    (key === "vdrk" || key === "opensub" || key === "subdl")
+  );
+}
+
+/**
  * Strip ASS/SSA formatting that leaks into real-world subtitle files
  * (OpenSubtitles SRTs converted from ASS especially): override blocks like
  * {\\an8} / {\\pos(400,570)}, \\N forced breaks, \\h hard spaces. Browsers

@@ -25,6 +25,7 @@ import type {
   SubFileId,
   SubSource,
 } from "@/lib/player-subs";
+import { isSubProviderLocked } from "@/lib/player-subs";
 import type {
   AudioTrackInfo,
   PlayerMode,
@@ -71,6 +72,10 @@ type PlayerTopChromeProps = {
   savedSubAlts: { label: string }[];
   savedSubAltIndex: number | null;
   onSavedSubAltPick: (index: number) => void;
+  /** A stored track is injected and playing (download default) — the file
+   *  providers stay selectable without a connection since switching between
+   *  stored spares needs no network. */
+  hasStoredSubTrack?: boolean;
   hasExternalSubs: boolean;
   subDelay: number;
   onAdjustSubDelay: (delta: number) => void;
@@ -174,6 +179,7 @@ export function PlayerTopChrome({
   savedSubAlts,
   savedSubAltIndex,
   onSavedSubAltPick,
+  hasStoredSubTrack = false,
   hasExternalSubs,
   subDelay,
   onAdjustSubDelay,
@@ -527,28 +533,49 @@ export function PlayerTopChrome({
                             ["off", "Off"],
                           ]
                     ) as [SubSource, string][]
-                  ).map(([key, label]) => (
-                    <button
-                      key={key}
-                      type="button"
-                      role="menuitem"
-                      onClick={() => onSubSource(key)}
-                      className={cn(
-                        "flex w-full items-center justify-between px-3.5 py-2.5 text-left text-sm font-semibold text-white hover:bg-secondary",
-                        subSource === key && "bg-secondary/60 text-primary"
-                      )}
-                    >
-                      {label}
-                      {subSource === key && (
-                        <Check className="h-4 w-4 flex-shrink-0" />
-                      )}
-                    </button>
-                  ))}
+                  ).map(([key, label]) => {
+                    // No connection and no stored track playing: the network
+                    // file providers can never load — picking one just dies
+                    // in a fetch → revert-to-Auto loop, so lock them with the
+                    // reason instead (same contract as stream sources).
+                    // Stored spares stay switchable via Saved files below.
+                    const netLocked = isSubProviderLocked(
+                      online,
+                      hasStoredSubTrack,
+                      key
+                    );
+                    return (
+                      <button
+                        key={key}
+                        type="button"
+                        role="menuitem"
+                        disabled={netLocked}
+                        onClick={() => onSubSource(key)}
+                        title={netLocked ? "Needs a connection" : undefined}
+                        className={cn(
+                          "flex w-full items-center justify-between px-3.5 py-2.5 text-left text-sm font-semibold text-white hover:bg-secondary",
+                          subSource === key && "bg-secondary/60 text-primary",
+                          netLocked &&
+                            "cursor-not-allowed opacity-40 hover:bg-transparent"
+                        )}
+                      >
+                        {label}
+                        {netLocked && (
+                          <span className="text-[10px] font-semibold uppercase tracking-wide text-white/50">
+                            Offline
+                          </span>
+                        )}
+                        {!netLocked && subSource === key && (
+                          <Check className="h-4 w-4 flex-shrink-0" />
+                        )}
+                      </button>
+                    );
+                  })}
 
-                  {/* Stored files (downloaded with the item) — offline switching
-                      when the default misaligns. */}
-                  {(subSource === "opensub" || subSource === "subdl") &&
-                    savedSubAlts.length > 0 && (
+                  {/* Stored files (downloaded with the item) — shown whenever
+                      spares exist, not just on the file providers, so the
+                      offline switcher is discoverable from Auto too. */}
+                  {savedSubAlts.length > 0 && (
                     <div className="border-t border-white/10 py-1">
                       <p className="px-3.5 py-1.5 text-[10px] font-semibold uppercase tracking-wide text-white/45">
                         Saved files
@@ -594,7 +621,9 @@ export function PlayerTopChrome({
                       )}
                       {!openSubListLoading && openSubItems.length === 0 && (
                         <p className="px-3.5 py-2 text-[11px] text-white/50">
-                          No English files found
+                          {!online
+                            ? "Connect to fetch more files"
+                            : "No English files found"}
                         </p>
                       )}
                       {openSubItems.map((item, i) => (
