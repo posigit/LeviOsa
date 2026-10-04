@@ -1885,6 +1885,15 @@ export function ShowDetailClient({
           season={playerEp.seasonNumber}
           episode={playerEp.episodeNumber}
           title={`${show.title} — S${playerEp.seasonNumber}E${playerEp.episodeNumber} ${playerEp.title}`}
+          pausedDetails={{
+            overview: playerEp.overview ?? show.overview,
+            year: show.firstAirDate
+              ? Number(show.firstAirDate.slice(0, 4))
+              : null,
+            runtime: playerEp.runtime ?? show.episodeRuntime,
+            rating: show.voteAverage,
+            genres: show.genres,
+          }}
           initialPosition={playbackFor(playerEp)?.positionSeconds}
           autoResume={Boolean(playbackFor(playerEp))}
           onEvent={handlePlayerEvent}

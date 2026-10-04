@@ -12,6 +12,7 @@
     "test:offline": "tsx scripts/test-offline-download.ts",
     "test:subdl": "tsx scripts/test-subdl.ts",
     "test:chrome": "tsx scripts/test-cc-gate.tsx",
+    "test:surfaces": "tsx scripts/test-player-surfaces.tsx",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate",
     "db:push": "drizzle-kit push",

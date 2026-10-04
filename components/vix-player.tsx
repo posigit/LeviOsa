@@ -34,11 +34,14 @@ import { EmbedHint } from "@/components/embed-hint";
 import { PlayerErrorOverlay } from "@/components/player-error-overlay";
 import {
   BufferingSpinner,
-  LoadingPill,
+  LoadingSplash,
+  PausedInfoLayer,
   TapCue,
   UnlockButton,
+  type PausedInfo,
 } from "@/components/player-overlays";
 import { ResumeOverlay } from "@/components/resume-overlay";
+import { PlayerSettingsPanel } from "@/components/player-settings-panel";
 import { DownloadButton } from "@/components/download-button";
 import {
   IframeSubtitleOverlay,
@@ -144,6 +147,7 @@ export function VixPlayer({
   initialSegments = null,
   initialDuration = null,
   overlaySlot = null,
+  pausedDetails = null,
 }: {
   src: string;
   title: string;
@@ -186,6 +190,9 @@ export function VixPlayer({
    * outside it vanishes in fullscreen, so parents must pass overlays here.
    */
   overlaySlot?: ReactNode;
+  /** Catalogue facts for the pause card (overview, year, runtime…). Optional:
+   *  hosts without them still render the card with just the title. */
+  pausedDetails?: PausedInfo | null;
 }) {
   const iframeRef = useRef<HTMLIFrameElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -373,6 +380,12 @@ export function VixPlayer({
     () => loadVixSettings().ambilight !== false
   );
   const ambilightCanvasRef = useRef<HTMLCanvasElement>(null);
+  /** Horizontal flip of the picture (session-only, native mode). */
+  const [mirrored, setMirrored] = useState(false);
+  /** Loop the file when it ends (session-only, native mode). */
+  const [loopVideo, setLoopVideo] = useState(false);
+  /** Grouped settings drawer (Source / Media / Playback). */
+  const [settingsOpen, setSettingsOpen] = useState(false);
   const [videoFit, setVideoFit] = useState<VixSettings["videoFit"]>(
     () => loadVixSettings().videoFit
   );
@@ -432,6 +445,12 @@ export function VixPlayer({
   const cineSrcAliveRef = useRef(false);
   /** Sub-servers that never started this mount — the rotation skips them. */
   const cineSrcDeadRef = useRef<Set<string>>(new Set());
+  /** Render mirror of the ref above: the sub-server menu needs a re-render to
+   *  mark the dead picks, and a ref never triggers one. Reset (and hand-pick
+   *  clears) stay in lockstep with the ref at every site below. */
+  const [cineSrcDeadIds, setCineSrcDeadIds] = useState<ReadonlySet<string>>(
+    () => new Set()
+  );
   /** Latest `sourceused` id — read by the rotation without re-arming effects. */
   const liveCineSrcServerRef = useRef<string | null>(null);
   const setHlsQualityRef = useRef<((next: "auto" | number) => void) | null>(
@@ -547,9 +566,14 @@ export function VixPlayer({
       window.removeEventListener("scroll", onScroll);
     };
   }, [subMenuOpen, audioMenuOpen, qualityMenuOpen]);
-  const lastTapRef = useRef<{ time: number; side: "left" | "right" } | null>(
-    null
-  );
+  const lastTapRef = useRef<{
+    time: number;
+    zone: "left" | "middle" | "right";
+  } | null>(null);
+  /** Centre double-tap → fullscreen. handleTap is declared long before the
+   *  fullscreen stack, so it goes through this ref (kept current by an effect
+   *  next to toggleFullscreen). */
+  const toggleFullscreenRef = useRef<() => void>(() => {});
   const tapCueTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   /** Deferred single-tap chrome toggle (cancelled by double-tap / unmount). */
   const singleTapTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -665,6 +689,7 @@ export function VixPlayer({
     // Fresh title/episode: CineSrc's dead-server set and live server are
     // per-title facts — the rotation must start over for the new one.
     cineSrcDeadRef.current.clear();
+    setCineSrcDeadIds(new Set());
     liveCineSrcServerRef.current = null;
     setLiveCineSrcServer(null);
     // Stale rendition belongs to the old episode (pill shows Auto · 720p).
@@ -999,15 +1024,23 @@ export function VixPlayer({
   );
 
   /** Arms the auto-hide timer (shared by bumpChrome and pointer-leave so
-   *  leaving the player summons nothing — it just schedules the hide). */
-  const armChromeHide = useCallback(() => {
-    if (locked) return;
-    if (chromeHideTimerRef.current) clearTimeout(chromeHideTimerRef.current);
-    const v = videoRef.current;
-    const playing = v ? !v.paused : !iframePausedRef.current;
-    // Auto-hide only while playing, no menus are open, and the pointer is
-    // not resting on the player.
-    if (playing) {
+   *  leaving the player summons nothing — it just schedules the hide).
+   *
+   *  `ignorePointer` skips the "pointer resting on the player" guard: used by
+   *  the pause handlers, so the controls step aside even with the cursor parked
+   *  in the frame and the pause card can take the stage. */
+  const armChromeHide = useCallback(
+    (opts?: { ignorePointer?: boolean }) => {
+      if (locked) return;
+      if (chromeHideTimerRef.current) clearTimeout(chromeHideTimerRef.current);
+      const v = videoRef.current;
+      const playing = v ? !v.paused : !iframePausedRef.current;
+      // Auto-hide while playing, and after a pause only on surfaces we can
+      // summon again (native tap layer / driven embeds): passive embeds keep
+      // their chrome parked on pause, because their frame swallows every tap
+      // and a hidden chrome would be unrecoverable.
+      const canHide = playing || mode === "native" || isDrivenEmbed;
+      if (!canHide) return;
       chromeHideTimerRef.current = setTimeout(() => {
         if (
           !subMenuOpen &&
@@ -1016,13 +1049,26 @@ export function VixPlayer({
           !serverMenuOpen &&
           !moreMenuOpen &&
           !sourceMenuOpen &&
-          !pointerInsideRef.current
+          !settingsOpen &&
+          (opts?.ignorePointer || !pointerInsideRef.current)
         ) {
           setChromeVisible(false);
         }
       }, 3200);
-    }
-  }, [locked, subMenuOpen, audioMenuOpen, qualityMenuOpen, serverMenuOpen, moreMenuOpen, sourceMenuOpen]);
+    },
+    [
+      locked,
+      mode,
+      isDrivenEmbed,
+      settingsOpen,
+      subMenuOpen,
+      audioMenuOpen,
+      qualityMenuOpen,
+      serverMenuOpen,
+      moreMenuOpen,
+      sourceMenuOpen,
+    ]
+  );
 
   const bumpChrome = useCallback(() => {
     if (locked) return;
@@ -1050,7 +1096,8 @@ export function VixPlayer({
     setTransport,
   });
 
-  /** Double-tap ±10s; single tap toggles custom chrome (no native controls). */
+  /** Double-tap the sides for ±10s, the centre for fullscreen; a single tap
+   *  toggles the custom chrome (no native controls). */
   const handleTap = useCallback(
     (e: React.TouchEvent) => {
       if (locked) return;
@@ -1062,20 +1109,29 @@ export function VixPlayer({
       const t = e.changedTouches[0];
       if (!t) return;
       const rect = (e.currentTarget as HTMLElement).getBoundingClientRect();
-      const side: "left" | "right" =
-        t.clientX < rect.left + rect.width / 2 ? "left" : "right";
+      const third = rect.width / 3;
+      const x = t.clientX - rect.left;
+      const zone: "left" | "middle" | "right" =
+        x < third ? "left" : x >= third * 2 ? "right" : "middle";
       const now = performance.now();
       const prev = lastTapRef.current;
-      if (prev && prev.side === side && now - prev.time <= 350) {
+      if (prev && prev.zone === zone && now - prev.time <= 350) {
         lastTapRef.current = null;
         if (singleTapTimerRef.current) {
           clearTimeout(singleTapTimerRef.current);
           singleTapTimerRef.current = null;
         }
-        seekBy(side);
+        if (zone === "middle") {
+          // Centre double-tap flips fullscreen. The outer thirds keep the ±10s
+          // skip exactly where it was, so nothing anyone already uses moves.
+          navigator.vibrate?.(10);
+          toggleFullscreenRef.current();
+          return;
+        }
+        seekBy(zone);
         bumpChrome();
       } else {
-        lastTapRef.current = { time: now, side };
+        lastTapRef.current = { time: now, zone };
         // Defer single-tap chrome toggle so a double-tap can cancel it.
         // Tracked (unlike before) so unmount / src-change clears it — never
         // setState on an unmounted tree.
@@ -1424,6 +1480,10 @@ export function VixPlayer({
 
   // ---------- source switching ----------
   const disabledSources = disabledSourcesFor(type);
+  // Failure streak by source label (failHistory stores `sourceLabel(...)`, or
+  // `label · sub-server` for CineSrc). The source menu marks these "Failed" —
+  // the first successful resolve clears the streak, so tags never outlive it.
+  const failedSourceLabels = failHistory.map((f) => f.source.split(" · ")[0]);
   const switchSource = useCallback(
     (next: StreamSource, opts?: { auto?: boolean }) => {
     if (next === activeSource) return;
@@ -1487,6 +1547,11 @@ export function VixPlayer({
     setOpenSubItems([]);
     openSubListKeyRef.current = null;
     setCineSrcT(null);
+    // A source round-trip invalidates the embed-reported server: keeping it
+    // would condemn yesterday's id if the next CineSrc frame died before its
+    // own `sourceused` arrived.
+    setLiveCineSrcServer(null);
+    liveCineSrcServerRef.current = null;
     gestureDirtyVolume.current = null;
     // Source switch (same mount): drop transient gesture state too.
     setBrightness(1);
@@ -2159,6 +2224,10 @@ export function VixPlayer({
       syncTransport();
       setChromeVisible(true);
       if (chromeHideTimerRef.current) clearTimeout(chromeHideTimerRef.current);
+      // Step aside after a beat (cursor included) so the pause card — not the
+      // controls — is what a paused player rests on. Any tap/move brings them
+      // straight back.
+      armChromeHide({ ignorePointer: true });
     };
     const onSeeked = () => {
       emit("seeked", { t: video.currentTime, duration: video.duration });
@@ -2254,7 +2323,7 @@ export function VixPlayer({
       video.removeEventListener("playing", markReady);
       setMediaReady(false);
     };
-  }, [mode, emit, savePosition, clearPosition, bumpChrome]);
+  }, [mode, emit, savePosition, clearPosition, bumpChrome, armChromeHide]);
 
   type WebkitVideoElement = HTMLVideoElement & {
     webkitEnterFullscreen?: () => void;
@@ -2997,6 +3066,12 @@ export function VixPlayer({
     bumpChrome();
   }, [enterFullscreen, exitFullscreen, bumpChrome]);
 
+  // handleTap (declared far above, before the fullscreen stack) needs the
+  // latest toggle for the centre double-tap.
+  useEffect(() => {
+    toggleFullscreenRef.current = toggleFullscreen;
+  }, [toggleFullscreen]);
+
   // ---------- CineSrc dead-stream watchdog ----------
   // Both sides of the postMessage bridge below touch these: the arm effect
   // (further down, next to the frame's src) sets the timer, the bridge clears
@@ -3015,15 +3090,35 @@ export function VixPlayer({
    * spot. Dropping to Auto is not an option — it reloads the embed from the
    * beginning instead of moving on. Every server dead → error card.
    */
+  /**
+   * Keep the position across a CineSrc reload. `remotePositionRef` reads 0 on
+   * a start that never played (a condemned frame posts no `timeupdate`, and a
+   * switch before first progress has nothing to report) — writing that 0 into
+   * `cineSrcT` masks `resumePosition` (`0 ?? resume` is `0`, and `addStartAt`
+   * drops a 0) and silently drops the bookmark. Hand the "nothing yet" case
+   * back as null so the saved position still ships as `t=`.
+   */
+  const pinCineSrcPosition = useCallback(() => {
+    const pos = Math.floor(remotePositionRef.current);
+    setCineSrcT(pos > 0 ? pos : null);
+  }, []);
+
   const failCineSrcStream = useCallback(
     (reason: string) => {
       disarmCineSrcWatch();
       cineSrcAliveRef.current = true;
       const label = sourceLabel("cinesrc");
+      // The embed's `sourceused` id is ground truth: a pick we requested may
+      // not be the server that actually served the dead stream.
       const deadId = (
-        cineSrcServer !== "auto" ? cineSrcServer : liveCineSrcServerRef.current ?? ""
+        liveCineSrcServerRef.current ??
+        (cineSrcServer !== "auto" ? cineSrcServer : "")
       ).trim();
-      if (deadId) cineSrcDeadRef.current.add(deadId.toLowerCase());
+      if (deadId) {
+        cineSrcDeadRef.current.add(deadId.toLowerCase());
+        // Mirror for render: the sub-server menu marks this pick "Dead".
+        setCineSrcDeadIds(new Set(cineSrcDeadRef.current));
+      }
       recordFailure(deadId ? `${label} · ${deadId}` : label, reason);
       const options = buildCineSrcServerOptions(knownServersRef.current)
         .map((o) => o.id)
@@ -3043,18 +3138,42 @@ export function VixPlayer({
       if (next) {
         setLiveCineSrcServer(null);
         liveCineSrcServerRef.current = null;
+        // State only: an automatic rotation must not overwrite the pick the
+        // user saved (same rule as switchSource — their choice stays put).
         setCineSrcServer(next);
-        saveVixSettings({ cineSrcServer: next });
-        setCineSrcT(Math.floor(remotePositionRef.current));
+        pinCineSrcPosition();
         return;
       }
+      // Everything is condemned. Forget the set so a Retry re-sweeps the
+      // list instead of re-judging the same pinned corpse forever.
+      cineSrcDeadRef.current.clear();
+      setCineSrcDeadIds(new Set());
       setStreamError({
         detail: `${label} never started on any server. Retry, or switch to another source.`,
       });
       setIframeError(true);
     },
-    [cineSrcServer, disarmCineSrcWatch, recordFailure]
+    [cineSrcServer, disarmCineSrcWatch, pinCineSrcPosition, recordFailure]
   );
+
+  /**
+   * Two-stage start watchdog: head start → `play` nudge → grace → condemn.
+   * Armed on every frame load, and re-armed by `cinesrc:ready`: the budget has
+   * to cover booting the embed, not the document it boots over, or a slow
+   * network condemns a perfectly healthy server (and burns the whole sweep).
+   * Never touches `cineSrcAliveRef` — the callbacks below re-check it.
+   */
+  const armCineSrcWatch = useCallback(() => {
+    if (cineSrcWatchRef.current) clearTimeout(cineSrcWatchRef.current);
+    cineSrcWatchRef.current = setTimeout(() => {
+      if (cineSrcAliveRef.current) return;
+      sendCineSrcCommand(iframeRef.current, "play");
+      cineSrcWatchRef.current = setTimeout(() => {
+        cineSrcWatchRef.current = null;
+        if (!cineSrcAliveRef.current) failCineSrcStream("stream did not start");
+      }, CINESRC_WATCH_GRACE_MS);
+    }, CINESRC_WATCH_HEADSTART_MS);
+  }, [failCineSrcStream]);
 
   // ---------- iframe fallback: postMessage bridge ----------
   useEffect(() => {
@@ -3108,6 +3227,12 @@ export function VixPlayer({
             if (ev === "loadedmetadata") {
               cineSrcAliveRef.current = true;
               disarmCineSrcWatch();
+            } else if (cineSrcWatchRef.current && !cineSrcAliveRef.current) {
+              // The embed just booted: restart the window so the budget is
+              // judged from here (document load time isn't the server's
+              // fault). Only while a watchdog is actually judging — a frame
+              // the resume prompt owns, or one already condemned, stays out.
+              armCineSrcWatch();
             }
           }
           // CineSrc reports the server it actually uses (e.g. Nebula).
@@ -3184,6 +3309,7 @@ export function VixPlayer({
               if (chromeHideTimerRef.current) {
                 clearTimeout(chromeHideTimerRef.current);
               }
+              armChromeHide({ ignorePointer: true });
             }
             data = {
               type: "PLAYER_EVENT",
@@ -3365,6 +3491,9 @@ export function VixPlayer({
           if (chromeHideTimerRef.current) {
             clearTimeout(chromeHideTimerRef.current);
           }
+          // Driven embeds have a tap layer on our side, so the chrome can step
+          // aside after a pause too (pause card takes over; tap brings it back).
+          armChromeHide({ ignorePointer: true });
         }
       }
 
@@ -3495,7 +3624,16 @@ export function VixPlayer({
     };
     window.addEventListener("message", handler);
     return () => window.removeEventListener("message", handler);
-  }, [activeSource, bumpChrome, clearPosition, disarmCineSrcWatch, emit, savePosition]);
+  }, [
+    activeSource,
+    armChromeHide,
+    armCineSrcWatch,
+    bumpChrome,
+    clearPosition,
+    disarmCineSrcWatch,
+    emit,
+    savePosition,
+  ]);
 
   useEffect(() => {
     const onKeyDown = (e: KeyboardEvent) => {
@@ -3661,12 +3799,41 @@ export function VixPlayer({
     resumePosition != null &&
     resumeKey === playbackKey;
 
+  // Pause card. Only once the chrome has stepped aside (it steps aside ~3.2s
+  // after a pause), never over the resume prompt / error card / loading state,
+  // and never in the tail window where Up Next, the Next FAB and the
+  // end-of-line card own the bottom-right corner — pausing in the last 4% (or
+  // final 16s) leaves those cards to speak for themselves.
+  const tailWindow =
+    transport.duration > 0 &&
+    (transport.currentTime / transport.duration >= 0.96 ||
+      transport.duration - transport.currentTime <= 16);
+  const showPausedInfo =
+    (mode === "native" || isDrivenEmbed) &&
+    mediaReady &&
+    transport.paused &&
+    !chromeVisible &&
+    !showResume &&
+    !resumeSeeking &&
+    !hasError &&
+    !isLoading &&
+    !locked &&
+    !casting &&
+    !tailWindow;
+
   // Driven embeds autoplay under the resume prompt (their URL already seeks
   // via t=) — pause while the choice is up so nothing plays unwatched.
   useEffect(() => {
     if (!showResume || !isDrivenEmbed) return;
     sendDrivenPlay(false);
   }, [showResume, isDrivenEmbed, sendDrivenPlay]);
+
+  // Loop (session-only): keep <video>.loop in sync across src changes.
+  useEffect(() => {
+    const v = videoRef.current;
+    if (!v) return;
+    v.loop = loopVideo;
+  }, [loopVideo, mode, mediaReady]);
   const iframeBaseSrc =
     type && tmdbId
       ? embedUrlFor(activeSource, type, tmdbId, season, episode) ?? src
@@ -3717,22 +3884,23 @@ export function VixPlayer({
     (next: "auto" | number) => {
       setQualitySelection(next);
       saveVixSettings({ quality: next });
-      setCineSrcT(Math.floor(remotePositionRef.current));
+      pinCineSrcPosition();
       bumpChrome();
     },
-    [bumpChrome]
+    [bumpChrome, pinCineSrcPosition]
   );
   /** Sub-server switch: same position-preserving reload as quality switches. */
   const handleCineSrcServer = useCallback(
     (next: string) => {
       // A hand pick gets a fresh chance — the rotation forgets past failures.
       cineSrcDeadRef.current.clear();
+      setCineSrcDeadIds(new Set());
       setCineSrcServer(next);
       saveVixSettings({ cineSrcServer: next });
-      setCineSrcT(Math.floor(remotePositionRef.current));
+      pinCineSrcPosition();
       bumpChrome();
     },
-    [bumpChrome]
+    [bumpChrome, pinCineSrcPosition]
   );
   // ---------- CineSrc start watchdog ----------
   // Arm on every frame load (src / retry / server / quality changes all
@@ -3747,21 +3915,14 @@ export function VixPlayer({
     // The resume prompt owns the embed's pause while it is up — never fight
     // it, and never judge a frame the viewer hasn't started yet.
     if (showResume) return;
-    cineSrcWatchRef.current = setTimeout(() => {
-      if (cineSrcAliveRef.current) return;
-      sendCineSrcCommand(iframeRef.current, "play");
-      cineSrcWatchRef.current = setTimeout(() => {
-        cineSrcWatchRef.current = null;
-        if (!cineSrcAliveRef.current) failCineSrcStream("stream did not start");
-      }, CINESRC_WATCH_GRACE_MS);
-    }, CINESRC_WATCH_HEADSTART_MS);
+    armCineSrcWatch();
     return () => disarmCineSrcWatch();
   }, [
     cinesrcFrame,
     iframeSrc,
     retryNonce,
     showResume,
-    failCineSrcStream,
+    armCineSrcWatch,
     disarmCineSrcWatch,
   ]);
   // Intro/recap skip (IntroDB times, TV only). Native + driven embeds only —
@@ -3844,6 +4005,8 @@ export function VixPlayer({
             handleTap(e);
           }}
           onClick={handleVideoClick}
+          // Session-only horizontal flip (Settings → Media → Mirror picture).
+          style={mirrored ? { transform: "scaleX(-1)" } : undefined}
           className={`h-full w-full touch-manipulation bg-black ${
             videoFit === "cover"
               ? "object-cover"
@@ -3961,6 +4124,10 @@ export function VixPlayer({
         />
       )}
 
+      {showPausedInfo && (
+        <PausedInfoLayer title={title} info={pausedDetails} />
+      )}
+
       {showTransport && (
         <PlayerTransport
           currentTime={transport.currentTime}
@@ -3982,6 +4149,7 @@ export function VixPlayer({
           serverOptions={cineSrcEmbed ? buildCineSrcServerOptions(cineSrcKnownServers) : undefined}
           activeServer={liveCineSrcServer ?? cineSrcServer}
           onPickServer={cineSrcEmbed ? handleCineSrcServer : undefined}
+          deadServers={cineSrcEmbed ? cineSrcDeadIds : undefined}
           onServerMenuOpenChange={setServerMenuOpen}
           opaqueBottom={activeSource === "vidfast"}
           segments={segments}
@@ -4067,6 +4235,7 @@ export function VixPlayer({
           onPickSource={(source) => switchSource(source)}
           sourceOptions={ALL_SOURCES}
           disabledSources={disabledSources}
+          failedSourceLabels={failedSourceLabels}
           showAutoplayToggle={type === "tv"}
           autoplayNext={autoplayNext}
           onToggleAutoplayNext={() => {
@@ -4113,6 +4282,7 @@ export function VixPlayer({
           setHlsQualityRef={setHlsQualityRef}
             onMoreMenuOpenChange={setMoreMenuOpen}
             onSourceMenuOpenChange={setSourceMenuOpen}
+            onOpenSettings={() => setSettingsOpen(true)}
           downloadSlot={
             streamable && type && tmdbId ? (
               <DownloadButton
@@ -4137,6 +4307,54 @@ export function VixPlayer({
             setLockedPersisted(false);
             setChromeVisible(true);
           }}
+        />
+      )}
+
+      {/* Grouped settings drawer (Source / Media / Playback). Healthy player
+          only: an error card or the lock screen always wins. */}
+      {settingsOpen && !hasError && !locked && (
+        <PlayerSettingsPanel
+          open
+          onClose={() => {
+            setSettingsOpen(false);
+            // Chrome was parked while the drawer was open — restart the hide
+            // timer (it no-ops while the pointer is still inside the frame).
+            armChromeHide();
+          }}
+          mode={mode}
+          activeSource={activeSource}
+          sourceOptions={ALL_SOURCES}
+          disabledSources={disabledSources}
+          failedSourceLabels={failedSourceLabels}
+          streamable={streamable && !offlineOverride}
+          onPickSource={(source) => switchSource(source)}
+          videoFit={videoFit}
+          embedZoom={embedZoom}
+          onCycleScreenFill={cycleScreenFill}
+          brightness={brightness}
+          onBrightness={setBrightness}
+          mirrored={mirrored}
+          onToggleMirror={() => setMirrored((v) => !v)}
+          ambilight={ambilight}
+          onToggleAmbilight={toggleAmbilight}
+          playbackSpeed={playbackSpeed}
+          onPickSpeed={mode === "native" || cineSrcEmbed ? pickSpeed : undefined}
+          loopOn={loopVideo}
+          onToggleLoop={() => setLoopVideo((v) => !v)}
+          showAutoplayToggle={type === "tv"}
+          autoplayNext={autoplayNext}
+          onToggleAutoplayNext={() => {
+            const next = !autoplayNext;
+            setAutoplayNext(next);
+            saveVixSettings({ autoplayNext: next });
+          }}
+          audioBoost={audioBoost}
+          onToggleBoost={toggleBoost}
+          showSleep={mode === "native" || isDrivenEmbed}
+          sleepUntil={sleepUntil}
+          sleepMinutes={sleepMinutes}
+          sleepAfterEpisode={sleepAfterEpisode}
+          onPickSleep={pickSleep}
         />
       )}
 
@@ -4165,7 +4383,16 @@ export function VixPlayer({
       )}
 
       {isLoading && (
-        <LoadingPill
+        <LoadingSplash
+          eyebrow={
+            offlineOverride
+              ? "Offline start"
+              : failingOver
+                ? "Failing over"
+                : mode === "loading"
+                  ? "Resolving source"
+                  : "Loading"
+          }
           label={
             offlineOverride
               ? "Starting…"
@@ -4196,6 +4423,10 @@ export function VixPlayer({
           attempts={
             failHistory.length > 0 ? failHistory : streamError?.attempts
           }
+          onReveal={() => {
+            setChromeVisible(true);
+            armChromeHide();
+          }}
           onRetry={retryStream}
           onClose={() => {
             void flushPosition().then(() => {

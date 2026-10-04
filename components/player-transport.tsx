@@ -53,6 +53,12 @@ type PlayerTransportProps = {
   activeServer?: string;
   onPickServer?: (id: string) => void;
   /**
+   * Sub-servers that failed to start this session (ids, lowercased). Shown as
+   * a red "Dead" tag — informational only: a hand-pick retries them (the
+   * rotation treats a manual choice as a fresh chance).
+   */
+  deadServers?: ReadonlySet<string>;
+  /**
    * Reports sub-server menu open state so the parent can keep chrome awake
    * while it is open (same as the top CC/audio/quality menus).
    */
@@ -140,7 +146,7 @@ function parseThumbVtt(text: string, baseUrl: string): ThumbCue[] {
   return cues.sort((a, b) => a.start - b.start);
 }
 
-const SPEED_PRESETS = [0.5, 0.75, 1, 1.25, 1.5, 1.75, 2];
+export const SPEED_PRESETS = [0.5, 0.75, 1, 1.25, 1.5, 1.75, 2];
 
 /** Resolved sprite dims by image URL (content-addressed; survives remounts). */
 const spriteDimsCache = new Map<
@@ -265,6 +271,7 @@ export function PlayerTransport({
   serverOptions,
   activeServer = "auto",
   onPickServer,
+  deadServers,
   onServerMenuOpenChange,
   opaqueBottom = false,
   segments = null,
@@ -663,34 +670,45 @@ export function PlayerTransport({
                       aria-label="Sub-servers"
                       className="absolute bottom-full right-0 z-30 mb-2 max-h-[40vh] w-44 overflow-y-auto overscroll-contain rounded-xl border border-white/15 bg-white/[0.06] py-1 shadow-2xl backdrop-blur-2xl [scrollbar-width:thin] [scrollbar-color:rgba(255,255,255,0.25)_transparent] [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-white/20"
                     >
-                      {serverOptions.map((s) => (
-                        <button
-                          key={s.id}
-                          type="button"
-                          role="menuitem"
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            setServerMenuOpen(false);
-                            onPickServer(s.id);
-                          }}
-                          className={cn(
-                            "flex w-full items-center justify-between gap-2 px-4 py-2.5 text-left text-sm font-medium text-white transition hover:bg-white/10",
-                            activeServer === s.id && "text-primary"
-                          )}
-                        >
-                          <span className="flex min-w-0 flex-col">
-                            <span className="truncate">{s.name}</span>
-                            {s.sub && s.sub !== s.name && (
-                              <span className="truncate text-[10px] font-semibold uppercase tracking-wide text-white/40">
-                                {s.sub}
+                      {serverOptions.map((s) => {
+                        const isActive = activeServer === s.id;
+                        const dead =
+                          !isActive &&
+                          deadServers?.has(s.id.toLowerCase()) === true;
+                        return (
+                          <button
+                            key={s.id}
+                            type="button"
+                            role="menuitem"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              setServerMenuOpen(false);
+                              onPickServer(s.id);
+                            }}
+                            className={cn(
+                              "flex w-full items-center justify-between gap-2 px-4 py-2.5 text-left text-sm font-medium text-white transition hover:bg-white/10",
+                              isActive && "text-primary"
+                            )}
+                          >
+                            <span className="flex min-w-0 flex-col">
+                              <span className="truncate">{s.name}</span>
+                              {s.sub && s.sub !== s.name && (
+                                <span className="truncate text-[10px] font-semibold uppercase tracking-wide text-white/40">
+                                  {s.sub}
+                                </span>
+                              )}
+                            </span>
+                            {dead && (
+                              <span className="flex-shrink-0 text-[10px] font-bold uppercase tracking-wide text-red-400">
+                                Dead
                               </span>
                             )}
-                          </span>
-                          {activeServer === s.id && (
-                            <Check className="h-4 w-4 flex-shrink-0" />
-                          )}
-                        </button>
-                      ))}
+                            {isActive && (
+                              <Check className="h-4 w-4 flex-shrink-0" />
+                            )}
+                          </button>
+                        );
+                      })}
                     </div>
                   )}
                 </div>
@@ -739,34 +757,39 @@ export function PlayerTransport({
                   )}
                 </div>
               )}
-              <button
-                type="button"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  onToggleMute();
-                }}
-                aria-label={muted || volume === 0 ? "Unmute" : "Mute"}
-                className="flex h-9 w-9 items-center justify-center rounded-full bg-black/50 text-white ring-1 ring-white/15 backdrop-blur transition hover:bg-black/70"
-              >
-                {muted || volume === 0 ? (
-                  <VolumeX className="h-4 w-4" />
-                ) : (
-                  <Volume2 className="h-4 w-4" />
+              {/* Volume cluster: the slider widens on hover / keyboard focus
+                  (desktop affordance) but keeps its everyday width otherwise —
+                  no touch regression, no layout shift when untouched. */}
+              <div className="group/vol flex items-center gap-1.5">
+                <button
+                  type="button"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    onToggleMute();
+                  }}
+                  aria-label={muted || volume === 0 ? "Unmute" : "Mute"}
+                  className="flex h-9 w-9 items-center justify-center rounded-full bg-black/50 text-white ring-1 ring-white/15 backdrop-blur transition hover:bg-black/70"
+                >
+                  {muted || volume === 0 ? (
+                    <VolumeX className="h-4 w-4" />
+                  ) : (
+                    <Volume2 className="h-4 w-4" />
+                  )}
+                </button>
+                {volumeSupported && (
+                  <input
+                    type="range"
+                    min={0}
+                    max={100}
+                    step={1}
+                    value={muted ? 0 : Math.round(volume * 100)}
+                    aria-label="Volume"
+                    onChange={(e) => onVolume(Number(e.target.value) / 100)}
+                    onClick={(e) => e.stopPropagation()}
+                    className="h-1 w-16 cursor-pointer appearance-none rounded-full bg-white/25 accent-primary transition-[width] duration-200 ease-out group-hover/vol:w-24 group-focus-within/vol:w-24 sm:w-20 sm:group-hover/vol:w-32 sm:group-focus-within/vol:w-32 [&::-webkit-slider-thumb]:h-3 [&::-webkit-slider-thumb]:w-3 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-white"
+                  />
                 )}
-              </button>
-              {volumeSupported && (
-                <input
-                  type="range"
-                  min={0}
-                  max={100}
-                  step={1}
-                  value={muted ? 0 : Math.round(volume * 100)}
-                  aria-label="Volume"
-                  onChange={(e) => onVolume(Number(e.target.value) / 100)}
-                  onClick={(e) => e.stopPropagation()}
-                  className="h-1 w-16 cursor-pointer appearance-none rounded-full bg-white/25 accent-primary sm:w-20 [&::-webkit-slider-thumb]:h-3 [&::-webkit-slider-thumb]:w-3 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-white"
-                />
-              )}
+              </div>
               <button
                 type="button"
                 onClick={(e) => {

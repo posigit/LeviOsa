@@ -11,6 +11,7 @@ import {
   LockOpen,
   MoonStar,
   MoreHorizontal,
+  Settings2,
   SkipForward,
   Sparkles,
   Volume2,
@@ -98,6 +99,12 @@ type PlayerTopChromeProps = {
   sourceOptions: StreamSource[];
   /** Sources that must render disabled (e.g. degraded backends). */
   disabledSources?: StreamSource[];
+  /**
+   * Sources that failed to resolve in the current streak (human labels).
+   * Rendered as a red "Failed" tag in the source menu — the streak clears on
+   * the first success, so the tag never outlives the failure it describes.
+   */
+  failedSourceLabels?: string[];
   /** TV only — toggle 10…0 auto-advance after Up Next appears. */
   showAutoplayToggle?: boolean;
   autoplayNext?: boolean;
@@ -117,6 +124,8 @@ type PlayerTopChromeProps = {
    * awake while it is open (same as the other menus).
    */
   onMoreMenuOpenChange?: (open: boolean) => void;
+  /** Opens the grouped settings drawer (Source / Media / Playback). */
+  onOpenSettings?: () => void;
   onSourceMenuOpenChange?: (open: boolean) => void;
   /** Sleep timer end (ms epoch) or null. */
   sleepUntil?: number | null;
@@ -192,6 +201,7 @@ export function PlayerTopChrome({
   onPickSource,
   sourceOptions,
   disabledSources = [],
+  failedSourceLabels,
   showAutoplayToggle = false,
   autoplayNext = true,
   onToggleAutoplayNext,
@@ -206,6 +216,7 @@ export function PlayerTopChrome({
   setHlsQualityRef,
   onMoreMenuOpenChange,
   onSourceMenuOpenChange,
+  onOpenSettings,
   sleepUntil = null,
   sleepMinutes = null,
   sleepAfterEpisode = false,
@@ -865,6 +876,12 @@ export function PlayerTopChrome({
                       : key === "goated"
                         ? "Down"
                         : "Off";
+                    // Session failure streak — never on the live source, and
+                    // never on a parked one (that row already says why).
+                    const failed =
+                      !disabled &&
+                      key !== activeSource &&
+                      failedSourceLabels?.includes(sourceLabel(key)) === true;
                     return (
                       <button
                         key={key}
@@ -885,6 +902,11 @@ export function PlayerTopChrome({
                         {disabled && (
                           <span className="text-[10px] font-semibold uppercase tracking-wide text-white/50">
                             {disabledLabel}
+                          </span>
+                        )}
+                        {failed && (
+                          <span className="text-[10px] font-bold uppercase tracking-wide text-red-400">
+                            Failed
                           </span>
                         )}
                         {!disabled && activeSource === key && (
@@ -1085,6 +1107,21 @@ export function PlayerTopChrome({
               </div>
             )}
           </div>
+          {/* Grouped settings drawer — Source / Media / Playback in one place.
+              (Mobile also keeps the quick ⋯ sheet below for one-tap toggles.) */}
+          <button
+            type="button"
+            onClick={() => {
+              onKeepChrome();
+              onOpenSettings?.();
+            }}
+            aria-label="Player settings"
+            aria-haspopup="dialog"
+            className="flex h-9 items-center gap-1.5 rounded-full bg-black/60 px-3 text-xs font-bold text-white ring-1 ring-white/20 backdrop-blur transition hover:bg-black/80"
+          >
+            <Settings2 className="h-4 w-4" />
+            <span className="hidden sm:inline">Settings</span>
+          </button>
           <button
             type="button"
             onClick={onLock}

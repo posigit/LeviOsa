@@ -63,6 +63,15 @@ export function UpNextCard({
         }
         className="animate-up-next-in pointer-events-auto relative flex w-80 max-w-[calc(100vw-4.5rem)] items-center gap-3 overflow-hidden rounded-2xl border border-white/15 bg-black/85 p-2.5 text-left shadow-2xl backdrop-blur-xl transition hover:border-white/25 hover:bg-black/90 active:scale-[0.99]"
       >
+        {/* Title-accent hairline — matches the pause card's theme divider */}
+        <span
+          aria-hidden="true"
+          className="absolute inset-x-0 top-0 h-px"
+          style={{
+            background:
+              "linear-gradient(90deg, transparent, rgb(var(--theme, 245 197 24) / 0.7), transparent)",
+          }}
+        />
         <div className="relative h-[68px] w-24 flex-shrink-0 overflow-hidden rounded-lg bg-[#2c2c2e]">
           {still ? (
             <Image
@@ -101,7 +110,7 @@ export function UpNextCard({
             className="mt-0.5 text-[11px] tabular-nums text-white/50"
             aria-live="polite"
           >
-            {autoplay ? `Starts in ${secondsLeft}…` : "Autoplay off — tap to play"}
+            {autoplay ? `Starts in ${secondsLeft}s` : "Autoplay off — tap to play"}
           </p>
         </div>
 

@@ -168,4 +168,19 @@ assert.equal(
   "no spares means no Saved files section"
 );
 
+// The grouped settings drawer (Source / Media / Playback) is a permanent
+// chrome control — new modes must not drop its entry point.
+assert.equal(
+  render({ mode: "native" }).includes('aria-label="Player settings"'),
+  true,
+  "chrome must expose the settings drawer"
+);
+assert.equal(
+  render({ mode: "iframe", clockEmbed: true }).includes(
+    'aria-label="Player settings"'
+  ),
+  true,
+  "driven embeds must expose the settings drawer too"
+);
+
 console.log("cc-gate: all assertions passed");

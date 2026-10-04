@@ -4,6 +4,7 @@ import { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Play } from "lucide-react";
 import { VixPlayer } from "@/components/vix-player";
+import type { PausedInfo } from "@/components/player-overlays";
 import { vixMovieUrl } from "@/lib/vixsrc";
 import { useToast } from "@/components/toast";
 import type { PlaybackSummary } from "@/lib/playback";
@@ -23,6 +24,7 @@ export function MovieVixButton({
   isWatched,
   isRewatchQueued,
   playback,
+  pausedDetails,
   className,
 }: {
   tmdbId: number;
@@ -30,6 +32,8 @@ export function MovieVixButton({
   isWatched: boolean;
   isRewatchQueued?: boolean;
   playback?: PlaybackSummary | null;
+  /** Catalogue facts for the player's pause card (optional). */
+  pausedDetails?: PausedInfo | null;
   /** Extra classes for the pill row (the detail page drives the flex shape). */
   className?: string;
 }) {
@@ -99,6 +103,7 @@ export function MovieVixButton({
       type="movie"
       tmdbId={tmdbId}
       title={title}
+      pausedDetails={pausedDetails}
       initialPosition={playback?.positionSeconds}
       autoResume={Boolean(playback)}
       onEvent={handleEvent}

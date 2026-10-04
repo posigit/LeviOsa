@@ -624,6 +624,13 @@ export default async function MovieDetailPage({
           isWatched={isWatched}
           isRewatchQueued={isRewatchQueued}
           playback={playback}
+          pausedDetails={{
+            overview: movie.overview ?? null,
+            year: yearNum ? Number(yearNum) : null,
+            runtime: movie.runtime ?? null,
+            rating: movie.voteAverage ?? null,
+            genres,
+          }}
           className="h-12 flex-1 rounded-full px-4"
         />
         <FavoriteButton
