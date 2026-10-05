@@ -254,15 +254,48 @@ function collectBodies(map: Record<string, DownloadRecord>): Record<string, SubB
   return out;
 }
 
-function bodiesSig(bodies: Record<string, SubBodies>): string {
-  let bytes = 0;
-  const keys = Object.keys(bodies);
-  for (const key of keys) {
-    const body = bodies[key]!;
-    bytes += body.subVtt?.length ?? 0;
-    for (const alt of body.subAlts) bytes += alt.vtt.length;
+// Bounded so a body rewritten per download cannot grow this forever.
+const bodyHashCache = new Map<string, number>();
+
+function hashText(text: string): number {
+  const hit = bodyHashCache.get(text);
+  if (hit !== undefined) return hit;
+  let h = 0x811c9dc5;
+  for (let i = 0; i < text.length; i++) {
+    h ^= text.charCodeAt(i);
+    h = Math.imul(h, 0x01000193);
   }
-  return `${keys.length}:${bytes}`;
+  h >>>= 0;
+  if (bodyHashCache.size >= 512) bodyHashCache.clear();
+  bodyHashCache.set(text, h);
+  return h;
+}
+
+function bodiesSig(bodies: Record<string, SubBodies>): string {
+  // Lengths alone missed a rewrite that kept the same byte count: the disk
+  // copy kept the old text while the record claimed the new one. Fold the
+  // content in so any edit shows, however small. Keys are sorted because
+  // object order is insertion order and the same set must always sign the
+  // same way. Unchanged bodies come back from hashText's cache, so a routine
+  // progress write stays a handful of lookups instead of a full re-read.
+  let h = 0x811c9dc5;
+  const mix = (text: string) => {
+    h = Math.imul(h ^ hashText(text), 0x01000193);
+    // Field separator: without it ["ab"] and ["a", "b"] fold identically.
+    h = Math.imul(h ^ 0x1f, 0x01000193);
+  };
+  const keys = Object.keys(bodies).sort();
+  for (const key of keys) {
+    mix(key);
+    const body = bodies[key]!;
+    mix(body.subLabel ?? "");
+    mix(body.subVtt ?? "");
+    for (const alt of body.subAlts) {
+      mix(alt.label);
+      mix(alt.vtt);
+    }
+  }
+  return `${keys.length}:${(h >>> 0).toString(16)}`;
 }
 
 /** Disk copy of the manifest. Caption text lives in SUBS_IDB_KEY. */
