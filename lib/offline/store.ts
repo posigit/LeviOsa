@@ -489,6 +489,8 @@ export async function verifyRecordFiles(key: string): Promise<boolean> {
  *   { [dlKey]: { pos: number; dur: number; at: number } }
  */
 const OFFLINE_POS_LS_KEY = "tvtime-offline-positions";
+/** clearedAt per download key. A missing local row is not "never watched". */
+const OFFLINE_POS_CLEAR_LS_KEY = "tvtime-offline-position-clears";
 
 export type OfflinePosition = { pos: number; dur: number; at: number };
 
@@ -511,6 +513,23 @@ function emitOfflinePosition(key: string): void {
   );
 }
 
+function readClearMap(): Record<string, number> {
+  if (typeof window === "undefined") return {};
+  try {
+    const raw = window.localStorage.getItem(OFFLINE_POS_CLEAR_LS_KEY);
+    if (!raw) return {};
+    const parsed = JSON.parse(raw) as Record<string, number>;
+    return parsed && typeof parsed === "object" ? parsed : {};
+  } catch {
+    return {};
+  }
+}
+
+function readClearedAt(key: string): number | undefined {
+  const n = readClearMap()[key];
+  return typeof n === "number" && Number.isFinite(n) ? n : undefined;
+}
+
 /**
  * Persist an offline stop position (throttle callers to ~2s).
  * `pos <= 0` is never stored — readOfflinePosition treats it as absent, so a
@@ -520,6 +539,11 @@ export function writeOfflinePosition(key: string, pos: number, dur: number): voi
   if (typeof window === "undefined") return;
   if (!key || !Number.isFinite(pos) || pos <= 0) return;
   try {
+    const clears = readClearMap();
+    if (clears[key] != null) {
+      delete clears[key];
+      window.localStorage.setItem(OFFLINE_POS_CLEAR_LS_KEY, JSON.stringify(clears));
+    }
     const map = readPosMap();
     map[key] = {
       pos,
@@ -543,12 +567,18 @@ export function readOfflinePosition(key: string): OfflinePosition | null {
 export function clearOfflinePosition(key: string): void {
   if (typeof window === "undefined" || !key) return;
   try {
+    // Tombstone even when the row is already gone. Sync would otherwise
+    // treat "no local" as permission to copy the server bookmark back,
+    // and the DELETE that finishes the watch often lands after that sync.
+    const clears = readClearMap();
+    clears[key] = Date.now();
+    window.localStorage.setItem(OFFLINE_POS_CLEAR_LS_KEY, JSON.stringify(clears));
     const map = readPosMap();
     if (map[key]) {
       delete map[key];
       window.localStorage.setItem(OFFLINE_POS_LS_KEY, JSON.stringify(map));
-      emitOfflinePosition(key);
     }
+    emitOfflinePosition(key);
   } catch {
     /* ignore */
   }
@@ -580,24 +610,42 @@ export function serverPositionKey(row: ServerPositionRow): string {
 }
 
 /**
- * Merge a server bookmark into the local offline one. The offline mirror only
- * ever hears from offline playback, so the higher of the two is the truth:
- *   - server finished (>= 92%) → null: online playback ran to the end, so the
- *     stale local Resume line is dropped (mirrors the online 92% clear).
- *   - no local → the server value, when it is worth resuming.
- *   - both → max, re-gated by the resume rules (a fresh 0-5s server start
- *     never wipes local progress, and non-resumable results never store).
+ * Merge a server bookmark into the local offline one.
+ *   - server finished (>= 92%) → null (online playback ran to the end).
+ *   - no local, and a clear tombstone → adopt the server row only when its
+ *     `updatedAt` is newer than the clear. A missing server time stays clear.
+ *   - both, and both timestamps → the newer bookmark wins. A newer 0–5s
+ *     server start still does not wipe local progress.
+ *   - timestamps omitted → the higher position wins, same as before.
  */
 export function mergeOfflinePosition(
   local: OfflinePosition | null,
   serverPos: number,
-  serverDur: number
+  serverDur: number,
+  times?: { serverAt?: number; clearedAt?: number }
 ): OfflinePosition | null {
   const sPos = Number.isFinite(serverPos) ? Math.max(0, serverPos) : 0;
   const sDur = Number.isFinite(serverDur) ? Math.max(0, serverDur) : 0;
   if (sDur > 0 && sPos >= sDur * RESUME_END_RATIO) return null;
+  const serverAt = times?.serverAt;
+  const hasServerAt = serverAt != null && Number.isFinite(serverAt);
+  const clearedAt = times?.clearedAt;
   if (!local) {
+    if (clearedAt != null && Number.isFinite(clearedAt)) {
+      if (!hasServerAt || !(serverAt > clearedAt)) return null;
+    }
     return isResumablePosition(sPos, sDur) ? { pos: sPos, dur: sDur, at: Date.now() } : null;
+  }
+  if (hasServerAt && Number.isFinite(local.at)) {
+    if (serverAt > local.at) {
+      if (!isResumablePosition(sPos, sDur)) {
+        const dur = Math.max(local.dur, sDur);
+        return isResumablePosition(local.pos, dur) ? { ...local, dur } : null;
+      }
+      return { pos: sPos, dur: sDur > 0 ? sDur : local.dur, at: Date.now() };
+    }
+    const dur = Math.max(local.dur, sDur);
+    return isResumablePosition(local.pos, dur) ? { ...local, dur } : null;
   }
   const pos = Math.max(local.pos, sPos);
   const dur = Math.max(local.dur, sDur);
@@ -643,7 +691,16 @@ export async function syncOfflinePositions(records: DownloadRecord[]): Promise<v
     const row = byKey.get(record.key);
     if (!row) continue;
     const local = readOfflinePosition(record.key);
-    const merged = mergeOfflinePosition(local, row.positionSeconds, row.durationSeconds);
+    const parsedAt = row.updatedAt ? Date.parse(row.updatedAt) : Number.NaN;
+    const merged = mergeOfflinePosition(
+      local,
+      row.positionSeconds,
+      row.durationSeconds,
+      {
+        serverAt: Number.isFinite(parsedAt) ? parsedAt : undefined,
+        clearedAt: readClearedAt(record.key),
+      }
+    );
     if (merged === null) {
       if (local) clearOfflinePosition(record.key);
       continue;

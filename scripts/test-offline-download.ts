@@ -618,6 +618,37 @@ expectMerged(mergeOfflinePosition(localAt(900, 4000), 3, 4000), 900, 4000);
 expectMerged(mergeOfflinePosition(localAt(900, 4000), 0, 0), 900, 4000);
 // Merged below the resume threshold is dropped, not stored.
 expectMerged(mergeOfflinePosition(localAt(2, 4000), 3, 4000), null);
+// Timestamps omitted: still the higher position (older callers).
+expectMerged(mergeOfflinePosition(localAt(900, 4000), 300, 4000, {}), 900, 4000);
+// A newer server bookmark replaces an older, further-along local stop.
+expectMerged(
+  mergeOfflinePosition(localAt(900, 4000), 300, 4000, { serverAt: 50 }),
+  300,
+  4000
+);
+// An older server bookmark does not move a newer local stop.
+expectMerged(
+  mergeOfflinePosition({ pos: 300, dur: 4000, at: 50 }, 900, 4000, { serverAt: 10 }),
+  300,
+  4000
+);
+// A newer 0–5s server start still must not wipe local progress.
+expectMerged(
+  mergeOfflinePosition(localAt(900, 4000), 3, 4000, { serverAt: 50 }),
+  900,
+  4000
+);
+// A clear tombstone blocks the stale server row. A later server write is adopted.
+expectMerged(
+  mergeOfflinePosition(null, 600, 4000, { serverAt: 100, clearedAt: 200 }),
+  null
+);
+expectMerged(
+  mergeOfflinePosition(null, 600, 4000, { serverAt: 300, clearedAt: 200 }),
+  600,
+  4000
+);
+expectMerged(mergeOfflinePosition(null, 600, 4000, { clearedAt: 200 }), null);
 
 // Server rows land on the download's own key.
 assert.equal(
