@@ -4166,7 +4166,7 @@ export function VixPlayer({
         />
       )}
 
-      {clockEmbed && subSource !== "off" && subSource !== "stream" && (
+      {clockEmbed && clockEmbedSubSource(subSource) !== "off" && (
         <IframeSubtitleOverlay
           text={cueTextAt(iframeCues, transport.currentTime - subDelay)}
           fontScale={SUB_FONT_SCALE[subFontSize]}
