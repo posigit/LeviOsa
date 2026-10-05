@@ -238,6 +238,9 @@ export function VixPlayer({
    * is ready (startPosition + MANIFEST/FRAG) — required for Vix resolver.
    */
   const pendingSeekPosRef = useRef<number | null>(null);
+  // First mount keeps a null seek so offline resume can arm one. Only a real
+  // src change (episode advance on this same mount) drops the previous seek.
+  const episodeSrcRef = useRef(src);
   const pendingSeekWaitersRef = useRef<
     Array<(ok: boolean) => void>
   >([]);
@@ -653,6 +656,18 @@ export function VixPlayer({
   const segmentsKeyRef = useRef<string | null>(null);
 
   useEffect(() => {
+    // Source switches keep `src` and must keep the in-episode pending seek.
+    // Episode advance does not remount (the shell key is the show id), so the
+    // previous episode's seek would otherwise become hls.js startPosition.
+    if (episodeSrcRef.current !== src) {
+      episodeSrcRef.current = src;
+      pendingSeekPosRef.current = null;
+      resumePosRef.current = 0;
+      nearEndFiredRef.current = false;
+      const waiters = pendingSeekWaitersRef.current;
+      pendingSeekWaitersRef.current = [];
+      for (const w of waiters) w(false);
+    }
     endedRef.current = false;
     lastTimeRef.current = 0;
     lastSavedPosRef.current = 0;
