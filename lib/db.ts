@@ -1,23 +1,63 @@
+import { getCloudflareContext } from "@opennextjs/cloudflare";
 import { drizzle } from "drizzle-orm/node-postgres";
 import { Pool } from "pg";
 import * as schema from "./schema";
 
-const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
-  // Enough for page load + a few parallel ensure* without stampeding Railway
-  max: 10,
-  idleTimeoutMillis: 30_000,
-  connectionTimeoutMillis: 20_000,
-  // Don't fail the whole pool on one bad connection during cold start
-  allowExitOnIdle: true,
-});
+function resolveConnectionString(): string {
+  try {
+    const ctx = getCloudflareContext();
+    const hd = (ctx.env as { HYPERDRIVE?: { connectionString?: string } }).HYPERDRIVE;
+    if (hd?.connectionString) return hd.connectionString;
+  } catch {
+    // Outside the Worker runtime (next build SSG, tsx scripts, plain node)
+  }
+  if (process.env.DATABASE_URL) return process.env.DATABASE_URL;
+  throw new Error(
+    "No database connection string: HYPERDRIVE binding and DATABASE_URL are both missing"
+  );
+}
 
-pool.on("error", (err) => {
-  console.error("Unexpected Postgres pool error:", err.message);
+let poolInstance: Pool | null = null;
+
+function createPool(): Pool {
+  const p = new Pool({
+    connectionString: resolveConnectionString(),
+    // Enough for page load + a few parallel ensure* without stampeding Railway
+    max: 10,
+    idleTimeoutMillis: 30_000,
+    connectionTimeoutMillis: 20_000,
+    // Don't fail the whole pool on one bad connection during cold start
+    allowExitOnIdle: true,
+  });
+  p.on("error", (err) => {
+    console.error("Unexpected Postgres pool error:", err.message);
+  });
+  return p;
+}
+
+function getPool(): Pool {
+  if (!poolInstance) poolInstance = createPool();
+  return poolInstance;
+}
+
+export const pool: Pool = new Proxy({} as Pool, {
+  get(_target, prop) {
+    const real = getPool();
+    const value = Reflect.get(real, prop, real);
+    return typeof value === "function" ? value.bind(real) : value;
+  },
+  set(_target, prop, value) {
+    return Reflect.set(getPool(), prop, value, getPool());
+  },
+  has(_target, prop) {
+    return Reflect.has(getPool(), prop);
+  },
+  getPrototypeOf() {
+    return Pool.prototype;
+  },
 });
 
 export const db = drizzle(pool, { schema });
-export { pool };
 
 function errCode(err: unknown): string {
   if (!err || typeof err !== "object") return "";

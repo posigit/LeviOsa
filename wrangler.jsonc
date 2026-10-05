@@ -21,6 +21,12 @@
       "service": "leviosa"
     }
   ],
+  "hyperdrive": [
+    {
+      "binding": "HYPERDRIVE",
+      "id": "4e1e0c162b714b8f9068b1477304a7f0"
+    }
+  ],
   "observability": {
     "enabled": true
   }
