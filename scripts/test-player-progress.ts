@@ -18,6 +18,7 @@ import {
 } from "../lib/player-progress";
 import {
   SUB_FONT_SCALE,
+  clockEmbedSubSource,
   cueTextAt,
   streamCueVisible,
   isPromoCue,
@@ -84,6 +85,12 @@ assert.equal(streamCueVisible(8, 10, 8, 2), false);
 assert.equal(streamCueVisible(8, 10, 9, 0), true);
 assert.equal(streamCueVisible(8, 10, 7, -1), true);
 assert.equal(streamCueVisible(8, 10, Number.NaN, 0), false);
+
+// A clock embed has no stream captions. Stream follows Auto; other choices stay.
+assert.equal(clockEmbedSubSource("stream"), "auto");
+assert.equal(clockEmbedSubSource("auto"), "auto");
+assert.equal(clockEmbedSubSource("off"), "off");
+assert.equal(clockEmbedSubSource("vdrk"), "vdrk");
 
 assert.equal(
   shouldSaveProgress({

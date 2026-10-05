@@ -79,6 +79,7 @@ import {
 import {
   SUB_COLORS,
   SUB_FONT_SCALE,
+  clockEmbedSubSource,
   cueTextAt,
   exclusiveTextTracks,
   fetchExternalVtt,
@@ -1973,7 +1974,11 @@ export function VixPlayer({
   // since embeds never resolve).
   useEffect(() => {
     if (!clockEmbed) return;
-    if (subSource === "off" || subSource === "stream") {
+    // These frames have no caption track. A saved Stream choice would clear
+    // the overlay and check no row. Follow Auto without rewriting the setting,
+    // so a later native source still prefers the stream's own CC.
+    const source = clockEmbedSubSource(subSource);
+    if (source === "off") {
       setIframeCues([]);
       return;
     }
@@ -1983,8 +1988,8 @@ export function VixPlayer({
       // Forced file provider (or a picked file): download it directly.
       // NOTE: this path never touches the embed player — VidFast/CineSrc
       // only supply the clock. Failures here are our lookup chain, not them.
-      if (subSource === "opensub" || subSource === "subdl") {
-        const provider: SubSource = subSource;
+      if (source === "opensub" || source === "subdl") {
+        const provider: SubSource = source;
         let imdb = imdbIdRef.current ?? null;
         if (provider === "opensub" && !imdb) imdb = await ensureIframeImdb();
         if (cancelled) return;
@@ -2039,7 +2044,7 @@ export function VixPlayer({
         setSubError(null);
         return;
       }
-      if (subSource !== "auto") {
+      if (source !== "auto") {
         setIframeCues([]);
         setSubError("VDRK subtitles unavailable for this episode");
         return;

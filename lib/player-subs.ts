@@ -210,6 +210,11 @@ export function parseVttCues(vtt: string, delaySeconds = 0): VttCue[] {
  * later: the playhead minus the delay has to sit inside the cue. Injected
  * files already bake this into the cue, so they must not be shifted again.
  */
+/** Clock embeds have no stream captions. Stream follows Auto there only. */
+export function clockEmbedSubSource(source: SubSource): SubSource {
+  return source === "stream" ? "auto" : source;
+}
+
 export function streamCueVisible(
   start: number,
   end: number,

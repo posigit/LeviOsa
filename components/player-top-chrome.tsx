@@ -565,7 +565,9 @@ export function PlayerTopChrome({
                         title={netLocked ? "Needs a connection" : undefined}
                         className={cn(
                           "flex w-full items-center justify-between px-3.5 py-2.5 text-left text-sm font-semibold text-white hover:bg-secondary",
-                          subSource === key && "bg-secondary/60 text-primary",
+                          (subSource === key ||
+                            (clockEmbed && subSource === "stream" && key === "auto")) &&
+                            "bg-secondary/60 text-primary",
                           netLocked &&
                             "cursor-not-allowed opacity-40 hover:bg-transparent"
                         )}
@@ -576,7 +578,9 @@ export function PlayerTopChrome({
                             Offline
                           </span>
                         )}
-                        {!netLocked && subSource === key && (
+                        {!netLocked &&
+                          (subSource === key ||
+                            (clockEmbed && subSource === "stream" && key === "auto")) && (
                           <Check className="h-4 w-4 flex-shrink-0" />
                         )}
                       </button>
