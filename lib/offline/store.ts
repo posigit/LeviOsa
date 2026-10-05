@@ -254,18 +254,27 @@ function collectBodies(map: Record<string, DownloadRecord>): Record<string, SubB
   return out;
 }
 
-// Bounded so a body rewritten per download cannot grow this forever.
+// Bounded so a body rewritten per download cannot grow this forever. Only the
+// multi-kilobyte bodies are worth caching: hashing a field name or a label
+// costs less than a map probe, and flooding the cache with those evicts the
+// bodies it exists for.
 const bodyHashCache = new Map<string, number>();
+const BODY_CACHE_MIN = 64;
 
-function hashText(text: string): number {
-  const hit = bodyHashCache.get(text);
-  if (hit !== undefined) return hit;
+function fnv1a(text: string): number {
   let h = 0x811c9dc5;
   for (let i = 0; i < text.length; i++) {
     h ^= text.charCodeAt(i);
     h = Math.imul(h, 0x01000193);
   }
-  h >>>= 0;
+  return h >>> 0;
+}
+
+function hashText(text: string): number {
+  if (text.length < BODY_CACHE_MIN) return fnv1a(text);
+  const hit = bodyHashCache.get(text);
+  if (hit !== undefined) return hit;
+  const h = fnv1a(text);
   if (bodyHashCache.size >= 512) bodyHashCache.clear();
   bodyHashCache.set(text, h);
   return h;
@@ -843,7 +852,14 @@ export async function syncOfflinePositions(records: DownloadRecord[]): Promise<v
       Object.entries(clears).filter(([key]) => byKey.has(key))
     );
     if (Object.keys(kept).length !== Object.keys(clears).length) {
-      window.localStorage.setItem(OFFLINE_POS_CLEAR_LS_KEY, JSON.stringify(kept));
+      // Every other write here already ignores a full or frozen storage. This
+      // one is housekeeping, and letting it throw would take the merge loop
+      // below — the actual resume sync — down with it.
+      try {
+        window.localStorage.setItem(OFFLINE_POS_CLEAR_LS_KEY, JSON.stringify(kept));
+      } catch {
+        /* leave the map oversized until the next sync */
+      }
     }
   }
 
