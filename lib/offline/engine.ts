@@ -662,6 +662,9 @@ async function startDownloadInner(
     interruptedOffline: existing?.interruptedOffline,
     rendition: sameQuality ? existing?.rendition : undefined,
     usedPlaylistUrl: sameQuality ? existing?.usedPlaylistUrl : undefined,
+    // The stored cut sample only means anything if the next run reads it back,
+    // and a quality switch drops it along with the bytes it described.
+    videoFingerprint: sameQuality ? existing?.videoFingerprint : undefined,
   };
   // Player downloads carry no artwork, and rows from before thumbnails
   // existed have none either. Resolve it here — we are provably online —
@@ -2042,15 +2045,16 @@ async function runDownload(
     let sampledFp: string | null = null;
     if (hasVideo) sampledFp = await sampleCut(m.parts, false, signal);
     if (sampledFp && !sourceChanged && !plan.groups.includes("video")) {
-      if (videoCutMismatch(rec.videoFingerprint, sampledFp)) {
+      // Read the bytes on disk first and only fall back to the stored
+      // fingerprint when a partial download has not cached the middle segment
+      // yet. The stored value is a claim about bytes we did not look at, so it
+      // speaks only for the case where looking is impossible.
+      const diskFp = await sampleCut(m.parts, true, signal);
+      const reference = diskFp ?? rec.videoFingerprint;
+      if (videoCutMismatch(reference, sampledFp)) {
         plan.groups.push("video");
-      } else if (!rec.videoFingerprint) {
-        const cachedFp = await sampleCut(m.parts, true, signal);
-        if (cachedFp && cachedFp !== sampledFp) {
-          plan.groups.push("video");
-        } else {
-          pendingCutFingerprint = sampledFp;
-        }
+      } else {
+        pendingCutFingerprint = sampledFp;
       }
     }
     // A parse shorter than what we already stored (same source) is a
