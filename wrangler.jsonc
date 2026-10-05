@@ -1,4 +1,9 @@
 {
+  "vars": {
+    "AUTH_TRUST_HOST": "true",
+    "AUTH_URL": "https://leviosa.davincci.workers.dev",
+    "NEXT_PUBLIC_VAPID_PUBLIC_KEY": "BLp-3WS6ePZequp6-TXyUfpvU8k92Ke18WqZyHpCZhZIiUIrtsUdbSxchAIMaw0yiIcT9HWFBQqw0I5ApHm1qBM"
+  },
   "$schema": "./node_modules/wrangler/config-schema.json",
   "name": "leviosa",
   "main": ".open-next/worker.js",
