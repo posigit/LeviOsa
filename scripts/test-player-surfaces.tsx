@@ -99,6 +99,21 @@ assert.match(
   "title carries a shadow so it reads on bright frames"
 );
 assert.match(pauseCard, /select-none/, "long-press must not half-select the card");
+// Every row carries a pause-* hook so the max-height tiers in globals.css can
+// rescale the whole stack (landscape phones, notches, browser chrome) without
+// dropping a single line of information.
+for (const hook of [
+  "pause-eyebrow",
+  "pause-subtitle",
+  "pause-tagline",
+  "pause-meta",
+  "pause-chips",
+  "pause-rule",
+  "pause-overview",
+  "pause-tip",
+]) {
+  assert.ok(pauseCard.includes(hook), `pause card row exposes ${hook}`);
+}
 assert.doesNotMatch(
   pauseCard,
   /rounded-2xl/,

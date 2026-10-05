@@ -290,29 +290,29 @@ export function PausedInfoLayer({
       <div className="pause-body relative w-full max-w-3xl px-6 pb-[env(safe-area-inset-bottom)] pt-[env(safe-area-inset-top)] md:px-16">
         <p
           role="status"
-          className="mb-3 flex items-center gap-3 text-sm font-medium uppercase tracking-widest text-white/60 md:mb-5"
+          className="pause-eyebrow mb-3 flex items-center gap-3 text-sm font-medium uppercase tracking-widest text-white/60 md:mb-5"
         >
           Paused
         </p>
 
-        <h2 className="pause-title text-4xl leading-tight text-white [text-shadow:0_2px_20px_rgba(0,0,0,0.75)] md:text-6xl">
+        <h2 className="pause-title break-words text-4xl leading-tight text-white [text-shadow:0_2px_20px_rgba(0,0,0,0.75)] md:text-6xl">
           {title}
         </h2>
 
         {subtitle && (
-          <p className="mt-1.5 text-xs font-medium uppercase tracking-[0.18em] text-white/45 md:text-sm">
+          <p className="pause-subtitle mt-1.5 text-xs font-medium uppercase tracking-[0.18em] text-white/45 md:text-sm">
             {subtitle}
           </p>
         )}
 
         {tagline && (
-          <p className="mt-2 text-sm italic text-white/60 md:text-base">
+          <p className="pause-tagline mt-2 text-sm italic text-white/60 md:text-base">
             {tagline}
           </p>
         )}
 
         {meta.length > 0 && (
-          <p className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm tabular-nums text-white/70 md:mt-4">
+          <p className="pause-meta mt-2 flex flex-wrap items-center gap-x-4 gap-y-1 text-sm tabular-nums text-white/70 md:mt-4">
             {meta.map((entry, i) => (
               <span key={entry} className="flex items-center gap-1.5">
                 {i > 0 && (
@@ -327,7 +327,7 @@ export function PausedInfoLayer({
         )}
 
         {genres.length > 0 && (
-          <div className="mt-4 flex flex-wrap gap-2">
+          <div className="pause-chips mt-4 flex flex-wrap gap-2">
             {genres.map((genre) => (
               <span
                 key={genre}
@@ -341,8 +341,8 @@ export function PausedInfoLayer({
 
         {overview && (
           <>
-            <div aria-hidden="true" className="mt-6 h-px w-16 bg-white/40" />
-            <p className="mt-3 line-clamp-3 max-w-2xl text-sm leading-6 text-white/65 md:mt-5 md:text-base">
+            <div aria-hidden="true" className="pause-rule mt-6 h-px w-16 bg-white/40" />
+            <p className="pause-overview mt-3 line-clamp-3 max-w-2xl break-words text-sm leading-6 text-white/65 md:mt-5 md:text-base">
               {overview}
             </p>
           </>
@@ -350,7 +350,7 @@ export function PausedInfoLayer({
 
         <TipLine
           accent={accent}
-          className="mt-4 max-w-2xl border-t border-white/10 pt-3 text-[11px] leading-relaxed md:text-xs"
+          className="pause-tip mt-4 max-w-2xl border-t border-white/10 pt-3 text-[11px] leading-relaxed md:text-xs"
         />
       </div>
     </div>
