@@ -19,7 +19,7 @@ one is committed.
 - [x] **7. Crossing the outro or 92% latches ended.** A scrub back never saves, and the next open starts at 0. Reopen the bookmark when playback is clearly before the finish line.
 - [x] **8. Episode advance inherits the previous seek.** The player stays mounted across episodes (`key` is the show id) and the `[src]` reset does not clear `pendingSeekPosRef`.
 - [x] **9. A finished offline watch grows a Resume line back.** Sync adopts a server row after the local clear, and the later DELETE does not remove it. Tombstone the clear. When both timestamps exist, the newer bookmark wins.
-- [ ] **10. Offline Auto hides stream captions, and iPhone paints both.** Prefer the captured `offline-subs` rendition. A spare pick must not write `subSource: "opensub"`. Safari must not leave the stream track and the injected track both active. Skip SubDL spare downloads when captions are off or stream-only.
+- [x] **10. Offline Auto hides stream captions, and iPhone paints both.** Prefer the captured `offline-subs` rendition. A spare pick must not write `subSource: "opensub"`. Safari must not leave the stream track and the injected track both active. Skip SubDL spare downloads when captions are off or stream-only.
 - [ ] **11. A single WebVTT subtitle rendition is dropped.** Segmented caption playlists are captured. A `WEBVTT` document (no `#EXTINF`) is not, so offline falls through to an external file.
 
 ## Left for a later pass

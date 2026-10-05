@@ -80,8 +80,10 @@ import {
   SUB_COLORS,
   SUB_FONT_SCALE,
   cueTextAt,
+  exclusiveTextTracks,
   fetchExternalVtt,
   injectVttTrack,
+  shouldPreferCapturedStreamSubs,
   listOpenSubtitles,
   listSubDl,
   parseVttCues,
@@ -145,6 +147,7 @@ export function VixPlayer({
   initialPlaylistUrl = null,
   initialSubVtt = null,
   initialSubAlts = null,
+  preferStreamSubs = false,
   offlineKey = null,
   initialSegments = null,
   initialDuration = null,
@@ -180,6 +183,11 @@ export function VixPlayer({
   initialSubVtt?: { vtt: string; label: string } | null;
   /** Stored spare subtitle files (best-first) for offline switching. */
   initialSubAlts?: { vtt: string; label: string }[] | null;
+  /**
+   * The cached master has GROUP-ID="offline-subs". Auto then plays that
+   * rendition instead of the stored external file. Sniffed after mount.
+   */
+  preferStreamSubs?: boolean;
   /**
    * Known total duration (offline downloads know it up front). Fallback for
    * the scrub bar and seek math while hls.js hasn't set one yet — otherwise
@@ -1811,10 +1819,10 @@ export function VixPlayer({
       }
       setSavedSubAltPick(index);
       setOpenSubFileId(null);
-      setSubSource("opensub");
-      subSourceRef.current = "opensub";
       setSubError(null);
-      saveVixSettings({ subSource: "opensub", subs: "en" });
+      // This download only. Writing subSource:"opensub" used to change the
+      // global picker, so the next online title fetched OpenSubtitles.
+      if (loadVixSettings().subs === "off") saveVixSettings({ subs: "en" });
       // Swap via the engine hook (disables old tracks, injects with current
       // delay) instead of duplicating its track surgery here.
       externalVttRef.current = { vtt: alt.vtt, label: alt.label };
@@ -2143,13 +2151,39 @@ export function VixPlayer({
   // The engine's own sub cascade would fail offline and surface an error —
   // inject the downloaded track directly and clear any such error instead.
   useEffect(() => {
-    if (!offlineOverride || !initialSubVtt) return;
-    if (mode !== "native" || !videoRef.current) return;
+    if (!offlineOverride || mode !== "native" || !videoRef.current) return;
     const video = videoRef.current;
+    // A spare pick owns the element. The default inject must not replace it.
+    if (savedSubAltPick != null) return;
+    if (
+      shouldPreferCapturedStreamSubs(
+        preferStreamSubs,
+        subSourceRef.current,
+        savedSubAltPick
+      )
+    ) {
+      for (const t of injectedTracksRef.current) t.mode = "disabled";
+      injectedTracksRef.current = [];
+      externalVttRef.current = null;
+      offlineSubInjectedRef.current = video;
+      setHasExternalSubs(false);
+      // Engine selects the English offline-subs rendition (hls.js) or the
+      // native text track (Safari). No fetch.
+      reloadSubsRef.current?.();
+      return;
+    }
+    if (!initialSubVtt) return;
     // Guard on the ELEMENT, not a boolean: mode switches (native → iframe →
     // native) and reloads remount the <video>, and the tracks die with the
     // old element — a one-shot flag left the re-mount with no subs.
-    if (offlineSubInjectedRef.current === video) return;
+    // A prefer-stream pass sets the ref with no external file; that must
+    // still fall through once the user asks for the stored file.
+    if (
+      offlineSubInjectedRef.current === video &&
+      externalVttRef.current != null
+    ) {
+      return;
+    }
     // Anything still recorded pointed at the dead element: drop it.
     if (offlineSubInjectedRef.current !== null) injectedTracksRef.current = [];
     offlineSubInjectedRef.current = video;
@@ -2158,17 +2192,19 @@ export function VixPlayer({
     // Sync slider was a silent no-op for downloads.
     externalVttRef.current = { vtt: initialSubVtt.vtt, label: initialSubVtt.label };
     const delay = loadVixSettings().subDelaySeconds;
+    const show = loadVixSettings().subs !== "off";
     const tr = injectVttTrack(
       video,
       initialSubVtt.vtt,
       initialSubVtt.label,
-      true,
+      show,
       delay
     );
     if (tr) injectedTracksRef.current.push(tr);
-    setHasExternalSubs(true);
+    exclusiveTextTracks(video, tr && show ? [tr] : []);
+    setHasExternalSubs(show);
     setSubError(null);
-  }, [mode, offlineOverride, initialSubVtt]);
+  }, [mode, offlineOverride, initialSubVtt, preferStreamSubs, savedSubAltPick]);
 
 
   const flushPosition = useCallback(() => {

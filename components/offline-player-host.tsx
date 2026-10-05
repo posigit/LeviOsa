@@ -4,6 +4,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { VixPlayer } from "@/components/vix-player";
 import { UpNextCard } from "@/components/up-next-card";
 import {
+  DL_CACHE,
   dlPlaylistUrl,
   getAllSync,
   getManifest,
@@ -44,6 +45,8 @@ export function OfflinePlayerHost() {
   const [storedSegments, setStoredSegments] = useState<IntroDbSegments | null>(null);
   /** Stored spare subtitle files (best-first) for offline switching. */
   const [storedAlts, setStoredAlts] = useState<{ vtt: string; label: string }[] | null>(null);
+  /** Cached master includes the captured HLS caption rendition. */
+  const [preferStreamSubs, setPreferStreamSubs] = useState(false);
   const [meta, setMeta] = useState<{
     title: string;
     type: "movie" | "tv";
@@ -75,6 +78,7 @@ export function OfflinePlayerHost() {
     setResumeAt(null);
     setStoredSegments(null);
     setStoredAlts(null);
+    setPreferStreamSubs(false);
     setUpNext(null);
     setUpNextCount(0);
     setPlayerPaused(false);
@@ -105,6 +109,7 @@ export function OfflinePlayerHost() {
         );
         setStoredSegments(rec.segments ?? null);
         setStoredAlts(rec.subAlts?.length ? rec.subAlts : null);
+        setPreferStreamSubs(false);
         setMeta({
           title: rec.title,
           type: rec.type === "movie" ? "movie" : "tv",
@@ -118,6 +123,19 @@ export function OfflinePlayerHost() {
         // Mount first — every await in front of this one spends the tap's
         // user gesture, which autoplay needs to start without a second tap.
         setReq({ key, nonce: Date.now() });
+        // The playlist sniff is not on the gesture path. Old downloads have
+        // no flag; the master either contains the captured rendition or not.
+        void (async () => {
+          try {
+            const cache = await caches.open(DL_CACHE);
+            const hit = await cache.match(dlPlaylistUrl(key));
+            const text = hit ? await hit.text() : "";
+            if (openIdRef.current !== openId) return;
+            if (text.includes('GROUP-ID="offline-subs"')) setPreferStreamSubs(true);
+          } catch {
+            /* play the stored file if the cache can't be read */
+          }
+        })();
         void verifyRecordFiles(key).then((ok) => {
           if (ok || openIdRef.current !== openId) return;
           close();
@@ -280,6 +298,7 @@ export function OfflinePlayerHost() {
       offlineKey={req.key}
       initialSubVtt={sub}
       initialSubAlts={storedAlts}
+      preferStreamSubs={preferStreamSubs}
       initialSegments={storedSegments}
       initialDuration={meta.durationSec ?? null}
       onEvent={handlePlayerEvent}

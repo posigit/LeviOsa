@@ -17,6 +17,7 @@ import { RESUME_MIN_SECONDS } from "@/lib/player-constants";
 import { seekVideoElement } from "@/lib/player-seek";
 import {
   demoteShowingTracks,
+  exclusiveTextTracks,
   fetchExternalVtt,
   injectVttTrack,
   type SubSource,
@@ -515,6 +516,7 @@ export function attachNativePlayback(args: AttachNativePlaybackArgs): () => void
           delay
         );
         if (tr) injectedTracksRef.current.push(tr);
+        exclusiveTextTracks(video, tr && show ? [tr] : []);
       };
 
       hls.on(Hls.Events.SUBTITLE_TRACKS_UPDATED, () => {
@@ -654,13 +656,19 @@ export function attachNativePlayback(args: AttachNativePlaybackArgs): () => void
         }
         const tt = video.textTracks as unknown as TextTrackList | undefined;
         if (tt && tt.length) {
-          for (let i = 0; i < tt.length; i++) {
-            const t = tt[i];
-            if (t.kind === "subtitles" || t.kind === "captions") {
-              t.mode =
-                s.subs !== "off" && matchLang(t.language, s.subs)
-                  ? "hidden"
-                  : "disabled";
+          const injectedActive = injectedTracksRef.current.filter(
+            (t) => t.mode !== "disabled"
+          );
+          if (s.subs === "off" || subSourceRef.current === "off") {
+            exclusiveTextTracks(video, []);
+          } else if (injectedActive.length > 0) {
+            exclusiveTextTracks(video, injectedActive);
+          } else {
+            for (let i = 0; i < tt.length; i++) {
+              const t = tt[i];
+              if (t.kind === "subtitles" || t.kind === "captions") {
+                t.mode = matchLang(t.language, s.subs) ? "hidden" : "disabled";
+              }
             }
           }
         }
@@ -672,9 +680,17 @@ export function attachNativePlayback(args: AttachNativePlaybackArgs): () => void
         }
       };
       video.addEventListener("loadedmetadata", applyNative, { once: true });
-      cleanup.push(() =>
-        video.removeEventListener("loadedmetadata", applyNative)
-      );
+      // Tracks often appear after metadata. Defer so an inject can register
+      // the new track before this pass disables the stream rendition.
+      const onNativeTrack = () => {
+        queueMicrotask(applyNative);
+      };
+      const nativeTracks = video.textTracks as unknown as TextTrackList | undefined;
+      nativeTracks?.addEventListener?.("addtrack", onNativeTrack);
+      cleanup.push(() => {
+        video.removeEventListener("loadedmetadata", applyNative);
+        nativeTracks?.removeEventListener?.("addtrack", onNativeTrack);
+      });
 
       const at = (video as unknown as { audioTracks?: NativeAudioTrackList })
         .audioTracks;
@@ -758,32 +774,28 @@ export function attachNativePlayback(args: AttachNativePlaybackArgs): () => void
                 for (let i = 0; i < ttl.length; i++) {
                   const t = ttl[i];
                   if (t.kind === "subtitles" || t.kind === "captions") {
-                    t.mode = "hidden";
+                    t.mode = "disabled";
                   }
                 }
               }
               externalVttRef.current = { vtt: ext.vtt, label: ext.label };
               setHasExternalSubs(true);
-              const tr = injectVttTrack(
-                video,
-                ext.vtt,
-                ext.label,
-                loadVixSettings().subs !== "off",
-                delay
-              );
+              const show = loadVixSettings().subs !== "off";
+              const tr = injectVttTrack(video, ext.vtt, ext.label, show, delay);
               if (tr) injectedTracksRef.current.push(tr);
+              exclusiveTextTracks(video, tr && show ? [tr] : []);
               return;
             }
           }
           return;
         }
 
-        // Forced external — hide stream CC first.
+        // Forced external — one track only. hidden still paints in the overlay.
         if (ttl) {
           for (let i = 0; i < ttl.length; i++) {
             const t = ttl[i];
             if (t.kind === "subtitles" || t.kind === "captions") {
-              t.mode = "hidden";
+              t.mode = "disabled";
             }
           }
         }
@@ -800,13 +812,19 @@ export function attachNativePlayback(args: AttachNativePlaybackArgs): () => void
           setHasExternalSubs(true);
           const tr = injectVttTrack(video, ext.vtt, ext.label, true, delay);
           if (tr) injectedTracksRef.current.push(tr);
+          exclusiveTextTracks(video, tr ? [tr] : []);
         } else if (src === "vdrk" || src === "opensub" || src === "subdl") {
           revertExternalSub(src);
         }
       };
       reloadSubsRef.current = () => {
-        // Offline with stored subs: the mounted track stays, period.
-        if (offlineStoredSubs) return;
+        // Offline with stored subs: don't fetch. Still apply the native
+        // selection so captured stream CC can show once the external file
+        // is taken off the element.
+        if (offlineStoredSubs) {
+          applyNative();
+          return;
+        }
         for (const t of injectedTracksRef.current) t.mode = "disabled";
         injectedTracksRef.current = [];
         externalVttRef.current = null;
@@ -823,19 +841,15 @@ export function attachNativePlayback(args: AttachNativePlaybackArgs): () => void
           for (let i = 0; i < ttl.length; i++) {
             const t = ttl[i];
             if (t.kind === "subtitles" || t.kind === "captions") {
-              t.mode = "hidden";
+              t.mode = "disabled";
             }
           }
         }
         const delay = loadVixSettings().subDelaySeconds;
-        const tr = injectVttTrack(
-          video,
-          cached.vtt,
-          cached.label,
-          loadVixSettings().subs !== "off",
-          delay
-        );
+        const show = loadVixSettings().subs !== "off";
+        const tr = injectVttTrack(video, cached.vtt, cached.label, show, delay);
         if (tr) injectedTracksRef.current.push(tr);
+        exclusiveTextTracks(video, tr && show ? [tr] : []);
       };
       // Auto + forced external both need a settle delay for textTracks.
       // Skipped offline with stored subs (nothing to load).

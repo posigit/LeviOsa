@@ -21,6 +21,7 @@ import {
   cueTextAt,
   isPromoCue,
   parseVttCues,
+  shouldPreferCapturedStreamSubs,
   srtToVtt,
   stripAssTags,
 } from "../lib/player-subs";
@@ -66,6 +67,15 @@ assert.equal(shouldReopenEnded(3204, 3500, null), true);
 assert.equal(shouldReopenEnded(5, 10, null), true);
 assert.equal(shouldReopenEnded(9.5, 10, null), false);
 assert.equal(shouldReopenEnded(0, 0, null), false);
+
+// Captured HLS captions win for offline Auto. A spare pick still injects.
+assert.equal(shouldPreferCapturedStreamSubs(true, "auto", null), true);
+assert.equal(shouldPreferCapturedStreamSubs(false, "auto", null), false);
+assert.equal(shouldPreferCapturedStreamSubs(true, "stream", null), true);
+assert.equal(shouldPreferCapturedStreamSubs(false, "stream", null), true);
+assert.equal(shouldPreferCapturedStreamSubs(false, "off", null), true);
+assert.equal(shouldPreferCapturedStreamSubs(true, "opensub", null), false);
+assert.equal(shouldPreferCapturedStreamSubs(true, "auto", 0), false);
 
 assert.equal(
   shouldSaveProgress({

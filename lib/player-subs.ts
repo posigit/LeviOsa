@@ -70,6 +70,21 @@ export function parseVttTime(t: string): number {
   return 0;
 }
 
+/**
+ * Offline Auto plays captured HLS captions when the download has them.
+ * Stream and Off never inject the stored external file. A spare-file pick
+ * owns the track and is not decided here.
+ */
+export function shouldPreferCapturedStreamSubs(
+  preferStreamSubs: boolean,
+  subSource: string,
+  savedAltPick: number | null
+): boolean {
+  if (savedAltPick != null) return false;
+  if (subSource === "off" || subSource === "stream") return true;
+  return preferStreamSubs && subSource === "auto";
+}
+
 /** Keep cues active for SubtitleOverlay without native ::cue paint. */
 export function demoteShowingTracks(video: HTMLVideoElement) {
   const ttl = video.textTracks;
@@ -77,6 +92,24 @@ export function demoteShowingTracks(video: HTMLVideoElement) {
     const t = ttl[i];
     if (t.kind !== "subtitles" && t.kind !== "captions") continue;
     if (t.mode === "showing") t.mode = "hidden";
+  }
+}
+
+/**
+ * One subtitle surface. `hidden` still feeds the overlay, so every other
+ * text track has to be `disabled` or Safari paints the stream captions and
+ * the injected file together.
+ */
+export function exclusiveTextTracks(
+  video: HTMLVideoElement,
+  active: readonly TextTrack[]
+): void {
+  const keep = new Set<TextTrack>(active);
+  const ttl = video.textTracks;
+  for (let i = 0; i < ttl.length; i++) {
+    const t = ttl[i];
+    if (t.kind !== "subtitles" && t.kind !== "captions") continue;
+    t.mode = keep.has(t) ? "hidden" : "disabled";
   }
 }
 

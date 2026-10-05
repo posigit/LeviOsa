@@ -1445,10 +1445,9 @@ async function runDownload(
       );
       alts.push(...fetched);
     }
-    // …but the top-2 SubDL results are stored for EVERY download, so the
-    // offline copy always carries them as swap spares regardless of picker.
+    // SubDL spares are a download quota. Off and Stream never use them.
     try {
-      if (!subsSignal.aborted) {
+      if (!subsSignal.aborted && subOpts !== "off" && subOpts !== "stream") {
         const dlAlts = await fetchDownloadSubDlAlts(
           req,
           resolved.imdbId,
@@ -2490,9 +2489,8 @@ async function fetchDownloadSubAlts(
 }
 
 /**
- * Top 2 SubDL files — fetched for EVERY download, whatever the picker says,
- * so the offline item always carries the two best SubDL results as spares
- * alongside the default. List mode costs no download quota; each file fetch
+ * Top 2 SubDL files, as offline swap spares. Callers skip this when captions
+ * are Off or Stream. List mode costs no download quota; each file fetch
  * does, so a miss just yields fewer spares. Never throws.
  */
 async function fetchDownloadSubDlAlts(
