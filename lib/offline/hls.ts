@@ -408,7 +408,10 @@ export function parseMediaPlaylist(text: string, baseUrl: string): MediaParts {
           const byteRange = br ? parseByteRangeSpec(br, 0) : null;
           maps.push({ url, byteRange });
           mapUrl = maps[0]?.url ?? url;
-          if (byteRange) prevRangeEnd = byteRange.start + byteRange.length;
+          // A map is not a media segment. RFC 8216's implicit offset is the
+          // byte after the previous media segment, and the first one starts
+          // at 0. Advancing the cursor here stored the next slice from the
+          // map's end.
         } catch {
           /* ignore */
         }
@@ -442,8 +445,11 @@ export function parseMediaPlaylist(text: string, baseUrl: string): MediaParts {
         pendingRange = parsed;
         prevRangeEnd = parsed.start + parsed.length;
       }
+    } else if (line.startsWith("#EXT-X-DISCONTINUITY")) {
+      prevRangeEnd = 0;
+      pendingRange = null;
     } else if (expectSegment && line.startsWith("#")) {
-      /* Tag between EXTINF and the URI (GAP, discontinuity). Keep waiting. */
+      /* Tag between EXTINF and the URI (GAP). Keep waiting. */
     } else if (expectSegment) {
       expectSegment = false;
       if (line && !line.startsWith("#")) {
@@ -524,6 +530,12 @@ export function rewritePlaylistForOffline(
     const line = rawLine.trim();
     if (line.startsWith("#EXT-X-MAP:") || line.startsWith("#EXT-X-KEY:")) {
       out.push(rewriteTaggedUri(rawLine, baseUrl));
+      continue;
+    }
+    if (line.startsWith("#EXT-X-DISCONTINUITY")) {
+      prevRangeEnd = 0;
+      pendingRange = null;
+      out.push(rawLine);
       continue;
     }
     if (line.startsWith("#EXTINF:")) {

@@ -205,6 +205,51 @@ assert.equal(sliceToRange(windowOnly, 200, { start: 100, length: 3 }).byteLength
 const whole = new Uint8Array(120).buffer;
 assert.equal(sliceToRange(whole, 200, { start: 100, length: 10 }).byteLength, 10);
 assert.equal(sliceToRange(windowOnly, 200, { start: 100, length: 50 }).byteLength, 0);
+
+// MAP byterange must not move the implicit media cursor. Discontinuity resets it.
+const mapRange = parseMediaPlaylist(
+  [
+    "#EXTM3U",
+    '#EXT-X-MAP:URI="init.mp4",BYTERANGE="1000@0"',
+    "#EXTINF:4.0,",
+    "#EXT-X-BYTERANGE:100",
+    "a.mp4",
+    "#EXTINF:4.0,",
+    "#EXT-X-BYTERANGE:50@10",
+    "b.mp4",
+    "#EXT-X-DISCONTINUITY",
+    "#EXTINF:4.0,",
+    "#EXT-X-BYTERANGE:40",
+    "c.mp4",
+    "",
+  ].join("\n"),
+  base
+);
+assert.deepEqual(mapRange.segments[0]?.byteRange, { start: 0, length: 100 });
+assert.deepEqual(mapRange.segments[1]?.byteRange, { start: 10, length: 50 });
+assert.deepEqual(mapRange.segments[2]?.byteRange, { start: 0, length: 40 });
+const mapRewritten = rewritePlaylistForOffline(
+  [
+    "#EXTM3U",
+    '#EXT-X-MAP:URI="init.mp4",BYTERANGE="1000@0"',
+    "#EXTINF:4.0,",
+    "#EXT-X-BYTERANGE:100",
+    "a.mp4",
+    "#EXTINF:4.0,",
+    "#EXT-X-BYTERANGE:50@10",
+    "b.mp4",
+    "#EXT-X-DISCONTINUITY",
+    "#EXTINF:4.0,",
+    "#EXT-X-BYTERANGE:40",
+    "c.mp4",
+    "",
+  ].join("\n"),
+  base
+);
+assert.match(decodeURIComponent(mapRewritten), /a\.mp4@0-99/);
+assert.match(decodeURIComponent(mapRewritten), /b\.mp4@10-59/);
+assert.match(decodeURIComponent(mapRewritten), /c\.mp4@0-39/);
+assert.doesNotMatch(decodeURIComponent(mapRewritten), /@1000-/);
 assert.equal(parts.segments[2]?.url, "https://cdn.example.com/pl/seg2.ts");
 
 const firstUrl = offlinePieceUrl(parts.segments[0]!.url, parts.segments[0]!.byteRange);
