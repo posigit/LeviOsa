@@ -1,10 +1,12 @@
 # Review fixes — what was intended, what happened, what we expect now
 
-Read-only review of `620d8af..474c269` (17 commits) found seven defects. This
-records, for each one, why the original change was made, the behaviour the code
-actually produced, and the behaviour expected after the fix.
+Read-only review of `620d8af..474c269` (17 commits) found seven defects, and a
+second pass over the fixes themselves found three more. This records, for each
+one, why the original change was made, the behaviour the code actually produced,
+and the behaviour expected after the fix.
 
-Seven commits: `5304f61` → `f76078e`.
+Eleven commits: `5304f61` → `9ebafbd`. The first seven are the reviewed defects;
+`cff6625`, `ecac8ad` and `9ebafbd` came out of reviewing those fixes.
 
 ---
 
@@ -121,7 +123,8 @@ wiped the freshly downloaded video a second time.
 video was actually wiped, and carries `undefined` when no sample was taken —
 "unknown" never wipes. Sampling also runs whenever video bytes exist, not only
 when the rendition signature came back clean, so the value always describes the
-bytes on disk.
+bytes on disk. See §8 for the half of this that only surfaced once the fix was
+reviewed: writing the value was pointless unless a later run read it.
 
 ---
 
@@ -187,7 +190,94 @@ that is not there has no row to copy back, so nothing can resurrect it.
 
 ---
 
-## Left alone — verified, not defects
+## 8. `fix(offline): read the stored video fingerprint back` — `cff6625`
+
+**Source commit:** `e8bc548` (the same commit as #3/#4/#5)
+
+**Intended.** The comment on the write says *"so the next attempt compares
+against what's actually stored."*
+
+**What actually happened.** Nothing ever stored it back into the record a run
+starts from. `startDownloadInner` builds its record from a literal
+(`engine.ts:615-665`) that copies `rendition` and `usedPlaylistUrl` from
+`existing` but not `videoFingerprint`, and `runDownload` is reached from exactly
+one place — that literal. So `rec.videoFingerprint` was `undefined` at the top of
+every single run:
+
+- `videoCutMismatch(undefined, sampledFp)` is always `false`
+- the guard fell through to the `else if (!rec.videoFingerprint)` branch every time
+- the disk-vs-remote sample did the whole job, as it had before the field existed
+
+Fix #4 therefore put a value on the record that was written on every run and read
+on none — a field with a write side and no read side.
+
+**Expected now.** The fingerprint travels with the record on a same-quality
+restart (and is dropped with everything else on a quality switch, matching
+`rendition`). The comparison prefers the bytes actually on disk, because that is
+what plays, and falls back to the stored value only when a partial download has
+not cached the middle segment and looking is impossible.
+
+Reading the disk first is the part that matters: the stored value is a *claim*
+about bytes we have not looked at. Seeding it without the disk check would have
+made a wrong claim (a record written during the window #4 fixed) authoritative
+and produced a wipe the disk itself did not justify.
+
+---
+
+## 9. `fix(subs): paint a saved file when the picker is Off` — `ecac8ad`
+
+**Source commit:** `87046e2`, reached through fix #2
+
+**Intended.** Fix #2 makes a saved-alt pick enable the track by writing
+`subSourceRef.current = "auto"`, deliberately leaving `subSource` state and the
+persisted picker alone (the menu should keep showing the user's global choice).
+
+**What actually happened.** The track was enabled and nothing painted. The
+`SubtitleOverlay` gate read the picker *state*:
+
+```
+enabled={subSource !== "off"}        // vix-player.tsx:4164
+```
+
+With the picker at Off that stays `false`, the effect early-returns and clears
+the cue text, and the render returns `null` — so the fix produced a live text
+track that no overlay was reading. `["off", "Off"]` is a real menu row
+(`player-top-chrome.tsx:536`, `:544`), so this is reachable, not theoretical.
+
+**Expected now.** The overlay turns on when a saved file is active for this
+title, alongside the picker state. Picking a stored file with subtitles at Off
+paints; picking **Off** again still clears `savedSubAltPick` and the inject
+effect drops the track, so there is no text to paint and nothing shows.
+
+---
+
+## 10. `fix(offline): bound the body hash cache and guard the tombstone write` — `9ebafbd`
+
+**Source commit:** `368ba78`, reached through fix #6, and `5423256` through fix #7
+
+**What actually happened.** Two things the fixes introduced:
+
+1. **The cache was fed short strings.** `bodiesSig` folds every key, label and
+   body through one 512-entry `Map`. Keys and labels are a handful of characters
+   and cost less to hash than a map probe, but they counted against the same cap
+   as the multi-kilobyte caption bodies the cache exists for — so a manifest with
+   enough files could thrash, clearing the cache wholesale and re-reading every
+   stored caption on the next progress write. Exactly the cost fix #6 was
+   avoiding.
+2. **The tombstone prune was unguarded.** The new `localStorage.setItem` in
+   `syncOfflinePositions` (`store.ts:855`) sat outside any `try`/`catch`, while
+   every other write in the file has one. `setItem` throws on a full or frozen
+   storage, and this one runs before the merge loop — so a housekeeping failure
+   would have taken the entire resume sync down with it.
+
+**Expected now.** Strings under 64 characters are hashed directly and never
+enter the cache, leaving it to bodies where it pays for itself. The prune write
+is wrapped like its neighbours; if storage refuses, the map stays oversized until
+the next sync and the merge loop still runs.
+
+---
+
+
 
 - **`db20192` (MAP byte-range).** The change matches strict RFC 8216 §4.3.2.2:
   `EXT-X-MAP` is not a media segment, so resetting the byte offset at it is
@@ -212,6 +302,25 @@ restarts came from these defects; with them fixed the existing guards
 (`isShrunkParse`, reverify-before-wipe, quota-before-wipe, source pinning) are
 sufficient, and the failure modes above are now unreachable rather than merely
 rate-limited.
+
+## Known limitations — examined, accepted
+
+- **The tombstone map is account-blind.** Pruning keeps only keys present in the
+  server list, with no account dimension. Two accounts on one device could drop
+  each other's tombstones. The original code was account-blind in the other
+  direction (it never pruned at all), so this is not a regression; adding the
+  dimension needs a per-account clear map, which is a schema change.
+- **A residual within-run fingerprint window.** `pendingCutFingerprint` is reset
+  per attempt (#5), but if mirror A fails after sampling and mirror B lands
+  *without* setting its own sample, the pending value from A can be committed.
+  The code only reaches that assignment when the sample matched the bytes on
+  disk, so it is self-healing and no worse than the pre-fix behaviour, which was
+  wrong in the same place without ever correcting itself.
+- **`Date` headers have one-second granularity** and a proxy may rewrite one. The
+  skew correction is therefore accurate to about a second plus transit, where the
+  comparison it replaces was wrong by however far the two clocks had drifted —
+  routinely minutes. An inherent property of using the header as the clock, not a
+  bug in the implementation.
 
 ---
 
