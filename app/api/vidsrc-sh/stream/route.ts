@@ -51,6 +51,19 @@ export async function GET(req: NextRequest) {
         { status: 502 }
       );
     }
+    const subtitles = [];
+    for (const sub of r.subtitles.slice(0, 8)) {
+      try {
+        // Same proxy as the playlist. The page cannot fetch the CDN URL.
+        subtitles.push({
+          language: sub.language,
+          label: sub.label,
+          url: await signProxyUrl(sub.url),
+        });
+      } catch {
+        /* one bad target skips */
+      }
+    }
     return NextResponse.json({
       // Proxied master: tokens are IP-bound to this deployment, so the
       // browser must go through /api/vidsrc-sh/media (which mints + proxies).
@@ -61,7 +74,7 @@ export async function GET(req: NextRequest) {
       imdbId: r.imdbId,
       fileName: r.fileName,
       thumbnailsUrl: r.thumbnailsUrl,
-      subtitles: r.subtitles,
+      subtitles,
       sourceApi: "vidsrc-sh",
     });
   } catch (err) {

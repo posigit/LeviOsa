@@ -3,6 +3,54 @@
  * variant/audio picking, byte estimates. Pure functions (no storage, no
  * network) — safe to unit-test and to mirror against public/sw.js.
  */
+export type SidecarSubtitle = {
+  language: string;
+  label: string;
+  url: string;
+};
+
+/**
+ * A vidsrc `default_subs` URL the page is allowed to fetch. The stream
+ * route signs these onto the media proxy. A raw CDN URL is not fetched
+ * from the browser (CORS, and it would bypass the proxy allowlist).
+ */
+export function isProxiedSubtitleUrl(url: string): boolean {
+  if (!url.startsWith("/api/vidsrc-sh/media?") && !url.startsWith("/api/vidsrc-pm/media?")) {
+    return false;
+  }
+  // The route path is fixed by the prefix above, so ".." there cannot match.
+  // Dots in the query are normal: encodeURIComponent keeps them (`/a/../b.vtt`).
+  // "://" and "\" mean a raw CDN URL was pasted through instead of a signed path.
+  return !url.includes("://") && !url.includes("\\");
+}
+
+function looseLang(have: string, want: string): boolean {
+  const left = have.toLowerCase().trim();
+  const right = want.toLowerCase().trim();
+  if (!left || !right) return false;
+  return left === right || left.includes(right) || right.includes(left);
+}
+
+/**
+ * English (or the requested language) sidecar, preferring an exact want.
+ * Null when nothing is a signed proxy URL.
+ */
+export function pickSidecarSubtitle(
+  list: readonly SidecarSubtitle[] | null | undefined,
+  wantLang: string
+): SidecarSubtitle | null {
+  if (!list?.length) return null;
+  const usable = list.filter(
+    (s) => s && typeof s.url === "string" && isProxiedSubtitleUrl(s.url)
+  );
+  const want = !wantLang || wantLang === "off" ? "en" : wantLang;
+  return (
+    usable.find((s) => looseLang(s.language || "", want)) ??
+    usable.find((s) => looseLang(s.language || "", "en")) ??
+    null
+  );
+}
+
 export function dlPlaylistUrl(key: string): string {
   return `/api/dl?playlist=${encodeURIComponent(key)}`;
 }

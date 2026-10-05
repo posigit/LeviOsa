@@ -16,6 +16,7 @@
  */
 
 import type { StreamSource } from "@/lib/player-native-types";
+import { isProxiedSubtitleUrl, type SidecarSubtitle } from "@/lib/offline/hls";
 
 export type StreamResolveResult = {
   playlistUrl: string | null;
@@ -27,6 +28,11 @@ export type StreamResolveResult = {
    * them in order — a dead first mirror no longer fails the whole title.
    */
   playlistUrls?: string[];
+  /**
+   * Signed sidecar captions from the stream JSON (`default_subs`). The
+   * master often has no subtitle group; the downloader uses this list then.
+   */
+  subtitles?: SidecarSubtitle[];
   failed: boolean;
   /** True when the caller aborted (effect cleanup) — not a failure. */
   aborted?: boolean;
@@ -185,6 +191,23 @@ async function resolveOne(
   }
 }
 
+function readSidecarSubtitles(raw: unknown): SidecarSubtitle[] {
+  if (!Array.isArray(raw)) return [];
+  const out: SidecarSubtitle[] = [];
+  for (const item of raw) {
+    if (!item || typeof item !== "object") continue;
+    const row = item as { language?: unknown; label?: unknown; url?: unknown };
+    if (typeof row.url !== "string" || !isProxiedSubtitleUrl(row.url)) continue;
+    out.push({
+      language: typeof row.language === "string" ? row.language : "en",
+      label: typeof row.label === "string" ? row.label : "English",
+      url: row.url,
+    });
+    if (out.length >= 8) break;
+  }
+  return out;
+}
+
 /** Shared native fetch for vidsrc-sh / vidsrc-pm stream routes. On failure it
  *  keeps the route's structured body (code/detail) and the real HTTP status
  *  so the error card can name the source + status. */
@@ -199,11 +222,18 @@ async function resolveNativeRoute(
   imdbId: string | null;
   thumbnailsUrl: string | null;
   playlistUrls: string[];
+  subtitles: SidecarSubtitle[];
   error?: string;
   code?: string;
   detail?: string;
 }> {
-  const empty = { playlistUrl: null, imdbId: null, thumbnailsUrl: null, playlistUrls: [] as string[] };
+  const empty = {
+    playlistUrl: null,
+    imdbId: null,
+    thumbnailsUrl: null,
+    playlistUrls: [] as string[],
+    subtitles: [] as SidecarSubtitle[],
+  };
   try {
     const res = await fetchWithTimeout(`/api/${route}/stream?${base.toString()}`, signal, timeoutMs);
     type Body = {
@@ -211,6 +241,7 @@ async function resolveNativeRoute(
       playlistUrls?: string[];
       imdbId?: string | null;
       thumbnailsUrl?: string | null;
+      subtitles?: unknown;
       error?: string;
       code?: string;
       detail?: string;
@@ -232,6 +263,7 @@ async function resolveNativeRoute(
         imdbId: data.imdbId ?? null,
         thumbnailsUrl: data.thumbnailsUrl ?? null,
         playlistUrls,
+        subtitles: readSidecarSubtitles(data.subtitles),
       };
       record(route, out);
       return out;
@@ -351,6 +383,7 @@ export async function resolveStreamPlaylist(opts: {
         imdbId: r.imdbId,
         thumbnailsUrl: r.thumbnailsUrl ?? null,
         playlistUrls: r.playlistUrls,
+        subtitles: r.subtitles,
         failed: false,
         usedSource: opts.source,
         attempts,

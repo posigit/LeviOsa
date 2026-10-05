@@ -9,6 +9,8 @@ import {
   classifyPieceStatus,
   directWebVttDocument,
   dlPlaylistUrl,
+  isProxiedSubtitleUrl,
+  pickSidecarSubtitle,
   gapBudget,
   indexRetryAction,
   isHardDownloadError,
@@ -927,6 +929,37 @@ assert.equal(
   pieceInfo(offlinePieceUrl("https://cdn.example.com/a.ts")),
   null
 );
+
+/* vidsrc default_subs: only a signed media-proxy path is fetchable.
+ * The query keeps ".." from the upstream path; a raw https URL is not. */
+const sidecarEn = `/api/vidsrc-sh/media?url=${encodeURIComponent(
+  "https://cdn.example/a/../en.vtt"
+)}&exp=1&sig=abc`;
+const sidecarEs = "/api/vidsrc-pm/media?url=es.vtt&exp=1&sig=abc";
+assert.equal(isProxiedSubtitleUrl(sidecarEn), true);
+assert.equal(isProxiedSubtitleUrl(sidecarEs), true);
+assert.equal(isProxiedSubtitleUrl("https://cdn.example/en.vtt"), false);
+assert.equal(isProxiedSubtitleUrl("/api/vidsrc-sh/media/../other?url=x"), false);
+assert.equal(isProxiedSubtitleUrl("/api/other/media?url=x"), false);
+assert.equal(isProxiedSubtitleUrl("/api/vidsrc-sh/media?url=http://cdn/a.vtt"), false);
+
+const sidecars = [
+  { language: "es", label: "Spanish", url: sidecarEs },
+  { language: "en", label: "English", url: sidecarEn },
+  { language: "en", label: "Raw", url: "https://cdn.example/raw.vtt" },
+];
+assert.equal(pickSidecarSubtitle(sidecars, "es")?.url, sidecarEs);
+assert.equal(pickSidecarSubtitle(sidecars, "eng")?.label, "English");
+assert.equal(pickSidecarSubtitle(sidecars, "fr")?.url, sidecarEn);
+assert.equal(pickSidecarSubtitle(sidecars, "")?.url, sidecarEn);
+assert.equal(pickSidecarSubtitle(sidecars, "off")?.url, sidecarEn);
+assert.equal(pickSidecarSubtitle(sidecars, "EN")?.url, sidecarEn);
+assert.equal(
+  pickSidecarSubtitle([{ language: "en", label: "English", url: "https://cdn.example/a.vtt" }], "en"),
+  null
+);
+assert.equal(pickSidecarSubtitle(null, "en"), null);
+assert.equal(pickSidecarSubtitle([], "en"), null);
 
 // Episode-still thumbs: w300 16:9 cut, null-safe, and the cacher degrades
 // gracefully where Cache Storage doesn't exist (node).

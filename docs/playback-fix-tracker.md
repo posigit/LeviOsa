@@ -25,9 +25,9 @@ one is committed.
 - [x] **13. Every segment checkpoints every subtitle body.** `checkpointRecord` writes the whole manifest, including every title's `subVtt` / `subAlts`. Keep caption text in its own record and write that only when it changes.
 - [x] **14. Sub delay does not move captured HLS captions.** Injected VTT bakes the delay into cue times. Stream cues are drawn from `activeCues`, so the slider does nothing for them.
 - [x] **15. A clock embed on Stream shows nothing.** CineSrc and VidFast have no stream captions. A saved Stream choice clears the overlay and leaves no checked row. Treat Stream as Auto on that surface only. Do not rewrite the saved source.
+- [x] **16. vidsrc `default_subs` never reaches the downloader.** The stream route returned the raw CDN list and `resolveStreamPlaylist` dropped it. Sign up to eight URLs onto the media proxy, keep only those paths, and store the matching WebVTT when the master has no caption rendition. Auto and Stream only.
 
 ## Left for a later pass
 
 - Three online playlist rewriters (`stream-proxy.ts`, `resolver-server/worker.js`, `resolver-server/server.js`). Do not collapse them in this pass.
 - `vix-player.tsx` is still the god component. Do not split it in this pass.
-- vidsrc `default_subs` never reaches the downloader (`resolveStreamPlaylist` drops the field).

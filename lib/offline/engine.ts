@@ -58,6 +58,7 @@ import {
   parseMasterVariants,
   directWebVttDocument,
   parseMediaPlaylist,
+  pickSidecarSubtitle,
   pickAudioEntry,
   pickVariant,
   rewritePlaylistToIndexUrls,
@@ -1989,6 +1990,23 @@ async function runDownload(
   }
 
   const downloadAttempt = async (m: MirrorParse): Promise<void> => {
+    // The master had no caption group. vidsrc's default_subs list is the
+    // stream's own file; it beats the external cascade. Auto and Stream
+    // only — a forced provider stays that provider.
+    const sidecarPromise = (async () => {
+      if (m.directSub || (m.subParts && m.subParts.segments.length > 0)) return null;
+      const settings = loadVixSettings();
+      if (settings.subSource !== "auto" && settings.subSource !== "stream") return null;
+      if (settings.subs === "off") return null;
+      const picked = pickSidecarSubtitle(resolved?.subtitles, settings.subs);
+      if (!picked) return null;
+      const res = await fetchPieceRetry(picked.url, signal, null, null);
+      if (!res.ok) return null;
+      const text = await res.text();
+      const vtt = directWebVttDocument(text, 0, false);
+      return vtt ? { vtt, label: picked.label || "English" } : null;
+    })();
+    void sidecarPromise.catch(() => {});
     // Local recount only. Persisted progress never takes the lower number.
     doneSeg = 0;
     gapSegs = 0;
@@ -2355,11 +2373,15 @@ async function runDownload(
     // already-running fetch, so completion never parks at 99% on slow subs.
     try {
       const subs = await subsPromise;
-      // A single WebVTT rendition is the stream's own captions. It wins
-      // over the external cascade, which stays available as spare files.
+      const sidecar = await sidecarPromise;
+      // A captured rendition, then the stream's sidecar file, then the
+      // external cascade. Spares stay available either way.
       if (m.directSub) {
         rec.subVtt = m.directSub.vtt;
         rec.subLabel = m.directSub.label;
+      } else if (sidecar) {
+        rec.subVtt = sidecar.vtt;
+        rec.subLabel = sidecar.label;
       } else if (subs.subVtt) {
         rec.subVtt = subs.subVtt;
         rec.subLabel = subs.subLabel;
