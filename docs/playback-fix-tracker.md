@@ -23,7 +23,7 @@ one is committed.
 - [x] **11. A single WebVTT subtitle rendition is dropped.** Segmented caption playlists are captured. A `WEBVTT` document (no `#EXTINF`) is not, so offline falls through to an external file.
 - [x] **12. A same-length re-cut splices old bytes.** The rendition signature is height plus segment counts. Same source, same counts, new bytes at the same index are cache hits. Fingerprint the init map, the first segment, and the middle segment (16 bytes each). A mismatch wipes video only.
 - [x] **13. Every segment checkpoints every subtitle body.** `checkpointRecord` writes the whole manifest, including every title's `subVtt` / `subAlts`. Keep caption text in its own record and write that only when it changes.
-- [ ] **14. Sub delay does not move captured HLS captions.** Injected VTT bakes the delay into cue times. Stream cues are drawn from `activeCues`, so the slider does nothing for them.
+- [x] **14. Sub delay does not move captured HLS captions.** Injected VTT bakes the delay into cue times. Stream cues are drawn from `activeCues`, so the slider does nothing for them.
 
 ## Left for a later pass
 

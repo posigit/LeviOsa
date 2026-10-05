@@ -205,6 +205,24 @@ export function parseVttCues(vtt: string, delaySeconds = 0): VttCue[] {
 }
 
 /** Active cue text at time t (seconds). */
+/**
+ * Stream captions keep their authored times. A positive delay shows them
+ * later: the playhead minus the delay has to sit inside the cue. Injected
+ * files already bake this into the cue, so they must not be shifted again.
+ */
+export function streamCueVisible(
+  start: number,
+  end: number,
+  currentTime: number,
+  delaySeconds: number
+): boolean {
+  if (!Number.isFinite(start) || !Number.isFinite(end) || !Number.isFinite(currentTime)) {
+    return false;
+  }
+  const t = currentTime - (Number.isFinite(delaySeconds) ? delaySeconds : 0);
+  return t >= start && t < end;
+}
+
 export function cueTextAt(cues: VttCue[], t: number): string {
   if (!Number.isFinite(t)) return "";
   const lines: string[] = [];

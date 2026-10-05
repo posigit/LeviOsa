@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useState, type RefObject } from "react";
+import { useEffect, useState, type MutableRefObject, type RefObject } from "react";
+import { streamCueVisible } from "@/lib/player-subs";
 
 /**
  * Renders active TextTrack cues in a div we fully control.
@@ -27,6 +28,8 @@ export function SubtitleOverlay({
   bgBlur,
   /** When true, sit above the transport scrubber; otherwise low on the frame. */
   chromeRaised = false,
+  delaySeconds = 0,
+  bakedTracksRef = null,
 }: {
   videoRef: RefObject<HTMLVideoElement | null>;
   enabled: boolean;
@@ -36,6 +39,9 @@ export function SubtitleOverlay({
   bgOpacity: number;
   bgBlur: "none" | "sm" | "md" | "lg";
   chromeRaised?: boolean;
+  /** Slider delay. Stream cues shift by this. Baked tracks already include it. */
+  delaySeconds?: number;
+  bakedTracksRef?: MutableRefObject<TextTrack[]> | null;
 }) {
   const [text, setText] = useState("");
 
@@ -46,26 +52,40 @@ export function SubtitleOverlay({
       return;
     }
 
+    const plain = (raw: string) =>
+      raw
+        .replace(/<br\s*\/?>/gi, "\n")
+        .replace(/<[^>]+>/g, "")
+        .trim();
     const readCues = () => {
       const lines: string[] = [];
       const tracks = video.textTracks;
+      const baked = bakedTracksRef?.current ?? [];
+      const now = video.currentTime;
       for (let i = 0; i < tracks.length; i++) {
         const track = tracks[i];
         if (track.kind !== "subtitles" && track.kind !== "captions") continue;
         // "hidden" still exposes activeCues; "showing" would double-draw.
         if (track.mode === "disabled") continue;
-        const cues = track.activeCues;
+        // Injected VTT already stored cue times plus the delay. Shifting
+        // those again would move them twice. Stream cues are authored times.
+        const shift = delaySeconds !== 0 && !baked.includes(track);
+        const cues = shift ? track.cues : track.activeCues;
         if (!cues) continue;
         for (let j = 0; j < cues.length; j++) {
-          const raw = (cues[j] as VTTCue).text || "";
-          const plain = raw
-            .replace(/<br\s*\/?>/gi, "\n")
-            .replace(/<[^>]+>/g, "")
-            .trim();
-          if (plain) lines.push(plain);
+          const cue = cues[j] as VTTCue;
+          if (
+            shift &&
+            !streamCueVisible(cue.startTime, cue.endTime, now, delaySeconds)
+          ) {
+            continue;
+          }
+          const text = plain(cue.text || "");
+          if (text) lines.push(text);
         }
       }
-      setText(lines.join("\n"));
+      const next = lines.join("\n");
+      setText((prev) => (prev === next ? prev : next));
     };
 
     const bind = () => {
@@ -80,17 +100,19 @@ export function SubtitleOverlay({
     // Tracks appear asynchronously (hls / inject).
     const onAdd = () => bind();
     video.textTracks.addEventListener("addtrack", onAdd);
+    video.addEventListener("timeupdate", readCues);
     const poll = window.setInterval(readCues, 500);
 
     return () => {
       window.clearInterval(poll);
+      video.removeEventListener("timeupdate", readCues);
       video.textTracks.removeEventListener("addtrack", onAdd);
       const tracks = video.textTracks;
       for (let i = 0; i < tracks.length; i++) {
         tracks[i].removeEventListener("cuechange", readCues);
       }
     };
-  }, [videoRef, enabled]);
+  }, [videoRef, enabled, delaySeconds, bakedTracksRef]);
 
   if (!enabled || !text) return null;
 

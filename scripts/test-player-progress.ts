@@ -19,6 +19,7 @@ import {
 import {
   SUB_FONT_SCALE,
   cueTextAt,
+  streamCueVisible,
   isPromoCue,
   parseVttCues,
   shouldPreferCapturedStreamSubs,
@@ -76,6 +77,13 @@ assert.equal(shouldPreferCapturedStreamSubs(false, "stream", null), true);
 assert.equal(shouldPreferCapturedStreamSubs(false, "off", null), true);
 assert.equal(shouldPreferCapturedStreamSubs(true, "opensub", null), false);
 assert.equal(shouldPreferCapturedStreamSubs(true, "auto", 0), false);
+
+// Stream cues keep authored times. +2s shows them later; -1s shows them earlier.
+assert.equal(streamCueVisible(8, 10, 10, 2), true);
+assert.equal(streamCueVisible(8, 10, 8, 2), false);
+assert.equal(streamCueVisible(8, 10, 9, 0), true);
+assert.equal(streamCueVisible(8, 10, 7, -1), true);
+assert.equal(streamCueVisible(8, 10, Number.NaN, 0), false);
 
 assert.equal(
   shouldSaveProgress({

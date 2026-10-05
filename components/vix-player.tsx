@@ -4156,6 +4156,8 @@ export function VixPlayer({
           bgOpacity={subBgOpacity}
           bgBlur={subBgBlur}
           chromeRaised={!locked && chromeVisible}
+          delaySeconds={subDelay}
+          bakedTracksRef={injectedTracksRef}
         />
       )}
 
