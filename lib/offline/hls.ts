@@ -386,6 +386,23 @@ export function segmentLooksValid(
   return looksLikeFmp4(bytes);
 }
 
+/**
+ * A subtitle URI that is the WebVTT document itself (no `#EXTINF` segments).
+ * Segmented caption playlists are captured separately. Sample-AES bodies
+ * are never stored.
+ */
+export function directWebVttDocument(
+  text: string,
+  segmentCount: number,
+  sampleAes: boolean
+): string | null {
+  if (sampleAes || segmentCount > 0) return null;
+  const body = text.replace(/^\uFEFF/, "").trim();
+  if (body.length <= 20) return null;
+  if (!/^WEBVTT\b/.test(body)) return null;
+  return body;
+}
+
 export function parseMediaPlaylist(text: string, baseUrl: string): MediaParts {
   const lines = text.split(/\r?\n/).map((l) => l.trim());
   const segments: MediaSegment[] = [];

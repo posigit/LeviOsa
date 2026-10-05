@@ -7,6 +7,7 @@ import {
   buildOfflineMaster,
   canonicalMediaKey,
   classifyPieceStatus,
+  directWebVttDocument,
   dlPlaylistUrl,
   gapBudget,
   indexRetryAction,
@@ -250,6 +251,14 @@ assert.match(decodeURIComponent(mapRewritten), /a\.mp4@0-99/);
 assert.match(decodeURIComponent(mapRewritten), /b\.mp4@10-59/);
 assert.match(decodeURIComponent(mapRewritten), /c\.mp4@0-39/);
 assert.doesNotMatch(decodeURIComponent(mapRewritten), /@1000-/);
+
+// A subtitle URI that is the WebVTT document itself is kept. A playlist is not.
+const vttDoc = "WEBVTT\n\n00:00:01.000 --> 00:00:02.000\nHello\n";
+assert.equal(directWebVttDocument(vttDoc, 0, false), vttDoc.trim());
+assert.equal(directWebVttDocument(vttDoc, 2, false), null);
+assert.equal(directWebVttDocument(vttDoc, 0, true), null);
+assert.equal(directWebVttDocument("WEBVTT\n", 0, false), null);
+assert.equal(directWebVttDocument("#EXTM3U\n#EXT-X-ENDLIST\n", 0, false), null);
 assert.equal(parts.segments[2]?.url, "https://cdn.example.com/pl/seg2.ts");
 
 const firstUrl = offlinePieceUrl(parts.segments[0]!.url, parts.segments[0]!.byteRange);

@@ -56,6 +56,7 @@ import {
   parseMasterAudio,
   parseMasterSubtitles,
   parseMasterVariants,
+  directWebVttDocument,
   parseMediaPlaylist,
   pickAudioEntry,
   pickVariant,
@@ -1254,6 +1255,8 @@ async function runDownload(
     subUrl: string | null;
     subText: string | null;
     subEntry: SubEntry | null;
+    /** Subtitle URI was a WebVTT file, not a playlist. */
+    directSub: { vtt: string; label: string } | null;
   };
   const tryMirror = async (candidate: string): Promise<MirrorParse> => {
     // 2. Master → variant at/below the quality setting. The resolver may
@@ -1355,6 +1358,7 @@ async function runDownload(
     // better timing than an external OpenSubtitles guess. Bonus like the
     // text cascade: any failure here continues without captions.
     let subParts: MediaParts | null = null;
+    let directSub: { vtt: string; label: string } | null = null;
     let subUrl: string | null = null;
     let subText: string | null = null;
     let subEntry: SubEntry | null = null;
@@ -1390,6 +1394,15 @@ async function runDownload(
               subText = sText;
               subUrl = sUrl;
               subEntry = wanted;
+            } else {
+              const vtt = directWebVttDocument(
+                sText,
+                parsed.segments.length,
+                parsed.sampleAes
+              );
+              if (vtt) {
+                directSub = { vtt, label: wanted.name || "English" };
+              }
             }
           }
         }
@@ -1413,6 +1426,7 @@ async function runDownload(
       subUrl,
       subText,
       subEntry,
+      directSub,
     };
   };
   // Always re-armed per attempt (seed and bandwidth differ per mirror) —
@@ -2216,7 +2230,12 @@ async function runDownload(
     // already-running fetch, so completion never parks at 99% on slow subs.
     try {
       const subs = await subsPromise;
-      if (subs.subVtt) {
+      // A single WebVTT rendition is the stream's own captions. It wins
+      // over the external cascade, which stays available as spare files.
+      if (m.directSub) {
+        rec.subVtt = m.directSub.vtt;
+        rec.subLabel = m.directSub.label;
+      } else if (subs.subVtt) {
         rec.subVtt = subs.subVtt;
         rec.subLabel = subs.subLabel;
       }
