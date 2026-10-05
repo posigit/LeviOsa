@@ -215,9 +215,19 @@ export function srtToVtt(srt: string): string {
     .replace(/\r/g, "")
     .replace(/(\d{2}:\d{2}:\d{2}),(\d{3})/g, "$1.$2")
     .replace(/\n{3,}/g, "\n\n");
-  const body = cleaned
-    .split("\n")
-    .filter((line) => !/^\d+$/.test(line.trim()))
+  const lines = cleaned.split("\n");
+  const body = lines
+    .filter((line, i) => {
+      if (!/^\d+$/.test(line.trim())) return true;
+      // Cue indexes are a bare number whose next content line is a timestamp.
+      // A cue whose text is only a number ("42", "911") must stay.
+      for (let j = i + 1; j < lines.length; j++) {
+        const next = lines[j].trim();
+        if (!next) continue;
+        return !/^\d{2}:\d{2}/.test(next);
+      }
+      return true;
+    })
     .join("\n")
     .trim();
   return `WEBVTT\n\n${body}\n`;

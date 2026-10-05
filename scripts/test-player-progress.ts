@@ -20,6 +20,7 @@ import {
   cueTextAt,
   isPromoCue,
   parseVttCues,
+  srtToVtt,
   stripAssTags,
 } from "../lib/player-subs";
 import { CINESRC_SEED_SERVERS, buildCineSrcServerOptions, cineSrcAliasFor, cineSrcServerLabel, embedUrlFor, withCineSrcQuality, withCineSrcServer } from "../lib/embed-sources";
@@ -217,6 +218,20 @@ I see dead people
 const clean = parseVttCues(spammy);
 assert.equal(clean.length, 1);
 assert.equal(clean[0].text, "I see dead people");
+
+// Cue indexes drop. A cue whose only text is a number stays.
+const numbered = srtToVtt(`1
+00:00:01,000 --> 00:00:02,000
+42
+
+2
+00:00:03,000 --> 00:00:04,000
+Hello
+`);
+assert.match(numbered, /00:00:01\.000 --> 00:00:02\.000\n42/);
+assert.match(numbered, /Hello/);
+assert.doesNotMatch(numbered, /\n1\n/);
+assert.doesNotMatch(numbered, /\n2\n/);
 
 assert.equal(RESUME_END_RATIO, 0.92);
 assert.equal(NEXT_FAB_RATIO, 0.96);
