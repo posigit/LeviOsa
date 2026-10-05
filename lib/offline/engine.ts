@@ -1991,6 +1991,10 @@ async function runDownload(
   }
 
   const downloadAttempt = async (m: MirrorParse): Promise<void> => {
+    // Every mirror starts clean. This is declared once for the whole run, so
+    // a sample taken from the mirror that failed would otherwise be committed
+    // over whichever mirror actually landed.
+    pendingCutFingerprint = null;
     // The master had no caption group. vidsrc's default_subs list is the
     // stream's own file; it beats the external cascade. Auto and Stream
     // only — a forced provider stays that provider.
