@@ -39,6 +39,11 @@ drizzle/
 # vercel
 .vercel
 
+# cloudflare workers (opennext)
+.open-next/
+.wrangler/
+cloudflare-env.d.ts
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts
