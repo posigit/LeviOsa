@@ -805,11 +805,25 @@ export async function syncOfflinePositions(records: DownloadRecord[]): Promise<v
   lastPosSyncAt = now;
 
   let items: ServerPositionRow[] = [];
+  let serverListed = false;
+  // Server rows are stamped by the database clock and local bookmarks by this
+  // device's, and we never see the server's "now" — so comparing them raw
+  // lets whatever skew exists decide which bookmark is newer, and a clear on
+  // this device can be undone by a row that is actually older than it. The
+  // Date header the response already carries is the server clock at reply
+  // time: measure the gap once here and shift every row into this device's
+  // clock below. No header, no shift — same as before.
+  let clockSkewMs = 0;
   try {
     const res = await fetch("/api/playback?all=1", { headers: { accept: "application/json" } });
     if (!res.ok) return;
+    const serverNow = Date.parse(res.headers.get("date") ?? "");
+    if (Number.isFinite(serverNow)) clockSkewMs = serverNow - Date.now();
     const data = (await res.json()) as { items?: unknown };
-    if (Array.isArray(data?.items)) items = data.items as ServerPositionRow[];
+    if (Array.isArray(data?.items)) {
+      items = data.items as ServerPositionRow[];
+      serverListed = true;
+    }
   } catch {
     return;
   }
@@ -819,11 +833,26 @@ export async function syncOfflinePositions(records: DownloadRecord[]): Promise<v
     if (row && Number.isFinite(row.tmdbId)) byKey.set(serverPositionKey(row), row);
   }
 
+  // A clear only has to outlive a stale row the DELETE hadn't caught up with
+  // yet. Holding the full server list, a key that is absent has no row at all
+  // — nothing can copy it back — so its tombstone can go. Left alone the map
+  // only ever grows, and every write and merge re-parses all of it.
+  if (serverListed) {
+    const clears = readClearMap();
+    const kept = Object.fromEntries(
+      Object.entries(clears).filter(([key]) => byKey.has(key))
+    );
+    if (Object.keys(kept).length !== Object.keys(clears).length) {
+      window.localStorage.setItem(OFFLINE_POS_CLEAR_LS_KEY, JSON.stringify(kept));
+    }
+  }
+
   for (const record of done) {
     const row = byKey.get(record.key);
     if (!row) continue;
     const local = readOfflinePosition(record.key);
-    const parsedAt = row.updatedAt ? Date.parse(row.updatedAt) : Number.NaN;
+    // Into this device's clock, so the comparison below is like for like.
+    const parsedAt = row.updatedAt ? Date.parse(row.updatedAt) - clockSkewMs : Number.NaN;
     const merged = mergeOfflinePosition(
       local,
       row.positionSeconds,
