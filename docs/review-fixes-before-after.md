@@ -20,8 +20,9 @@ overlay fills and the Auto row checks, while the stored setting stays Stream for
 a native player.
 
 **What actually happened.** Half the change. The fetch derived the source
-(`clockEmbedSubSource(subSource)`, `vix-player.tsx:1980`) but the render gate
-still read the raw setting (`subSource !== "stream"`, `:4169`).
+(`clockEmbedSubSource(subSource)`, `vix-player.tsx:1986`) but the render gate
+still read the raw setting (`subSource !== "stream"`, then at `:4169`, now
+`:4177`).
 
 - cues were fetched and parsed into `iframeCues`
 - `IframeSubtitleOverlay` has exactly one mount site and is the only consumer
@@ -45,21 +46,22 @@ turn subtitles on **for this title only**, without changing the global picker
 **What actually happened.** Two gates both still read "off":
 
 1. `applyNative` captured `const s = loadVixSettings()` **outside** its body
-   (`player-engine.ts:643`, function at `:645`), so `s.subs` was frozen at
+   (the snapshot sat at `player-engine.ts:643`, function at `:645`), so `s.subs`
+   was frozen at
    attach time. The path writes `subs: "en"` to storage, which the snapshot never
    sees. The hls path self-heals at `:234-236`; the native path has no equivalent.
 2. The effect that mirrors `subSource` into `subSourceRef` only fires when
    `subSource` changes — and this path deliberately does not touch it.
 
 The `addtrack → queueMicrotask(applyNative)` pass added by that commit then hit
-`:662` (`s.subs === "off" || subSourceRef.current === "off"`) and ran
+`:662` (now `:665`) — `s.subs === "off" || subSourceRef.current === "off"` — and ran
 `exclusiveTextTracks(video, [])`, disabling the track the inject had just
 landed. Fixing only the first operand would not have helped — the OR still fired.
 
-**Expected now.** `applyNative` re-reads settings on every pass (`:645`), and
+**Expected now.** `applyNative` re-reads settings on every pass (`:648`), and
 `handleSavedSubAltPick` refreshes `subSourceRef` for this mount only when it
 says `off`. The picked track stays enabled. Menu rows and the persisted picker
-are untouched. The same re-read fixes the language gate at `:670`, which was
+are untouched. The same re-read fixes the language gate at `:673`, which was
 frozen for the whole attach session.
 
 ---
@@ -101,15 +103,15 @@ which is stable across attempts.
 what is actually stored.
 
 **What actually happened.** It was persisted *before* quota and *before* the
-delete (`rec.videoFingerprint = nextFp` at `:2038`/`:2043`, `upsertRecord` at
-`:2161`). Three normal-production paths throw in that window while the old bytes
-are still on disk:
+delete (the assignment sat at `:2038`/`:2043`, `upsertRecord` at `:2161` — all
+pre-fix, so those lines now hold other code). Three normal-production paths
+throw in that window while the old bytes are still on disk:
 
-| Line | Throw |
+| Throw site (current line) | Throw |
 |---|---|
-| `:2071` | playlist shrunk — *"kept stored bytes; will retry"* |
-| `:2115` | reverify unstable — *"kept stored bytes"* |
-| `:2165` | `enforceQuota` refusal — *"needs ~X, free space"* |
+| `:2081` | playlist shrunk — *"kept stored bytes; will retry"* |
+| `:2125` | reverify unstable — *"kept stored bytes"* |
+| `:2175` | `enforceQuota` refusal — *"needs ~X, free space"* |
 
 The record then claims a fingerprint the disk does not hold, and it persists
 (the error path spreads `{ ...rec }`). Every later attempt sees no change and
@@ -135,9 +137,9 @@ reviewed: writing the value was pointless unless a later run read it.
 **Intended.** `pendingCutFingerprint` is written onto the record only once the
 attempt's bytes match it (committed on `state: "done"`).
 
-**What actually happened.** It is declared once per **run** (`:1892`) and never
-cleared, while `downloadAttempt` runs once per **mirror** (`:2499` in the loop at
-`:2472`). A sample from the mirror that failed survived into the next attempt and
+**What actually happened.** It is declared once per **run** (`:1895`) and never
+cleared, while `downloadAttempt` runs once per **mirror** (`:2516`, in the loop
+at `:2489`). A sample from the mirror that failed survived into the next attempt and
 was committed when a different mirror landed — storing a fingerprint for bytes
 that were never on disk, which the next resume calls a re-cut.
 
@@ -199,7 +201,7 @@ against what's actually stored."*
 
 **What actually happened.** Nothing ever stored it back into the record a run
 starts from. `startDownloadInner` builds its record from a literal
-(`engine.ts:615-665`) that copies `rendition` and `usedPlaylistUrl` from
+(`engine.ts:615-667`) that copies `rendition` and `usedPlaylistUrl` from
 `existing` but not `videoFingerprint`, and `runDownload` is reached from exactly
 one place — that literal. So `rec.videoFingerprint` was `undefined` at the top of
 every single run:
@@ -236,7 +238,7 @@ persisted picker alone (the menu should keep showing the user's global choice).
 `SubtitleOverlay` gate read the picker *state*:
 
 ```
-enabled={subSource !== "off"}        // vix-player.tsx:4164
+enabled={subSource !== "off"}        // vix-player.tsx:4166
 ```
 
 With the picker at Off that stays `false`, the effect early-returns and clears
@@ -265,7 +267,7 @@ effect drops the track, so there is no text to paint and nothing shows.
    stored caption on the next progress write. Exactly the cost fix #6 was
    avoiding.
 2. **The tombstone prune was unguarded.** The new `localStorage.setItem` in
-   `syncOfflinePositions` (`store.ts:855`) sat outside any `try`/`catch`, while
+   `syncOfflinePositions` (`store.ts:859`) sat outside any `try`/`catch`, while
    every other write in the file has one. `setItem` throws on a full or frozen
    storage, and this one runs before the merge loop — so a housekeeping failure
    would have taken the entire resume sync down with it.
@@ -326,6 +328,8 @@ rate-limited.
 
 ## Verification
 
+Run against the final tree (`0c57c03`):
+
 | Check | Result |
 |---|---|
 | `npx tsc --noEmit -p tsconfig.json` | clean |
@@ -334,9 +338,32 @@ rate-limited.
 | `scripts/test-player-surfaces.tsx` | pass |
 | `scripts/test-cc-gate.tsx` | pass |
 | `scripts/test-subdl.ts` | **external API flake** |
+| `git diff --stat 474c269..HEAD` | 5 files, the four code files plus this doc |
 
 `test-subdl` hit `404 {"error":"no subtitles found"}` from the live SubDL API on
 three consecutive runs after an earlier pass in the same session, failing at a
 different lookup each time. Its import graph is
 `test-subdl → app/api/subdl/route → lib/player-subs`, and none of those are in
 the four files these commits touch — the failure is independent of this change.
+
+**Code review of the fixes themselves.** Each of the ten code fixes was read
+back in the final tree rather than taken from its commit message. The checks
+that mattered were the ones where two fixes interact:
+
+- Fix 2(b) writes only `subSourceRef.current` and `saveVixSettings({ subs })`;
+  it never calls `setSubSource` and never persists the picker (`vix-player.tsx:1814-1840`).
+- Fix 8 never wipes without evidence: `videoCutMismatch` returns `false` when
+  either side is missing (`rendition.ts:65-71`), so an unreadable disk *and* no
+  stored value means no wipe, not a guess.
+- Fix 9 leaves online titles untouched — `savedSubAltIndex` is `null` unless a
+  download has stored subtitle files — and the explicit **Off** path still
+  clears `savedSubAltPick` (`:1733`) so the inject effect drops the track and
+  there is no text for an enabled overlay to paint.
+- Fix 10's extracted `fnv1a` is the same loop, same constants, same `>>> 0`
+  finish as the inline version it replaced, so signatures are unchanged.
+- `pendingCutFingerprint` is written only in the non-wipe branch and committed
+  only after `rec.state = "done"` (`engine.ts:2417`), and is reset at the top
+  of every mirror attempt (`:2000`).
+
+The line references in this document were audited against that final tree and
+corrected where earlier edits had shifted them.
