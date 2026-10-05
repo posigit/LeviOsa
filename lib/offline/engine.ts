@@ -1975,13 +1975,14 @@ async function runDownload(
       read(firstSeg.url, firstSeg.byteRange, segmentIndexUrl(rec.key, "v", 0)),
       read(midSeg.url, midSeg.byteRange, segmentIndexUrl(rec.key, "v", midIndex)),
     ]);
-    // A partial download has not reached the middle yet. Missing cache
-    // heads are "unknown", not a re-cut — otherwise every resume would wipe.
-    if (fromCache) {
-      if (!firstBytes) return null;
-      if (midIndex !== 0 && !midBytes) return null;
-      if (init && !initBytes) return null;
-    }
+    // A missing head is "unknown", not a re-cut — a partial download has not
+    // reached the middle yet, and a failed request says nothing about the
+    // bytes on disk. Both paths must bail the same way: a remote head that
+    // 404s or times out would otherwise sample as "-", which never matches a
+    // real head and wipes the video.
+    if (!firstBytes) return null;
+    if (midIndex !== 0 && !midBytes) return null;
+    if (init && !initBytes) return null;
     return videoCutFingerprint({
       init: initBytes,
       first: firstBytes,
