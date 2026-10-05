@@ -27,7 +27,7 @@ import { CINESRC_SEED_SERVERS, buildCineSrcServerOptions, cineSrcAliasFor, cineS
 import { DEFAULT_VIX_SETTINGS } from "../lib/vix-settings";
 import { NEXT_FAB_RATIO, RESUME_END_RATIO } from "../lib/player-constants";
 import { normalizeSegment, parseSegmentSec } from "../lib/introdb";
-import { coalesceOutbox } from "../lib/offline/store";
+import { coalesceOutbox, outboxDrainAction } from "../lib/offline/store";
 import {
   VOLATILE_PARAMS,
   canonicalMediaKey,
@@ -278,6 +278,14 @@ assert.equal(
   coalesceOutbox([e1], { params: "b", method: "POST", at: 3, attempts: 0 }).length,
   2
 );
+assert.equal(outboxDrainAction(200), "drop");
+assert.equal(outboxDrainAction(400), "drop");
+assert.equal(outboxDrainAction(401), "keep");
+assert.equal(outboxDrainAction(403), "keep");
+assert.equal(outboxDrainAction(422), "drop");
+assert.equal(outboxDrainAction(429), "keep");
+assert.equal(outboxDrainAction(500), "keep");
+assert.equal(outboxDrainAction(409), "burn");
 
 // Canonical keys: stable across signed-URL rotation (resume depends on it).
 assert.equal(

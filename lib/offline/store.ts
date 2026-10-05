@@ -746,6 +746,22 @@ export function isPermanentFailure(status: number): boolean {
   return status === 400 || status === 404 || status === 422;
 }
 
+/**
+ * What a drain should do with one HTTP status.
+ * 401/403 mean the session is gone — keep the entry for the next login.
+ * Burning them used to delete a watched mark after enough tab focuses.
+ */
+export function outboxDrainAction(status: number): "drop" | "keep" | "burn" {
+  if (status >= 200 && status < 300) return "drop";
+  if (isPermanentFailure(status)) return "drop";
+  if (status === 401 || status === 403 || status === 408 || status === 425 || status === 429) {
+    return "keep";
+  }
+  if (status >= 500) return "keep";
+  if (status >= 400) return "burn";
+  return "keep";
+}
+
 let draining = false;
 
 /**
@@ -772,19 +788,14 @@ export async function drainPlaybackOutbox(): Promise<void> {
             body: entry.body,
             credentials: "same-origin",
           });
-          if (res.ok || isPermanentFailure(res.status)) {
+          const action = outboxDrainAction(res.status);
+          if (action === "drop") {
             entry.attempts = OUTBOX_MAX_ATTEMPTS + 1; // mark for removal
-          } else if (
-            res.status >= 400 &&
-            res.status < 500 &&
-            res.status !== 408 &&
-            res.status !== 425 &&
-            res.status !== 429
-          ) {
+          } else if (action === "burn") {
             entry.attempts += 1; // client rejection: bounded retries
           }
-          // 5xx/429: server-side trouble — retry on the next drain without
-          // burning the budget (a flaky night used to discard the mark).
+          // keep: 401/403 (signed out), 408/425/429, and 5xx. Retry next
+          // drain without burning the budget.
         } catch {
           // Network failure mid-flight: keep the entry untouched.
         }
