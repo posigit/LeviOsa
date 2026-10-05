@@ -271,9 +271,14 @@ export function pieceOutcome(opts: {
   return "gap";
 }
 
-/** Quota, encryption, and "not in this quality" must not auto-loop. */
+/**
+ * Quota, encryption, and "not in this quality" must not auto-loop.
+ * The unconfigured-resolver sentence is hard. A transient
+ * "Stream resolver failed … then retry" is not — a bare `resolver` match
+ * used to park that row as non-retryable.
+ */
 export function isHardDownloadError(message: string): boolean {
-  return /out of device space|not enough device storage|free space or raise the cap|can't be saved offline|not available in|no playable quality|no downloadable stream|download mode is off|resolver/i.test(
+  return /out of device space|not enough device storage|free space or raise the cap|can't be saved offline|not available in|no playable quality|no downloadable stream|download mode is off|need the stream resolver/i.test(
     message
   );
 }

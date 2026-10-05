@@ -10,7 +10,7 @@ one is committed.
 
 ## Fixes, in order
 
-- [ ] **1. Resolver blip is fatal.** `isHardDownloadError` matches the word `resolver`, so `Stream resolver failed … then retry` is stored `retryable: false` and auto-resume never runs. Match the unconfigured sentence only.
+- [x] **1. Resolver blip is fatal.** `isHardDownloadError` matches the word `resolver`, so `Stream resolver failed … then retry` is stored `retryable: false` and auto-resume never runs. Match the unconfigured sentence only.
 - [ ] **2. SRT cue text that is only a number is deleted.** `srtToVtt` drops every all-digit line. Drop cue indexes only (the digit line immediately before a timestamp).
 - [ ] **3. Sample encryption other than `SAMPLE-AES` is saved as clear video.** Treat any `METHOD` other than `NONE` and `AES-128`, and any non-identity `KEYFORMAT`, as unsupported.
 - [ ] **4. Logged-out drains delete queued progress.** 401 and 403 increment the outbox attempt cap. Leave those entries until a real success or a permanent 4xx.

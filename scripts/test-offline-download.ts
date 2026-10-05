@@ -124,6 +124,18 @@ assert.equal(
   isHardDownloadError("Not available in 480p (lowest is 720p) — switch quality in Download settings and retry."),
   true
 );
+assert.equal(
+  isHardDownloadError(
+    "Downloads need the stream resolver — VIX_RESOLVER_URL isn't set on this deployment."
+  ),
+  true
+);
+assert.equal(
+  isHardDownloadError(
+    "Stream resolver failed (timeout) If it names the resolver, revive/redeploy that service, then retry."
+  ),
+  false
+);
 
 const text = [
   "#EXTM3U",
