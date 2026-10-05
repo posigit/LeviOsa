@@ -4161,7 +4161,9 @@ export function VixPlayer({
       {mode === "native" && (
         <SubtitleOverlay
           videoRef={videoRef}
-          enabled={subSource !== "off"}
+          // A saved file can be active while the picker still says Off — the
+          // engine shows the track from that pick alone.
+          enabled={subSource !== "off" || savedSubAltIndex != null}
           fontScale={SUB_FONT_SCALE[subFontSize]}
           color={SUB_COLORS[subColor]}
           bgOpacity={subBgOpacity}
