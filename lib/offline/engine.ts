@@ -2031,20 +2031,21 @@ async function runDownload(
       const info = pieceInfo(u);
       return info?.group === "video" && info.isSegment;
     });
-    if (!sourceChanged && !plan.groups.includes("video") && hasVideo) {
-      const nextFp = await sampleCut(m.parts, false, signal);
-      if (nextFp) {
-        if (videoCutMismatch(rec.videoFingerprint, nextFp)) {
+    // Sample whenever video bytes are on disk — including a wipe the rendition
+    // signature already called for. The signature only carries height and
+    // segment count, so a fingerprint that never follows the bytes it
+    // describes wipes the same title a second time on the next attempt.
+    let sampledFp: string | null = null;
+    if (hasVideo) sampledFp = await sampleCut(m.parts, false, signal);
+    if (sampledFp && !sourceChanged && !plan.groups.includes("video")) {
+      if (videoCutMismatch(rec.videoFingerprint, sampledFp)) {
+        plan.groups.push("video");
+      } else if (!rec.videoFingerprint) {
+        const cachedFp = await sampleCut(m.parts, true, signal);
+        if (cachedFp && cachedFp !== sampledFp) {
           plan.groups.push("video");
-          rec.videoFingerprint = nextFp;
-        } else if (!rec.videoFingerprint) {
-          const cachedFp = await sampleCut(m.parts, true, signal);
-          if (cachedFp && cachedFp !== nextFp) {
-            plan.groups.push("video");
-            rec.videoFingerprint = nextFp;
-          } else {
-            pendingCutFingerprint = nextFp;
-          }
+        } else {
+          pendingCutFingerprint = sampledFp;
         }
       }
     }
@@ -2220,6 +2221,13 @@ async function runDownload(
     }
     rec.rendition = rendition;
     if (activeMirrorUrl) rec.usedPlaylistUrl = activeMirrorUrl;
+    // The fingerprint goes with the wipe, not ahead of it. Storing it before
+    // quota and before the delete left the record describing bytes that were
+    // about to be dropped: a refusal or a retry kept the old bytes under a
+    // new fingerprint, and every later attempt compared equal and skipped the
+    // re-cut guard for good. A wipe with no sample at all stores nothing —
+    // "unknown" never wipes.
+    if (plan.groups.includes("video")) rec.videoFingerprint = sampledFp ?? undefined;
     // Wipes persisted their counter reset above; this persists the new
     // signature so the next attempt compares against what's actually stored.
     if (plan.groups.length > 0) await upsertRecord(rec);
