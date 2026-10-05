@@ -12,7 +12,7 @@ one is committed.
 
 - [x] **1. Resolver blip is fatal.** `isHardDownloadError` matches the word `resolver`, so `Stream resolver failed … then retry` is stored `retryable: false` and auto-resume never runs. Match the unconfigured sentence only.
 - [x] **2. SRT cue text that is only a number is deleted.** `srtToVtt` drops every all-digit line. Drop cue indexes only (the digit line immediately before a timestamp).
-- [ ] **3. Sample encryption other than `SAMPLE-AES` is saved as clear video.** Treat any `METHOD` other than `NONE` and `AES-128`, and any non-identity `KEYFORMAT`, as unsupported.
+- [x] **3. Sample encryption other than `SAMPLE-AES` is saved as clear video.** Treat any `METHOD` other than `NONE` and `AES-128`, and any non-identity `KEYFORMAT`, as unsupported.
 - [ ] **4. Logged-out drains delete queued progress.** 401 and 403 increment the outbox attempt cap. Leave those entries until a real success or a permanent 4xx.
 - [ ] **5. Byte-range 206s become status 200.** vidsrc media proxies sniff `octet-stream` / empty / `text` bodies and answer 200 with only the slice. Pass 206 through. `sliceToRange` should keep a 200 whose length is already the window.
 - [ ] **6. Map BYTERANGE poisons the next implicit offset.** `#EXT-X-MAP` is not a media segment. Do not advance the implicit byte cursor from it. Reset that cursor on `#EXT-X-DISCONTINUITY`.

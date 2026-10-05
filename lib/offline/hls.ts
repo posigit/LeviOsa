@@ -399,8 +399,12 @@ export function parseMediaPlaylist(text: string, baseUrl: string): MediaParts {
           /* ignore */
         }
       }
-      if (method === "SAMPLE-AES") sampleAes = true;
-      if (method === "AES-128") aes = true;
+      const keyFormat = /KEYFORMAT="([^"]+)"/.exec(line)?.[1] ?? "identity";
+      // AES-128 with the identity key is the only encryption we can cache.
+      // SAMPLE-AES, SAMPLE-AES-CTR, and FairPlay/Widevine key formats are not.
+      if (method !== "NONE" && method !== "AES-128") sampleAes = true;
+      if (keyFormat !== "identity") sampleAes = true;
+      if (method === "AES-128" && keyFormat === "identity") aes = true;
       else if (method === "NONE") aes = false;
     } else if (line.startsWith("#EXTINF:")) {
       durationSec += Number(line.slice(8).split(",")[0]) || 0;

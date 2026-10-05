@@ -161,6 +161,42 @@ assert.equal(parts.segments.length, 3);
 assert.deepEqual(parts.segments[0]?.byteRange, { start: 0, length: 100 });
 assert.deepEqual(parts.segments[1]?.byteRange, { start: 100, length: 50 });
 assert.equal(parts.segments[2]?.byteRange, null);
+assert.equal(parts.sampleAes, false);
+const sampleAes = parseMediaPlaylist(
+  [
+    "#EXTM3U",
+    '#EXT-X-KEY:METHOD=SAMPLE-AES-CTR,URI="https://cdn.example.com/key",KEYFORMAT="identity"',
+    "#EXTINF:4.0,",
+    "seg.ts",
+    "",
+  ].join("\n"),
+  base
+);
+assert.equal(sampleAes.sampleAes, true);
+const fairplay = parseMediaPlaylist(
+  [
+    "#EXTM3U",
+    '#EXT-X-KEY:METHOD=AES-128,URI="skd://key",KEYFORMAT="com.apple.streamingkeydelivery"',
+    "#EXTINF:4.0,",
+    "seg.ts",
+    "",
+  ].join("\n"),
+  base
+);
+assert.equal(fairplay.sampleAes, true);
+assert.equal(fairplay.aes128, false);
+const clearAes = parseMediaPlaylist(
+  [
+    "#EXTM3U",
+    '#EXT-X-KEY:METHOD=AES-128,URI="https://cdn.example.com/key"',
+    "#EXTINF:4.0,",
+    "seg.ts",
+    "",
+  ].join("\n"),
+  base
+);
+assert.equal(clearAes.sampleAes, false);
+assert.equal(clearAes.aes128, true);
 assert.equal(parts.segments[2]?.url, "https://cdn.example.com/pl/seg2.ts");
 
 const firstUrl = offlinePieceUrl(parts.segments[0]!.url, parts.segments[0]!.byteRange);
