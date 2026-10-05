@@ -60,6 +60,32 @@ export function shouldFireEnded(
   return isFinishedPosition(pos, dur);
 }
 
+/**
+ * Seconds before the finish line a scrub must land to reopen a latched
+ * "ended". Jitter on the outro or the 92% line must not flap the bookmark.
+ */
+export const ENDED_REOPEN_MARGIN_SEC = 15;
+
+/**
+ * True when playback has moved clearly back before the finish line, so a
+ * latched ended/watched mark should release and progress can save again.
+ * A title shorter than the margin reopens at any position before the line.
+ */
+export function shouldReopenEnded(
+  pos: number,
+  dur: number,
+  outroStart: number | null | undefined
+): boolean {
+  if (!Number.isFinite(pos) || pos < 0) return false;
+  let line = 0;
+  if (outroStart != null && outroStart > 0) line = outroStart;
+  else if (Number.isFinite(dur) && dur > 0) line = dur * RESUME_END_RATIO;
+  else return false;
+  const gate = line - ENDED_REOPEN_MARGIN_SEC;
+  if (gate <= 0) return pos < line;
+  return pos < gate;
+}
+
 /** True once host near-end UI (sticky Next) may fire. */
 export function isNearEndPosition(
   pos: number,

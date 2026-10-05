@@ -69,6 +69,7 @@ import {
     isResumablePosition,
     makePlaybackKey,
     shouldFireEnded,
+    shouldReopenEnded,
   } from "@/lib/player-progress";
 import {
   createClearPosition,
@@ -805,6 +806,18 @@ export function VixPlayer({
     },
     [playbackParams, offlineOverride, offlineKey]
   );
+
+  // Crossing the outro or 92% latches ended and stops saves. A scrub that
+  // lands clearly before that line (see shouldReopenEnded) is still this
+  // watch, so the bookmark and Up Next may arm again.
+  const reopenEndedIfScrubbedBack = useCallback((pos: number, duration: number) => {
+    if (!endedRef.current) return;
+    const outro = segmentsRef.current.outro?.start ?? null;
+    if (!shouldReopenEnded(pos, duration, outro)) return;
+    endedRef.current = false;
+    bookmarkClearedRef.current = false;
+    nearEndFiredRef.current = false;
+  }, []);
 
   const clearPosition = useCallback(() => {
     // Offline finish: drop the local bookmark with the server one.
@@ -2246,6 +2259,7 @@ export function VixPlayer({
         setResumeKey(null);
       }
       const t = video.currentTime;
+      reopenEndedIfScrubbedBack(t, video.duration);
       const pending = pendingSeekPosRef.current;
       if (
         pending != null &&
@@ -2277,9 +2291,10 @@ export function VixPlayer({
       if (now - lastTimeRef.current < 1000) return;
       lastTimeRef.current = now;
       emit("timeupdate");
-      savePosition(video.currentTime, video.duration);
       const dur = Number.isFinite(video.duration) ? video.duration : 0;
       const t = video.currentTime;
+      reopenEndedIfScrubbedBack(t, dur);
+      savePosition(t, dur);
 
       // End-of-content: a known outro start is authoritative (card + watched
       // marking fire there); 96%/92% are fallback ONLY without outro data.
@@ -2328,7 +2343,7 @@ export function VixPlayer({
       video.removeEventListener("playing", markReady);
       setMediaReady(false);
     };
-  }, [mode, emit, savePosition, clearPosition, bumpChrome, armChromeHide]);
+  }, [mode, emit, savePosition, clearPosition, bumpChrome, armChromeHide, reopenEndedIfScrubbedBack]);
 
   type WebkitVideoElement = HTMLVideoElement & {
     webkitEnterFullscreen?: () => void;
@@ -3552,6 +3567,11 @@ export function VixPlayer({
         return;
       }
 
+      reopenEndedIfScrubbedBack(
+        remotePositionRef.current,
+        remoteDurationRef.current
+      );
+
       // End-of-content: a known outro start is authoritative (card + watched
       // marking fire there); 96%/92% are fallback ONLY without outro data.
       const outroStartEmbed = segmentsRef.current.outro?.start ?? null;
@@ -3637,6 +3657,7 @@ export function VixPlayer({
     clearPosition,
     disarmCineSrcWatch,
     emit,
+    reopenEndedIfScrubbedBack,
     savePosition,
   ]);
 

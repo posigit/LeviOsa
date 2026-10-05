@@ -13,6 +13,7 @@ import {
   isPreSeekNoise,
   isResumablePosition,
   shouldFireEnded,
+  shouldReopenEnded,
   shouldSaveProgress,
 } from "../lib/player-progress";
 import {
@@ -54,6 +55,17 @@ assert.equal(shouldFireEnded(3400, 3500, undefined), true);
 assert.equal(shouldFireEnded(3400, 0, null), false);
 assert.equal(shouldFireEnded(3431, 0, 3431), true);
 assert.equal(shouldFireEnded(100, 3500, -5), false);
+
+// A scrub well before the outro or the 92% line reopens. The boundary does not.
+assert.equal(shouldReopenEnded(3420, 3500, 3431), false);
+assert.equal(shouldReopenEnded(3416, 3500, 3431), false);
+assert.equal(shouldReopenEnded(3415, 3500, 3431), true);
+assert.equal(shouldReopenEnded(3400, 3500, 3431), true);
+assert.equal(shouldReopenEnded(3205, 3500, null), false);
+assert.equal(shouldReopenEnded(3204, 3500, null), true);
+assert.equal(shouldReopenEnded(5, 10, null), true);
+assert.equal(shouldReopenEnded(9.5, 10, null), false);
+assert.equal(shouldReopenEnded(0, 0, null), false);
 
 assert.equal(
   shouldSaveProgress({
