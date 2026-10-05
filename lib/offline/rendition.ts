@@ -33,6 +33,43 @@ const SEGMENT_ROLE: Record<MediaGroup, string> = {
  * height — a variant change alters every byte — while audio and subs only
  * carry their segment count (they have no height of their own).
  */
+const CUT_HEAD_BYTES = 16;
+
+function headHex(bytes: Uint8Array | null): string {
+  if (!bytes || bytes.byteLength === 0) return "-";
+  const n = Math.min(CUT_HEAD_BYTES, bytes.byteLength);
+  let hex = "";
+  for (let i = 0; i < n; i++) hex += bytes[i]!.toString(16).padStart(2, "0");
+  return hex;
+}
+
+/**
+ * Identity of one video cut: 16 bytes from the init map, segment 0, and the
+ * middle segment. Height and segment count can stay the same across a
+ * re-encode. Null when segment 0 has no bytes (caller must not wipe).
+ * A missing init map or a one-segment playlist uses `-` for that slot.
+ */
+export function videoCutFingerprint(samples: {
+  init: Uint8Array | null;
+  first: Uint8Array | null;
+  mid: Uint8Array | null;
+}): string | null {
+  if (!samples.first || samples.first.byteLength === 0) return null;
+  return `${headHex(samples.init)}.${headHex(samples.first)}.${headHex(samples.mid)}`;
+}
+
+/**
+ * True only when both sides were sampled and they differ. A missing sample
+ * is not a re-cut — a failed head request must not wipe paid-for video.
+ */
+export function videoCutMismatch(
+  stored: string | null | undefined,
+  next: string | null | undefined
+): boolean {
+  if (!stored || !next) return false;
+  return stored !== next;
+}
+
 export function encodeRendition(
   video: string,
   audio: string,

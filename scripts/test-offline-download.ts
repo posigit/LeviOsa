@@ -57,6 +57,8 @@ import {
   isShrunkParse,
   pieceInfo,
   planRenditionWipe,
+  videoCutFingerprint,
+  videoCutMismatch,
 } from "../lib/offline/rendition";
 
 const base = "https://cdn.example.com/pl/master.m3u8";
@@ -830,6 +832,22 @@ assert.deepEqual(
   }),
   { groups: ["subs"], hadStored: true }
 );
+/* Same height and count can still be a new cut. Missing samples do not wipe. */
+const head = (n: number) => Uint8Array.from({ length: 16 }, () => n);
+const fpA = videoCutFingerprint({ init: head(1), first: head(2), mid: head(3) });
+const fpB = videoCutFingerprint({ init: head(1), first: head(9), mid: head(3) });
+assert.ok(fpA && fpB && fpA !== fpB);
+assert.equal(videoCutMismatch(fpA, fpB), true);
+assert.equal(videoCutMismatch(fpA, fpA), false);
+assert.equal(videoCutMismatch(null, fpA), false);
+assert.equal(videoCutMismatch(fpA, null), false);
+assert.equal(
+  videoCutFingerprint({ init: null, first: head(2), mid: null }),
+  videoCutFingerprint({ init: new Uint8Array(), first: head(2), mid: new Uint8Array() })
+);
+assert.equal(videoCutFingerprint({ init: head(1), first: null, mid: head(3) }), null);
+assert.equal(videoCutFingerprint({ init: head(1), first: new Uint8Array(), mid: head(3) }), null);
+
 /* A source change serves another copy: counts can coincide, so every
  * stored piece is distrusted. */
 assert.deepEqual(

@@ -21,11 +21,13 @@ one is committed.
 - [x] **9. A finished offline watch grows a Resume line back.** Sync adopts a server row after the local clear, and the later DELETE does not remove it. Tombstone the clear. When both timestamps exist, the newer bookmark wins.
 - [x] **10. Offline Auto hides stream captions, and iPhone paints both.** Prefer the captured `offline-subs` rendition. A spare pick must not write `subSource: "opensub"`. Safari must not leave the stream track and the injected track both active. Skip SubDL spare downloads when captions are off or stream-only.
 - [x] **11. A single WebVTT subtitle rendition is dropped.** Segmented caption playlists are captured. A `WEBVTT` document (no `#EXTINF`) is not, so offline falls through to an external file.
+- [x] **12. A same-length re-cut splices old bytes.** The rendition signature is height plus segment counts. Same source, same counts, new bytes at the same index are cache hits. Fingerprint the init map, the first segment, and the middle segment (16 bytes each). A mismatch wipes video only.
+- [ ] **13. Every segment checkpoints every subtitle body.** `checkpointRecord` writes the whole manifest, including every title's `subVtt` / `subAlts`. Keep caption text in its own record and write that only when it changes.
+- [ ] **14. Sub delay does not move captured HLS captions.** Injected VTT bakes the delay into cue times. Stream cues are drawn from `activeCues`, so the slider does nothing for them.
 
 ## Left for a later pass
 
-- Same-length re-cut can splice: rendition signature is height plus segment count.
-- Checkpoint writes the whole manifest, caption bodies included, once per segment.
-- Three online playlist rewriters (`stream-proxy.ts`, `resolver-server/worker.js`, `resolver-server/server.js`) and a dead `rewritePlaylistForOffline`.
+- Three online playlist rewriters (`stream-proxy.ts`, `resolver-server/worker.js`, `resolver-server/server.js`). Do not collapse them in this pass.
 - `vix-player.tsx` is still the god component. Do not split it in this pass.
-- Sub delay does not move captured HLS captions, only injected VTT.
+- vidsrc `default_subs` never reaches the downloader (`resolveStreamPlaylist` drops the field).
+- A clock embed with subtitle source Stream has no captions and no checked row.

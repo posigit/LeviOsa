@@ -152,6 +152,12 @@ export type DownloadRecord = {
    */
   rendition?: string;
   /**
+   * 16-byte sample of the video cut on disk (init, first segment, middle).
+   * Same height and segment count can still be a re-encode; a mismatch
+   * wipes video only. Absent on rows saved before this existed.
+   */
+  videoFingerprint?: string;
+  /**
    * The mirror (master playlist URL) whose parse produced `rendition`.
    * Signed URLs re-sign on every resolve, so resumes match it by mirror
    * identity (mirrorIdentity) and try that mirror first — flipping mirrors

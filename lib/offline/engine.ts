@@ -86,6 +86,8 @@ import {
   isShrunkParse,
   pieceInfo,
   planRenditionWipe,
+  videoCutFingerprint,
+  videoCutMismatch,
 } from "@/lib/offline/rendition";
 import { formatBytes } from "@/lib/utils";
 
@@ -1885,6 +1887,106 @@ async function runDownload(
    * mirror that produced the bytes on disk.
    */
   let activeMirrorUrl: string | null = null;
+  /** New video-cut sample. Written onto the record only once bytes match it. */
+  let pendingCutFingerprint: string | null = null;
+
+  async function responseHead(res: Response): Promise<Uint8Array | null> {
+    const reader = res.body?.getReader();
+    if (!reader) return null;
+    const chunks: Uint8Array[] = [];
+    let got = 0;
+    try {
+      while (got < 16) {
+        const step = await reader.read();
+        if (step.done || !step.value) break;
+        chunks.push(step.value);
+        got += step.value.byteLength;
+      }
+    } finally {
+      await reader.cancel().catch(() => {});
+    }
+    if (got === 0) return null;
+    const out = new Uint8Array(Math.min(16, got));
+    let offset = 0;
+    for (const chunk of chunks) {
+      const n = Math.min(chunk.byteLength, out.byteLength - offset);
+      out.set(chunk.subarray(0, n), offset);
+      offset += n;
+      if (offset >= out.byteLength) break;
+    }
+    return out;
+  }
+
+  async function fetchHead(
+    url: string,
+    range: ByteRange | null,
+    userSignal: AbortSignal
+  ): Promise<Uint8Array | null> {
+    try {
+      const window = range
+        ? { start: range.start, length: Math.min(16, range.length) }
+        : { start: 0, length: 16 };
+      const res = await fetchPiece(url, userSignal, null, window);
+      if (res.status !== 200 && res.status !== 206) {
+        await res.body?.cancel().catch(() => {});
+        return null;
+      }
+      return await responseHead(res);
+    } catch (err) {
+      if (userSignal.aborted) throw err;
+      return null;
+    }
+  }
+
+  async function cachedHead(url: string): Promise<Uint8Array | null> {
+    try {
+      const hit = await cache.match(url);
+      if (!hit) return null;
+      return await responseHead(hit);
+    } catch {
+      return null;
+    }
+  }
+
+  /** Init, segment 0, and the middle segment. Null when segment 0 is missing. */
+  async function sampleCut(
+    parts: MediaParts,
+    fromCache: boolean,
+    userSignal: AbortSignal
+  ): Promise<string | null> {
+    if (parts.segments.length === 0) return null;
+    const firstSeg = parts.segments[0]!;
+    const midSeg = parts.segments[Math.floor((parts.segments.length - 1) / 2)]!;
+    const init = parts.maps[0] ?? null;
+    const read = async (
+      remote: string,
+      range: ByteRange | null,
+      storedUrl: string | null
+    ): Promise<Uint8Array | null> => {
+      if (fromCache) return storedUrl ? cachedHead(storedUrl) : null;
+      return fetchHead(remote, range, userSignal);
+    };
+    const midIndex = Math.floor((parts.segments.length - 1) / 2);
+    const [initBytes, firstBytes, midBytes] = await Promise.all([
+      init
+        ? read(init.url, init.byteRange, segmentIndexUrl(rec.key, "vi", 0))
+        : Promise.resolve(null),
+      read(firstSeg.url, firstSeg.byteRange, segmentIndexUrl(rec.key, "v", 0)),
+      read(midSeg.url, midSeg.byteRange, segmentIndexUrl(rec.key, "v", midIndex)),
+    ]);
+    // A partial download has not reached the middle yet. Missing cache
+    // heads are "unknown", not a re-cut — otherwise every resume would wipe.
+    if (fromCache) {
+      if (!firstBytes) return null;
+      if (midIndex !== 0 && !midBytes) return null;
+      if (init && !initBytes) return null;
+    }
+    return videoCutFingerprint({
+      init: initBytes,
+      first: firstBytes,
+      mid: midBytes,
+    });
+  }
 
   const downloadAttempt = async (m: MirrorParse): Promise<void> => {
     // Local recount only. Persisted progress never takes the lower number.
@@ -1904,6 +2006,29 @@ async function runDownload(
       next: rendition,
       sourceChanged,
     });
+    // Same height and segment count can still be a re-encode. Sample three
+    // heads before trusting index cache hits. A failed sample does not wipe.
+    const hasVideo = rec.fileUrls.some((u) => {
+      const info = pieceInfo(u);
+      return info?.group === "video" && info.isSegment;
+    });
+    if (!sourceChanged && !plan.groups.includes("video") && hasVideo) {
+      const nextFp = await sampleCut(m.parts, false, signal);
+      if (nextFp) {
+        if (videoCutMismatch(rec.videoFingerprint, nextFp)) {
+          plan.groups.push("video");
+          rec.videoFingerprint = nextFp;
+        } else if (!rec.videoFingerprint) {
+          const cachedFp = await sampleCut(m.parts, true, signal);
+          if (cachedFp && cachedFp !== nextFp) {
+            plan.groups.push("video");
+            rec.videoFingerprint = nextFp;
+          } else {
+            pendingCutFingerprint = nextFp;
+          }
+        }
+      }
+    }
     // A parse shorter than what we already stored (same source) is a
     // truncated playlist — reverify below only compares two fetches of the
     // SAME url, so a consistently short answer would pass it and wipe the
@@ -2250,6 +2375,7 @@ async function runDownload(
     rec.sizeBytes = Math.max(rec.bytesDone, measuredBytes);
     rec.bytesDone = rec.sizeBytes;
     rec.state = "done";
+    if (pendingCutFingerprint) rec.videoFingerprint = pendingCutFingerprint;
     rec.error = undefined;
     rec.retryable = false;
     // A finished run restores the auto-quality budget: without this the
