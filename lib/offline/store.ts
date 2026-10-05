@@ -10,6 +10,14 @@ import { isResumablePosition } from "@/lib/player-progress";
 
 export const DL_CACHE = "tvtime-downloads";
 const MANIFEST_IDB_KEY = "tvtime-download-manifest-v1";
+/** Caption bodies. Written when they change, not once per segment. */
+const SUBS_IDB_KEY = "tvtime-download-subs-v1";
+
+type SubBodies = {
+  subVtt: string | null;
+  subLabel: string | null;
+  subAlts: { vtt: string; label: string }[];
+};
 
 /**
  * Library thumbnail size. w154 (154×231) is the smallest cut that still
@@ -184,6 +192,8 @@ export function downloadKey(
 }
 
 let cache: Record<string, DownloadRecord> | null = null;
+let subsByKey: Record<string, SubBodies> | null = null;
+let subsSig = "";
 let saveTimer: ReturnType<typeof setTimeout> | null = null;
 let lastEmitAt = 0;
 const listeners = new Set<() => void>();
@@ -225,10 +235,93 @@ export function missingCount(rec: DownloadRecord): number {
   return rec.state === "done" ? rec.missing?.length ?? 0 : 0;
 }
 
+function bodiesOf(rec: DownloadRecord): SubBodies | null {
+  const alts = rec.subAlts ?? [];
+  if (!rec.subVtt && alts.length === 0) return null;
+  return {
+    subVtt: rec.subVtt ?? null,
+    subLabel: rec.subLabel ?? null,
+    subAlts: alts,
+  };
+}
+
+function collectBodies(map: Record<string, DownloadRecord>): Record<string, SubBodies> {
+  const out: Record<string, SubBodies> = {};
+  for (const [key, rec] of Object.entries(map)) {
+    const bodies = bodiesOf(rec);
+    if (bodies) out[key] = bodies;
+  }
+  return out;
+}
+
+function bodiesSig(bodies: Record<string, SubBodies>): string {
+  let bytes = 0;
+  const keys = Object.keys(bodies);
+  for (const key of keys) {
+    const body = bodies[key]!;
+    bytes += body.subVtt?.length ?? 0;
+    for (const alt of body.subAlts) bytes += alt.vtt.length;
+  }
+  return `${keys.length}:${bytes}`;
+}
+
+/** Disk copy of the manifest. Caption text lives in SUBS_IDB_KEY. */
+function strippedManifest(
+  map: Record<string, DownloadRecord>
+): Record<string, DownloadRecord> {
+  const out: Record<string, DownloadRecord> = {};
+  for (const [key, rec] of Object.entries(map)) {
+    if (!rec.subVtt && !(rec.subAlts?.length)) {
+      out[key] = rec;
+      continue;
+    }
+    out[key] = { ...rec, subVtt: null, subAlts: [] };
+  }
+  return out;
+}
+
+/**
+ * Progress writes stay small. Subtitle bodies are rewritten only when the
+ * text actually changed. Subs go out first so a crash cannot leave a
+ * stripped manifest with no caption record.
+ */
+async function writeManifest(): Promise<void> {
+  if (!cache) return;
+  const bodies = collectBodies(cache);
+  const sig = bodiesSig(bodies);
+  if (sig !== subsSig) {
+    await set(SUBS_IDB_KEY, bodies);
+    subsByKey = bodies;
+    subsSig = sig;
+  }
+  await set(MANIFEST_IDB_KEY, strippedManifest(cache));
+}
+
 async function load(): Promise<Record<string, DownloadRecord>> {
   if (cache) return cache;
   try {
     cache = (await get<Record<string, DownloadRecord>>(MANIFEST_IDB_KEY)) ?? {};
+    try {
+      subsByKey = (await get<Record<string, SubBodies>>(SUBS_IDB_KEY)) ?? {};
+    } catch {
+      subsByKey = {};
+    }
+    let migratedInline = false;
+    for (const [key, rec] of Object.entries(cache)) {
+      const inline = !!rec.subVtt || (rec.subAlts?.length ?? 0) > 0;
+      const side = subsByKey[key];
+      if (inline) {
+        subsByKey[key] = bodiesOf(rec)!;
+        migratedInline = true;
+      } else if (side) {
+        rec.subVtt = side.subVtt;
+        rec.subLabel = side.subLabel;
+        rec.subAlts = side.subAlts ?? [];
+      }
+    }
+    // Inline bodies still live only in the manifest. Force the next write
+    // to store them BEFORE that write strips the manifest.
+    subsSig = migratedInline ? "" : bodiesSig(subsByKey ?? {});
   } catch (err) {
     // NEVER persist a failed read as an empty manifest: one transient IDB
     // error used to write `{}` back over every download row while the media
@@ -248,7 +341,7 @@ function scheduleSave() {
   if (saveTimer) clearTimeout(saveTimer);
   saveTimer = setTimeout(() => {
     saveTimer = null;
-    if (cache) set(MANIFEST_IDB_KEY, cache).catch(() => {});
+    if (cache) void writeManifest().catch(() => {});
   }, 400);
 }
 
@@ -259,7 +352,7 @@ export function flushManifest(): void {
     clearTimeout(saveTimer);
     saveTimer = null;
   }
-  if (cache) set(MANIFEST_IDB_KEY, cache).catch(() => {});
+  if (cache) void writeManifest().catch(() => {});
 }
 
 /**
@@ -275,7 +368,7 @@ export async function checkpointRecord(): Promise<void> {
   }
   if (!cache) return;
   try {
-    await set(MANIFEST_IDB_KEY, cache);
+    await writeManifest();
   } catch {
     /* best-effort — the debounced save and pagehide flush still run */
   }
@@ -364,7 +457,7 @@ export async function commitRecord(rec: DownloadRecord): Promise<void> {
   // returns a throwaway object otherwise — writing it would wipe rows).
   if (typeof window !== "undefined" && cache && m === cache) {
     try {
-      await set(MANIFEST_IDB_KEY, m);
+      await writeManifest();
     } catch {
       /* best-effort */
     }
