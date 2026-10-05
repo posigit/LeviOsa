@@ -14,7 +14,7 @@ one is committed.
 - [x] **2. SRT cue text that is only a number is deleted.** `srtToVtt` drops every all-digit line. Drop cue indexes only (the digit line immediately before a timestamp).
 - [x] **3. Sample encryption other than `SAMPLE-AES` is saved as clear video.** Treat any `METHOD` other than `NONE` and `AES-128`, and any non-identity `KEYFORMAT`, as unsupported.
 - [x] **4. Logged-out drains delete queued progress.** 401 and 403 increment the outbox attempt cap. Leave those entries until a real success or a permanent 4xx.
-- [ ] **5. Byte-range 206s become status 200.** vidsrc media proxies sniff `octet-stream` / empty / `text` bodies and answer 200 with only the slice. Pass 206 through. `sliceToRange` should keep a 200 whose length is already the window.
+- [x] **5. Byte-range 206s become status 200.** vidsrc media proxies sniff `octet-stream` / empty / `text` bodies and answer 200 with only the slice. Pass 206 through. `sliceToRange` should keep a 200 whose length is already the window.
 - [ ] **6. Map BYTERANGE poisons the next implicit offset.** `#EXT-X-MAP` is not a media segment. Do not advance the implicit byte cursor from it. Reset that cursor on `#EXT-X-DISCONTINUITY`.
 - [ ] **7. Crossing the outro or 92% latches ended.** A scrub back never saves, and the next open starts at 0. Reopen the bookmark when playback is clearly before the finish line.
 - [ ] **8. Episode advance inherits the previous seek.** The player stays mounted across episodes (`key` is the show id) and the `[src]` reset does not clear `pendingSeekPosRef`.

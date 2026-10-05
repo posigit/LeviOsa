@@ -22,6 +22,7 @@ import {
   segmentIndexUrl,
   segmentLooksValid,
   segmentShouldReject,
+  sliceToRange,
   withEndlist,
   withOfflineSubtitles,
 } from "../lib/offline/hls";
@@ -197,6 +198,13 @@ const clearAes = parseMediaPlaylist(
 );
 assert.equal(clearAes.sampleAes, false);
 assert.equal(clearAes.aes128, true);
+
+// A 200 that is already the window must not be sliced from `start`.
+const windowOnly = new Uint8Array([9, 8, 7]).buffer;
+assert.equal(sliceToRange(windowOnly, 200, { start: 100, length: 3 }).byteLength, 3);
+const whole = new Uint8Array(120).buffer;
+assert.equal(sliceToRange(whole, 200, { start: 100, length: 10 }).byteLength, 10);
+assert.equal(sliceToRange(windowOnly, 200, { start: 100, length: 50 }).byteLength, 0);
 assert.equal(parts.segments[2]?.url, "https://cdn.example.com/pl/seg2.ts");
 
 const firstUrl = offlinePieceUrl(parts.segments[0]!.url, parts.segments[0]!.byteRange);

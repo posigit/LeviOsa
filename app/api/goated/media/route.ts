@@ -110,7 +110,10 @@ export async function GET(req: NextRequest) {
     }
 
     const contentType = upstream.headers.get("content-type") ?? "";
-    if (couldBePlaylistContentType(contentType)) {
+    // A 206 is already the requested byte window. Sniffing it and answering
+    // 200 drops Content-Range, and the downloader then treats the slice as
+    // the whole file.
+    if (upstream.status !== 206 && couldBePlaylistContentType(contentType)) {
       const raw = new Uint8Array(await upstream.arrayBuffer());
       let bytes = raw;
       if (raw.length > 2 && raw[0] === 0x1f && raw[1] === 0x8b) {

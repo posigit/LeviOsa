@@ -62,6 +62,7 @@ import {
   rewritePlaylistToIndexUrls,
   segmentIndexUrl,
   segmentShouldReject,
+  sliceToRange,
   withEndlist,
   withOfflineSubtitles,
   type AudioEntry,
@@ -297,30 +298,6 @@ function waitBackoff(ms: number, signal: AbortSignal): Promise<void> {
     }
     signal.addEventListener("abort", onAbort, { once: true });
   });
-}
-
-/**
- * Keep a requested byte range; never persist a 206 as if it were the whole
- * file. A truncated or offset-ambiguous body becomes an empty buffer so the
- * caller's existing retry → gap/throw path handles it — previously a short
- * 200 was sliced from byte 0 (wrong window) and a short body was stored
- * as-is, then trusted forever on every later cache hit.
- */
-function sliceToRange(
-  buf: ArrayBuffer,
-  status: number,
-  range: ByteRange | null
-): ArrayBuffer {
-  if (!range) return buf;
-  if (status === 200) {
-    if (buf.byteLength >= range.start + range.length) {
-      return buf.slice(range.start, range.start + range.length);
-    }
-    return new ArrayBuffer(0);
-  }
-  if (buf.byteLength < range.length) return new ArrayBuffer(0);
-  if (buf.byteLength > range.length) return buf.slice(0, range.length);
-  return buf;
 }
 
 function backoffMs(attempt: number, retryAfter: number | null): number {

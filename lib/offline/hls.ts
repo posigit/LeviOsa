@@ -153,6 +153,30 @@ export type MediaParts = {
 };
 
 /**
+ * Keep a requested byte range. A 200 whose body is already `range.length`
+ * is the window (a proxy answered 200 and dropped Content-Range). A longer
+ * 200 is the whole file and is sliced. Anything else that is too short is
+ * empty so the caller gaps it instead of storing the wrong bytes.
+ */
+export function sliceToRange(
+  buf: ArrayBuffer,
+  status: number,
+  range: ByteRange | null
+): ArrayBuffer {
+  if (!range) return buf;
+  if (status === 200) {
+    if (buf.byteLength === range.length) return buf;
+    if (buf.byteLength >= range.start + range.length) {
+      return buf.slice(range.start, range.start + range.length);
+    }
+    return new ArrayBuffer(0);
+  }
+  if (buf.byteLength < range.length) return new ArrayBuffer(0);
+  if (buf.byteLength > range.length) return buf.slice(0, range.length);
+  return buf;
+}
+
+/**
  * `#EXT-X-BYTERANGE:<length>[@<offset>]`. A missing offset continues from
  * `implicitStart` (the byte after the previous sub-range).
  */

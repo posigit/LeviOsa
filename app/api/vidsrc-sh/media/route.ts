@@ -213,7 +213,10 @@ export async function GET(req: NextRequest) {
     }
 
     const contentType = upstream.headers.get("content-type") ?? "";
-    if (couldBePlaylistContentType(contentType)) {
+    // A 206 is already the requested byte window. Sniffing it and answering
+    // 200 drops Content-Range, and the downloader then treats the slice as
+    // the whole file (empty gap once start > 0).
+    if (upstream.status !== 206 && couldBePlaylistContentType(contentType)) {
       let buf = Buffer.from(await upstream.arrayBuffer());
       if (buf.length > 2 && buf[0] === 0x1f && buf[1] === 0x8b) {
         try {
