@@ -1824,6 +1824,12 @@ export function VixPlayer({
       // This download only. Writing subSource:"opensub" used to change the
       // global picker, so the next online title fetched OpenSubtitles.
       if (loadVixSettings().subs === "off") saveVixSettings({ subs: "en" });
+      // ...but the engine gates off the REF, and the effect that mirrors it
+      // only fires when subSource changes — which this deliberately does not.
+      // Refresh it here so the addtrack pass queued by the inject below does
+      // not disable the track it just landed. Ref only: the menu rows and the
+      // persisted picker keep the user's global choice.
+      if (subSourceRef.current === "off") subSourceRef.current = "auto";
       // Swap via the engine hook (disables old tracks, injects with current
       // delay) instead of duplicating its track surgery here.
       externalVttRef.current = { vtt: alt.vtt, label: alt.label };

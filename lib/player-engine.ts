@@ -640,9 +640,12 @@ export function attachNativePlayback(args: AttachNativePlaybackArgs): () => void
       // Safari / native HLS: persist + restore via the native track lists.
       video.src = playlistUrl;
 
-      const s = loadVixSettings();
       let avPrimed = false;
       const applyNative = () => {
+        // Re-read every pass: this runs on loadedmetadata and on every
+        // addtrack, and an earlier handler can flip subs in between. A value
+        // snapshotted at attach keeps wiping tracks the picker just turned on.
+        const s = loadVixSettings();
         const at = (video as unknown as { audioTracks?: NativeAudioTrackList })
           .audioTracks;
         if (at && at.length) {
