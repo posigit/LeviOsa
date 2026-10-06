@@ -189,21 +189,21 @@ export function DownloadRow({
           </p>
         )}
         {runningHere && (
-          <div className="mt-1.5 h-1 overflow-hidden rounded-full bg-secondary">
+          <div className="mt-1.5 h-1 overflow-hidden rounded-full bg-black/40">
             <div
-              className="h-full rounded-full bg-primary transition-all"
+              className="h-full rounded-full bg-primary transition-[width] duration-300 ease-out"
               style={{ width: `${Math.round(progress * 100)}%` }}
             />
           </div>
         )}
       </div>
-      <div className="flex shrink-0 items-center gap-1.5">
+      <div className="flex shrink-0 items-center gap-2">
         {r.state === "done" && (
           <button
             type="button"
             onClick={onPlay}
             aria-label={`Play ${r.title} offline`}
-            className="flex h-9 w-9 cursor-pointer items-center justify-center rounded-full bg-primary text-black transition active:scale-95"
+            className="flex h-11 w-11 cursor-pointer items-center justify-center rounded-full bg-primary text-black transition-[transform,background-color] duration-150 ease-out active:scale-[0.96]"
           >
             <Play className="h-4 w-4 fill-current" />
           </button>
@@ -218,7 +218,7 @@ export function DownloadRow({
             onClick={tryResume}
             aria-label={partial > 0 ? "Repair download" : "Resume download"}
             title={!online ? "Needs connection" : undefined}
-            className="flex h-9 w-9 cursor-pointer items-center justify-center rounded-full bg-secondary text-foreground ring-1 ring-border transition hover:bg-secondary active:scale-95 disabled:opacity-40"
+            className="flex h-11 w-11 cursor-pointer items-center justify-center rounded-full bg-secondary text-foreground ring-1 ring-border transition-[transform,background-color] duration-150 ease-out hover:bg-secondary active:scale-[0.96] disabled:opacity-40"
           >
             {r.state === "paused" ? (
               <Play className="h-4 w-4 fill-current" />
@@ -232,7 +232,7 @@ export function DownloadRow({
             type="button"
             onClick={() => void pauseDownload(r.key)}
             aria-label="Pause download"
-            className="flex h-9 w-9 cursor-pointer items-center justify-center rounded-full bg-secondary text-foreground ring-1 ring-border transition hover:bg-secondary active:scale-95"
+            className="flex h-11 w-11 cursor-pointer items-center justify-center rounded-full bg-secondary text-foreground ring-1 ring-border transition-[transform,background-color] duration-150 ease-out hover:bg-secondary active:scale-[0.96]"
           >
             <Pause className="h-4 w-4" />
           </button>
@@ -247,7 +247,7 @@ export function DownloadRow({
             );
           }}
           aria-label={`Delete ${r.title}`}
-          className="flex h-9 w-9 cursor-pointer items-center justify-center rounded-full bg-secondary text-foreground/60 ring-1 ring-border transition hover:bg-secondary hover:text-foreground active:scale-95"
+          className="flex h-11 w-11 cursor-pointer items-center justify-center rounded-full bg-secondary text-foreground/60 ring-1 ring-border transition-[transform,background-color,color] duration-150 ease-out hover:text-foreground active:scale-[0.96]"
         >
           <Trash2 className="h-4 w-4" />
         </button>
@@ -293,14 +293,14 @@ export function DownloadLibraryList({
       {orderLibraryGroups(records).map((group) => (
         <div key={group.id} className="space-y-2">
           {group.header && (
-            <p className="pt-1 text-[11px] font-black uppercase tracking-[0.14em] text-foreground/45">
+            <p className="pt-1 text-[11px] font-black uppercase tracking-[0.14em] text-foreground/60">
               {group.header}
             </p>
           )}
           {group.rows.map(({ record, seasonLabel }) => (
             <div key={record.key} className="space-y-1.5">
               {seasonLabel && (
-                <p className="text-[10px] font-bold uppercase tracking-[0.14em] text-foreground/35">
+                <p className="text-[10px] font-bold uppercase tracking-[0.14em] text-foreground/50">
                   {seasonLabel}
                 </p>
               )}

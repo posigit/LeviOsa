@@ -110,6 +110,12 @@ export type DownloadRecord = {
    * existed (the Library backfills it while online).
    */
   stillPath?: string | null;
+  /**
+   * Cached description from /api/meta/details (backfilled by the Library
+   * while online) — movies render it under the title with no network.
+   * `null` = not fetched yet; `""` = fetched and TMDB has none (don't refetch).
+   */
+  overview?: string | null;
   quality: 480 | 720 | 1080 | "best";
   usedSource: string;
   durationSec: number;

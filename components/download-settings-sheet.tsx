@@ -186,14 +186,17 @@ export function DownloadSettingsSheet({
         <div className="flex items-start justify-between gap-3 px-4 pb-3 pt-1">
           <div>
             <h2 className="text-xl font-black tracking-tight text-foreground">
-              Library
+              Downloads
             </h2>
+            <p className="mt-0.5 text-xs text-foreground/50">
+              Quality, storage and on-device library
+            </p>
           </div>
           <button
             type="button"
             onClick={onClose}
             aria-label="Close"
-            className="flex h-9 w-9 shrink-0 cursor-pointer items-center justify-center rounded-full bg-secondary text-foreground/70 transition hover:bg-secondary hover:text-foreground active:scale-95"
+            className="flex h-11 w-11 shrink-0 cursor-pointer items-center justify-center rounded-full bg-secondary text-foreground/70 transition-[transform,background-color,color] duration-150 ease-out hover:text-foreground active:scale-[0.96]"
           >
             <X className="h-4 w-4" />
           </button>
@@ -205,11 +208,14 @@ export function DownloadSettingsSheet({
             type="button"
             onClick={toggleMode}
             aria-pressed={mode}
-            className="flex w-full cursor-pointer items-center justify-between gap-3 rounded-2xl bg-secondary px-4 py-4 ring-1 ring-border transition active:scale-[0.99]"
+            className="flex w-full cursor-pointer items-center justify-between gap-3 rounded-2xl bg-secondary px-4 py-4 ring-1 ring-border transition-[transform,background-color] duration-150 ease-out active:scale-[0.99]"
           >
             <span className="text-left">
               <span className="block text-[15px] font-bold text-foreground">
                 Download mode
+              </span>
+              <span className="mt-0.5 block text-xs font-medium text-foreground/50">
+                Show download buttons across the app
               </span>
             </span>
             <span
@@ -243,7 +249,7 @@ export function DownloadSettingsSheet({
                 onClick={() => pickQuality(q.value)}
                 aria-pressed={quality === q.value}
                 className={cn(
-                  "cursor-pointer rounded-2xl px-1 py-2.5 ring-1 transition active:scale-95",
+                  "min-h-[44px] cursor-pointer rounded-2xl px-1 py-2.5 ring-1 transition-[transform,background-color,color] duration-150 ease-out active:scale-[0.96]",
                   quality === q.value
                     ? "bg-primary text-black ring-primary"
                     : "bg-secondary text-foreground/60 ring-border hover:text-foreground"
@@ -274,7 +280,7 @@ export function DownloadSettingsSheet({
                 onClick={() => pickCap(c.value)}
                 aria-pressed={capMb === c.value}
                 className={cn(
-                  "cursor-pointer rounded-2xl px-1 py-2.5 text-sm font-black ring-1 transition active:scale-95",
+                  "min-h-[44px] cursor-pointer rounded-2xl px-1 py-2.5 text-sm font-black ring-1 transition-[transform,background-color,color] duration-150 ease-out active:scale-[0.96]",
                   capMb === c.value
                     ? "bg-primary text-black ring-primary"
                     : "bg-secondary text-foreground/60 ring-border hover:text-foreground"
@@ -303,9 +309,9 @@ export function DownloadSettingsSheet({
                 </span>
               </p>
             </div>
-            <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-secondary">
+            <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-black/40">
               <div
-                className="h-full rounded-full bg-primary transition-all"
+                className="h-full rounded-full bg-primary transition-[width] duration-300 ease-out"
                 style={{
                   width: `${Math.min(100, (usedByApp / capBytes) * 100)}%`,
                 }}

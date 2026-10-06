@@ -1,15 +1,16 @@
 "use client";
 
-import { useEffect, useMemo, useState, type ReactNode } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { ArrowLeft, ChevronRight, Download, Wifi, WifiOff } from "lucide-react";
 import {
-  DownloadGrid,
   DownloadingRow,
+  EpisodeDownloadList,
+  MediaDownloadRow,
 } from "@/components/download-grid";
 import { requestOfflinePlay, useOnline } from "@/components/download-row";
 import { StickyChrome } from "@/components/sticky-chrome";
-import { Skeleton } from "@/components/skeletons";
+import { ShowListRowSkeleton, Skeleton } from "@/components/skeletons";
 import { cn } from "@/lib/utils";
 import {
   formatBytes,
@@ -21,29 +22,37 @@ import {
   type DownloadRecord,
 } from "@/lib/downloads";
 import { cachePosterThumb, cacheStillThumb } from "@/lib/offline/store";
-import { orderLibraryGroups } from "@/lib/offline/library";
+import { orderLibraryGroups, type LibraryRow } from "@/lib/offline/library";
 
 type Filter = "all" | "movies" | "shows";
 
 /** Concurrency for poster backfill — a handful of titles, not a stampede. */
 const BACKFILL_WORKERS = 3;
 
-function MicroLabel({
-  children,
-  count,
-}: {
-  children: ReactNode;
-  count?: number;
-}) {
+/**
+ * Apple-TV-style section header: title-case show name, quiet count/size
+ * detail on the right. Our touches stay: AMOLED black, yellow accents.
+ */
+function SectionHead({ title, detail }: { title: string; detail?: string }) {
   return (
-    <p className="text-[11px] font-black uppercase tracking-[0.14em] text-white/45">
-      {children}
-      {typeof count === "number" && (
-        <span className="ml-1.5 font-bold text-white/30 tabular-nums">
-          {count}
-        </span>
+    <div className="flex items-baseline justify-between gap-3">
+      <h2 className="truncate text-[17px] font-extrabold tracking-tight text-white">
+        {title}
+      </h2>
+      {detail && (
+        <p className="shrink-0 text-[13px] tabular-nums text-white/40">
+          {detail}
+        </p>
       )}
-    </p>
+    </div>
+  );
+}
+
+/** Finished bytes in a group of rows (in-flight rows don't count yet). */
+function groupBytes(rows: LibraryRow[]): number {
+  return rows.reduce(
+    (s, row) => s + (row.record.state === "done" ? row.record.sizeBytes : 0),
+    0
   );
 }
 
@@ -149,10 +158,77 @@ export default function LibraryPage() {
             ) {
               patch.stillPath = data.stillPath;
             }
-            if (Object.keys(patch).length === 0 || cancelled) continue;
-            await upsertRecord({ ...rec, ...patch });
-            await cachePosterThumb(patch.posterPath);
-            await cacheStillThumb(patch.stillPath);
+            if (cancelled) continue;
+            // Re-read before writing: the other backfill (overview) may have
+            // landed on this record since the queue snapshot — never clobber it.
+            const fresh = getAllSync().find((x) => x.key === rec.key) ?? rec;
+            const merged: {
+              posterPath?: string | null;
+              stillPath?: string | null;
+            } = {};
+            if (!fresh.posterPath && typeof patch.posterPath === "string") {
+              merged.posterPath = patch.posterPath;
+            }
+            if (
+              type === "tv" &&
+              !fresh.stillPath &&
+              typeof patch.stillPath === "string"
+            ) {
+              merged.stillPath = patch.stillPath;
+            }
+            if (Object.keys(merged).length === 0) continue;
+            await upsertRecord({ ...fresh, ...merged });
+            await cachePosterThumb(merged.posterPath);
+            await cacheStillThumb(merged.stillPath);
+          } catch {
+            /* one flaky title must not stall the rest */
+          }
+        }
+      })
+    );
+    return () => {
+      cancelled = true;
+    };
+  }, [ready, online]);
+
+  /**
+   * Description backfill: movies render their cached overview under the
+   * title (Netflix-style). One pass per visit, only online, only for movies
+   * never fetched — empty string is stored for "TMDB has none" so we don't
+   * refetch forever. The rows keep working offline: overview lives in the
+   * same IndexedDB record as the download itself.
+   */
+  useEffect(() => {
+    if (!ready || !online) return;
+    const missing = getAllSync().filter(
+      (r) =>
+        r.type === "movie" &&
+        r.overview == null &&
+        r.state !== "active" &&
+        r.state !== "queued"
+    );
+    if (missing.length === 0) return;
+    let cancelled = false;
+    const queue = [...missing];
+    void Promise.all(
+      Array.from({ length: BACKFILL_WORKERS }, async () => {
+        while (queue.length > 0 && !cancelled) {
+          const rec = queue.shift();
+          if (!rec) break;
+          try {
+            const res = await fetch(
+              `/api/meta/details?type=movie&tmdbId=${rec.tmdbId}`,
+              { cache: "no-store" }
+            );
+            if (!res.ok) continue;
+            const data = (await res.json()) as { overview?: string | null };
+            if (cancelled) continue;
+            const fresh = getAllSync().find((x) => x.key === rec.key) ?? rec;
+            if (fresh.overview != null) continue;
+            await upsertRecord({
+              ...fresh,
+              overview: data.overview?.trim() || "",
+            });
           } catch {
             /* one flaky title must not stall the rest */
           }
@@ -178,6 +254,13 @@ export default function LibraryPage() {
     [items]
   );
   const usedByApp = readyItems.reduce((s, r) => s + r.sizeBytes, 0);
+  const moviesBytes = useMemo(
+    () =>
+      movies
+        .filter((r) => r.state === "done")
+        .reduce((s, r) => s + r.sizeBytes, 0),
+    [movies]
+  );
   const filtered =
     filter === "movies" ? movies : filter === "shows" ? episodes : items;
   const showMovies = filter !== "shows";
@@ -218,14 +301,17 @@ export default function LibraryPage() {
 
   return (
     <div className="mx-auto min-h-dvh w-full max-w-2xl pb-28">
-      <StickyChrome contentClassName="px-4 pt-3 pb-2">
+      <StickyChrome
+        className="bg-background/70 backdrop-blur-xl"
+        contentClassName="px-4 pt-3 pb-2"
+      >
         <div className="flex items-center gap-3">
           <Link
             href="/profile"
             aria-label="Back to profile"
-            className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-white/10 text-white ring-1 ring-white/10 transition hover:bg-white/25 active:scale-95"
+            className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-white/10 text-white ring-1 ring-white/10 transition-[transform,background-color] duration-150 ease-out hover:bg-white/25 active:scale-[0.96]"
           >
-            <ArrowLeft className="h-4 w-4" />
+            <ArrowLeft className="h-5 w-5" />
           </Link>
           <div className="min-w-0 flex-1">
             <h1 className="truncate text-xl font-black tracking-tight text-white">
@@ -258,33 +344,41 @@ export default function LibraryPage() {
       </StickyChrome>
 
       <div className="space-y-6 px-4 pt-4">
-        {/* ---------- Slim storage strip ---------- */}
-        <section>
-          <div className="flex items-baseline justify-between gap-3 text-[11px] font-bold">
-            <span className="uppercase tracking-[0.12em] text-white/45">
-              Storage
-            </span>
-            <span className="tabular-nums text-white/40">
-              {storagePct != null && storage
+        {/* ---------- Storage card (liquid glass) ---------- */}
+        <section className="glass-panel rounded-2xl p-4">
+          <div className="flex items-baseline justify-between gap-3">
+            <p className="text-[15px] font-bold text-white">Storage</p>
+            <p className="shrink-0 text-[13px] tabular-nums text-white/50">
+              {storage && storagePct != null
                 ? `${formatBytes(storage.usage)} of ${formatBytes(storage.quota)}`
-                : `${usedByApp > 0 ? formatBytes(usedByApp) : "0 B"} saved`}
-            </span>
+                : usedByApp > 0
+                  ? `${formatBytes(usedByApp)} saved on this device`
+                  : "Empty"}
+            </p>
           </div>
-          <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-white/10">
+          <div className="mt-2.5 h-2 overflow-hidden rounded-full bg-black/40">
             <div
               className={cn(
-                "h-full rounded-full transition-all duration-500",
-                storagePct != null ? "bg-primary" : "bg-white/30"
+                "h-full rounded-full transition-[width] duration-500 ease-out",
+                storagePct != null ? "bg-primary" : "bg-white/20"
               )}
-              style={{ width: `${storagePct ?? (ready ? 100 : 0)}%` }}
+              style={{ width: `${storagePct ?? 0}%` }}
             />
           </div>
+          {storage && storagePct != null && storage.quota > storage.usage && (
+            <p className="mt-2 text-xs tabular-nums text-white/35">
+              {formatBytes(storage.quota - storage.usage)} free on this device
+            </p>
+          )}
         </section>
 
         {/* ---------- Still coming down ---------- */}
         {inProgress.length > 0 && (
-          <section className="space-y-2">
-            <MicroLabel count={inProgress.length}>Downloading</MicroLabel>
+          <section className="space-y-3">
+            <SectionHead
+              title="Downloading"
+              detail={`${inProgress.length}`}
+            />
             <div className="space-y-2">
               {inProgress
                 .filter(
@@ -301,8 +395,12 @@ export default function LibraryPage() {
           </section>
         )}
 
-        {/* ---------- Medium filter ---------- */}
-        <div role="tablist" aria-label="Filter downloads" className="flex gap-2">
+        {/* ---------- Medium filter (glass capsule) ---------- */}
+        <div
+          role="tablist"
+          aria-label="Filter downloads"
+          className="glass-control inline-flex gap-1 rounded-full bg-white/[0.06] p-1"
+        >
           {tabs.map((t) => {
             const active = t.key === filter;
             return (
@@ -313,10 +411,10 @@ export default function LibraryPage() {
                 aria-selected={active}
                 onClick={() => setFilter(t.key)}
                 className={cn(
-                  "inline-flex shrink-0 items-center gap-1.5 rounded-full px-3.5 py-2 text-[13px] font-bold transition active:scale-[0.97]",
+                  "inline-flex min-h-[44px] shrink-0 items-center gap-1.5 rounded-full px-3.5 py-2 text-[13px] font-bold transition-[transform,background-color,color] duration-150 ease-out active:scale-[0.96]",
                   active
                     ? "bg-primary text-black"
-                    : "bg-white/[0.06] text-white/55 ring-1 ring-white/10 hover:text-white"
+                    : "text-white/60 hover:text-white"
                 )}
               >
                 <span>{t.label}</span>
@@ -336,14 +434,10 @@ export default function LibraryPage() {
         {/* ---------- Poster shelves ---------- */}
         {!ready ? (
           <div role="status" aria-label="Loading downloads" className="space-y-5">
-            <Skeleton className="h-3.5 w-24" />
-            <div className="grid grid-cols-3 gap-x-2.5 gap-y-4">
-              {Array.from({ length: 6 }, (_, i) => (
-                <div key={i} className="space-y-1.5">
-                  <Skeleton className="aspect-[2/3] w-full rounded-xl" />
-                  <Skeleton className="h-2.5 w-4/5" />
-                  <Skeleton className="h-2.5 w-1/2" />
-                </div>
+            <Skeleton className="h-[104px] w-full rounded-2xl" />
+            <div className="space-y-2">
+              {Array.from({ length: 4 }, (_, i) => (
+                <ShowListRowSkeleton key={i} />
               ))}
             </div>
           </div>
@@ -381,23 +475,38 @@ export default function LibraryPage() {
             </button>
           </div>
         ) : (
-          <div className="space-y-7">
+          <div className="space-y-8">
             {showMovies && filteredMovies.length > 0 && (
               <section className="space-y-3">
-                <MicroLabel count={filteredMovies.length}>Movies</MicroLabel>
-                <DownloadGrid records={filteredMovies} onPlay={play} />
+                <SectionHead
+                  title="Movies"
+                  detail={
+                    moviesBytes > 0 ? formatBytes(moviesBytes) : undefined
+                  }
+                />
+                <div className="space-y-2">
+                  {filteredMovies.map((r) => (
+                    <MediaDownloadRow
+                      key={r.key}
+                      record={r}
+                      onPlay={() => play(r)}
+                    />
+                  ))}
+                </div>
               </section>
             )}
 
             {episodeGroups.map((group) => (
               <section key={group.id} className="space-y-3">
-                <MicroLabel count={group.rows.length}>
-                  {group.header ?? "Episodes"}
-                </MicroLabel>
-                <DownloadGrid
-                  records={group.rows.map((row) => row.record)}
-                  onPlay={play}
+                <SectionHead
+                  title={group.header ?? "Episodes"}
+                  detail={
+                    groupBytes(group.rows) > 0
+                      ? formatBytes(groupBytes(group.rows))
+                      : `${group.rows.length} ep`
+                  }
                 />
+                <EpisodeDownloadList rows={group.rows} onPlay={play} />
               </section>
             ))}
           </div>

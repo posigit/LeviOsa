@@ -197,7 +197,7 @@ export function DownloadButton({
         title={stateLabel(rec)}
         aria-label={stateLabel(rec)}
         className={cn(
-          "flex w-full items-center gap-3 rounded-full bg-secondary px-4 py-3 text-sm font-bold text-foreground ring-1 ring-border backdrop-blur-xl transition hover:bg-secondary active:scale-[0.99]",
+          "flex w-full items-center gap-3 rounded-full bg-secondary px-4 py-3 text-sm font-bold text-foreground ring-1 ring-border backdrop-blur-xl transition-[transform,background-color] duration-150 ease-out hover:bg-secondary active:scale-[0.96]",
           className
         )}
       >
@@ -253,7 +253,7 @@ export function DownloadButton({
                 cancelDownload(key);
               }
             }}
-            className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-secondary text-sm font-bold text-foreground/70 hover:bg-secondary"
+            className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-secondary text-sm font-bold text-foreground/70 transition-[transform,background-color] duration-150 ease-out hover:bg-secondary active:scale-[0.96]"
           >
             ×
           </span>
@@ -269,7 +269,7 @@ export function DownloadButton({
       title={stateLabel(rec)}
       aria-label={stateLabel(rec)}
       className={cn(
-        "flex h-8 w-8 shrink-0 items-center justify-center rounded-full ring-1 backdrop-blur-xl transition-all active:scale-95",
+        "flex h-8 w-8 shrink-0 items-center justify-center rounded-full ring-1 backdrop-blur-xl transition-[transform,background-color,color] duration-150 ease-out active:scale-[0.96]",
         partial
           ? "bg-primary/15 text-primary ring-primary/40"
           : rec?.state === "done"
