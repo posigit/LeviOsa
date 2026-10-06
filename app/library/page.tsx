@@ -24,8 +24,6 @@ import {
 import { cachePosterThumb, cacheStillThumb } from "@/lib/offline/store";
 import { orderLibraryGroups, type LibraryRow } from "@/lib/offline/library";
 
-type Filter = "all" | "movies" | "shows";
-
 /** Concurrency for poster backfill — a handful of titles, not a stampede. */
 const BACKFILL_WORKERS = 3;
 
@@ -65,7 +63,6 @@ function groupBytes(rows: LibraryRow[]): number {
 export default function LibraryPage() {
   const [items, setItems] = useState<DownloadRecord[]>([]);
   const [ready, setReady] = useState(false);
-  const [filter, setFilter] = useState<Filter>("all");
   const [storage, setStorage] = useState<{ usage: number; quota: number } | null>(
     null
   );
@@ -261,22 +258,27 @@ export default function LibraryPage() {
         .reduce((s, r) => s + r.sizeBytes, 0),
     [movies]
   );
-  const filtered =
-    filter === "movies" ? movies : filter === "shows" ? episodes : items;
-  const showMovies = filter !== "shows";
-  const showEpisodes = filter !== "movies";
+  /**
+   * Section lists: in-flight titles live only under "Downloading" (they're
+   * already the hero there), the shelves below show finished/paused/partial
+   * rows — no filter pills, one scroll does everything on a phone.
+   */
+  const shelfMovies = useMemo(
+    () => movies.filter((r) => r.state !== "active" && r.state !== "queued"),
+    [movies]
+  );
+  const shelfEpisodes = useMemo(
+    () => episodes.filter((r) => r.state !== "active" && r.state !== "queued"),
+    [episodes]
+  );
 
   /** Episodes keep the show → season → episode order the list used. */
   const episodeGroups = useMemo(
     () =>
-      showEpisodes && episodes.length > 0
-        ? orderLibraryGroups(episodes).filter((g) => g.rows.length > 0)
+      shelfEpisodes.length > 0
+        ? orderLibraryGroups(shelfEpisodes).filter((g) => g.rows.length > 0)
         : [],
-    [showEpisodes, episodes]
-  );
-  const filteredMovies = useMemo(
-    () => (showMovies ? movies : []),
-    [showMovies, movies]
+    [shelfEpisodes]
   );
 
   const storagePct =
@@ -284,20 +286,12 @@ export default function LibraryPage() {
       ? Math.min(100, Math.max(1, Math.round((storage.usage / storage.quota) * 100)))
       : null;
 
-  const tabs: { key: Filter; label: string; count: number }[] = [
-    { key: "all", label: "All", count: items.length },
-    { key: "movies", label: "Movies", count: movies.length },
-    { key: "shows", label: "Shows", count: episodes.length },
-  ];
-
   const play = (r: DownloadRecord) => {
     void touchRecord(r.key);
     requestOfflinePlay(r.key);
   };
 
   const emptyLibrary = ready && items.length === 0;
-  const emptyFiltered =
-    ready && items.length > 0 && filtered.length === 0 && inProgress.length === 0;
 
   return (
     <div className="mx-auto min-h-dvh w-full max-w-2xl pb-28">
@@ -380,56 +374,12 @@ export default function LibraryPage() {
               detail={`${inProgress.length}`}
             />
             <div className="space-y-2">
-              {inProgress
-                .filter(
-                  (r) =>
-                    filter === "all" ||
-                    (filter === "movies"
-                      ? r.type === "movie"
-                      : r.type !== "movie")
-                )
-                .map((r) => (
-                  <DownloadingRow key={r.key} record={r} />
-                ))}
+              {inProgress.map((r) => (
+                <DownloadingRow key={r.key} record={r} />
+              ))}
             </div>
           </section>
         )}
-
-        {/* ---------- Medium filter (glass capsule) ---------- */}
-        <div
-          role="tablist"
-          aria-label="Filter downloads"
-          className="glass-control inline-flex gap-1 rounded-full bg-white/[0.06] p-1"
-        >
-          {tabs.map((t) => {
-            const active = t.key === filter;
-            return (
-              <button
-                key={t.key}
-                type="button"
-                role="tab"
-                aria-selected={active}
-                onClick={() => setFilter(t.key)}
-                className={cn(
-                  "inline-flex min-h-[44px] shrink-0 items-center gap-1.5 rounded-full px-3.5 py-2 text-[13px] font-bold transition-[transform,background-color,color] duration-150 ease-out active:scale-[0.96]",
-                  active
-                    ? "bg-primary text-black"
-                    : "text-white/60 hover:text-white"
-                )}
-              >
-                <span>{t.label}</span>
-                <span
-                  className={cn(
-                    "text-[11px] font-black tabular-nums",
-                    active ? "text-black/55" : "text-white/35"
-                  )}
-                >
-                  {ready ? t.count : "—"}
-                </span>
-              </button>
-            );
-          })}
-        </div>
 
         {/* ---------- Poster shelves ---------- */}
         {!ready ? (
@@ -461,22 +411,9 @@ export default function LibraryPage() {
               <ChevronRight className="h-4 w-4" />
             </Link>
           </div>
-        ) : emptyFiltered ? (
-          <div className="rounded-3xl border border-dashed border-white/12 bg-white/[0.03] px-6 py-10 text-center">
-            <p className="text-sm font-semibold text-white/50">
-              Nothing in {filter === "movies" ? "movies" : "shows"} yet.
-            </p>
-            <button
-              type="button"
-              onClick={() => setFilter("all")}
-              className="mt-3 text-sm font-bold text-primary active:scale-95"
-            >
-              Show all downloads
-            </button>
-          </div>
         ) : (
           <div className="space-y-8">
-            {showMovies && filteredMovies.length > 0 && (
+            {shelfMovies.length > 0 && (
               <section className="space-y-3">
                 <SectionHead
                   title="Movies"
@@ -485,7 +422,7 @@ export default function LibraryPage() {
                   }
                 />
                 <div className="space-y-2">
-                  {filteredMovies.map((r) => (
+                  {shelfMovies.map((r) => (
                     <MediaDownloadRow
                       key={r.key}
                       record={r}

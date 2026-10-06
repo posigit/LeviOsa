@@ -201,7 +201,7 @@ export function MediaDownloadRow({
             {metaLabel(r, progress, stale)}
           </span>
           {overview && (
-            <span className="mt-1 line-clamp-2 block text-[13px] font-normal leading-snug text-muted-foreground/80">
+            <span className="mt-1 line-clamp-2 text-[13px] font-normal leading-snug text-muted-foreground/80">
               {overview}
             </span>
           )}
