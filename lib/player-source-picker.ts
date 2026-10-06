@@ -2,8 +2,9 @@ import { EMBED_SOURCES } from "@/lib/embed-sources";
 import type { StreamSource } from "@/lib/player-native-types";
 
 // Picker order (user-ranked, 2026-10-01; vidsrc-sh/vidsrc-pm swapped
-// 2026-10-04): vidsrc-sh, cinesrc, vidstuck, mapple, vidy, vix, vidzee,
-// vidsrc-pm, then the rest in their previous relative order. Written out
+// 2026-10-04; vidrift added 2026-10-06 after vidzee; cinesrc/vidrift swapped
+// 2026-10-06): vidsrc-sh, vidrift, vidstuck, mapple, vidy, vix, vidzee,
+// cinesrc, vidsrc-pm, then the rest in their previous relative order. Written out
 // explicitly now that native sources sit *between* embeds (the old slice
 // trick only ever spliced vidsrc-sh in). XPass + YTHD were dropped
 // from the picker 2026-09-30; VidAPI followed 2026-10-01 (dead player
@@ -13,12 +14,13 @@ const EMBED_KEYS = new Set(EMBED_SOURCES.map((s) => s.key));
 
 export const ALL_SOURCES: StreamSource[] = [
   "vidsrc-sh",
-  "cinesrc",
+  "vidrift",
   "vidstuck",
   "mapple",
   "vidy",
   "vix",
   "vidzee",
+  "cinesrc",
   "vidsrc-pm",
   "vidfast",
   "vidlink",

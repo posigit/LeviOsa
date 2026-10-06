@@ -25,6 +25,7 @@ import {
   isEmbedPlayerOrigin,
   sendCineSrcCommand,
   sendVidfastCommand,
+  sendVidriftResume,
   sourceLabel,
   withCineSrcQuality,
   withCineSrcServer,
@@ -1022,7 +1023,7 @@ export function VixPlayer({
   // timeupdate clocks (Mapple/VidLink/VidNest/2Embed post PLAYER_EVENT like
   // the others — same assumption Mapple already ships with; VidStuck +
   // Vidy post the same tick via VIDEO_PROGRESS / PLAYER_EVENT, VidZee via
-  // its {type,data} pair).
+  // its {type,data} pair, VidRift via vidrift:progress folded below).
   const passiveClockEmbed =
     mode === "iframe" &&
     (activeSource === "mapple" ||
@@ -1031,6 +1032,7 @@ export function VixPlayer({
       activeSource === "2embed" ||
       activeSource === "vidstuck" ||
       activeSource === "vidzee" ||
+      activeSource === "vidrift" ||
       activeSource === "vidy");
   const clockEmbed = isDrivenEmbed || passiveClockEmbed;
 
@@ -3438,6 +3440,37 @@ export function VixPlayer({
           };
         }
       }
+      // VidRift posts its own namespace, not PLAYER_EVENT: periodic
+      // {type:"vidrift:progress", currentTime, duration} ticks plus a bare
+      // {type:"vidrift:ended"} on finish. Fold both into the pipeline below
+      // so progress saves, near-end/ended and the passive subtitle clock
+      // keep working. Resume is the reverse channel (vidrift:resume, sent on
+      // frame load). vidrift:nextup-play is deliberately ignored — our own
+      // Up Next owns episode advance.
+      if (
+        (e.origin === "https://embed.vidrift.in" ||
+          e.origin.endsWith(".embed.vidrift.in")) &&
+        typeof data === "object" &&
+        data !== null
+      ) {
+        const vrType = (data as { type?: unknown }).type;
+        if (vrType === "vidrift:progress" || vrType === "vidrift:ended") {
+          const vrPayload = data as {
+            currentTime?: unknown;
+            duration?: unknown;
+          };
+          const vrNum = (v: unknown) =>
+            typeof v === "number" && Number.isFinite(v) ? v : undefined;
+          data = {
+            type: "PLAYER_EVENT",
+            data: {
+              event: vrType === "vidrift:ended" ? "ended" : "timeupdate",
+              currentTime: vrNum(vrPayload?.currentTime),
+              duration: vrNum(vrPayload?.duration),
+            },
+          };
+        }
+      }
       const isPlayerEvent =
         typeof data === "object" &&
         data !== null &&
@@ -4050,6 +4083,17 @@ export function VixPlayer({
     armCineSrcWatch,
     disarmCineSrcWatch,
   ]);
+  // VidRift resume part 2: the playback bookmark often lands AFTER the frame
+  // already loaded (async /api/playback lookup), so onLoad alone misses it.
+  // Re-post whenever a usable bookmark exists for the current VidRift frame —
+  // the embed treats it as an idempotent seek. Passive embeds never show the
+  // resume prompt, so this (not handleResume) is the whole resume path.
+  useEffect(() => {
+    if (mode !== "iframe" || activeSource !== "vidrift") return;
+    const pos = resumePosRef.current || resumePosition || 0;
+    if (!(pos > 0)) return;
+    sendVidriftResume(iframeRef.current, pos);
+  }, [mode, activeSource, resumePosition, iframeSrc, retryNonce]);
   // Intro/recap skip (IntroDB times, TV only). Native + driven embeds only —
   // interactive iframes have no seek API, so the button would be dead there.
   // Rendered inside the shell (fullscreen-safe) and ABOVE the lock overlay
@@ -4213,6 +4257,14 @@ export function VixPlayer({
               // unsolicited state event — pull the real state on every load.
               if (vidfastEmbed) {
                 sendVidfastCommand(iframeRef.current, "getStatus");
+              }
+              // VidRift ignores URL resume params — seek via postMessage.
+              // The bookmark may still be loading (async playback lookup),
+              // in which case the late-bookmark effect below re-fires once
+              // resumePosition lands.
+              if (mode === "iframe" && activeSource === "vidrift") {
+                const pos = resumePosRef.current || resumePosition || 0;
+                if (pos > 0) sendVidriftResume(iframeRef.current, pos);
               }
             }}
             onError={() => {

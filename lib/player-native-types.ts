@@ -22,7 +22,8 @@ export type StreamSource =
   | "mapple"
   | "vidstuck"
   | "vidzee"
-  | "vidy";
+  | "vidy"
+  | "vidrift";
 
 export type AudioTrackInfo = { id: number; lang: string; name: string };
 export type QualityLevelInfo = { height: number; index: number };

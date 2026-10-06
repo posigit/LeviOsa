@@ -181,6 +181,14 @@ export function addStartAt(src: string, position: number | null): string {
     // `startAt` above is ignored there. VidZee answers to neither (its own
     // origin storage owns resume) but is sent `progress` for sibling parity;
     // a no-op param never seeks, so it cannot mis-seek like a wrong one.
+    // VidRift ignores every URL resume param and seeks only via the
+    // `vidrift:resume` postMessage (see sendVidriftResume) — send nothing.
+    if (
+      url.hostname === "embed.vidrift.in" ||
+      url.hostname.endsWith(".embed.vidrift.in")
+    ) {
+      return src;
+    }
     const progressHosts = ["vidstuck.xyz", "vidzee.wtf", "vidy.st"];
     if (progressHosts.some((h) => url.hostname === h || url.hostname.endsWith(`.${h}`))) {
       url.searchParams.set("progress", t);

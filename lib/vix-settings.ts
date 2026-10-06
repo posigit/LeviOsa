@@ -214,6 +214,7 @@ function clampSettings(merged: VixSettings): VixSettings {
     "vidstuck",
     "vidzee",
     "vidy",
+    "vidrift",
   ] as const;
   if (!(SOURCE_VALUES as readonly string[]).includes(next.preferredSource)) {
     next.preferredSource = "vix";

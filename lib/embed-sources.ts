@@ -3,8 +3,8 @@
  *
  * Picker order (native vidsrc-sh / vix / goated are interleaved by
  * lib/player-source-picker.ts):
- *   vidy, vidstuck, cinesrc, vidsrc-sh, vix, mapple, vidzee, vidfast,
- *   vidlink, vidnest, 2embed, goated.
+ *   vidy, vidstuck, vidrift, vidsrc-sh, vix, mapple, vidzee, cinesrc,
+ *   vidfast, vidlink, vidnest, 2embed, goated.
  * This array lists the embed keys in that same relative order; XPass and
  * YTHD were dropped from the picker on 2026-09-30 (user request - both had
  * undocumented/undiscoverable event shapes). VidAPI followed on 2026-10-01
@@ -33,6 +33,11 @@
  * `progress` (seconds) resumes on VidStuck + Vidy (verified live); VidZee
  * ignores every resume param we tried — its bookmark only lives in its own
  * origin storage, so playback restarts at 0 (progress still saves).
+ * VidRift ignores URL resume params entirely and seeks only via the
+ * `vidrift:resume` postMessage (see sendVidriftResume); it reports progress
+ * via `vidrift:progress` / `vidrift:ended`, folded into the pipeline in
+ * vix-player like the shapes above. Passive embed (own chrome, no command
+ * channel) — Up Next stays ours.
  */
 export type EmbedSourceDef = {
   /** Stable key — persisted as preferredSource. */
@@ -89,15 +94,18 @@ export const EMBED_SOURCES: EmbedSourceDef[] = [
       `https://vidstuck.xyz/embed/tv/${tmdbId}/${season}/${episode}`,
   },
   {
-    key: "cinesrc",
-    name: "CineSrc",
-    base: "https://cinesrc.st",
-    host: "cinesrc.st",
-    movieUrl: (tmdbId) =>
-      `https://cinesrc.st/embed/movie/${tmdbId}?controls=false`,
-    // TV is query-string; posts cinesrc:* events (adapted in vix-player).
+    key: "vidrift",
+    name: "VidRift",
+    base: "https://embed.vidrift.in",
+    // No autoplay param: the player always attempts muted autoplay and
+    // unmutes on interaction. Branding (title/brand/brandLogo/brandColor)
+    // is optional and server-validated — omitted until requested.
+    // Resume is postMessage-only (vidrift:resume); addStartAt leaves these
+    // URLs untouched. Progress arrives as vidrift:progress / vidrift:ended.
+    host: "embed.vidrift.in",
+    movieUrl: (tmdbId) => `https://embed.vidrift.in/embed/movie/${tmdbId}`,
     tvUrl: (tmdbId, season, episode) =>
-      `https://cinesrc.st/embed/tv/${tmdbId}?s=${season}&e=${episode}&controls=false`,
+      `https://embed.vidrift.in/embed/tv/${tmdbId}/${season}/${episode}`,
   },
   {
     key: "mapple",
@@ -126,6 +134,17 @@ export const EMBED_SOURCES: EmbedSourceDef[] = [
       `https://player.vidzee.wtf/embed/movie/${tmdbId}?autoplay=true`,
     tvUrl: (tmdbId, season, episode) =>
       `https://player.vidzee.wtf/embed/tv/${tmdbId}/${season}/${episode}?autoplay=true`,
+  },
+  {
+    key: "cinesrc",
+    name: "CineSrc",
+    base: "https://cinesrc.st",
+    host: "cinesrc.st",
+    movieUrl: (tmdbId) =>
+      `https://cinesrc.st/embed/movie/${tmdbId}?controls=false`,
+    // TV is query-string; posts cinesrc:* events (adapted in vix-player).
+    tvUrl: (tmdbId, season, episode) =>
+      `https://cinesrc.st/embed/tv/${tmdbId}?s=${season}&e=${episode}&controls=false`,
   },
   {
     key: "vidfast",
@@ -398,6 +417,25 @@ export function sendVidfastCommand(
   data: Record<string, unknown> = {}
 ): void {
   iframe?.contentWindow?.postMessage({ command, ...data }, "*");
+}
+
+export const VIDRIFT_ORIGIN = "https://embed.vidrift.in";
+
+/**
+ * VidRift resume channel. The embed ignores URL resume params (?progress /
+ * ?startAt — addStartAt leaves VidRift URLs untouched) and seeks only via
+ * postMessage. Fire after the frame loads and whenever a late bookmark
+ * arrives — the call is an idempotent seek. Origin-scoped per VidRift docs.
+ */
+export function sendVidriftResume(
+  iframe: HTMLIFrameElement | null,
+  currentTime: number
+): void {
+  if (!Number.isFinite(currentTime) || currentTime <= 0) return;
+  iframe?.contentWindow?.postMessage(
+    { type: "vidrift:resume", currentTime: Math.floor(currentTime) },
+    VIDRIFT_ORIGIN
+  );
 }
 
 /** Label for a source key ("Vix" | "Goated" | registry names). */

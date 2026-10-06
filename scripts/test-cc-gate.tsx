@@ -80,6 +80,7 @@ for (const activeSource of [
   "vidy",
   "vidstuck",
   "vidzee",
+  "vidrift",
   "mapple",
   "vidlink",
   "vidnest",
