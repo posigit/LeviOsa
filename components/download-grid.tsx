@@ -18,6 +18,14 @@ import { posterThumbUrl, stillThumbUrl } from "@/lib/offline/store";
 import type { LibraryRow } from "@/lib/offline/library";
 import { cn } from "@/lib/utils";
 
+/**
+ * Tight action circle for phones: 36px visual, 44px touch area — the
+ * `after:-inset` hit-slop keeps tap targets at spec without two buttons
+ * eating a third of the row's width.
+ */
+const tapCircle =
+  "relative grid h-9 w-9 shrink-0 place-items-center rounded-full after:absolute after:-inset-1 after:content-['']";
+
 /** Short second line under a poster tile. */
 function metaLabel(r: DownloadRecord, progress: number, stale = false): string {
   const quality = r.quality === "best" ? "Best" : `${r.quality}p`;
@@ -55,11 +63,12 @@ function episodeCode(r: DownloadRecord): string | null {
 /**
  * Netflix-style download row for /library — movies (portrait poster thumb)
  * and episodes (16:9 still, poster crops in when the still is missing) both
- * land here: title, `SxxExx · size · quality` meta, the cached description
- * on movies, a yellow Resume line, and a 44px action circle showing what a
- * tap does (play / pause / retry). The row itself is the primary button —
- * play, pause, resume and retry all live there — with delete (and repair
- * for partial files) as sibling targets, so everything stays a 44px touch.
+ * land here: title, `SxxExx · size · quality` meta (wraps, never ellipsized),
+ * the cached description, a yellow Resume line, and a 44px action circle
+ * showing what a tap does (play / pause / retry). The row itself is the
+ * primary button — play, pause, resume and retry all live there — with
+ * delete (and repair for partial files) as sibling targets, so everything
+ * stays a 44px touch.
  */
 export function MediaDownloadRow({
   record: r,
@@ -85,7 +94,9 @@ export function MediaDownloadRow({
   // at the record's own 2:3 ratio — never crop a poster into a landscape box.
   const src = movie ? posterThumbUrl(r.posterPath) : stillThumbUrl(r.stillPath) ?? posterThumbUrl(r.posterPath);
   const initial = cardTitle(r).trim().charAt(0).toUpperCase() || "?";
-  const overview = movie && r.overview ? r.overview : null;
+  // Cached description (film synopsis / episode synopsis — never the series
+  // blurb; the backfill stores scope=episode results).
+  const overview = r.overview ? r.overview : null;
 
   const tryResume = () => {
     if (!online) {
@@ -147,12 +158,12 @@ export function MediaDownloadRow({
     ) : null;
 
   return (
-    <div className="flex items-center gap-2 rounded-xl bg-card p-2.5">
+    <div className="flex items-center gap-2 rounded-xl bg-card p-2">
       <button
         type="button"
         onClick={primary}
         aria-label={`${cardTitle(r)} — ${metaLabel(r, progress, stale)}`}
-        className="flex min-w-0 flex-1 items-center gap-3 text-left transition-[transform,opacity] duration-150 ease-out active:scale-[0.99]"
+        className="flex min-w-0 flex-1 items-center gap-2.5 text-left transition-[transform,opacity] duration-150 ease-out active:scale-[0.99]"
       >
         <span
           className={cn(
@@ -196,7 +207,9 @@ export function MediaDownloadRow({
           <span className="block truncate text-[15px] font-bold leading-tight text-foreground">
             {cardTitle(r)}
           </span>
-          <span className="mt-0.5 block truncate text-[13px] font-medium tabular-nums text-muted-foreground">
+          {/* Meta wraps instead of ellipsising — the size must stay whole
+              ("331 MB · 720p" got cut to "331 MB · 7…" on narrow phones). */}
+          <span className="mt-0.5 block text-[13px] font-medium leading-snug tabular-nums text-muted-foreground">
             {code ? `${code} · ` : ""}
             {metaLabel(r, progress, stale)}
           </span>
@@ -215,7 +228,7 @@ export function MediaDownloadRow({
         <span
           aria-hidden
           className={cn(
-            "grid h-11 w-11 shrink-0 place-items-center rounded-full",
+            "grid h-9 w-9 shrink-0 place-items-center rounded-full",
             done && !partial
               ? "bg-primary text-black"
               : "bg-secondary text-foreground ring-1 ring-border"
@@ -241,7 +254,10 @@ export function MediaDownloadRow({
           onClick={tryResume}
           aria-label={`Repair ${cardTitle(r)}`}
           title={online ? "Repair download" : "Needs connection"}
-          className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-secondary text-primary ring-1 ring-primary/40 transition-[transform,background-color] duration-150 ease-out active:scale-[0.96]"
+          className={cn(
+            tapCircle,
+            "bg-secondary text-primary ring-1 ring-primary/40 transition-[transform,background-color] duration-150 ease-out active:scale-[0.96]"
+          )}
         >
           <Download className="h-4 w-4" />
         </button>
@@ -255,7 +271,10 @@ export function MediaDownloadRow({
           );
         }}
         aria-label={`Delete ${cardTitle(r)}`}
-        className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-secondary text-foreground/60 ring-1 ring-border transition-[transform,background-color,color] duration-150 ease-out hover:text-foreground active:scale-[0.96]"
+        className={cn(
+          tapCircle,
+          "bg-secondary text-foreground/60 ring-1 ring-border transition-[transform,background-color,color] duration-150 ease-out hover:text-foreground active:scale-[0.96]"
+        )}
       >
         <Trash2 className="h-4 w-4" />
       </button>
@@ -322,7 +341,7 @@ export function DownloadingRow({ record: r }: { record: DownloadRecord }) {
   };
 
   return (
-    <div className="flex items-center gap-3 rounded-xl bg-card p-2.5">
+    <div className="flex items-center gap-2.5 rounded-xl bg-card p-2">
       <div
         className={cn(
           "relative shrink-0 overflow-hidden rounded-lg bg-[#2c2c2e]",
@@ -346,7 +365,7 @@ export function DownloadingRow({ record: r }: { record: DownloadRecord }) {
         <p className="truncate text-[15px] font-bold leading-tight tracking-tight text-white">
           {cardTitle(r)}
         </p>
-        <p className="mt-0.5 truncate text-[13px] font-medium tabular-nums text-white/50">
+        <p className="mt-0.5 block text-[13px] font-medium leading-snug tabular-nums text-white/50">
           {stale
             ? `${Math.round(progress * 100)}% · tap to retry`
             : metaLabel(r, progress)}
@@ -366,7 +385,10 @@ export function DownloadingRow({ record: r }: { record: DownloadRecord }) {
         type="button"
         onClick={action}
         aria-label={runningHere ? "Pause download" : "Resume download"}
-        className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-secondary text-foreground ring-1 ring-border transition-[transform,background-color] duration-150 ease-out active:scale-[0.96]"
+        className={cn(
+          tapCircle,
+          "bg-secondary text-foreground ring-1 ring-border transition-[transform,background-color] duration-150 ease-out active:scale-[0.96]"
+        )}
       >
         {runningHere ? (
           <Pause className="h-4 w-4" />
@@ -383,7 +405,10 @@ export function DownloadingRow({ record: r }: { record: DownloadRecord }) {
           );
         }}
         aria-label={`Delete ${cardTitle(r)}`}
-        className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-secondary text-foreground/60 ring-1 ring-border transition-[transform,background-color,color] duration-150 ease-out hover:text-foreground active:scale-[0.96]"
+        className={cn(
+          tapCircle,
+          "bg-secondary text-foreground/60 ring-1 ring-border transition-[transform,background-color,color] duration-150 ease-out hover:text-foreground active:scale-[0.96]"
+        )}
       >
         <Trash2 className="h-4 w-4" />
       </button>

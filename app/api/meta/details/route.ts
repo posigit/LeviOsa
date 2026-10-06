@@ -19,6 +19,10 @@ function yearOf(date?: string): number | null {
  * failing that — or failing the second lookup entirely — it falls back to
  * the series-level facts. Every failure degrades to nulls so the card keeps
  * the title-only layout rather than putting an error over the video.
+ *
+ * `&scope=episode` turns the fallback off: the Library caches a description
+ * per downloaded row and must never store the same series blurb under every
+ * episode — no episode overview simply means no description line.
  */
 export async function GET(request: Request) {
   const session = await auth();
@@ -64,14 +68,24 @@ export async function GET(request: Request) {
 
     const season = Number(searchParams.get("season"));
     const episode = Number(searchParams.get("episode"));
+    const episodeOnly = searchParams.get("scope") === "episode";
     if (!Number.isFinite(season) || !Number.isFinite(episode)) {
-      return NextResponse.json(payload);
+      return NextResponse.json(
+        episodeOnly ? { ...payload, overview: null } : payload
+      );
     }
     try {
       const seasonData = await getTvSeason(id, season);
       const match = seasonData?.episodes?.find(
         (entry) => entry.episode_number === episode
       );
+      if (episodeOnly) {
+        return NextResponse.json({
+          ...payload,
+          overview: match?.overview || null,
+          runtime: match?.runtime ?? payload.runtime,
+        });
+      }
       if (match?.overview || match?.runtime) {
         return NextResponse.json({
           ...payload,
@@ -81,6 +95,7 @@ export async function GET(request: Request) {
       }
     } catch {
       // Season lookup failed — series-level facts are still worth returning.
+      if (episodeOnly) return NextResponse.json({ ...payload, overview: null });
     }
     return NextResponse.json(payload);
   } catch {

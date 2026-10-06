@@ -20,6 +20,14 @@ import {
 import { formatPlayerClock, isResumablePosition } from "@/lib/player-progress";
 import { orderLibraryGroups } from "@/lib/offline/library";
 import { syncOfflinePositions } from "@/lib/offline/store";
+import { cn } from "@/lib/utils";
+
+/**
+ * Tight action circle for the sheet's library rows: 36px visual, 44px
+ * touch area via hit-slop — matches /library without dominating the row.
+ */
+const tapCircle =
+  "relative flex h-9 w-9 cursor-pointer items-center justify-center rounded-full after:absolute after:-inset-1 after:content-['']";
 
 export function requestOfflinePlay(key: string) {
   window.dispatchEvent(
@@ -203,7 +211,10 @@ export function DownloadRow({
             type="button"
             onClick={onPlay}
             aria-label={`Play ${r.title} offline`}
-            className="flex h-11 w-11 cursor-pointer items-center justify-center rounded-full bg-primary text-black transition-[transform,background-color] duration-150 ease-out active:scale-[0.96]"
+            className={cn(
+              tapCircle,
+              "bg-primary text-black transition-[transform,background-color] duration-150 ease-out active:scale-[0.96]"
+            )}
           >
             <Play className="h-4 w-4 fill-current" />
           </button>
@@ -218,7 +229,10 @@ export function DownloadRow({
             onClick={tryResume}
             aria-label={partial > 0 ? "Repair download" : "Resume download"}
             title={!online ? "Needs connection" : undefined}
-            className="flex h-11 w-11 cursor-pointer items-center justify-center rounded-full bg-secondary text-foreground ring-1 ring-border transition-[transform,background-color] duration-150 ease-out hover:bg-secondary active:scale-[0.96] disabled:opacity-40"
+            className={cn(
+              tapCircle,
+              "bg-secondary text-foreground ring-1 ring-border transition-[transform,background-color] duration-150 ease-out hover:bg-secondary active:scale-[0.96] disabled:opacity-40"
+            )}
           >
             {r.state === "paused" ? (
               <Play className="h-4 w-4 fill-current" />
@@ -232,7 +246,10 @@ export function DownloadRow({
             type="button"
             onClick={() => void pauseDownload(r.key)}
             aria-label="Pause download"
-            className="flex h-11 w-11 cursor-pointer items-center justify-center rounded-full bg-secondary text-foreground ring-1 ring-border transition-[transform,background-color] duration-150 ease-out hover:bg-secondary active:scale-[0.96]"
+            className={cn(
+              tapCircle,
+              "bg-secondary text-foreground ring-1 ring-border transition-[transform,background-color] duration-150 ease-out hover:bg-secondary active:scale-[0.96]"
+            )}
           >
             <Pause className="h-4 w-4" />
           </button>
@@ -247,7 +264,10 @@ export function DownloadRow({
             );
           }}
           aria-label={`Delete ${r.title}`}
-          className="flex h-11 w-11 cursor-pointer items-center justify-center rounded-full bg-secondary text-foreground/60 ring-1 ring-border transition-[transform,background-color,color] duration-150 ease-out hover:text-foreground active:scale-[0.96]"
+          className={cn(
+            tapCircle,
+            "bg-secondary text-foreground/60 ring-1 ring-border transition-[transform,background-color,color] duration-150 ease-out hover:text-foreground active:scale-[0.96]"
+          )}
         >
           <Trash2 className="h-4 w-4" />
         </button>

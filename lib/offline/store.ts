@@ -112,8 +112,9 @@ export type DownloadRecord = {
   stillPath?: string | null;
   /**
    * Cached description from /api/meta/details (backfilled by the Library
-   * while online) — movies render it under the title with no network.
-   * `null` = not fetched yet; `""` = fetched and TMDB has none (don't refetch).
+   * while online) — rows render it under the title with no network. Films
+   * get the film synopsis, episodes their own (never the series blurb).
+   * `null` = not fetched yet; `""` = fetched and there is none (don't refetch).
    */
   overview?: string | null;
   quality: 480 | 720 | 1080 | "best";

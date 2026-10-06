@@ -22,6 +22,7 @@ import {
   type DownloadRecord,
 } from "@/lib/downloads";
 import { cachePosterThumb, cacheStillThumb } from "@/lib/offline/store";
+import { DEFAULT_VIX_SETTINGS, loadVixSettings } from "@/lib/vix-settings";
 import { orderLibraryGroups, type LibraryRow } from "@/lib/offline/library";
 
 /** Concurrency for poster backfill — a handful of titles, not a stampede. */
@@ -66,7 +67,17 @@ export default function LibraryPage() {
   const [storage, setStorage] = useState<{ usage: number; quota: number } | null>(
     null
   );
+  // Chosen storage cap (500 MB … 5 GB in Downloads settings) — the meter
+  // reads against this, not the browser's origin quota nobody picked.
+  const [capMb, setCapMb] = useState<number>(DEFAULT_VIX_SETTINGS.downloadCapMb);
   const online = useOnline();
+
+  useEffect(() => {
+    const readCap = () => setCapMb(loadVixSettings().downloadCapMb);
+    readCap();
+    window.addEventListener("vix-settings-changed", readCap);
+    return () => window.removeEventListener("vix-settings-changed", readCap);
+  }, []);
 
   useEffect(() => {
     let alive = true;
@@ -189,17 +200,18 @@ export default function LibraryPage() {
   }, [ready, online]);
 
   /**
-   * Description backfill: movies render their cached overview under the
-   * title (Netflix-style). One pass per visit, only online, only for movies
-   * never fetched — empty string is stored for "TMDB has none" so we don't
-   * refetch forever. The rows keep working offline: overview lives in the
-   * same IndexedDB record as the download itself.
+   * Description backfill: rows render their cached overview under the title
+   * (Netflix-style) — movies get the film synopsis, episodes get the episode
+   * synopsis (scope=episode: never the series blurb repeated per row). One
+   * pass per visit, only online, only for rows never fetched — empty string
+   * is stored for "nothing there" so we don't refetch forever. Everything
+   * keeps working offline: overview lives in the same IndexedDB record as
+   * the download itself.
    */
   useEffect(() => {
     if (!ready || !online) return;
     const missing = getAllSync().filter(
       (r) =>
-        r.type === "movie" &&
         r.overview == null &&
         r.state !== "active" &&
         r.state !== "queued"
@@ -213,10 +225,19 @@ export default function LibraryPage() {
           const rec = queue.shift();
           if (!rec) break;
           try {
-            const res = await fetch(
-              `/api/meta/details?type=movie&tmdbId=${rec.tmdbId}`,
-              { cache: "no-store" }
-            );
+            const type = rec.type === "movie" ? "movie" : "tv";
+            const q = new URLSearchParams({
+              type,
+              tmdbId: String(rec.tmdbId),
+              scope: "episode",
+            });
+            if (type === "tv") {
+              if (rec.season != null) q.set("season", String(rec.season));
+              if (rec.episode != null) q.set("episode", String(rec.episode));
+            }
+            const res = await fetch(`/api/meta/details?${q.toString()}`, {
+              cache: "no-store",
+            });
             if (!res.ok) continue;
             const data = (await res.json()) as { overview?: string | null };
             if (cancelled) continue;
@@ -281,10 +302,13 @@ export default function LibraryPage() {
     [shelfEpisodes]
   );
 
-  const storagePct =
-    storage && storage.quota > 0
-      ? Math.min(100, Math.max(1, Math.round((storage.usage / storage.quota) * 100)))
-      : null;
+  const capBytes = capMb * 1024 * 1024;
+  // Fill against the chosen cap; a non-empty library always gets a visible
+  // sliver so 632 MB never renders as an invisible 0-width hairline.
+  const capPct =
+    capBytes > 0
+      ? Math.min(100, Math.max(usedByApp > 0 ? 1.5 : 0, (usedByApp / capBytes) * 100))
+      : 0;
 
   const play = (r: DownloadRecord) => {
     void touchRecord(r.key);
@@ -338,32 +362,27 @@ export default function LibraryPage() {
       </StickyChrome>
 
       <div className="space-y-6 px-4 pt-4">
-        {/* ---------- Storage card (liquid glass) ---------- */}
+        {/* ---------- Storage card (liquid glass, reads the chosen cap) ---------- */}
         <section className="glass-panel rounded-2xl p-4">
           <div className="flex items-baseline justify-between gap-3">
             <p className="text-[15px] font-bold text-white">Storage</p>
             <p className="shrink-0 text-[13px] tabular-nums text-white/50">
-              {storage && storagePct != null
-                ? `${formatBytes(storage.usage)} of ${formatBytes(storage.quota)}`
-                : usedByApp > 0
-                  ? `${formatBytes(usedByApp)} saved on this device`
-                  : "Empty"}
+              {formatBytes(usedByApp)} of {formatBytes(capBytes)} cap
             </p>
           </div>
           <div className="mt-2.5 h-2 overflow-hidden rounded-full bg-black/40">
             <div
-              className={cn(
-                "h-full rounded-full transition-[width] duration-500 ease-out",
-                storagePct != null ? "bg-primary" : "bg-white/20"
-              )}
-              style={{ width: `${storagePct ?? 0}%` }}
+              className="h-full rounded-full bg-primary transition-[width] duration-500 ease-out"
+              style={{ width: `${capPct}%` }}
             />
           </div>
-          {storage && storagePct != null && storage.quota > storage.usage && (
-            <p className="mt-2 text-xs tabular-nums text-white/35">
-              {formatBytes(storage.quota - storage.usage)} free on this device
-            </p>
-          )}
+          <p className="mt-2 text-xs tabular-nums text-white/35">
+            {storage
+              ? `${formatBytes(storage.quota - storage.usage)} free on this device`
+              : `${readyItems.length} finished download${
+                  readyItems.length === 1 ? "" : "s"
+                }`}
+          </p>
         </section>
 
         {/* ---------- Still coming down ---------- */}
