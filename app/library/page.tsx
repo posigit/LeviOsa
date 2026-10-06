@@ -21,7 +21,11 @@ import {
   upsertRecord,
   type DownloadRecord,
 } from "@/lib/downloads";
-import { cachePosterThumb, cacheStillThumb } from "@/lib/offline/store";
+import {
+  cachePosterThumb,
+  cacheStillThumb,
+  syncOfflinePositions,
+} from "@/lib/offline/store";
 import { DEFAULT_VIX_SETTINGS, loadVixSettings } from "@/lib/vix-settings";
 import { orderLibraryGroups, type LibraryRow } from "@/lib/offline/library";
 
@@ -257,6 +261,23 @@ export default function LibraryPage() {
       cancelled = true;
     };
   }, [ready, online]);
+
+  /**
+   * Fold server bookmarks into the offline mirror on the page that hosts
+   * Play: progress made while streaming must show as "Resume" here and be
+   * what the download auto-seeks to. Previously only the Downloads sheet's
+   * list ran this, so stream-then-download watches resumed from a stale
+   * local position. The store throttles itself (60s TTL) and every write
+   * broadcasts, so mounted rows update live; offline it's a no-op and the
+   * `online` listener retries once the connection is back.
+   */
+  useEffect(() => {
+    if (!ready) return;
+    void syncOfflinePositions(items);
+    const on = () => void syncOfflinePositions(items);
+    window.addEventListener("online", on);
+    return () => window.removeEventListener("online", on);
+  }, [ready, items]);
 
   const movies = useMemo(() => items.filter((r) => r.type === "movie"), [items]);
   const episodes = useMemo(
