@@ -236,7 +236,8 @@ export function splitPauseTitle(
  *
  * Mirrors VidStuck's card: a full-frame dim (bg-black/70 + 2px blur) behind a
  * left-anchored, vertically centred stack — eyebrow → handwritten title →
- * episode → tagline → meta → chips → short rule → description → tip. Faces
+ * episode → tagline → meta → chips → short rule → description → tip (md+;
+ * phones drop the tip and spend the room on a bigger title). Faces
  * match theirs exactly: Permanent Marker 400 on the title (.pause-title),
  * Lexend 400 on everything else (.pause-body on the wrapper). `select-none`
  * so a long-press can't half-select the copy, `pointer-events-none` so taps
@@ -295,7 +296,7 @@ export function PausedInfoLayer({
           Paused
         </p>
 
-        <h2 className="pause-title break-words text-4xl leading-tight text-white [text-shadow:0_2px_20px_rgba(0,0,0,0.75)] md:text-6xl">
+        <h2 className="pause-title break-words text-5xl leading-tight text-white [text-shadow:0_2px_20px_rgba(0,0,0,0.75)] md:text-6xl">
           {title}
         </h2>
 
@@ -348,9 +349,13 @@ export function PausedInfoLayer({
           </>
         )}
 
+        {/* Tip is a desktop nicety — hidden under md so portrait phones
+            spend the freed rows on the handwritten title instead. Still
+            mounted (CSS only) so the tip-rotation tests and screen-reader
+            behaviour on desktop are untouched. */}
         <TipLine
           accent={accent}
-          className="pause-tip mt-4 max-w-2xl border-t border-white/10 pt-3 text-[11px] leading-relaxed md:text-xs"
+          className="pause-tip hidden max-w-2xl border-t border-white/10 pt-3 text-[11px] leading-relaxed md:mt-4 md:block md:text-xs"
         />
       </div>
     </div>
