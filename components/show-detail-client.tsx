@@ -49,6 +49,10 @@ import {
   Plus,
 } from "lucide-react";
 
+/** TMDB runtimes are minutes; every player clock in here is seconds. */
+const toSeconds = (mins?: number | null) =>
+  mins != null && mins > 0 ? mins * 60 : null;
+
 export type DetailEpisode = {
   seasonNumber: number;
   episodeNumber: number;
@@ -1897,6 +1901,10 @@ export function ShowDetailClient({
             tagline: show.tagline,
           }}
           initialPosition={playbackFor(playerEp)?.positionSeconds}
+          // TMDB runtime (minutes -> seconds). Passive embeds that never
+          // report `duration` (VidStuck et al) use it for the 96%/92%
+          // end-of-content checks that raise Up Next and mark watched.
+          initialDuration={toSeconds(playerEp.runtime ?? show.episodeRuntime)}
           autoResume={Boolean(playbackFor(playerEp))}
           onEvent={handlePlayerEvent}
           onNearEnd={() => setNearEnd(true)}

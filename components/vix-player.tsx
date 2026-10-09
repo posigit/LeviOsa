@@ -3807,13 +3807,23 @@ export function VixPlayer({
       // End-of-content: a known outro start is authoritative (card + watched
       // marking fire there); 96%/92% are fallback ONLY without outro data.
       const outroStartEmbed = segmentsRef.current.outro?.start ?? null;
+      // Passive embeds (VidStuck, VidRift, Vidy, ...) often tick
+      // `currentTime` and never report `duration`. Without a length,
+      // isNearEndPosition/shouldFireEnded are false forever, so the episode
+      // never marks watched and Up Next never appears — VidStuck shipped in
+      // exactly that state. Fall back to the TMDB runtime the host passes in
+      // as initialDuration; a real reported duration always wins.
+      const embedDuration =
+        remoteDurationRef.current > 0
+          ? remoteDurationRef.current
+          : (initialDurationRef.current ?? 0);
       if (
         !nearEndFiredRef.current &&
         (outroStartEmbed != null
           ? remotePositionRef.current >= outroStartEmbed
           : isNearEndPosition(
               remotePositionRef.current,
-              remoteDurationRef.current,
+              embedDuration,
               NEXT_FAB_RATIO
             ))
       ) {
@@ -3832,7 +3842,7 @@ export function VixPlayer({
         !endedRef.current &&
         shouldFireEnded(
           remotePositionRef.current,
-          remoteDurationRef.current,
+          embedDuration,
           outroStartEmbed
         )
       ) {
