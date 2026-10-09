@@ -3,9 +3,13 @@ import { srtToVtt } from "@/lib/player-subs";
 
 /**
  * OpenSubtitles (opensubtitles.com) subtitle lookup, gated on env:
- *   OPENSUBTITLES_API_KEY  — required (free account: https://opensubtitles.com)
- *   OPENSUBTITLES_USERNAME / OPENSUBTITLES_PASSWORD — optional; without them we
- *     still search, but the download endpoint needs an auth token, so set both.
+ *   OPENSUBTITLES_API_KEY  — REQUIRED and must be live. Search answers even
+ *     for an expired key, but /download answers 503 for one, which is how a
+ *     silently rotated key showed up as "no subs" everywhere (free key:
+ *     https://opensubtitles.com — dashboard → API).
+ *   OPENSUBTITLES_USERNAME / OPENSUBTITLES_PASSWORD — OPTIONAL. They only
+ *     buy a user token for quota accounting; both search and download answer
+ *     on the Api-Key alone, so a failed login must never fail the request.
  *
  * GET ?imdbId=&season=&episode=&lang=en
  *   → downloads best English sub as VTT (legacy Auto cascade)
@@ -22,6 +26,15 @@ const LIST_LIMIT = 3;
 
 // In-memory token cache (per serverless instance; re-login on cold start).
 let cachedToken: { token: string; expiresAt: number } | null = null;
+/**
+ * Login is a BONUS, never a gate. /subtitles and /download both answer with
+ * a valid Api-Key alone, so an expired key, a bad password or a 429 from
+ * /login must not take the whole route down (it did: every call 502'd and
+ * the CC picker's OpenSubs row reverted to Auto). Negative cache so a broken
+ * login can't hammer the endpoint on each request either.
+ */
+let loginFailedUntil = 0;
+const LOGIN_BACKOFF_MS = 10 * 60 * 1000;
 
 type OsSubRow = {
   attributes?: {
@@ -34,31 +47,44 @@ type OsSubRow = {
   };
 };
 
-async function getToken(): Promise<string> {
+/**
+ * Returns a user token when login is possible, otherwise null.
+ * NEVER throws: callers fall back to Api-Key-only requests, which is how the
+ * endpoint behaves when /login is down, rate-limited or misconfigured.
+ */
+async function getToken(): Promise<string | null> {
   const apiKey = process.env.OPENSUBTITLES_API_KEY;
   const username = process.env.OPENSUBTITLES_USERNAME;
   const password = process.env.OPENSUBTITLES_PASSWORD;
-  if (!apiKey) throw new Error("OPENSUBTITLES_API_KEY not configured");
+  if (!apiKey || !username || !password) return null;
   if (cachedToken && cachedToken.expiresAt > Date.now()) return cachedToken.token;
-  if (!username || !password) {
-    throw new Error("OPENSUBTITLES_USERNAME/PASSWORD not configured");
-  }
+  if (Date.now() < loginFailedUntil) return null;
 
-  const res = await fetch(`${OS_BASE}/login`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      "Api-Key": apiKey,
-      "User-Agent": "tvtime-app",
-    },
-    body: JSON.stringify({ username, password }),
-    cache: "no-store",
-  });
-  if (!res.ok) throw new Error(`opensubtitles login ${res.status}`);
-  const data = (await res.json()) as { token?: string };
-  if (!data.token) throw new Error("opensubtitles login returned no token");
-  cachedToken = { token: data.token, expiresAt: Date.now() + 12 * 60 * 60 * 1000 };
-  return data.token;
+  const backOff = () => {
+    loginFailedUntil = Date.now() + LOGIN_BACKOFF_MS;
+    return null;
+  };
+
+  try {
+    const res = await fetch(`${OS_BASE}/login`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Api-Key": apiKey,
+        "User-Agent": "tvtime-app",
+      },
+      body: JSON.stringify({ username, password }),
+      cache: "no-store",
+    });
+    if (!res.ok) return backOff();
+    const data = (await res.json()) as { token?: string };
+    if (!data.token) return backOff();
+    cachedToken = { token: data.token, expiresAt: Date.now() + 12 * 60 * 60 * 1000 };
+    loginFailedUntil = 0;
+    return data.token;
+  } catch {
+    return backOff();
+  }
 }
 
 function englishSubs(rows: OsSubRow[]): OsSubRow[] {
@@ -92,7 +118,6 @@ async function searchSubs(
   lang: string,
   season: string | null,
   episode: string | null,
-  token: string,
   apiKey: string
 ): Promise<OsSubRow[]> {
   const searchParams = new URLSearchParams({
@@ -104,10 +129,11 @@ async function searchSubs(
     searchParams.set("season_number", season);
     searchParams.set("episode_number", episode);
   }
+  // Api-Key only: /subtitles answers 200 without a user token, and a stale
+  // cached token is the one thing that could break a search that works fine.
   const searchRes = await fetch(`${OS_BASE}/subtitles?${searchParams}`, {
     headers: {
       "Api-Key": apiKey,
-      Authorization: `Bearer ${token}`,
       "User-Agent": "tvtime-app",
     },
     cache: "no-store",
@@ -120,20 +146,28 @@ async function searchSubs(
 async function downloadFileId(
   fileId: number,
   preferVtt: boolean,
-  token: string,
+  token: string | null,
   apiKey: string
 ): Promise<{ vtt: string }> {
-  const dlRes = await fetch(`${OS_BASE}/download`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      "Api-Key": apiKey,
-      Authorization: `Bearer ${token}`,
-      "User-Agent": "tvtime-app",
-    },
-    body: JSON.stringify({ file_id: fileId }),
-    cache: "no-store",
-  });
+  const base: Record<string, string> = {
+    "Content-Type": "application/json",
+    "Api-Key": apiKey,
+    "User-Agent": "tvtime-app",
+  };
+  const post = (headers: Record<string, string>) =>
+    fetch(`${OS_BASE}/download`, {
+      method: "POST",
+      headers,
+      body: JSON.stringify({ file_id: fileId }),
+      cache: "no-store",
+    });
+
+  let dlRes = await post(token ? { ...base, Authorization: `Bearer ${token}` } : base);
+  // A cached-but-rejected token is worse than none: /download answers with the
+  // Api-Key alone, so drop the Authorization and try once more.
+  if (!dlRes.ok && token && (dlRes.status === 401 || dlRes.status === 403)) {
+    dlRes = await post(base);
+  }
   if (!dlRes.ok) throw new Error(`opensubtitles download ${dlRes.status}`);
   const dl = (await dlRes.json()) as { link?: string };
   if (!dl.link) throw new Error("opensubtitles download returned no link");
@@ -175,6 +209,8 @@ export async function GET(req: NextRequest) {
   }
 
   try {
+    // Optional: only /download benefits from it, and both /subtitles and
+    // /download answer with the Api-Key alone when login isn't available.
     const token = await getToken();
     const apiKey = process.env.OPENSUBTITLES_API_KEY!;
 
@@ -192,7 +228,7 @@ export async function GET(req: NextRequest) {
       });
     }
 
-    const ranked = await searchSubs(imdbId, lang, season, episode, token, apiKey);
+    const ranked = await searchSubs(imdbId, lang, season, episode, apiKey);
     if (ranked.length === 0) {
       return NextResponse.json({ error: "no subtitles found" }, { status: 404 });
     }

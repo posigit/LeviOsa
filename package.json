@@ -11,6 +11,7 @@
     "test:player": "tsx scripts/test-player-progress.ts",
     "test:offline": "tsx scripts/test-offline-download.ts",
     "test:subdl": "tsx scripts/test-subdl.ts",
+    "test:opensub": "tsx scripts/test-opensubtitles.ts",
     "test:chrome": "tsx scripts/test-cc-gate.tsx",
     "test:surfaces": "tsx scripts/test-player-surfaces.tsx",
     "db:generate": "drizzle-kit generate",

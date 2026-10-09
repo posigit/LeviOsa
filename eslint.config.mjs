@@ -1,6 +1,7 @@
 import { defineConfig, globalIgnores } from "eslint/config";
 import nextVitals from "eslint-config-next/core-web-vitals";
 import nextTs from "eslint-config-next/typescript";
+import reactHooks from "eslint-plugin-react-hooks";
 
 const eslintConfig = defineConfig([
   ...nextVitals,
@@ -16,6 +17,12 @@ const eslintConfig = defineConfig([
     "public/vendor/**",
   ]),
   {
+    // Flat-config plugins are scoped per config object: the rules below
+    // reference the `react-hooks` namespace, so this object has to register
+    // it (eslint-config-next registers its own copy in a different object).
+    plugins: {
+      "react-hooks": reactHooks,
+    },
     rules: {
       // Honor the `_`-prefix convention for deliberately omitted/unused
       // destructured bindings (e.g. profile rail `backdropPath: _b` omits).
