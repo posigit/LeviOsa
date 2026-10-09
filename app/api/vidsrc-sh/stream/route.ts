@@ -7,9 +7,12 @@ import { parseMediaParams } from "@/lib/stream-proxy";
  *
  * Mirrors /api/vixsrc/stream's shape where it matters: accept
  * type/id/season/episode, return direct stream URLs (decrypted server-side).
- * Unlike vixsrc.to, this host is NOT (yet) known to Cloudflare-block
- * datacenter egress — this route doubles as the reachability verdict:
- * URLs flowing here means native playback + downloads without new infra.
+ * Unlike vixsrc.to, this host was assumed safe for datacenter egress —
+ * that assumption is now falsified: data.vidsrc.sh 403s Cloudflare Workers
+ * egress (proven: identical request + headers → 200 off-Cloudflare, 403
+ * from the worker), same class as api.subdl.com. Native vidsrc-sh
+ * resolution therefore fails on CF deployments; embeds are unaffected and
+ * the player/offline cascades fall through to the next source.
  */
 export const dynamic = "force-dynamic";
 
