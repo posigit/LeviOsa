@@ -28,6 +28,13 @@ const LIST_LIMIT = 3;
 /** Bound the auto-cascade download loop (each try costs quota). */
 const MAX_AUTO_TRIES = 3;
 const UPSTREAM_TIMEOUT_MS = 20_000;
+/**
+ * SubDL's edge rejects User-Agent-less requests from datacenter IPs (the
+ * Cloudflare worker gets HTTP 200 + `{ status: false }`); OpenSubtitles
+ * kong-blocks them outright. Every upstream call carries the app UA, mirroring
+ * app/api/vixsrc/subs/route.ts.
+ */
+const UA_HEADERS: Record<string, string> = { "User-Agent": "tvtime-app" };
 
 type SdlUnpackFile = {
   file_n_id?: string;
@@ -177,6 +184,7 @@ async function downloadCandidate(
   opts: { type: string; season?: number; episode?: number }
 ): Promise<{ vtt: string } | null> {
   const res = await fetch(withKey(`${DL}${cand.fileId}`), {
+    headers: UA_HEADERS,
     cache: "no-store",
     signal: AbortSignal.timeout(UPSTREAM_TIMEOUT_MS),
   });
@@ -264,6 +272,7 @@ export async function GET(req: NextRequest) {
       if (episode) q.set("episode_number", episode);
     }
     const searchRes = await fetch(`${SEARCH}?${q.toString()}`, {
+      headers: UA_HEADERS,
       cache: "no-store",
       signal: AbortSignal.timeout(UPSTREAM_TIMEOUT_MS),
     });
