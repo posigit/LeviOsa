@@ -594,6 +594,8 @@ export function VixPlayer({
   const singleTapTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   /** Latest gesture volume, persisted once on touch end (not per move). */
   const gestureDirtyVolume = useRef<number | null>(null);
+  /** Final target of an in-flight swipe-scrub — armed for recovery on touchend. */
+  const gestureSeekTargetRef = useRef<number | null>(null);
   /** Show-speed already applied for a show key (guards the memory effect). */
   const appliedShowSpeedRef = useRef<string | null>(null);
   /** Last lockscreen position push (throttles MediaSession IPC). */
@@ -688,6 +690,7 @@ export function VixPlayer({
     bookmarkClearedRef.current = false;
     lastTapRef.current = null;
     gestureDirtyVolume.current = null;
+    gestureSeekTargetRef.current = null;
     if (singleTapTimerRef.current) {
       clearTimeout(singleTapTimerRef.current);
       singleTapTimerRef.current = null;
@@ -857,12 +860,33 @@ export function VixPlayer({
     run();
   }, [playbackParams, offlineOverride, offlineKey]);
 
-  const seekVideo = useCallback((t: number) => {
-    const v = videoRef.current;
-    if (!v || !Number.isFinite(t)) return Promise.resolve(false);
-    // Shared robust seek (HLS often needs retries before currentTime sticks).
-    return seekVideoElement(v, t, { play: true });
+  /** Manual-scrub recovery timer + generation (see armSeekRecovery). */
+  const seekRecoveryTimerRef = useRef<number | null>(null);
+  const seekRecoveryTokenRef = useRef(0);
+
+  /**
+   * Invalidate any in-flight manual-scrub recovery: the element is about to
+   * be driven somewhere else (restart, skip, new episode, source switch), so
+   * a watchdog armed against the old target must not fight the new seek.
+   */
+  const cancelSeekRecovery = useCallback(() => {
+    seekRecoveryTokenRef.current += 1;
+    if (seekRecoveryTimerRef.current != null) {
+      window.clearTimeout(seekRecoveryTimerRef.current);
+      seekRecoveryTimerRef.current = null;
+    }
   }, []);
+
+  const seekVideo = useCallback(
+    (t: number) => {
+      cancelSeekRecovery();
+      const v = videoRef.current;
+      if (!v || !Number.isFinite(t)) return Promise.resolve(false);
+      // Shared robust seek (HLS often needs retries before currentTime sticks).
+      return seekVideoElement(v, t, { play: true });
+    },
+    [cancelSeekRecovery]
+  );
 
   /**
    * A manual seek owns the timeline: drop the resume/source-switch pending
@@ -878,6 +902,80 @@ export function VixPlayer({
     pendingSeekWaitersRef.current = [];
     for (const w of waiters) w(true);
   }, []);
+
+  /**
+   * iOS Safari's native HLS accepts a scrub and then never finishes it: the
+   * element stays on `seeking`, the frame freezes behind the spinner, and the
+   * only way out is closing the player — reopening works because the
+   * cold-resume path retries the target and always ends on `play()`. A manual
+   * scrub writes `currentTime` exactly once, so re-apply that same recovery
+   * here: re-issue the seek until the element actually lands, aborting the
+   * moment it does or the user scrubs again, and never un-pausing a player
+   * the user paused mid-recovery.
+   */
+  const armSeekRecovery = useCallback((target: number) => {
+    const token = ++seekRecoveryTokenRef.current;
+    if (seekRecoveryTimerRef.current != null) {
+      window.clearTimeout(seekRecoveryTimerRef.current);
+      seekRecoveryTimerRef.current = null;
+    }
+    let pass = 0;
+    const settle = () => {
+      seekRecoveryTimerRef.current = null;
+      if (token !== seekRecoveryTokenRef.current) return;
+      const v = videoRef.current;
+      if (!v || v.ended) return;
+      // Only a stuck `seeking` is a bug: the spinner is cleared by `seeked`
+      // and by the `!v.seeking` failsafe, so a settled element needs nothing.
+      // Never re-issue against a duration the browser already clamped past.
+      if (!v.seeking) return;
+      if (
+        Number.isFinite(v.duration) &&
+        v.duration > 0 &&
+        target > v.duration + 1
+      ) {
+        return;
+      }
+      // `play()` on a paused player would resume it against the user's wish.
+      const resume = !v.paused;
+      pass += 1;
+      void seekVideoElement(v, target, {
+        play: resume,
+        // Also bail if the user paused mid-pass: `seekVideoElement` ends on
+        // `play()` when it asked for one, and that must not win over a pause.
+        shouldAbort: () =>
+          token !== seekRecoveryTokenRef.current || (resume && v.paused),
+      }).then(() => {
+        if (token !== seekRecoveryTokenRef.current) return;
+        const w = videoRef.current;
+        // `currentTime` reached the target but the pipeline never fired
+        // `seeked`: one more rewrite plus a play() nudge is what unsticks it.
+        if (w && !w.ended && w.seeking && !w.paused) {
+          try {
+            w.currentTime = target;
+          } catch {
+            /* not seekable yet — the next pass retries */
+          }
+          void w.play().catch(() => {});
+        }
+        if (pass < 3) {
+          seekRecoveryTimerRef.current = window.setTimeout(settle, 2500);
+        }
+      });
+    };
+    // A healthy seek finishes in well under this even on a cold cache; a
+    // short first delay keeps a merely slow seek from being restarted.
+    seekRecoveryTimerRef.current = window.setTimeout(settle, 3000);
+  }, []);
+
+  useEffect(() => () => cancelSeekRecovery(), [cancelSeekRecovery]);
+
+  // A new media source (episode advance, source switch, restart) replaces
+  // what the element is showing: a watchdog armed against the old target
+  // would fight the new episode's resume seek.
+  useEffect(() => {
+    cancelSeekRecovery();
+  }, [playlistUrl, cancelSeekRecovery]);
 
   /**
    * Queue a resume/switch seek for the engine (post-manifest / startPosition).
@@ -1036,33 +1134,6 @@ export function VixPlayer({
       activeSource === "vidy");
   const clockEmbed = isDrivenEmbed || passiveClockEmbed;
 
-  /** Native / driven-embed ±10s seek, with a transient on-screen cue. */
-  const seekBy = useCallback(
-    (side: "left" | "right") => {
-      const delta = side === "right" ? 10 : -10;
-      navigator.vibrate?.(10);
-      if (isDrivenEmbed) {
-        sendEmbedSeek(
-          clampEmbedTime(remotePositionRef.current + delta)
-        );
-        setTapCue({ side });
-        if (tapCueTimerRef.current) clearTimeout(tapCueTimerRef.current);
-        tapCueTimerRef.current = setTimeout(() => setTapCue(null), 650);
-        return;
-      }
-      const v = videoRef.current;
-      if (!v || mode !== "native" || !Number.isFinite(v.currentTime)) return;
-      const target = Math.max(0, v.currentTime + delta);
-      const dur =
-        Number.isFinite(v.duration) && v.duration > 0 ? v.duration : null;
-      v.currentTime = dur == null ? target : Math.min(target, dur);
-      setTapCue({ side });
-      if (tapCueTimerRef.current) clearTimeout(tapCueTimerRef.current);
-      tapCueTimerRef.current = setTimeout(() => setTapCue(null), 650);
-    },
-    [isDrivenEmbed, sendEmbedSeek]
-  );
-
   /** Arms the auto-hide timer (shared by bumpChrome and pointer-leave so
    *  leaving the player summons nothing — it just schedules the hide).
    *
@@ -1139,6 +1210,56 @@ export function VixPlayer({
     remotePositionRef,
     setTransport,
   });
+
+  /** Native / driven-embed +/-10s seek, with a transient on-screen cue.
+   *  Declared after useCastRemote: it needs bumpChrome and castSeekBy. */
+  const seekBy = useCallback(
+    (side: "left" | "right") => {
+      const delta = side === "right" ? 10 : -10;
+      navigator.vibrate?.(10);
+      if (isDrivenEmbed) {
+        sendEmbedSeek(
+          clampEmbedTime(remotePositionRef.current + delta)
+        );
+        setTapCue({ side });
+        if (tapCueTimerRef.current) clearTimeout(tapCueTimerRef.current);
+        tapCueTimerRef.current = setTimeout(() => setTapCue(null), 650);
+        return;
+      }
+      // Casting drives a remote player: the local <video> is paused and not
+      // what is on screen, so it must not take a local seek (or arm the
+      // scrub watchdog). Mirrors seekBySeconds.
+      if (castingRef.current && castSeekBy(delta)) {
+        bumpChrome();
+        setTapCue({ side });
+        if (tapCueTimerRef.current) clearTimeout(tapCueTimerRef.current);
+        tapCueTimerRef.current = setTimeout(() => setTapCue(null), 650);
+        return;
+      }
+      const v = videoRef.current;
+      if (!v || mode !== "native" || !Number.isFinite(v.currentTime)) return;
+      const target = Math.max(0, v.currentTime + delta);
+      const dur =
+        Number.isFinite(v.duration) && v.duration > 0 ? v.duration : null;
+      const goal = dur == null ? target : Math.min(target, dur);
+      dropPendingSeek();
+      v.currentTime = goal;
+      armSeekRecovery(goal);
+      setTapCue({ side });
+      if (tapCueTimerRef.current) clearTimeout(tapCueTimerRef.current);
+      tapCueTimerRef.current = setTimeout(() => setTapCue(null), 650);
+    },
+    [
+      isDrivenEmbed,
+      sendEmbedSeek,
+      dropPendingSeek,
+      armSeekRecovery,
+      mode,
+      bumpChrome,
+      castSeekBy,
+      castingRef,
+    ]
+  );
 
   /** Double-tap the sides for ±10s, the centre for fullscreen; a single tap
    *  toggles the custom chrome (no native controls). */
@@ -2585,10 +2706,12 @@ export function VixPlayer({
           ? v.duration
           : initialDurationRef.current;
       const target = Math.max(0, v.currentTime + delta);
-      v.currentTime = dur != null && dur > 0 ? Math.min(target, dur) : target;
+      const goal = dur != null && dur > 0 ? Math.min(target, dur) : target;
+      v.currentTime = goal;
+      armSeekRecovery(goal);
       bumpChrome();
     },
-    [isDrivenEmbed, sendEmbedSeek, bumpChrome, dropPendingSeek, castSeekBy, castingRef]
+    [isDrivenEmbed, sendEmbedSeek, bumpChrome, dropPendingSeek, castSeekBy, castingRef, armSeekRecovery]
   );
 
   const seekRatio = useCallback(
@@ -2627,10 +2750,12 @@ export function VixPlayer({
           : initialDurationRef.current;
       if (dur == null || !(dur > 0)) return;
       dropPendingSeek();
-      v.currentTime = Math.max(0, Math.min(dur, ratio * dur));
+      const goal = Math.max(0, Math.min(dur, ratio * dur));
+      v.currentTime = goal;
+      armSeekRecovery(goal);
       bumpChrome();
     },
-    [isDrivenEmbed, sendEmbedSeek, bumpChrome, dropPendingSeek, getCastRemote, castingRef]
+    [isDrivenEmbed, sendEmbedSeek, bumpChrome, dropPendingSeek, getCastRemote, castingRef, armSeekRecovery]
   );
 
   const toggleMute = useCallback(() => {
@@ -2906,6 +3031,10 @@ export function VixPlayer({
    */
   const onVideoTouchStart = useCallback(
     (e: React.TouchEvent) => {
+      // A swipe can die without a touchend (system gesture, app switch, mode
+      // flip) — drop any target it left behind so a later touchend can never
+      // arm a stale recovery.
+      gestureSeekTargetRef.current = null;
       if (locked || mode !== "native" || e.touches.length !== 1) {
         gestureRef.current = null;
         return;
@@ -2950,6 +3079,7 @@ export function VixPlayer({
         dropPendingSeek();
         const target = Math.max(0, Math.min(dur, g.startTime + dx / 4));
         v.currentTime = target;
+        gestureSeekTargetRef.current = target;
         const m = Math.floor(target / 60);
         const s = Math.floor(target % 60);
         showGestureHint(`${m}:${String(s).padStart(2, "0")}`);
@@ -2985,17 +3115,24 @@ export function VixPlayer({
     [locked, mode, setVolume, showGestureHint, dropPendingSeek]
   );
   const onVideoTouchEnd = useCallback(() => {
-    if (gestureRef.current?.active) {
+    const g = gestureRef.current;
+    if (g?.active) {
       gestureSuppressUntil.current = performance.now();
       bumpChrome();
     }
+    // The swipe wrote `currentTime` per move event; hand the last target to
+    // the stuck-`seeking` watchdog the same way a tap scrub does.
+    if (g?.active === "seek" && gestureSeekTargetRef.current != null) {
+      armSeekRecovery(gestureSeekTargetRef.current);
+    }
+    gestureSeekTargetRef.current = null;
     gestureRef.current = null;
     // Persist a gesture-adjusted volume once (see move handler).
     if (gestureDirtyVolume.current != null) {
       saveVixSettings({ volume: gestureDirtyVolume.current });
       gestureDirtyVolume.current = null;
     }
-  }, [bumpChrome]);
+  }, [bumpChrome, armSeekRecovery]);
 
   // ---------- ambilight (sampled glow behind native video) ----------
   useEffect(() => {

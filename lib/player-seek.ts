@@ -53,6 +53,12 @@ export function seekVideoElement(
       }
       // HLS often reports 0 until the first fragment seeks — re-check.
       window.setTimeout(() => {
+        // Re-check before the terminal play(): an aborted pass (newer scrub,
+        // or the user pausing mid-recovery) must not start playback.
+        if (opts?.shouldAbort?.()) {
+          resolve(false);
+          return;
+        }
         if (
           !Number.isFinite(video.currentTime) ||
           Math.abs(video.currentTime - target) > 1.5

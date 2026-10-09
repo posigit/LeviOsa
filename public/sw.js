@@ -417,6 +417,30 @@ async function serveDownload(request) {
   }
 }
 
+/** A plain 200 must advertise range support. Clients that probe for
+ * `Accept-Ranges` — Safari's native HLS pipeline among them — read a 200
+ * without it as "not seekable", accept the scrub and then never finish it
+ * (the element sticks on `seeking` with a frozen frame behind the spinner). */
+function withAcceptRanges(cached) {
+  // `bodyUsed` guards the catch path in serveRange(): reaching it means
+  // `arrayBuffer()` already locked the stream, and wrapping a disturbed body
+  // throws a TypeError (which would escape respondWith as a network error).
+  if (
+    cached.status !== 200 ||
+    cached.bodyUsed ||
+    cached.headers.has("Accept-Ranges")
+  ) {
+    return cached;
+  }
+  const headers = new Headers(cached.headers);
+  headers.set("Accept-Ranges", "bytes");
+  return new Response(cached.body, {
+    status: cached.status,
+    statusText: cached.statusText,
+    headers,
+  });
+}
+
 /**
  * The Cache API stores whole bodies only — slice 206 responses manually so
  * hls.js fMP4 seeking and Safari native playback can scrub offline
@@ -424,9 +448,14 @@ async function serveDownload(request) {
  */
 async function serveRange(cached, request) {
   const range = request.headers.get("range");
-  if (!range) return cached;
+  if (!range) return withAcceptRanges(cached);
+  // Multi-range (`bytes=0-99,200-299`) needs a multipart/byteranges body the
+  // regex below cannot build: answering 206 with only the first span hands
+  // the client bytes it believes are complete. RFC 9110 lets us ignore Range
+  // entirely and return the whole entity instead.
+  if (range.includes(",")) return withAcceptRanges(cached);
   const m = /bytes=(\d*)-(\d*)/.exec(range);
-  if (!m) return cached;
+  if (!m) return withAcceptRanges(cached);
   try {
     const buf = await cached.arrayBuffer();
     const total = buf.byteLength;
@@ -462,7 +491,7 @@ async function serveRange(cached, request) {
     headers.set("Accept-Ranges", "bytes");
     return new Response(slice, { status: 206, headers });
   } catch {
-    return cached;
+    return withAcceptRanges(cached);
   }
 }
 
