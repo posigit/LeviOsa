@@ -1,6 +1,10 @@
 /**
  * data.vidsrc.sh stream-data client (server-side port of the embed's vsdec.js).
  *
+ * Gated chain (single-use IP-bound api_token, reuse => 403 — mint per call):
+ *   vs_src.php -> landing (CFG.playerUrl) -> player page (CONFIG.apiToken)
+ *   -> GET {api|streamBase}&stream_urls&api_token=... -> WASM-decrypt below.
+ * Inner/embed hosts rotate — always follow vs_src.php, never hardcode.
  * API: GET https://data.vidsrc.sh/api.php?type=movie|tv&tmdb={id}
  *      [&season=N&episode=N][&stream_urls]
  * Returns plain JSON, EXCEPT data.stream_urls which — when protection is on —
@@ -24,6 +28,147 @@ import {
 
 const VIDSRC_SH_API = "https://data.vidsrc.sh/api.php";
 const VIDSRC_SH_REFERER = "https://vidsrc.sh/";
+const VIDSRC_SH_BASE = "https://vidsrc.sh";
+
+/** Minted single-use stream-data token + the api URL it unlocks. Never cache. */
+type VidsrcShGate = {
+  /** stream_urls URL WITHOUT the token (caller appends &api_token=). */
+  apiUrl: string;
+  apiToken: string;
+  /** Referer to send on the data API call (player origin). */
+  referer: string;
+};
+
+function unescapeInlineJson(s: string): string {
+  return s.replace(/\\u0026/gi, "&").replace(/\\\//g, "/");
+}
+
+function assertPublicHttps(raw: string, what: string): URL {
+  let u: URL;
+  try {
+    u = new URL(raw);
+  } catch {
+    throw new Error(`vidsrc.sh gate invalid ${what}`);
+  }
+  if (u.protocol !== "https:" || isBlockedHost(u.hostname)) {
+    throw new Error(`vidsrc.sh gate blocked ${what}`);
+  }
+  return u;
+}
+
+/**
+ * Mint a fresh single-use api_token via the gated embed chain:
+ *   vs_src.php -> landing (CFG.playerUrl) -> player page (CONFIG.apiToken).
+ * Tokens are IP-bound + single-use (reuse => 403): mint per resolve, use once,
+ * back-to-back, no caching. Inner/embed hosts rotate — always follow vs_src.
+ */
+async function vidsrcShMintGate(opts: {
+  type: "movie" | "tv";
+  imdb: string;
+  season?: number;
+  episode?: number;
+}): Promise<VidsrcShGate> {
+  if (!/^tt\d+$/.test(opts.imdb)) throw new Error("invalid imdb id");
+  const isTv = opts.type === "tv";
+  const se = isTv ? `/${opts.season}/${opts.episode}` : "";
+
+  // 1. Gate URL (short-lived, host-bound ?vs= target on a rotating host).
+  const vsParams =
+    `type=${opts.type}&id=${encodeURIComponent(opts.imdb)}` +
+    (isTv ? `&season=${opts.season}&episode=${opts.episode}` : "");
+  const embedUrl = `${VIDSRC_SH_BASE}/embed/${opts.type}/${encodeURIComponent(opts.imdb)}${se}`;
+  const vsRes = await fetchWithTimeout(
+    `${VIDSRC_SH_BASE}/vs_src.php?${vsParams}`,
+    {
+      headers: { "User-Agent": UA, Referer: embedUrl, Accept: "application/json" },
+      cache: "no-store",
+    },
+    10_000
+  );
+  if (!vsRes.ok) throw new Error(`vidsrc.sh gate ${vsRes.status}`);
+  let src: string | null = null;
+  try {
+    src = ((await vsRes.json()) as { src?: unknown }).src as string;
+  } catch {
+    src = null;
+  }
+  if (typeof src !== "string" || !src) throw new Error("vidsrc.sh gate empty src");
+  const innerUrl = assertPublicHttps(src, "src");
+
+  // 2. Landing page -> nested player path (CFG.playerUrl).
+  const innerRes = await fetchWithTimeout(
+    innerUrl.toString(),
+    { headers: { "User-Agent": UA, Referer: embedUrl }, cache: "no-store" },
+    10_000
+  );
+  if (!innerRes.ok) throw new Error(`vidsrc.sh gate ${innerRes.status}`);
+  const innerHtml = await innerRes.text();
+  const playerPath = innerHtml.match(/\/embed\/player\/[^\s"'<>\\]+/)?.[0];
+  if (!playerPath) throw new Error("vidsrc.sh gate missing player");
+  const playerUrl = assertPublicHttps(
+    new URL(playerPath, innerUrl.origin).toString(),
+    "player"
+  );
+
+  // 3. Player page -> window.CONFIG { api|streamBase, apiToken }.
+  const playerRes = await fetchWithTimeout(
+    playerUrl.toString(),
+    {
+      headers: { "User-Agent": UA, Referer: innerUrl.toString() },
+      cache: "no-store",
+    },
+    10_000
+  );
+  if (!playerRes.ok) throw new Error(`vidsrc.sh gate ${playerRes.status}`);
+  const playerHtml = await playerRes.text();
+  const apiM =
+    playerHtml.match(/"api"\s*:\s*"([^"]+)"/)?.[1] ??
+    playerHtml.match(/"streamBase"\s*:\s*"([^"]+)"/)?.[1];
+  const tokenM = playerHtml.match(/"apiToken"\s*:\s*"([^"]+)"/)?.[1];
+  if (!apiM || !tokenM) throw new Error("vidsrc.sh gate missing token");
+  let apiUrl = unescapeInlineJson(apiM);
+  if (!/^https:\/\/data\.vidsrc\.sh\/api\.php\?/.test(apiUrl)) {
+    throw new Error("vidsrc.sh gate blocked api");
+  }
+  if (isTv && !/[?&]stream_urls/.test(apiUrl)) {
+    // TV embeds streamBase without S/E: player appends &season=&episode=&stream_urls.
+    apiUrl += `&season=${encodeURIComponent(String(opts.season))}&episode=${encodeURIComponent(String(opts.episode))}&stream_urls`;
+  }
+  return { apiUrl, apiToken: tokenM, referer: `${playerUrl.origin}/` };
+}
+
+/** Metadata-only lookup (no token needed) to map app tmdb id -> imdb id. */
+async function vidsrcShImdbId(opts: {
+  type: "movie" | "tv";
+  tmdb: number;
+  season?: number;
+  episode?: number;
+}): Promise<string> {
+  const q = new URLSearchParams({ type: opts.type, tmdb: String(opts.tmdb) });
+  if (opts.type === "tv") {
+    q.set("season", String(opts.season));
+    q.set("episode", String(opts.episode));
+  }
+  const res = await fetchWithTimeout(
+    `${VIDSRC_SH_API}?${q.toString()}`,
+    {
+      headers: {
+        "User-Agent": UA,
+        Referer: VIDSRC_SH_REFERER,
+        Accept: "application/json",
+      },
+      cache: "no-store",
+    },
+    15_000
+  );
+  if (!res.ok) throw new Error(`vidsrc.sh api ${res.status}`);
+  const j = (await res.json()) as VsApiResponse;
+  const imdb = j.data?.imdb_id;
+  if (typeof imdb !== "string" || !/^tt\d+$/.test(imdb)) {
+    throw new Error("vidsrc.sh missing imdb id");
+  }
+  return imdb;
+}
 
 export type VidsrcShResolve = {
   title?: string | null;
@@ -197,18 +342,28 @@ export async function vidsrcShResolve(opts: {
   if (opts.type === "tv" && (opts.season == null || opts.episode == null)) {
     throw new Error("season and episode are required for tv");
   }
-  const q = new URLSearchParams({ type: opts.type, tmdb: String(opts.id) });
-  if (opts.type === "tv" && opts.season != null && opts.episode != null) {
-    q.set("season", String(opts.season));
-    q.set("episode", String(opts.episode));
-  }
-  q.set("stream_urls", "");
+  // data.vidsrc.sh gates &stream_urls behind a single-use IP-bound api_token
+  // (player page CONFIG.apiToken; reuse => 403). Mint per resolve via the
+  // vs_src -> landing -> player chain, then stamp the token exactly once.
+  const imdb = await vidsrcShImdbId({
+    type: opts.type,
+    tmdb: opts.id,
+    season: opts.season,
+    episode: opts.episode,
+  });
+  const gate = await vidsrcShMintGate({
+    type: opts.type,
+    imdb,
+    season: opts.season,
+    episode: opts.episode,
+  });
+  const apiUrl = `${gate.apiUrl}${gate.apiUrl.includes("?") ? "&" : "?"}api_token=${encodeURIComponent(gate.apiToken)}`;
   const res = await fetchWithTimeout(
-    `${VIDSRC_SH_API}?${q.toString()}`,
+    apiUrl,
     {
       headers: {
         "User-Agent": UA,
-        Referer: VIDSRC_SH_REFERER,
+        Referer: gate.referer,
         Accept: "application/json",
       },
       cache: "no-store",
