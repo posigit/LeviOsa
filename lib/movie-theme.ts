@@ -1,4 +1,27 @@
-import sharp from "sharp";
+import type sharp from "sharp";
+
+/**
+ * sharp is a native module: it loads on Node (Vercel, local dev) but can
+ * never load on Cloudflare Workers (no native binaries — the static import
+ * threw "Dynamic require ... is not supported" and 500'd every show/movie
+ * detail page). Load it lazily and degrade to the fallback theme when it is
+ * unavailable; getMovieTheme stays total everywhere.
+ */
+type SharpModule = typeof sharp;
+
+let sharpPromise: Promise<SharpModule | null> | null = null;
+
+function loadSharp(): Promise<SharpModule | null> {
+  if (!sharpPromise) {
+    sharpPromise = import("sharp").then(
+      (mod) =>
+        (mod as unknown as { default?: SharpModule }).default ??
+        (mod as unknown as SharpModule),
+      () => null
+    );
+  }
+  return sharpPromise;
+}
 
 /**
  * Per-movie page theme, sampled from the poster (backdrop fallback).
@@ -109,6 +132,8 @@ async function sampleDominant(url: string): Promise<MovieTheme | null> {
   if (!res.ok) return null;
   const buf = Buffer.from(await res.arrayBuffer());
   if (buf.length === 0) return null;
+  const sharp = await loadSharp();
+  if (!sharp) return null;
   const { dominant } = await sharp(buf).stats();
   const [r, g, b] = vividify(dominant.r, dominant.g, dominant.b);
   return {

@@ -26,6 +26,14 @@ function createPool(): Pool {
     max: 10,
     idleTimeoutMillis: 30_000,
     connectionTimeoutMillis: 20_000,
+    // Serverless safety: Hyperdrive/Railway kill idle backend connections
+    // without RST, so a pooled socket can be dead while looking alive. TCP
+    // keepalives detect that, and a client-side query timeout turns a
+    // would-hang-forever checkout (the Workers runtime kills the isolate
+    // and the page 500s) into a fast, retryable error instead.
+    keepAlive: true,
+    keepAliveInitialDelayMillis: 10_000,
+    query_timeout: 15_000,
     // Don't fail the whole pool on one bad connection during cold start
     allowExitOnIdle: true,
   });
@@ -119,7 +127,10 @@ export function isTransientDbError(err: unknown): boolean {
   return (
     message.includes("starting up") ||
     message.includes("connection terminated") ||
+    message.includes("connection closed") ||
+    message.includes("connection reset") ||
     message.includes("connection refused") ||
+    message.includes("query read timeout") ||
     message.includes("econnrefused") ||
     message.includes("econnreset") ||
     message.includes("timeout") ||
@@ -132,13 +143,19 @@ export function isTransientDbError(err: unknown): boolean {
 
 /**
  * Run a DB operation with retries on transient connection / cold-start errors.
+ * Total wait is capped by maxElapsedMs: on Workers an unbounded retry storm
+ * outlives the request (the runtime kills the isolate and the page 500s), and
+ * anywhere else a page waiting >~25s on the DB is dead anyway — fail fast so
+ * callers' fallbacks kick in instead of hanging the render.
  */
 export async function withDbRetry<T>(
   fn: () => Promise<T>,
   maxAttempts = 8,
-  baseDelayMs = 1500
+  baseDelayMs = 1500,
+  maxElapsedMs = 25_000
 ): Promise<T> {
   let lastError: unknown;
+  const deadline = Date.now() + maxElapsedMs;
   for (let attempt = 1; attempt <= maxAttempts; attempt++) {
     try {
       return await fn();
@@ -148,6 +165,9 @@ export async function withDbRetry<T>(
         throw err;
       }
       const delay = Math.min(baseDelayMs * attempt, 8_000);
+      if (Date.now() + delay >= deadline) {
+        throw err;
+      }
       console.warn(
         `DB transient error (attempt ${attempt}/${maxAttempts}): ${errMessage(err)}. Retrying in ${delay}ms…`
       );
