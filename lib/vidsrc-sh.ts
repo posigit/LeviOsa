@@ -9,15 +9,18 @@
  *      [&season=N&episode=N][&stream_urls]
  * Returns plain JSON, EXCEPT data.stream_urls which — when protection is on —
  * is a single encrypted string (base64 ChaCha20 nonce||ciphertext) plus a
- * top-level `vs` carrying the per-5-minute-window WASM decryptor:
+ * top-level `vs` carrying the per-5-minute-window decryptor:
  *     vs: { w: <window>, wasm_url: "https://.../<w>.wasm" }  (preferred)
  *  or vs: { w: <window>, wasm: "<base64 wasm>" }             (inline fallback)
- * The WASM module exports alloc(len)->ptr, memory, decrypt(ptr,len)->outLen;
- * plaintext is outLen bytes at ptr+12 (12-byte nonce prefix), newline-split
- * into the URL array. Plain responses (stream_urls already an array) pass
- * through unchanged.
+ * The decryptor is IETF ChaCha20 (see the pure-JS port below — the module's
+ * data segments are re-laid-out every window, so key halves are found by
+ * trial-decrypting each >=32-byte segment and keeping the URL-plaintext
+ * winner). Plain responses (stream_urls already an array) pass through
+ * unchanged.
  *
- * Runs in Node (Vercel) and Workers unchanged — only WebAssembly + fetch.
+ * Runs in Node (Vercel) and Workers unchanged — only fetch + TextDecoder.
+ * (An earlier revision decrypted via WebAssembly.compile; Workers disallow
+ * dynamic WASM compilation, which 502d every resolve in production.)
  */
 
 import {
@@ -201,12 +204,6 @@ type VsApiResponse = {
   };
 };
 
-type WasmDecryptor = {
-  alloc: (len: number) => number;
-  decrypt: (ptr: number, len: number) => number;
-  memory: WebAssembly.Memory;
-};
-
 function b64ToBytes(s: string): Uint8Array {
   if (typeof Buffer !== "undefined") {
     return new Uint8Array(Buffer.from(s, "base64"));
@@ -217,27 +214,206 @@ function b64ToBytes(s: string): Uint8Array {
   return u;
 }
 
-/** Bounded WASM module cache keyed by window. Evicts oldest + drops failures. */
-const moduleCache = new Map<string, Promise<WebAssembly.Module>>();
-const MODULE_CACHE_MAX = 8;
+/**
+ * Pure-JS port of the vsdec decryptor — no WebAssembly.
+ *
+ * Why: Cloudflare Workers (this app's production runtime) disallow dynamic
+ * WASM compilation ("Wasm code generation disallowed by embedder"), so the
+ * per-5-minute-window decryptor module can be fetched but never compiled
+ * there. Verified live: the whole gated chain (vs_src -> landing -> player
+ * -> data API -> wasm fetch) succeeds from the worker; only the compile
+ * step throws, 502ing every resolve.
+ *
+ * What the module does (reversed from its WAT): IETF ChaCha20, 20 rounds,
+ * sigma "expand 32-byte k", counter from 0, 12-byte nonce = the payload's
+ * first 12 bytes. The 32-byte key is mem[0:32] XOR mem[B:B+32], where the
+ * module's data segments are re-laid-out every window (B was 512, then
+ * 2560 — the code is polymorphically regenerated, only the shape is
+ * stable). So instead of trusting offsets we trial-decrypt each >=32-byte
+ * data segment as B and keep the one whose plaintext is URL lines. Cheap
+ * (~1.5KB payloads) and self-validating; the winning offsets are cached
+ * per window.
+ *
+ * Runs in Node (Vercel/dev) and Workers unchanged — only fetch + TextDecoder.
+ */
 
-function cacheSet(key: string, p: Promise<WebAssembly.Module>): void {
-  if (moduleCache.has(key)) moduleCache.delete(key);
-  moduleCache.set(key, p);
-  // Evict oldest beyond cap.
-  while (moduleCache.size > MODULE_CACHE_MAX) {
-    const oldest = moduleCache.keys().next().value;
-    if (oldest == null) break;
-    moduleCache.delete(oldest);
-  }
-  // Never poison the window on failure.
-  p.catch(() => {
-    if (moduleCache.get(key) === p) moduleCache.delete(key);
-  });
+function readU32LEB(buf: Uint8Array, pos: number): [number, number] {
+  let v = 0;
+  let s = 0;
+  let b = 0;
+  do {
+    if (pos >= buf.length) throw new Error("vidsrc.sh decryptor layout changed");
+    b = buf[pos++];
+    v |= (b & 0x7f) << s;
+    s += 7;
+    if (s > 35) throw new Error("vidsrc.sh decryptor layout changed");
+  } while (b & 0x80);
+  return [v >>> 0, pos];
 }
 
-function moduleFor(vs: NonNullable<VsApiResponse["vs"]>): Promise<WebAssembly.Module> | null {
+/** Initial linear-memory image + data-segment offsets from raw wasm bytes. */
+function parseVsSegments(wasm: Uint8Array): {
+  mem: Uint8Array;
+  segs: { off: number; len: number }[];
+} {
+  let pos = 8; // skip magic + version
+  let memSize = 0;
+  const raw: { off: number; bytes: Uint8Array }[] = [];
+  while (pos < wasm.length) {
+    const id = wasm[pos++];
+    let size: number;
+    [size, pos] = readU32LEB(wasm, pos);
+    const end = pos + size;
+    if (id === 5) {
+      // memory section: count, flags, initial pages.
+      let n: number;
+      [n, pos] = readU32LEB(wasm, pos);
+      void n;
+      let flags: number;
+      [flags, pos] = readU32LEB(wasm, pos);
+      void flags;
+      let init: number;
+      [init, pos] = readU32LEB(wasm, pos);
+      memSize = init * 65536;
+    } else if (id === 11) {
+      // data section: count, then (flags, i32.const off, end, size, bytes).
+      let n: number;
+      [n, pos] = readU32LEB(wasm, pos);
+      for (let i = 0; i < n; i++) {
+        const flags = wasm[pos++];
+        if (flags & 0x01) throw new Error("vidsrc.sh decryptor has passive segments");
+        if (flags & 0x02) {
+          // Active segment with explicit memory index — skip it.
+          let memidx: number;
+          [memidx, pos] = readU32LEB(wasm, pos);
+          void memidx;
+        }
+        if (wasm[pos++] !== 0x41) throw new Error("vidsrc.sh decryptor layout changed");
+        let off: number;
+        [off, pos] = readU32LEB(wasm, pos);
+        if (wasm[pos++] !== 0x0b) throw new Error("vidsrc.sh decryptor layout changed");
+        let sz: number;
+        [sz, pos] = readU32LEB(wasm, pos);
+        raw.push({ off, bytes: wasm.subarray(pos, pos + sz) });
+        pos += sz;
+      }
+    }
+    pos = end;
+  }
+  const mem = new Uint8Array(memSize || 262144);
+  for (const { off, bytes } of raw) mem.set(bytes, off);
+  return { mem, segs: raw.map(({ off, bytes }) => ({ off, len: bytes.length })) };
+}
+
+function u32le(mem: Uint8Array, o: number): number {
+  return (mem[o] | (mem[o + 1] << 8) | (mem[o + 2] << 16) | (mem[o + 3] << 24)) >>> 0;
+}
+
+function chachaRotl(v: number, n: number): number {
+  return ((v << n) | (v >>> (32 - n))) >>> 0;
+}
+
+function chachaQr(x: number[], a: number, b: number, c: number, d: number): void {
+  x[a] = (x[a] + x[b]) >>> 0;
+  x[d] = chachaRotl(x[d] ^ x[a], 16);
+  x[c] = (x[c] + x[d]) >>> 0;
+  x[b] = chachaRotl(x[b] ^ x[c], 12);
+  x[a] = (x[a] + x[b]) >>> 0;
+  x[d] = chachaRotl(x[d] ^ x[a], 8);
+  x[c] = (x[c] + x[d]) >>> 0;
+  x[b] = chachaRotl(x[b] ^ x[c], 7);
+}
+
+function chachaBlock(key: number[], counter: number, nonce: number[]): Uint8Array {
+  const st = [
+    0x61707865, 0x3320646e, 0x79622d32, 0x6b206574,
+    ...key,
+    counter >>> 0,
+    ...nonce,
+  ];
+  const w = st.slice();
+  for (let i = 0; i < 10; i++) {
+    chachaQr(w, 0, 4, 8, 12);
+    chachaQr(w, 1, 5, 9, 13);
+    chachaQr(w, 2, 6, 10, 14);
+    chachaQr(w, 3, 7, 11, 15);
+    chachaQr(w, 0, 5, 10, 15);
+    chachaQr(w, 1, 6, 11, 12);
+    chachaQr(w, 2, 7, 8, 13);
+    chachaQr(w, 3, 4, 9, 14);
+  }
+  const out = new Uint8Array(64);
+  for (let i = 0; i < 16; i++) {
+    const v = (w[i] + st[i]) >>> 0;
+    out[i * 4] = v & 0xff;
+    out[i * 4 + 1] = (v >>> 8) & 0xff;
+    out[i * 4 + 2] = (v >>> 16) & 0xff;
+    out[i * 4 + 3] = (v >>> 24) & 0xff;
+  }
+  return out;
+}
+
+/** Decrypt with key = mem[offA:offA+32] XOR mem[offB:offB+32]. */
+function chachaDecryptWithSegs(
+  mem: Uint8Array,
+  offA: number,
+  offB: number,
+  enc: Uint8Array
+): string {
+  const key: number[] = [];
+  for (let i = 0; i < 8; i++) {
+    key.push((u32le(mem, offA + i * 4) ^ u32le(mem, offB + i * 4)) >>> 0);
+  }
+  const nonce = [u32le(enc, 0), u32le(enc, 4), u32le(enc, 8)];
+  const ct = enc.subarray(12);
+  const pt = new Uint8Array(ct.length);
+  let counter = 0;
+  let done = 0;
+  while (done < ct.length) {
+    const ks = chachaBlock(key, counter++, nonce);
+    const n = Math.min(64, ct.length - done);
+    for (let i = 0; i < n; i++) pt[done + i] = ct[done + i] ^ ks[i];
+    done += n;
+  }
+  return new TextDecoder().decode(pt);
+}
+
+/** True when the decrypted text is newline-separated https URLs (not garbage). */
+function looksLikeStreamUrls(text: string): boolean {
+  const lines = text
+    .split("\n")
+    .map((s) => s.trim())
+    .filter(Boolean);
+  return (
+    lines.length > 0 &&
+    lines.every((l) => /^https:\/\/[^\s"'<>\\]+$/.test(l))
+  );
+}
+
+/** Winning key-segment offsets per window — avoids re-trialing every call. */
+const vsKeyCache = new Map<string, { a: number; b: number }>();
+const VS_KEY_CACHE_MAX = 8;
+
+function vsCacheKey(vs: NonNullable<VsApiResponse["vs"]>): string | null {
   const w = vs.w == null ? null : String(vs.w);
+  if (w) return `w:${w}`;
+  return null;
+}
+
+function vsCacheSet(key: string, v: { a: number; b: number }): void {
+  if (vsKeyCache.has(key)) vsKeyCache.delete(key);
+  vsKeyCache.set(key, v);
+  while (vsKeyCache.size > VS_KEY_CACHE_MAX) {
+    const oldest = vsKeyCache.keys().next().value;
+    if (oldest == null) break;
+    vsKeyCache.delete(oldest);
+  }
+}
+
+/** Raw decryptor bytes for this response (fetched per window, or inline). */
+async function vsDecryptorBytes(
+  vs: NonNullable<VsApiResponse["vs"]>
+): Promise<Uint8Array | null> {
   if (vs.wasm_url) {
     let target: URL;
     try {
@@ -248,42 +424,27 @@ function moduleFor(vs: NonNullable<VsApiResponse["vs"]>): Promise<WebAssembly.Mo
     if (target.protocol !== "https:" || isBlockedHost(target.hostname)) {
       throw new Error("vidsrc.sh returned a blocked wasm_url");
     }
-    const key = `u:${w ?? vs.wasm_url}`;
-    let p = moduleCache.get(key);
-    if (!p) {
-      p = (async () => {
-        const res = await fetchWithTimeout(
-          target.toString(),
-          {
-            headers: { "User-Agent": UA, Referer: VIDSRC_SH_REFERER },
-            cache: "no-store",
-          },
-          15_000
-        );
-        if (!res.ok) throw new Error(`wasm ${res.status}`);
-        // compileStreaming first (falls back to buffer compile).
-        try {
-          return await WebAssembly.compileStreaming(res.clone());
-        } catch {
-          return WebAssembly.compile(await res.arrayBuffer());
-        }
-      })();
-      cacheSet(key, p);
+    const res = await fetchWithTimeout(
+      target.toString(),
+      {
+        headers: { "User-Agent": UA, Referer: VIDSRC_SH_REFERER },
+        cache: "no-store",
+      },
+      15_000
+    );
+    if (!res.ok) throw new Error(`wasm ${res.status}`);
+    const buf = await res.arrayBuffer();
+    if (buf.byteLength === 0 || buf.byteLength > 4 * 1024 * 1024) {
+      throw new Error("vidsrc.sh returned an invalid decryptor");
     }
-    return p;
+    return new Uint8Array(buf);
   }
   if (vs.wasm) {
-    const key = `b:${w ?? "inline"}`;
-    let p = moduleCache.get(key);
-    if (!p) {
-      const bytes = b64ToBytes(vs.wasm).slice();
-      if (bytes.length === 0 || bytes.length > 4 * 1024 * 1024) {
-        throw new Error("vidsrc.sh returned an invalid inline wasm");
-      }
-      p = WebAssembly.compile(bytes.buffer as ArrayBuffer);
-      cacheSet(key, p);
+    const bytes = b64ToBytes(vs.wasm);
+    if (bytes.length === 0 || bytes.length > 4 * 1024 * 1024) {
+      throw new Error("vidsrc.sh returned an invalid inline wasm");
     }
-    return p;
+    return bytes;
   }
   return null;
 }
@@ -292,42 +453,52 @@ async function decryptUrls(
   vs: NonNullable<VsApiResponse["vs"]>,
   encB64: string
 ): Promise<string[]> {
-  const modP = moduleFor(vs);
-  if (!modP) return [];
-  const mod = await modP;
-  const inst = await WebAssembly.instantiate(mod, {});
-  const ex = inst.exports as unknown as Partial<WasmDecryptor>;
-  if (
-    typeof ex.alloc !== "function" ||
-    typeof ex.decrypt !== "function" ||
-    !ex.memory
-  ) {
-    throw new Error("wasm decryptor exports mismatch");
-  }
+  const wasmBytes = await vsDecryptorBytes(vs);
+  if (!wasmBytes) return [];
   const enc = b64ToBytes(encB64);
-  if (enc.length === 0 || enc.length > 256 * 1024) {
+  if (enc.length <= 12 || enc.length > 256 * 1024) {
     throw new Error("vidsrc.sh returned an invalid encrypted payload");
   }
-  const ptr = ex.alloc(enc.length);
-  const mem = ex.memory.buffer;
-  if (!Number.isInteger(ptr) || ptr < 0 || ptr + enc.length > mem.byteLength) {
-    throw new Error("wasm decryptor returned an invalid pointer");
+  const { mem, segs } = parseVsSegments(wasmBytes);
+  // Exact-32-byte segments first (both key halves have been exactly 32B so
+  // far), then any segment with 32+ readable bytes. A side has always been
+  // at 0, but fall back to a full pair search if that ever changes.
+  const exact = segs.filter((s) => s.len === 32).map((s) => s.off);
+  const any32 = segs.filter((s) => s.len >= 32).map((s) => s.off);
+  const orderedB = [...exact, ...any32.filter((o) => !exact.includes(o))];
+  const ck = vsCacheKey(vs);
+  const cached = ck ? vsKeyCache.get(ck) : undefined;
+  const attempts: { a: number; b: number }[] = [];
+  if (cached) attempts.push(cached);
+  for (const b of orderedB) {
+    if (cached && cached.a === 0 && cached.b === b) continue;
+    attempts.push({ a: 0, b });
   }
-  new Uint8Array(mem, ptr, enc.length).set(enc);
-  const outLen = ex.decrypt(ptr, enc.length);
-  if (!Number.isInteger(outLen) || outLen < 0 || outLen > 256 * 1024) {
-    throw new Error("wasm decryptor returned an invalid length");
+  if (exact.length > 1) {
+    for (const a of exact) {
+      for (const b of exact) {
+        if (a === 0) continue; // already tried above
+        if (cached && cached.a === a && cached.b === b) continue;
+        attempts.push({ a, b });
+      }
+    }
   }
-  if (ptr + 12 + outLen > mem.byteLength) {
-    throw new Error("wasm decryptor output out of bounds");
+  for (const { a, b } of attempts) {
+    if (a + 32 > mem.length || b + 32 > mem.length) continue;
+    let text: string;
+    try {
+      text = chachaDecryptWithSegs(mem, a, b, enc);
+    } catch {
+      continue;
+    }
+    if (!looksLikeStreamUrls(text)) continue;
+    if (ck) vsCacheSet(ck, { a, b });
+    return text
+      .split("\n")
+      .map((s) => s.trim())
+      .filter(Boolean);
   }
-  const text = new TextDecoder().decode(
-    new Uint8Array(mem, ptr + 12, outLen)
-  );
-  return text
-    .split("\n")
-    .map((s) => s.trim())
-    .filter(Boolean);
+  throw new Error("vidsrc.sh decrypt failed");
 }
 
 export async function vidsrcShResolve(opts: {

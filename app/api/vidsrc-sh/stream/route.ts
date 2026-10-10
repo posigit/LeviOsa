@@ -7,12 +7,13 @@ import { parseMediaParams } from "@/lib/stream-proxy";
  *
  * Mirrors /api/vixsrc/stream's shape where it matters: accept
  * type/id/season/episode, return direct stream URLs (decrypted server-side).
- * Unlike vixsrc.to, this host was assumed safe for datacenter egress —
- * that assumption is now falsified: data.vidsrc.sh 403s Cloudflare Workers
- * egress (proven: identical request + headers → 200 off-Cloudflare, 403
- * from the worker), same class as api.subdl.com. Native vidsrc-sh
- * resolution therefore fails on CF deployments; embeds are unaffected and
- * the player/offline cascades fall through to the next source.
+ * Production note (2026-10-10): the whole gated chain (vs_src -> landing ->
+ * player -> data API -> decryptor fetch) runs fine from Cloudflare Workers
+ * egress; what 502d every resolve there was dynamic WebAssembly compilation
+ * ("Wasm code generation disallowed by embedder"). Decryption is now a
+ * pure-JS ChaCha20 port (lib/vidsrc-sh.ts), so this route resolves on both
+ * Node and Workers. If data.vidsrc.sh ever starts 403ing datacenter egress,
+ * failures surface here as `blocked` and the player falls through.
  */
 export const dynamic = "force-dynamic";
 
